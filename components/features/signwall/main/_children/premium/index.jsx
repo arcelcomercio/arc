@@ -168,7 +168,9 @@ export const PremiumInt = ({ properties }) => {
       position="bottom"
       marginDef="0px 0px 10px"
       bgColor={isGestion ? 'black' : 'white'}>
-      <div className="signwall-inside_body-container premium">
+      <div
+        className="signwall-inside_body-container premium"
+        style={{ border: isCorreo ? '2px red solid' : 'none' }}>
         {activeRegisterwall && isCorreo ? null : (
           <PremiumPayment name={name} feature={feature} />
         )}

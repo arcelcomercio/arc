@@ -56,67 +56,43 @@ const FormIntroFree = ({ typeDialog, checkModal = (i) => i }) => {
           <Loading typeBg="premium" />
         ) : (
           <>
-            <center>
+            <div className="signwall-inside_forms-cont-correo-register center">
               <img
-                alt="Logo"
-                className={`logo ${arcSite}`}
-                style={{
-                  width: 72,
-                  position: 'absolute',
-                  top: -30,
-                }}
+                alt={`Logo ${arcSite}`}
+                className="logo-correo"
                 src={`${getAssetsPath(
                   arcSite,
                   contextPath
                 )}/resources/dist/${arcSite}/images/${mainLogo}?d=1`}
               />
-            </center>
-            <div className="signwall-inside_forms-cont-register center">
-              {/* <p className="text-info">Además accede al</p>
-            <p className="text-boletin">Boletín de noticias</p>
-            <hr className="barra" />
-            <p className="text-news" style={{ color: mainColorBtn }}>
-              CORREO HOY
-            </p>
-            <hr className="barra" /> */}
-
-              <h2 className="title-register">Regístrate Gratis</h2>
+              <h2 className="title-register">Regístrate gratis</h2>
               <p className="subtitle-register">para acceder a:</p>
-              {arcSite
-                ? classes[arcSite].map((beneficio) => (
-                    <div
-                      key={beneficio}
-                      style={{
-                        display: 'flex',
-                      }}>
-                      <div style={{ float: 'left' }}>
-                        <img
-                          src={beneficio.imagen}
-                          alt={beneficio.imagen}
-                          style={{ width: 20, height: 20 }}
-                        />
+              <div className="block-list">
+                {arcSite
+                  ? classes[arcSite].map((beneficio) => (
+                      <div key={beneficio} className="block__benefits">
+                        <div style={{ width: '20%' }}>
+                          <img
+                            src={beneficio.imagen}
+                            alt={beneficio.imagen}
+                            className="block__benefits-img"
+                          />
+                        </div>
+                        <div style={{ width: '80%' }}>
+                          <p className="block__benefits-description">
+                            {beneficio.descripcion}
+                          </p>
+                        </div>
                       </div>
-                      <div style={{ float: 'right' }}>
-                        <p
-                          style={{
-                            fontSize:
-                              typeDialog === 'premium' ? '12px' : '15px',
-                          }}
-                          className="signwall-inside_forms-text mt-20 mb-10 center">
-                          {beneficio.descripcion}
-                        </p>
-                      </div>
-                    </div>
-                  ))
-                : null}
+                    ))
+                  : null}
+              </div>
 
               <button
                 type="button"
-                className="signwall-inside_forms-btn"
+                className="signwall-inside_forms-btn button__continue"
                 style={{
-                  fontSize: '18px',
                   backgroundColor: mainColorBtn,
-                  width: '90%',
                 }}
                 onClick={() => {
                   // modificado para el taggeo de diario correo por valla
@@ -156,26 +132,6 @@ const FormIntroFree = ({ typeDialog, checkModal = (i) => i }) => {
                 INGRESAR
               </button>
             </div>
-
-            <p
-              style={{ fontSize: typeDialog === 'premium' ? '12px' : '15px' }}
-              className={`signwall-inside_forms-text center note-premium ${
-                arcSite === 'elcomercio' ? 'mb-10' : ''
-              }`}>
-              {/* {printAttributes.map(
-              (item) =>
-                item.name === 'subscriber_detail_popup' && (
-                  <React.Fragment key={item.name}>
-                    <Markdown
-                      source={item.value}
-                      escapeHtml={false}
-                      unwrapDisallowed
-                      disallowedTypes={['paragraph']}
-                    />
-                  </React.Fragment>
-                )
-            )} */}
-            </p>
           </>
         )}
       </form>
