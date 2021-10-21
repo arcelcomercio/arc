@@ -1,0 +1,78 @@
+.saltar-intro-card-calendario {
+  &__container {
+    font-family: $primary-font;
+    @media (--only-mobile) {
+      padding: 0 30px;
+    }
+  }
+  &__list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 10px 0px;
+  }
+  &__item {
+    margin-bottom: 15px;
+    @media (--only-mobile) {
+      width: 100%;
+    }
+  }
+  &__title {
+    font-weight: 700;
+    font-size: 20px;
+    text-align: left;
+    line-height: 30px;
+    letter-spacing: -0.32px;
+    color: #000;
+    display: block;
+    width: 219px;
+    opacity: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-bottom: 5px;
+    @media (--only-mobile) {
+      width: 100%;
+    }
+  }
+  &__plataform {
+    border-top: 1px solid #919191;
+    border-bottom: 1px solid #919191;
+    font-weight: 800;
+    font-size: 12px;
+    text-align: left;
+    line-height: 20px;
+    letter-spacing: 0px;
+    color: #000;
+    opacity: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    overflow: hidden;
+  }
+  &__temporada {
+    font-weight: 500;
+    font-size: 12px;
+    text-align: left;
+    line-height: 20px;
+    letter-spacing: 0px;
+    color: #000;
+    display: block;
+    opacity: 1;
+  }
+  &__estreno {
+    font-weight: 800;
+    font-size: 12px;
+    text-align: left;
+    line-height: 20px;
+    letter-spacing: 0px;
+    color: #7360bc;
+    display: block;
+    text-transform: uppercase;
+    opacity: 1;
+  }
+  &__image {
+    width: 219px;
+    max-height: 117px;
+  }
+}
