@@ -37,27 +37,32 @@ const MobileSummary: React.FC<MobileSummaryProps> = ({
   billingAmount,
 }) =>
   userStep !== 4 ? (
-    <section className="step__bottom">
-      <button className={styles.btnDetail} type="button" id="btn-detail">
-        <div>
-          <span className="title-item">Resumen de pedido:</span>
-          <h5 className="name-item">
-            {planName}
-            <span className="period-item">
-              {' - '} {billingFrequency ? frequencies[billingFrequency] : ''}
-            </span>
-          </h5>
-        </div>
-        <div>
-          <span className="price-item">
-            {typeof billingAmount === 'number'
-              ? getPlanAmount(billingAmount)
-              : ''}
-          </span>
-          <i className={styles.iconUp} />
-        </div>
-      </button>
-    </section>
+    <>
+      {userStep !== 5 && (
+        <section className="step__bottom">
+          <button className={styles.btnDetail} type="button" id="btn-detail">
+            <div>
+              <span className="title-item">Resumen de pedido:</span>
+              <h5 className="name-item">
+                {planName}
+                <span className="period-item">
+                  {' - '}{' '}
+                  {billingFrequency ? frequencies[billingFrequency] : ''}
+                </span>
+              </h5>
+            </div>
+            <div>
+              <span className="price-item">
+                {typeof billingAmount === 'number'
+                  ? getPlanAmount(billingAmount)
+                  : ''}
+              </span>
+              <i className={styles.iconUp} />
+            </div>
+          </button>
+        </section>
+      )}
+    </>
   ) : null
 
 export default React.memo(MobileSummary)
