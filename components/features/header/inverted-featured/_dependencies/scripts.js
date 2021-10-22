@@ -24,30 +24,6 @@ window.addEventListener('load', () => {requestIdle(() => {
   })
 })})
 */
-export const toggleMen_ = `window.addEventListener("load",function(){requestIdle(function(){
-  var e=document.getElementById("btn-menu"),
-  a=document.getElementById("btn-close-menu"),
-  c=document.body.querySelector(".header-inverted-featured"),
-  b=c.querySelector(".header-inverted-featured__btn-menu"),
-  s=c.querySelector(".header-inverted-featured__icon-menu"),
-  i=c.querySelector(".svg-inline-close"),
-  n=document.getElementById("nav-sidebar"),
-  z=document.body.querySelector(".nav-sidebar")
-  ;[e,a].forEach(function(e){e.addEventListener("click",function(){
-    console.log(z);
-    s.className.baseVal.indexOf("icon-hamburguer")>0
-    
-    ?(n.className=n.className.replace(" hidden", ""),
-    s.className.baseVal=s.className.baseVal.replace("icon-hamburguer","icon-close hidden"),
-    i.className.baseVal=i.className.baseVal.replace(" hidden",""),
-    b.className=b.className.concat(" header-inverted-featured__btn-menu-close")
-    
-    )
-    :(n.className=n.className.concat(" hidden"),
-    s.className.baseVal=s.className.baseVal.replace("icon-close hidden","icon-hamburguer"),
-    i.className.baseVal=i.className.baseVal.concat(" hidden"),
-    b.className=b.className.replace(" header-inverted-featured__btn-menu-close", ""))}
-    )})})});`
 
 export const toggleMenu = `window.addEventListener("load",function(){requestIdle(function(){
       var e=document.getElementById("btn-menu"),
@@ -56,18 +32,29 @@ export const toggleMenu = `window.addEventListener("load",function(){requestIdle
       b=c.querySelector(".header-inverted-featured__btn-menu"),
       s=document.body.querySelector(".header-inverted-featured__icon-menu"),
       i=c.querySelector(".svg-inline-close"),
-      n=document.body.querySelector(".nav-sidebar")
+      n=document.body.querySelector(".nav-sidebar"),
+      h=document.body.querySelector('.header-inverted-featured__btn-search'),
+      u=document.body.querySelector('.header-inverted-featured__buscador-container'),
+      f=c.querySelector('.header-inverted-featured__form'),
+      v=document.body.querySelector('.header-inverted-featured__band')
+      t=document.body.querySelector('.search-button-close')
       ;[e,a].forEach(function(e){e.addEventListener("click",function(){
+        (h.className.baseVal.indexOf("active")>0) && 
+        (f.className=f.className.replace(" header-inverted-featured__btn-search-close", ""),
+        h.className.baseVal=h.className.baseVal.replace(" active", ""),
+        u.className=u.className.replace(" flex", " hidden"),
+        v.className=v.className.replace(" mt-70", ""),
+        t.className.baseVal=t.className.baseVal.concat(" hidden")
+        );
         s.className.baseVal.indexOf("icon-hamburguer")>0
         ?(n.className=n.className.replace(" hidden", ""),
         s.className.baseVal=s.className.baseVal.replace("icon-hamburguer","icon-close hidden"),
         i.className.baseVal=i.className.baseVal.replace(" hidden",""),
-        b.className=b.className.concat(" header-inverted-featured__btn-menu-close")
-        )
+        b.className=b.className.concat(" header-inverted-featured__btn-menu-close"))
         :(n.className=n.className.concat(" hidden"),
           s.className.baseVal=s.className.baseVal.replace("icon-close hidden","icon-hamburguer"),
           i.className.baseVal=i.className.baseVal.concat(" hidden"),
-          b.className=b.className.replace(" header-inverted-featured__btn-menu-close", "")
+          b.className=b.className.replace(" header-inverted-featured__btn-menu-close", "")          
         )})})})});`
 
 /* 
@@ -108,16 +95,26 @@ window.addEventListener('load', () => {requestIdle(() => {
     })
 })})
 */
+
 export const toggleSearch = `window.addEventListener("load",function(){requestIdle(function(){
   var f=document.getElementById("header-search-form"),
   e=document.getElementById("header-search-button"),
   s=document.body.querySelector('.header-inverted-featured__buscador-container'),
   b=document.body.querySelector('.header-inverted-featured__btn-search'),
   f=document.body.querySelector('.header-inverted-featured__form'),
-  c=document.body.querySelector('.search-button-close')
-  i=document.body.querySelector('.header-inverted-featured__band')
-
+  c=document.body.querySelector('.search-button-close'),
+  i=document.body.querySelector('.header-inverted-featured__band'),
+  o=document.body.querySelector(".header-inverted-featured__icon-menu"),
+  n=document.body.querySelector(".nav-sidebar"),
+  v=document.body.querySelector(".svg-inline-close"),
+  m=document.body.querySelector('.header-inverted-featured__btn-menu')
   ;f.addEventListener("click",function(){
+    (o.className.baseVal.indexOf("icon-hamburguer")<=0) && (
+      n.className=n.className.concat(" hidden"),
+      o.className.baseVal=o.className.baseVal.replace("icon-close hidden","icon-hamburguer"),
+      v.className.baseVal=v.className.baseVal.concat(" hidden"),
+      m.className=m.className.replace(" header-inverted-featured__btn-menu-close", "") 
+    );
     (b.className.baseVal.indexOf("active")>0)
     ?(f.className=f.className.replace(" header-inverted-featured__btn-search-close", ""),
       b.className.baseVal=b.className.baseVal.replace(" active", ""),
