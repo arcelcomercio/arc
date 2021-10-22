@@ -9,11 +9,8 @@ import FormContainer from './form-container'
 const UpdatePassword = () => {
   const [status, setStatus] = React.useState<Status>(Status.Initial)
   const [errorMessage, setErrorMessage] = React.useState('')
+  const [isInitial, setInitial] = React.useState(true)
   const [hasSuccessMessage, setHasSuccessMessage] = React.useState(false)
-
-  React.useEffect(() => {
-    setStatus(Status.Ready)
-  }, [])
 
   const stateSchema = {
     newPassword: { value: '', error: '' },
@@ -43,7 +40,7 @@ const UpdatePassword = () => {
     setStatus(Status.Loading)
     Identity.updatePassword(oldPassword, newPassword)
       .then(() => {
-        setStatus(Status.Ready)
+        setStatus(Status.Initial)
         setHasSuccessMessage(true)
       })
       .catch((err) => {
@@ -63,8 +60,17 @@ const UpdatePassword = () => {
     errors: { newPassword: newPasswordError, oldPassword: oldPasswordError },
     handleOnChange,
     handleOnSubmit,
-    // disable,
   } = useForm(stateSchema, stateValidatorSchema, submitConfirmPassword)
+
+  React.useEffect(() => {
+    if (isInitial) {
+      setInitial(false)
+    } else if (newPasswordError || oldPasswordError) {
+      setStatus(Status.Error)
+    } else {
+      setStatus(Status.Ready)
+    }
+  }, [newPassword, oldPassword])
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleOnChange(e)

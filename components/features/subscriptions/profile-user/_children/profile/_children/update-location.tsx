@@ -46,11 +46,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
   const [errorMessage, setErrorMessage] = React.useState('')
   const [hasSuccessMessage, setHasSuccessMessage] = React.useState(false)
   const [shouldConfirmPass, setShouldConfirmPass] = React.useState(false)
-  const disabled = status === Status.Loading || status === Status.Initial
-
-  React.useEffect(() => {
-    setStatus(Status.Ready)
-  }, [])
+  const disabled = status === Status.Loading // || status === Status.Initial
 
   React.useEffect(() => {
     if (country) {
@@ -157,6 +153,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
       } as any,
       {
         onSuccess: () => {
+          setStatus(Status.Initial)
           setHasSuccessMessage(true)
           setTimeout(() => {
             setHasSuccessMessage(false)
@@ -181,13 +178,13 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
           }
         },
       }
-    ).finally(() => {
-      setStatus(Status.Ready)
-    })
+    )
   }
 
   const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value, name } = e.target
+
+    setStatus(Status.Ready)
 
     switch (name) {
       case 'country':

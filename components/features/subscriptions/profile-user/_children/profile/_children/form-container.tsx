@@ -33,6 +33,8 @@ const FormContainer: React.FC<FormContainerProps> = ({
 
   let buttonText = ''
   switch (status) {
+    case Status.Initial:
+    case Status.Error:
     case Status.Ready:
       buttonText = 'Guardar Cambios'
       break
@@ -75,7 +77,11 @@ const FormContainer: React.FC<FormContainerProps> = ({
               color: mainColorBtn,
               backgroundColor: mainColorLink,
             }}
-            disabled={status === Status.Initial || status === Status.Loading}>
+            disabled={
+              status === Status.Initial ||
+              status === Status.Error ||
+              status === Status.Loading
+            }>
             {buttonText}
           </button>
         </div>
