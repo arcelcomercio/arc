@@ -5,6 +5,7 @@ import * as React from 'react'
 
 // import Markdown from 'react-markdown/with-html'
 import { getAssetsPath } from '../../../../utilities/assets'
+import { SITE_DIARIOCORREO } from '../../../../utilities/constants/sitenames'
 import { useModalContext } from '../../../subscriptions/_context/modal'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import Loading from '../loading'
@@ -75,14 +76,28 @@ const FormIntroFree = ({ typeDialog, checkModal = (i) => i }) => {
         ) : (
           <>
             <div className="signwall-inside_forms-cont-correo-register center">
-              <img
-                alt={`Logo ${arcSite}`}
-                className="logo-correo"
-                src={`${getAssetsPath(
-                  arcSite,
-                  contextPath
-                )}/resources/dist/${arcSite}/images/${mainLogo}?d=1`}
-              />
+              {arcSite === SITE_DIARIOCORREO ? (
+                <svg viewBox="0 0 80 80" className="logo-correo">
+                  <path d="M0 0h80v80H0z" fill="#b11116" />
+                  <path
+                    d="M8,3H76V73a4,4,0,0,1-4,4H8a4,4,0,0,1-4-4V7A4,4,0,0,1,8,3Z"
+                    fill="#ed1c24"
+                  />
+                  <path
+                    d="M42.67 60a26.67 26.67 0 1 1 18.85-45.52A26.32 26.32 0 0 1 64.46 18l-10.2 7.73a14.13 14.13 0 0 0-1.5-1.78 13.32 13.32 0 1 0 0 18.84 14 14 0 0 0 1.81-2.26l10.25 7.67a27.4 27.4 0 0 1-3.33 4A26.56 26.56 0 0 1 42.67 60zM11.56 72a4.8 4.8 0 0 1-1.88-1.78 5.24 5.24 0 0 1 0-5.17 4.8 4.8 0 0 1 1.88-1.78 5.62 5.62 0 0 1 2.7-.63 5.69 5.69 0 0 1 2.37.46 4.72 4.72 0 0 1 1.75 1.35l-1.73 1.57a2.87 2.87 0 0 0-3.65-.76 2.44 2.44 0 0 0-.94 1 3.22 3.22 0 0 0 0 2.87 2.31 2.31 0 0 0 .94 1 2.7 2.7 0 0 0 1.39.34 2.79 2.79 0 0 0 2.25-1.12l1.73 1.56a4.62 4.62 0 0 1-1.75 1.35 5.87 5.87 0 0 1-2.37.47 5.74 5.74 0 0 1-2.69-.73zm10.03 0a4.92 4.92 0 0 1-2.06-6.65 5 5 0 0 1 2.06-2.06 6.08 6.08 0 0 1 5.45 0 4.93 4.93 0 0 1 2 6.66 4.86 4.86 0 0 1-2 2 6.08 6.08 0 0 1-5.45.05zm4-2a2.41 2.41 0 0 0 .93-1 3.16 3.16 0 0 0 0-2.87 2.48 2.48 0 0 0-.93-1 2.71 2.71 0 0 0-2.62 0 2.55 2.55 0 0 0-.93 1 3.22 3.22 0 0 0 0 2.87 2.48 2.48 0 0 0 .93 1 2.66 2.66 0 0 0 2.65.07zm36.97 2a4.93 4.93 0 0 1 0-8.71 6.08 6.08 0 0 1 5.45 0 4.93 4.93 0 0 1 2 6.66 4.86 4.86 0 0 1-2 2 6.08 6.08 0 0 1-5.45.05zm4-2a2.35 2.35 0 0 0 .93-1 3.16 3.16 0 0 0 0-2.87 2.41 2.41 0 0 0-.93-1 2.71 2.71 0 0 0-2.62 0 2.55 2.55 0 0 0-.93 1 3.22 3.22 0 0 0 0 2.87 2.48 2.48 0 0 0 .93 1 2.66 2.66 0 0 0 2.65.07zm-31.43-.09h-1.47v2.55H31v-9.58h4.34a5.26 5.26 0 0 1 2.24.43A3.35 3.35 0 0 1 39 64.54a3.64 3.64 0 0 1 0 3.7 3.34 3.34 0 0 1-1.37 1.21l2 3h-2.78zm1.27-4.53a1.85 1.85 0 0 0-1.25-.38h-1.49v2.81h1.49a1.87 1.87 0 0 0 1.25-.37 1.26 1.26 0 0 0 .42-1 1.28 1.28 0 0 0-.42-1zm8.94 4.53h-1.47v2.55h-2.68v-9.58h4.34a5.23 5.23 0 0 1 2.24.43 3.29 3.29 0 0 1 1.46 1.23 3.46 3.46 0 0 1 .52 1.88 3.18 3.18 0 0 1-1.86 3l2 3h-2.83zm1.27-4.53a1.84 1.84 0 0 0-1.24-.38h-1.5v2.81h1.5a1.86 1.86 0 0 0 1.24-.37 1.26 1.26 0 0 0 .42-1 1.28 1.28 0 0 0-.42-1zm12.18 4.99v2.09h-7.71v-9.58h7.53V65h-4.84v1.62H58v2h-4.23v1.75z"
+                    fill="#fff"
+                  />
+                </svg>
+              ) : (
+                <img
+                  alt={`Logo ${arcSite}`}
+                  className="logo-correo"
+                  src={`${getAssetsPath(
+                    arcSite,
+                    contextPath
+                  )}/resources/dist/${arcSite}/images/${mainLogo}?d=1`}
+                />
+              )}
               <h2 className="title-register">Regístrate gratis</h2>
               <p className="subtitle-register">para acceder a:</p>
               <div className="block-list">

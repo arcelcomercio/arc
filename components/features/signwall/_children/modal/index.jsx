@@ -8,11 +8,26 @@ const HIDE_SCROLL_IOS = 'overflow-hidden-ios'
 const VIEWPORT_DEFAULT = 'width=device-width, initial-scale=1'
 const VIEWPORT_CUSTOM = `${VIEWPORT_DEFAULT}, user-scalable=0, shrink-to-fit=no`
 
+/**
+ *
+ * @param {Object} props
+ * @param {string} props.bgColor
+ * @param {'top'|'right'|'bottom'|'left'} props.position
+ * @param {string} props.size
+ * @param {string} props.margin
+ * @param {string} props.padding
+ * @param {boolean} props.noOverflow
+ * @param {React.ReactNode} props.children
+ * @param {string} props.arcSite
+ * @returns
+ */
 const Modal = ({
   bgColor,
   position,
-  marginDef = '',
   size,
+  margin,
+  padding,
+  noOverflow,
   children,
   arcSite,
 }) => {
@@ -79,6 +94,12 @@ const Modal = ({
     }
   }
 
+  const style = {
+    ...(margin && { margin }),
+    ...(padding && { padding }),
+    ...(noOverflow && { overflowY: 'initial' }),
+  }
+
   return (
     <Portal id="sign-modal">
       <div className={`signwall-modal open ${bgColor || ''}`}>
@@ -86,11 +107,7 @@ const Modal = ({
           className={`body-modal position-${position} size-${size} ${
             isTrome ? 'bottom-trome' : ''
           }`}
-          style={
-            marginDef
-              ? { margin: marginDef, overflowY: 'initial', padding: '0px' }
-              : undefined
-          }
+          style={style}
           onTouchStart={turnOffFormScroll}
           onTouchEnd={turnOnFormScroll}
           /* style={{

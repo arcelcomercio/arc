@@ -14,7 +14,7 @@ import {
   useModalContext,
 } from '../../../../subscriptions/_context/modal'
 import { Taggeo } from '../../../../subscriptions/_dependencies/Taggeo'
-import { Close } from '../../../_children/icons'
+import { Close, CloseCircle } from '../../../_children/icons'
 import { Modal } from '../../../_children/modal/index'
 // import { PremiumFree } from './_children/free'
 import { PremiumPayment } from './_children/payment'
@@ -166,7 +166,9 @@ export const PremiumInt = ({ properties }) => {
     <Modal
       size={isCorreo ? 'mini' : resizeModal}
       position="bottom"
-      marginDef={isCorreo ? '0px 0px 10px' : ''}
+      margin={isCorreo ? '0px 0px 10px' : ''}
+      padding={isCorreo ? '0px' : ''}
+      noOverflow={isCorreo}
       bgColor={isGestion ? 'black' : 'white'}>
       <div
         className="signwall-inside_body-container premium"
@@ -184,16 +186,6 @@ export const PremiumInt = ({ properties }) => {
           <button
             type="button"
             className="signwall-inside_body-close premium"
-            style={
-              activeRegisterwall && isCorreo
-                ? {
-                    backgroundColor: 'black',
-                    top: -15,
-                    right: -15,
-                    borderRadius: '50%',
-                  }
-                : { backgroundColor: 'none' }
-            }
             onClick={() => {
               // modificado para comprobar eficacidad con el taggeo de valla correo
               Taggeo(
@@ -211,11 +203,7 @@ export const PremiumInt = ({ properties }) => {
                 onClose()
               }
             }}>
-            {activeRegisterwall && arcSite === SITE_DIARIOCORREO ? (
-              <Close color="#fff" />
-            ) : (
-              <Close />
-            )}
+            {arcSite === SITE_DIARIOCORREO ? <CloseCircle /> : <Close />}
           </button>
           {renderTemplate(selectedTemplate, valTemplate, {
             removeBefore,
