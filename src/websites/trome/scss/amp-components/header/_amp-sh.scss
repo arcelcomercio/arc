@@ -1,0 +1,58 @@
+.amp-sh {
+  padding-right: 16px;
+  padding-left: 16px;
+
+  // ? amp-share styles
+  &__rounded {
+    margin-right: 14px;
+  }
+
+  &__google-news {
+    height: 32px;
+    width: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #000;
+  }
+
+  &__message {
+    background-size: 25px;
+  }
+
+  // ? amp-header section
+  &__section {
+    font-family: $encode-c;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.58px;
+    line-height: 24px;
+    color: #d35b2c;
+    text-transform: uppercase;
+    text-align: center;
+    margin-right: -16px;
+    margin-left: -16px;
+    border-top: 1px solid #e1e1e1;
+    padding-top: 24px;
+  }
+
+  &__title {
+    font-family: $encode-c;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    line-height: 32px;
+    color: #333;
+    text-align: center;
+  }
+
+  &__description {
+    font-family: $encode-c;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 0.22px;
+    line-height: 28px;
+    color: #333;
+    text-align: center;
+  }
+}

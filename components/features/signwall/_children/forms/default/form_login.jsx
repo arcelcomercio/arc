@@ -348,7 +348,6 @@ const FormLogin = ({ valTemplate, attributes }) => {
               />
             )}
 
-
             {showLoginEmail && (
               <>
                 {showError && (

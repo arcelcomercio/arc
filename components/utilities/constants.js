@@ -15,7 +15,7 @@ export const UUID_MATCH = 'uuid_match'
 
 export const ADS_MATCH = 'ads_match'
 
-// image size
+// - image size
 export const IMAGE_ORIGINAL = 'original'
 
 export const IMAGE_SMALL = 'small'

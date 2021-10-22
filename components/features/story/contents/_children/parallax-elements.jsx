@@ -7,7 +7,7 @@ import { formatDayMonthYearBasic } from '../../../../utilities/date-time/dates'
 import StoryData from '../../../../utilities/story-data'
 
 const placeholderSrc = (width, height) =>
-  `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}"%3E%3C/svg%3E`
+  `data:image/svg+xml,%3Csvg  viewBox="0 0 ${width} ${height}"%3E%3C/svg%3E`
 
 const ParallaxImage = ({ data, id }) => {
   const { resized_urls: { image } = {} } =

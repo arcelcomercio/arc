@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 
 import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
-import { localISODate } from '../../../utilities/helpers'
+import { localISODate } from '../../../utilities/date-time/dates'
 import {
   includePromoItems,
   includePromoItemsCaptions,

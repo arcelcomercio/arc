@@ -7,35 +7,98 @@
   & .mundoactualidad {
     padding-bottom: 20px;
   }
-  & .sht__summary {
-    padding-bottom: 20px;
+
+  & .story-contents {
+    padding-left: 12px;
+    padding-right: 12px;
+
+    @media (--desktop) {
+      padding-right: 16px;
+      padding-left: 16px;
+    }
+
+    &__author,
+    &__social {
+      padding-right: 4px;
+      padding-left: 4px;
+    }
+
+    &__author-link {
+      font-weight: 900;
+    }
+
+    &__author-date {
+      font-size: 12px;
+
+      @media (--desktop) {
+        font-size: 13px;
+      }
+    }
+  }
+
+  & .live-event {
+    padding-right: 4px;
+    padding-left: 4px;
   }
 
   & .live-event2-comment {
+    font-family: $fira-s;
+    font-size: 21px;
+    letter-spacing: -0.34px;
+    line-height: 29px;
     background: #fff 0% 0% no-repeat padding-box;
-    border-radius: 5px;
-    padding: 20px;
+    padding: 16px;
     margin-bottom: 16px;
     margin-top: 16px;
     text-align: left;
-    font: normal normal normal 18px/24px $tertiary-font;
-    letter-spacing: 0;
     padding-right: 20px;
-    p {
-      padding-right: 12px;
-      padding-top: 15px;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.161);
+
+    @media (--desktop) {
+      font-size: 20px;
+      letter-spacing: -0.2px;
+      line-height: 27px;
+      padding: 20px;
     }
+
     & .share-btn {
       margin-right: 0;
     }
+
+    & > div {
+      padding-bottom: 16px;
+
+      @media (--desktop) {
+        padding-bottom: 10px;
+      }
+    }
+
+    & > p {
+      padding-bottom: 16px;
+    }
+
+    & > p:last-of-type {
+      padding-bottom: 0;
+    }
+
+    a {
+      font-size: 20px;
+      letter-spacing: 0;
+      line-height: 24px;
+
+      @media (--desktop) {
+        font-size: 24px;
+        letter-spacing: -0.24px;
+        line-height: 32px;
+      }
+    }
   }
+
   & strong {
-    text-align: left;
-    font: normal normal bold 16px/30px $primary-font;
-    letter-spacing: 0.16px;
-    line-height: 0;
-    color: #333;
+    font-weight: 800;
   }
+
   & .live-event-image {
     width: 100%;
   }
@@ -71,34 +134,137 @@
   & .live-event-minute {
     padding-right: 7px;
   }
-  & .breaking-news {
-    border-left: 3px solid #000;
-  }
 
-  & .b-news__icon {
-    fill: #000;
-    display: none;
-  }
-  & .b-news__tag {
-    font-family: $primary-font;
-    font-size: 14px;
-    font-weight: 700;
-    color: #333;
-    border-right: 1px solid #707070;
-    padding-right: 8px;
-    margin-right: 10px;
-    @media (--only-mobile) {
-      border-right: 0;
+  & .st-social {
+    align-items: center;
+    padding-top: 24px;
+
+    @media (--desktop) {
+      padding-top: 0;
+      margin-top: 0;
+      border-top: none;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    &__txt {
+      font-family: $encode-c;
+      font-size: 18px;
+      line-height: 24px;
+      letter-spacing: 0.77px;
+
+      @media (--tablet) {
+        font-size: 24px;
+        letter-spacing: 0.58px;
+      }
+
+      @media (--desktop) {
+        padding-top: 0;
+      }
+    }
+
+    &__share {
+      display: none;
+
+      @media (--tablet) {
+        display: flex;
+      }
+    }
+
+    & .share-btn {
+      border-color: #bababa;
+      box-shadow: none;
+
+      &.s-lk {
+        display: inherit;
+      }
+
+      &--gnews-txt {
+        font-size: 12px;
+      }
+
+      &--ws {
+        border: none;
+
+        svg {
+          height: 32px;
+          margin-left: 0;
+
+          path:first-of-type {
+            fill: transparent;
+            stroke: #bababa;
+          }
+
+          path:last-of-type {
+            fill: #333;
+          }
+        }
+      }
     }
   }
-  & .b-news__title {
-    font-family: $primary-font;
-    font-size: 16px;
-    font-weight: 500;
-    color: #333;
-    @media (--only-mobile) {
-      float: left;
-      margin-top: 10px;
+
+  & .sht__title {
+    font-family: $encode-c;
+    font-weight: 800;
+    font-size: 30px;
+    line-height: 32px;
+    letter-spacing: -0.42px;
+    text-align: center;
+    margin: 0 16px 16px 16px;
+
+    @media (--desktop) {
+      font-size: 42px;
+      line-height: 46px;
+      letter-spacing: -0.3px;
+      text-align: left;
+    }
+  }
+
+  & .sht__summary {
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 28px;
+    letter-spacing: 0.22px;
+    text-align: center;
+    padding-bottom: 24px;
+
+    @media (--desktop) {
+      font-size: 24px;
+      line-height: 32px;
+      letter-spacing: 0.24px;
+      text-align: left;
+      padding: 0 0 32px 0;
+    }
+  }
+
+  & .s-multimedia {
+    padding: 0 16px;
+
+    @media (--desktop) {
+      padding: 0 20px;
+    }
+  }
+
+  & .most-read {
+    &__link {
+      color: #333;
+    }
+
+    &__multimedia {
+      max-height: 80px;
+      margin-right: 12px;
+    }
+
+    &__img {
+      width: 120px;
+    }
+
+    &__txt {
+      max-height: 96px;
+      font-size: 16px;
+      line-height: 19px;
+      letter-spacing: 0.16px;
+      -webkit-line-clamp: 5;
     }
   }
 }

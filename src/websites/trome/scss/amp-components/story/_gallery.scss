@@ -1,0 +1,13 @@
+.story-gallery {
+  &__pager {
+    background-color: #e06437;
+  }
+
+  &__count {
+    background-color: #000;
+
+    span {
+      color: #e06437;
+    }
+  }
+}

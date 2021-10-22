@@ -52,6 +52,18 @@ export const TaggeoJoao = (obj, path) => {
   }
 }
 
+export const TagsAdsMurai = (obj, path) => {
+  window.dataLayer.push(obj)
+  if (!isProd) {
+    window.console.groupCollapsed(
+      `%c 🔔 Taggeo AdsMurai - Data: ${obj} | Ruta: ${path}`,
+      'color:  blue; font-size: 12px'
+    )
+    window.console.table(obj)
+    window.console.groupEnd()
+  }
+}
+
 /**
  * @typedef {object} EventCategoryOpts
  * @property {(1|2|3)} step

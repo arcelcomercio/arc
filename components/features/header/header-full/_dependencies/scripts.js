@@ -1,3 +1,9 @@
+/* import {
+  SITE_ELCOMERCIO,
+  SITE_GESTION,
+} from '../../../../utilities/constants/sitenames'
+*/
+
 /* window.addEventListener('load', () => {requestIdle(() => {
   if(!window.shareButtons){
     const windowW = 600
@@ -160,16 +166,16 @@ window.addEventListener('load', () => {requestIdle(() => {
 export const edicionMenu = `
 window.addEventListener("load",()=>{requestIdle(()=>{document.getElementById("edicionId").addEventListener("click",function(e){e.preventDefault();var d=document.querySelector(".header-full__e-content");d.classList.contains("block")?(d.classList.remove("block"),d.classList.add("hidden")):(d.classList.remove("hidden"),d.classList.add("block"))})})});
 `
-/*
 // TODO: Agregar la lógica sin minificar de este script, no son iguales
-document.addEventListener('DOMContentLoaded', () => {
+/* document.addEventListener('DOMContentLoaded', () => {
   requestIdle((SITE = '<<arcSite>>') => {
     const localProfile = JSON.parse(
-      window.localStorage.getItem('ArcId.USER_PROFILE') 
+      window.localStorage.getItem('ArcId.USER_PROFILE')
     )
     const { firstName = '', lastName = '', uuid = '' } = localProfile || {}
-    const btnSignwall = document.getElementById("signwall-nav-btn");
+    const btnSignwall = document.getElementById('signwall-nav-btn')
 
+    
     if (btnSignwall) {
       btnSignwall.addEventListener('click', () => {
         if (uuid) {
@@ -192,7 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
           buttonText = lastName
           iconText = `${lastName[0] || ''}${lastName[1] || ''}`
         }
-        signwallButton.innerHTML = buttonText.length >= 15 ? `${buttonText.slice(0, 15)}...` : buttonText
         signwallButton.innerHTML =
           buttonText.length >= 15 ? `${buttonText.slice(0, 15)}...` : buttonText
         signwallIcon.innerHTML = iconText

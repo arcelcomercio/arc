@@ -126,6 +126,11 @@ export interface JwplayersMatching {
   videoId: string
 }
 
+interface SocialNetworks {
+  name: string
+  url: string
+}
+
 export interface SiteProperties {
   siteName: string
   sitemapNewsName: string
@@ -175,4 +180,5 @@ export interface SiteProperties {
   archiveLimit: string
   jwplayers: Jwplayers
   jwplayersMatching: JwplayersMatching
+  socialNetworks: SocialNetworks[]
 }

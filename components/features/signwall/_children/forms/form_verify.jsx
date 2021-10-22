@@ -1,4 +1,5 @@
 import Identity from '@arc-publishing/sdk-identity'
+import { isAPIErrorResponse } from '@arc-publishing/sdk-identity/lib/serviceHelpers/APIErrorResponse'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
@@ -8,7 +9,7 @@ import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import { MsgResetPass } from '../icons'
 import Loading from '../loading'
 
-const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
+const FormVerify = ({ onClose, tokenVerify, tokenOTA, typeDialog }) => {
   const {
     arcSite,
     siteProperties: {
@@ -26,32 +27,52 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
   const [showBtnContinue, setShowBtnContinue] = React.useState(false)
 
   React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      Identity.verifyEmail(tokenVerify)
-        .then(() => {
-          setShowConfirm(true)
-          Taggeo(
-            `Web_Sign_Wall_${typeDialog}`,
-            `web_sw${typeDialog[0]}_aceptar_sucess`
-          )
-          if (Identity.userProfile || Identity.userIdentity.uuid) {
-            Identity.getUserProfile()
-          }
-        })
-        .catch((errLogin) => {
-          setShowError(getCodeError(errLogin.code))
+    Identity.verifyEmail(tokenVerify)
+      .then((verifyResponse) => {
+        if (isAPIErrorResponse(verifyResponse)) {
+          const error = `Error al verificar email: ${verifyResponse.message} - ${verifyResponse.code}`
+          setShowError(error)
           Taggeo(
             `Web_Sign_Wall_${typeDialog}`,
             `web_sw${typeDialog[0]}_aceptar_error`
           )
-        })
-        .finally(() => {
-          setShowLoading(false)
-        })
+          throw new Error(error)
+        }
 
-      if (Identity.userProfile || Identity.userIdentity.uuid) {
-        setShowBtnContinue(true)
-      }
+        setShowConfirm(true)
+        Taggeo(
+          `Web_Sign_Wall_${typeDialog}`,
+          `web_sw${typeDialog[0]}_aceptar_sucess`
+        )
+
+        if (tokenOTA) {
+          Identity.redeemOTALink(tokenOTA).then((OTAResponse) => {
+            if (isAPIErrorResponse(OTAResponse)) {
+              const error = `Error al iniciar sesión: ${OTAResponse.message} - ${OTAResponse.code}`
+              setShowError(error)
+              Taggeo(
+                `Web_Sign_Wall_${typeDialog}`,
+                `web_sw${typeDialog[0]}_aceptar_error`
+              )
+              throw new Error(error)
+            }
+            Identity.getUserProfile()
+          })
+        }
+      })
+      .catch((errLogin) => {
+        setShowError(getCodeError(errLogin.code))
+        Taggeo(
+          `Web_Sign_Wall_${typeDialog}`,
+          `web_sw${typeDialog[0]}_aceptar_error`
+        )
+      })
+      .finally(() => {
+        setShowLoading(false)
+      })
+
+    if (Identity.userProfile || Identity.userIdentity.uuid) {
+      setShowBtnContinue(true)
     }
   }, [])
 

@@ -12,7 +12,6 @@ import * as React from 'react'
 import StoryGoogleNews from '../../../global-components/google-news'
 import StoryContentChildTable from '../../../global-components/story-table'
 import { env, originByEnv } from '../../../utilities/arc/env'
-import { getAssetsPath } from '../../../utilities/assets'
 import { METERED } from '../../../utilities/constants/content-tiers'
 import {
   ELEMENT_BLOCKQUOTE,
@@ -38,6 +37,7 @@ import {
   SITE_ELCOMERCIOMAG,
   SITE_GESTION,
   SITE_PERU21,
+  SITE_TROME,
 } from '../../../utilities/constants/sitenames'
 import {
   GALLERY_VERTICAL,
@@ -61,6 +61,7 @@ import {
   replaceTags,
   storyTagsBbc,
 } from '../../../utilities/tags'
+import StorySocialChildAmpSocial from '../social/_children/amp-social'
 import AmpStoriesChild from '../title/_children/amp-stories'
 import ElePrincipal from './_children/amp-ele-principal'
 import StoryContentsChildJwplayerRecommender from './_children/amp-jwplayer-recommender'
@@ -72,6 +73,7 @@ import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildLinkList from './_children/link-list'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
 import StoryContentChildTags from './_children/tags'
+import customFields from './_dependencies/custom-fields'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
@@ -83,6 +85,7 @@ const classes = {
   author: 'amp-story-content__author mb-5 secondary-font',
   datetime: 'secondary-font text-md',
   image: 'amp-story-content__image mt-10 mb-10',
+  social: 'amp-story-content__social',
   // TODO: Revisar video y imgTag
   relatedTitle:
     'related-content__title font-bold uppercase pt-20 pb-20 secondary-font',
@@ -108,6 +111,7 @@ class StoryContentAmp extends React.PureComponent {
         jwplayersMatching,
       },
       globalContent: data = {},
+      customFields: { shareLinksAMP, tagsAMP } = {},
     } = this.props
 
     const {
@@ -142,6 +146,7 @@ class StoryContentAmp extends React.PureComponent {
     const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`
     const isComercio = arcSite === SITE_ELCOMERCIO
     const isMag = arcSite === SITE_ELCOMERCIOMAG
+    const isTrome = arcSite === SITE_TROME
     const isLegacy =
       source.source_id &&
       (arcSite === SITE_ELBOCON || arcSite === SITE_DIARIOCORREO)
@@ -196,10 +201,7 @@ class StoryContentAmp extends React.PureComponent {
 
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
+      'https://elcomercio.pe/resizer/Y9rKZd1sqJPCAxhHUsbA4lixQJo=/740x0/smart/filters:format(png):quality(100)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/BSK5BMFDTBCMDDJNDOI45PWN3U.png'
 
     const processedAdsAmp = (content) => {
       const res = content.split('<div class="live-event2-comment">')
@@ -217,10 +219,9 @@ class StoryContentAmp extends React.PureComponent {
         if (i === 11) {
           publicidad = publicidadAmp(parametersCaja3)
         }
-        entryHtml = `${entryHtml} ${divContent} ${entry} ${
-          publicidad &&
+        entryHtml = `${entryHtml} ${divContent} ${entry} ${publicidad &&
           `<div class='text-center ad-amp-movil'>${publicidad.__html} </div>`
-        }`
+          }`
       })
       return entryHtml
     }
@@ -229,11 +230,10 @@ class StoryContentAmp extends React.PureComponent {
       const formattedDisplayDate = formatDateTime(displayDate)
       const formattedUpdateDate = formatDateTime(updateDate)
 
-      return `${formattedDisplayDate} ${
-        formattedDisplayDate !== formattedUpdateDate
-          ? `| Actualizado ${formattedUpdateDate}`
-          : ''
-      }`
+      return `${formattedDisplayDate} ${formattedDisplayDate !== formattedUpdateDate
+        ? `| Actualizado ${formattedUpdateDate}`
+        : ''
+        }`
     }
 
     return (
@@ -270,17 +270,17 @@ class StoryContentAmp extends React.PureComponent {
                   </a>
                 </p>
               ) : // Validamos si es EC
-              isComercio ? (
-                authorsList.map((authorData) => (
+                isComercio ? (
+                  authorsList.map((authorData) => (
+                    <p className={classes.author}>
+                      <a href={authorData.urlAuthor}>{authorData.nameAuthor}</a>
+                    </p>
+                  ))
+                ) : (
                   <p className={classes.author}>
-                    <a href={authorData.urlAuthor}>{authorData.nameAuthor}</a>
+                    <a href={authorLink}>{author}</a>
                   </p>
-                ))
-              ) : (
-                <p className={classes.author}>
-                  <a href={authorLink}>{author}</a>
-                </p>
-              )}
+                )}
               <time
                 dateTime={getDateSeo(displayDate)}
                 className={classes.datetime}>
@@ -291,9 +291,9 @@ class StoryContentAmp extends React.PureComponent {
             </div>
           )}
           {isMetered &&
-          activeRulesCounter &&
-          activePaywall &&
-          arcSite === SITE_GESTION ? (
+            activeRulesCounter &&
+            activePaywall &&
+            arcSite === SITE_GESTION ? (
             // Contador de paywall para AMP
             <amp-iframe
               width="1"
@@ -493,13 +493,13 @@ class StoryContentAmp extends React.PureComponent {
                         content={
                           isLegacy
                             ? formatHtmlToText(
-                                replaceTags(cleanLegacyAnchor(content))
-                              )
+                              replaceTags(cleanLegacyAnchor(content))
+                            )
                             : ampHtml(
-                                replaceTags(content),
-                                arcSite,
-                                !!source.source_id
-                              )
+                              replaceTags(content),
+                              arcSite,
+                              !!source.source_id
+                            )
                         }
                         className={classes.textClasses}
                       />
@@ -537,10 +537,10 @@ class StoryContentAmp extends React.PureComponent {
                         )}
 
                       {element?.activateStories &&
-                      (arcSite === SITE_ELCOMERCIO ||
-                        (arcSite === SITE_DEPOR &&
-                          (/^\/mexico\//.test(requestUri) ||
-                            /^\/colombia\//.test(requestUri)))) ? (
+                        (arcSite === SITE_ELCOMERCIO ||
+                          (arcSite === SITE_DEPOR &&
+                            (/^\/mexico\//.test(requestUri) ||
+                              /^\/colombia\//.test(requestUri)))) ? (
                         <AmpStoriesChild arcSite={arcSite} />
                       ) : null}
                     </>
@@ -610,8 +610,15 @@ class StoryContentAmp extends React.PureComponent {
               />
             )}
 
+          {shareLinksAMP && (
+            <div className={classes.social}>
+              <StorySocialChildAmpSocial isContent />
+            </div>
+          )}
           {isComercio && <StoryGoogleNews />}
-          <StoryContentChildTags data={tags} arcSite={arcSite} isAmp />
+          {!tagsAMP && (
+            <StoryContentChildTags data={tags} arcSite={arcSite} isAmp />
+          )}
           {storyTagsBbc(tags) && (
             <div className={classes.bbcHead}>
               <a
@@ -621,8 +628,8 @@ class StoryContentAmp extends React.PureComponent {
                 <amp-img
                   alt="BBC"
                   layout="responsive"
-                  width="500"
-                  height="30"
+                  width="560"
+                  height="34"
                   src={imgBbc}
                   data-src={imgBbc}
                 />
@@ -640,6 +647,10 @@ class StoryContentAmp extends React.PureComponent {
       </>
     )
   }
+}
+
+StoryContentAmp.propType = {
+  customFields,
 }
 
 StoryContentAmp.static = true

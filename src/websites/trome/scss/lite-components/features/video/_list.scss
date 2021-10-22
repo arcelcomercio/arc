@@ -1,0 +1,249 @@
+.video-list {
+  margin-top: 16px;
+
+  &__container {
+    display: flex;
+    padding: 0 20px 0 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    @media (--tablet) {
+      justify-content: space-between;
+    }
+
+    @media (--desktop) {
+      padding: 0;
+    }
+  }
+
+  &__section-title,
+  &__section-name {
+    font-family: $fira-s;
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 22px;
+    text-align: left;
+
+    @media (--desktop) {
+      font-size: 21px;
+      letter-spacing: -0.21px;
+      line-height: 26px;
+      padding: 0;
+    }
+  }
+
+  &__section-title {
+    font-weight: 400;
+    padding: 0 20px 0 20px;
+    display: flex;
+    align-items: center;
+    margin-top: 58px;
+    color: #333;
+  }
+
+  &__section-name {
+    font-weight: 800;
+    color: #e06437;
+  }
+
+  &__item {
+    width: 100%;
+    margin-bottom: 48px;
+
+    @media (--desktop) {
+      width: 276px;
+    }
+    @media (--tablet) {
+      width: 48%;
+    }
+  }
+
+  &__image {
+    width: 100%;
+    min-height: 180px;
+    max-height: 380px;
+    background-color: #000;
+    object-fit: contain;
+
+    @media (--tablet) {
+      height: 100%;
+      min-height: 127px;
+      max-height: 186px;
+    }
+
+    @media (--desktop) {
+      width: 276px;
+      height: 155px;
+      min-height: unset;
+      max-height: unset;
+    }
+  }
+
+  &__duration {
+    left: inherit;
+    right: 6px;
+    font: normal normal bold 12px/16px $primary-font;
+    border-radius: 3px;
+    opacity: 0.8;
+    background: #000 0% 0% no-repeat padding-box;
+    position: absolute;
+    bottom: 8px;
+    width: 42px;
+    height: 18px;
+    color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__play {
+    font: normal normal bold 12px/16px $primary-font;
+    border-radius: 3px;
+    opacity: 0.8;
+    position: absolute;
+    bottom: 9px;
+    left: 0;
+    width: 54px;
+    height: 52px;
+    color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__icon-play {
+    fill: #fff;
+  }
+
+  &__secction-icon {
+    height: 24px;
+    margin-left: 5px;
+    @media (--desktop) {
+      visibility: hidden;
+    }
+    @media (--tablet) {
+      visibility: hidden;
+    }
+    @media (max-width: 640px) {
+      visibility: visible;
+    }
+  }
+
+  &__link {
+    display: block;
+    width: 100%;
+    position: relative;
+  }
+
+  &__new {
+    margin-top: 12px;
+    color: #333;
+    opacity: 1;
+    text-align: left;
+    font: normal normal bold 18px/22px $fira-s;
+    letter-spacing: -0.18px;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    display: -webkit-box;
+  }
+
+  &__btn-container {
+    padding: 0 0 48px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    border-bottom: 1px solid #aaa;
+
+    &.empty {
+      padding: 0;
+    }
+
+    button {
+      font-family: $primary-font;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 26px;
+      color: #333;
+      border: 1px solid #333;
+      padding: 10px 20px;
+      border-radius: 5px;
+      overflow: hidden;
+      width: 180px;
+    }
+
+    .spinner {
+      content-visibility: auto;
+      contain-intrinsic-size: 100px;
+      padding: 0;
+    }
+
+    .spinner__svg {
+      -webkit-animation: b 1.4s linear infinite;
+      stroke: #333;
+      animation: b 1.4s linear infinite;
+      height: 19px;
+    }
+
+    .spinner__circle {
+      stroke-dasharray: 187;
+      stroke-dashoffset: 0;
+      -webkit-animation: c 1.4s ease-in-out infinite,
+        colors 5.6s ease-in-out infinite;
+      animation: c 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+      transform-origin: center;
+    }
+  }
+}
+
+@-webkit-keyframes b {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(270deg);
+  }
+}
+
+@keyframes b {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(270deg);
+  }
+}
+
+@-webkit-keyframes c {
+  0% {
+    stroke-dashoffset: 187;
+  }
+
+  50% {
+    stroke-dashoffset: 46.75;
+    transform: rotate(135deg);
+  }
+
+  to {
+    stroke-dashoffset: 187;
+    transform: rotate(450deg);
+  }
+}
+
+@keyframes c {
+  0% {
+    stroke-dashoffset: 187;
+  }
+
+  50% {
+    stroke-dashoffset: 46.75;
+    transform: rotate(135deg);
+  }
+
+  to {
+    stroke-dashoffset: 187;
+    transform: rotate(450deg);
+  }
+}

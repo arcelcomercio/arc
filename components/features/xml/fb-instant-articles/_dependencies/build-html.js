@@ -797,6 +797,10 @@ const BuildHtml = ({
   promoItemJwplayer,
   tags = [],
   jwplayers,
+  editableText1,
+  editableText2,
+  editableText3,
+  editableText4,
 }) => {
   const firstAdd = 100
   const nextAdds = 350
@@ -827,6 +831,10 @@ const BuildHtml = ({
     return contenType
   }
   const { type } = multimedia || {}
+  const isProvecho = canonical.match(/\/provecho\//)
+  const headerProvecho = `<figure>
+    <img src="https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/PC5JSZKFKZEAFJEY7BF4XAPSII.png" />
+  </figure>`
   try {
     const element = `
   <html lang="es" prefix="op: http://media.facebook.com/op#">
@@ -874,10 +882,14 @@ const BuildHtml = ({
       }
     
       <header>
+        ${editableText1}
+        ${isProvecho ? headerProvecho : ''}
         <h1>${title}</h1>
         ${!isEmpty(subTitle) ? `<h2>${subTitle}</h2>` : ''}
         <time class="op-published" datetime="${oppublished}"> ${oppublished}</time>
+        ${editableText2}
       </header>
+      ${editableText3}
       ${multimediaHeader(
         multimedia,
         title,
@@ -888,7 +900,7 @@ const BuildHtml = ({
         promoItemJwplayer,
         jwplayers
       )}
-      
+      ${editableText4}
       ${!isEmpty(author) ? `<p>${author}</p>` : ''}
       ${ParagraphshWithAdds(paramsBuildParagraph)}
       ${

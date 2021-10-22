@@ -96,7 +96,6 @@ export default (props) => {
               alt="abrir cuadro de búsqueda"
               className="h-basic__btn-search h-basic__btn">
               <svg
-                xmlns="http://www.w3.org/2000/svg"
                 className="h-basic__search"
                 width="22"
                 height="22"
@@ -112,7 +111,6 @@ export default (props) => {
                 aria-haspopup="true"
                 aria-controls="menu">
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
                   className="h-basic__menu"
                   height="23"
                   title="Menú"
@@ -169,7 +167,6 @@ export default (props) => {
                     {arcSite === SITE_GESTION ? 'Iniciar Sesión' : 'Iniciar'}
                   </span>
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
                     className="h-basic__user"
                     viewBox="0 0 18 21"
                     width="18"

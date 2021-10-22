@@ -1,6 +1,22 @@
 import PropTypes from 'prop-types'
 
 const customFields = PropTypes.shape({
+  // Congig AMP
+  shareLinksAMP: PropTypes.bool.tag({
+    name: 'Mostrar links de redes sociales',
+    description:
+      'Si se activa, al final del cuerpo de la nota se mostrará los links de Redes Sociales',
+    defaultValue: false,
+    group: 'Opciones AMP',
+  }),
+  tagsAMP: PropTypes.bool.tag({
+    name: 'Ocultar tags de la nota',
+    description:
+      'Si se activa, al final del cuerpo se ocultará los tags de la noticia',
+    defaultValue: false,
+    group: 'Opciones AMP',
+  }),
+  // Config Lite
   adsEvery: PropTypes.number.tag({
     name: '¿Inyectar Ads cada cuantos párrafos?',
     description:
@@ -22,10 +38,17 @@ const customFields = PropTypes.shape({
     defaultValue: 'right',
     group: 'Opciones Lite',
   }),
+  shareLinks: PropTypes.bool.tag({
+    name: 'Activar botón para ocultar links de redes sociales',
+    description:
+      'Si se activa, al final del cuerpo de la nota se ocultará los links de Redes Sociales',
+    defaultValue: false,
+    group: 'Opciones Lite',
+  }),
   copyLink: PropTypes.bool.tag({
     name: 'Activar botón para Copiar enlace de nota',
     description:
-      'Si se activa, al final del cuerpo de la nota aparecerá el butón para Copiar enlace',
+      'Si se activa, al final del cuerpo de la nota aparecerá el botón para Copiar enlace',
     defaultValue: false,
     group: 'Opciones Lite',
   }),

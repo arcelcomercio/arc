@@ -128,7 +128,9 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-depor/ads-fia-28253241-dep_ia_interna5-300x250-div-gpt-ad-8599377-15.html',
   ],
   activeSignwall: true,
+  activeVerifyEmail: true,
   activeDataTreatment: true,
+  activePhoneRegister: true,
   signwall: {
     mainColorBg: '#007c31',
     mainColorTxt: '#ffffff',

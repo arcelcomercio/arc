@@ -1,48 +1,5 @@
 /*
-document.addEventListener('DOMContentLoaded', function() {
-  requestIdle(() => {
-    const localProfile = JSON.parse(
-      window.localStorage.getItem('ArcId.USER_PROFILE') 
-    )
-    const { firstName = '', lastName = '', uuid = '' } = localProfile || {}
-    const btnSignwall = document.getElementById("signwall-nav-btn");
-    if(btnSignwall){
-      btnSignwall.addEventListener("click", () => {
-        if (uuid) {
-          window.location.href  = '/mi-perfil/?outputType=subscriptions'
-        } else {
-          window.location.href  = '/signwall/?outputType=subscriptions'
-        }
-      })
-    }
-    if (uuid) {
-      const signwallButton = document.getElementById('signwall-nav-user')
-      const signwallIcon = document.getElementById('signwall-nav-icon')
-      if (!firstName && !lastName) {
-        signwallButton.innerHTML = 'Bienvenido Usuario'
-      } else {
-        let buttonText = ''
-        let iconText = ''
-        if (firstName && lastName) {
-          buttonText = `${firstName} ${lastName}`
-          iconText = `${firstName[0] || ''}${lastName[0] || ''}`
-        } else if (firstName && !lastName) {
-          buttonText = firstName
-          iconText = `${firstName[0] || ''}${firstName[1] || ''}`
-        } else if (!firstName && lastName) {
-          buttonText = lastName
-          iconText = `${lastName[0] || ''}${lastName[1] || ''}`
-        }
-        signwallButton.innerHTML = buttonText.length >= 15 ? `${buttonText.slice(0, 15)}...` : buttonText
-        signwallIcon.innerHTML = iconText
-        signwallIcon.className = 'uppercase'
-      }
-    }
-  })
-})
-*/
-
-/* document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   requestIdle((SITE = '<<arcSite>>') => {
     const localProfile = JSON.parse(
       window.localStorage.getItem('ArcId.USER_PROFILE')
@@ -71,22 +28,29 @@ document.addEventListener('DOMContentLoaded', function() {
       } else {
         let buttonText = ''
         let iconText = ''
-        buttonText = lastName
-        iconText = `${lastName[0] || ''}${lastName[1] || ''}`
+        if (firstName && lastName) {
+          buttonText = `${firstName} ${lastName}`
+          iconText = `${firstName[0] || ''}${lastName[0] || ''}`
+        } else if (firstName && !lastName) {
+          buttonText = firstName
+          iconText = `${firstName[0] || ''}${firstName[1] || ''}`
+        } else if (!firstName && lastName) {
+          buttonText = lastName
+          iconText = `${lastName[0] || ''}${lastName[1] || ''}`
+        }
+        signwallButton.innerHTML =
+          buttonText.length >= 15 ? `${buttonText.slice(0, 15)}...` : buttonText
+        signwallIcon.innerHTML = iconText
+        signwallIcon.className = 'uppercase'
       }
-      signwallButton.innerHTML =
-        buttonText.length >= 15 ? `${buttonText.slice(0, 15)}...` : buttonText
-      signwallIcon.innerHTML = iconText
-      signwallIcon.className = 'uppercase'
     }
   })
 })
-
 */
-
 /* export const singwallScript =
   '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},n=e.firstName,t=void 0===n?"":n,i=e.lastName,o=void 0===i?"":i,s=e.uuid,a=void 0===s?"":s,n=document.getElementById("signwall-nav-btn");n&&n.addEventListener("click",function(){window.location.href=a?"/mi-perfil/?outputType=subscriptions":"/signwall/?outputType=subscriptions"}),a&&(i=document.getElementById("signwall-nav-user"),e=document.getElementById("signwall-nav-icon"),t||o?(n=s="",t&&o?(s=t+" "+o,n=""+(t[0]||"")+(o[0]||"")):t&&!o?n=""+((s=t)[0]||"")+(t[1]||""):!t&&o&&(n=""+((s=o)[0]||"")+(o[1]||"")),i.innerHTML=15<=s.length?s.slice(0,15)+"...":s,e.innerHTML=n,e.className="uppercase"):i.innerHTML="Bienvenido Usuario")})});'
- */
+*/
+
 export const singwallScript = (arcSite) =>
   '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var n=0<arguments.length&&void 0!==arguments[0]?arguments[0]:"<<arcSite>>",e=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},t=e.firstName,c=void 0===t?"":t,i=e.lastName,o=void 0===i?"":i,a=e.uuid,s=void 0===a?"":a,t=document.getElementById("signwall-nav-btn");t&&t.addEventListener("click",function(){window.location.href=s?"/mi-perfil/?outputType=subscriptions":"/signwall/?outputType=subscriptions"}),s&&(i=document.getElementById("signwall-nav-user"),e=document.getElementById("signwall-nav-icon"),c||o?(t=a="",c&&o?(a="".concat(c," ").concat(o),t="".concat(c[0]||"").concat(o[0]||"")):c&&!o?t="".concat((a=c)[0]||"").concat(c[1]||""):!c&&o&&(t="".concat((a=o)[0]||"").concat(o[1]||"")),i.innerHTML=15<=a.length?"".concat(a.slice(0,15),"..."):a,e.innerHTML=t,e.className="uppercase"):i.innerHTML="elcomercio"===n||"gestion"===n?"Bienvenido Usuario":"Mi Perfil")})});'.replace(
     '<<arcSite>>',

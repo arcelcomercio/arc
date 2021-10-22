@@ -40,7 +40,7 @@ const AuthorBiography = ({
     <>
       {arcSite === 'trome' ? (
         <div className={classes.container}>
-          <div className={classes.svgContainer}>
+          {/* <div className={classes.svgContainer}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -61,7 +61,7 @@ const AuthorBiography = ({
                 </clipPath>{' '}
               </defs>{' '}
             </svg>
-          </div>
+          </div> */}
           <img className={classes.image} src={imageLG} alt={byline} />
 
           <div className={classes.textBox}>
@@ -86,7 +86,7 @@ const AuthorBiography = ({
               <p className={`${classes.content} mb-0`}>
                 {location && (
                   <>
-                    Escribe desde&nbsp;
+                    Escribe desde: &nbsp;
                     <strong>{location}</strong>
                   </>
                 )}

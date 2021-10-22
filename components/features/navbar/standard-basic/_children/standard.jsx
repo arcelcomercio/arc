@@ -296,7 +296,6 @@ class NavBarDefault extends React.PureComponent {
                     className={classes.menuRegionL}
                     id="btn-region">
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
                       className={classes.menuRegionI}
                       width={20}
                       height={20}
@@ -494,11 +493,14 @@ class NavBarDefault extends React.PureComponent {
           </>
         )}
         <div id="nav-pointer" />
+        {/* revisar este cambio en sigwallScript */}
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{
             __html: `${
-              activeSignwall && !isPreview ? singwallScript(arcSite) : ''
+              activeSignwall && !isPreview && !isPremium
+                ? singwallScript(arcSite)
+                : ''
             }${stickyScript}${searchScript}${
               activePaywall && !isPreview
                 ? getBtnSubsScript(env, arcSite, urlSubsOnline)

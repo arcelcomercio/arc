@@ -1,12 +1,16 @@
 .share-btn {
   border: 1px solid $color-gray-300;
   border-radius: 50%;
-  height: 30px;
-  width: 30px;
-  margin-right: 15px;
+  height: 32px;
+  width: 32px;
+  margin-right: 25px;
   padding: 0;
   line-height: 0;
   fill: $color-gray-300;
+
+  @media (--desktop) {
+    margin-right: 10px;
+  }
 
   &--stroke {
     fill: transparent;
@@ -14,8 +18,20 @@
   }
 
   &--ws {
-    border: none;
+    svg {
+      height: 18px;
+      margin-left: 1px;
+
+      path {
+        fill: #000;
+      }
+
+      path:last-of-type {
+        fill: #fff;
+      }
+    }
   }
+
   &--gnews {
     @media (--desktop) {
       border-color: #bababa;
@@ -32,7 +48,8 @@
       display: none;
       font-family: $primary-font;
       font-weight: bold;
-      font-size: 0.8rem;
+      font-size: 12px;
+      color: #3a3a3a;
       @media (--desktop) {
         display: block;
         padding-right: 3px;

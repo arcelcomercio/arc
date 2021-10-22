@@ -7,7 +7,7 @@ import { FeatureComponent } from 'types/features'
 import { Stories, Story } from 'types/story'
 
 const placeholderSrc = (width: number, height: number): string =>
-  `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}"%3E%3C/svg%3E`
+  `data:image/svg+xml,%3Csvg  viewBox="0 0 ${width} ${height}"%3E%3C/svg%3E`
 
 interface FeatureProps {
   customFields?: {
@@ -41,12 +41,7 @@ const StoriesListCarousel: FeatureComponent<FeatureProps> = (props) => {
         <div className="stories-carousel">
           <div className="glider-contain multiple">
             <button type="button" className="glider-prev">
-              <svg
-                width="23"
-                height="23"
-                viewBox="0 0 23 23"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg">
+              <svg width="23" height="23" viewBox="0 0 23 23" fill="none">
                 <path
                   d="M10.1875 1L1 11.5L10.1875 22"
                   stroke="black"
@@ -101,12 +96,7 @@ const StoriesListCarousel: FeatureComponent<FeatureProps> = (props) => {
             </div>
 
             <button type="button" className="glider-next">
-              <svg
-                width="23"
-                height="23"
-                viewBox="0 0 23 23"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg">
+              <svg width="23" height="23" viewBox="0 0 23 23" fill="none">
                 <path
                   d="M12.8125 22L22 11.5L12.8125 0.999999"
                   stroke="black"

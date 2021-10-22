@@ -1,0 +1,249 @@
+.triplet-doblete {
+  &__list {
+    grid-row: span 1;
+
+    @media (--tablet) {
+      height: 362px;
+    }
+  }
+
+  &__item {
+    border-top: 1px solid $main-color-orange;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    letter-spacing: -0.18px;
+    line-height: 1.2;
+
+    @media (--tablet) {
+      padding-top: 8px;
+      padding-bottom: 16px;
+    }
+  }
+
+  &__item:last-child {
+    padding-bottom: 0;
+  }
+
+  &__information {
+    font-family: $encode-c, sans-serif;
+    font-size: 22px;
+    color: $main-color-black;
+    padding: 0 10px 0 10px;
+    width: calc(100% - 110px);
+
+    @media (--tablet) {
+      font-size: 18px;
+      padding: 0 10px 0 0;
+      width: 199px;
+    }
+  }
+
+  &__title {
+    font-size: inherit;
+    line-height: 25px;
+    letter-spacing: -0.22px;
+    padding-bottom: 2px;
+    margin: 0;
+
+    @media (--tablet) {
+      line-height: 21px;
+      letter-spacing: -0.18px;
+      padding-bottom: 2px;
+    }
+  }
+
+  &__title-link {
+    font-weight: 600;
+    font-size: inherit;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &__header {
+    color: $main-color-orange;
+  }
+
+  // ? Line clamp!
+  &__title-line {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  &__title-line-doblete {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+
+    @media (--only-mobile) {
+      -webkit-line-clamp: 3;
+    }
+  }
+
+  &__author {
+    font-family: $encode-c, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.21px;
+    color: #a1a1a1;
+    text-align: left;
+    padding-top: 5px;
+    display: block;
+    padding-bottom: 1px;
+
+    @media (--tablet) {
+      font-size: 13px;
+      letter-spacing: -0.2px;
+    }
+  }
+
+  &__link {
+    color: inherit;
+  }
+
+  &__multimedia {
+    width: 110px;
+    height: 121px;
+    padding-right: 10px;
+    margin: 0;
+
+    @media (--tablet) {
+      height: 101px;
+      width: 101px;
+      overflow: hidden;
+      padding-right: 0;
+    }
+
+    a {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      text-decoration: none;
+      display: block;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  &__icon {
+    background-color: $main-color-orange;
+    color: $main-color-white;
+    border-radius: 5px;
+    pointer-events: none;
+    width: 36px;
+    height: 36px;
+    font-size: 30px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: none;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    opacity: 0.8;
+  }
+
+  // ? DOBLETE
+  &__item-doblete {
+    letter-spacing: -0.21px;
+    line-height: 1.1;
+
+    @media (--tablet) {
+      padding-bottom: 32px;
+      padding-top: 10px;
+    }
+  }
+
+  &__information-doblete {
+    font-size: 22px;
+    padding-right: 10px;
+    width: calc(100% - 110px);
+
+    @media (--tablet) {
+      font-size: 21px;
+      width: 172px;
+    }
+
+    .triplet-doblete__title {
+      @media (--tablet) {
+        padding-bottom: 2px;
+        line-height: 23px;
+      }
+    }
+  }
+
+  &__multimedia-doblete {
+    width: 110px;
+    height: 121px;
+    padding-right: 10px;
+
+    @media (--tablet) {
+      height: 154px;
+      width: 128px;
+      padding-right: 0;
+    }
+  }
+
+  &__title-line-triplete {
+    -webkit-line-clamp: 3;
+  }
+}
+
+// ? Triplet Inverted Colors:
+.triplet-doblete__item--inverted {
+  .triplet-doblete__information {
+    background-color: $main-color-orange;
+    color: $main-color-white;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+
+    @media (--desktop) {
+      padding-top: 8px;
+    }
+  }
+
+  .triplet-doblete__header {
+    color: $main-color-black;
+  }
+
+  .triplet-doblete__author {
+    color: $main-color-white;
+  }
+
+  .triplet-doblete__multimedia {
+    background-color: $main-color-orange;
+  }
+}
+
+// ? Doublet Inverted Colors:
+.doublet__item--inverted {
+  .triplet-doblete__information-doblete {
+    background-color: $main-color-orange;
+    color: $main-color-white;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+  }
+
+  .triplet-doblete__header {
+    color: $main-color-black;
+  }
+
+  .triplet-doblete__author {
+    color: $main-color-white;
+  }
+
+  .triplet-doblete__multimedia-doblete {
+    background-color: $main-color-orange;
+  }
+}

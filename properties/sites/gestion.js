@@ -35,12 +35,12 @@ export default {
     color: '#8F071F',
   },
   infoPagesDev: {
-    termsAndConditions: '',
+    termsAndConditions: 'LE7X7PCZPRCM7ASXLIHWS7DKYQ',
     guidingPrinciples: '',
-    privacyPolicies: '',
+    privacyPolicies: 'RXAYTOUIXNEI5N3MBETUNR7TCI',
     integratedManagementPolicy: '',
     arcoProcedure: '',
-    cookiesPolicy: '',
+    cookiesPolicy: 'UF4RYI7XLNH4NGDN2FONQJ7HHU',
     aboutUs: 'AH524OO2XFEE3CZBDR3VZTXN6A',
     frequentQuestions: 'TAKBHA5E4JBONGF5UAWFDAU2GM',
     dataTreatment: 'RPHBHLSJA5AFLCV5QUC3E6A7SY',
@@ -143,6 +143,7 @@ export default {
   activeVerifyEmail: true,
   activeDataTreatment: true,
   activePhoneRegister: true,
+  activeAuthSocialNative: true,
   signwall: {
     mainColorBg: '#8f071f',
     mainColorTxt: '#ffffff',

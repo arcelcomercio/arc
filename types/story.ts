@@ -173,6 +173,7 @@ interface Planning {
     line_count_actual: number
     inch_count_actual: number
   }
+  budget_line: string
 }
 export interface SocialLink {
   site: string
