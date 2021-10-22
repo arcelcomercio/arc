@@ -1,9 +1,6 @@
-import Identity from '@arc-publishing/sdk-identity'
-// import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-// import Markdown from 'react-markdown/with-html'
 import { getAssetsPath } from '../../../../utilities/assets'
 import { SITE_DIARIOCORREO } from '../../../../utilities/constants/sitenames'
 import { useModalContext } from '../../../subscriptions/_context/modal'
@@ -63,9 +60,6 @@ const FormIntroFree = ({ typeDialog, checkModal = (i) => i }) => {
 
   React.useEffect(() => {
     setShowLoading(false)
-    if (Identity.userProfile || Identity.userIdentity.uuid) {
-      // setShowPaywallBtn(true)
-    }
   }, [])
 
   return (
@@ -102,7 +96,7 @@ const FormIntroFree = ({ typeDialog, checkModal = (i) => i }) => {
               <p className="subtitle-register">para acceder a:</p>
               <div className="block-list">
                 {arcSite
-                  ? classes[arcSite].map(({ Icon, description }) => (
+                  ? classes?.[arcSite]?.map(({ Icon, description }) => (
                       <div key={description} className="block__benefits">
                         <div style={{ width: '20%' }}>
                           <Icon />
