@@ -131,6 +131,17 @@
     }
   }
 
+  &__multimedia-caption {
+    font-family: $fira-s;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: -0.14px;
+    line-height: 18px;
+    color: rgba(68, 68, 68, 0.973);
+    padding: 10px 0;
+    border-bottom: 1px solid #aaa;
+  }
+
   // ? List item for 'Mira Tambien'
   &__link-list {
     background: none;
@@ -161,6 +172,7 @@
 
       a {
         color: #d35b2c;
+        text-decoration: none;
       }
     }
 

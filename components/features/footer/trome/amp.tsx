@@ -1,8 +1,8 @@
 import React from 'react'
 
-import Footer from './_children/footer'
+import FooterAmp from './_children/footer-amp'
 
-const TromeFooterAmp = () => <Footer />
+const TromeFooterAmp = () => <FooterAmp />
 
 TromeFooterAmp.label = 'Pie de página - Trome'
 
