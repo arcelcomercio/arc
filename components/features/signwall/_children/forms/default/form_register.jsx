@@ -568,7 +568,11 @@ const FormRegister = ({
                     <MsgRegister bgcolor={mainColorBr} />
                   </div>
                   <h4
-                    style={{ fontSize: '22px', lineHeight: '26px', wordBreak: "break-all", }}
+                    style={{
+                      fontSize: '22px',
+                      lineHeight: '26px',
+                      wordBreak: 'break-word',
+                    }}
                     className="signwall-inside_forms-title center mb-10">
                     {showUserWithSubs
                       ? `Bienvenido(a) ${
