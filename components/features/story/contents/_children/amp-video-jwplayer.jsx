@@ -25,7 +25,7 @@ const StoryContentChildVideoAmp = ({ data = {} }) => {
           />
           {title && (
             <>
-              <div className="pt-10"> {title}</div>
+              <div className="amp-story-content__multimedia-caption pt-10"> {title}</div>
             </>
           )}
         </>
