@@ -587,7 +587,7 @@ const FormRegister = ({
                     style={{
                       fontSize: '22px',
                       lineHeight: '26px',
-                      wordBreak: 'break-all',
+                      wordBreak: 'break-word',
                     }}
                     className="signwall-inside_forms-title center mb-10">
                     {showUserWithSubs
