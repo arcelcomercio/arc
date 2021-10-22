@@ -58,7 +58,7 @@ const SeparatorsBasicChildSeparatorStory = ({
             <h3 itemProp="name" className={classes.text}>
               {shouldRenderPremiumTag ? (
                 <>
-                  {title}&nbsp;&nbsp;<span style={{ color: '#FFD333' }}>★</span>
+                  <span style={{ color: '#FFD333' }}>★</span>&nbsp;&nbsp;{title}
                 </>
               ) : (
                 title
