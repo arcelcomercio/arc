@@ -166,7 +166,7 @@ export const PremiumInt = ({ properties }) => {
     <Modal
       size={isCorreo ? 'mini' : resizeModal}
       position="bottom"
-      marginDef="0px 0px 10px"
+      marginDef={isCorreo ? '0px 0px 10px' : ''}
       bgColor={isGestion ? 'black' : 'white'}>
       <div
         className="signwall-inside_body-container premium"
