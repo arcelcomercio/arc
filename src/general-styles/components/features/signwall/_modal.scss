@@ -1260,7 +1260,9 @@
       font-family: inherit;
       font-weight: bold;
       line-height: 28px;
-      word-break: break-all;
+      &.word-break{
+        word-break: break-all;
+      }
     }
     &-text {
       color: #444;
