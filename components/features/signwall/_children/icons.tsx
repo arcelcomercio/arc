@@ -267,7 +267,17 @@ export const Plus = (): JSX.Element => (
   </svg>
 )
 
-export const Close = ({ color='#00000' }: ColorProps): JSX.Element => (
+export const CloseCircle = (): JSX.Element => (
+  <svg viewBox="0 0 39 39" width="38" height="38">
+    <circle cx="19" cy="19" r="19" />
+    <path
+      d="M26,13.41,24.59,12,19,17.59,13.41,12,12,13.41,17.59,19,12,24.59,13.41,26,19,20.41,24.59,26,26,24.59,20.41,19Z"
+      fill="#fff"
+    />
+  </svg>
+)
+
+export const Close = ({ color = '#00000' }: ColorProps): JSX.Element => (
   <svg width="14" height="14">
     {/* <g fill="#1e201d"> */}
     <g fill={color}>
