@@ -68,6 +68,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
   updateUserProfile,
 }) => {
   const [status, setStatus] = React.useState<Status>(Status.Initial)
+  const [isInitial, setInitial] = React.useState(true)
   const [errorMessage, setErrorMessage] = React.useState('')
   const [hasSuccessMessage, setHasSuccessMessage] = React.useState(false)
   const [shouldConfirmPass, setShouldConfirmPass] = React.useState(false)
@@ -76,14 +77,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
     setSelectedDocumentType,
   ] = React.useState<UserDocumentType>('DNI')
 
-  React.useEffect(() => {
-    setStatus(Status.Ready)
-  }, [])
-
-  const disabled =
-    status === Status.Loading ||
-    status === Status.Initial ||
-    !userProfile?.email
+  const disabled = status === Status.Loading || !userProfile?.email
 
   const initialBirthDate =
     userProfile?.birthDay && userProfile?.birthMonth && userProfile?.birthYear
@@ -230,7 +224,8 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
     updateUserProfile(profileToUpdate as any, {
       onSuccess: (updatedProfile: UserProfile) => {
         setHasSuccessMessage(true)
-        setStatus(Status.Ready)
+
+        setStatus(Status.Initial)
 
         const textProfile = document.getElementById('name-user-profile')
         if (textProfile) {
@@ -305,6 +300,38 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
     handleOnChange(e)
     setErrorMessage('')
   }
+
+  React.useEffect(() => {
+    if (isInitial) {
+      setInitial(!isInitial)
+    } else if (
+      firstNameError ||
+      lastNameError ||
+      secondLastNameError ||
+      documentTypeError ||
+      documentNumberError ||
+      civilStatusError ||
+      mobilePhoneError ||
+      emailError ||
+      genderError ||
+      dateBirthError
+    ) {
+      setStatus(Status.Error)
+    } else {
+      setStatus(Status.Ready)
+    }
+  }, [
+    firstName,
+    lastName,
+    secondLastName,
+    documentType,
+    documentNumber,
+    civilStatus,
+    phone,
+    email,
+    gender,
+    birthDate,
+  ])
 
   const onPassConfirmationClose = () => {
     setShouldConfirmPass(false)

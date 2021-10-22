@@ -30,11 +30,8 @@ const ConfirmPass: React.FC<ConfirmPassProps> = ({
   } = useAppContext() || {}
 
   const [status, setStatus] = React.useState<Status>(Status.Initial)
+  const [isInitial, setInitial] = React.useState(true)
   const disabled = status === Status.Loading || status === Status.Initial
-
-  React.useEffect(() => {
-    setStatus(Status.Ready)
-  }, [])
 
   const handleClose = (e?: React.SyntheticEvent<HTMLButtonElement>) => {
     e?.preventDefault()
@@ -51,14 +48,12 @@ const ConfirmPass: React.FC<ConfirmPassProps> = ({
     })
       .then(() => {
         onSuccess()
+        setStatus(Status.Initial)
         handleClose()
       })
       .catch((error) => {
         console.log({ error })
         onError()
-      })
-      .finally(() => {
-        setStatus(Status.Ready)
       })
   }
 
@@ -82,6 +77,16 @@ const ConfirmPass: React.FC<ConfirmPassProps> = ({
     handleOnChange,
     handleOnSubmit,
   } = useForm(stateSchema, stateValidatorSchema, onPasswordSubmit)
+
+  React.useEffect(() => {
+    if (isInitial) {
+      setInitial(false)
+    } else if (passwordError) {
+      setStatus(Status.Error)
+    } else {
+      setStatus(Status.Ready)
+    }
+  }, [password])
 
   return (
     <Modal size="mini" position="middle" bgColor="white" arcSite={undefined}>
