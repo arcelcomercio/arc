@@ -186,6 +186,14 @@ export const PremiumInt = ({ properties }) => {
           <button
             type="button"
             className="signwall-inside_body-close premium"
+            style={
+              activeRegisterwall && isCorreo
+                ? {
+                    top: -25,
+                    right: -25,
+                  }
+                : { backgroundColor: 'none' }
+            }
             onClick={() => {
               // modificado para comprobar eficacidad con el taggeo de valla correo
               Taggeo(
