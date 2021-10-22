@@ -42,7 +42,7 @@ export default ({
               href={link}>
               {shouldRenderPremiumTag ? (
                 <>
-                  {title}&nbsp;<span style={{ color: '#FFD333' }}>★</span>
+                  <span style={{ color: '#FFD333' }}>★</span>&nbsp;&nbsp;{title}
                 </>
               ) : (
                 title
