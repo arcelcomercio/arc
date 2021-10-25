@@ -15,6 +15,7 @@ const FormVerify = ({ onClose, tokenVerify, tokenMagicLink, typeDialog }) => {
     siteProperties: {
       signwall: { mainColorBr, mainColorBtn, primaryFont, mainColorLink },
       activePaywall,
+      siteUrl,
     },
   } = useAppContext() || {}
 
@@ -150,7 +151,8 @@ const FormVerify = ({ onClose, tokenVerify, tokenMagicLink, typeDialog }) => {
                   `Web_Sign_Wall_${typeDialog}`,
                   `web_sw${typeDialog[0]}_continuar_boton`
                 )
-                changeTemplate('login')
+                if (tokenMagicLink) window.location.href = `${siteUrl}/`
+                else changeTemplate('login')
               }}>
               CONTINUAR
             </button>
