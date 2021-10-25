@@ -6,6 +6,7 @@ import * as React from 'react'
 
 import { setCookie } from '../../../../../utilities/client/cookies'
 import { SITE_TROME } from '../../../../../utilities/constants/sitenames'
+import { extendSession } from '../../../../../utilities/subscriptions/identity'
 import { useModalContext } from '../../../../subscriptions/_context/modal'
 import getCodeError, {
   formatEmail,
@@ -36,6 +37,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
         mainColorBr,
         authProviders,
       },
+      activeMagicLink,
       activeRegisterwall,
       activeNewsletter,
       activeVerifyEmail,
@@ -99,19 +101,23 @@ const FormLogin = ({ valTemplate, attributes }) => {
   }
 
   const getListSubs = () =>
-    Identity.extendSession().then((resExt) => {
-      const checkEntitlement = getEntitlement(resExt.accessToken, arcSite)
-        .then((res) => {
-          if (res.skus) {
-            const result = Object.keys(res.skus).map((key) => res.skus[key].sku)
-            return result
-          }
-          return []
-        })
-        .catch((err) => window.console.error(err))
+    extendSession()
+      .then((response) => {
+        const checkEntitlement = getEntitlement(response.accessToken, arcSite)
+          .then((res) => {
+            if (res.skus) {
+              const result = Object.keys(res.skus).map(
+                (key) => res.skus[key].sku
+              )
+              return result
+            }
+            return []
+          })
+          .catch((err) => window.console.error(err))
 
-      return checkEntitlement
-    })
+        return checkEntitlement
+      })
+      .catch((error) => error)
 
   const handleSuscription = () => {
     if (typeDialog === 'premium') {
@@ -259,7 +265,11 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(lemail)
+    if (activeMagicLink) {
+      Identity.requestOTALink(lemail)
+    } else {
+      Identity.requestVerifyEmail(lemail)
+    }
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_login_reenviar_correo`,

@@ -1,4 +1,3 @@
-import Identity from '@arc-publishing/sdk-identity'
 import Sales from '@arc-publishing/sdk-sales'
 import * as Sentry from '@sentry/browser'
 import { useAppContext } from 'fusion:context'
@@ -9,6 +8,7 @@ import {
   SdkStatus,
   useSdksContext,
 } from '../../../../../contexts/subscriptions-sdks'
+import { extendSession } from '../../../../../utilities/subscriptions/identity'
 import FormIntro from '../../../../signwall/_children/forms/form_intro'
 import Loading from '../../../../signwall/_children/loading'
 import { useModalContext } from '../../../_context/modal'
@@ -24,33 +24,23 @@ const Subscription = (): JSX.Element => {
   const [showSubs, setShowSubs] = React.useState(false)
 
   const getListSubs = () => {
-    if (typeof window !== 'undefined') {
-      Identity.extendSession()
-        .then(() => {
-          Sales.getAllActiveSubscriptions()
-            .then((res) => {
-              if (Array.isArray(res) && res.length > 0) {
-                setShowSubs(true)
-              }
-              setShowLoading(false)
-            })
-            .catch((error) => {
-              Sentry.captureEvent({
-                message:
-                  'Error al obtener suscripciones activas - Sales.getAllActiveSubscriptions()',
-                level: Sentry.Severity.Error,
-                extra: error || {},
-              })
-            })
+    extendSession().then(() => {
+      Sales.getAllActiveSubscriptions()
+        .then((res) => {
+          if (Array.isArray(res) && res.length > 0) {
+            setShowSubs(true)
+          }
+          setShowLoading(false)
         })
         .catch((error) => {
           Sentry.captureEvent({
-            message: 'Error al extender la sesión - Identity.extendSession()',
+            message:
+              'Error al obtener suscripciones activas - Sales.getAllActiveSubscriptions()',
             level: Sentry.Severity.Error,
             extra: error || {},
           })
         })
-    }
+    })
   }
 
   React.useEffect(() => {

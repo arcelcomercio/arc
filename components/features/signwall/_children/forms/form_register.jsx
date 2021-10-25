@@ -9,6 +9,7 @@ import {
   SITE_ELCOMERCIO,
   SITE_GESTION,
 } from '../../../../utilities/constants/sitenames'
+import { extendSession } from '../../../../utilities/subscriptions/identity'
 import AuthFacebookGoogle from '../../../subscriptions/_children/auth-facebook-google'
 import { useModalContext } from '../../../subscriptions/_context/modal'
 import getCodeError, {
@@ -48,6 +49,7 @@ const FormRegister = ({
     arcSite,
     siteProperties: {
       signwall: { mainColorLink, mainColorBtn, mainColorBr, authProviders },
+      activeMagicLink,
       activeRegisterwall,
       activeNewsletter,
       activeVerifyEmail,
@@ -140,6 +142,10 @@ const FormRegister = ({
   const handleStopProfile = (profile) => {
     if (activeNewsletter && profile.accessToken) {
       handleNewsleters(profile)
+    }
+    if (activeMagicLink) {
+      // requestVerifyEmail se ejecuta automáticamente con el SignUp
+      Identity.requestOTALink(profile.profile.email)
     }
     setShowConfirm(true)
     setShowContinueVerify(true)
@@ -241,9 +247,7 @@ const FormRegister = ({
             type: 'String',
           },
         ],
-      },
-      { doLogin: true },
-      { rememberMe: true }
+      }
     )
       .then((resSignUp) => {
         if (activeVerifyEmail) {
@@ -271,7 +275,7 @@ const FormRegister = ({
   }
 
   const getListSubs = () =>
-    Identity.extendSession().then((resExt) => {
+    extendSession().then((resExt) => {
       const checkEntitlement = getEntitlement(resExt.accessToken, arcSite)
         .then((res) => {
           if (res.skus) {
@@ -341,7 +345,11 @@ const FormRegister = ({
   const sendVerifyEmail = (e) => {
     e.preventDefault()
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(remail)
+    if (activeMagicLink) {
+      Identity.requestOTALink(remail)
+    } else {
+      Identity.requestVerifyEmail(remail)
+    }
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_registro_reenviar_correo`,
@@ -368,7 +376,8 @@ const FormRegister = ({
       // checkar taggeo
       Taggeo(
         `Web_Sign_Wall_${typeDialog}`,
-        `web_sw${typeDialog[0]}_registro_success_registrarme`, arcSite
+        `web_sw${typeDialog[0]}_registro_success_registrarme`,
+        arcSite
       )
       onLogged()
     })
@@ -384,8 +393,9 @@ const FormRegister = ({
             <Loading typeBg="block" />
           ) : (
             <form
-              className={`signwall-inside_forms-form ${arcSite === 'trome' ? 'form-trome' : ''
-                } ${typeDialog}`}
+              className={`signwall-inside_forms-form ${
+                arcSite === 'trome' ? 'form-trome' : ''
+              } ${typeDialog}`}
               onSubmit={handleOnSubmit}>
               {!showConfirm && (
                 <>
@@ -412,7 +422,7 @@ const FormRegister = ({
                         arcSite={arcSite}
                         arcType="login"
                         activeNewsletter={activeNewsletter}
-                        showMsgVerify={() => { }}
+                        showMsgVerify={() => {}}
                       />
                     ) : (
                       <>
@@ -665,8 +675,9 @@ const FormRegister = ({
                         style={{ fontSize: '22px' }}
                         className="signwall-inside_forms-title center mb-10">
                         {showUserWithSubs
-                          ? `Bienvenido(a) ${Identity.userProfile.firstName || 'Usuario'
-                          }`
+                          ? `Bienvenido(a) ${
+                              Identity.userProfile.firstName || 'Usuario'
+                            }`
                           : 'Tu cuenta ha sido creada correctamente'}
                       </h4>
                     </>
@@ -705,10 +716,11 @@ const FormRegister = ({
                               onClick={() => {
                                 // modificado para el taggeo de diario correo por valla
                                 Taggeo(
-                                  `Web_${typeDialog}_${activeRegisterwall &&
+                                  `Web_${typeDialog}_${
+                                    activeRegisterwall &&
                                     typeDialog === 'premium'
-                                    ? 'Registro'
-                                    : 'Hard'
+                                      ? 'Registro'
+                                      : 'Hard'
                                   }`,
                                   `web_${typeDialog}_boton_sigue_navegando`
                                 )
@@ -794,7 +806,7 @@ const FormRegister = ({
                             if (typeDialog === 'newsletter' && btnSignwall) {
                               btnSignwall.textContent =
                                 arcSite === SITE_ELCOMERCIO ||
-                                  arcSite === SITE_GESTION
+                                arcSite === SITE_GESTION
                                   ? 'Bienvenido'
                                   : 'Mi Perfil'
                             }

@@ -164,7 +164,46 @@ function getUsernameInitials(username: string): string {
   return initials.slice(0, 2).join('').toUpperCase()
 }
 
+function extendSession(): Promise<typeof Identity.userIdentity> {
+  const notifyError = (error: any) => {
+    Sentry.captureEvent({
+      message: 'Error al extender la sesión - Identity.extendSession()',
+      level: Sentry.Severity.Error,
+      extra: error || {},
+    })
+  }
+
+  return new Promise((resolve, reject) => {
+    if (Identity.userIdentity?.refreshToken) {
+      Identity.extendSession()
+        .then((response) => {
+          if (isAPIErrorResponse(response)) {
+            notifyError(response)
+            reject(response)
+          } else {
+            resolve(response)
+          }
+        })
+        .catch((error) => {
+          notifyError(error)
+          reject(error)
+        })
+    } else if (!Identity.isLoggedIn()) {
+      window.location.href = '/signwall/?outputType=subscriptions&reloginHash=1'
+      const message = 'Usuario sin sesión activa. Redirigiendo a /signwall'
+      Sentry.captureEvent({
+        message,
+        level: Sentry.Severity.Info,
+      })
+      reject(new Error(message))
+    } else {
+      resolve(Identity.userIdentity)
+    }
+  })
+}
+
 export {
+  extendSession,
   formatUsername,
   getUserIdentity,
   getUsername,

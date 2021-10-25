@@ -4,6 +4,8 @@ import { useContent } from 'fusion:content'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
+import { extendSession } from '../../../utilities/subscriptions/identity'
+
 const SIGNER_CONTENT_SOURCE = 'fb-event-signer'
 
 const FbEventTag = React.memo(
@@ -72,7 +74,7 @@ export const LogIntoAccountEventTag = ({
   React.useEffect(() => {
     Identity.isLoggedIn().then((resLog) => {
       if (resLog) {
-        Identity.extendSession().then(({ accessToken: token }) => {
+        extendSession().then(({ accessToken: token }) => {
           setAccessToken(token)
         })
       }

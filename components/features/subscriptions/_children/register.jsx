@@ -156,14 +156,12 @@ const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
               type: 'String',
             },
           ],
-        },
-        { doLogin: true },
-        { rememberMe: true }
+        }
       )
         .then((resSignUp) => {
           setShowConfirm(true)
-
           setLoadText('Cargando Perfil...')
+          Identity.requestOTALink(resSignUp.profile.email)
           Identity.getUserProfile().then((resProfile) => {
             setLoadText('Cargando Servicios...')
             sendNewsLettersUser(
@@ -225,7 +223,7 @@ const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(remail)
+    Identity.requestOTALink(remail)
     Taggeo(nameTagCategory, `web_sw${typeDialog[0]}_registro_reenviar_correo`)
     let timeleft = 9
     const downloadTimer = setInterval(() => {
