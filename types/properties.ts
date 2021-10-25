@@ -154,6 +154,7 @@ export interface SiteProperties {
   paywall: Paywall
   social: Social
   linkTabloide: string
+  activeMagicLink: boolean
   activeSignwall: boolean
   activePaywall: boolean
   activeRegisterwall: boolean

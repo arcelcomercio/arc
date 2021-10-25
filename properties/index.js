@@ -135,6 +135,7 @@ export default {
       url: 'https://mag.elcomercio.pe/',
     },
   ],
+  activeMagicLink: false,
   activeSignwall: false,
   activePaywall: false,
   activeRegisterwall: false,

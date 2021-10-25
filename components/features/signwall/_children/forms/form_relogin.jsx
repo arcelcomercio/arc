@@ -22,6 +22,7 @@ const FormRelogin = ({ onClose, typeDialog }) => {
     arcSite,
     siteProperties: {
       signwall: { mainColorLink, mainColorBtn, authProviders },
+      activeMagicLink,
       activeNewsletter,
       activeVerifyEmail,
       activeDataTreatment,
@@ -120,7 +121,11 @@ const FormRelogin = ({ onClose, typeDialog }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    Identity.requestOTALink(remail)
+    if (activeMagicLink) {
+      Identity.requestOTALink(remail)
+    } else {
+      Identity.requestVerifyEmail(remail)
+    }
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_email_login_reenviar_correo`

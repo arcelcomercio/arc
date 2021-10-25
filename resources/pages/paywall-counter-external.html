@@ -96,7 +96,7 @@
               jwt: userInfo.accessToken || null,
               apiOrigin: api,
               customSubCheck: function() {
-                if (userInfo.accessToken) {
+                if (userInfo.accessToken && userInfo.refreshToken) {
                   return getListSubs(userInfo.refreshToken).then(p => {
                     const isLoggedInSubs = checkSession()
                     return {

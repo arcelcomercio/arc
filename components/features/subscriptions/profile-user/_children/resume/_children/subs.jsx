@@ -1,5 +1,4 @@
 import Sales from '@arc-publishing/sdk-sales'
-import * as Sentry from '@sentry/browser'
 import Consumer from 'fusion:consumer'
 import * as React from 'react'
 
@@ -39,18 +38,9 @@ class Subs extends React.Component {
 
   componentDidMount() {
     this._isMounted = true
-    extendSession({
-      onSuccess: () => {
-        this.checkSubscriptions()
-        this.getCampain()
-      },
-      onError: (error) => {
-        Sentry.captureEvent({
-          message: 'Error al extender la sesión - Identity.extendSession()',
-          level: Sentry.Severity.Error,
-          extra: error || {},
-        })
-      },
+    extendSession().then(() => {
+      this.checkSubscriptions()
+      this.getCampain()
     })
   }
 

@@ -11,6 +11,7 @@ import { ArcSite } from 'types/fusion'
 import { SiteProperties } from 'types/properties'
 import { CardsProviders } from 'types/subscriptions'
 
+import { extendSession } from '../../../../../../utilities/subscriptions/identity'
 import { ContMask } from '../../../../../signwall/_children/forms/control_input_select'
 import Loading from '../../../../../signwall/_children/loading'
 import {
@@ -156,7 +157,7 @@ const UpdateCard = ({
     })
 
     if (typeof window !== 'undefined') {
-      Identity.extendSession().then(() => {
+      extendSession().then(() => {
         Sales.getPaymentOptions().then((res) => {
           if (Array.isArray(res)) {
             const providerID = res[0].paymentMethodID

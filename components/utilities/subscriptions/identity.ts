@@ -147,39 +147,6 @@ async function getUsername(): Promise<string> {
   return username
 }
 
-function extendSession({
-  onSuccess,
-  onError,
-}: {
-  onSuccess: () => void
-  onError?: (error?: Error) => void
-}): void {
-  if (!Identity.isLoggedIn()) {
-    window.location.href = '/signwall/?outputType=subscriptions&reloginHash=1'
-  } else if (Identity.userIdentity.refreshToken) {
-    Identity.extendSession()
-      .then(() => {
-        onSuccess()
-      })
-      .catch((error) => {
-        Sentry.captureEvent({
-          message: 'Error al extender la sesión - Identity.extendSession()',
-          level: Sentry.Severity.Error,
-          extra: error || {},
-        })
-
-        if (onError) onError(error)
-      })
-  } else {
-    try {
-      onSuccess()
-    } catch (error) {
-      window.console.error(error)
-      if (onError) onError(error as Error)
-    }
-  }
-}
-
 /**
  * @param username Nombre del usuario completo
  * @returns La letra inicial de las primeras dos palabras
@@ -195,6 +162,44 @@ function getUsernameInitials(username: string): string {
   const names = username.split(' ')
   const initials = names.map((name) => name.charAt(0))
   return initials.slice(0, 2).join('').toUpperCase()
+}
+
+function extendSession(): Promise<typeof Identity.userIdentity> {
+  const notifyError = (error: any) => {
+    Sentry.captureEvent({
+      message: 'Error al extender la sesión - Identity.extendSession()',
+      level: Sentry.Severity.Error,
+      extra: error || {},
+    })
+  }
+
+  return new Promise((resolve, reject) => {
+    if (Identity.userIdentity?.refreshToken) {
+      Identity.extendSession()
+        .then((response) => {
+          if (isAPIErrorResponse(response)) {
+            notifyError(response)
+            reject(response)
+          } else {
+            resolve(response)
+          }
+        })
+        .catch((error) => {
+          notifyError(error)
+          reject(error)
+        })
+    } else if (!Identity.isLoggedIn()) {
+      window.location.href = '/signwall/?outputType=subscriptions&reloginHash=1'
+      const message = 'Usuario sin sesión activa. Redirigiendo a /signwall'
+      Sentry.captureEvent({
+        message,
+        level: Sentry.Severity.Info,
+      })
+      reject(new Error(message))
+    } else {
+      resolve(Identity.userIdentity)
+    }
+  })
 }
 
 export {
