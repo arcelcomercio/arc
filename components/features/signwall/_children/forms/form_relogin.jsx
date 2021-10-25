@@ -30,7 +30,9 @@ const FormRelogin = ({ onClose, typeDialog }) => {
   } = useAppContext() || {}
 
   const { changeTemplate } = useModalContext()
-  const [showError, setShowError] = React.useState(false)
+  const [showError, setShowError] = React.useState(
+    'Su sesión ha expirado. Por favor, inicie sesión nuevamente.'
+  )
   const [showLoading, setShowLoading] = React.useState(false)
   const [showVerify, setShowVerify] = React.useState()
   const [showSendEmail, setShowSendEmail] = React.useState(false)
