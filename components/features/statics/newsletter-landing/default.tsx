@@ -20,7 +20,8 @@ const classes = {
   nnContainer: 'newsletter--landing',
 }
 
-// src/websites/gestion/scss/lite-components/features/statics/_newsletter-section.scss
+// URL DE ESTILOS EN DEPOR
+// src/websites/depor/scss/lite-components/features/statics/_newsletter-landing.scss
 
 const NewsletterLanding: FC<FeatureProps> = () => (
   // const { customFields: { UrlTerminos, UrlPolitica, UrlMoreNews } = {} } = props
