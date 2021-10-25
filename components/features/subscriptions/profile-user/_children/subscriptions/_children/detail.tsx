@@ -261,7 +261,17 @@ const SubsDetail = ({ IdSubscription }: SubsDatailProps): JSX.Element => {
 
   const periodFormat = (to: number, from: number) => {
     if (to && from) {
-      return (to - from) / (1000 * 60 * 60 * 24) <= 31 ? 'Mensual' : 'Anual'
+      const daysPeriod = (to - from) / (1000 * 60 * 60 * 24)
+      switch (true) {
+        case daysPeriod >= 88 && daysPeriod <= 93:
+          return 'TRIMESTRAL'
+        case daysPeriod >= 178 && daysPeriod <= 186:
+          return 'SEMESTRAL'
+        case daysPeriod >= 358 && daysPeriod <= 372:
+          return 'ANUAL'
+        default:
+          return 'MENSUAL'
+      }
     }
     return '-'
   }
@@ -300,7 +310,7 @@ const SubsDetail = ({ IdSubscription }: SubsDatailProps): JSX.Element => {
               <small>DETALLE DE LA SUSCRIPCIÓN</small>
               <h2>{showResDetail?.productName}</h2>
               <p>
-                Plan Pago:
+                Plan Pago:{' '}
                 <strong>
                   {periodFormat(
                     showResDetail?.paymentHistory?.[0].periodTo || 0,

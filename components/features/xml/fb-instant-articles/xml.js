@@ -186,7 +186,10 @@ class XmlFacebookInstantArticles {
 
             let storyLink = ''
             let fiaContent = ''
-            if (storyData.fiaOrigen === true) {
+            if (
+              storyData.fiaOrigen === true &&
+              !/\/agenda-presidencial\//.test(storyData.websiteLink)
+            ) {
               if (
                 siteUrl === 'https://elcomercio.pe' &&
                 storyData.canonicalWebsite === 'elcomerciomag'
