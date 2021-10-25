@@ -102,7 +102,7 @@
     }
 
     &.size-mini {
-      width: 80%;
+      width: 90%;
       height: auto;
       padding: 20px;
     }
@@ -1247,7 +1247,7 @@
       font-family: inherit;
       font-weight: bold;
       line-height: 28px;
-      word-break: break-word;
+      word-break: break-all;
     }
     &-text {
       color: #444;
