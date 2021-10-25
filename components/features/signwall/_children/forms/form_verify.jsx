@@ -3,6 +3,7 @@ import { isAPIErrorResponse } from '@arc-publishing/sdk-identity/lib/serviceHelp
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
+import { originByEnv } from '../../../../utilities/arc/env'
 import { useModalContext } from '../../../subscriptions/_context/modal'
 import getCodeError from '../../../subscriptions/_dependencies/Errors'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
@@ -15,7 +16,6 @@ const FormVerify = ({ onClose, tokenVerify, tokenMagicLink, typeDialog }) => {
     siteProperties: {
       signwall: { mainColorBr, mainColorBtn, primaryFont, mainColorLink },
       activePaywall,
-      siteUrl,
     },
   } = useAppContext() || {}
 
@@ -151,7 +151,7 @@ const FormVerify = ({ onClose, tokenVerify, tokenMagicLink, typeDialog }) => {
                   `Web_Sign_Wall_${typeDialog}`,
                   `web_sw${typeDialog[0]}_continuar_boton`
                 )
-                if (tokenMagicLink) window.location.href = `${siteUrl}/`
+                if (tokenMagicLink) window.location.href = originByEnv(arcSite)
                 else changeTemplate('login')
               }}>
               CONTINUAR
