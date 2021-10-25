@@ -599,9 +599,7 @@ const FormRegister = ({
                     }}
                     className="signwall-inside_forms-title center mb-10">
                     {showUserWithSubs
-                      ? `Bienvenido(a) ${
-                          Identity.userProfile.firstName || 'Usuario'
-                        }`
+                      ? `Bienvenido(a) ${Identity.userProfile.firstName || ''}`
                       : 'Tu cuenta ha sido creada correctamente'}
                   </h4>
 
