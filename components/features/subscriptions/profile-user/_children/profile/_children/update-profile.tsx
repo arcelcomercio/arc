@@ -291,6 +291,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
     },
     handleOnChange,
     handleOnSubmit,
+    disable,
   } = useForm<ProfileWithAttributes>(
     stateSchema,
     stateValidatorSchema,
@@ -341,6 +342,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
             ? 'Sus datos han sido actualizados correctamente'
             : undefined
         }
+        disabled={disable}
         status={status}>
         <div className="row three">
           <div className={styles.group}>
