@@ -5,6 +5,7 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
 import { SdksProvider } from '../../../contexts/subscriptions-sdks'
+import { extendSession } from '../../../utilities/subscriptions/identity'
 import Loading from '../../signwall/_children/loading'
 import {
   getNewsLetters,
@@ -83,7 +84,7 @@ class NewslettersSubscription extends Component {
     const UUID = Identity.userIdentity.uuid
     const EMAIL = Identity.userProfile.email
 
-    Identity.extendSession().then((extSess) => {
+    extendSession().then((extSess) => {
       sendNewsLettersUser(UUID, EMAIL, arcSite, extSess.accessToken, [
         ...selectCategories,
       ])

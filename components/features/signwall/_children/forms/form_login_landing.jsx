@@ -25,6 +25,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
     arcSite,
     siteProperties: {
       signwall: { mainColorLink, authProviders },
+      activeMagicLink,
       activeNewsletter,
       activeDataTreatment,
       activeAuthSocialNative,
@@ -138,7 +139,11 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(lemail)
+    if (activeMagicLink) {
+      Identity.requestOTALink(lemail)
+    } else {
+      Identity.requestVerifyEmail(lemail)
+    }
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_login_reenviar_correo`

@@ -9,12 +9,13 @@ import { Taggeo } from '../../../../subscriptions/_dependencies/Taggeo'
 import { MsgResetPass } from '../../icons'
 import Loading from '../../loading'
 
-const FormVerify = ({ onClose, tokenVerify, tokenOTA, typeDialog }) => {
+const FormVerify = ({ onClose, tokenVerify, tokenMagicLink, typeDialog }) => {
   const {
     // arcSite,
     siteProperties: {
       signwall: { mainColorBr, mainColorBtn, primaryFont, mainColorLink },
       activePaywall,
+      siteUrl,
     },
   } = useAppContext() || {}
 
@@ -25,10 +26,12 @@ const FormVerify = ({ onClose, tokenVerify, tokenOTA, typeDialog }) => {
   const [showBtnContinue, setShowBtnContinue] = React.useState(false)
 
   React.useEffect(() => {
-    Identity.verifyEmail(tokenVerify)
-      .then((verifyResponse) => {
-        if (isAPIErrorResponse(verifyResponse)) {
-          const error = `Error al verificar email: ${verifyResponse.message} - ${verifyResponse.code}`
+    Identity[tokenMagicLink ? 'redeemOTALink' : 'verifyEmail'](
+      tokenMagicLink || tokenVerify
+    )
+      .then((response) => {
+        if (isAPIErrorResponse(response)) {
+          const error = `Error al iniciar sesión: ${response.message} - ${response.code}`
           setShowError(error)
           Taggeo(
             `Web_Sign_Wall_${typeDialog}`,
@@ -42,21 +45,7 @@ const FormVerify = ({ onClose, tokenVerify, tokenOTA, typeDialog }) => {
           `Web_Sign_Wall_${typeDialog}`,
           `web_sw${typeDialog[0]}_aceptar_sucess`
         )
-
-        if (tokenOTA) {
-          Identity.redeemOTALink(tokenOTA).then((OTAResponse) => {
-            if (isAPIErrorResponse(OTAResponse)) {
-              const error = `Error al iniciar sesión: ${OTAResponse.message} - ${OTAResponse.code}`
-              setShowError(error)
-              Taggeo(
-                `Web_Sign_Wall_${typeDialog}`,
-                `web_sw${typeDialog[0]}_aceptar_error`
-              )
-              throw new Error(error)
-            }
-            Identity.getUserProfile()
-          })
-        }
+        Identity.getUserProfile()
       })
       .catch((errLogin) => {
         setShowError(getCodeError(errLogin.code))
@@ -135,7 +124,8 @@ const FormVerify = ({ onClose, tokenVerify, tokenOTA, typeDialog }) => {
                   `Web_Sign_Wall_${typeDialog}`,
                   `web_sw${typeDialog[0]}_continuar_boton`
                 )
-                changeTemplate('login')
+                if (tokenMagicLink) window.location.href = `${siteUrl}/`
+                else changeTemplate('login')
               }}>
               Continuar
             </button>

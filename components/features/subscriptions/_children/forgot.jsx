@@ -92,7 +92,7 @@ const Forgot = ({ typeDialog }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(femail)
+    Identity.requestOTALink(femail)
     Taggeo(nameTagCategory, `web_sw${typeDialog[0]}_contrasena_reenviar_correo`)
     let timeleft = 9
     const downloadTimer = setInterval(() => {
