@@ -34,7 +34,7 @@ const NewsletterLanding: FC<FeatureProps> = () => (
 )
 
 NewsletterLanding.static = true
-NewsletterLanding.label = 'Newsletter - landing'
+NewsletterLanding.label = 'Newsletter - Landing'
 
 // NewsletterLanding.propTypes = {
 //   customFields: PropTypes.shape({
