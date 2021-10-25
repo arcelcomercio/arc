@@ -9,7 +9,7 @@ import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import { MsgResetPass } from '../icons'
 import Loading from '../loading'
 
-const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
+const FormVerify = ({ onClose, tokenVerify, tokenMagicLink, typeDialog }) => {
   const {
     arcSite,
     siteProperties: {
@@ -27,10 +27,12 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
   const [showBtnContinue, setShowBtnContinue] = React.useState(false)
 
   React.useEffect(() => {
-    Identity.redeemOTALink(tokenVerify)
-      .then((OTAResponse) => {
-        if (isAPIErrorResponse(OTAResponse)) {
-          const error = `Error al iniciar sesión: ${OTAResponse.message} - ${OTAResponse.code}`
+    Identity[tokenMagicLink ? 'redeemOTALink' : 'verifyEmail'](
+      tokenMagicLink || tokenVerify
+    )
+      .then((response) => {
+        if (isAPIErrorResponse(response)) {
+          const error = `Error al iniciar sesión: ${response.message} - ${response.code}`
           setShowError(error)
           Taggeo(
             `Web_Sign_Wall_${typeDialog}`,
