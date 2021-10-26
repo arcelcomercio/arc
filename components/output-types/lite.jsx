@@ -254,6 +254,11 @@ const LiteOutput = ({
       }
     }
   }
+
+  if (metaValue('section_style') === 'story-v2-standard') {
+    inlineStyleUrl = `resources/dist/elcomercio/css/story-v2-standard.css`
+    styleUrl = ''
+  }
   /** */
 
   let lang = 'es'
@@ -352,7 +357,12 @@ const LiteOutput = ({
              *
              * https://web.dev/preconnect-and-dns-prefetch/
              */}
-            {isStory && <Preload arcSite={arcSite} />}
+            {isStory && (
+              <Preload
+                arcSite={arcSite}
+                sectionStyle={metaValue('section_style')}
+              />
+            )}
             <link
               rel="preconnect"
               href={`//cdnc.${siteProperties.siteDomain}`}
@@ -831,7 +841,7 @@ const LiteOutput = ({
               .slice(0, 10)}`}
           />
         )}
-        {isStory && (
+        {isStory && styleUrl && (
           <>
             {arcSite === SITE_ELBOCON ? (
               <>
