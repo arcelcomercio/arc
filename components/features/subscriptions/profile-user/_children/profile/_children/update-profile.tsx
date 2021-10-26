@@ -246,7 +246,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
       onError: (error: Record<string, string>) => {
         const { code } = error || {}
         setStatus(Status.Ready)
-        if (code === '100018') {
+        if (code === '100018' || code === '300040') {
           setShouldConfirmPass(true)
         } else if (code === '3001001') {
           const message: string = getCodeError(code)
