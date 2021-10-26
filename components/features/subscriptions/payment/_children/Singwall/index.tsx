@@ -50,7 +50,7 @@ const renderTemplate = (
         typeDialog={typeDialog}
       />
     ),
-    forgot: <Forgot typeDialog={typeDialog} />,
+    forgot: <Forgot typeDialog={typeDialog} arcSite={arcSite} />,
   }
   return templates[template] || templates.login
 }
