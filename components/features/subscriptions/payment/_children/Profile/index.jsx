@@ -441,7 +441,7 @@ const Profile = () => {
             updateStep(3)
           })
           .catch((err) => {
-            if (err.code === '100018') {
+            if (err.code === '100018' || err.code === '300040') {
               const currentProfile = Identity.userProfile
               const newProfile = Object.assign(currentProfile, profile)
               setLocaleStorage('ArcId.USER_PROFILE', newProfile)
