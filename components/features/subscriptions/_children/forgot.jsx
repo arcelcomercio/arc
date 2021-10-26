@@ -47,7 +47,8 @@ const Forgot = ({ typeDialog, arcSite }) => {
     if (typeof window !== 'undefined') {
       Taggeo(
         nameTagCategory,
-        `web_sw${typeDialog[0]}_contrasena_boton_recuperar`
+        `web_sw${typeDialog[0]}_contrasena_boton_recuperar`,
+        arcSite
       )
       setLoading(true)
       Identity.requestResetPassword(femail)
@@ -55,7 +56,8 @@ const Forgot = ({ typeDialog, arcSite }) => {
           setShowConfirm(true)
           Taggeo(
             nameTagCategory,
-            `web_sw${typeDialog[0]}_contrasena_success_boton`
+            `web_sw${typeDialog[0]}_contrasena_success_boton`,
+            arcSite
           )
         })
         .catch((err) => {
@@ -66,13 +68,15 @@ const Forgot = ({ typeDialog, arcSite }) => {
             setMsgError(getCodeError('verifyReset'))
             Taggeo(
               nameTagCategory,
-              `web_sw${typeDialog[0]}_contrasena_show_reenviar_correo`
+              `web_sw${typeDialog[0]}_contrasena_show_reenviar_correo`,
+              arcSite
             )
           } else {
             setMsgError(getCodeError(err.code))
             Taggeo(
               nameTagCategory,
-              `web_sw${typeDialog[0]}_contrasena_error_boton`
+              `web_sw${typeDialog[0]}_contrasena_error_boton`,
+              arcSite
             )
           }
         })
@@ -99,7 +103,11 @@ const Forgot = ({ typeDialog, arcSite }) => {
     } else {
       Identity.requestVerifyEmail(femail)
     }
-    Taggeo(nameTagCategory, `web_sw${typeDialog[0]}_contrasena_reenviar_correo`)
+    Taggeo(
+      nameTagCategory,
+      `web_sw${typeDialog[0]}_contrasena_reenviar_correo`,
+      arcSite
+    )
     let timeleft = 9
     const downloadTimer = setInterval(() => {
       if (timeleft <= 0) {
@@ -192,7 +200,8 @@ const Forgot = ({ typeDialog, arcSite }) => {
                   changeTemplate('login')
                   Taggeo(
                     nameTagCategory,
-                    `web_sw${typeDialog[0]}_contrasena_link_volver`
+                    `web_sw${typeDialog[0]}_contrasena_link_volver`,
+                    arcSite
                   )
                 }}>
                 Inciar Sesión
@@ -213,7 +222,8 @@ const Forgot = ({ typeDialog, arcSite }) => {
                 changeTemplate('login', femail)
                 Taggeo(
                   nameTagCategory,
-                  `web_sw${typeDialog[0]}_contrasena_boton_aceptar`
+                  `web_sw${typeDialog[0]}_contrasena_boton_aceptar`,
+                  arcSite
                 )
               }}>
               Aceptar
