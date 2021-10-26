@@ -12,7 +12,6 @@ import * as React from 'react'
 import StoryGoogleNews from '../../../global-components/google-news'
 import StoryContentChildTable from '../../../global-components/story-table'
 import { env, originByEnv } from '../../../utilities/arc/env'
-import { getAssetsPath } from '../../../utilities/assets'
 import { METERED } from '../../../utilities/constants/content-tiers'
 import {
   ELEMENT_BLOCKQUOTE,
@@ -196,10 +195,7 @@ class StoryContentAmp extends React.PureComponent {
 
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
+      'https://elcomercio.pe/resizer/Y9rKZd1sqJPCAxhHUsbA4lixQJo=/740x0/smart/filters:format(png):quality(100)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/BSK5BMFDTBCMDDJNDOI45PWN3U.png'
 
     const processedAdsAmp = (content) => {
       const res = content.split('<div class="live-event2-comment">')
@@ -621,8 +617,8 @@ class StoryContentAmp extends React.PureComponent {
                 <amp-img
                   alt="BBC"
                   layout="responsive"
-                  width="500"
-                  height="30"
+                  width="560"
+                  height="34"
                   src={imgBbc}
                   data-src={imgBbc}
                 />

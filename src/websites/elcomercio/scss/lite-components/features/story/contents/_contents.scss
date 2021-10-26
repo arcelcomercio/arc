@@ -314,6 +314,15 @@
   }
 }
 
+.banner-bbc-footer {
+  display: block;
+  overflow: hidden;
+  img {
+    width: auto;
+    height: 42px;
+  }
+}
+
 .story-content {
   &__embed {
     padding-bottom: 20px;

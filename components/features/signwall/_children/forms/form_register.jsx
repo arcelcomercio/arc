@@ -637,7 +637,7 @@ const FormRegister = ({
 
                       <h4
                         style={{ fontSize: '22px' }}
-                        className="signwall-inside_forms-title center mb-10 word-break">
+                        className="signwall-inside_forms-title center mb-10">
                         {showUserWithSubs
                           ? `Bienvenido(a) ${
                               Identity.userProfile.firstName || 'Usuario'

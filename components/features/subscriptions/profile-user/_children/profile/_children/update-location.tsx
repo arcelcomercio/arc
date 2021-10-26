@@ -46,7 +46,9 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
   const [errorMessage, setErrorMessage] = React.useState('')
   const [hasSuccessMessage, setHasSuccessMessage] = React.useState(false)
   const [shouldConfirmPass, setShouldConfirmPass] = React.useState(false)
-  const disabled = status === Status.Loading || status === Status.Initial
+  const [disabled, setDisabled] = React.useState(true)
+
+  const isLoading = status === Status.Loading || status === Status.Initial
 
   React.useEffect(() => {
     setStatus(Status.Ready)
@@ -103,6 +105,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setStatus(Status.Loading)
+    setDisabled(true)
     const formData = new FormData(e.currentTarget)
     const fieldValues = Object.fromEntries(formData.entries()) as Record<
       LocationAttributes,
@@ -165,7 +168,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
         onError: (error: Record<string, string>) => {
           const { code } = error || {}
           setStatus(Status.Ready)
-          if (code === '100018') {
+          if (code === '100018' || code === '300040') {
             setShouldConfirmPass(true)
           } else if (code === '3001001') {
             const message: string = getCodeError(code)
@@ -228,6 +231,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
     }
 
     if (name !== 'district') setUbigeo(value, name as Areas)
+    if (disabled) setDisabled(false)
   }
 
   const onPassConfirmationSuccess = () => {}
@@ -265,7 +269,8 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
           hasSuccessMessage
             ? 'Sus datos han sido actualizados correctamente'
             : undefined
-        }>
+        }
+        disabled={disabled}>
         <div className="row three">
           <div className={styles.group}>
             <select
@@ -274,7 +279,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
               name="country"
               value={location.country || 'default'}
               onChange={handleOnChange}
-              disabled={!email || disabled}>
+              disabled={!email || isLoading}>
               <option value="default">Seleccione</option>
               <option value="260000">Perú</option>
             </select>
@@ -289,7 +294,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
               name="department"
               value={location.department || 'default'}
               onChange={handleOnChange}
-              disabled={(!email && !departments) || disabled}>
+              disabled={(!email && !departments) || isLoading}>
               <option value="default">Seleccione</option>
               {departments
                 ? departments.map(([code, name]) => (
@@ -310,7 +315,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
               name="province"
               value={location.province || 'default'}
               onChange={handleOnChange}
-              disabled={(!email && !provinces) || disabled}>
+              disabled={(!email && !provinces) || isLoading}>
               <option value="default">Seleccione</option>
               {provinces
                 ? provinces.map(([code, name]) => (
@@ -333,7 +338,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
               name="district"
               value={location.district || 'default'}
               onChange={handleOnChange}
-              disabled={(!email && !districts) || disabled}>
+              disabled={(!email && !districts) || isLoading}>
               <option value="default">Seleccione</option>
               {districts
                 ? districts.map(([code, name]) => (

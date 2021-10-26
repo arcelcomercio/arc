@@ -9,6 +9,7 @@ import { UserDocumentType } from 'types/subscriptions'
 import { Nullable } from 'types/utils'
 
 import { UpdateUserProfile } from '../../../../../../hooks/useProfile'
+import { reduceWord } from '../../../../../../utilities/parse/strings'
 import getCodeError, {
   formatDate,
   formatEmail,
@@ -233,9 +234,8 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
 
         const textProfile = document.getElementById('name-user-profile')
         if (textProfile) {
-          textProfile.textContent = `Hola ${
-            updatedProfile.firstName ? updatedProfile.firstName : 'Usuario'
-          }`
+          const name = reduceWord(updatedProfile?.firstName || 'Usuario', 17)
+          textProfile.textContent = `Hola ${name}`
         }
         window.scrollTo(0, 0)
 
@@ -246,7 +246,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
       onError: (error: Record<string, string>) => {
         const { code } = error || {}
         setStatus(Status.Ready)
-        if (code === '100018') {
+        if (code === '100018' || code === '300040') {
           setShouldConfirmPass(true)
         } else if (code === '3001001') {
           const message: string = getCodeError(code)
@@ -291,6 +291,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
     },
     handleOnChange,
     handleOnSubmit,
+    disable,
   } = useForm<ProfileWithAttributes>(
     stateSchema,
     stateValidatorSchema,
@@ -341,6 +342,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
             ? 'Sus datos han sido actualizados correctamente'
             : undefined
         }
+        disabled={disable}
         status={status}>
         <div className="row three">
           <div className={styles.group}>
