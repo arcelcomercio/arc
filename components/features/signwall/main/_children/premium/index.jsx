@@ -14,9 +14,9 @@ import {
   useModalContext,
 } from '../../../../subscriptions/_context/modal'
 import { Taggeo } from '../../../../subscriptions/_dependencies/Taggeo'
-import { Close } from '../../../_children/icons'
+import { Close, CloseCircle } from '../../../_children/icons'
 import { Modal } from '../../../_children/modal/index'
-import { PremiumFree } from './_children/free'
+// import { PremiumFree } from './_children/free'
 import { PremiumPayment } from './_children/payment'
 
 const FormIntro = React.lazy(() =>
@@ -106,10 +106,7 @@ export const PremiumInt = ({ properties }) => {
   const { typeDialog, onClose } = properties
   const {
     arcSite,
-    siteProperties: {
-      activeRegisterwall,
-      signwall: { mainColorBtn },
-    },
+    siteProperties: { activeRegisterwall },
   } = useAppContext() || {}
 
   const { selectedTemplate, valTemplate } = useModalContext()
@@ -155,33 +152,48 @@ export const PremiumInt = ({ properties }) => {
     // removeEventListener('beforeunload', handleLeavePage)
   }
 
+  const isCorreo = arcSite === SITE_DIARIOCORREO
+  const isGestion = arcSite === SITE_GESTION
+
+  let bgRightSite = '#f4f4f4'
+  if (isGestion) {
+    bgRightSite = '#fff6f0'
+  } else if (isCorreo) {
+    bgRightSite = 'white'
+  }
+
   return (
     <Modal
-      size={resizeModal}
+      size={isCorreo ? 'mini' : resizeModal}
       position="bottom"
-      bgColor={arcSite === 'gestion' ? 'black' : 'white'}>
-      <div className="signwall-inside_body-container premium">
-        {activeRegisterwall && arcSite === SITE_DIARIOCORREO ? (
-          <PremiumFree />
-        ) : (
+      margin={isCorreo ? '0px 0px 10px' : ''}
+      padding={isCorreo ? '0px' : ''}
+      noOverflow={isCorreo}
+      bgColor={isGestion ? 'black' : 'white'}>
+      <div
+        className="signwall-inside_body-container premium"
+        style={{ border: isCorreo ? '2px red solid' : 'none' }}>
+        {activeRegisterwall && isCorreo ? null : (
           <PremiumPayment name={name} feature={feature} />
         )}
         <div
           className={`signwall-inside_body-right premium ${
-            arcSite === SITE_DIARIOCORREO && 'register'
+            isCorreo && 'register'
           }`}
           style={{
-            backgroundColor: arcSite === 'gestion' ? '#fff6f0' : '#f4f4f4',
+            backgroundColor: bgRightSite,
           }}>
           <button
             type="button"
             className="signwall-inside_body-close premium"
-            style={{
-              backgroundColor:
-                activeRegisterwall && arcSite === SITE_DIARIOCORREO
-                  ? mainColorBtn
-                  : 'none',
-            }}
+            style={
+              activeRegisterwall && isCorreo
+                ? {
+                    top: -25,
+                    right: -25,
+                  }
+                : { backgroundColor: 'none' }
+            }
             onClick={() => {
               // modificado para comprobar eficacidad con el taggeo de valla correo
               Taggeo(
@@ -199,11 +211,7 @@ export const PremiumInt = ({ properties }) => {
                 onClose()
               }
             }}>
-            {activeRegisterwall && arcSite === SITE_DIARIOCORREO ? (
-              <Close color="#fff" />
-            ) : (
-              <Close />
-            )}
+            {arcSite === SITE_DIARIOCORREO ? <CloseCircle /> : <Close />}
           </button>
           {renderTemplate(selectedTemplate, valTemplate, {
             removeBefore,

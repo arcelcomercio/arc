@@ -348,7 +348,6 @@ const FormLogin = ({ valTemplate, attributes }) => {
               />
             )}
 
-
             {showLoginEmail && (
               <>
                 {showError && (
@@ -552,10 +551,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
               <h4
                 style={{ fontSize: '22px' }}
-                className="signwall-inside_forms-title center mb-10 word-break">
-                {`Bienvenido(a) ${
-                  Identity.userProfile.firstName || 'Usuario'
-                } `}
+                className="signwall-inside_forms-title center mb-10">
+                {`Bienvenido(a) ${Identity.userProfile.firstName || ''} `}
               </h4>
               <p
                 style={{
