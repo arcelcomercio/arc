@@ -9,7 +9,6 @@ import Ads from '../../../global-components/ads'
 import Image from '../../../global-components/image'
 import LiteYoutube from '../../../global-components/lite-youtube'
 import StoryContentsChildTable from '../../../global-components/story-table'
-import { getAssetsPath } from '../../../utilities/assets'
 import {
   ELEMENT_BLOCKQUOTE,
   ELEMENT_CUSTOM_EMBED,
@@ -162,10 +161,7 @@ class StoryContents extends React.PureComponent {
 
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
+      'https://cdna.elcomercio.pe/resources/dist/elcomercio/images/bbc-footer.png'
 
     const { basic_gallery: basicGallery = {} } = promoItems
 
@@ -651,8 +647,14 @@ class StoryContents extends React.PureComponent {
                 itemProp="url"
                 href={URL_BBC}
                 rel="nofollow noopener noreferrer"
-                target="_blank">
-                <img alt="BBC" src={imgBbc} data-src={imgBbc} />
+                target="_blank"
+                className="banner-bbc-footer">
+                <img
+                  className="lazy"
+                  alt="BBC"
+                  src={`data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${740} ${22}"%3E%3C/svg%3E`}
+                  data-src={imgBbc}
+                />
               </a>
             </div>
           )}
