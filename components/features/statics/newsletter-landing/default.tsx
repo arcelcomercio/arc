@@ -9,6 +9,7 @@ import { FC } from 'types/features'
 // import { getAssetsPath } from '../../../utilities/assets'
 /**
  * @see estilos `src/websites/depor/scss/lite-components/features/statics/_newsletter-landing.scss`
+ *@import "../lite-components/features/statics/newsletter-landing"
  */
 
 interface FeatureProps {
@@ -29,6 +30,7 @@ const classes = {
   nnCont2: 'newsletter--landing__container2',
 
   nnSecCont: 'newsletter--landing__container2__sec-container',
+  nnMarginL10: 'newsletter--landing__container2__sec-container__marginl10',
   nnBox2: 'newsletter--landing__container2__sec-container__box2',
   nnLeftSvg: 'newsletter--landing__container2__sec-container__box2__left-svg',
   nnRightSvg: 'newsletter--landing__container2__sec-container__box2__right-svg',
@@ -71,7 +73,7 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
       <div className={classes.nnContainer}>
         <div className={classes.nnCont1}>
           <div className={classes.nnBox1}>
-            <div className={classes.nnTitle}>Boletìn eletrònico</div>
+            <div className={classes.nnTitle}>Boletín eletrónico</div>
             <div className={classes.nnLogo}>
               <svg
                 width="30px"
@@ -92,8 +94,8 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
             </div>
           </div>
           <div className={classes.nnText}>
-            Selecciona los newsletters que te interesan y recibe la informaciòn
-            en tu correo electronico
+            Selecciona los newsletters que te interesan y recibe la información
+            en tu correo electrónico
           </div>
         </div>
         <div className={classes.nnCont2}>
@@ -171,14 +173,14 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
                 <div className={classes.nnSubTitle1}>GENERAL</div>
               </div>
               <div className={classes.nnSecText}>
-                La informaciòn mas relevante del futbol nacional, internacional.
-                La liga 1, la Selecciòn Peruana, los peruanos en el mundo,
+                La información mas relevante del futbol nacional, internacional.
+                La liga 1, la Selección Peruana, los peruanos en el mundo,
                 LaLiga de España y mucho màs.
               </div>
             </div>
           </div>
           <div className={classes.nnSecCont}>
-            <div className={classes.nnBox2}>
+            <div className={`${classes.nnBox2} ${classes.nnMarginL10}`}>
               <div className={classes.nnRightSvg}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -274,9 +276,9 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
                 </div>
               </div>
               <div className={classes.nnSecText}>
-                Data exclusiva y corroborada del fùtbol peruano e internacional.
-                Ten la mejor informacion sobre el equipo de tus amores, como el
-                balompiè en el mundo.
+                Data exclusiva y corroborada del fútbol peruano e internacional.
+                Ten la mejor información sobre el equipo de tus amores, como el
+                balompié en el mundo.
               </div>
             </div>
           </div>
