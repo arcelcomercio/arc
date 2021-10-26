@@ -214,7 +214,12 @@ function useForm<TValues extends StateValues = StateValues>(
       // Making sure that there's no error in the state
       // before calling the submit callback function
       if (!validateErrorState()) {
-        submitFormCallback(fieldValues as TValues)
+        try {
+          setDisable(true)
+          submitFormCallback(fieldValues as TValues)
+        } catch {
+          setDisable(false)
+        }
       }
     },
     [validateErrorState, submitFormCallback, values]

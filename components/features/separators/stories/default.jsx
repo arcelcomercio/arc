@@ -74,6 +74,7 @@ const SeparatorStories = (props) => {
    * @property {string} author
    * @property {string} authorLink
    * @property {string} imageUrl
+   * @property {boolean} isPremium
    */
   /**
    * @type {Array<StoriesSeparatorStory>}
@@ -88,8 +89,8 @@ const SeparatorStories = (props) => {
       author,
       authorLink,
       imageUrl,
+      isPremium,
     } = storyData
-
     return {
       id,
       title,
@@ -98,6 +99,7 @@ const SeparatorStories = (props) => {
       multimediaType,
       author,
       authorLink,
+      isPremium,
     }
   })
 

@@ -637,7 +637,9 @@ export default ({
           arcSite={arcSite}
           subtype={subtype}
         />
-        {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
+        {(!(metaValue('exclude_libs') === 'true') || isAdmin || isPremium) && (
+          <Libs />
+        )}
         {/* <!-- Paywall - Inicio --> */}
         {(() => {
           if (
@@ -742,7 +744,9 @@ export default ({
         <div id="fusion-app" role="application">
           {children}
         </div>
-        {(!(metaValue('exclude_fusion') === 'true') || isAdmin) && <Fusion />}
+        {(!(metaValue('exclude_fusion') === 'true') ||
+          isAdmin ||
+          isPremium) && <Fusion />}
         {isStory && (
           <script
             type="text/javascript"

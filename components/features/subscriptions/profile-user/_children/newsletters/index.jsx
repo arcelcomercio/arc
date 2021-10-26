@@ -4,6 +4,7 @@ import Identity from '@arc-publishing/sdk-identity'
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
+import { extendSession } from '../../../../../utilities/subscriptions/identity'
 import Loading from '../../../../signwall/_children/loading'
 import {
   getNewsLetters,
@@ -105,7 +106,7 @@ class NewsLetter extends Component {
     const UUID = Identity.userIdentity.uuid
     const EMAIL = Identity.userProfile.email
 
-    Identity.extendSession().then((extSess) => {
+    extendSession().then((extSess) => {
       sendNewsLettersUser(UUID, EMAIL, arcSite, extSess.accessToken, [
         ...selectCategories,
       ])
