@@ -28,9 +28,8 @@ const MediaJWplayer = (): JSX.Element => {
     title: decodeURIComponent("${globalContent?.title}"),
     recommendations :"https://cdn.jwplayer.com/v2/media/${globalContent?.mediaId}",
     image: "${imagenJwplayer}",
-    }]
-    
-  });  
+    }]});
+    jwplayer().on('ready', function () { ns_.StreamingAnalytics.JWPlayer(jwplayer(), { publisherId: "8429002"  }); });
   `
   return (
     <>
