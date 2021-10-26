@@ -270,6 +270,10 @@ $min-with-header: 961px;
       letter-spacing: 0;
       text-transform: uppercase;
       opacity: 1;
+
+      &.active {
+        color: #ff8303;
+      }
     }
     @media (--only-mobile) {
       font-size: 16px;
@@ -295,6 +299,7 @@ $min-with-header: 961px;
         display: initial !important;
         padding-right: 0;
         padding-left: 16px;
+        margin-top: 0;
       }
     }
     @media (--only-mobile) {
@@ -421,6 +426,10 @@ $min-with-header: 961px;
     background: #f5f5f5;
     position: absolute;
     top: 70px;
+
+    @media (--only-mobile) {
+      display: none;
+    }
   }
   &__buscador {
     background: #fff;
