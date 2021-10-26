@@ -208,7 +208,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
       firstName: profileValues?.firstName || null,
       lastName: profileValues?.lastName || null,
       secondLastName: profileValues?.secondLastName || null,
-      email: profileValues?.email,
+      email: userProfile?.email,
       birthDay: day || null,
       birthMonth: month || null,
       birthYear: year || null,

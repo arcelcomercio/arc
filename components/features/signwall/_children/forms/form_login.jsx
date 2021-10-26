@@ -6,6 +6,7 @@ import * as React from 'react'
 
 import { setCookie } from '../../../../utilities/client/cookies'
 import { SITE_TROME } from '../../../../utilities/constants/sitenames'
+import { extendSession } from '../../../../utilities/subscriptions/identity'
 import { useModalContext } from '../../../subscriptions/_context/modal'
 import getCodeError, {
   formatEmail,
@@ -36,6 +37,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
         mainColorBr,
         authProviders,
       },
+      activeMagicLink,
       activeRegisterwall,
       activeNewsletter,
       activeVerifyEmail,
@@ -53,7 +55,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
   const isTromeOrganic =
     arcSite === SITE_TROME &&
-    (typeDialog === 'organico' || typeDialog === 'verify')
+    (typeDialog === 'organico' ||
+      typeDialog === 'verify' ||
+      typeDialog === 'magiclink')
 
   const { changeTemplate } = useModalContext()
   const [showLoginEmail, setShowLoginEmail] = React.useState(
@@ -103,7 +107,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
   }
 
   const getListSubs = () =>
-    Identity.extendSession().then((resExt) => {
+    extendSession().then((resExt) => {
       const checkEntitlement = getEntitlement(resExt.accessToken, arcSite)
         .then((res) => {
           if (res.skus) {
@@ -260,7 +264,11 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(lemail)
+    if (activeMagicLink) {
+      Identity.requestOTALink(lemail)
+    } else {
+      Identity.requestVerifyEmail(lemail)
+    }
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_login_reenviar_correo`,

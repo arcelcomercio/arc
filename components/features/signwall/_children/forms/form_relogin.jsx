@@ -22,6 +22,7 @@ const FormRelogin = ({ onClose, typeDialog }) => {
     arcSite,
     siteProperties: {
       signwall: { mainColorLink, mainColorBtn, authProviders },
+      activeMagicLink,
       activeNewsletter,
       activeVerifyEmail,
       activeDataTreatment,
@@ -29,7 +30,9 @@ const FormRelogin = ({ onClose, typeDialog }) => {
   } = useAppContext() || {}
 
   const { changeTemplate } = useModalContext()
-  const [showError, setShowError] = React.useState(false)
+  const [showError, setShowError] = React.useState(
+    'Su sesión ha expirado. Por favor, inicie sesión nuevamente.'
+  )
   const [showLoading, setShowLoading] = React.useState(false)
   const [showVerify, setShowVerify] = React.useState()
   const [showSendEmail, setShowSendEmail] = React.useState(false)
@@ -120,7 +123,11 @@ const FormRelogin = ({ onClose, typeDialog }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(remail)
+    if (activeMagicLink) {
+      Identity.requestOTALink(remail)
+    } else {
+      Identity.requestVerifyEmail(remail)
+    }
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_email_login_reenviar_correo`

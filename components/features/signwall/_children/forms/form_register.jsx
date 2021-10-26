@@ -9,6 +9,7 @@ import {
   SITE_ELCOMERCIO,
   SITE_GESTION,
 } from '../../../../utilities/constants/sitenames'
+import { extendSession } from '../../../../utilities/subscriptions/identity'
 import { useModalContext } from '../../../subscriptions/_context/modal'
 import getCodeError, {
   acceptCheckTerms,
@@ -47,6 +48,7 @@ const FormRegister = ({
     arcSite,
     siteProperties: {
       signwall: { mainColorLink, mainColorBtn, mainColorBr, authProviders },
+      activeMagicLink,
       activeRegisterwall,
       activeNewsletter,
       activeVerifyEmail,
@@ -137,6 +139,10 @@ const FormRegister = ({
   const handleStopProfile = (profile) => {
     if (activeNewsletter && profile.accessToken) {
       handleNewsleters(profile)
+    }
+    if (activeMagicLink) {
+      // requestVerifyEmail se ejecuta automáticamente con el SignUp
+      Identity.requestOTALink(profile.profile.email)
     }
     setShowConfirm(true)
     setShowContinueVerify(true)
@@ -238,9 +244,7 @@ const FormRegister = ({
             type: 'String',
           },
         ],
-      },
-      { doLogin: true },
-      { rememberMe: true }
+      }
     )
       .then((resSignUp) => {
         if (activeVerifyEmail) {
@@ -268,7 +272,7 @@ const FormRegister = ({
   }
 
   const getListSubs = () =>
-    Identity.extendSession().then((resExt) => {
+    extendSession().then((resExt) => {
       const checkEntitlement = getEntitlement(resExt.accessToken, arcSite)
         .then((res) => {
           if (res.skus) {
@@ -338,7 +342,11 @@ const FormRegister = ({
   const sendVerifyEmail = (e) => {
     e.preventDefault()
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(remail)
+    if (activeMagicLink) {
+      Identity.requestOTALink(remail)
+    } else {
+      Identity.requestVerifyEmail(remail)
+    }
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_registro_reenviar_correo`,

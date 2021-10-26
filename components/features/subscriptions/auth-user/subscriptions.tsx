@@ -27,6 +27,7 @@ enum Modals {
   ReloginEmail = 'relogemail',
   ReloginHash = 'reloghash',
   TokenVerify = 'verify',
+  TokenMagicLink = 'magiclink',
   ResetPassword = 'resetpass',
   Organic = 'organico',
   Banner = 'banner',
@@ -55,6 +56,8 @@ const AuthUser = () => {
       setActiveModal(Modals.ReloginHash)
     } else if (getQuery('tokenVerify')) {
       setActiveModal(Modals.TokenVerify)
+    } else if (getQuery('tokenMagicLink')) {
+      setActiveModal(Modals.TokenMagicLink)
     } else if (getQuery('tokenReset')) {
       setActiveModal(Modals.ResetPassword)
     } else if (getQuery('banner')) {
@@ -84,6 +87,7 @@ const AuthUser = () => {
   const isReloginEmail = activeModal === Modals.ReloginEmail
   const isReloginHash = activeModal === Modals.ReloginHash
   const isTokenVerify = activeModal === Modals.TokenVerify
+  const isTokenMagicLink = activeModal === Modals.TokenMagicLink
   const isResetPassword = activeModal === Modals.ResetPassword
 
   return (
@@ -110,11 +114,12 @@ const AuthUser = () => {
             </>
           )}
 
-          {(isTokenVerify || isResetPassword) && (
+          {(isTokenVerify || isTokenMagicLink || isResetPassword) && (
             <SignOrganic
               onClose={() => closePopUp()}
               arcSite={arcSite}
               typeDialog={activeModal}
+              tokenMagicLink={isTokenMagicLink && getQuery('tokenMagicLink')}
               tokenVerify={isTokenVerify && getQuery('tokenVerify')}
               tokenReset={isResetPassword && getQuery('tokenReset')}
             />

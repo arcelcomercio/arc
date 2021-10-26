@@ -140,6 +140,7 @@ const renderTemplate = (template, valTemplate, attributes) => {
       case 'resetpass':
         return templates.reset
       case 'verify':
+      case 'magiclink':
         return templates.verify
       case 'relogemail':
       case 'reloghash':
@@ -150,7 +151,6 @@ const renderTemplate = (template, valTemplate, attributes) => {
           : templates.login
     }
   }
-
   return templates[template] || getDefault()
 }
 
@@ -210,8 +210,8 @@ export const ContGeneric = ({ properties }) => {
         style={
           isTrome || isComercio || isGestion
             ? {
-              height: "calc(100% - 50px)",
-            }
+                height: 'calc(100% - 50px)',
+              }
             : { minHeight: '350px' }
         }>
         {(isTrome || isComercio || isGestion) && (
@@ -228,7 +228,7 @@ export const ContGeneric = ({ properties }) => {
           </div>
         )}
 
-        <div className="right-modal" >
+        <div className="right-modal">
           {renderTemplate(selectedTemplate, valTemplate, {
             ...properties,
           })}

@@ -1,5 +1,4 @@
 import Identity from '@arc-publishing/sdk-identity'
-import { isUserIdentity } from '@arc-publishing/sdk-identity/lib/sdk/userIdentity'
 import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 import * as React from 'react'
@@ -20,6 +19,7 @@ import {
 } from '../../../utilities/constants/sitenames'
 import { getQuery } from '../../../utilities/parse/queries'
 import {
+  extendSession,
   getUsername,
   getUsernameInitials,
   isLoggedIn,
@@ -72,23 +72,18 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
   })
 
   function getListSubs() {
-    return Identity.extendSession().then((resExt) => {
-      if (isUserIdentity(resExt)) {
-        const checkEntitlement = getEntitlement(resExt.accessToken, arcSite)
-          .then((res) => {
-            if (res.skus) {
-              const result = Object.keys(res.skus).map(
-                (key) => res.skus[key].sku
-              )
-              return result
-            }
-            return []
-          })
-          .catch((err) => window.console.error(err))
+    return extendSession().then((resExt) => {
+      const checkEntitlement = getEntitlement(resExt.accessToken, arcSite)
+        .then((res) => {
+          if (res.skus) {
+            const result = Object.keys(res.skus).map((key) => res.skus[key].sku)
+            return result
+          }
+          return []
+        })
+        .catch((err) => window.console.error(err))
 
-        return checkEntitlement
-      }
-      return Promise.reject(new Error(`${resExt.code} - ${resExt.message}`))
+      return checkEntitlement
     })
   }
 
@@ -103,6 +98,7 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
   function redirectURL(
     typeDialog:
       | 'tokenVerify'
+      | 'tokenMagicLink'
       | 'tokenReset'
       | 'reloginEmail'
       | 'reloginHash'

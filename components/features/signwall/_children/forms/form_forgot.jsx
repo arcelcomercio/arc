@@ -17,6 +17,7 @@ const FormForgot = ({ typeDialog }) => {
   const {
     arcSite,
     siteProperties: {
+      activeMagicLink,
       signwall: { mainColorBr, mainColorBtn, mainColorLink, primaryFont },
     },
   } = useAppContext() || {}
@@ -24,7 +25,9 @@ const FormForgot = ({ typeDialog }) => {
   const textBtnSend = arcSite === SITE_TROME ? 'CAMBIAR CONTRASEÑA' : 'ENVIAR'
   const isTromeOrganic =
     arcSite === SITE_TROME &&
-    (typeDialog === 'organico' || typeDialog === 'verify')
+    (typeDialog === 'organico' ||
+      typeDialog === 'verify' ||
+      typeDialog === 'magiclink')
 
   const { changeTemplate } = useModalContext()
   const [showError, setShowError] = React.useState(false)
@@ -98,7 +101,11 @@ const FormForgot = ({ typeDialog }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(femail)
+    if (activeMagicLink) {
+      Identity.requestOTALink(femail)
+    } else {
+      Identity.requestVerifyEmail(femail)
+    }
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_contrasena_reenviar_correo`,

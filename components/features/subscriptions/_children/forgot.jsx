@@ -1,4 +1,5 @@
 import Identity from '@arc-publishing/sdk-identity'
+import { getProperties } from 'fusion:properties'
 import * as React from 'react'
 
 import { MsgForgotPass } from '../../signwall/_children/icons'
@@ -18,7 +19,7 @@ const styles = {
   textNotice: 'step__left-text-notice',
 }
 
-const Forgot = ({ typeDialog }) => {
+const Forgot = ({ typeDialog, arcSite }) => {
   const { changeTemplate } = useNavigateContext()
   const [loading, setLoading] = React.useState(false)
   const [msgError, setMsgError] = React.useState(false)
@@ -27,6 +28,7 @@ const Forgot = ({ typeDialog }) => {
   const [showVerify, setShowVerify] = React.useState()
   const [showSendEmail, setShowSendEmail] = React.useState(false)
   const { texts } = PropertiesCommon
+  const { activeMagicLink } = getProperties(arcSite)
 
   const stateSchema = {
     femail: { value: '', error: '' },
@@ -45,7 +47,8 @@ const Forgot = ({ typeDialog }) => {
     if (typeof window !== 'undefined') {
       Taggeo(
         nameTagCategory,
-        `web_sw${typeDialog[0]}_contrasena_boton_recuperar`
+        `web_sw${typeDialog[0]}_contrasena_boton_recuperar`,
+        arcSite
       )
       setLoading(true)
       Identity.requestResetPassword(femail)
@@ -53,7 +56,8 @@ const Forgot = ({ typeDialog }) => {
           setShowConfirm(true)
           Taggeo(
             nameTagCategory,
-            `web_sw${typeDialog[0]}_contrasena_success_boton`
+            `web_sw${typeDialog[0]}_contrasena_success_boton`,
+            arcSite
           )
         })
         .catch((err) => {
@@ -64,13 +68,15 @@ const Forgot = ({ typeDialog }) => {
             setMsgError(getCodeError('verifyReset'))
             Taggeo(
               nameTagCategory,
-              `web_sw${typeDialog[0]}_contrasena_show_reenviar_correo`
+              `web_sw${typeDialog[0]}_contrasena_show_reenviar_correo`,
+              arcSite
             )
           } else {
             setMsgError(getCodeError(err.code))
             Taggeo(
               nameTagCategory,
-              `web_sw${typeDialog[0]}_contrasena_error_boton`
+              `web_sw${typeDialog[0]}_contrasena_error_boton`,
+              arcSite
             )
           }
         })
@@ -92,8 +98,16 @@ const Forgot = ({ typeDialog }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(femail)
-    Taggeo(nameTagCategory, `web_sw${typeDialog[0]}_contrasena_reenviar_correo`)
+    if (activeMagicLink) {
+      Identity.requestOTALink(femail)
+    } else {
+      Identity.requestVerifyEmail(femail)
+    }
+    Taggeo(
+      nameTagCategory,
+      `web_sw${typeDialog[0]}_contrasena_reenviar_correo`,
+      arcSite
+    )
     let timeleft = 9
     const downloadTimer = setInterval(() => {
       if (timeleft <= 0) {
@@ -186,7 +200,8 @@ const Forgot = ({ typeDialog }) => {
                   changeTemplate('login')
                   Taggeo(
                     nameTagCategory,
-                    `web_sw${typeDialog[0]}_contrasena_link_volver`
+                    `web_sw${typeDialog[0]}_contrasena_link_volver`,
+                    arcSite
                   )
                 }}>
                 Inciar Sesión
@@ -207,7 +222,8 @@ const Forgot = ({ typeDialog }) => {
                 changeTemplate('login', femail)
                 Taggeo(
                   nameTagCategory,
-                  `web_sw${typeDialog[0]}_contrasena_boton_aceptar`
+                  `web_sw${typeDialog[0]}_contrasena_boton_aceptar`,
+                  arcSite
                 )
               }}>
               Aceptar

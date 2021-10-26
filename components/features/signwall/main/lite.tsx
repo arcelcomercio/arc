@@ -1,5 +1,4 @@
 import Identity from '@arc-publishing/sdk-identity'
-import { isUserIdentity } from '@arc-publishing/sdk-identity/lib/sdk/userIdentity'
 import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 import * as React from 'react'
@@ -13,7 +12,10 @@ import {
 import { deleteCookie, getCookie } from '../../../utilities/client/cookies'
 import { ContentTiers } from '../../../utilities/constants/content-tiers'
 import { getQuery } from '../../../utilities/parse/queries'
-import { isLoggedIn } from '../../../utilities/subscriptions/identity'
+import {
+  extendSession,
+  isLoggedIn,
+} from '../../../utilities/subscriptions/identity'
 import {
   getOriginAPI,
   getUrlLandingAuth,
@@ -39,14 +41,15 @@ const SignwallComponent = () => {
   )
 
   function getListSubs() {
-    // const apiOrigin = getOriginAPI(arcSite)
-    // Identity.options({
-    //   apiOrigin,
-    // })
+    const apiOrigin = getOriginAPI(arcSite)
+    Identity.options({
+      apiOrigin,
+    })
 
-    return Identity.extendSession().then((resExt) => {
-      if (isUserIdentity(resExt)) {
-        const checkEntitlement = getEntitlement(resExt.accessToken, arcSite)
+    // Promise.reject(new Error(`${error?.code || ''} - ${error?.message}`)),
+    return extendSession()
+      .then((response) => {
+        const checkEntitlement = getEntitlement(response.accessToken, arcSite)
           .then((res) => {
             if (res.skus) {
               const result = Object.keys(res.skus).map(
@@ -59,9 +62,8 @@ const SignwallComponent = () => {
           .catch((err) => window.console.error(err))
 
         return checkEntitlement
-      }
-      return Promise.reject(new Error(`${resExt.code} - ${resExt.message}`))
-    })
+      })
+      .catch((error) => error)
   }
 
   function unblockContent() {
@@ -195,7 +197,12 @@ const SignwallComponent = () => {
   }
 
   function redirectURL(
-    typeDialog: 'tokenVerify' | 'tokenReset' | 'reloginEmail' | 'reloginHash',
+    typeDialog:
+      | 'tokenVerify'
+      | 'tokenMagicLink'
+      | 'tokenReset'
+      | 'reloginEmail'
+      | 'reloginHash',
     hash: string
   ) {
     const urlSignwall = getUrlSignwall(arcSite, typeDialog, hash)
@@ -238,6 +245,9 @@ const SignwallComponent = () => {
       window.requestIdle(() => {
         const tokenVerify = getQuery('tokenVerify')
         if (tokenVerify) redirectURL('tokenVerify', tokenVerify)
+
+        const tokenMagicLink = getQuery('tokenMagicLink')
+        if (tokenMagicLink) redirectURL('tokenMagicLink', tokenMagicLink)
 
         const tokenReset = getQuery('tokenReset')
         if (tokenReset) redirectURL('tokenReset', tokenReset)
