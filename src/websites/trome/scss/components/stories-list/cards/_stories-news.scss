@@ -1,0 +1,15 @@
+.stories-news {
+  @media (--tablet) {
+    padding: 0 10px;
+  }
+
+  &__list {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(1, minmax(375px, 100vw));
+
+    @media (--tablet) {
+      grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+    }
+  }
+}
