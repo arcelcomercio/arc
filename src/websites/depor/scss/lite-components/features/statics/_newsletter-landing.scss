@@ -1,3 +1,129 @@
 .newsletter--landing {
-  background-color: aqua;
+  display: flex;
+  flex-direction: column;
+  &__container1 {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    &__box1 {
+      display: flex;
+      flex-direction: row;
+      align-self: center;
+
+      &__title {
+        font-weight: 700;
+        font-size: 20px;
+        font-family: $secondary-font;
+      }
+
+      &__logo {
+        margin-left: 5px;
+        max-width: 30px;
+        max-height: 20px;
+      }
+    }
+    &__text {
+      font-weight: 300;
+      font-size: 16px;
+      font-family: $secondary-font;
+      color: rgb(124, 120, 120);
+    }
+  }
+  &__container2 {
+    display: flex;
+    flex-direction: row;
+    &__sec-container {
+      display: flex;
+      &__box2 {
+        display: flex;
+        flex-direction: column;
+        height: 250px;
+        width: 250px;
+        border-radius: 10px;
+        background-color: darkgray;
+        &__left-svg {
+          align-self: center;
+          max-width: 120px;
+          max-height: 120px;
+          border: 1px solid #0c8f07;
+        }
+        &__right-svg {
+          align-self: center;
+          max-width: 120px;
+          max-height: 120px;
+          border: 1px solid #ce6b32;
+        }
+        &__box-checkbox1 {
+          width: 250px;
+          height: 20px;
+          margin-bottom: 10px;
+          &__input-term {
+            margin-left: 30px;
+            margin-top: 5px;
+            width: 10px;
+            height: 10px;
+          }
+          &__sub-title1 {
+            margin-left: 5px;
+            width: 250px;
+            height: 20px;
+            font-weight: 700;
+            text-decoration: underline;
+            font-size: 18px;
+            font-family: $secondary-font;
+            color: rgb(9, 75, 9);
+          }
+          &__sub-title2 {
+            margin-left: 5px;
+            width: 250px;
+            height: 20px;
+            font-weight: 700;
+            text-decoration: underline;
+            font-size: 18px;
+            font-family: $secondary-font;
+            color: rgb(5, 21, 66);
+          }
+        }
+        &__sec-text {
+          margin-left: 30px;
+          max-width: 120px;
+          max-height: 120px;
+          border: 1px solid #ce6b32;
+        }
+      }
+    }
+  }
+  &__container3 {
+    display: flex;
+    flex-direction: column;
+    &__text-box {
+      width: 250px;
+      height: 30px;
+      align-self: center;
+    }
+    &__button-receive {
+      width: 250px;
+      height: 30px;
+      align-self: center;
+      background-color: chocolate;
+      border-radius: 10px;
+    }
+    &__box-checkbox2 {
+      width: 250px;
+      height: 30px;
+      align-self: center;
+      &__input-term2 {
+        margin-left: 30px;
+        margin-top: 5px;
+        width: 10px;
+        height: 10px;
+      }
+      &__text-term {
+        font-weight: 300;
+        font-size: 12px;
+        font-family: $secondary-font;
+        color: rgb(122, 118, 118);
+      }
+    }
+  }
 }
