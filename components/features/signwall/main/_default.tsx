@@ -4,6 +4,7 @@ import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 import * as React from 'react'
 import { FC } from 'types/features'
+import { ArcSite } from 'types/fusion'
 
 import {
   SdksProvider,
@@ -57,9 +58,12 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
 
   const { status } = useSdksContext()
   const { arcSite } = useAppContext()
-  const { activeSignwall, activePaywall, activeRulesCounter } = getProperties(
-    arcSite
-  )
+  const {
+    activeSignwall,
+    activePaywall,
+    activeRulesCounter,
+    activeRegisterwall,
+  } = getProperties(arcSite)
 
   const [activeWall, setActiveWall] = React.useState<Walls | null>()
   const [user, setUser] = React.useState({
@@ -109,26 +113,33 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
     window.location.href = getUrlSignwall(arcSite, typeDialog, hash)
   }
 
+  function hasActiveSubscriptions() {
+    getListSubs()
+      .then((p) => {
+        // no tengo subs -> muestra valla
+        if (p && p.length === 0) {
+          setActiveWall(Walls.Premium)
+        } else {
+          // tengo subs
+          unblockContent()
+        }
+        return false // tengo subs :D
+      })
+      .catch((err) => {
+        window.console.error(err)
+      })
+  }
+
   function getPremium() {
-    if (!isLoggedIn()) {
-      setActiveWall(Walls.Premium)
+    if (isLoggedIn()) {
+      if (activeRegisterwall) {
+        unblockContent()
+      } else {
+        hasActiveSubscriptions()
+      }
     } else {
-      return getListSubs()
-        .then((p) => {
-          // no tengo subs -> muestra valla
-          if (p && p.length === 0) {
-            setActiveWall(Walls.Premium)
-          } else {
-            // tengo subs
-            unblockContent()
-          }
-          return false // tengo subs :D
-        })
-        .catch((err) => {
-          window.console.error(err)
-        })
+      setActiveWall(Walls.Premium)
     }
-    return false
   }
 
   function getPaywall() {
@@ -213,7 +224,11 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
     const dataContType = window.document.head.querySelector(
       'meta[name="content-type"]'
     )
-    if (getCookie('arc_e_id') && dataContType && activePaywall) {
+    if (
+      getCookie('arc_e_id') &&
+      dataContType &&
+      (activePaywall || activeRegisterwall)
+    ) {
       redirectURL('reloginHash', '1')
     }
 
@@ -252,14 +267,13 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
         initials: getUsernameInitials(name),
       })
     } else {
-      let btnTitle = 'Iniciar Sesión'
-      if (arcSite === SITE_ELCOMERCIO) {
-        btnTitle = 'Iniciar'
-      } else if (arcSite === SITE_DIARIOCORREO) {
-        btnTitle = 'Regístrate'
+      const name: Partial<Record<ArcSite, string>> = {
+        [SITE_ELCOMERCIO]: 'Iniciar',
+        [SITE_DIARIOCORREO]: 'Regístrate',
       }
+      const defaultName = 'Iniciar Sesión'
       setUser({
-        name: btnTitle,
+        name: name[arcSite] || defaultName,
         initials: '',
       })
     }
@@ -276,7 +290,10 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
   }, [])
 
   React.useEffect(() => {
-    if ((activePaywall || activeRulesCounter) && status === SdkStatus.Ready) {
+    if (
+      (activePaywall || activeRulesCounter || activeRegisterwall) &&
+      status === SdkStatus.Ready
+    ) {
       window.requestIdle(() => getPaywall())
     }
   }, [status])
@@ -296,7 +313,7 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
         </span>
       </button>
 
-      {!countOnly && activePaywall ? (
+      {!countOnly && (activePaywall || activeRegisterwall) ? (
         <>
           {(getQuery('signPaywall') || activeWall === Walls.Paywall) && (
             <PaywallModal

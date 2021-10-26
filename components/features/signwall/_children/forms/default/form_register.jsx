@@ -7,6 +7,7 @@ import { setCookie } from '../../../../../utilities/client/cookies'
 import {
   SITE_ELCOMERCIO,
   SITE_GESTION,
+  SITE_TROME,
 } from '../../../../../utilities/constants/sitenames'
 import { useModalContext } from '../../../../subscriptions/_context/modal'
 import getCodeError, {
@@ -46,6 +47,7 @@ const FormRegister = ({
     arcSite,
     siteProperties: {
       signwall: { mainColorLink, mainColorBtn, mainColorBr, authProviders },
+      activeRegisterwall,
       activeNewsletter,
       activeVerifyEmail,
       activeDataTreatment,
@@ -159,7 +161,8 @@ const FormRegister = ({
       .catch(() => {
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_registro_error_registrarme`
+          `web_sw${typeDialog[0]}_registro_error_registrarme`,
+          arcSite
         )
       })
   }
@@ -246,7 +249,8 @@ const FormRegister = ({
         }
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_registro_success_registrarme`
+          `web_sw${typeDialog[0]}_registro_success_registrarme`,
+          arcSite
         )
       })
       .catch((errLogin) => {
@@ -255,7 +259,8 @@ const FormRegister = ({
         setShowLoading(false)
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_registro_error_registrarme`
+          `web_sw${typeDialog[0]}_registro_error_registrarme`,
+          arcSite
         )
         setCookie('lostEmail', remail, 1)
       })
@@ -276,21 +281,29 @@ const FormRegister = ({
       return checkEntitlement
     })
 
+  // agregado despues de pasar test por default/form_login
+  // es un codigo diferente al de login
+  const unblockContent = () => {
+    setShowUserWithSubs(true) // tengo subs
+    const divPremium = document.getElementById('contenedor')
+    if (divPremium) {
+      divPremium.classList.remove('story-content__nota-premium')
+      divPremium.removeAttribute('style')
+    }
+  }
+
   const checkUserSubs = () => {
     if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true)
 
       getListSubs()
         .then((p) => {
-          if (p && p.length === 0) {
+          if (activeRegisterwall) {
+            unblockContent()
+          } else if (p && p.length === 0) {
             setShowUserWithSubs(false) // no tengo subs
           } else {
-            setShowUserWithSubs(true) // tengo subs
-            const divPremium = document.getElementById('contenedor')
-            if (divPremium) {
-              divPremium.classList.remove('story-content__nota-premium')
-              divPremium.removeAttribute('style')
-            }
+            unblockContent()
           }
         })
         .finally(() => {
@@ -322,7 +335,8 @@ const FormRegister = ({
     Identity.requestVerifyEmail(remail)
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
-      `web_sw${typeDialog[0]}_registro_reenviar_correo`
+      `web_sw${typeDialog[0]}_registro_reenviar_correo`,
+      arcSite
     )
     let timeleft = 9
     const downloadTimer = setInterval(() => {
@@ -453,7 +467,8 @@ const FormRegister = ({
                     onClick={() => {
                       Taggeo(
                         `Web_Sign_Wall_${typeDialog}`,
-                        `web_sw${typeDialog[0]}_registro_boton_registrarme`
+                        `web_sw${typeDialog[0]}_registro_boton_registrarme`,
+                        arcSite
                       )
                     }}>
                     {showLoading ? 'Registrando...' : 'Registrarme'}
@@ -472,7 +487,8 @@ const FormRegister = ({
                           e.preventDefault()
                           Taggeo(
                             `Web_Sign_Wall_${typeDialog}`,
-                            `web_sw${typeDialog[0]}_registro_link_volver`
+                            `web_sw${typeDialog[0]}_registro_link_volver`,
+                            arcSite
                           )
                           switch (typeDialog) {
                             case 'relogemail':
@@ -615,8 +631,14 @@ const FormRegister = ({
                                 background: mainColorLink,
                               }}
                               onClick={() => {
+                                // modificado para el taggeo de diario correo por valla
                                 Taggeo(
-                                  `Web_${typeDialog}_Hard`,
+                                  `Web_${typeDialog}_${
+                                    activeRegisterwall &&
+                                    typeDialog === 'premium'
+                                      ? 'Registro'
+                                      : 'Hard'
+                                  }`,
                                   `web_${typeDialog}_boton_sigue_navegando`
                                 )
                                 if (
@@ -648,7 +670,8 @@ const FormRegister = ({
                             onClick={() => {
                               Taggeo(
                                 `Web_Sign_Wall_${typeDialog}`,
-                                `web_sw${typeDialog[0]}_boton_ver_planes`
+                                `web_sw${typeDialog[0]}_boton_ver_planes`,
+                                arcSite
                               )
                               handleSuscription()
                             }}>
@@ -682,7 +705,8 @@ const FormRegister = ({
                         onClick={() => {
                           Taggeo(
                             `Web_Sign_Wall_${typeDialog}`,
-                            `web_sw${typeDialog[0]}_registro_continuar_navegando`
+                            `web_sw${typeDialog[0]}_registro_continuar_navegando`,
+                            arcSite
                           )
                           if (typeDialog === 'students') {
                             if (showContinueVerify) {
@@ -708,7 +732,9 @@ const FormRegister = ({
                             }
                           }
                         }}>
-                        {arcSite === 'trome' ? 'Confirmar Correo' : 'Continuar'}
+                        {arcSite === SITE_TROME
+                          ? 'Confirmar Correo'
+                          : 'Continuar'}
                       </button>
                     </>
                   )}
