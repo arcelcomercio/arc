@@ -1,4 +1,5 @@
 import Identity from '@arc-publishing/sdk-identity'
+import { getProperties } from 'fusion:properties'
 import * as React from 'react'
 
 import { MsgForgotPass } from '../../signwall/_children/icons'
@@ -18,7 +19,7 @@ const styles = {
   textNotice: 'step__left-text-notice',
 }
 
-const Forgot = ({ typeDialog }) => {
+const Forgot = ({ typeDialog, arcSite }) => {
   const { changeTemplate } = useNavigateContext()
   const [loading, setLoading] = React.useState(false)
   const [msgError, setMsgError] = React.useState(false)
@@ -27,6 +28,7 @@ const Forgot = ({ typeDialog }) => {
   const [showVerify, setShowVerify] = React.useState()
   const [showSendEmail, setShowSendEmail] = React.useState(false)
   const { texts } = PropertiesCommon
+  const { activeMagicLink } = getProperties(arcSite)
 
   const stateSchema = {
     femail: { value: '', error: '' },
@@ -92,7 +94,11 @@ const Forgot = ({ typeDialog }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    Identity.requestOTALink(femail)
+    if (activeMagicLink) {
+      Identity.requestOTALink(femail)
+    } else {
+      Identity.requestVerifyEmail(femail)
+    }
     Taggeo(nameTagCategory, `web_sw${typeDialog[0]}_contrasena_reenviar_correo`)
     let timeleft = 9
     const downloadTimer = setInterval(() => {
