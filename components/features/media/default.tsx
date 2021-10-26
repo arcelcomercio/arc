@@ -39,6 +39,10 @@ const MediaJWplayer = (): JSX.Element => {
         src={`https://cdn.jwplayer.com/libraries/${globalContent?.playerId}.js`}
       />
       <script
+        type="text/javascript"
+        src="https://sb.scorecardresearch.com/internal-c2/plugins/streamingtag_plugin_jwplayer.js"
+      />
+      <script
         dangerouslySetInnerHTML={{
           __html: script,
         }}
