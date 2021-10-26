@@ -107,7 +107,8 @@ const ButtonSocial = ({
                       updateStep(2)
                       Taggeo(
                         nameTagCategory,
-                        `web_sw${typeDialog[0]}_${arcType}_success_${arcSocial}`
+                        `web_sw${typeDialog[0]}_${arcType}_success_${arcSocial}`,
+                        arcSite
                       )
                     })
                     .catch(() => {
@@ -118,7 +119,8 @@ const ButtonSocial = ({
                   updateStep(2)
                   Taggeo(
                     nameTagCategory,
-                    `web_sw${typeDialog[0]}_${arcType}_success_${arcSocial}`
+                    `web_sw${typeDialog[0]}_${arcType}_success_${arcSocial}`,
+                    arcSite
                   )
                 }
               })
@@ -127,7 +129,8 @@ const ButtonSocial = ({
                 window.console.error(errUpdateProfile) // Temporal hasta implementar Sentry
                 Taggeo(
                   nameTagCategory,
-                  `web_sw${typeDialog[0]}_${arcType}_error_${arcSocial}`
+                  `web_sw${typeDialog[0]}_${arcType}_error_${arcSocial}`,
+                  arcSite
                 )
               })
           } else {
@@ -135,7 +138,8 @@ const ButtonSocial = ({
             updateStep(2)
             Taggeo(
               nameTagCategory,
-              `web_sw${typeDialog[0]}_${arcType}_success_${arcSocial}`
+              `web_sw${typeDialog[0]}_${arcType}_success_${arcSocial}`,
+              arcSite
             )
           }
         })
@@ -144,7 +148,8 @@ const ButtonSocial = ({
           window.console.error(errProfile) // Temporal hasta implementar Sentry
           Taggeo(
             nameTagCategory,
-            `web_sw${typeDialog[0]}_${arcType}_error_${arcSocial}`
+            `web_sw${typeDialog[0]}_${arcType}_error_${arcSocial}`,
+            arcSite
           )
         })
     }
@@ -218,7 +223,8 @@ const ButtonSocial = ({
     if (typeof window !== 'undefined') {
       Taggeo(
         nameTagCategory,
-        `web_sw${typeDialog[0]}_${arcType}_boton_${arcSocial}`
+        `web_sw${typeDialog[0]}_${arcType}_boton_${arcSocial}`,
+        arcSite
       )
 
       const width = 780
