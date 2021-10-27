@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-// import { useAppContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 // import { NEWSLETTER_API, NEWSLETTER_API_TEMATICO } from 'fusion:environment'
-// import getProperties from 'fusion:properties'
+import getProperties from 'fusion:properties'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 import { FC } from 'types/features'
@@ -68,8 +68,113 @@ const classes = {
 const NewsletterLanding: FC<FeatureProps> = (props) => {
   const { customFields: { UrlTerminos, UrlPolitica } = {} } = props
 
-  // const { requestUri, arcSite, contextPath } = useAppContext()
-  // const { newsletterBrand } = getProperties(arcSite)
+  const { arcSite } = useAppContext()
+  const { newsletterBrand } = getProperties(arcSite)
+
+  /*
+  window.addEventListener('DOMContentLoaded', () => {requestIdle(() => {
+    const form = document.getElementById('formNL')
+    const formInputs = form.elements
+
+    const URL_API = 'https://google.com'
+    const brandNL = '${newsletterBrand}'
+
+    const UUID_USER = JSON.parse(window.localStorage.getItem('ArcId.USER_INFO') || "{}").uuid
+    const TOKEN_USER = JSON.parse(window.localStorage.getItem('ArcId.USER_INFO') || "{}").accessToken
+
+    const chkb1 = document.getElementById("checkb1")
+    const chkb2 = document.getElementById("checkb2")
+
+    let topicNL = ''
+    let more = false
+    let checkb = []
+    
+    const mailLS = localStorage.getItem("Correo-NL-"+brandNL)
+    const topicLS = JSON.parse(localStorage.getItem("Topic-NL-"+brandNL))
+
+    if(mailLS){
+      console.log("EXISTE CORREO EN LOCAL STORAGE", mailLS)
+
+      topicLS.forEach(e=>{
+          if(chkb1.value == e){
+            chkb1.checked = true
+          }
+          if(chkb2.value == e){
+            chkb2.checked = true
+          }
+      });
+
+    }else{
+      console.log("NO EXISTE <<<")
+    }
+    
+
+    form.addEventListener("submit", e => {
+      e.preventDefault()
+      const re = new RegExp(/[\\w\\.-]+@[\\w\\.-]+/, 'i')
+      const validEmail  = re.test(formInputs[0].value)
+
+      if(chkb1.checked == false && chkb2.checked == false){
+        alert("Seleccione un Boletín")
+        return false
+      }
+
+      if(chkb1.checked && chkb2.checked == false){
+        topicNL = chkb1.value
+        checkb = [chkb1.value]
+      }
+
+      if(chkb2.checked && chkb1.checked == false){
+        topicNL = chkb2.value
+        checkb = [chkb2.value]
+      }
+      
+      if(chkb1.checked && chkb2.checked){
+        checkb = [chkb1.value, chkb2.value]
+        more = true
+      }
+
+      if(validEmail && form[2].checked) {
+
+        localStorage.setItem("Correo-NL-"+brandNL, formInputs[0].value);
+        localStorage.setItem("Topic-NL-"+brandNL, JSON.stringify(checkb));
+
+       if(more){
+
+        for (let i = 0; i < checkb.length; i++) {
+          var xhr = new XMLHttpRequest()
+            xhr.open("POST", URL_API, true)
+            xhr.setRequestHeader('Content-Type', 'application/json')
+            xhr.send(JSON.stringify({ 
+              email: formInputs[0].value, 
+              brand: brandNL, 
+              topic: checkb[i] 
+          
+          }))
+        }
+
+       }else{
+
+          var xhr = new XMLHttpRequest()
+            xhr.open("POST", URL_API, true)
+            xhr.setRequestHeader('Content-Type', 'application/json')
+            xhr.send(JSON.stringify({ 
+              email: formInputs[0].value, 
+              brand: brandNL, 
+              topic: topicNL 
+          
+          }))
+
+       }
+      }
+      return false
+    })
+  })})
+*/
+
+  let customJs = ''
+  customJs = `"use strict";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.getElementById("formNL"),t=e.elements,o="${newsletterBrand}",c=(JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")||"{}").uuid,JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")||"{}").accessToken,document.getElementById("checkb1")),n=document.getElementById("checkb2"),a="",l=!1,r=[],d=localStorage.getItem("Correo-NL-"+o),s=JSON.parse(localStorage.getItem("Topic-NL-"+o));d?(console.log("EXISTE CORREO EN LOCAL STORAGE",d),s.forEach(function(e){c.value==e&&(c.checked=!0),n.value==e&&(n.checked=!0)})):console.log("NO EXISTE <<<"),e.addEventListener("submit",function(d){d.preventDefault();var s=new RegExp(/[\\w\\.-]+@[\\w\\.-]+/,"i").test(t[0].value);if(0==c.checked&&0==n.checked)return alert("Seleccione un Boletín"),!1;if(c.checked&&0==n.checked&&(a=c.value,r=[c.value]),n.checked&&0==c.checked&&(a=n.value,r=[n.value]),c.checked&&n.checked&&(r=[c.value,n.value],l=!0),s&&e[2].checked)if(localStorage.setItem("Correo-NL-"+o,t[0].value),localStorage.setItem("Topic-NL-"+o,JSON.stringify(r)),l)for(var i=0;i<r.length;i++){var u;(u=new XMLHttpRequest).open("POST","https://google.com",!0),u.setRequestHeader("Content-Type","application/json"),u.send(JSON.stringify({email:t[0].value,brand:o,topic:r[i]}))}else(u=new XMLHttpRequest).open("POST","https://google.com",!0),u.setRequestHeader("Content-Type","application/json"),u.send(JSON.stringify({email:t[0].value,brand:o,topic:a}));return!1})})});`
+
   return (
     <>
       <div className={classes.nnContainer}>
@@ -133,8 +238,8 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
                 <input
                   type="checkbox"
                   name="terminos"
-                  id="terminos"
-                  required
+                  id="checkb1"
+                  value="general"
                   className={classes.nnInputTerm}
                 />
                 <div className={classes.nnSubTitle1}>GENERAL</div>
@@ -154,9 +259,8 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
               <div className={classes.nnBoxCheckbox1}>
                 <input
                   type="checkbox"
-                  name="terminos"
-                  id="terminos"
-                  required
+                  id="checkb2"
+                  value="son_datos"
                   className={classes.nnInputTerm}
                 />
                 <div className={classes.nnSubTitle2}>
@@ -172,39 +276,47 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
           </div>
         </div>
         <div className={classes.nnCont3}>
-          <input
-            type="email"
-            placeholder=" Ingresa tu Email"
-            name="email"
-            required
-            className={classes.nnTextBox}
-          />
-          <input
-            type="submit"
-            value="Recibir"
-            required
-            className={classes.nnButtonReceive}
-          />
-          <div className={classes.nnBoxCheckbox2}>
+          <form action="" id="formNL">
             <input
-              type="checkbox"
-              name="terminos"
-              id="terminos"
+              type="email"
+              placeholder=" Ingresa tu Email"
+              name="email"
               required
-              className={classes.nnInputTerm2}
+              className={classes.nnTextBox}
             />
-            <label htmlFor="terminos" className={classes.nnTextTerm}>
-              Acepto los{' '}
-              <a href={UrlTerminos} target="_blank" rel="noreferrer">
-                <u>Términos y condiciones </u>
-              </a>{' '}
-              y{' '}
-              <a href={UrlPolitica} target="_blank" rel="noreferrer">
-                <u>Politicas de privacidad </u>
-              </a>
-            </label>
-          </div>
+            <input
+              type="submit"
+              value="Recibir"
+              required
+              className={classes.nnButtonReceive}
+            />
+            <div className={classes.nnBoxCheckbox2}>
+              <input
+                type="checkbox"
+                name="terminos"
+                id="terminos"
+                required
+                className={classes.nnInputTerm2}
+              />
+              <label htmlFor="terminos" className={classes.nnTextTerm}>
+                Acepto los{' '}
+                <a href={UrlTerminos} target="_blank" rel="noreferrer">
+                  <u>Términos y condiciones </u>
+                </a>{' '}
+                y{' '}
+                <a href={UrlPolitica} target="_blank" rel="noreferrer">
+                  <u>Politicas de privacidad </u>
+                </a>
+              </label>
+            </div>
+          </form>
         </div>
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: customJs,
+          }}
+        />
       </div>
     </>
   )
