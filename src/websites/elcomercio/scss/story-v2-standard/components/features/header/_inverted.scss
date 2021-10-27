@@ -109,9 +109,7 @@ $header-height: 64px;
   &__wrapper {
     width: 100%;
     padding: 0 15px;
-    @media (--desktop) {
-      max-width: 980px;
-    }
+    max-width: 980px;
   }
   &__signwall {
     flex: 1;
@@ -150,5 +148,32 @@ $header-height: 64px;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
+  }
+
+  &__nav {
+    padding: 0 16px;
+    ul {
+      max-width: 980px;
+      margin: 0 auto;
+      overflow: auto;
+      scrollbar-width: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+  &__nav-link {
+    a {
+      white-space: nowrap;
+      font: 400 11px/17px $secondary-font;
+      letter-spacing: 0.66px;
+      &::after {
+        content: ".";
+        display: inline-block;
+        vertical-align: middle;
+        height: 24px;
+        padding: 0 5px;
+      }
+    }
   }
 }

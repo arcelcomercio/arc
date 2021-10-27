@@ -9,7 +9,10 @@ import getProperties from 'fusion:properties'
 import * as React from 'react'
 
 import { env } from '../../../../../utilities/arc/env'
-import { SITE_GESTION } from '../../../../../utilities/constants/sitenames'
+import {
+  SITE_ELCOMERCIO,
+  SITE_GESTION,
+} from '../../../../../utilities/constants/sitenames'
 import {
   headerStickyScript,
   menuScript,
@@ -105,6 +108,7 @@ export default (props) => {
     storyTitle,
     navSections,
     siteProperties,
+    isTopNavVisible,
   } = props
   const { siteDomain, legalLinks } = getProperties(arcSite)
   const { activePaywall, activeSignwall } = siteProperties
@@ -125,11 +129,20 @@ export default (props) => {
     arcSite === SITE_GESTION ? headerStickyScript : '',
   ]
 
+  const filterSectionStyles = (section) => {
+    if (arcSite === SITE_ELCOMERCIO) {
+      return section.replace(/\[+([^\][]+)]+/g, '')
+    }
+    return section
+  }
+
   return (
     <>
-      {arcSite === SITE_GESTION && (
+      {(arcSite === SITE_GESTION || isTopNavVisible) && (
         <nav className="h-basic__nav f oflow-h">
-          <div className="h-basic__nav-text">Hoy interessa</div>
+          {arcSite === SITE_GESTION && (
+            <div className="h-basic__nav-text">Hoy interessa</div>
+          )}
           <ul className="f">
             {navSections?.map(
               ({
@@ -139,7 +152,9 @@ export default (props) => {
                 url = '',
               }) => (
                 <li className="h-basic__nav-link f">
-                  <a href={url || id || '/'}> {name || displayName}</a>
+                  <a href={url || id || '/'}>
+                    {filterSectionStyles(name || displayName)}
+                  </a>
                 </li>
               )
             )}
