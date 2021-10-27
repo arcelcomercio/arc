@@ -180,7 +180,7 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
       <div className={classes.nnContainer}>
         <div className={classes.nnCont1}>
           <div className={classes.nnBox1}>
-            <div className={classes.nnTitle}>Boletín eletrónico</div>
+            <div className={classes.nnTitle}>Boletín electrónico</div>
             <div className={classes.nnLogo}>
               <svg
                 width="41px"

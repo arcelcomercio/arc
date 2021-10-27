@@ -17,7 +17,7 @@
       &__title {
         font-weight: 700;
         font-size: 24px;
-        font-family: $secondary-font;
+        font-family: $primary-font;
         color: #333;
         @media (--desktop) {
           font-size: 32px;
@@ -189,6 +189,7 @@
       border-radius: 5px;
     }
     &__button-receive {
+      font-family: $secondary-font;
       font-size: 14px;
       font-weight: 700;
       color: rgb(243, 245, 243);
