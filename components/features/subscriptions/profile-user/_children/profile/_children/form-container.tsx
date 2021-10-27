@@ -9,6 +9,7 @@ interface FormContainerProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   errorMessage?: string
   successMessage?: string
+  disabled?: boolean
   status: Status
 }
 
@@ -23,6 +24,7 @@ const FormContainer: React.FC<FormContainerProps> = ({
   onSubmit,
   errorMessage,
   successMessage,
+  disabled = false,
   status = Status.Initial,
 }) => {
   const {
@@ -75,7 +77,9 @@ const FormContainer: React.FC<FormContainerProps> = ({
               color: mainColorBtn,
               backgroundColor: mainColorLink,
             }}
-            disabled={status === Status.Initial || status === Status.Loading}>
+            disabled={
+              status === Status.Initial || status === Status.Loading || disabled
+            }>
             {buttonText}
           </button>
         </div>

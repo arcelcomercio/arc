@@ -1,11 +1,13 @@
-import Identity from '@arc-publishing/sdk-identity'
 import * as Sentry from '@sentry/browser'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import { PaywallCampaign, SubsArcSite } from 'types/subscriptions'
 
-import { formatUsername } from '../../../../../utilities/subscriptions/identity'
+import {
+  extendSession,
+  formatUsername,
+} from '../../../../../utilities/subscriptions/identity'
 import { frequencies } from '../../../../../utilities/subscriptions/sales'
 import { SubscribeEventTag } from '../../../_children/fb-account-linking'
 import { useAuthContext } from '../../../_context/auth'
@@ -21,6 +23,7 @@ import {
   pushCxense,
   sendAction,
   TaggeoJoao,
+  TagsAdsMurai,
 } from '../../../_dependencies/Taggeo'
 import { getSessionStorage, getUserAgent } from '../../../_dependencies/Utils'
 
@@ -206,17 +209,9 @@ const Confirmation = (): JSX.Element => {
         value: amount,
       })
 
-      Identity.extendSession()
-        .then(() => {
-          setSendTracking(true)
-        })
-        .catch((extendErr) => {
-          Sentry.captureEvent({
-            message: 'Error al extender la sesión',
-            level: Sentry.Severity.Error,
-            extra: extendErr || {},
-          })
-        })
+      extendSession().then(() => {
+        setSendTracking(true)
+      })
 
       // Datalayer solicitados por Joao
       if (!freeAccess) {
@@ -233,6 +228,19 @@ const Confirmation = (): JSX.Element => {
               action: `${userPeriod} | Tarjeta - ${window.payU.card.method}`,
               label: uuid,
               value: `${amount}`,
+            },
+            window.location.pathname
+          )
+
+          TagsAdsMurai(
+            {
+              event: 'Subscribe',
+              content_ids: sku,
+              content_type: 'product',
+              content_name: name,
+              value: amount,
+              currency: 'PEN',
+              subscription_type: userPeriod,
             },
             window.location.pathname
           )

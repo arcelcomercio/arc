@@ -13,6 +13,7 @@ import { CardsProviders } from 'types/subscriptions'
 
 import { SITE_ELCOMERCIO } from '../../../../../../utilities/constants/sitenames'
 import addScriptAsync from '../../../../../../utilities/script-async'
+import { extendSession } from '../../../../../../utilities/subscriptions/identity'
 import { Close, Notice } from '../../../../../signwall/_children/icons'
 import Loading from '../../../../../signwall/_children/loading'
 import { Modal } from '../../../../../signwall/_children/modal/index'
@@ -93,7 +94,7 @@ const SubsDetail = ({ IdSubscription }: SubsDatailProps): JSX.Element => {
   }
 
   React.useEffect(() => {
-    Identity.extendSession()
+    extendSession()
       .then(() => {
         Sales.getSubscriptionDetails(IdSubscription)
           .then((resDetail) => {
@@ -128,13 +129,6 @@ const SubsDetail = ({ IdSubscription }: SubsDatailProps): JSX.Element => {
               extra: error || {},
             })
           })
-      })
-      .catch((error) => {
-        Sentry.captureEvent({
-          message: 'Error al extender la sesión - Identity.extendSession()',
-          level: Sentry.Severity.Error,
-          extra: error || {},
-        })
       })
       .finally(() => {
         setShowLoading(false)
@@ -205,7 +199,7 @@ const SubsDetail = ({ IdSubscription }: SubsDatailProps): JSX.Element => {
 
   const recoverySubscription = (idSubsRecovery: number) => {
     setShowLoadRescue('Recuperando...')
-    Identity.extendSession().then(() => {
+    extendSession().then(() => {
       Sales.rescueSubscription(idSubsRecovery)
         .then(() => {
           Taggeo(`Web_Sign_Wall_General`, `web_swg_success_recuperacion`)
@@ -225,7 +219,7 @@ const SubsDetail = ({ IdSubscription }: SubsDatailProps): JSX.Element => {
       setShowLoadCancel('Finalizando...')
 
       const valMotivo = option === 'Otro motivo' ? txtMotivo.trim() : option
-      Identity.extendSession().then(() => {
+      extendSession().then(() => {
         Sales.cancelSubscription(idSubsDelete, valMotivo || undefined)
           .then(() => {
             Taggeo(`Web_Sign_Wall_General`, `web_swg_success_anulacion`)

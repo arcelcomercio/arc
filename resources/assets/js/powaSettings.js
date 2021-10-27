@@ -42,7 +42,7 @@ window.PoWaSettings.promo = {
         <div class="powa-shot-image powa-shot-click powa-shot-click-play">
           <div class="powa-shot-play-btn powa-shot-hover powa-shot-click powa-shot-click-play">
             <svg
-              xmlns="http://www.w3.org/2000/svg"
+              
               width="75"
               height="75"
               viewBox="0 0 46 46">

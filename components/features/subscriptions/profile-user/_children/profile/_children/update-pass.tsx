@@ -63,7 +63,7 @@ const UpdatePassword = () => {
     errors: { newPassword: newPasswordError, oldPassword: oldPasswordError },
     handleOnChange,
     handleOnSubmit,
-    // disable,
+    disable,
   } = useForm(stateSchema, stateValidatorSchema, submitConfirmPassword)
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,6 +81,7 @@ const UpdatePassword = () => {
           : undefined
       }
       errorMessage={errorMessage}
+      disabled={disable}
       status={status}>
       <div className="row three">
         <div className="sign-profile_update-form-group">

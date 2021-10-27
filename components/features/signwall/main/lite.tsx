@@ -1,5 +1,4 @@
 import Identity from '@arc-publishing/sdk-identity'
-import { isUserIdentity } from '@arc-publishing/sdk-identity/lib/sdk/userIdentity'
 import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 import * as React from 'react'
@@ -13,7 +12,10 @@ import {
 import { deleteCookie, getCookie } from '../../../utilities/client/cookies'
 import { ContentTiers } from '../../../utilities/constants/content-tiers'
 import { getQuery } from '../../../utilities/parse/queries'
-import { isLoggedIn } from '../../../utilities/subscriptions/identity'
+import {
+  extendSession,
+  isLoggedIn,
+} from '../../../utilities/subscriptions/identity'
 import {
   getOriginAPI,
   getUrlLandingAuth,
@@ -34,17 +36,20 @@ const SignwallComponent = () => {
   useSdksContext()
   const { status } = useSdksContext()
   const { arcSite } = useAppContext()
-  const { activeSignwall, activePaywall } = getProperties(arcSite)
+  const { activeSignwall, activePaywall, activeRegisterwall } = getProperties(
+    arcSite
+  )
 
   function getListSubs() {
-    // const apiOrigin = getOriginAPI(arcSite)
-    // Identity.options({
-    //   apiOrigin,
-    // })
+    const apiOrigin = getOriginAPI(arcSite)
+    Identity.options({
+      apiOrigin,
+    })
 
-    return Identity.extendSession().then((resExt) => {
-      if (isUserIdentity(resExt)) {
-        const checkEntitlement = getEntitlement(resExt.accessToken, arcSite)
+    // Promise.reject(new Error(`${error?.code || ''} - ${error?.message}`)),
+    return extendSession()
+      .then((response) => {
+        const checkEntitlement = getEntitlement(response.accessToken, arcSite)
           .then((res) => {
             if (res.skus) {
               const result = Object.keys(res.skus).map(
@@ -57,9 +62,8 @@ const SignwallComponent = () => {
           .catch((err) => window.console.error(err))
 
         return checkEntitlement
-      }
-      return Promise.reject(new Error(`${resExt.code} - ${resExt.message}`))
-    })
+      })
+      .catch((error) => error)
   }
 
   function unblockContent() {
@@ -76,33 +80,38 @@ const SignwallComponent = () => {
     }
   }
 
+  function hasActiveSubscriptions() {
+    getListSubs()
+      .then((p) => {
+        if (p && p.length === 0) {
+          // no tengo subs -> muestra valla
+          window.showArcP = true
+          window.top?.postMessage(
+            { id: 'iframe_paywall' },
+            window.location.origin
+          )
+          setActiveWall(Walls.Premium)
+        } else {
+          // tengo subs
+          unblockContent()
+        }
+      })
+      .catch((err) => {
+        window.console.error(err)
+      })
+  }
+
   function getPremium() {
-    if (!isLoggedIn()) {
+    if (isLoggedIn()) {
+      if (activeRegisterwall) {
+        unblockContent()
+      } else {
+        hasActiveSubscriptions()
+      }
+    } else {
       window.showArcP = true
       setActiveWall(Walls.Premium)
-    } else {
-      return getListSubs()
-        .then((p) => {
-          if (p && p.length === 0) {
-            // no tengo subs -> muestra valla
-            window.showArcP = true
-            window.top?.postMessage(
-              { id: 'iframe_paywall' },
-              window.location.origin
-            )
-            setActiveWall(Walls.Premium)
-          } else {
-            // tengo subs
-            unblockContent()
-          }
-          return false // tengo subs :D
-        })
-        .catch((err) => {
-          window.console.error(err)
-        })
     }
-
-    return false
   }
 
   function getPaywall() {
@@ -133,7 +142,6 @@ const SignwallComponent = () => {
       )
       W.location.href = getUrlLandingAuth(arcSite)
     }
-
     if (typeContentTier === ContentTiers.Locked) {
       getPremium()
     } else if (W.ArcP) {
@@ -189,7 +197,12 @@ const SignwallComponent = () => {
   }
 
   function redirectURL(
-    typeDialog: 'tokenVerify' | 'tokenReset' | 'reloginEmail' | 'reloginHash',
+    typeDialog:
+      | 'tokenVerify'
+      | 'tokenMagicLink'
+      | 'tokenReset'
+      | 'reloginEmail'
+      | 'reloginHash',
     hash: string
   ) {
     const urlSignwall = getUrlSignwall(arcSite, typeDialog, hash)
@@ -208,7 +221,11 @@ const SignwallComponent = () => {
     const dataContType = window.document.head.querySelector(
       'meta[name="content-type"]'
     )
-    if (getCookie('arc_e_id') && dataContType && activePaywall) {
+    if (
+      getCookie('arc_e_id') &&
+      dataContType &&
+      (activePaywall || activeRegisterwall)
+    ) {
       redirectURL('reloginHash', '1')
     }
     return null
@@ -229,6 +246,9 @@ const SignwallComponent = () => {
         const tokenVerify = getQuery('tokenVerify')
         if (tokenVerify) redirectURL('tokenVerify', tokenVerify)
 
+        const tokenMagicLink = getQuery('tokenMagicLink')
+        if (tokenMagicLink) redirectURL('tokenMagicLink', tokenMagicLink)
+
         const tokenReset = getQuery('tokenReset')
         if (tokenReset) redirectURL('tokenReset', tokenReset)
 
@@ -241,12 +261,12 @@ const SignwallComponent = () => {
   }, [])
 
   React.useEffect(() => {
-    if (activePaywall && status === SdkStatus.Ready) {
+    if ((activePaywall || activeRegisterwall) && status === SdkStatus.Ready) {
       window.requestIdle(() => getPaywall())
     }
   }, [status])
 
-  return activePaywall ? (
+  return activePaywall || activeRegisterwall ? (
     <>
       {getQuery('signPaywall') ||
         (activeWall === Walls.Paywall && (

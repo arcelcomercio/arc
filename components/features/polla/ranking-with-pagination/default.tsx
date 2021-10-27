@@ -44,7 +44,6 @@ const PollaRankingWithPagintation: FC<Props> = (props) => {
         className="polla-ranking__rank-img"
         id="Capa_1"
         data-name="Capa 1"
-        xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 100 92">
         <g id="Grupo_1172" data-name="Grupo 1172">
           <g id="Grupo_1169" data-name="Grupo 1169">
@@ -129,7 +128,7 @@ const PollaRankingWithPagintation: FC<Props> = (props) => {
             itemsPerPage * (currentPage - 1),
             itemsPerPage * (currentPage - 1) + itemsPerPage
           )
-          .map((item, i) => (
+          .map((item) => (
             <div className="polla-ranking__table-item" key={item?.id}>
               <div className="polla-ranking__table-first">{item?.puesto}.</div>
               <div className="polla-ranking__table-second">{item?.nombre}</div>
@@ -147,12 +146,7 @@ const PollaRankingWithPagintation: FC<Props> = (props) => {
           className={`polla-ranking__pag-arr ${
             currentPage === 1 ? 'disable' : ''
           }`}>
-          <svg
-            width="7"
-            height="12"
-            viewBox="0 0 7 12"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+          <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
             <path
               d="M7 1.07273L5.9323 0L0 6L5.9383 12L7 10.9273L2.12339 6L7 1.07273V1.07273Z"
               fill="#2C78FF"
@@ -191,12 +185,7 @@ const PollaRankingWithPagintation: FC<Props> = (props) => {
               : ''
           }`}>
           <span>Siguiente</span>
-          <svg
-            width="8"
-            height="13"
-            viewBox="0 0 8 13"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+          <svg width="8" height="13" viewBox="0 0 8 13" fill="none">
             <path
               d="M0.752442 11.7774L1.82014 12.8501L7.75244 6.8501L1.81414 0.850097L0.752443 1.92282L5.62905 6.8501L0.752442 11.7774V11.7774Z"
               fill="#2C78FF"

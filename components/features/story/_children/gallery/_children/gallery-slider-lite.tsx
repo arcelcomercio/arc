@@ -208,20 +208,14 @@ const StoryHeaderChildGallerySlider: FC<FeatureProps> = (props) => {
         </ul>
         <div className={`${classes.arrow} icon-left`} id="icon-left">
           <div className={classes.leftArrow}>
-            <svg
-              width="25"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 492 492">
+            <svg width="25" viewBox="0 0 492 492">
               <path d="M198.6 246.1L382.7 62c5.1-5.1 7.9-11.8 7.9-19 0-7.2-2.8-14-7.9-19l-16.1-16.1C361.5 2.8 354.7 0 347.5 0s-14 2.8-19 7.9L109.3 227c-5.1 5.1-7.9 11.9-7.8 19.1 0 7.2 2.8 14 7.8 19.1l218.9 218.9c5.1 5.1 11.8 7.9 19 7.9 7.2 0 14-2.8 19-7.9l16.1-16.1c10.5-10.5 10.5-27.6 0-38.1L198.6 246.1z" />
             </svg>
           </div>
         </div>
         <div className={`${classes.arrow} ${classes.right}`} id="icon-right">
           <div className={classes.rightArrow}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="25"
-              viewBox="0 0 451.8 451.8">
+            <svg width="25" viewBox="0 0 451.8 451.8">
               <path d="M345.4 248.3L151.2 442.6c-12.4 12.4-32.4 12.4-44.7 0 -12.4-12.4-12.4-32.4 0-44.7L278.3 225.9 106.4 54c-12.4-12.4-12.4-32.4 0-44.7 12.4-12.4 32.4-12.4 44.8 0l194.3 194.3c6.2 6.2 9.3 14.3 9.3 22.4C354.7 234 351.6 242.1 345.4 248.3z" />
             </svg>
           </div>

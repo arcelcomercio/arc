@@ -47,7 +47,7 @@ export default ({
 
       <div className={classes.ec_data}>
         {arcSite === 'elcomercio' && (
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 370.68 77.8">
+          <svg viewBox="0 0 370.68 77.8">
             <g id="Capa_2" data-name="Capa 2">
               <g id="Capa_1-2" data-name="Capa 1">
                 <path

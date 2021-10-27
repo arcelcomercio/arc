@@ -24,6 +24,11 @@ const params = [
     displayName: 'Tamaño de las imágenes (opcional)d',
     type: 'text',
   },
+  {
+    name: 'param',
+    displayName: 'Query parametro',
+    type: 'text',
+  },
 ]
 
 const options = {
@@ -70,7 +75,7 @@ const fetch = ({
   })
 }
 
-const transform = (data, { 'arc-site': arcSite, presets }) => {
+const transform = (data, { 'arc-site': arcSite, presets, param }) => {
   let dataStory = data
 
   const { publish_date: publishDate = '', websites = {} } = data
@@ -82,7 +87,7 @@ const transform = (data, { 'arc-site': arcSite, presets }) => {
   if (isResultadosOnpe) dataStory.display_date = publishDate
   if (presets) dataStory = getResizedImageData(data, presets, arcSite)
 
-  return { ...dataStory }
+  return { ...dataStory, param }
 }
 
 export default {

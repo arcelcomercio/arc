@@ -1,5 +1,7 @@
-import React from 'react'
+import * as React from 'react'
+
 import Icon from '../../../../global-components/multimedia-icon'
+import { SITE_DIARIOCORREO } from '../../../../utilities/constants/sitenames'
 
 const classes = {
   item: 'separator__item hidden w-full h-full p-0 position-relative',
@@ -22,8 +24,12 @@ export default ({
   section,
   sectionLink,
   numline,
+  isPremium,
   isAdmin,
+  arcSite,
 }) => {
+  const shouldRenderPremiumTag = isPremium && arcSite === SITE_DIARIOCORREO
+
   return (
     <div href={link} className={classes.item}>
       <article role="listitem" className={classes.article}>
@@ -34,7 +40,13 @@ export default ({
               itemProp="url"
               className={`${classes.text} ${numline}`}
               href={link}>
-              {title}
+              {shouldRenderPremiumTag ? (
+                <>
+                  <span style={{ color: '#FFD333' }}>★</span>&nbsp;&nbsp;{title}
+                </>
+              ) : (
+                title
+              )}
             </a>
           </h3>
           <a itemProp="url" href={sectionLink} className={classes.section}>
