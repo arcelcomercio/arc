@@ -61,7 +61,7 @@ const pattern = (key: StoryMoviesFeed): string => {
         arcSite: website,
       })},content_elements.embed.config,display_date,website_url,websites.${website}.website_url,headlines.basic,planning.budget_line,${includePromoItems}`
 
-  return `/content/v4/search/published?website=${website}&q=canonical_website:${website}+AND+type:story+AND+content_elements.subtype:"saltar_intro"+AND+planning.budget_line:${date}&from=0&size=100&sort=display_date:desc${sourceInclude}`
+  return `/content/v4/search/published?website=${website}&q=canonical_website:${website}+AND+type:story+AND+content_elements.subtype:"saltar_intro"+AND+planning.budget_line:"${date}"&from=0&size=100&sort=display_date:desc${sourceInclude}`
 }
 
 const transform = (
