@@ -273,6 +273,21 @@ const AmpOutputType = ({
         <Styles {...metaSiteData} />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        {arcSite !== SITE_TROME && (
+          <>
+            <link
+              rel="preload"
+              href="https://cdn.ampproject.org/v0.js"
+              as="script"
+            />
+            <link rel="preconnect" href="https://cdn.ampproject.org" />
+            <link rel="dns-prefetch" href="https://cdn.ampproject.org" />
+            <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+            <link rel="dns-prefetch" href="https://cdna.depor.com" />
+            <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+          </>
+        )}
         {arcSite === SITE_GESTION && (
           <meta name="amp-experiments-opt-in" content="amp-next-page" />
         )}
@@ -368,11 +383,16 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"
           />
         )}
-        <script
-          async
-          custom-element="amp-sidebar"
-          src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"
-        />
+
+        {arcSite !== SITE_ELCOMERCIO &&
+          arcSite !== SITE_DEPOR &&
+          arcSite !== SITE_ELCOMERCIOMAG && (
+            <script
+              async
+              custom-element="amp-sidebar"
+              src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"
+            />
+          )}
 
         {(arcSite === SITE_DEPOR || arcSite === SITE_ELBOCON) && hasJwVideo && (
           <script
@@ -426,11 +446,13 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-soundcloud-0.1.js"
           />
         )}
-        <script
-          async
-          custom-element="amp-bind"
-          src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"
-        />
+        {arcSite === SITE_TROME && (
+          <script
+            async
+            custom-element="amp-bind"
+            src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"
+          />
+        )}
         {arcSite === SITE_ELCOMERCIOMAG && (
           <script
             async
@@ -445,7 +467,7 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-next-page-0.1.js"
           />
         )}
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+
         {isTrivia && (
           <>
             <link
