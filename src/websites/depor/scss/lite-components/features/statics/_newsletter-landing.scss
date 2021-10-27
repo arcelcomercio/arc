@@ -12,27 +12,30 @@
       display: flex;
       flex-direction: row;
       align-self: center;
+      align-items: center;
 
       &__title {
         font-weight: 700;
-        font-size: 22px;
+        font-size: 32px;
         font-family: $secondary-font;
+        color: #333;
       }
 
       &__logo {
         margin-left: 5px;
-        max-width: 30px;
-        max-height: 20px;
+        max-width: 41px;
+        max-height: 24px;
       }
     }
     &__text {
-      margin-top: 10px;
-      margin-bottom: 10px;
+      line-height: 17px;
+      margin-top: 16px;
+      margin-bottom: 40px;
       text-align: center;
       font-weight: 300;
       font-size: 15px;
       font-family: $secondary-font;
-      color: rgb(124, 120, 120);
+      color: #333;
     }
   }
   &__container2 {
@@ -42,64 +45,69 @@
     &__sec-container {
       display: flex;
       &__marginl10 {
-        margin-left: 10px;
+        margin-left: 32px;
       }
       &__box2 {
         display: flex;
         flex-direction: column;
-        height: 250px;
-        width: 250px;
+        height: 270px;
+        width: 320px;
         border-radius: 10px;
         background-color: whitesmoke;
         &__left-svg {
           align-self: center;
-          max-width: 120px;
-          max-height: 120px;
-          border: 1px solid #0c8f07;
+          max-width: 128px;
+          max-height: 128px;
+          border: 1px solid #017b31;
           border-radius: 60px;
         }
         &__right-svg {
           align-self: center;
-          max-width: 120px;
-          max-height: 120px;
-          border: 1px solid #ce6b32;
+          max-width: 128px;
+          max-height: 128px;
+          border: 1px solid #e2b084;
           border-radius: 60px;
         }
         &__box-checkbox1 {
           margin-bottom: 10px;
           display: flex;
           flex-direction: row;
+          align-items: center;
           &__input-term {
             margin-left: 30px;
-            width: 12px;
-            height: 12px;
+            width: 18px;
+            height: 18px;
           }
           &__sub-title1 {
             margin-left: 5px;
-            width: 200px;
+            max-width: 250px;
             height: 20px;
             font-weight: 700;
+            justify-content: left;
             text-decoration: underline;
-            font-size: 13px;
+            font-size: 17px;
             font-family: $secondary-font;
-            color: rgb(9, 75, 9);
+            color: #006328;
           }
           &__sub-title2 {
             margin-left: 5px;
-            width: 200px;
+            max-width: 250px;
             height: 20px;
             font-weight: 700;
             text-decoration: underline;
-            font-size: 13px;
+            font-size: 17px;
             font-family: $secondary-font;
-            color: rgb(5, 21, 66);
+            color: #162b46;
           }
         }
         &__sec-text {
-          font-size: 13px;
+          line-height: 20px;
+          font-size: 15px;
+          justify-content: left;
           margin-left: 30px;
-          max-width: 200px;
+          max-width: 250px;
           max-height: 150px;
+          color: #444;
           // border: 1px solid #ce6b32;
         }
       }
@@ -111,18 +119,19 @@
     justify-content: center;
     margin-top: 20px;
     &__text-box {
-      width: 250px;
-      height: 30px;
+      width: 320px;
+      height: 44px;
       align-self: center;
       margin-bottom: 10px;
     }
     &__button-receive {
       font-size: 14px;
+      font-weight: 700;
       color: rgb(243, 245, 243);
-      width: 250px;
-      height: 30px;
+      width: 320px;
+      height: 44px;
       align-self: center;
-      background-color: darkorange;
+      background-color: #f15a23;
       border-radius: 5px;
       margin-bottom: 10px;
     }
@@ -133,16 +142,18 @@
       margin-bottom: 10px;
       &__input-term2 {
         margin-left: 10px;
-        width: 12px;
-        height: 12px;
+        width: 18px;
+        height: 18px;
       }
       &__text-term {
-        font-weight: 300;
-        font-size: 11px;
+        // font-weight: 300;
+        margin-left: 11px;
+        font-size: 13px;
         font-family: $secondary-font;
-        color: rgb(122, 118, 118);
+        color: #666;
         justify-content: left;
-        max-width: 200px;
+        max-width: 250px;
+        line-height: 15px;
       }
     }
   }
