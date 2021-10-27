@@ -50,6 +50,8 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
 
   const isLoading = status === Status.Loading || status === Status.Initial
 
+  const ref = React.createRef<HTMLButtonElement>()
+
   React.useEffect(() => {
     setStatus(Status.Ready)
   }, [])
@@ -105,7 +107,6 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setStatus(Status.Loading)
-    setDisabled(true)
     const formData = new FormData(e.currentTarget)
     const fieldValues = Object.fromEntries(formData.entries()) as Record<
       LocationAttributes,
@@ -161,21 +162,19 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
       {
         onSuccess: () => {
           setHasSuccessMessage(true)
+          // finaliza el proceso por lo que en el primer onChange se pondrá en Ready
+          setStatus(Status.Restart)
+          setDisabled(true)
           setTimeout(() => {
             setHasSuccessMessage(false)
           }, 5000)
         },
         onError: (error: Record<string, string>) => {
           const { code } = error || {}
-          setStatus(Status.Ready)
           if (code === '100018' || code === '300040') {
+            // el botón se mostrará con el texto de cargando...
+            setStatus(Status.StandBy)
             setShouldConfirmPass(true)
-          } else if (code === '3001001') {
-            const message: string = getCodeError(code)
-            setErrorMessage(message)
-            setTimeout(() => {
-              setErrorMessage('')
-            }, 5000)
           } else {
             setErrorMessage(getCodeError(code))
             setTimeout(() => {
@@ -184,9 +183,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
           }
         },
       }
-    ).finally(() => {
-      setStatus(Status.Ready)
-    })
+    )
   }
 
   const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -232,9 +229,12 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
 
     if (name !== 'district') setUbigeo(value, name as Areas)
     if (disabled) setDisabled(false)
+    setStatus(Status.Ready)
   }
 
-  const onPassConfirmationSuccess = () => {}
+  const onPassConfirmationSuccess = () => {
+    ref.current?.click()
+  }
 
   const onPassConfirmationError = () => {
     setErrorMessage(
@@ -256,11 +256,13 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
         ModalProfile.style.overflow = 'hidden'
       }
     }
+    setStatus(Status.Ready)
   }
 
   return (
     <>
       <FormContainer
+        reference={ref}
         onSubmit={handleOnSubmit}
         title="Ubicación"
         status={status}

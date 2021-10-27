@@ -11,6 +11,8 @@ const UpdatePassword = () => {
   const [errorMessage, setErrorMessage] = React.useState('')
   const [hasSuccessMessage, setHasSuccessMessage] = React.useState(false)
 
+  const ref = React.createRef<HTMLButtonElement>()
+
   React.useEffect(() => {
     setStatus(Status.Ready)
   }, [])
@@ -43,8 +45,9 @@ const UpdatePassword = () => {
     setStatus(Status.Loading)
     Identity.updatePassword(oldPassword, newPassword)
       .then(() => {
-        setStatus(Status.Ready)
         setHasSuccessMessage(true)
+        // se encarga de bloquear el botón cuando todo salio bien
+        setStatus(Status.Restart)
       })
       .catch((err) => {
         setStatus(Status.Ready)
@@ -68,11 +71,13 @@ const UpdatePassword = () => {
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleOnChange(e)
+    setStatus(Status.Ready)
     setErrorMessage('')
   }
 
   return (
     <FormContainer
+      reference={ref}
       title="Cambiar contraseña"
       onSubmit={handleOnSubmit}
       successMessage={

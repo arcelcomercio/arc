@@ -76,6 +76,8 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
     setSelectedDocumentType,
   ] = React.useState<UserDocumentType>('DNI')
 
+  const ref = React.createRef<HTMLButtonElement>()
+
   React.useEffect(() => {
     setStatus(Status.Ready)
   }, [])
@@ -230,7 +232,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
     updateUserProfile(profileToUpdate as any, {
       onSuccess: (updatedProfile: UserProfile) => {
         setHasSuccessMessage(true)
-        setStatus(Status.Ready)
+        setStatus(Status.Restart)
 
         const textProfile = document.getElementById('name-user-profile')
         if (textProfile) {
@@ -247,13 +249,9 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
         const { code } = error || {}
         setStatus(Status.Ready)
         if (code === '100018' || code === '300040') {
+          // el botón se mostrará con el texto de cargando...
+          setStatus(Status.StandBy)
           setShouldConfirmPass(true)
-        } else if (code === '3001001') {
-          const message: string = getCodeError(code)
-          setErrorMessage(message)
-          setTimeout(() => {
-            setErrorMessage('')
-          }, 5000)
         } else {
           setErrorMessage(getCodeError(code))
           setTimeout(() => {
@@ -304,6 +302,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
     >
   ) => {
     handleOnChange(e)
+    setStatus(Status.Ready)
     setErrorMessage('')
   }
 
@@ -318,9 +317,12 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
         ModalProfile.style.overflow = 'hidden'
       }
     }
+    setStatus(Status.Ready)
   }
 
-  const onPassConfirmationSuccess = () => {}
+  const onPassConfirmationSuccess = () => {
+    ref.current?.click()
+  }
 
   const onPassConfirmationError = () => {
     setErrorMessage(
@@ -334,6 +336,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
   return (
     <>
       <FormContainer
+        reference={ref}
         onSubmit={handleOnSubmit}
         title="Datos personales"
         errorMessage={errorMessage}
