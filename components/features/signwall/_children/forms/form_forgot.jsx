@@ -25,9 +25,7 @@ const FormForgot = ({ typeDialog }) => {
   const textBtnSend = arcSite === SITE_TROME ? 'CAMBIAR CONTRASEÑA' : 'ENVIAR'
   const isTromeOrganic =
     arcSite === SITE_TROME &&
-    (typeDialog === 'organico' ||
-      typeDialog === 'verify' ||
-      typeDialog === 'magiclink')
+    (typeDialog === 'organico' || typeDialog === 'verify')
 
   const { changeTemplate } = useModalContext()
   const [showError, setShowError] = React.useState(false)
