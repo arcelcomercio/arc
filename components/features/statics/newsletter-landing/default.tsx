@@ -245,9 +245,9 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
                 <div className={classes.nnSubTitle1}>GENERAL</div>
               </div>
               <div className={classes.nnSecText}>
-                La información mas relevante del futbol nacional, internacional.
-                La liga 1, la Selección Peruana, los peruanos en el mundo,
-                LaLiga de España y mucho màs.
+                La información mas relevante del futbol nacional, internacional
+                y polideportivo. La liga 1, la Selección Peruana, los peruanos
+                en el mundo, LaLiga de España y mucho màs.
               </div>
             </div>
           </div>
