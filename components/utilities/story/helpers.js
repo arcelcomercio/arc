@@ -49,9 +49,9 @@ export const getVideoIdRedSocial = (content = '', type = '') => {
 
 export const getResultVideo = (streams, arcSite, type = 'ts') => {
   const resultVideo = streams
-    .map(({ url = '', stream_type: streamType = '' }) => {
-      return streamType === type ? url : []
-    })
+    .map(({ url = '', stream_type: streamType = '' }) =>
+      streamType === type ? url : []
+    )
     .filter(String)
   const cantidadVideo = resultVideo.length
 
@@ -63,23 +63,20 @@ export const stripTags = (inputs, allowed = '') => {
   ).join('')
   const tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi
   const commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi
-  return inputs
-    .replace(commentsAndPhpTags, '')
-    .replace(tags, function ($0, $1) {
-      const input = `<${$1.toLowerCase()}>`
-      return allowedNew.indexOf(input) > -1 ? $0 : ''
-    })
+  return inputs.replace(commentsAndPhpTags, '').replace(tags, ($0, $1) => {
+    const input = `<${$1.toLowerCase()}>`
+    return allowedNew.indexOf(input) > -1 ? $0 : ''
+  })
 }
 
 export const processedAds = (content, type = '', arcSite = '', secc = '') => {
-  const publicidadHtml = (espacio) => {
-    return `<div id=${`gpt_${espacio}`} className="f just-center" data-ads-name=${`/28253241/${arcSite}/web/post/${secc}/${espacio}`}
+  const publicidadHtml = (
+    espacio
+  ) => `<div id=${`gpt_${espacio}`} className="f just-center" data-ads-name=${`/28253241/${arcSite}/web/post/${secc}/${espacio}`}
                   data-ads-dimensions="[[300,250]]" data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>`
-  }
 
-  const spaceDefault = (numero) => {
-    return `<div id="gpt_caja${numero}" class="flex justify-center"></div>`
-  }
+  const spaceDefault = (numero) =>
+    `<div id="gpt_caja${numero}" class="flex justify-center"></div>`
 
   const contentHtml = content
     .replace('</script>:', '</script>')
@@ -112,12 +109,17 @@ export const processedAds = (content, type = '', arcSite = '', secc = '') => {
 }
 
 export const getResultJwplayer = (streams) => {
-  const resultVideo = streams
-    .map(({ mediatype = '', link: { address = '', path = '' } = {} }) => {
-      return mediatype === 'video' ? `https://${address}${path}` : []
-    })
-    .filter(String)
-  const cantidadVideo = resultVideo.length
-
-  return resultVideo[cantidadVideo - 1]
+  const resultVideo =
+    streams[0] &&
+    streams
+      .map(({ mediatype = '', link: { address = '', path = '' } = {} }) =>
+        mediatype === 'video' ? `https://${address}${path}` : []
+      )
+      .filter(String)
+  let result = ''
+  if (resultVideo) {
+    const cantidadVideo = resultVideo.length
+    result = resultVideo[cantidadVideo - 1]
+  }
+  return result
 }
