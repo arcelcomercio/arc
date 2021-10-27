@@ -276,7 +276,7 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
           </div>
         </div>
         <div className={classes.nnCont3}>
-          <form action="" id="formNL">
+          <form action="" id="formNL" className={classes.nnCont3}>
             <input
               type="email"
               placeholder=" Ingresa tu Email"
