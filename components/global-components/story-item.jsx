@@ -4,7 +4,7 @@
 import React from 'react'
 
 import ConfigParams from '../utilities/config-params'
-import { formatDateLocalTimeZoneTemp,reduceWord } from '../utilities/helpers'
+import { formatDateLocalTimeZoneTemp, reduceWord } from '../utilities/helpers'
 import StoryData from '../utilities/story-data'
 // import { alignmentClassesPropType } from '@arc-core-components/feature_article-body/build/helpers'
 import Icon from './multimedia-icon'
@@ -52,7 +52,7 @@ const StoriesList = ({
     element.primarySectionLink.includes('/opinion/') &&
     arcSite === ConfigParams.SITE_PERU21
 
-  console.log(arcSite)
+  // console.log(arcSite)
 
   return (
     <div

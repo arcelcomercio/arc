@@ -168,8 +168,9 @@ export const initSearch = `window.addEventListener("load",function(){requestIdle
 export const sections = `window.addEventListener("load",function(){requestIdle(function(){ 
     var f=document.body.querySelectorAll('.header-inverted-featured__features-link__inverted');
     f.forEach((e) => {
-      if (location.pathname === e.getAttribute("href")) {
-        console.log(e.className);
+      let h=e.getAttribute("href");
+      if (e.getAttribute("href").split('/').pop() !== '') {h=h+'/';}
+      if (location.pathname === h) {
         e.className=e.className.concat(" active");
       }
     })    
