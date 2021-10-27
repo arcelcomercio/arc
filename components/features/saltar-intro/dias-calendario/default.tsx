@@ -1,6 +1,7 @@
 import { useFusionContext } from 'fusion:context'
 import * as React from 'react'
 
+import Image from '../../../global-components/image'
 import { loadDateFromYYYYMMDD } from '../../../utilities/date-time/dates'
 import customFields from './_dependencies/custom-fields'
 
@@ -14,10 +15,18 @@ const classes = {
   line: 'saltar-intro-dias-calendario__line',
   boxSeeMore: 'saltar-intro-dias-calendario__box-see-more',
   seeMore: 'saltar-intro-dias-calendario__see-more',
+  containerCard: 'saltar-intro-card-calendario__container',
+  list: 'saltar-intro-card-calendario__list',
+  item: 'saltar-intro-card-calendario__item',
+  title: 'saltar-intro-card-calendario__title',
+  plataform: 'saltar-intro-card-calendario__plataform',
+  temporada: 'saltar-intro-card-calendario__temporada',
+  estreno: 'saltar-intro-card-calendario__estreno',
+  image: 'saltar-intro-card-calendario__image',
 }
 
 const SaltarIntroDiasCalendario: React.FC = (props) => {
-  const { globalContent, contextPath } = useFusionContext()
+  const { globalContent } = useFusionContext()
   const {
     customFields: { seeMoreLink = '' },
   } = props
@@ -41,20 +50,83 @@ const SaltarIntroDiasCalendario: React.FC = (props) => {
       {Object.keys(data).map((key: string) => {
         const { dayName = '', day = '' } = dateFormat(key)
         return (
-          <div className={classes.container}>
-            <div className={classes.boxDay}>
-              <h2 className={classes.dayNum}>{day}</h2>
-              <h3 className={classes.dayName}>{dayName}</h3>
+          <>
+            <div className={classes.container}>
+              <div className={classes.boxDay}>
+                <h2 className={classes.dayNum}>{day}</h2>
+                <h3 className={classes.dayName}>{dayName}</h3>
+              </div>
+              <div className={classes.boxLine}>
+                <div className={classes.triangle} />
+                <div className={classes.line} />
+                <div className={classes.line} />
+                <div className={classes.line} />
+                <div className={classes.line} />
+                <div className={classes.line} />
+              </div>
             </div>
-            <div className={classes.boxLine}>
-              <div className={classes.triangle} />
-              <div className={classes.line} />
-              <div className={classes.line} />
-              <div className={classes.line} />
-              <div className={classes.line} />
-              <div className={classes.line} />
+            <div className={classes.containerCard}>
+              <div className={classes.list}>
+                {data[key].map((el) => {
+                  const {
+                    embed: {
+                      config: {
+                        title = '',
+                        chapter = '',
+                        premiere_image: premiereImage = null,
+                        plataform = '',
+                        is_premiere: isPremiere = 0,
+                      } = {},
+                    } = {},
+                  } = el.content_elements.find((obj) =>
+                    Object.hasOwnProperty.call(obj.embed.config, 'title')
+                  )
+                  const {
+                    basic: {
+                      resized_urls: { landscape_s: landscapeS = '' } = {},
+                    } = {},
+                    basic_gallery: {
+                      promo_items: {
+                        basic: {
+                          resized_urls: { landscape_s: landscapeSS = '' } = {},
+                        } = {},
+                      } = {},
+                    } = {},
+                  } = el.promo_items
+                  const {
+                    website_url: websiteLink = '',
+                  } = el.websites.elcomercio
+                  return (
+                    <div className={classes.item}>
+                      <a itemProp="url" href={websiteLink}>
+                        <Image
+                          src={premiereImage || landscapeS || landscapeSS}
+                          data-src={premiereImage || landscapeS || landscapeSS}
+                          width={219}
+                          height={117}
+                          alt={title}
+                          className={classes.image}
+                          loading="lazy"
+                        />
+                      </a>
+                      <a href={websiteLink} className={classes.title}>
+                        {title || '-'}
+                      </a>
+                      <div className={classes.plataform}>
+                        <span>{plataform || '-'}</span>
+                      </div>
+                      <span className={classes.temporada}>
+                        {chapter || '-'}
+                      </span>
+                      <span className={classes.estreno}>
+                        {isPremiere ? 'estreno' : ' '}
+                      </span>
+                    </div>
+                  )
+                })}
+              </div>
             </div>
-          </div>
+          </>
         )
       })}
       <div className={classes.boxSeeMore}>
