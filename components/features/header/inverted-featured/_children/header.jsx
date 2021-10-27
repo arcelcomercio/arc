@@ -18,9 +18,10 @@ import {
   searchScriptMobile,
   btnSearchMobile,
   singwallScript,
-
   sticky,
-  hoverSearch
+  hoverSearch,
+  initSearch,
+  sections
 } from '../_dependencies/scripts'
 
 const classes = {
@@ -40,7 +41,7 @@ const classes = {
   linkInverted: 'header-inverted-featured__features-link__inverted',
   bandWrapper: 'header-inverted-featured__band-wrapper',
   bandWrapperInveted: 'header-inverted-featured__band-wrapper__inverted',
-  band: 'header-inverted-featured__band',
+  band: 'header-inverted-featured__band mt-0',
   bandInverted: 'header-inverted-featured__band__inverted',
   tags: 'header-inverted-featured__tags',
   tagsTema: 'header-inverted-featured__menu-full__Tags',
@@ -255,6 +256,10 @@ const HeaderChildInverted = ({
     </nav>
   )
 
+  // console.log(bandLinks)
+  // const locations = location.pathname;
+  // console.log(initSearch)
+
   return (
     <>
       {(!invertedTema && !hideTema) && <Header />}
@@ -387,6 +392,7 @@ const HeaderChildInverted = ({
           </a>
         </div>
         <div className="layer" />
+        {/** ************* // SEARCH *************** */}
         <div id="search-container" className={classes.buscadorContainer}>
           <div className={classes.buscador}>
             <svg
@@ -418,7 +424,6 @@ const HeaderChildInverted = ({
               btnClass={classes.btnBuscar}
               btnText="BUSCAR"
             />
-
           </div>
         </div>
       </header>
@@ -461,43 +466,24 @@ const HeaderChildInverted = ({
         </nav>
       )}
       <script
+        type="text/javascript"
         dangerouslySetInnerHTML={{
-          __html: toggleMenu
+          __html: `${toggleMenu} ${toggleSearch} 
+          ${btnSearch}
+          ${hoverSearch}
+          ${sticky}
+          ${hideMenu ? '' : searchScript}
+          ${singwallScript}`
         }}
       ></script>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: toggleSearch
-        }}
-      ></script>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: btnSearch
-        }}
-      ></script>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: hoverSearch
-        }}
-      ></script>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: hideMenu ? '' : searchScript
-        }}
-      >
-      </script>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: sticky
-        }}
-      >
-      </script>
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
-          __html: singwallScript
+          __html: `${initSearch} 
+          ${sections}`
         }}
-      />
+      >
+      </script>
       {(invertedTema && !hideTema) && <Header />}
     </>
   )
