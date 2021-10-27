@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { BaseMarkup, Html } from '@arc-core-components/amp-document-boilerplate'
+import getProperties from 'fusion:properties'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
@@ -262,7 +263,7 @@ const AmpOutputType = ({
     prebidSlot: `19186-${namePublicidad}-amp-zocalo`,
   }
   const isTrivia = /^\/trivias\//.test(requestUri)
-
+  const { siteDomain } = getProperties(arcSite)
   return (
     <Html lang={lang}>
       <head>
@@ -284,7 +285,7 @@ const AmpOutputType = ({
             <link rel="preconnect" href="https://cdn.ampproject.org" />
             <link rel="dns-prefetch" href="https://cdn.ampproject.org" />
             <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-            <link rel="dns-prefetch" href="https://cdna.depor.com" />
+            <link rel="dns-prefetch" href={`https://cdna.${siteDomain}`} />
             <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
           </>
         )}
