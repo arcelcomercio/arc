@@ -140,7 +140,6 @@ const renderTemplate = (template, valTemplate, attributes) => {
       case 'resetpass':
         return templates.reset
       case 'verify':
-      case 'magiclink':
         return templates.verify
       case 'relogemail':
       case 'reloghash':
