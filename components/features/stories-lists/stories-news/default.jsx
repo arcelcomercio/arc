@@ -3,6 +3,7 @@ import { useFusionContext } from 'fusion:context'
 import React from 'react'
 
 import Ads from '../../../global-components/ads'
+import StoryGrid from '../../../global-components/story-grid'
 import StoryItem from '../../../global-components/story-new'
 import ConfigParams from '../../../utilities/config-params'
 import { reduceWord } from '../../../utilities/helpers'
@@ -62,10 +63,10 @@ const StoriesListNew = (props) => {
   const typeSpace = isDfp ? 'caja' : 'movil'
 
   const activeAdsArray = activeAds.map((el) => ({
-      name: `${typeSpace}${el.slice(-1)}`,
-      pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
-      inserted: false,
-    }))
+    name: `${typeSpace}${el.slice(-1)}`,
+    pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
+    inserted: false,
+  }))
 
   const Story = new StoryData({
     data,
@@ -109,30 +110,47 @@ const StoriesListNew = (props) => {
               ? authorImage
               : multimediaLandscapeS
 
-            const format = arcSite === 'trome' ? 'col' : 'row'
+            const isTrome = arcSite === 'trome'
 
             return (
               <>
-                <StoryItem
-                  {...{
-                    isAdmin,
-                    primarySectionLink,
-                    primarySection,
-                    date,
-                    websiteLink,
-                    title: reduceWord(title),
-                    titleHeader: reduceWord(titleHeader),
-                    subTitle: reduceWord(subTitle),
-                    authorLink,
-                    author,
-                    authorImage,
-                    multimediaType,
-                    multimediaLandscapeXS: imgItemLandscapeXS,
-                    multimediaLazyDefault,
-                    multimediaLandscapeS: imgItemLandscapeS,
-                    formato: format,
-                  }}
-                />
+                {isTrome ? (
+                  <StoryGrid
+                    isAdmin={isAdmin}
+                    primarySectionLink={primarySectionLink}
+                    primarySection={primarySection}
+                    date={date}
+                    websiteLink={websiteLink}
+                    title={reduceWord(title)}
+                    titleHeader={titleHeader}
+                    subTitle={reduceWord(subTitle)}
+                    authorLink={authorLink}
+                    author={author}
+                    multimediaType={multimediaType}
+                    multimediaLazyDefault={multimediaLazyDefault}
+                    multimediaLandscapeS={multimediaLandscapeS}
+                  />
+                ) : (
+                  <StoryItem
+                    {...{
+                      isAdmin,
+                      primarySectionLink,
+                      primarySection,
+                      date,
+                      websiteLink,
+                      title: reduceWord(title),
+                      subTitle: reduceWord(subTitle),
+                      authorLink,
+                      author,
+                      authorImage,
+                      multimediaType,
+                      multimediaLandscapeXS: imgItemLandscapeXS,
+                      multimediaLazyDefault,
+                      multimediaLandscapeS: imgItemLandscapeS,
+                      formato: 'row',
+                    }}
+                  />
+                )}
                 {ads.length > 0 && (
                   <div className={classes.adsBox}>
                     <Ads
