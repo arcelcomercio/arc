@@ -45,9 +45,10 @@ const SaltarIntroDiasCalendario: React.FC = (props) => {
     return { dayName: days[d.getDay()], day: d?.getDate() }
   }
 
+  const dataKeysDate = Object.keys(data).sort()
   return (
     <>
-      {Object.keys(data).map((key: string) => {
+      {dataKeysDate.map((key: string) => {
         const { dayName = '', day = '' } = dateFormat(key)
         return (
           <>
@@ -82,17 +83,21 @@ const SaltarIntroDiasCalendario: React.FC = (props) => {
                     Object.hasOwnProperty.call(obj.embed.config, 'title')
                   )
                   const {
-                    basic: {
-                      resized_urls: { landscape_s: landscapeS = '' } = {},
-                    } = {},
-                    basic_gallery: {
-                      promo_items: {
-                        basic: {
-                          resized_urls: { landscape_s: landscapeSS = '' } = {},
+                    promo_items: {
+                      basic: {
+                        resized_urls: { landscape_s: landscapeS = '' } = {},
+                      } = {},
+                      basic_gallery: {
+                        promo_items: {
+                          basic: {
+                            resized_urls: {
+                              landscape_s: landscapeSS = '',
+                            } = {},
+                          } = {},
                         } = {},
                       } = {},
                     } = {},
-                  } = el.promo_items
+                  } = el || {}
                   const {
                     website_url: websiteLink = '',
                   } = el.websites.elcomercio
