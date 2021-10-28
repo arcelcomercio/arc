@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { formatDateLocalTimeZone } from '../utilities/helpers'
+import { formatDateLocalTimeZoneFull } from '../utilities/helpers'
 // import { alignmentClassesPropType } from '@arc-core-components/feature_article-body/build/helpers'
 import Icon from './multimedia-icon'
 
@@ -61,7 +61,7 @@ const StoryGrid: React.FC<Props> = ({
     <div className={classes.info}>
       <div className={classes.dateTime}>
         <p itemProp="description" className={classes.date}>
-          {formatDateLocalTimeZone(date)}
+          {formatDateLocalTimeZoneFull(date, '.', false, 'DD-MM-YYYY')}
         </p>
       </div>
 
@@ -94,7 +94,7 @@ const StoryGrid: React.FC<Props> = ({
             {primarySection}
           </a>
           <p itemProp="description" className={classes.date}>
-            {formatDateLocalTimeZone(date)}
+            {formatDateLocalTimeZoneFull(date, '.', false, 'DD-MM-YYYY')}
           </p>
         </div>
 
