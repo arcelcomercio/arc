@@ -1,25 +1,27 @@
 import { useAppContext } from 'fusion:context'
 import React from 'react'
 import { FC } from 'types/features'
-import { ContentConfig } from 'types/fusion'
 
-import SectionsList from './_children/sections-list'
+import VideosSection from './_children/videos-section'
 import customFields from './_dependencies/custom-fields'
 
 interface Props {
   customFields?: {
-    hierarchyConfig?: ContentConfig
+    urlSection?: string
+    nameSection?: string
   }
 }
 
 const VideoSectionsList: FC<Props> = (props) => {
   const { arcSite } = useAppContext()
-  const { customFields: { hierarchyConfig } = {} } = props
+  const {
+    customFields: { urlSection = '/videos', nameSection = 'Videos' } = {},
+  } = props
 
-  return <SectionsList arcSite={arcSite} hierarchyConfig={hierarchyConfig} />
+  return <VideosSection arcSite={arcSite} url={urlSection} name={nameSection} />
 }
 
-VideoSectionsList.label = 'Listado de videos de secciones'
+VideoSectionsList.label = 'Separador de videos de sección'
 
 VideoSectionsList.static = true
 
