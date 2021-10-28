@@ -4,6 +4,7 @@ import * as React from 'react'
 import { Status } from '../_dependencies/types'
 
 interface FormContainerProps {
+  reference: React.LegacyRef<HTMLButtonElement> | undefined
   title: string
   children: React.ReactNode
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
@@ -19,6 +20,7 @@ const styles = {
 }
 
 const FormContainer: React.FC<FormContainerProps> = ({
+  reference,
   title,
   children,
   onSubmit,
@@ -35,9 +37,11 @@ const FormContainer: React.FC<FormContainerProps> = ({
 
   let buttonText = ''
   switch (status) {
+    case Status.Restart:
     case Status.Ready:
       buttonText = 'Guardar Cambios'
       break
+    case Status.StandBy:
     case Status.Loading:
       buttonText = 'Guardando...'
       break
@@ -72,13 +76,18 @@ const FormContainer: React.FC<FormContainerProps> = ({
         <div className={styles.group}>
           <button
             className={styles.btn}
+            ref={reference}
             type="submit"
             style={{
               color: mainColorBtn,
               backgroundColor: mainColorLink,
             }}
             disabled={
-              status === Status.Initial || status === Status.Loading || disabled
+              status === Status.Initial ||
+              status === Status.Loading ||
+              // en caso se finalizó el proceso se pone Status.Restart
+              status === Status.Restart ||
+              disabled
             }>
             {buttonText}
           </button>
