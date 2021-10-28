@@ -4,8 +4,17 @@ import { FC } from 'types/features'
 import { ArcSite, ContentConfig } from 'types/fusion'
 
 import { formatSections } from '../../../../utilities/helpers'
+import {
+  includeCredits,
+  includePrimarySection,
+  includePromoItems,
+  includePromoVideo,
+} from '../../../../utilities/included-fields'
 // import Section from './_children/section'
-import { SchemaHierarchy } from '../_dependencies/schema-filter'
+import {
+  SchemaHierarchy,
+  SchemaMultiStory,
+} from '../_dependencies/schema-filter'
 
 interface Props {
   hierarchyConfig?: ContentConfig
@@ -43,9 +52,31 @@ const SectionsList: FC<Props> = (props) => {
     }) || {}
 
   const arrSections = formatSections(dataHierarchy)
+  const presets = 'landscape_md:314x0'
 
   console.log('==========arrSections============')
   console.log(arrSections)
+  console.log('=================================')
+
+  const videosSection = arrSections.map(
+    (section) =>
+      useContent({
+        source: 'story-feed-by-section',
+        query: {
+          section: section.url,
+          feedOffset: 0,
+          stories_qty: 4,
+          presets,
+          includedFields: `websites.${arcSite}.website_url,headlines.basic,${includePrimarySection(
+            { arcSite }
+          )},${includePromoItems},${includePromoVideo},${includeCredits}`,
+        },
+        filter: SchemaMultiStory(arcSite),
+      }) || {}
+  )
+
+  console.log('==========videosSection============')
+  console.log(videosSection)
   console.log('=================================')
 
   return (
