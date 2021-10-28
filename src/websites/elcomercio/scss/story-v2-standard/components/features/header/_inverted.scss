@@ -54,6 +54,14 @@ $header-height: 64px;
     transition: opacity 0.5s ease 0s;
     will-change: opacity;
   }
+  &__item {
+    .menu__sub {
+      display: none;
+    }
+    .menu__menu-arrow {
+      display: none;
+    }
+  }
   &.active {
     transform: scaleX(1);
     .menu__content {
@@ -151,12 +159,16 @@ $header-height: 64px;
   }
 
   &__nav {
-    padding: 0 16px;
     ul {
+      width: 100%;
       max-width: 980px;
       margin: 0 auto;
       overflow: auto;
       scrollbar-width: none;
+      padding: 0 16px;
+      @media (--desktop) {
+        padding: 0;
+      }
       &::-webkit-scrollbar {
         display: none;
       }
