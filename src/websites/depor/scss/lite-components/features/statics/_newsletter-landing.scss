@@ -228,5 +228,40 @@
         }
       }
     }
+    & #formNL {
+      display: none;
+    }
+    & #formNLlast {
+      display: none;
+    }
+  }
+  &__success {
+    display: none;
+    flex-flow: column;
+    align-items: center;
+    &__button {
+      & button {
+        width: 320px;
+        height: 46px;
+        border-radius: 5px;
+        background-color: #9bbf17;
+        color: #fff;
+        font-size: 16px;
+        cursor: default;
+      }
+    }
+    &__link {
+      text-align: center;
+      padding-top: 16px;
+      & a {
+        color: #006328;
+        height: 19px;
+        letter-spacing: 0.16px;
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: underline;
+        padding-top: 16px;
+      }
+    }
   }
 }
