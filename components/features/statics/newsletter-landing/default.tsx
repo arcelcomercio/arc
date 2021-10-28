@@ -53,6 +53,10 @@ const classes = {
   nnInputTerm2: 'newsletter--landing__container3__box-checkbox2__input-term2',
   nnTextTerm: 'newsletter--landing__container3__box-checkbox2__text-term',
 
+  nnSuccess: 'newsletter--landing__success',
+  nnSuccessButton: 'newsletter--landing__success__button',
+  nnSuccessLink: 'newsletter--landing__success__link',
+
   // pagina 7
   nnMessageSubscribed:
     'newsletter--landing__container3__form7__message-subscribed',
@@ -76,6 +80,9 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
     const form = document.getElementById('formNL')
     const formInputs = form.elements
 
+    const divSuccessDesktop = document.getElementById('msg_success')
+    const formLast = document.getElementById('formNLlast')
+
     const URL_API = 'https://google.com'
     const brandNL = '${newsletterBrand}'
 
@@ -86,15 +93,13 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
     const chkb2 = document.getElementById("checkb2")
 
     let topicNL = ''
-    let more = false
     let checkb = []
     
     const mailLS = localStorage.getItem("Correo-NL-"+brandNL)
     const topicLS = JSON.parse(localStorage.getItem("Topic-NL-"+brandNL))
 
     if(mailLS){
-      console.log("EXISTE CORREO EN LOCAL STORAGE", mailLS)
-
+      formLast.style.display = "flex"
       topicLS.forEach(e=>{
           if(chkb1.value == e){
             chkb1.checked = true
@@ -105,10 +110,45 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
       });
 
     }else{
-      console.log("NO EXISTE <<<")
+      form.style.display = "flex"
     }
     
+    formLast.addEventListener("submit", e => {
+      e.preventDefault()
+      if(chkb1.checked == false && chkb2.checked == false){
+        alert("Seleccione un Boletín")
+        return false
+      }
 
+      if(chkb1.checked && chkb2.checked == false){
+        topicNL = chkb1.value
+        checkb = [chkb1.value]
+      }
+
+      if(chkb2.checked && chkb1.checked == false){
+        topicNL = chkb2.value
+        checkb = [chkb2.value]
+      }
+      
+      if(chkb1.checked && chkb2.checked){
+        checkb = [chkb1.value, chkb2.value]
+      }
+
+      localStorage.setItem("Topic-NL-"+brandNL, JSON.stringify(checkb));
+
+      var xhr = new XMLHttpRequest()
+            xhr.open("POST", URL_API, true)
+            xhr.setRequestHeader('Content-Type', 'application/json')
+            xhr.send(JSON.stringify({ 
+              email: mailLS, 
+              brand: brandNL, 
+              topic: checkb
+          
+      }))
+       formLast.style.display = "none"
+       divSuccessDesktop.style.display = "flex"
+
+    })
     form.addEventListener("submit", e => {
       e.preventDefault()
       const re = new RegExp(/[\\w\\.-]+@[\\w\\.-]+/, 'i')
@@ -131,41 +171,26 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
       
       if(chkb1.checked && chkb2.checked){
         checkb = [chkb1.value, chkb2.value]
-        more = true
       }
 
-      if(validEmail && form[2].checked) {
+      if(validEmail && formInputs[2].checked) {
 
         localStorage.setItem("Correo-NL-"+brandNL, formInputs[0].value);
         localStorage.setItem("Topic-NL-"+brandNL, JSON.stringify(checkb));
 
-       if(more){
-
-        for (let i = 0; i < checkb.length; i++) {
-          var xhr = new XMLHttpRequest()
+       var xhr = new XMLHttpRequest()
             xhr.open("POST", URL_API, true)
             xhr.setRequestHeader('Content-Type', 'application/json')
             xhr.send(JSON.stringify({ 
               email: formInputs[0].value, 
               brand: brandNL, 
-              topic: checkb[i] 
+              topic: checkb
           
-          }))
-        }
+      }))
 
-       }else{
+       form.style.display = "none"
+       divSuccessDesktop.style.display = "flex"
 
-          var xhr = new XMLHttpRequest()
-            xhr.open("POST", URL_API, true)
-            xhr.setRequestHeader('Content-Type', 'application/json')
-            xhr.send(JSON.stringify({ 
-              email: formInputs[0].value, 
-              brand: brandNL, 
-              topic: topicNL 
-          
-          }))
-
-       }
       }
       return false
     })
@@ -173,7 +198,7 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
 */
 
   let customJs = ''
-  customJs = `"use strict";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.getElementById("formNL"),t=e.elements,o="${newsletterBrand}",c=(JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")||"{}").uuid,JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")||"{}").accessToken,document.getElementById("checkb1")),n=document.getElementById("checkb2"),a="",l=!1,r=[],d=localStorage.getItem("Correo-NL-"+o),s=JSON.parse(localStorage.getItem("Topic-NL-"+o));d?(console.log("EXISTE CORREO EN LOCAL STORAGE",d),s.forEach(function(e){c.value==e&&(c.checked=!0),n.value==e&&(n.checked=!0)})):console.log("NO EXISTE <<<"),e.addEventListener("submit",function(d){d.preventDefault();var s=new RegExp(/[\\w\\.-]+@[\\w\\.-]+/,"i").test(t[0].value);if(0==c.checked&&0==n.checked)return alert("Seleccione un Boletín"),!1;if(c.checked&&0==n.checked&&(a=c.value,r=[c.value]),n.checked&&0==c.checked&&(a=n.value,r=[n.value]),c.checked&&n.checked&&(r=[c.value,n.value],l=!0),s&&e[2].checked)if(localStorage.setItem("Correo-NL-"+o,t[0].value),localStorage.setItem("Topic-NL-"+o,JSON.stringify(r)),l)for(var i=0;i<r.length;i++){var u;(u=new XMLHttpRequest).open("POST","https://google.com",!0),u.setRequestHeader("Content-Type","application/json"),u.send(JSON.stringify({email:t[0].value,brand:o,topic:r[i]}))}else(u=new XMLHttpRequest).open("POST","https://google.com",!0),u.setRequestHeader("Content-Type","application/json"),u.send(JSON.stringify({email:t[0].value,brand:o,topic:a}));return!1})})});`
+  customJs = `"use strict";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.getElementById("formNL"),t=e.elements,c=document.getElementById("msg_success"),n=document.getElementById("formNLlast"),l="${newsletterBrand}",a=(JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")||"{}").uuid,JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")||"{}").accessToken,document.getElementById("checkb1")),o=document.getElementById("checkb2"),d=[],s=localStorage.getItem("Correo-NL-"+l),r=JSON.parse(localStorage.getItem("Topic-NL-"+l));s?(n.style.display="flex",r.forEach(function(e){a.value==e&&(a.checked=!0),o.value==e&&(o.checked=!0)})):e.style.display="flex",n.addEventListener("submit",function(e){if(e.preventDefault(),0==a.checked&&0==o.checked)return alert("Seleccione un Boletín"),!1;a.checked&&0==o.checked&&(a.value,d=[a.value]),o.checked&&0==a.checked&&(o.value,d=[o.value]),a.checked&&o.checked&&(d=[a.value,o.value]),localStorage.setItem("Topic-NL-"+l,JSON.stringify(d));var t=new XMLHttpRequest;t.open("POST","https://google.com",!0),t.setRequestHeader("Content-Type","application/json"),t.send(JSON.stringify({email:s,brand:l,topic:d})),n.style.display="none",c.style.display="flex"}),e.addEventListener("submit",function(n){n.preventDefault();var s=new RegExp(/[\\w\\.-]+@[\\w\\.-]+/,"i").test(t[0].value);if(0==a.checked&&0==o.checked)return alert("Seleccione un Boletín"),!1;if(a.checked&&0==o.checked&&(a.value,d=[a.value]),o.checked&&0==a.checked&&(o.value,d=[o.value]),a.checked&&o.checked&&(d=[a.value,o.value]),s&&t[2].checked){localStorage.setItem("Correo-NL-"+l,t[0].value),localStorage.setItem("Topic-NL-"+l,JSON.stringify(d));var r=new XMLHttpRequest;r.open("POST","https://google.com",!0),r.setRequestHeader("Content-Type","application/json"),r.send(JSON.stringify({email:t[0].value,brand:l,topic:d})),e.style.display="none",c.style.display="flex"}return!1})})});`
 
   return (
     <>
@@ -260,7 +285,7 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
                 <input
                   type="checkbox"
                   id="checkb2"
-                  value="son_datos"
+                  value="son_datos_no_opiniones"
                   className={classes.nnInputTerm}
                 />
                 <div className={classes.nnSubTitle2}>
@@ -287,7 +312,6 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
             <input
               type="submit"
               value="Recibir"
-              required
               className={classes.nnButtonReceive}
             />
             <div className={classes.nnBoxCheckbox2}>
@@ -310,6 +334,21 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
               </label>
             </div>
           </form>
+          <form action="" id="formNLlast" className={classes.nnCont3}>
+            <input
+              type="submit"
+              value="Recibir"
+              className={classes.nnButtonReceive}
+            />
+          </form>
+          <div className={classes.nnSuccess} id="msg_success">
+            <div className={classes.nnSuccessButton}>
+              <button type="button">¡Ya estás suscrito!</button>
+            </div>
+            <div className={classes.nnSuccessLink}>
+              <a href="/">Ir a portada</a>
+            </div>
+          </div>
         </div>
         <script
           type="text/javascript"
