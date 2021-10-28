@@ -142,7 +142,7 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
             xhr.send(JSON.stringify({ 
               email: mailLS, 
               brand: brandNL, 
-              topic: checkb
+              topics: checkb
           
       }))
        formLast.style.display = "none"
@@ -184,7 +184,7 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
             xhr.send(JSON.stringify({ 
               email: formInputs[0].value, 
               brand: brandNL, 
-              topic: checkb
+              topics: checkb
           
       }))
 
@@ -198,7 +198,7 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
 */
 
   let customJs = ''
-  customJs = `"use strict";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.getElementById("formNL"),t=e.elements,c=document.getElementById("msg_success"),n=document.getElementById("formNLlast"),l="${newsletterBrand}",a=(JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")||"{}").uuid,JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")||"{}").accessToken,document.getElementById("checkb1")),o=document.getElementById("checkb2"),d=[],s=localStorage.getItem("Correo-NL-"+l),r=JSON.parse(localStorage.getItem("Topic-NL-"+l));s?(n.style.display="flex",r.forEach(function(e){a.value==e&&(a.checked=!0),o.value==e&&(o.checked=!0)})):e.style.display="flex",n.addEventListener("submit",function(e){if(e.preventDefault(),0==a.checked&&0==o.checked)return alert("Seleccione un Boletín"),!1;a.checked&&0==o.checked&&(a.value,d=[a.value]),o.checked&&0==a.checked&&(o.value,d=[o.value]),a.checked&&o.checked&&(d=[a.value,o.value]),localStorage.setItem("Topic-NL-"+l,JSON.stringify(d));var t=new XMLHttpRequest;t.open("POST","https://google.com",!0),t.setRequestHeader("Content-Type","application/json"),t.send(JSON.stringify({email:s,brand:l,topic:d})),n.style.display="none",c.style.display="flex"}),e.addEventListener("submit",function(n){n.preventDefault();var s=new RegExp(/[\\w\\.-]+@[\\w\\.-]+/,"i").test(t[0].value);if(0==a.checked&&0==o.checked)return alert("Seleccione un Boletín"),!1;if(a.checked&&0==o.checked&&(a.value,d=[a.value]),o.checked&&0==a.checked&&(o.value,d=[o.value]),a.checked&&o.checked&&(d=[a.value,o.value]),s&&t[2].checked){localStorage.setItem("Correo-NL-"+l,t[0].value),localStorage.setItem("Topic-NL-"+l,JSON.stringify(d));var r=new XMLHttpRequest;r.open("POST","https://google.com",!0),r.setRequestHeader("Content-Type","application/json"),r.send(JSON.stringify({email:t[0].value,brand:l,topic:d})),e.style.display="none",c.style.display="flex"}return!1})})});`
+  customJs = `"use strict";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.getElementById("formNL"),t=e.elements,c=document.getElementById("msg_success"),n=document.getElementById("formNLlast"),l="${newsletterBrand}",a=(JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")||"{}").uuid,JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")||"{}").accessToken,document.getElementById("checkb1")),o=document.getElementById("checkb2"),d=[],s=localStorage.getItem("Correo-NL-"+l),r=JSON.parse(localStorage.getItem("Topic-NL-"+l));s?(n.style.display="flex",r.forEach(function(e){a.value==e&&(a.checked=!0),o.value==e&&(o.checked=!0)})):e.style.display="flex",n.addEventListener("submit",function(e){if(e.preventDefault(),0==a.checked&&0==o.checked)return alert("Seleccione un Boletín"),!1;a.checked&&0==o.checked&&(a.value,d=[a.value]),o.checked&&0==a.checked&&(o.value,d=[o.value]),a.checked&&o.checked&&(d=[a.value,o.value]),localStorage.setItem("Topic-NL-"+l,JSON.stringify(d));var t=new XMLHttpRequest;t.open("POST","https://google.com",!0),t.setRequestHeader("Content-Type","application/json"),t.send(JSON.stringify({email:s,brand:l,topics:d})),n.style.display="none",c.style.display="flex"}),e.addEventListener("submit",function(n){n.preventDefault();var s=new RegExp(/[\\w\\.-]+@[\\w\\.-]+/,"i").test(t[0].value);if(0==a.checked&&0==o.checked)return alert("Seleccione un Boletín"),!1;if(a.checked&&0==o.checked&&(a.value,d=[a.value]),o.checked&&0==a.checked&&(o.value,d=[o.value]),a.checked&&o.checked&&(d=[a.value,o.value]),s&&t[2].checked){localStorage.setItem("Correo-NL-"+l,t[0].value),localStorage.setItem("Topic-NL-"+l,JSON.stringify(d));var r=new XMLHttpRequest;r.open("POST","https://google.com",!0),r.setRequestHeader("Content-Type","application/json"),r.send(JSON.stringify({email:t[0].value,brand:l,topics:d})),e.style.display="none",c.style.display="flex"}return!1})})});`
 
   return (
     <>
