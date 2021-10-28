@@ -1,5 +1,5 @@
 import Identity from '@arc-publishing/sdk-identity'
-import { getProperties } from 'fusion:properties'
+import getProperties from 'fusion:properties'
 import * as React from 'react'
 
 import { MsgForgotPass } from '../../signwall/_children/icons'
