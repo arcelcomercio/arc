@@ -166,6 +166,37 @@ export const arrayDays = [
   'Sábado',
 ]
 
+// Nueva funcion para obtener la fecha completa con día.
+// Output: 09:25 - Jueves 2021-10-28
+export const formatDateLocalTimeZoneFull = (
+  publishDateString,
+  delimiter = '-',
+  isClient = false,
+  dateFormat = 'YYYY-MM-DD'
+) => {
+  const publishDate = new Date(publishDateString)
+  if (!isClient) publishDate.setHours(publishDate.getHours() - 5)
+
+  let formattedDate = ''
+
+  if (dateFormat === 'DD-MM-YYYY') {
+    formattedDate = `${publishDate.getDate()}-${
+      publishDate.getMonth() + 1
+    }-${publishDate.getFullYear()}`
+  } else {
+    formattedDate = `${publishDate.getFullYear()}-${
+      publishDate.getMonth() + 1
+    }-${publishDate.getFullYear()}`
+  }
+  formattedDate = formattedDate.replace(/-/g, delimiter)
+
+  formattedDate = `${formattedTime(publishDate)} - ${
+    arrayDays[publishDate.getDay()]
+  } ${formattedDate}`
+
+  return formattedDate
+}
+
 export const formatDayMonthYear = (
   currentDate,
   showTime = true,
