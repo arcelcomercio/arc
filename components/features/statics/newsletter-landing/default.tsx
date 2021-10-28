@@ -271,8 +271,8 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
               </div>
               <div className={classes.nnSecText}>
                 La información mas relevante del futbol nacional, internacional
-                y polideportivo. La liga 1, la Selección Peruana, los peruanos
-                en el mundo, LaLiga de España y mucho màs.
+                y polideportivo. La Liga 1, la Selección Peruana, los peruanos
+                en el mundo, LaLiga de España y mucho más.
               </div>
             </div>
           </div>
