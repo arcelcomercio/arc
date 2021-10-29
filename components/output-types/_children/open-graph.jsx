@@ -59,7 +59,7 @@ export default ({
         }).large
       : `${imageYoutube}`
   const imges = { '360x550': { width: 360, height: 550 } }
-  const imagenAmp = arcSite !== SITE_TROME ? 'large:420x250' : 'large:600x360'
+  const imagenAmp = arcSite !== SITE_TROME ? 'large:420x280' : 'large:600x360'
   const imagenPreloadAmp = isAmp ? imagenAmp : 'large:280x159'
   const imagePreload =
     story &&
