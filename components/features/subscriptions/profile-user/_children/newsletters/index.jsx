@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import Identity from '@arc-publishing/sdk-identity'
 import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
+import * as React from 'react'
 
 import { extendSession } from '../../../../../utilities/subscriptions/identity'
 import Loading from '../../../../signwall/_children/loading'
@@ -13,8 +13,17 @@ import {
 } from '../../../../signwall/_dependencies/services'
 import Checkbox from './_children/checkbox'
 
+const headers = {
+  default:
+    'Selecciona los tipos de Newsletters que más te interesen para que los recibas en tu correo electrónico:',
+  diariocorreo:
+    'Desactiva, recibir el boletín de noticias Correo Hoy, sino requieres recibirlo en tu correo electrónico:',
+  trome:
+    'Activa, recibir el boletín Café de noticas, si requieres recibirlo en tu correo electrónico:',
+}
+
 @Consumer
-class NewsLetter extends Component {
+class NewsLetter extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -140,11 +149,7 @@ class NewsLetter extends Component {
       <div className="sign-profile_general-wrapper">
         {!loading ? (
           <>
-            <h4>
-              {arcSite === 'diariocorreo'
-                ? 'Desactiva, recibir el boletín de noticias Correo Hoy, sino requieres recibirlo en tu correo electrónico:'
-                : 'Selecciona los tipos de Newsletters que más te interesen para que los recibas en tu correo electrónico:'}
-            </h4>
+            <h4>{headers[arcSite] || headers.default}</h4>
 
             {showsuccess && (
               <div className="msg-success">
