@@ -1,20 +1,19 @@
-import * as React from 'react'
-import { useFusionContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
-
-import { socialMediaUrlShareList } from '../../../utilities/social-media'
-import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
-
-import Formatter from './_dependencies/formatter'
-import { bandFilter, menuFilter } from './_dependencies/schema-filter'
-import customFields from './_dependencies/custom-fields'
-import HeaderChildInverted from './_children/header'
+import * as React from 'react'
 
 import { getAssetsPath } from '../../../utilities/assets'
+import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
 import { SITE_DEPOR } from '../../../utilities/constants/sitenames'
+import { socialMediaUrlShareList } from '../../../utilities/social-media'
+import HeaderChildInverted from './_children/header'
+import customFields from './_dependencies/custom-fields'
+import Formatter from './_dependencies/formatter'
+import { bandFilter, menuFilter } from './_dependencies/schema-filter'
 
 const BAND_HIERARCHY = 'header-default'
+const THEME_HIERARCHY = 'navegacion-cabecera-tema-del-dia'
 const MENU_HIERARCHY = 'menu-default'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
 
@@ -29,7 +28,7 @@ const HeaderInvertedFeatured = (props) => {
       hideMenu,
       hideTema,
       invertedTema,
-      hierarchyTemaConfig
+      hierarchyTemaConfig,
     },
   } = props
 
@@ -70,8 +69,9 @@ const HeaderInvertedFeatured = (props) => {
       !metaValue('title').match(/content/) &&
       metaValue('title')
 
-    customLogoTitle = `${seoTitle}: ${storyTitleRe ? storyTitleRe.substring(0, 70) : ''
-      } | ${siteProperties.siteTitle.toUpperCase()}`
+    customLogoTitle = `${seoTitle}: ${
+      storyTitleRe ? storyTitleRe.substring(0, 70) : ''
+    } | ${siteProperties.siteTitle.toUpperCase()}`
   }
 
   const urlsShareList = socialMediaUrlShareList(
@@ -124,26 +124,30 @@ const HeaderInvertedFeatured = (props) => {
   const { contentService = '', contentConfigValues = {} } =
     hierarchyConfig || {}
 
-  const { contentService: contentServiceTema = '', contentConfigValues: contentConfigValuesTema = {} } =
-    hierarchyTemaConfig || {}
+  const {
+    contentService: contentServiceTema = '',
+    contentConfigValues: contentConfigValuesTema = {},
+  } = hierarchyTemaConfig || {}
 
   const isHierarchyReady = !!contentConfigValues.hierarchy
   const bandSource = isHierarchyReady ? contentService : CONTENT_SOURCE
   const sourceQuery = isHierarchyReady
     ? contentConfigValues
     : {
-      website: arcSite,
-      hierarchy: BAND_HIERARCHY,
-    }
+        website: arcSite,
+        hierarchy: BAND_HIERARCHY,
+      }
 
   const isHierarchyReadyTema = !!contentConfigValuesTema.hierarchy
-  const bandSourceTema = isHierarchyReadyTema ? contentServiceTema : CONTENT_SOURCE
+  const bandSourceTema = isHierarchyReadyTema
+    ? contentServiceTema
+    : CONTENT_SOURCE
   const sourceQueryTema = isHierarchyReadyTema
     ? contentConfigValuesTema
     : {
-      website: arcSite,
-      hierarchy: BAND_HIERARCHY,
-    }
+        website: arcSite,
+        hierarchy: THEME_HIERARCHY,
+      }
 
   const bandData = useContent({
     source: bandSource,
@@ -174,16 +178,16 @@ const HeaderInvertedFeatured = (props) => {
     arcSite === SITE_DEPOR
       ? 'https://d1r08wok4169a5.cloudfront.net/iframes/depor_logo.svg'
       : `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/trome-logo_5.png?d=1`
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/trome-logo_5.png?d=1`
 
   const winningCallLogo =
     arcSite === 'trome'
       ? `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/super_llamada_ganadora_trome_2x.png?d=1`
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/super_llamada_ganadora_trome_2x.png?d=1`
       : ''
 
   return (
