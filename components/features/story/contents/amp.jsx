@@ -103,6 +103,7 @@ class StoryContentAmp extends React.PureComponent {
       requestUri,
       arcSite,
       deployment,
+      metaValue,
       siteProperties: {
         siteUrl,
         adsAmp,
@@ -204,25 +205,29 @@ class StoryContentAmp extends React.PureComponent {
       'https://elcomercio.pe/resizer/Y9rKZd1sqJPCAxhHUsbA4lixQJo=/740x0/smart/filters:format(png):quality(100)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/BSK5BMFDTBCMDDJNDOI45PWN3U.png'
 
     const processedAdsAmp = (content) => {
-      const res = content.split('<div class="live-event2-comment">')
       let entryHtml = ''
 
-      res.forEach((entry, i) => {
-        let publicidad = ''
-        const divContent = i === 0 ? '' : '<div class="live-event2-comment">'
-        if (i === 3) {
-          publicidad = publicidadAmp(parametersCaja2)
-        }
-        if (i === 7) {
-          publicidad = publicidadAmp(parametersCaja3)
-        }
-        if (i === 11) {
-          publicidad = publicidadAmp(parametersCaja3)
-        }
-        entryHtml = `${entryHtml} ${divContent} ${entry} ${publicidad &&
-          `<div class='text-center ad-amp-movil'>${publicidad.__html} </div>`
-          }`
-      })
+      if (metaValue('exclude_ads_amp') !== 'true') {
+        const res = content.split('<div class="live-event2-comment">')
+
+        res.forEach((entry, i) => {
+          let publicidad = ''
+          const divContent = i === 0 ? '' : '<div class="live-event2-comment">'
+          if (i === 3) {
+            publicidad = publicidadAmp(parametersCaja2)
+          }
+          if (i === 7) {
+            publicidad = publicidadAmp(parametersCaja3)
+          }
+          if (i === 11) {
+            publicidad = publicidadAmp(parametersCaja3)
+          }
+          entryHtml = `${entryHtml} ${divContent} ${entry} ${publicidad &&
+            `<div class='text-center ad-amp-movil'>${publicidad.__html} </div>`
+            }`
+        })
+      }
+
       return entryHtml
     }
 

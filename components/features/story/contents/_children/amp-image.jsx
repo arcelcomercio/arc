@@ -29,14 +29,16 @@ const StoryContentChildAmpImage = ({ data }) => {
       presets: `medium:${widthSize}x${heightSize}`,
       arcSite,
     }) || {}
+  let imagesAmp = ''
 
-  const imagesAmp =
-    createResizedParams({
-      url: data.url,
-      presets: `image1:420x280,image2:768x512,image3:992x661,image4:1200x800,image5:1440x960`,
-      arcSite,
-    }) || {}
-
+  if (arcSite !== 'trome') {
+    imagesAmp =
+      createResizedParams({
+        url: data.url,
+        presets: `image1:420x280,image2:768x512,image3:992x661,image4:1200x800,image5:1440x960`,
+        arcSite,
+      }) || {}
+  }
   return (
     <>
       <figure className={classes.image}>
