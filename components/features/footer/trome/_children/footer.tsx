@@ -10,10 +10,12 @@ const classes = {
 const Footer = () => (
   <footer className={classes.wrapper}>
     <div className={classes.logo}>
-      <img
-        src="https://cdna.trome.pe/resources/dist/trome/images/logo.png?d=1"
-        alt="Logo Trome"
-      />
+      <a itemProp="url" href="https://trome.pe">
+        <img
+          src="https://cdna.trome.pe/resources/dist/trome/images/logo.png?d=1"
+          alt="Logo Trome"
+        />
+      </a>
     </div>
     <div className={classes.column}>
       Editora web: <br />
