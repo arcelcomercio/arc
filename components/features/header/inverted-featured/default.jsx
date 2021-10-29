@@ -12,8 +12,14 @@ import customFields from './_dependencies/custom-fields'
 import Formatter from './_dependencies/formatter'
 import { bandFilter, menuFilter } from './_dependencies/schema-filter'
 
+<<<<<<< HEAD
 const BAND_HIERARCHY = 'navegacion-cabecera-tema-del-dia'
 const MENU_HIERARCHY = 'header-default'
+=======
+const BAND_HIERARCHY = 'header-default'
+const THEME_HIERARCHY = 'navegacion-cabecera-tema-del-dia'
+const MENU_HIERARCHY = 'menu-default'
+>>>>>>> hu-49487
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
 
 const HeaderInvertedFeatured = (props) => {
@@ -134,7 +140,11 @@ const HeaderInvertedFeatured = (props) => {
     ? contentConfigValues
     : {
         website: arcSite,
+<<<<<<< HEAD
         hierarchy: MENU_HIERARCHY,
+=======
+        hierarchy: BAND_HIERARCHY,
+>>>>>>> hu-49487
       }
 
   const isHierarchyReadyTema = !!contentConfigValuesTema.hierarchy
@@ -145,7 +155,11 @@ const HeaderInvertedFeatured = (props) => {
     ? contentConfigValuesTema
     : {
         website: arcSite,
+<<<<<<< HEAD
         hierarchy: BAND_HIERARCHY,
+=======
+        hierarchy: THEME_HIERARCHY,
+>>>>>>> hu-49487
       }
 
   const bandData = useContent({

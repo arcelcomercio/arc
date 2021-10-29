@@ -41,7 +41,6 @@ $tertiary-font: $secondary-font;
 @import "./scss/lite-components/features/header/header-full/header-full";
 @import "./scss/lite-components/features/header/basic/h-basic";
 // @import "../../general-styles/components/features/header/inverted";
-@import "./scss/components/header/inverted-featured";
 
 @import "./scss/lite-components/layouts/story-sidebar/st-sidebar";
 @import "./scss/lite-components/layouts/wide-nav-wide-content/wn-wide-content";
@@ -74,5 +73,6 @@ $tertiary-font: $secondary-font;
 @import "./scss/lite-components/features/video/video-container";
 
 @import "./scss/components/footer/trome";
+@import "./scss/components/header/inverted-featured";
 
 @import "../../general-styles/framework/generators/generate-icons";
