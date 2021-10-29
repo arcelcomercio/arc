@@ -353,16 +353,20 @@ const AmpOutputType = ({
           custom-element="amp-social-share"
           src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"
         />
-        <script
-          async
-          custom-element="amp-sticky-ad"
-          src="https://cdn.ampproject.org/v0/amp-sticky-ad-1.0.js"
-        />
-        <script
-          async
-          custom-element="amp-ad"
-          src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
-        />
+        {metaValue('exclude_ads_amp') !== 'true' && (
+          <>
+            <script
+              async
+              custom-element="amp-sticky-ad"
+              src="https://cdn.ampproject.org/v0/amp-sticky-ad-1.0.js"
+            />
+            <script
+              async
+              custom-element="amp-ad"
+              src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
+            />
+          </>
+        )}
         {hasIframe && (
           <script
             async
@@ -498,11 +502,13 @@ const AmpOutputType = ({
         {!isTrivia && (
           <>
             <AmpTagManager {...parametros} />
-            <amp-sticky-ad
-              layout="nodisplay"
-              class="ad-amp-movil"
-              dangerouslySetInnerHTML={publicidadAmpMovil0(parameters)}
-            />
+            {metaValue('exclude_ads_amp') !== 'true' && (
+              <amp-sticky-ad
+                layout="nodisplay"
+                class="ad-amp-movil"
+                dangerouslySetInnerHTML={publicidadAmpMovil0(parameters)}
+              />
+            )}
           </>
         )}
         {children}

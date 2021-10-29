@@ -100,6 +100,7 @@ class StoryContentAmp extends React.PureComponent {
       requestUri,
       arcSite,
       deployment,
+      metaValue,
       siteProperties: {
         siteUrl,
         adsAmp,
@@ -202,26 +203,30 @@ class StoryContentAmp extends React.PureComponent {
       )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
 
     const processedAdsAmp = (content) => {
-      const res = content.split('<div class="live-event2-comment">')
       let entryHtml = ''
 
-      res.forEach((entry, i) => {
-        let publicidad = ''
-        const divContent = i === 0 ? '' : '<div class="live-event2-comment">'
-        if (i === 3) {
-          publicidad = publicidadAmp(parametersCaja2)
-        }
-        if (i === 7) {
-          publicidad = publicidadAmp(parametersCaja3)
-        }
-        if (i === 11) {
-          publicidad = publicidadAmp(parametersCaja3)
-        }
-        entryHtml = `${entryHtml} ${divContent} ${entry} ${
-          publicidad &&
-          `<div class='text-center ad-amp-movil'>${publicidad.__html} </div>`
-        }`
-      })
+      if (metaValue('exclude_ads_amp') !== 'true') {
+        const res = content.split('<div class="live-event2-comment">')
+
+        res.forEach((entry, i) => {
+          let publicidad = ''
+          const divContent = i === 0 ? '' : '<div class="live-event2-comment">'
+          if (i === 3) {
+            publicidad = publicidadAmp(parametersCaja2)
+          }
+          if (i === 7) {
+            publicidad = publicidadAmp(parametersCaja3)
+          }
+          if (i === 11) {
+            publicidad = publicidadAmp(parametersCaja3)
+          }
+          entryHtml = `${entryHtml} ${divContent} ${entry} ${
+            publicidad &&
+            `<div class='text-center ad-amp-movil'>${publicidad.__html} </div>`
+          }`
+        })
+      }
+
       return entryHtml
     }
 
