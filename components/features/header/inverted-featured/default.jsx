@@ -43,7 +43,6 @@ const HeaderInvertedFeatured = (props) => {
     arcSite,
     contextPath,
     deployment,
-    requestUri,
     metaValue,
     siteProperties,
     globalContent: {
