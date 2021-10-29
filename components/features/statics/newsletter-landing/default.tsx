@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useAppContext } from 'fusion:context'
-// import { NEWSLETTER_API, NEWSLETTER_API_TEMATICO } from 'fusion:environment'
+import { NEWSLETTER_API_LANDING } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import PropTypes from 'prop-types'
 import * as React from 'react'
@@ -83,7 +83,7 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
     const divSuccessDesktop = document.getElementById('msg_success')
     const formLast = document.getElementById('formNLlast')
 
-    const URL_API = 'https://google.com'
+    const URL_API = '${NEWSLETTER_API_LANDING}'
     const brandNL = '${newsletterBrand}'
 
     const UUID_USER = JSON.parse(window.localStorage.getItem('ArcId.USER_INFO') || "{}").uuid
@@ -198,7 +198,7 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
 */
 
   let customJs = ''
-  customJs = `"use strict";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.getElementById("formNL"),t=e.elements,c=document.getElementById("msg_success"),n=document.getElementById("formNLlast"),l="${newsletterBrand}",a=(JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")||"{}").uuid,JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")||"{}").accessToken,document.getElementById("checkb1")),o=document.getElementById("checkb2"),d=[],s=localStorage.getItem("Correo-NL-"+l),r=JSON.parse(localStorage.getItem("Topic-NL-"+l));s?(n.style.display="flex",r.forEach(function(e){a.value==e&&(a.checked=!0),o.value==e&&(o.checked=!0)})):e.style.display="flex",n.addEventListener("submit",function(e){if(e.preventDefault(),0==a.checked&&0==o.checked)return alert("Seleccione un Boletín"),!1;a.checked&&0==o.checked&&(a.value,d=[a.value]),o.checked&&0==a.checked&&(o.value,d=[o.value]),a.checked&&o.checked&&(d=[a.value,o.value]),localStorage.setItem("Topic-NL-"+l,JSON.stringify(d));var t=new XMLHttpRequest;t.open("POST","https://google.com",!0),t.setRequestHeader("Content-Type","application/json"),t.send(JSON.stringify({email:s,brand:l,topics:d})),n.style.display="none",c.style.display="flex"}),e.addEventListener("submit",function(n){n.preventDefault();var s=new RegExp(/[\\w\\.-]+@[\\w\\.-]+/,"i").test(t[0].value);if(0==a.checked&&0==o.checked)return alert("Seleccione un Boletín"),!1;if(a.checked&&0==o.checked&&(a.value,d=[a.value]),o.checked&&0==a.checked&&(o.value,d=[o.value]),a.checked&&o.checked&&(d=[a.value,o.value]),s&&t[2].checked){localStorage.setItem("Correo-NL-"+l,t[0].value),localStorage.setItem("Topic-NL-"+l,JSON.stringify(d));var r=new XMLHttpRequest;r.open("POST","https://google.com",!0),r.setRequestHeader("Content-Type","application/json"),r.send(JSON.stringify({email:t[0].value,brand:l,topics:d})),e.style.display="none",c.style.display="flex"}return!1})})});`
+  customJs = `"use strict";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.getElementById("formNL"),t=e.elements,c=document.getElementById("msg_success"),n=document.getElementById("formNLlast"),l="${NEWSLETTER_API_LANDING}",a="${newsletterBrand}",d=(JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")||"{}").uuid,JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")||"{}").accessToken,document.getElementById("checkb1")),o=document.getElementById("checkb2"),s=[],r=localStorage.getItem("Correo-NL-"+a),i=JSON.parse(localStorage.getItem("Topic-NL-"+a));r?(n.style.display="flex",i.forEach(function(e){d.value==e&&(d.checked=!0),o.value==e&&(o.checked=!0)})):e.style.display="flex",n.addEventListener("submit",function(e){if(e.preventDefault(),0==d.checked&&0==o.checked)return alert("Seleccione un Boletín"),!1;d.checked&&0==o.checked&&(d.value,s=[d.value]),o.checked&&0==d.checked&&(o.value,s=[o.value]),d.checked&&o.checked&&(s=[d.value,o.value]),localStorage.setItem("Topic-NL-"+a,JSON.stringify(s));var t=new XMLHttpRequest;t.open("POST",l,!0),t.setRequestHeader("Content-Type","application/json"),t.send(JSON.stringify({email:r,brand:a,topics:s})),n.style.display="none",c.style.display="flex"}),e.addEventListener("submit",function(n){n.preventDefault();var r=new RegExp(/[\\w\\.-]+@[\\w\\.-]+/,"i").test(t[0].value);if(0==d.checked&&0==o.checked)return alert("Seleccione un Boletín"),!1;if(d.checked&&0==o.checked&&(d.value,s=[d.value]),o.checked&&0==d.checked&&(o.value,s=[o.value]),d.checked&&o.checked&&(s=[d.value,o.value]),r&&t[2].checked){localStorage.setItem("Correo-NL-"+a,t[0].value),localStorage.setItem("Topic-NL-"+a,JSON.stringify(s));var i=new XMLHttpRequest;i.open("POST",l,!0),i.setRequestHeader("Content-Type","application/json"),i.send(JSON.stringify({email:t[0].value,brand:a,topics:s})),e.style.display="none",c.style.display="flex"}return!1})})});`
 
   return (
     <>
