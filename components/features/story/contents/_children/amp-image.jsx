@@ -18,9 +18,10 @@ const StoryContentChildAmpImage = ({ data }) => {
       arcSite === 'peru21' ||
       arcSite === 'ojo') &&
     /^\/impresa\//.test(requestUri)
-
-  const widthSize = isStory && hasImpresa ? 560 : 600
-  const heightSize = isStory && hasImpresa ? 586 : 360
+  const widthSizeTrome = arcSite === 'trome' ? 600 : 420
+  const heightSizeTrome = arcSite === 'trome' ? 360 : 250
+  const widthSize = isStory && hasImpresa ? 560 : widthSizeTrome
+  const heightSize = isStory && hasImpresa ? 586 : heightSizeTrome
 
   const images =
     createResizedParams({
