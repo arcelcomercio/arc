@@ -360,13 +360,13 @@ const AmpOutputType = ({
               custom-element="amp-sticky-ad"
               src="https://cdn.ampproject.org/v0/amp-sticky-ad-1.0.js"
             />
-            <script
-              async
-              custom-element="amp-ad"
-              src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
-            />
           </>
         )}
+        <script
+          async
+          custom-element="amp-ad"
+          src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
+        />
         {hasIframe && (
           <script
             async
@@ -502,13 +502,11 @@ const AmpOutputType = ({
         {!isTrivia && (
           <>
             <AmpTagManager {...parametros} />
-            {metaValue('exclude_ads_amp') !== 'true' && (
-              <amp-sticky-ad
-                layout="nodisplay"
-                class="ad-amp-movil"
-                dangerouslySetInnerHTML={publicidadAmpMovil0(parameters)}
-              />
-            )}
+            <amp-sticky-ad
+              layout="nodisplay"
+              class="ad-amp-movil"
+              dangerouslySetInnerHTML={publicidadAmpMovil0(parameters)}
+            />
           </>
         )}
         {children}
