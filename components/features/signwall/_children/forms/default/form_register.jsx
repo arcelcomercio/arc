@@ -268,6 +268,13 @@ const FormRegister = ({
         )
         setCookie('lostEmail', remail, 1)
       })
+      .finally(() => {
+        // eliminamos la noticia premium del storage en caso
+        // el typedialog no sea premium
+        if (typeDialog !== 'premium') {
+          window.localStorage.removeItem('premium_last_url')
+        }
+      })
   }
 
   const getListSubs = () =>
