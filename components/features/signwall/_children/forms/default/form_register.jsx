@@ -645,7 +645,25 @@ const FormRegister = ({
                                   }`,
                                   `web_${typeDialog}_boton_sigue_navegando`
                                 )
+
+                                // validamos para cuando sea una nota premium
                                 if (
+                                  window.localStorage.getItem(
+                                    'premium_last_url'
+                                  ) &&
+                                  window.localStorage.getItem(
+                                    'premium_last_url'
+                                  ) !== '' &&
+                                  activeRegisterwall
+                                ) {
+                                  window.location.href = window.localStorage.getItem(
+                                    'premium_last_url'
+                                  )
+                                  // removiendo del local la nota premium
+                                  window.localStorage.removeItem(
+                                    'premium_last_url'
+                                  )
+                                } else if (
                                   window.sessionStorage.getItem(
                                     'paywall_last_url'
                                   ) &&
