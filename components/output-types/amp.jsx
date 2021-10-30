@@ -353,11 +353,15 @@ const AmpOutputType = ({
           custom-element="amp-social-share"
           src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"
         />
-        <script
-          async
-          custom-element="amp-sticky-ad"
-          src="https://cdn.ampproject.org/v0/amp-sticky-ad-1.0.js"
-        />
+        {metaValue('exclude_ads_amp') !== 'true' && (
+          <>
+            <script
+              async
+              custom-element="amp-sticky-ad"
+              src="https://cdn.ampproject.org/v0/amp-sticky-ad-1.0.js"
+            />
+          </>
+        )}
         <script
           async
           custom-element="amp-ad"
