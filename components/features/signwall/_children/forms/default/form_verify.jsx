@@ -14,6 +14,8 @@ const FormVerify = ({ onClose, tokenVerify, tokenMagicLink, typeDialog }) => {
     siteProperties: {
       signwall: { mainColorBr, mainColorBtn, primaryFont, mainColorLink },
       activePaywall,
+      activeMagicLink,
+      activeRegisterwall,
     },
   } = useAppContext() || {}
 
@@ -108,7 +110,22 @@ const FormVerify = ({ onClose, tokenVerify, tokenMagicLink, typeDialog }) => {
                   `Web_Sign_Wall_${typeDialog}`,
                   `web_sw${typeDialog[0]}_continuar_boton`
                 )
-                onClose()
+
+                // validacion para cargar la ultima noticia premium para diario correo
+                if (
+                  window.localStorage.getItem('premium_last_url') &&
+                  window.localStorage.getItem('premium_last_url') !== '' &&
+                  activeMagicLink &&
+                  activeRegisterwall
+                ) {
+                  window.location.href = window.localStorage.getItem(
+                    'premium_last_url'
+                  )
+                  // removiendo del local la nota premium
+                  window.localStorage.removeItem('premium_last_url')
+                } else {
+                  onClose()
+                }
               }}>
               Continuar Navegando
             </button>
