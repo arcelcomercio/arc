@@ -463,55 +463,6 @@ const FormRegister = ({
                     }}
                     error={rpassError || showFormatInvalid}
                   />
-
-                  <button
-                    style={{
-                      color: mainColorBtn,
-                      background: mainColorLink,
-                    }}
-                    type="submit"
-                    className="signwall-inside_forms-btn signwall-inside_forms-btn-codp mt-15"
-                    disabled={disable || showLoading || showFormatInvalid}
-                    onClick={() => {
-                      Taggeo(
-                        `Web_Sign_Wall_${typeDialog}`,
-                        `web_sw${typeDialog[0]}_registro_boton_registrarme`,
-                        arcSite
-                      )
-                    }}>
-                    {showLoading ? 'Registrando...' : 'Registrarme'}
-                  </button>
-
-                  <div>
-                    <p className="signwall-inside_forms-text center p-link">
-                      Ya tengo una cuenta
-                      <a
-                        href="!#"
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{ color: mainColorLink, fontWeight: 'bold' }}
-                        className="signwall-inside_forms-link ml-5 inline"
-                        onClick={(e) => {
-                          e.preventDefault()
-                          Taggeo(
-                            `Web_Sign_Wall_${typeDialog}`,
-                            `web_sw${typeDialog[0]}_registro_link_volver`,
-                            arcSite
-                          )
-                          switch (typeDialog) {
-                            case 'relogemail':
-                            case 'reloghash':
-                              changeTemplate('relogin')
-                              break
-                            default:
-                              changeTemplate('login')
-                          }
-                        }}>
-                        Ingresar
-                      </a>
-                    </p>
-                  </div>
-
                   {activeDataTreatment && (
                     <CheckBox
                       defaultBorder="default-border checkmark"
@@ -583,6 +534,54 @@ const FormRegister = ({
                       </p>
                     </CheckBox>
                   </div>
+
+                  <button
+                    style={{
+                      color: mainColorBtn,
+                      background: mainColorLink,
+                    }}
+                    type="submit"
+                    className="signwall-inside_forms-btn signwall-inside_forms-btn-codp mt-15"
+                    disabled={disable || showLoading || showFormatInvalid}
+                    onClick={() => {
+                      Taggeo(
+                        `Web_Sign_Wall_${typeDialog}`,
+                        `web_sw${typeDialog[0]}_registro_boton_registrarme`,
+                        arcSite
+                      )
+                    }}>
+                    {showLoading ? 'Registrando...' : 'Registrarme'}
+                  </button>
+
+                  <div>
+                    <p className="signwall-inside_forms-text center p-link">
+                      Ya tengo una cuenta
+                      <a
+                        href="!#"
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{ color: mainColorLink, fontWeight: 'bold' }}
+                        className="signwall-inside_forms-link ml-5 inline"
+                        onClick={(e) => {
+                          e.preventDefault()
+                          Taggeo(
+                            `Web_Sign_Wall_${typeDialog}`,
+                            `web_sw${typeDialog[0]}_registro_link_volver`,
+                            arcSite
+                          )
+                          switch (typeDialog) {
+                            case 'relogemail':
+                            case 'reloghash':
+                              changeTemplate('relogin')
+                              break
+                            default:
+                              changeTemplate('login')
+                          }
+                        }}>
+                        Ingresar
+                      </a>
+                    </p>
+                  </div>
                 </>
               )}
 
@@ -595,7 +594,6 @@ const FormRegister = ({
                     style={{
                       fontSize: '22px',
                       lineHeight: '26px',
-                      wordBreak: 'break-word',
                     }}
                     className="signwall-inside_forms-title center mb-10">
                     {showUserWithSubs

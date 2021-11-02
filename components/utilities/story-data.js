@@ -1396,7 +1396,7 @@ class StoryData {
         } = {},
         url: urlImage,
         resized_urls: resizedUrls1 = '',
-        subtitle,
+        caption: subtitle,
       } = basicImage
       return {
         url: urlImage1 || urlImage,

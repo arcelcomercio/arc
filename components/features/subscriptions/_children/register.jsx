@@ -1,5 +1,5 @@
 import Identity from '@arc-publishing/sdk-identity'
-import { getProperties } from 'fusion:properties'
+import getProperties from 'fusion:properties'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
