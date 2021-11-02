@@ -72,7 +72,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
     setSelectedDocumentType,
   ] = React.useState<UserDocumentType>('DNI')
 
-  const ref = React.createRef<HTMLFormElement>()
+  const ref = React.createRef<HTMLButtonElement>()
 
   React.useEffect(() => {
     setStatus(Status.Ready)
@@ -309,7 +309,9 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
   }
 
   const onPassConfirmationSuccess = () => {
-    ref.current?.submit()
+    // ref.current?.preventDefault()
+    // ref.current?.submit()
+    ref.current?.click()
   }
 
   const onPassConfirmationError = () => {
@@ -324,7 +326,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
   return (
     <>
       <FormContainer
-        formRef={ref}
+        btnRef={ref}
         onSubmit={handleOnSubmit}
         title="Datos personales"
         errorMessage={errorMessage}

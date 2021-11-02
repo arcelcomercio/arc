@@ -48,7 +48,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
   const [shouldConfirmPass, setShouldConfirmPass] = React.useState(false)
   const [disabled, setDisabled] = React.useState(true)
 
-  const ref = React.createRef<HTMLFormElement>()
+  const ref = React.createRef<HTMLButtonElement>()
 
   const isLoading = status === Status.Loading
 
@@ -229,7 +229,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
   }
 
   const onPassConfirmationSuccess = () => {
-    ref.current?.submit()
+    ref.current?.click()
   }
 
   const onPassConfirmationError = () => {
@@ -257,7 +257,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
   return (
     <>
       <FormContainer
-        formRef={ref}
+        btnRef={ref}
         onSubmit={handleOnSubmit}
         title="Ubicación"
         status={status}

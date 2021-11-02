@@ -9,7 +9,7 @@ interface FormContainerProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   errorMessage?: string
   successMessage?: string
-  formRef?: React.LegacyRef<HTMLFormElement> | undefined // React.RefObject<HTMLFormElement>
+  btnRef?: React.LegacyRef<HTMLButtonElement> | undefined // React.RefObject<HTMLFormElement>
   status: Status
   disabled?: boolean
 }
@@ -25,7 +25,7 @@ const FormContainer: React.FC<FormContainerProps> = ({
   onSubmit,
   errorMessage,
   successMessage,
-  formRef,
+  btnRef,
   status = Status.Initial,
   disabled = false,
 }) => {
@@ -50,7 +50,6 @@ const FormContainer: React.FC<FormContainerProps> = ({
 
   return (
     <form
-      ref={formRef}
       onSubmit={onSubmit}
       className="sign-profile_update-form-grid"
       noValidate>
@@ -75,6 +74,7 @@ const FormContainer: React.FC<FormContainerProps> = ({
         <div className={styles.group} />
         <div className={styles.group}>
           <button
+            ref={btnRef}
             className={styles.btn}
             type="submit"
             style={{
