@@ -11,7 +11,6 @@ const classes = {
   sectionHidden:
     'story-item__section story-item__section--desktop text-sm text-black md:mb-15 hidden',
   date: 'story-item__date font-thin ml-5 text-xs text-gray-300 md:mt-5 md:ml-0',
-  dateTime: 'story-item__date-time hidden',
   bottom: 'story-item__bottom flex lg:pb-15',
   left: 'story-item__left flex flex-col justify-between pr-20 ',
   contentTitle: 'story-item__content-title overflow-hidden',
@@ -34,7 +33,6 @@ export default ({
   date,
   websiteLink,
   title,
-  titleHeader,
   subTitle,
   authorLink,
   author,
@@ -46,7 +44,7 @@ export default ({
 }) => (
   <div
     className={`${classes.storyItem} 
-    ${formato && formato === 'row' ? 'story-item--row' : 'story-item--col'}`}>
+    ${formato && formato === 'row' ? 'story-item--row' : ''}`}>
     <div className={classes.bottom}>
       <div className={classes.left}>
         <div className={classes.top}>
@@ -63,9 +61,6 @@ export default ({
         <div className={classes.wrapperTitle}>
           <h2 itemProp="name" className={classes.contentTitle}>
             <a itemProp="url" className={classes.title} href={websiteLink}>
-              {formato === 'col' && (
-                <span className="hidden">{titleHeader}</span>
-              )}
               {title}
             </a>
           </h2>
@@ -89,21 +84,12 @@ export default ({
         <a itemProp="url" href={websiteLink} className={classes.rightLink}>
           <Icon type={multimediaType} iconClass={classes.icon} />
           <picture>
-            {formato === 'col' ? (
-              <source
-                className={isAdmin ? '' : 'lazy'}
-                media="(max-width: 639px)"
-                srcSet={isAdmin ? multimediaLandscapeS : multimediaLazyDefault}
-                data-srcset={multimediaLandscapeS}
-              />
-            ) : (
-              <source
-                className={isAdmin ? '' : 'lazy'}
-                media="(max-width: 639px)"
-                srcSet={isAdmin ? multimediaLandscapeXS : multimediaLazyDefault}
-                data-srcset={multimediaLandscapeXS}
-              />
-            )}
+            <source
+              className={isAdmin ? '' : 'lazy'}
+              media="(max-width: 639px)"
+              srcSet={isAdmin ? multimediaLandscapeXS : multimediaLazyDefault}
+              data-srcset={multimediaLandscapeXS}
+            />
             <img
               alt={title}
               className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
@@ -113,11 +99,6 @@ export default ({
           </picture>
         </a>
       </figure>
-      <div className={classes.dateTime}>
-        <p itemProp="description" className={classes.date}>
-          {formatDateLocalTimeZone(date)}
-        </p>
-      </div>
     </div>
   </div>
 )

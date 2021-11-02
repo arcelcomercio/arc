@@ -30,6 +30,10 @@ $min-with-header: 961px;
     rgb(255, 130, 5) 100%
   );
 
+  &__socials {
+    display: none;
+  }
+
   @media (--tablet) {
     height: $header-inverted-height;
   }
