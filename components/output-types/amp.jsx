@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { BaseMarkup, Html } from '@arc-core-components/amp-document-boilerplate'
-import getProperties from 'fusion:properties'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
@@ -263,7 +262,6 @@ const AmpOutputType = ({
     prebidSlot: `19186-${namePublicidad}-amp-zocalo`,
   }
   const isTrivia = /^\/trivias\//.test(requestUri)
-  const { siteDomain } = getProperties(arcSite)
   return (
     <Html lang={lang}>
       <head>
@@ -274,19 +272,13 @@ const AmpOutputType = ({
         <Styles {...metaSiteData} />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        {arcSite !== SITE_TROME && (
+        {arcSite !== SITE_TROME && arcSite !== SITE_PERU21 && (
           <>
             <link
               rel="preload"
               href="https://cdn.ampproject.org/v0.js"
               as="script"
             />
-            <link rel="preconnect" href="https://cdn.ampproject.org" />
-            <link rel="dns-prefetch" href="https://cdn.ampproject.org" />
-            <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-            <link rel="dns-prefetch" href={`https://cdna.${siteDomain}`} />
-            <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
           </>
         )}
         {arcSite === SITE_GESTION && (
@@ -353,11 +345,15 @@ const AmpOutputType = ({
           custom-element="amp-social-share"
           src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"
         />
-        <script
-          async
-          custom-element="amp-sticky-ad"
-          src="https://cdn.ampproject.org/v0/amp-sticky-ad-1.0.js"
-        />
+        {metaValue('exclude_ads_amp') !== 'true' && (
+          <>
+            <script
+              async
+              custom-element="amp-sticky-ad"
+              src="https://cdn.ampproject.org/v0/amp-sticky-ad-1.0.js"
+            />
+          </>
+        )}
         <script
           async
           custom-element="amp-ad"

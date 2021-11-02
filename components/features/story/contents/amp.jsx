@@ -198,8 +198,9 @@ class StoryContentAmp extends React.PureComponent {
       'https://elcomercio.pe/resizer/Y9rKZd1sqJPCAxhHUsbA4lixQJo=/740x0/smart/filters:format(png):quality(100)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/BSK5BMFDTBCMDDJNDOI45PWN3U.png'
 
     const processedAdsAmp = (content) => {
-      const res = content.split('<div class="live-event2-comment">')
       let entryHtml = ''
+
+      const res = content.split('<div class="live-event2-comment">')
 
       res.forEach((entry, i) => {
         let publicidad = ''
@@ -218,6 +219,7 @@ class StoryContentAmp extends React.PureComponent {
           `<div class='text-center ad-amp-movil'>${publicidad.__html} </div>`
         }`
       })
+
       return entryHtml
     }
 
