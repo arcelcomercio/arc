@@ -7,6 +7,8 @@ const classes = {
   page:
     'pagination__page capitalize secondary-font h-full text-md text-gray-300',
   center: 'flex justify-center items-center',
+  leftPag: 'pagination__left',
+  rightPag: 'pagination__right',
 }
 
 const createPaginator = (currentPage, totalPages) => {
@@ -106,13 +108,13 @@ const Pagination = props => {
       {currentPage === 1 || currentPage === 0 ? (
         <p
           itemProp="description"
-          className={`${classes.page} ${classes.center} pagination__page--disabled`}>
+          className={`${classes.page} ${classes.center} ${classes.leftPag} pagination__page--disabled`}>
           <span className="non-mobile">anterior</span>
         </p>
       ) : currentPage === 2 ? (
         <a
           itemProp="url"
-          className={`${classes.page} ${classes.center}`}
+          className={`${classes.page} ${classes.center} ${classes.leftPag}`}
           href={pathOrigin}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +134,7 @@ const Pagination = props => {
       ) : (
         <a
           itemProp="url"
-          className={`${classes.page} ${classes.center}`}
+          className={`${classes.page} ${classes.center} ${classes.leftPag}`}
           href={urlPrevPage}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -198,13 +200,13 @@ const Pagination = props => {
       {currentPage === totalPages ? (
         <p
           itemProp="description"
-          className={`${classes.page} ${classes.center} pagination__page--disabled`}>
+          className={`${classes.page} ${classes.center} ${classes.rightPag} pagination__page--disabled`}>
           <span className="non-mobile">siguiente</span>
         </p>
       ) : (
         <a
           itemProp="url"
-          className={`${classes.page} ${classes.center}`}
+          className={`${classes.page} ${classes.center} ${classes.rightPag}`}
           href={urlNextPage}>
           <span className="non-mobile">siguiente</span>
           <svg
