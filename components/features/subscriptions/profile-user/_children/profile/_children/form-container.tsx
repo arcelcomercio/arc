@@ -9,8 +9,9 @@ interface FormContainerProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   errorMessage?: string
   successMessage?: string
-  disabled?: boolean
+  btnRef?: React.LegacyRef<HTMLButtonElement> | undefined // React.RefObject<HTMLFormElement>
   status: Status
+  disabled?: boolean
 }
 
 const styles = {
@@ -24,8 +25,9 @@ const FormContainer: React.FC<FormContainerProps> = ({
   onSubmit,
   errorMessage,
   successMessage,
-  disabled = false,
+  btnRef,
   status = Status.Initial,
+  disabled = false,
 }) => {
   const {
     siteProperties: {
@@ -36,10 +38,11 @@ const FormContainer: React.FC<FormContainerProps> = ({
   let buttonText = ''
   switch (status) {
     case Status.Ready:
+    case Status.Initial:
       buttonText = 'Guardar Cambios'
       break
     case Status.Loading:
-      buttonText = 'Guardando...'
+      buttonText = 'Procesando...'
       break
     default:
       break
@@ -71,6 +74,7 @@ const FormContainer: React.FC<FormContainerProps> = ({
         <div className={styles.group} />
         <div className={styles.group}>
           <button
+            ref={btnRef}
             className={styles.btn}
             type="submit"
             style={{

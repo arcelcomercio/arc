@@ -29,8 +29,8 @@ const ConfirmPass: React.FC<ConfirmPassProps> = ({
     },
   } = useAppContext() || {}
 
-  const [status, setStatus] = React.useState<Status>(Status.Initial)
-  const disabled = status === Status.Loading || status === Status.Initial
+  const [status, setStatus] = React.useState<Status>(Status.Loading)
+  const disabled = status === Status.Loading
 
   React.useEffect(() => {
     setStatus(Status.Ready)
@@ -50,15 +50,14 @@ const ConfirmPass: React.FC<ConfirmPassProps> = ({
       cookie: true,
     })
       .then(() => {
+        setStatus(Status.Initial)
         onSuccess()
         handleClose()
       })
       .catch((error) => {
+        setStatus(Status.Ready)
         console.log({ error })
         onError()
-      })
-      .finally(() => {
-        setStatus(Status.Ready)
       })
   }
 
@@ -84,7 +83,7 @@ const ConfirmPass: React.FC<ConfirmPassProps> = ({
   } = useForm(stateSchema, stateValidatorSchema, onPasswordSubmit)
 
   return (
-    <Modal size="mini" position="middle" bgColor="white" arcSite={undefined}>
+    <Modal size="mini" position="middle" bgColor="white">
       <div className="text-right">
         <button type="button" onClick={handleClose}>
           <Close />

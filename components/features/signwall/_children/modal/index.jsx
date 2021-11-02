@@ -12,13 +12,13 @@ const VIEWPORT_CUSTOM = `${VIEWPORT_DEFAULT}, user-scalable=0, shrink-to-fit=no`
  *
  * @param {Object} props
  * @param {string} props.bgColor
- * @param {'top'|'right'|'bottom'|'left'} props.position
+ * @param {'top'|'right'|'bottom'|'left'|'middle'} props.position
  * @param {string} props.size
- * @param {string} props.margin
- * @param {string} props.padding
- * @param {boolean} props.noOverflow
- * @param {React.ReactNode} props.children
- * @param {string} props.arcSite
+ * @param {string} [props.margin]
+ * @param {string} [props.padding]
+ * @param {boolean} [props.noOverflow]
+ * @param {React.ReactNode} [props.children]
+ * @param {string} [props.arcSite]
  * @returns
  */
 const Modal = ({
