@@ -5,6 +5,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { setCookie } from '../../../../../utilities/client/cookies'
+import { isStorageAvailable } from '../../../../../utilities/client/storage'
 import { SITE_TROME } from '../../../../../utilities/constants/sitenames'
 import { extendSession } from '../../../../../utilities/subscriptions/identity'
 import { useModalContext } from '../../../../subscriptions/_context/modal'
@@ -592,22 +593,28 @@ const FormLogin = ({ valTemplate, attributes }) => {
                     )
                     // validamos para cuando sea una nota premium
                     if (
-                      window.localStorage.getItem('premium_last_url') &&
-                      window.localStorage.getItem('premium_last_url') !== '' &&
-                      activeRegisterwall
+                      isStorageAvailable('localStorage') &&
+                      isStorageAvailable('sessionStorage')
                     ) {
-                      window.location.href = window.localStorage.getItem(
+                      const premiumLastUrl = window.localStorage.getItem(
                         'premium_last_url'
                       )
-                      // removiendo del local la nota premium
-                      window.localStorage.removeItem('premium_last_url')
-                    } else if (
-                      window.sessionStorage.getItem('paywall_last_url') &&
-                      window.sessionStorage.getItem('paywall_last_url') !== ''
-                    ) {
-                      window.location.href = window.sessionStorage.getItem(
+                      const paywallLastUrl = window.sessionStorage.getItem(
                         'paywall_last_url'
                       )
+                      if (
+                        premiumLastUrl &&
+                        premiumLastUrl !== '' &&
+                        activeRegisterwall
+                      ) {
+                        window.location.href = premiumLastUrl
+                        // removiendo del local la nota premium
+                        window.localStorage.removeItem('premium_last_url')
+                      } else if (paywallLastUrl && paywallLastUrl !== '') {
+                        window.location.href = paywallLastUrl
+                      } else {
+                        onClose()
+                      }
                     } else {
                       onClose()
                     }
