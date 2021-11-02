@@ -9,8 +9,9 @@ interface FormContainerProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   errorMessage?: string
   successMessage?: string
-  disabled?: boolean
+  formRef?: React.LegacyRef<HTMLFormElement> | undefined // React.RefObject<HTMLFormElement>
   status: Status
+  disabled?: boolean
 }
 
 const styles = {
@@ -24,8 +25,9 @@ const FormContainer: React.FC<FormContainerProps> = ({
   onSubmit,
   errorMessage,
   successMessage,
-  disabled = false,
+  formRef,
   status = Status.Initial,
+  disabled = false,
 }) => {
   const {
     siteProperties: {
@@ -36,10 +38,11 @@ const FormContainer: React.FC<FormContainerProps> = ({
   let buttonText = ''
   switch (status) {
     case Status.Ready:
+    case Status.Initial:
       buttonText = 'Guardar Cambios'
       break
     case Status.Loading:
-      buttonText = 'Guardando...'
+      buttonText = 'Procesando...'
       break
     default:
       break
@@ -47,6 +50,7 @@ const FormContainer: React.FC<FormContainerProps> = ({
 
   return (
     <form
+      ref={formRef}
       onSubmit={onSubmit}
       className="sign-profile_update-form-grid"
       noValidate>

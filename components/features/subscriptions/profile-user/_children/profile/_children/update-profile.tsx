@@ -1,10 +1,6 @@
 import * as React from 'react'
 import TextMask from 'react-text-mask'
-import {
-  ComposedUserProfile,
-  PersonalAttributes,
-  UserProfile,
-} from 'types/identity'
+import { ComposedUserProfile, PersonalAttributes } from 'types/identity'
 import { UserDocumentType } from 'types/subscriptions'
 import { Nullable } from 'types/utils'
 
@@ -67,7 +63,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
   userProfile,
   updateUserProfile,
 }) => {
-  const [status, setStatus] = React.useState<Status>(Status.Initial)
+  const [status, setStatus] = React.useState<Status>(Status.Loading)
   const [errorMessage, setErrorMessage] = React.useState('')
   const [hasSuccessMessage, setHasSuccessMessage] = React.useState(false)
   const [shouldConfirmPass, setShouldConfirmPass] = React.useState(false)
@@ -76,14 +72,13 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
     setSelectedDocumentType,
   ] = React.useState<UserDocumentType>('DNI')
 
+  const ref = React.createRef<HTMLFormElement>()
+
   React.useEffect(() => {
     setStatus(Status.Ready)
   }, [])
 
-  const disabled =
-    status === Status.Loading ||
-    status === Status.Initial ||
-    !userProfile?.email
+  const disabled = status === Status.Loading || !userProfile?.email
 
   const initialBirthDate =
     userProfile?.birthDay && userProfile?.birthMonth && userProfile?.birthYear
@@ -227,11 +222,10 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
 
     setStatus(Status.Loading)
 
-    updateUserProfile(profileToUpdate as any, {
-      onSuccess: (updatedProfile: UserProfile) => {
+    updateUserProfile(profileToUpdate as any)
+      .then((updatedProfile) => {
         setHasSuccessMessage(true)
-        setStatus(Status.Ready)
-
+        setStatus(Status.Initial)
         const textProfile = document.getElementById('name-user-profile')
         if (textProfile) {
           const name = reduceWord(updatedProfile?.firstName || 'Usuario', 17)
@@ -242,26 +236,19 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
         setTimeout(() => {
           setHasSuccessMessage(false)
         }, 5000)
-      },
-      onError: (error: Record<string, string>) => {
+      })
+      .catch((error: Record<string, string>) => {
         const { code } = error || {}
         setStatus(Status.Ready)
         if (code === '100018' || code === '300040') {
           setShouldConfirmPass(true)
-        } else if (code === '3001001') {
-          const message: string = getCodeError(code)
-          setErrorMessage(message)
-          setTimeout(() => {
-            setErrorMessage('')
-          }, 5000)
         } else {
           setErrorMessage(getCodeError(code))
           setTimeout(() => {
             setErrorMessage('')
           }, 5000)
         }
-      },
-    })
+      })
   }
 
   const {
@@ -304,7 +291,8 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
     >
   ) => {
     handleOnChange(e)
-    setErrorMessage('')
+    if (status !== Status.Ready) setStatus(Status.Ready)
+    if (errorMessage) setErrorMessage('')
   }
 
   const onPassConfirmationClose = () => {
@@ -320,7 +308,9 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
     }
   }
 
-  const onPassConfirmationSuccess = () => {}
+  const onPassConfirmationSuccess = () => {
+    ref.current?.submit()
+  }
 
   const onPassConfirmationError = () => {
     setErrorMessage(
@@ -334,6 +324,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
   return (
     <>
       <FormContainer
+        formRef={ref}
         onSubmit={handleOnSubmit}
         title="Datos personales"
         errorMessage={errorMessage}

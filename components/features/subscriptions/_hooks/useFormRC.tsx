@@ -137,7 +137,11 @@ function useForm<TValues extends StateValues = StateValues>(
   // To be able to disable the button
   React.useEffect(() => {
     if (isDirty) {
-      setDisable(validateErrorState())
+      if (validateErrorState() && !disable) {
+        setDisable(true)
+      } else if (!validateErrorState() && disable) {
+        setDisable(false)
+      }
     }
   }, [errors, isDirty])
 
@@ -214,12 +218,7 @@ function useForm<TValues extends StateValues = StateValues>(
       // Making sure that there's no error in the state
       // before calling the submit callback function
       if (!validateErrorState()) {
-        try {
-          setDisable(true)
-          submitFormCallback(fieldValues as TValues)
-        } catch {
-          setDisable(false)
-        }
+        submitFormCallback(fieldValues as TValues)
       }
     },
     [validateErrorState, submitFormCallback, values]
