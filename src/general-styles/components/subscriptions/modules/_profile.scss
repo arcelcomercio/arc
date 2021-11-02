@@ -1111,6 +1111,7 @@
       cursor: pointer;
       user-select: none;
       border-radius: 4px;
+      overflow: hidden;
 
       @media (--subs-mobile) {
         width: 227px;
