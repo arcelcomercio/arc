@@ -1,8 +1,6 @@
 import * as React from 'react'
 import { ArcSite } from 'types/fusion'
 
-import { SITE_DIARIOCORREO } from '../../../../../../utilities/constants/sitenames'
-
 interface CheckboxProps {
   checked: boolean
   disabled: boolean
@@ -24,7 +22,6 @@ const Checkbox: React.FC<CheckboxProps> = ({
       className="sign-profile_checkbox-image"
       style={{
         backgroundImage: `url(${image})`,
-        borderRadius: arcSite === SITE_DIARIOCORREO ? '4px' : '0',
       }}
     />
     <div
