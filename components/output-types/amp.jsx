@@ -272,7 +272,7 @@ const AmpOutputType = ({
         <Styles {...metaSiteData} />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
-        {arcSite !== SITE_TROME && (
+        {arcSite !== SITE_TROME && arcSite !== SITE_PERU21 && (
           <>
             <link
               rel="preload"
