@@ -66,7 +66,7 @@ const classes = {
   // nnButtonReceive2: 'newsletter--landing__container3__form1__button-receive2',
 }
 
-// pase a sandbox martes 02 nov
+// PASE 2 para sandbox martes 02 nov (fix botones para iphone)
 // URL DE ESTILOS EN DEPOR
 // src/websites/depor/scss/lite-components/features/statics/_newsletter-landing.scss
 
