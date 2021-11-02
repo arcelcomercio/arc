@@ -134,14 +134,16 @@ const FormIntroFree = ({ typeDialog, checkModal = (i) => i }) => {
                     )
                   }
 
-                  if (typeDialog === 'premium') {
-                    window.sessionStorage.setItem(
-                      'paywall_last_url',
+                  // agregando el elemento en localstorage porque al darle verificar correo
+                  // abre otra pestaña y se pierde el sessionstorage
+                  if (typeDialog === 'premium' && activeRegisterwall) {
+                    window.localStorage.setItem(
+                      'premium_last_url',
                       window.location.pathname ? window.location.pathname : ''
                     )
                   } else {
-                    window.sessionStorage.setItem(
-                      'paywall_last_url',
+                    window.localStorage.setItem(
+                      'premium_last_url',
                       window.document.referrer
                         ? window.document.referrer.split(
                             window.location.origin
