@@ -93,7 +93,9 @@ const StoriesListNew = (props) => {
               authorLink,
               author,
               authorImage,
+              multimedia,
               multimediaType,
+              multimediaCaption,
               multimediaLandscapeXS,
               multimediaLazyDefault,
               multimediaLandscapeS,
@@ -116,6 +118,8 @@ const StoriesListNew = (props) => {
               <>
                 {isTrome ? (
                   <StoryGrid
+                    key={index.toString()}
+                    index={index}
                     isAdmin={isAdmin}
                     primarySectionLink={primarySectionLink}
                     primarySection={primarySection}
@@ -126,9 +130,9 @@ const StoriesListNew = (props) => {
                     subTitle={reduceWord(subTitle)}
                     authorLink={authorLink}
                     author={author}
+                    multimedia={multimedia}
                     multimediaType={multimediaType}
-                    multimediaLazyDefault={multimediaLazyDefault}
-                    multimediaLandscapeS={multimediaLandscapeS}
+                    multimediaCaption={multimediaCaption}
                   />
                 ) : (
                   <StoryItem
