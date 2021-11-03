@@ -103,6 +103,7 @@ class StoryContentAmp extends React.PureComponent {
       requestUri,
       arcSite,
       deployment,
+      metaValue,
       siteProperties: {
         siteUrl,
         adsAmp,
@@ -206,25 +207,27 @@ class StoryContentAmp extends React.PureComponent {
     const processedAdsAmp = (content) => {
       let entryHtml = ''
 
-      const res = content.split('<div class="live-event2-comment">')
+      if (metaValue('exclude_ads_amp') !== 'true') {
+        const res = content.split('<div class="live-event2-comment">')
 
-      res.forEach((entry, i) => {
-        let publicidad = ''
-        const divContent = i === 0 ? '' : '<div class="live-event2-comment">'
-        if (i === 3) {
-          publicidad = publicidadAmp(parametersCaja2)
-        }
-        if (i === 7) {
-          publicidad = publicidadAmp(parametersCaja3)
-        }
-        if (i === 11) {
-          publicidad = publicidadAmp(parametersCaja3)
-        }
-        entryHtml = `${entryHtml} ${divContent} ${entry} ${
-          publicidad &&
-          `<div class='text-center ad-amp-movil'>${publicidad.__html} </div>`
-        }`
-      })
+        res.forEach((entry, i) => {
+          let publicidad = ''
+          const divContent = i === 0 ? '' : '<div class="live-event2-comment">'
+          if (i === 3) {
+            publicidad = publicidadAmp(parametersCaja2)
+          }
+          if (i === 7) {
+            publicidad = publicidadAmp(parametersCaja3)
+          }
+          if (i === 11) {
+            publicidad = publicidadAmp(parametersCaja3)
+          }
+          entryHtml = `${entryHtml} ${divContent} ${entry} ${
+            publicidad &&
+            `<div class='text-center ad-amp-movil'>${publicidad.__html} </div>`
+          }`
+        })
+      }
 
       return entryHtml
     }
@@ -233,10 +236,11 @@ class StoryContentAmp extends React.PureComponent {
       const formattedDisplayDate = formatDateTime(displayDate)
       const formattedUpdateDate = formatDateTime(updateDate)
 
-      return `${formattedDisplayDate} ${formattedDisplayDate !== formattedUpdateDate
-        ? `| Actualizado ${formattedUpdateDate}`
-        : ''
-        }`
+      return `${formattedDisplayDate} ${
+        formattedDisplayDate !== formattedUpdateDate
+          ? `| Actualizado ${formattedUpdateDate}`
+          : ''
+      }`
     }
 
     return (
@@ -273,17 +277,17 @@ class StoryContentAmp extends React.PureComponent {
                   </a>
                 </p>
               ) : // Validamos si es EC
-                isComercio ? (
-                  authorsList.map((authorData) => (
-                    <p className={classes.author}>
-                      <a href={authorData.urlAuthor}>{authorData.nameAuthor}</a>
-                    </p>
-                  ))
-                ) : (
+              isComercio ? (
+                authorsList.map((authorData) => (
                   <p className={classes.author}>
-                    <a href={authorLink}>{author}</a>
+                    <a href={authorData.urlAuthor}>{authorData.nameAuthor}</a>
                   </p>
-                )}
+                ))
+              ) : (
+                <p className={classes.author}>
+                  <a href={authorLink}>{author}</a>
+                </p>
+              )}
               <time
                 dateTime={getDateSeo(displayDate)}
                 className={classes.datetime}>
@@ -294,9 +298,9 @@ class StoryContentAmp extends React.PureComponent {
             </div>
           )}
           {isMetered &&
-            activeRulesCounter &&
-            activePaywall &&
-            arcSite === SITE_GESTION ? (
+          activeRulesCounter &&
+          activePaywall &&
+          arcSite === SITE_GESTION ? (
             // Contador de paywall para AMP
             <amp-iframe
               width="1"
@@ -496,13 +500,13 @@ class StoryContentAmp extends React.PureComponent {
                         content={
                           isLegacy
                             ? formatHtmlToText(
-                              replaceTags(cleanLegacyAnchor(content))
-                            )
+                                replaceTags(cleanLegacyAnchor(content))
+                              )
                             : ampHtml(
-                              replaceTags(content),
-                              arcSite,
-                              !!source.source_id
-                            )
+                                replaceTags(content),
+                                arcSite,
+                                !!source.source_id
+                              )
                         }
                         className={classes.textClasses}
                       />
@@ -540,10 +544,10 @@ class StoryContentAmp extends React.PureComponent {
                         )}
 
                       {element?.activateStories &&
-                        (arcSite === SITE_ELCOMERCIO ||
-                          (arcSite === SITE_DEPOR &&
-                            (/^\/mexico\//.test(requestUri) ||
-                              /^\/colombia\//.test(requestUri)))) ? (
+                      (arcSite === SITE_ELCOMERCIO ||
+                        (arcSite === SITE_DEPOR &&
+                          (/^\/mexico\//.test(requestUri) ||
+                            /^\/colombia\//.test(requestUri)))) ? (
                         <AmpStoriesChild arcSite={arcSite} />
                       ) : null}
                     </>
@@ -658,3 +662,4 @@ StoryContentAmp.propType = {
 
 StoryContentAmp.static = true
 export default StoryContentAmp
+

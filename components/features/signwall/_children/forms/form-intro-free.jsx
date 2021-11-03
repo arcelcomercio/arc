@@ -2,6 +2,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { getAssetsPath } from '../../../../utilities/assets'
+import { isStorageAvailable } from '../../../../utilities/client/storage'
 import { SITE_DIARIOCORREO } from '../../../../utilities/constants/sitenames'
 import { useModalContext } from '../../../subscriptions/_context/modal'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
@@ -136,20 +137,22 @@ const FormIntroFree = ({ typeDialog, checkModal = (i) => i }) => {
 
                   // agregando el elemento en localstorage porque al darle verificar correo
                   // abre otra pestaña y se pierde el sessionstorage
-                  if (typeDialog === 'premium' && activeRegisterwall) {
-                    window.localStorage.setItem(
-                      'premium_last_url',
-                      window.location.pathname ? window.location.pathname : ''
-                    )
-                  } else {
-                    window.localStorage.setItem(
-                      'premium_last_url',
-                      window.document.referrer
-                        ? window.document.referrer.split(
-                            window.location.origin
-                          )[1]
-                        : ''
-                    )
+                  if (isStorageAvailable('localStorage')) {
+                    if (typeDialog === 'premium' && activeRegisterwall) {
+                      window.localStorage.setItem(
+                        'premium_last_url',
+                        window.location.pathname ? window.location.pathname : ''
+                      )
+                    } else {
+                      window.localStorage.setItem(
+                        'premium_last_url',
+                        window.document.referrer
+                          ? window.document.referrer.split(
+                              window.location.origin
+                            )[1]
+                          : ''
+                      )
+                    }
                   }
                   changeTemplate('register')
                   checkModal()
