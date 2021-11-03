@@ -63,18 +63,20 @@ const StoriesList = ({
           <div
             className={`${classes.left} ${isOpinionPeru21 ? classes.opinion : ''
               }`}>
-            <a
-              itemProp="url"
-              className={classes.title}
-              href={element.websiteLink}>
+            <div className={classes.wrapperTitle}>
               <a
                 itemProp="url"
                 href={element.primarySectionLink}
                 className={classes.section}>
                 {element.primarySection}
               </a>
-              {reduceWord(element.title)}
-            </a>
+              <a
+                itemProp="url"
+                className={classes.title}
+                href={element.websiteLink}>
+                {reduceWord(element.title)}
+              </a>
+            </div>
             <p itemProp="description" className={classes.date}>
               {formatDateStory(element.date, false)}
             </p>

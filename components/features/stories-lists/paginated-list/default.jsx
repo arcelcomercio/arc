@@ -124,6 +124,7 @@ const StoriesListPaginatedList = props => {
       )}
       {count !== 0 && (
         <Pagination
+          arcSite={arcSite}
           totalElements={count}
           storiesQty={size}
           currentPage={from}
