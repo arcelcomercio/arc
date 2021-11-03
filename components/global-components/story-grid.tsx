@@ -2,6 +2,7 @@ import React from 'react'
 
 import { formatDateLocalTimeZoneFull } from '../utilities/helpers'
 // import { alignmentClassesPropType } from '@arc-core-components/feature_article-body/build/helpers'
+import Image from './image'
 import Icon from './multimedia-icon'
 
 const classes = {
@@ -27,6 +28,7 @@ const classes = {
 }
 
 interface Props {
+  index: number
   isAdmin: boolean
   primarySectionLink: string
   primarySection: string
@@ -37,12 +39,13 @@ interface Props {
   subTitle: string
   authorLink: string
   author: string
+  multimedia: string
   multimediaType: string
-  multimediaLazyDefault: string
-  multimediaLandscapeS: string
+  multimediaCaption: string
 }
 
 const StoryGrid: React.FC<Props> = ({
+  index,
   isAdmin,
   primarySectionLink,
   primarySection,
@@ -53,71 +56,75 @@ const StoryGrid: React.FC<Props> = ({
   subTitle,
   authorLink,
   author,
+  multimedia,
   multimediaType,
-  multimediaLazyDefault,
-  multimediaLandscapeS,
-}) => (
-  <div className={classes.storyGrid}>
-    <div className={classes.info}>
-      <div className={classes.dateTime}>
-        <p itemProp="description" className={classes.date}>
-          {formatDateLocalTimeZoneFull(date, '.', false, 'DD-MM-YYYY')}
-        </p>
-      </div>
+  multimediaCaption,
+}) => {
+  const imageWidth = 314
+  const imageHeight = 157
+  const imageMobileWidth = 314
+  const imageMobileHeight = 182
 
-      <figure className={classes.top}>
-        <a itemProp="url" href={websiteLink} className={classes.topLink}>
-          <Icon type={multimediaType} iconClass={classes.icon} />
-          <picture>
-            <source
-              className={isAdmin ? '' : 'lazy'}
-              media="(max-width: 639px)"
-              srcSet={isAdmin ? multimediaLandscapeS : multimediaLazyDefault}
-              data-srcset={multimediaLandscapeS}
-            />
-            <img
-              alt={title}
-              className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
-              src={isAdmin ? multimediaLandscapeS : multimediaLazyDefault}
-              data-src={multimediaLandscapeS}
-            />
-          </picture>
-        </a>
-      </figure>
-
-      <div className={classes.bottom}>
-        <div className={classes.sectionWrapper}>
-          <a
-            itemProp="url"
-            href={primarySectionLink}
-            className={classes.section}>
-            {primarySection}
-          </a>
+  return (
+    <div className={classes.storyGrid}>
+      <div className={classes.info}>
+        <div className={classes.dateTime}>
           <p itemProp="description" className={classes.date}>
             {formatDateLocalTimeZoneFull(date, '.', false, 'DD-MM-YYYY')}
           </p>
         </div>
 
-        <div className={classes.titleWrapper}>
-          <h2 itemProp="name" className={classes.titleContent}>
-            <a itemProp="url" className={classes.title} href={websiteLink}>
-              <span className="hidden">{titleHeader}</span>
-              {title}
-            </a>
-          </h2>
-          <p itemProp="description" className={classes.subtitle}>
-            {subTitle}
-          </p>
-        </div>
-
-        <div className={classes.authorWrapper}>
-          <a itemProp="url" href={authorLink} className={classes.author}>
-            {author}
+        <figure className={classes.top}>
+          <a itemProp="url" href={websiteLink} className={classes.topLink}>
+            <Image
+              src={multimedia}
+              alt={multimediaCaption || title}
+              height={imageHeight}
+              width={imageWidth}
+              sizes={`(max-width: 639px) ${imageMobileWidth}px, ${imageWidth}px`}
+              sizesHeight={[imageMobileHeight]}
+              className={classes.img}
+              loading={isAdmin ? 'auto' : 'lazy'}
+              uid={index}>
+              <Icon type={multimediaType} iconClass={classes.icon} />
+            </Image>
           </a>
+        </figure>
+
+        <div className={classes.bottom}>
+          <div className={classes.sectionWrapper}>
+            <a
+              itemProp="url"
+              href={primarySectionLink}
+              className={classes.section}>
+              {primarySection}
+            </a>
+            <p itemProp="description" className={classes.date}>
+              {formatDateLocalTimeZoneFull(date, '.', false, 'DD-MM-YYYY')}
+            </p>
+          </div>
+
+          <div className={classes.titleWrapper}>
+            <h2 itemProp="name" className={classes.titleContent}>
+              <a itemProp="url" className={classes.title} href={websiteLink}>
+                <span className="hidden">{titleHeader}</span>
+                {title}
+              </a>
+            </h2>
+            <p itemProp="description" className={classes.subtitle}>
+              {subTitle}
+            </p>
+          </div>
+
+          <div className={classes.authorWrapper}>
+            <a itemProp="url" href={authorLink} className={classes.author}>
+              {author}
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-)
+  )
+}
 
 export default StoryGrid
