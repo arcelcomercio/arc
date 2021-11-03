@@ -42,13 +42,15 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
     district: district || '',
   })
 
-  const [status, setStatus] = React.useState<Status>(Status.Initial)
+  const [status, setStatus] = React.useState<Status>(Status.Loading)
   const [errorMessage, setErrorMessage] = React.useState('')
   const [hasSuccessMessage, setHasSuccessMessage] = React.useState(false)
   const [shouldConfirmPass, setShouldConfirmPass] = React.useState(false)
   const [disabled, setDisabled] = React.useState(true)
 
-  const isLoading = status === Status.Loading || status === Status.Initial
+  const ref = React.createRef<HTMLButtonElement>()
+
+  const isLoading = status === Status.Loading
 
   React.useEffect(() => {
     setStatus(Status.Ready)
@@ -153,40 +155,31 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
       })
       .filter((attribute) => attribute !== null)
 
-    updateUserProfile(
-      {
-        email: userProfile?.email,
-        attributes: validAttributes || [],
-      } as any,
-      {
-        onSuccess: () => {
-          setHasSuccessMessage(true)
+    updateUserProfile({
+      email: userProfile?.email,
+      attributes: validAttributes || [],
+    } as any)
+      .then(() => {
+        setHasSuccessMessage(true)
+        setStatus(Status.Initial)
+        setDisabled(true)
+        setTimeout(() => {
+          setHasSuccessMessage(false)
+        }, 5000)
+      })
+      .catch((error: Record<string, string>) => {
+        const { code } = error || {}
+        setDisabled(false)
+        setStatus(Status.Ready)
+        if (code === '100018' || code === '300040') {
+          setShouldConfirmPass(true)
+        } else {
+          setErrorMessage(getCodeError(code))
           setTimeout(() => {
-            setHasSuccessMessage(false)
+            setErrorMessage('')
           }, 5000)
-        },
-        onError: (error: Record<string, string>) => {
-          const { code } = error || {}
-          setStatus(Status.Ready)
-          if (code === '100018' || code === '300040') {
-            setShouldConfirmPass(true)
-          } else if (code === '3001001') {
-            const message: string = getCodeError(code)
-            setErrorMessage(message)
-            setTimeout(() => {
-              setErrorMessage('')
-            }, 5000)
-          } else {
-            setErrorMessage(getCodeError(code))
-            setTimeout(() => {
-              setErrorMessage('')
-            }, 5000)
-          }
-        },
-      }
-    ).finally(() => {
-      setStatus(Status.Ready)
-    })
+        }
+      })
   }
 
   const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -232,9 +225,12 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
 
     if (name !== 'district') setUbigeo(value, name as Areas)
     if (disabled) setDisabled(false)
+    if (status !== Status.Ready) setStatus(Status.Ready)
   }
 
-  const onPassConfirmationSuccess = () => {}
+  const onPassConfirmationSuccess = () => {
+    ref.current?.click()
+  }
 
   const onPassConfirmationError = () => {
     setErrorMessage(
@@ -261,6 +257,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
   return (
     <>
       <FormContainer
+        btnRef={ref}
         onSubmit={handleOnSubmit}
         title="Ubicación"
         status={status}
