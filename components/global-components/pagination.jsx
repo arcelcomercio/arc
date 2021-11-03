@@ -3,6 +3,7 @@ import React from 'react'
 
 import { deleteQueryString } from '../utilities/parse/queries'
 import { addParamToEndPath } from '../utilities/parse/strings'
+import { SITE_TROME } from '../utilities/constants/sitenames'
 
 const classes = {
   pagination: 'pagination w-full flex-wrap mb-15 m-0 md:pb-30 md:pr-0 md:pl-0',
@@ -86,8 +87,8 @@ const testSearchPath = (path) => {
   return newPath
 }
 
-const Pagination = (props) => {
-  const { totalElements, storiesQty, requestUri } = props
+const Pagination = props => {
+  const { totalElements, storiesQty, requestUri, arcSite } = props
   let { currentPage } = props
 
   const totalPages = Math.ceil(totalElements / (storiesQty || 50))
@@ -122,15 +123,39 @@ const Pagination = (props) => {
           itemProp="url"
           className={`${classes.page} ${classes.center} ${classes.leftPag}`}
           href={pathOrigin}>
-          <svg width="24" height="24" viewBox="0 0 24 24">
-            <g>
-              <path
-                d="M-16.776,9.78a.8.8,0,0,0-.018,1.091.759.759,0,0,0,.536.23.78.78,0,0,0,.518-.21l4.808-4.783a.78.78,0,0,0,.222-.555A.78.78,0,0,0-10.932,5L-15.74.213a.736.736,0,0,0-1.054.019.8.8,0,0,0,.018,1.091l4.253,4.229Z"
-                transform="translate(-3 17) rotate(180)"
-              />
-              <rect fill="none" width="24" height="24" />
-            </g>
-          </svg>
+          {(arcSite === SITE_TROME)
+            ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                focusable="false"
+                data-prefix="fas"
+                data-icon="angle-down"
+                role="img"
+                height="21px"
+                width="10px"
+                transform="rotate(90)"
+                viewBox="0 0 320 512">
+                <path
+                  fill="currentColor"
+                  d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24">
+                <g>
+                  <path
+                    d="M-16.776,9.78a.8.8,0,0,0-.018,1.091.759.759,0,0,0,.536.23.78.78,0,0,0,.518-.21l4.808-4.783a.78.78,0,0,0,.222-.555A.78.78,0,0,0-10.932,5L-15.74.213a.736.736,0,0,0-1.054.019.8.8,0,0,0,.018,1.091l4.253,4.229Z"
+                    transform="translate(-3 17) rotate(180)"
+                  />
+                  <rect fill="none" width="24" height="24" />
+                </g>
+              </svg>
+            )}
           <span className="non-mobile">anterior</span>
         </a>
       ) : (
@@ -138,15 +163,39 @@ const Pagination = (props) => {
           itemProp="url"
           className={`${classes.page} ${classes.center} ${classes.leftPag}`}
           href={urlPrevPage}>
-          <svg width="24" height="24" viewBox="0 0 24 24">
-            <g>
-              <path
-                d="M-16.776,9.78a.8.8,0,0,0-.018,1.091.759.759,0,0,0,.536.23.78.78,0,0,0,.518-.21l4.808-4.783a.78.78,0,0,0,.222-.555A.78.78,0,0,0-10.932,5L-15.74.213a.736.736,0,0,0-1.054.019.8.8,0,0,0,.018,1.091l4.253,4.229Z"
-                transform="translate(-3 17) rotate(180)"
-              />
-              <rect fill="none" width="24" height="24" />
-            </g>
-          </svg>
+          {(arcSite === SITE_TROME)
+            ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                focusable="false"
+                data-prefix="fas"
+                data-icon="angle-down"
+                role="img"
+                height="21px"
+                width="10px"
+                transform="rotate(90)"
+                viewBox="0 0 320 512">
+                <path
+                  fill="currentColor"
+                  d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24">
+                <g>
+                  <path
+                    d="M-16.776,9.78a.8.8,0,0,0-.018,1.091.759.759,0,0,0,.536.23.78.78,0,0,0,.518-.21l4.808-4.783a.78.78,0,0,0,.222-.555A.78.78,0,0,0-10.932,5L-15.74.213a.736.736,0,0,0-1.054.019.8.8,0,0,0,.018,1.091l4.253,4.229Z"
+                    transform="translate(-3 17) rotate(180)"
+                  />
+                  <rect fill="none" width="24" height="24" />
+                </g>
+              </svg>
+            )}
           <span className="non-mobile">anterior</span>
         </a>
       )}
@@ -209,15 +258,39 @@ const Pagination = (props) => {
           className={`${classes.page} ${classes.center} ${classes.rightPag}`}
           href={urlNextPage}>
           <span className="non-mobile">siguiente</span>
-          <svg width="24" height="24" viewBox="0 0 24 24">
-            <g>
-              <path
-                d="M-16.776,9.78a.8.8,0,0,0-.018,1.091.759.759,0,0,0,.536.23.78.78,0,0,0,.518-.21l4.808-4.783a.78.78,0,0,0,.222-.555A.78.78,0,0,0-10.932,5L-15.74.213a.736.736,0,0,0-1.054.019.8.8,0,0,0,.018,1.091l4.253,4.229Z"
-                transform="translate(26 6)"
-              />
-              <rect fill="none" width="24" height="24" />
-            </g>
-          </svg>
+          {(arcSite === SITE_TROME)
+            ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                focusable="false"
+                data-prefix="fas"
+                data-icon="angle-down"
+                role="img"
+                height="21px"
+                width="10px"
+                transform="rotate(270)"
+                viewBox="0 0 320 512">
+                <path
+                  fill="currentColor"
+                  d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24">
+                <g>
+                  <path
+                    d="M-16.776,9.78a.8.8,0,0,0-.018,1.091.759.759,0,0,0,.536.23.78.78,0,0,0,.518-.21l4.808-4.783a.78.78,0,0,0,.222-.555A.78.78,0,0,0-10.932,5L-15.74.213a.736.736,0,0,0-1.054.019.8.8,0,0,0,.018,1.091l4.253,4.229Z"
+                    transform="translate(26 6)"
+                  />
+                  <rect fill="none" width="24" height="24" />
+                </g>
+              </svg>
+            )}
         </a>
       )}
     </div>
