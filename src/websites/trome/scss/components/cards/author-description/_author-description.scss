@@ -35,7 +35,8 @@ $author-main-font: "Encode Sans Condensed", sans-serif;
     @media (--only-mobile) {
       margin-top: 16px;
       margin-bottom: 0;
-      max-width: 335px;
+      min-width: 235px;
+      width: auto;
     }
   }
 
