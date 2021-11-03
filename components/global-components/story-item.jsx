@@ -5,6 +5,8 @@ import React from 'react'
 
 import ConfigParams from '../utilities/config-params'
 import { formatDateLocalTimeZoneTemp, reduceWord } from '../utilities/helpers'
+import { formatDateStory } from '../utilities/date-time/dates'
+
 import StoryData from '../utilities/story-data'
 // import { alignmentClassesPropType } from '@arc-core-components/feature_article-body/build/helpers'
 import Icon from './multimedia-icon'
@@ -52,21 +54,69 @@ const StoriesList = ({
     element.primarySectionLink.includes('/opinion/') &&
     arcSite === ConfigParams.SITE_PERU21
 
-  // console.log(arcSite)
-
   return (
     <div
-      className={`${classes.storyItem} ${
-        formato && formato === 'row' ? 'story-item--row' : ''
-      }`}>
+      className={`${classes.storyItem} ${formato && formato === 'row' ? 'story-item--row' : ''
+        }`}>
       {arcSite === 'trome' ? (
-        <></>
+        <div className={classes.bottom}>
+          <div
+            className={`${classes.left} ${isOpinionPeru21 ? classes.opinion : ''
+              }`}>
+            <a
+              itemProp="url"
+              className={classes.title}
+              href={element.websiteLink}>
+              <a
+                itemProp="url"
+                href={element.primarySectionLink}
+                className={classes.section}>
+                {element.primarySection}
+              </a>
+              {reduceWord(element.title)}
+            </a>
+            <p itemProp="description" className={classes.date}>
+              {formatDateStory(element.date, false)}
+            </p>
+          </div>
+          <figure className={classes.right}>
+            {/* TODO: Actualizar iconos con multimediaIcon */}
+            <a
+              itemProp="url"
+              href={element.websiteLink}
+              className={classes.rightLink}>
+              <Icon type={element.multimediaType} iconClass={classes.icon} />
+              <picture>
+                <source
+                  className={isAdmin ? '' : 'lazy'}
+                  media="(max-width: 639px)"
+                  srcSet={
+                    isAdmin
+                      ? element.multimediaLandscapeXS
+                      : element.multimediaLazyDefault
+                  }
+                  data-srcset={element.multimediaLandscapeXS}
+                />
+                <img
+                  alt={element.title}
+                  className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
+                  src={
+                    isAdmin
+                      ? element.multimediaLandscapeS
+                      : element.multimediaLazyDefault
+                  }
+                  data-src={element.multimediaLandscapeS}
+                />
+              </picture>
+            </a>
+          </figure>
+
+        </div>
       ) : (
         <div className={classes.bottom}>
           <div
-            className={`${classes.left} ${
-              isOpinionPeru21 ? classes.opinion : ''
-            }`}>
+            className={`${classes.left} ${isOpinionPeru21 ? classes.opinion : ''
+              }`}>
             <div className={classes.top}>
               <a
                 itemProp="url"

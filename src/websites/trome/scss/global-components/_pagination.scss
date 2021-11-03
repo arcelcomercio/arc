@@ -2,19 +2,35 @@
 
 .pagination {
   &__page {
-    padding: 0 12px;
-    background-color: #d8d7d4;
-    margin: 4px 2px;
-    color: $color-black;
-    height: 30px;
+    padding: 0 15px;
+    // background-color: #d8d7d4;
+    // color: $color-black;
+    // font-family: $primary-font;
+    margin: 0 5px;
+    height: 35px;
     display: flex;
     align-items: center;
-    font-size: 14px;
-    font-family: $primary-font;
-    text-transform: capitalize;
+    font-size: 12px;
+    text-transform: uppercase;
+    border: 1px solid #999999;
+    font-family: "Encode Sans Condensed";
+    background-color: #fff;
+    font-weight: 700;
+    color: #999999;
     &--current,
     &--disabled {
       color: $color-base-300;
     }
+    &--current {
+      background: #ff8303;
+      color: #fff;
+      border: none;
+    }
+  }
+  &__left {
+    margin-right: 20px;
+  }
+  &__right {
+    margin-left: 20px;
   }
 }
