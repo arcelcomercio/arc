@@ -28,6 +28,7 @@ import {
   PixelActions,
   sendAction,
   TaggeoJoao,
+  TagsAdsMurai,
 } from '../../../_dependencies/Taggeo'
 import { getSessionStorage } from '../../../_dependencies/Utils'
 import useForm from '../../../_hooks/useForm'
@@ -80,6 +81,7 @@ const Pay = () => {
     documentType,
     documentNumber,
     emailVerified,
+    province,
   } = conformProfile(userProfile || {})
 
   const [msgError, setMsgError] = React.useState(false)
@@ -179,6 +181,18 @@ const Pay = () => {
       suscriptorImpreso: printedSubscriber ? 'si' : 'no',
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
+
+    TagsAdsMurai(
+      {
+        event: 'adsmurai_pageview',
+        em: email,
+        fn: `${firstName || ''}`,
+        ln: `${lastName || ''} ${secondLastName || ''}`,
+        ct: `${province || ''}`,
+        ph: `${phone || ''}`,
+      },
+      window.location.pathname
+    )
 
     updateLoadPage(false)
   }, [])

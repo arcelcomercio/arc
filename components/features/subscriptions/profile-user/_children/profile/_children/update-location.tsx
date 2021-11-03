@@ -42,11 +42,15 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
     district: district || '',
   })
 
-  const [status, setStatus] = React.useState<Status>(Status.Initial)
+  const [status, setStatus] = React.useState<Status>(Status.Loading)
   const [errorMessage, setErrorMessage] = React.useState('')
   const [hasSuccessMessage, setHasSuccessMessage] = React.useState(false)
   const [shouldConfirmPass, setShouldConfirmPass] = React.useState(false)
-  const disabled = status === Status.Loading || status === Status.Initial
+  const [disabled, setDisabled] = React.useState(true)
+
+  const ref = React.createRef<HTMLButtonElement>()
+
+  const isLoading = status === Status.Loading
 
   React.useEffect(() => {
     setStatus(Status.Ready)
@@ -103,6 +107,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setStatus(Status.Loading)
+    setDisabled(true)
     const formData = new FormData(e.currentTarget)
     const fieldValues = Object.fromEntries(formData.entries()) as Record<
       LocationAttributes,
@@ -150,40 +155,31 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
       })
       .filter((attribute) => attribute !== null)
 
-    updateUserProfile(
-      {
-        email: userProfile?.email,
-        attributes: validAttributes || [],
-      } as any,
-      {
-        onSuccess: () => {
-          setHasSuccessMessage(true)
+    updateUserProfile({
+      email: userProfile?.email,
+      attributes: validAttributes || [],
+    } as any)
+      .then(() => {
+        setHasSuccessMessage(true)
+        setStatus(Status.Initial)
+        setDisabled(true)
+        setTimeout(() => {
+          setHasSuccessMessage(false)
+        }, 5000)
+      })
+      .catch((error: Record<string, string>) => {
+        const { code } = error || {}
+        setDisabled(false)
+        setStatus(Status.Ready)
+        if (code === '100018' || code === '300040') {
+          setShouldConfirmPass(true)
+        } else {
+          setErrorMessage(getCodeError(code))
           setTimeout(() => {
-            setHasSuccessMessage(false)
+            setErrorMessage('')
           }, 5000)
-        },
-        onError: (error: Record<string, string>) => {
-          const { code } = error || {}
-          setStatus(Status.Ready)
-          if (code === '100018') {
-            setShouldConfirmPass(true)
-          } else if (code === '3001001') {
-            const message: string = getCodeError(code)
-            setErrorMessage(message)
-            setTimeout(() => {
-              setErrorMessage('')
-            }, 5000)
-          } else {
-            setErrorMessage(getCodeError(code))
-            setTimeout(() => {
-              setErrorMessage('')
-            }, 5000)
-          }
-        },
-      }
-    ).finally(() => {
-      setStatus(Status.Ready)
-    })
+        }
+      })
   }
 
   const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -228,9 +224,13 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
     }
 
     if (name !== 'district') setUbigeo(value, name as Areas)
+    if (disabled) setDisabled(false)
+    if (status !== Status.Ready) setStatus(Status.Ready)
   }
 
-  const onPassConfirmationSuccess = () => {}
+  const onPassConfirmationSuccess = () => {
+    ref.current?.click()
+  }
 
   const onPassConfirmationError = () => {
     setErrorMessage(
@@ -257,6 +257,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
   return (
     <>
       <FormContainer
+        btnRef={ref}
         onSubmit={handleOnSubmit}
         title="Ubicación"
         status={status}
@@ -265,7 +266,8 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
           hasSuccessMessage
             ? 'Sus datos han sido actualizados correctamente'
             : undefined
-        }>
+        }
+        disabled={disabled}>
         <div className="row three">
           <div className={styles.group}>
             <select
@@ -274,7 +276,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
               name="country"
               value={location.country || 'default'}
               onChange={handleOnChange}
-              disabled={!email || disabled}>
+              disabled={!email || isLoading}>
               <option value="default">Seleccione</option>
               <option value="260000">Perú</option>
             </select>
@@ -289,7 +291,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
               name="department"
               value={location.department || 'default'}
               onChange={handleOnChange}
-              disabled={(!email && !departments) || disabled}>
+              disabled={(!email && !departments) || isLoading}>
               <option value="default">Seleccione</option>
               {departments
                 ? departments.map(([code, name]) => (
@@ -310,7 +312,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
               name="province"
               value={location.province || 'default'}
               onChange={handleOnChange}
-              disabled={(!email && !provinces) || disabled}>
+              disabled={(!email && !provinces) || isLoading}>
               <option value="default">Seleccione</option>
               {provinces
                 ? provinces.map(([code, name]) => (
@@ -333,7 +335,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
               name="district"
               value={location.district || 'default'}
               onChange={handleOnChange}
-              disabled={(!email && !districts) || disabled}>
+              disabled={(!email && !districts) || isLoading}>
               <option value="default">Seleccione</option>
               {districts
                 ? districts.map(([code, name]) => (

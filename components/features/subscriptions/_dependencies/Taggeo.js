@@ -1,13 +1,31 @@
+import getProperties from 'fusion:properties'
+
 import { isProd } from '../../../utilities/arc/env'
 import { titleCase } from './Utils'
 
-export const Taggeo = (cat, acc) => {
+/**
+ * @param {string} cat
+ * @param {string} acc
+ * @param {import('types/fusion').ArcSite} arcSite
+ */
+export const Taggeo = (cat, acc, arcSite = '') => {
+  let category = cat
+  if (arcSite) {
+    const { activeRegisterwall } = getProperties(arcSite)
+    // modificación para el taggeo por premium register (valla diario correo)
+    category =
+      activeRegisterwall && cat.endsWith('_premium')
+        ? cat.concat('registro')
+        : cat
+  }
+
   const TRIGGER = 'tag_signwall'
+
   if (typeof window !== 'undefined') {
     window.dataLayer = window.dataLayer || []
     const dataPush = {
       event: TRIGGER,
-      eventCategory: titleCase(cat),
+      eventCategory: titleCase(category),
       eventAction: acc,
     }
     window.dataLayer.push(dataPush)
@@ -28,6 +46,18 @@ export const TaggeoJoao = (obj, path) => {
     window.console.groupCollapsed(
       `%c 🔔 Taggeo Joao - Categoria: ${obj.category} | Ruta: ${path}`,
       'color:  purple; font-size: 12px'
+    )
+    window.console.table(obj)
+    window.console.groupEnd()
+  }
+}
+
+export const TagsAdsMurai = (obj, path) => {
+  window.dataLayer.push(obj)
+  if (!isProd) {
+    window.console.groupCollapsed(
+      `%c 🔔 Taggeo AdsMurai - Data: ${obj} | Ruta: ${path}`,
+      'color:  blue; font-size: 12px'
     )
     window.console.table(obj)
     window.console.groupEnd()

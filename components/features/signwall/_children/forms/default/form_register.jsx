@@ -4,10 +4,13 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { setCookie } from '../../../../../utilities/client/cookies'
+import { isStorageAvailable } from '../../../../../utilities/client/storage'
 import {
   SITE_ELCOMERCIO,
   SITE_GESTION,
+  SITE_TROME,
 } from '../../../../../utilities/constants/sitenames'
+import { extendSession } from '../../../../../utilities/subscriptions/identity'
 import { useModalContext } from '../../../../subscriptions/_context/modal'
 import getCodeError, {
   acceptCheckTerms,
@@ -46,6 +49,8 @@ const FormRegister = ({
     arcSite,
     siteProperties: {
       signwall: { mainColorLink, mainColorBtn, mainColorBr, authProviders },
+      activeMagicLink,
+      activeRegisterwall,
       activeNewsletter,
       activeVerifyEmail,
       activeDataTreatment,
@@ -135,6 +140,10 @@ const FormRegister = ({
     if (activeNewsletter && profile.accessToken) {
       handleNewsleters(profile)
     }
+    if (activeMagicLink) {
+      // requestVerifyEmail se ejecuta automaticamente al SignUp
+      Identity.requestOTALink(profile.profile.email)
+    }
     setShowConfirm(true)
     setShowContinueVerify(true)
     window.localStorage.removeItem('ArcId.USER_INFO')
@@ -159,7 +168,8 @@ const FormRegister = ({
       .catch(() => {
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_registro_error_registrarme`
+          `web_sw${typeDialog[0]}_registro_error_registrarme`,
+          arcSite
         )
       })
   }
@@ -234,9 +244,7 @@ const FormRegister = ({
             type: 'String',
           },
         ],
-      },
-      { doLogin: true },
-      { rememberMe: true }
+      }
     )
       .then((resSignUp) => {
         if (activeVerifyEmail) {
@@ -246,7 +254,8 @@ const FormRegister = ({
         }
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_registro_success_registrarme`
+          `web_sw${typeDialog[0]}_registro_success_registrarme`,
+          arcSite
         )
       })
       .catch((errLogin) => {
@@ -255,14 +264,24 @@ const FormRegister = ({
         setShowLoading(false)
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_registro_error_registrarme`
+          `web_sw${typeDialog[0]}_registro_error_registrarme`,
+          arcSite
         )
         setCookie('lostEmail', remail, 1)
+      })
+      .finally(() => {
+        // eliminamos la noticia premium del storage en caso
+        // el typedialog no sea premium
+        if (typeDialog !== 'premium') {
+          if (isStorageAvailable('localStorage')) {
+            window.localStorage.removeItem('premium_last_url')
+          }
+        }
       })
   }
 
   const getListSubs = () =>
-    Identity.extendSession().then((resExt) => {
+    extendSession().then((resExt) => {
       const checkEntitlement = getEntitlement(resExt.accessToken, arcSite)
         .then((res) => {
           if (res.skus) {
@@ -276,21 +295,29 @@ const FormRegister = ({
       return checkEntitlement
     })
 
+  // agregado despues de pasar test por default/form_login
+  // es un codigo diferente al de login
+  const unblockContent = () => {
+    setShowUserWithSubs(true) // tengo subs
+    const divPremium = document.getElementById('contenedor')
+    if (divPremium) {
+      divPremium.classList.remove('story-content__nota-premium')
+      divPremium.removeAttribute('style')
+    }
+  }
+
   const checkUserSubs = () => {
     if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true)
 
       getListSubs()
         .then((p) => {
-          if (p && p.length === 0) {
+          if (activeRegisterwall) {
+            unblockContent()
+          } else if (p && p.length === 0) {
             setShowUserWithSubs(false) // no tengo subs
           } else {
-            setShowUserWithSubs(true) // tengo subs
-            const divPremium = document.getElementById('contenedor')
-            if (divPremium) {
-              divPremium.classList.remove('story-content__nota-premium')
-              divPremium.removeAttribute('style')
-            }
+            unblockContent()
           }
         })
         .finally(() => {
@@ -319,10 +346,15 @@ const FormRegister = ({
   const sendVerifyEmail = (e) => {
     e.preventDefault()
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(remail)
+    if (activeMagicLink) {
+      Identity.requestOTALink(remail)
+    } else {
+      Identity.requestVerifyEmail(remail)
+    }
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
-      `web_sw${typeDialog[0]}_registro_reenviar_correo`
+      `web_sw${typeDialog[0]}_registro_reenviar_correo`,
+      arcSite
     )
     let timeleft = 9
     const downloadTimer = setInterval(() => {
@@ -441,53 +473,6 @@ const FormRegister = ({
                     }}
                     error={rpassError || showFormatInvalid}
                   />
-
-                  <button
-                    style={{
-                      color: mainColorBtn,
-                      background: mainColorLink,
-                    }}
-                    type="submit"
-                    className="signwall-inside_forms-btn signwall-inside_forms-btn-codp mt-15"
-                    disabled={disable || showLoading || showFormatInvalid}
-                    onClick={() => {
-                      Taggeo(
-                        `Web_Sign_Wall_${typeDialog}`,
-                        `web_sw${typeDialog[0]}_registro_boton_registrarme`
-                      )
-                    }}>
-                    {showLoading ? 'Registrando...' : 'Registrarme'}
-                  </button>
-
-                  <div>
-                    <p className="signwall-inside_forms-text center p-link">
-                      Ya tengo una cuenta
-                      <a
-                        href="!#"
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{ color: mainColorLink, fontWeight: 'bold' }}
-                        className="signwall-inside_forms-link ml-5 inline"
-                        onClick={(e) => {
-                          e.preventDefault()
-                          Taggeo(
-                            `Web_Sign_Wall_${typeDialog}`,
-                            `web_sw${typeDialog[0]}_registro_link_volver`
-                          )
-                          switch (typeDialog) {
-                            case 'relogemail':
-                            case 'reloghash':
-                              changeTemplate('relogin')
-                              break
-                            default:
-                              changeTemplate('login')
-                          }
-                        }}>
-                        Ingresar
-                      </a>
-                    </p>
-                  </div>
-
                   {activeDataTreatment && (
                     <CheckBox
                       defaultBorder="default-border checkmark"
@@ -559,6 +544,54 @@ const FormRegister = ({
                       </p>
                     </CheckBox>
                   </div>
+
+                  <button
+                    style={{
+                      color: mainColorBtn,
+                      background: mainColorLink,
+                    }}
+                    type="submit"
+                    className="signwall-inside_forms-btn signwall-inside_forms-btn-codp mt-15"
+                    disabled={disable || showLoading || showFormatInvalid}
+                    onClick={() => {
+                      Taggeo(
+                        `Web_Sign_Wall_${typeDialog}`,
+                        `web_sw${typeDialog[0]}_registro_boton_registrarme`,
+                        arcSite
+                      )
+                    }}>
+                    {showLoading ? 'Registrando...' : 'Registrarme'}
+                  </button>
+
+                  <div>
+                    <p className="signwall-inside_forms-text center p-link">
+                      Ya tengo una cuenta
+                      <a
+                        href="!#"
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{ color: mainColorLink, fontWeight: 'bold' }}
+                        className="signwall-inside_forms-link ml-5 inline"
+                        onClick={(e) => {
+                          e.preventDefault()
+                          Taggeo(
+                            `Web_Sign_Wall_${typeDialog}`,
+                            `web_sw${typeDialog[0]}_registro_link_volver`,
+                            arcSite
+                          )
+                          switch (typeDialog) {
+                            case 'relogemail':
+                            case 'reloghash':
+                              changeTemplate('relogin')
+                              break
+                            default:
+                              changeTemplate('login')
+                          }
+                        }}>
+                        Ingresar
+                      </a>
+                    </p>
+                  </div>
                 </>
               )}
 
@@ -571,13 +604,10 @@ const FormRegister = ({
                     style={{
                       fontSize: '22px',
                       lineHeight: '26px',
-                      wordBreak: 'break-word',
                     }}
                     className="signwall-inside_forms-title center mb-10">
                     {showUserWithSubs
-                      ? `Bienvenido(a) ${
-                          Identity.userProfile.firstName || 'Usuario'
-                        }`
+                      ? `Bienvenido(a) ${Identity.userProfile.firstName || ''}`
                       : 'Tu cuenta ha sido creada correctamente'}
                   </h4>
 
@@ -615,21 +645,46 @@ const FormRegister = ({
                                 background: mainColorLink,
                               }}
                               onClick={() => {
+                                // modificado para el taggeo de diario correo por valla
                                 Taggeo(
-                                  `Web_${typeDialog}_Hard`,
+                                  `Web_${typeDialog}_${
+                                    activeRegisterwall &&
+                                    typeDialog === 'premium'
+                                      ? 'Registro'
+                                      : 'Hard'
+                                  }`,
                                   `web_${typeDialog}_boton_sigue_navegando`
                                 )
+
+                                // validamos para cuando sea una nota premium
                                 if (
-                                  window.sessionStorage.getItem(
-                                    'paywall_last_url'
-                                  ) &&
-                                  window.sessionStorage.getItem(
-                                    'paywall_last_url'
-                                  ) !== ''
+                                  isStorageAvailable('localStorage') &&
+                                  isStorageAvailable('sessionStorage')
                                 ) {
-                                  window.location.href = window.sessionStorage.getItem(
+                                  const premiumLastUrl = window.localStorage.getItem(
+                                    'premium_last_url'
+                                  )
+                                  const paywallLastUrl = window.sessionStorage.getItem(
                                     'paywall_last_url'
                                   )
+                                  if (
+                                    premiumLastUrl &&
+                                    premiumLastUrl !== '' &&
+                                    activeRegisterwall
+                                  ) {
+                                    window.location.href = premiumLastUrl
+                                    // removiendo del local la nota premium
+                                    window.localStorage.removeItem(
+                                      'premium_last_url'
+                                    )
+                                  } else if (
+                                    paywallLastUrl &&
+                                    paywallLastUrl !== ''
+                                  ) {
+                                    window.location.href = paywallLastUrl
+                                  } else {
+                                    onClose()
+                                  }
                                 } else {
                                   onClose()
                                 }
@@ -648,7 +703,8 @@ const FormRegister = ({
                             onClick={() => {
                               Taggeo(
                                 `Web_Sign_Wall_${typeDialog}`,
-                                `web_sw${typeDialog[0]}_boton_ver_planes`
+                                `web_sw${typeDialog[0]}_boton_ver_planes`,
+                                arcSite
                               )
                               handleSuscription()
                             }}>
@@ -682,7 +738,8 @@ const FormRegister = ({
                         onClick={() => {
                           Taggeo(
                             `Web_Sign_Wall_${typeDialog}`,
-                            `web_sw${typeDialog[0]}_registro_continuar_navegando`
+                            `web_sw${typeDialog[0]}_registro_continuar_navegando`,
+                            arcSite
                           )
                           if (typeDialog === 'students') {
                             if (showContinueVerify) {
@@ -708,7 +765,9 @@ const FormRegister = ({
                             }
                           }
                         }}>
-                        {arcSite === 'trome' ? 'Confirmar Correo' : 'Continuar'}
+                        {arcSite === SITE_TROME
+                          ? 'Confirmar Correo'
+                          : 'Continuar'}
                       </button>
                     </>
                   )}

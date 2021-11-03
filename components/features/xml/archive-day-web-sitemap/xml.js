@@ -1,6 +1,7 @@
 import Consumer from 'fusion:consumer'
+
+import { localISODate } from '../../../utilities/date-time/dates'
 import StoryData from '../../../utilities/story-data'
-import { localISODate } from '../../../utilities/helpers'
 
 /**
  * @description Muestra listado de historias para fecha especifica.
@@ -53,7 +54,7 @@ class XmlArchiveDayWebSitemap {
     })
 
     const sitemap = {
-      urlset: stories.map(story => {
+      urlset: stories.map((story) => {
         storyData.__data = story
         return {
           url: {

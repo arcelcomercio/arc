@@ -5,6 +5,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { setCookie } from '../../../../utilities/client/cookies'
+import AuthFacebookGoogle from '../../../subscriptions/_children/auth-facebook-google'
 import { useModalContext } from '../../../subscriptions/_context/modal'
 import getCodeError, {
   formatEmail,
@@ -22,18 +23,23 @@ const FormRelogin = ({ onClose, typeDialog }) => {
     arcSite,
     siteProperties: {
       signwall: { mainColorLink, mainColorBtn, authProviders },
+      activeMagicLink,
       activeNewsletter,
       activeVerifyEmail,
       activeDataTreatment,
+      activeAuthSocialNative,
     },
   } = useAppContext() || {}
 
   const { changeTemplate } = useModalContext()
-  const [showError, setShowError] = React.useState(false)
+  const [showError, setShowError] = React.useState(
+    'Su sesión ha expirado. Por favor, inicie sesión nuevamente.'
+  )
   const [showLoading, setShowLoading] = React.useState(false)
   const [showVerify, setShowVerify] = React.useState()
   const [showSendEmail, setShowSendEmail] = React.useState(false)
   const [checkedPolits, setCheckedPolits] = React.useState(true)
+  const [hideFormLogin, setHideFormLogin] = React.useState(false)
 
   const stateSchema = {
     remail: { value: '', error: '' },
@@ -120,7 +126,11 @@ const FormRelogin = ({ onClose, typeDialog }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(remail)
+    if (activeMagicLink) {
+      Identity.requestOTALink(remail)
+    } else {
+      Identity.requestVerifyEmail(remail)
+    }
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_email_login_reenviar_correo`
@@ -144,6 +154,19 @@ const FormRelogin = ({ onClose, typeDialog }) => {
   }
 
   const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
+
+  const loginSuccessFabebook = () => {
+    Identity.getUserProfile().then((resProfile) => {
+      setCookie('arc_e_id', sha256(resProfile.email).toString(), 365)
+      Taggeo(
+        `Web_Sign_Wall_${typeDialog}`,
+        `web_sw${typeDialog[0]}_email_login_success_ingresar`
+      )
+      onClose()
+    })
+  }
+
+  const loginFailedFacebook = () => setShowError(getCodeError())
 
   return (
     <form
@@ -248,28 +271,44 @@ const FormRelogin = ({ onClose, typeDialog }) => {
         ó ingresa con tu cuenta de:
       </p>
 
-      {authProviders.map((item) => (
-        <ButtonSocial
-          key={item}
-          brand={item}
-          size={sizeBtnSocial}
-          onClose={onClose}
+      {activeAuthSocialNative ? (
+        <AuthFacebookGoogle
+          hideFormParent={() => setHideFormLogin(!hideFormLogin)}
+          onAuthSuccess={loginSuccessFabebook}
+          onAuthFailed={loginFailedFacebook}
           typeDialog={typeDialog}
+          dataTreatment={checkedPolits ? '1' : '0'}
           arcSite={arcSite}
-          typeForm="relogin"
+          arcType="login"
           activeNewsletter={activeNewsletter}
           showMsgVerify={() => triggerShowVerify()}
-          dataTreatment={checkedPolits ? '1' : '0'}
         />
-      ))}
+      ) : (
+        <>
+          {authProviders.map((item) => (
+            <ButtonSocial
+              key={item}
+              brand={item}
+              size={sizeBtnSocial}
+              onClose={onClose}
+              typeDialog={typeDialog}
+              arcSite={arcSite}
+              typeForm="relogin"
+              activeNewsletter={activeNewsletter}
+              showMsgVerify={() => triggerShowVerify()}
+              dataTreatment={checkedPolits ? '1' : '0'}
+            />
+          ))}
 
-      <AuthURL
-        arcSite={arcSite}
-        onClose={onClose}
-        typeDialog={typeDialog}
-        activeNewsletter={activeNewsletter}
-        typeForm="relogin"
-      />
+          <AuthURL
+            arcSite={arcSite}
+            onClose={onClose}
+            typeDialog={typeDialog}
+            activeNewsletter={activeNewsletter}
+            typeForm="relogin"
+          />
+        </>
+      )}
 
       <p
         style={{

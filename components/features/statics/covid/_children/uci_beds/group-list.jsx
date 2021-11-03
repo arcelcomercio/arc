@@ -7,12 +7,7 @@ export default function GroupList({ list = [] }) {
         <div className="uci-home__item">
           <div className="uci-home__item-link">
             <span>{list[0]?.grupo || ''}</span>
-            <svg
-              width="8"
-              height="6"
-              viewBox="0 0 8 6"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg">
+            <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
               <g clipPath="url(#clip0)">
                 <path d="M4 6L0 0L8 0L4 6Z" fill="#707071" />
               </g>

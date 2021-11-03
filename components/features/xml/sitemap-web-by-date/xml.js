@@ -1,6 +1,6 @@
 import Consumer from 'fusion:consumer'
 
-import { localISODate } from '../../../utilities/helpers'
+import { localISODate } from '../../../utilities/date-time/dates'
 
 /**
  * @description Muestra listado de historias para fecha especifica.

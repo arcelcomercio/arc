@@ -11,6 +11,7 @@ const classes = {
   listClasses: 'sht__list',
   title: 'sht__title',
   category: 'sht__category',
+  related: 'sht__related',
 }
 
 const StoryTitleLite = () => {
@@ -41,7 +42,7 @@ const StoryTitleLite = () => {
   return (
     <>
       {arcSite === SITE_DEPOR &&
-      !(/^\/mexico\//.test(requestUri) || /^\/colombia\//.test(requestUri)) ? (
+        !(/^\/mexico\//.test(requestUri) || /^\/colombia\//.test(requestUri)) ? (
         <div id="spc_post_stories" />
       ) : null}
       {arcSite === SITE_DEPOR && (

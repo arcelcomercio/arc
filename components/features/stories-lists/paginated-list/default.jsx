@@ -9,6 +9,7 @@ import StoryItem from '../../../global-components/story-item'
 import {
   SITE_DEPOR,
   SITE_GESTION,
+  SITE_TROME,
 } from '../../../utilities/constants/sitenames'
 import { customFields } from '../_dependencies/custom-fields'
 import StructuredData from './_children/structured-data'
@@ -16,6 +17,7 @@ import StructuredData from './_children/structured-data'
 const classes = {
   adsBox: 'flex items-center flex-col no-desktop pb-20',
   adsAfsBox: 'pb-20',
+  contentTitle: 'story-item__wrapper-title',
 }
 
 const StoriesListPaginatedList = (props) => {
@@ -31,6 +33,9 @@ const StoriesListPaginatedList = (props) => {
     isAdmin,
   } = useFusionContext()
   const { customFields: customFieldsProps = {} } = props
+  const {
+    customFields: { showTitle },
+  } = props
   const { isDfp = false } = getProperties(arcSite)
   const isSearchSection = /^\/buscar\//.test(requestUri)
 
@@ -45,6 +50,8 @@ const StoriesListPaginatedList = (props) => {
     count = 0,
     author: { url: authorPath = '' } = {},
   } = globalContent || {}
+
+  const { author: { firstName } = {} } = globalContent || {}
   const {
     author = {},
     slug: slugAuthor = '',
@@ -55,7 +62,7 @@ const StoriesListPaginatedList = (props) => {
 
   if (stories.length === 0) {
     if (author._id) {
-      ;({ bio_page: authorPath } = author)
+      ; ({ bio_page: authorPath } = author)
       const storiesAuthor = useContent({
         source: 'story-feed-by-author',
         query: {
@@ -71,7 +78,7 @@ const StoriesListPaginatedList = (props) => {
         typeof storiesAuthor.content_elements === 'object' &&
         storiesAuthor.content_elements.length > 0
       ) {
-        ;({ content_elements: stories, count } = storiesAuthor)
+        ; ({ content_elements: stories, count } = storiesAuthor)
         size = sizeAuthor
         from = fromAuthor
       }
@@ -92,6 +99,11 @@ const StoriesListPaginatedList = (props) => {
   return (
     <>
       <div>
+        {arcSite === SITE_TROME && showTitle && (
+          <div className={classes.contentTitle}>
+            {firstName && <p>LAS NOTICIAS DE {firstName}</p>}
+          </div>
+        )}
         {stories.map((story, index) => {
           const ads = hasAds(index + 1, activeAdsArray)
           return (

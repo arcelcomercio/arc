@@ -1,24 +1,25 @@
-import React from 'react'
-
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
+import React from 'react'
 
-import customFields from './_dependencies/custom-fields'
-import schemaFilter from './_dependencies/schema-filter'
-import StoryData from '../../../utilities/story-data'
-import { reduceWord } from '../../../utilities/helpers'
-import StoryItem from '../../../global-components/story-new'
 import Ads from '../../../global-components/ads'
+import StoryGrid from '../../../global-components/story-grid'
+import StoryItem from '../../../global-components/story-new'
 import ConfigParams from '../../../utilities/config-params'
+import { reduceWord } from '../../../utilities/helpers'
 import {
+  includeCredits,
+  includePrimarySection,
   includePromoItems,
   includePromoItemsCaptions,
-  includePrimarySection,
-  includeCredits,
 } from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
+import customFields from './_dependencies/custom-fields'
+import schemaFilter from './_dependencies/schema-filter'
 
 const classes = {
-  listado: 'w-full',
+  listado: 'stories-news w-full',
+  listadoContent: 'stories-news__list',
   listadoSeeMore: 'story-item__btn flex justify-center mt-20 uppercase',
   adsBox: 'flex items-center flex-col no-desktop pb-20',
 }
@@ -35,7 +36,7 @@ const StoriesListNew = (props) => {
   } = useFusionContext()
 
   const presets = 'landscape_md:314x157,landscape_s:234x161,landscape_xs:118x72'
-  const includedFields = `headlines.basic,subheadlines.basic,${includeCredits},credits.by.image.url,promo_items.basic_html.content,${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection(
+  const includedFields = `headlines.basic,headlines.mobile,subheadlines.basic,${includeCredits},credits.by.image.url,promo_items.basic_html.content,${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection(
     { arcSite }
   )},display_date`
 
@@ -61,13 +62,11 @@ const StoriesListNew = (props) => {
 
   const typeSpace = isDfp ? 'caja' : 'movil'
 
-  const activeAdsArray = activeAds.map((el) => {
-    return {
-      name: `${typeSpace}${el.slice(-1)}`,
-      pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
-      inserted: false,
-    }
-  })
+  const activeAdsArray = activeAds.map((el) => ({
+    name: `${typeSpace}${el.slice(-1)}`,
+    pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
+    inserted: false,
+  }))
 
   const Story = new StoryData({
     data,
@@ -78,7 +77,7 @@ const StoriesListNew = (props) => {
   })
   return (
     <div className={classes.listado}>
-      <div>
+      <div className={classes.listadoContent}>
         {stories &&
           stories.map((story, index) => {
             const ads = hasAds(index + 1, activeAdsArray)
@@ -89,6 +88,7 @@ const StoriesListNew = (props) => {
               date,
               websiteLink,
               title,
+              titleHeader,
               subTitle,
               authorLink,
               author,
@@ -110,27 +110,47 @@ const StoriesListNew = (props) => {
               ? authorImage
               : multimediaLandscapeS
 
+            const isTrome = arcSite === 'trome'
+
             return (
               <>
-                <StoryItem
-                  {...{
-                    isAdmin,
-                    primarySectionLink,
-                    primarySection,
-                    date,
-                    websiteLink,
-                    title: reduceWord(title),
-                    subTitle: reduceWord(subTitle),
-                    authorLink,
-                    author,
-                    authorImage,
-                    multimediaType,
-                    multimediaLandscapeXS: imgItemLandscapeXS,
-                    multimediaLazyDefault,
-                    multimediaLandscapeS: imgItemLandscapeS,
-                    formato: 'row',
-                  }}
-                />
+                {isTrome ? (
+                  <StoryGrid
+                    isAdmin={isAdmin}
+                    primarySectionLink={primarySectionLink}
+                    primarySection={primarySection}
+                    date={date}
+                    websiteLink={websiteLink}
+                    title={reduceWord(title)}
+                    titleHeader={titleHeader}
+                    subTitle={reduceWord(subTitle)}
+                    authorLink={authorLink}
+                    author={author}
+                    multimediaType={multimediaType}
+                    multimediaLazyDefault={multimediaLazyDefault}
+                    multimediaLandscapeS={multimediaLandscapeS}
+                  />
+                ) : (
+                  <StoryItem
+                    {...{
+                      isAdmin,
+                      primarySectionLink,
+                      primarySection,
+                      date,
+                      websiteLink,
+                      title: reduceWord(title),
+                      subTitle: reduceWord(subTitle),
+                      authorLink,
+                      author,
+                      authorImage,
+                      multimediaType,
+                      multimediaLandscapeXS: imgItemLandscapeXS,
+                      multimediaLazyDefault,
+                      multimediaLandscapeS: imgItemLandscapeS,
+                      formato: 'row',
+                    }}
+                  />
+                )}
                 {ads.length > 0 && (
                   <div className={classes.adsBox}>
                     <Ads

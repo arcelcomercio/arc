@@ -31,6 +31,7 @@ import {
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_PERU21,
+  SITE_TROME,
 } from '../../../utilities/constants/sitenames'
 import {
   GALLERY_VERTICAL,
@@ -85,6 +86,7 @@ const StoryContentsLite = (props) => {
   const {
     customFields: {
       shareAlign = 'right',
+      shareLinks = false,
       copyLink = false,
       liteAdsEvery = 2,
     } = {},
@@ -234,7 +236,17 @@ const StoryContentsLite = (props) => {
                   url = '',
                   items = [],
                   list_type: listType = 'unordered',
+                  title,
                 } = element
+
+                if (
+                  arcSite === SITE_TROME &&
+                  type === ELEMENT_BLOCKQUOTE &&
+                  content.toLowerCase().includes('puedes leer')
+                ) {
+                  return null
+                }
+
                 if (type === ELEMENT_IMAGE) {
                   return (
                     <StoryContentsChildImage
@@ -279,6 +291,7 @@ const StoryContentsLite = (props) => {
                           key: mediaId = '',
                           has_ads: hasAds = 0,
                           account = 'gec',
+                          // eslint-disable-next-line @typescript-eslint/no-shadow
                           title = '',
                           thumbnail_url: image = '',
                           description: descriptionTxt,
@@ -329,6 +342,11 @@ const StoryContentsLite = (props) => {
                     )
                   }
                 }
+                // // Condicion para trome sin blockquoute - components/features/story/title/lite.jsx
+                // if (type === ELEMENT_BLOCKQUOTE && arcSite === SITE_TROME) {
+                //   return null
+                // }
+
                 if (type === ELEMENT_GALLERY) {
                   return (
                     <StoryHeaderChildGallery
@@ -470,6 +488,7 @@ const StoryContentsLite = (props) => {
                     />
                   )
                 }
+
                 if (type === ELEMENT_BLOCKQUOTE) {
                   return (
                     <blockquote
@@ -515,6 +534,10 @@ const StoryContentsLite = (props) => {
                 }
 
                 if (type === ELEMENT_LINK_LIST) {
+                  if (arcSite === SITE_TROME)
+                    return (
+                      <StoryContentsChildLinkList items={items} title={title} />
+                    )
                   return <StoryContentsChildLinkList items={items} />
                 }
 
@@ -681,8 +704,11 @@ const StoryContentsLite = (props) => {
             <ShareButtons
               activeCopyLink={copyLink}
               activeLinkedin={
-                arcSite === 'elcomercio' || arcSite === 'elcomerciomag'
+                arcSite === 'elcomercio' ||
+                arcSite === 'elcomerciomag' ||
+                arcSite === 'trome'
               }
+              hideShareLinks={shareLinks}
             />
           </div>
         </div>

@@ -17,6 +17,7 @@ const FormForgot = ({ typeDialog }) => {
   const {
     arcSite,
     siteProperties: {
+      activeMagicLink,
       signwall: { mainColorBr, mainColorBtn, mainColorLink, primaryFont },
     },
   } = useAppContext() || {}
@@ -48,14 +49,16 @@ const FormForgot = ({ typeDialog }) => {
   const taggeoError = () => {
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
-      `web_sw${typeDialog[0]}_contrasena_error_boton`
+      `web_sw${typeDialog[0]}_contrasena_error_boton`,
+      arcSite
     )
   }
 
   const taggeoSuccess = () => {
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
-      `web_sw${typeDialog[0]}_contrasena_success_boton`
+      `web_sw${typeDialog[0]}_contrasena_success_boton`,
+      arcSite
     )
   }
 
@@ -73,7 +76,8 @@ const FormForgot = ({ typeDialog }) => {
           setShowError(getCodeError('verifyReset'))
           Taggeo(
             `Web_Sign_Wall_${typeDialog}`,
-            `web_sw${typeDialog[0]}_contrasena_show_reenviar_correo`
+            `web_sw${typeDialog[0]}_contrasena_show_reenviar_correo`,
+            arcSite
           )
         } else {
           setShowError(getCodeError(errForgot.code))
@@ -95,10 +99,15 @@ const FormForgot = ({ typeDialog }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(femail)
+    if (activeMagicLink) {
+      Identity.requestOTALink(femail)
+    } else {
+      Identity.requestVerifyEmail(femail)
+    }
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
-      `web_sw${typeDialog[0]}_contrasena_reenviar_correo`
+      `web_sw${typeDialog[0]}_contrasena_reenviar_correo`,
+      arcSite
     )
     let timeleft = 9
     const downloadTimer = setInterval(() => {
@@ -230,7 +239,8 @@ const FormForgot = ({ typeDialog }) => {
             onClick={() =>
               Taggeo(
                 `Web_Sign_Wall_${typeDialog}`,
-                `web_sw${typeDialog[0]}_contrasena_boton_recuperar`
+                `web_sw${typeDialog[0]}_contrasena_boton_recuperar`,
+                arcSite
               )
             }>
             {showLoading ? 'ENVIANDO...' : textBtnSend}
@@ -266,7 +276,8 @@ const FormForgot = ({ typeDialog }) => {
             onClick={() => {
               Taggeo(
                 `Web_Sign_Wall_${typeDialog}`,
-                `web_sw${typeDialog[0]}_contrasena_boton_aceptar`
+                `web_sw${typeDialog[0]}_contrasena_boton_aceptar`,
+                arcSite
               )
               switch (typeDialog) {
                 case 'relogemail':
@@ -298,7 +309,8 @@ const FormForgot = ({ typeDialog }) => {
             e.preventDefault()
             Taggeo(
               `Web_Sign_Wall_${typeDialog}`,
-              `web_sw${typeDialog[0]}_contrasena_link_volver`
+              `web_sw${typeDialog[0]}_contrasena_link_volver`,
+              arcSite
             )
             switch (typeDialog) {
               case 'relogemail':

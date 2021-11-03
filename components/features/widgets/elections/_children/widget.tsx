@@ -82,7 +82,6 @@ const ElectionsChildWidget: React.FC<WidgetProps> = (props) => {
         <div className={classes.header}>
           <svg
             className={classes.logoDescription}
-            xmlns="http://www.w3.org/2000/svg"
             width="223.597"
             height="22.642"
             viewBox="0 0 223.598 22.642">
