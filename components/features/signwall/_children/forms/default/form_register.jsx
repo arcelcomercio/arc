@@ -4,6 +4,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { setCookie } from '../../../../../utilities/client/cookies'
+import { isStorageAvailable } from '../../../../../utilities/client/storage'
 import {
   SITE_ELCOMERCIO,
   SITE_GESTION,
@@ -272,7 +273,9 @@ const FormRegister = ({
         // eliminamos la noticia premium del storage en caso
         // el typedialog no sea premium
         if (typeDialog !== 'premium') {
-          window.localStorage.removeItem('premium_last_url')
+          if (isStorageAvailable('localStorage')) {
+            window.localStorage.removeItem('premium_last_url')
+          }
         }
       })
   }
@@ -655,32 +658,33 @@ const FormRegister = ({
 
                                 // validamos para cuando sea una nota premium
                                 if (
-                                  window.localStorage.getItem(
-                                    'premium_last_url'
-                                  ) &&
-                                  window.localStorage.getItem(
-                                    'premium_last_url'
-                                  ) !== '' &&
-                                  activeRegisterwall
+                                  isStorageAvailable('localStorage') &&
+                                  isStorageAvailable('sessionStorage')
                                 ) {
-                                  window.location.href = window.localStorage.getItem(
+                                  const premiumLastUrl = window.localStorage.getItem(
                                     'premium_last_url'
                                   )
-                                  // removiendo del local la nota premium
-                                  window.localStorage.removeItem(
-                                    'premium_last_url'
-                                  )
-                                } else if (
-                                  window.sessionStorage.getItem(
-                                    'paywall_last_url'
-                                  ) &&
-                                  window.sessionStorage.getItem(
-                                    'paywall_last_url'
-                                  ) !== ''
-                                ) {
-                                  window.location.href = window.sessionStorage.getItem(
+                                  const paywallLastUrl = window.sessionStorage.getItem(
                                     'paywall_last_url'
                                   )
+                                  if (
+                                    premiumLastUrl &&
+                                    premiumLastUrl !== '' &&
+                                    activeRegisterwall
+                                  ) {
+                                    window.location.href = premiumLastUrl
+                                    // removiendo del local la nota premium
+                                    window.localStorage.removeItem(
+                                      'premium_last_url'
+                                    )
+                                  } else if (
+                                    paywallLastUrl &&
+                                    paywallLastUrl !== ''
+                                  ) {
+                                    window.location.href = paywallLastUrl
+                                  } else {
+                                    onClose()
+                                  }
                                 } else {
                                   onClose()
                                 }
