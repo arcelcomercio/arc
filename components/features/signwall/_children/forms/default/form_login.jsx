@@ -175,7 +175,16 @@ const FormLogin = ({ valTemplate, attributes }) => {
     const USER_IDENTITY = JSON.stringify(Identity.userIdentity || {})
     setCookie('ArcId.USER_INFO', USER_IDENTITY, 1, siteDomain)
 
-    if (typeDialog === 'premium' || typeDialog === 'paywall') {
+    // validacion para cargar la ultima noticia premium para diario correo
+    if (isStorageAvailable('localStorage') && typeDialog === 'resetpass') {
+      const premiumLastUrl = window.localStorage.getItem('premium_last_url')
+      if (premiumLastUrl && premiumLastUrl !== '' && activeRegisterwall) {
+        window.location.href = premiumLastUrl
+        window.localStorage.removeItem('premium_last_url')
+      } else {
+        onClose()
+      }
+    } else if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true) // no tengo subs
 
       getListSubs().then((p) => {
@@ -244,6 +253,12 @@ const FormLogin = ({ valTemplate, attributes }) => {
           )
         } else {
           taggeoError()
+        }
+      })
+      .finally(() => {
+        // removiendo en localstorage en caso no sea ninguno de los 2 casos
+        if (typeDialog !== 'premium' && typeDialog !== 'resetpass') {
+          window.localStorage.removeItem('premium_last_url')
         }
       })
   }
