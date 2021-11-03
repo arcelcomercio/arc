@@ -19,7 +19,7 @@ const headers = {
   diariocorreo:
     'Desactiva, recibir el boletín de noticias Correo Hoy, sino requieres recibirlo en tu correo electrónico:',
   trome:
-    'Activa, recibir el boletín Café de noticas, si requieres recibirlo en tu correo electrónico:',
+    'Activa, recibir el boletín Café de noticias, si requieres recibirlo en tu correo electrónico:',
 }
 
 @Consumer
