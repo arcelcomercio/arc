@@ -138,6 +138,7 @@ const StoriesListPaginatedList = (props) => {
         stories.length < 3 && <div id="afs_container_1" />}
       {count !== 0 && (
         <Pagination
+          arcSite={arcSite}
           totalElements={count}
           storiesQty={size}
           currentPage={from}
