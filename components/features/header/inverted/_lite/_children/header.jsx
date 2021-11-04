@@ -16,6 +16,7 @@ import {
 import {
   headerStickyScript,
   menuScript,
+  pianoScript,
   searchScript,
   singwallScript,
   stickyScript,
@@ -127,6 +128,7 @@ export default (props) => {
     hideMenu ? '' : menuScript,
     disableSignwall ? '' : singwallScript(paramSignwall),
     arcSite === SITE_GESTION ? headerStickyScript : '',
+    arcSite === SITE_ELCOMERCIO ? pianoScript : '',
   ]
 
   const filterSectionStyles = (section) => {
@@ -231,13 +233,17 @@ export default (props) => {
           {(activePaywall || activeSignwall) && (
             <div className="h-basic__signwall f">
               {activePaywall && (
-                <button type="button" className="h-basic__sub uppercase">
+                <button
+                  id="btn-subscribe-arc"
+                  type="button"
+                  className="h-basic__sub uppercase">
                   Suscríbete
                 </button>
               )}
 
               {activeSignwall && (
                 <button
+                  id="btn-identity-arc"
                   type="button"
                   alt="Iniciar sesión / Perfil"
                   title="Iniciar sesión / Perfil"
