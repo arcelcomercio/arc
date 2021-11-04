@@ -8,6 +8,7 @@
     // font-family: $primary-font;
     margin: 0 5px;
     height: 35px;
+    width: 35px;
     display: flex;
     align-items: center;
     font-size: 12px;
@@ -34,6 +35,7 @@
     margin-left: 0;
     @media (--tablet) {
       margin-right: 20px;
+      width: 90px;
       svg {
         display: none;
       }
@@ -46,6 +48,7 @@
     margin-right: 0;
     @media (--tablet) {
       margin-left: 20px;
+      width: 90px;
       svg {
         display: none;
       }
