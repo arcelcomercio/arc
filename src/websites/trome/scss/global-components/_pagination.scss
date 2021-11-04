@@ -29,8 +29,18 @@
   }
   &__left {
     margin-right: 20px;
+    @media (--tablet) {
+      svg {
+        display: none;
+      }
+    }
   }
   &__right {
     margin-left: 20px;
+    @media (--tablet) {
+      svg {
+        display: none;
+      }
+    }
   }
 }
