@@ -8,9 +8,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-left: 2px solid #ffcb05;
+    border-left: 1px solid #ffcb05;
     &:last-child {
-      border-right: 2px solid #ffcb05;
+      border-right: 1px solid #ffcb05;
     }
   }
 }
