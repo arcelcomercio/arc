@@ -414,6 +414,7 @@ $min-with-header: 961px;
     font-size: 22px;
     font-family: $hi-font-primary;
     font-weight: 600;
+    text-transform: capitalize;
     &::-webkit-input-placeholder {
       color: #888;
     }

@@ -124,6 +124,7 @@ const HeaderChildInverted = ({
     e.preventDefault()
     const { value } = e.target
     if (value !== '' && e.which === 13) {
+      inputSearch.current = { value }
       _handleSearch()
     }
   }

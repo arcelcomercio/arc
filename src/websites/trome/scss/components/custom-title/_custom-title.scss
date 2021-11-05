@@ -18,4 +18,21 @@
     font-size: 24px;
     font-weight: 900;
   }
+
+  &__page-search {
+    // solo cuando esta en la pagina de buscar
+    @media (--tablet) {
+      padding-left: 0 !important;
+      margin: 31px 0;
+    }
+    @media (--only-mobile) {
+      padding: 0 20px !important;
+      margin-bottom: 0;
+    }
+
+    span {
+      text-decoration: underline;
+      text-transform: capitalize;
+    }
+  }
 }
