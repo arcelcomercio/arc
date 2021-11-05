@@ -272,15 +272,6 @@ const AmpOutputType = ({
         <Styles {...metaSiteData} />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
-        {arcSite !== SITE_TROME && arcSite !== SITE_PERU21 && (
-          <>
-            <link
-              rel="preload"
-              href="https://cdn.ampproject.org/v0.js"
-              as="script"
-            />
-          </>
-        )}
         {arcSite === SITE_GESTION && (
           <meta name="amp-experiments-opt-in" content="amp-next-page" />
         )}
