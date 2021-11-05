@@ -51,9 +51,9 @@ export default (props) => {
     activeSticky ? stickyScript : '',
     searchScript,
     hideMenu ? '' : menuScript,
-    disableSignwall ? '' : singwallScript(paramSignwall),
+    disableSignwall || paramSignwall.locUrl === 'respuestas' ? '' : singwallScript(paramSignwall),
     arcSite === SITE_GESTION ? headerStickyScript : '',
-    arcSite === SITE_ELCOMERCIO ? pianoScript : '',
+    arcSite === SITE_ELCOMERCIO && paramSignwall.locUrl === 'respuestas' ? pianoScript : '',
   ]
 
   return (
