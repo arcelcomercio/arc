@@ -50,12 +50,12 @@ $author-main-font: "Encode Sans Condensed", sans-serif;
     padding-left: 0 !important;
 
     @media (--tablet) {
-      font-size: 40px;
+      font-size: 40px !important;
     }
     @media (--only-mobile) {
-      height: 38px;
-      font-size: 30px;
-      margin-bottom: 6px;
+      height: 38px !important;
+      font-size: 30px !important;
+      margin-bottom: 6px !important;
     }
   }
 
@@ -133,5 +133,8 @@ $author-main-font: "Encode Sans Condensed", sans-serif;
 
   &__link {
     color: #000;
+    &:hover {
+      text-decoration: none;
+    }
   }
 }

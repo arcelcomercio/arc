@@ -8,8 +8,10 @@
     // font-family: $primary-font;
     margin: 0 5px;
     height: 35px;
+    width: 35px;
     display: flex;
     align-items: center;
+    justify-content: center;
     font-size: 12px;
     text-transform: uppercase;
     border: 1px solid #999999;
@@ -26,11 +28,34 @@
       color: #fff;
       border: none;
     }
+    @media (--only-mobile) {
+      padding-left: 14px;
+    }
   }
   &__left {
-    margin-right: 20px;
+    margin-left: 0;
+    @media (--tablet) {
+      margin-right: 20px;
+      width: 90px;
+      svg {
+        display: none;
+      }
+    }
+    @media (--only-mobile) {
+      padding: 0 14px 0 11px;
+    }
   }
   &__right {
-    margin-left: 20px;
+    margin-right: 0;
+    @media (--tablet) {
+      margin-left: 20px;
+      width: 90px;
+      svg {
+        display: none;
+      }
+    }
+    @media (--only-mobile) {
+      padding: 0 11px 0 14px;
+    }
   }
 }
