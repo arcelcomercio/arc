@@ -28,6 +28,7 @@ import { storyTagsBbc } from '../utilities/tags'
 import AppNexus from './_children/appnexus'
 import ChartbeatBody from './_children/chartbeat-body'
 import Dfp from './_children/dfp'
+import LiveBlogPostingData from './_children/live-blog-posting-data'
 import MetaSite from './_children/meta-site'
 import OpenGraph from './_children/open-graph'
 import RegisterServiceWorker from './_children/register-service-worker'
@@ -40,6 +41,7 @@ import htmlScript from './_dependencies/html-script'
 import iframeScript from './_dependencies/iframe-script'
 import jwplayerScript from './_dependencies/jwplayer-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-script'
+import { getOptaWidgetsFromStory } from './_dependencies/opta-widget-utils'
 import { getEnablePushud, getPushud } from './_dependencies/pushud'
 import {
   getDescription,
@@ -154,7 +156,17 @@ export default ({
   const isHome = metaValue('id') === META_HOME && true
   const scriptAdpush = getPushud(arcSite)
   const enabledPushud = getEnablePushud(arcSite)
+  const jsAdpushup = `
+  (function(w, d) {
+    var s = d.createElement('script');
+    s.src = '//cdn.adpushup.com/42614/adpushup.js';
+    s.crossOrigin='anonymous'; 
+    s.type = 'text/javascript'; s.async = true;
+    (d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s);
+  })(window, document);`
+
   const isElcomercioHome = arcSite === SITE_ELCOMERCIO && isHome
+  const isTromeHome = arcSite === SITE_TROME && isHome
   const isPreview = /^\/preview\//.test(requestUri)
   const { uuid_match: idMatch = '' } = promoItems
 
@@ -199,6 +211,7 @@ export default ({
       : `https://d1r08wok4169a5.cloudfront.net/ads/ec/arcads.js?v=${new Date()
           .toISOString()
           .slice(0, 10)}`
+
   const getAfsStyle = () => {
     let styleAfsId = ''
     if (arcSite === SITE_DEPOR) {
@@ -325,6 +338,7 @@ export default ({
   else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
     style = 'story'
   else if (isElcomercioHome) style = 'dbasic'
+  else if (isTromeHome) style = 'home-v2'
   else if (arcSite === SITE_TROME && /^\/pollon-eliminatorias/.test(requestUri))
     style = 'polla'
 
@@ -357,6 +371,8 @@ export default ({
       ? 'noindex, follow'
       : 'index, follow,max-image-preview:large'
   }`
+
+  const OptaWidgetsFromStory = getOptaWidgetsFromStory(globalContent)
 
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
@@ -637,7 +653,9 @@ export default ({
           arcSite={arcSite}
           subtype={subtype}
         />
-        {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
+        {(!(metaValue('exclude_libs') === 'true') || isAdmin || isPremium) && (
+          <Libs />
+        )}
         {/* <!-- Paywall - Inicio --> */}
         {(() => {
           if (
@@ -658,7 +676,8 @@ export default ({
           )
         })()}
         {/* <!-- Paywall - Fin --> */}
-        {enabledPushud || arcSite !== SITE_PERU21 ? (
+        {enabledPushud ||
+        (arcSite !== SITE_PERU21 && arcSite !== SITE_GESTION) ? (
           <>
             <script
               type="text/javascript"
@@ -742,7 +761,9 @@ export default ({
         <div id="fusion-app" role="application">
           {children}
         </div>
-        {(!(metaValue('exclude_fusion') === 'true') || isAdmin) && <Fusion />}
+        {(!(metaValue('exclude_fusion') === 'true') ||
+          isAdmin ||
+          isPremium) && <Fusion />}
         {isStory && (
           <script
             type="text/javascript"
@@ -930,6 +951,13 @@ export default ({
         )}
         {arcSite === SITE_ELBOCON ? (
           <RegisterServiceWorker path={deployment('/sw.js')} />
+        ) : null}
+
+        {arcSite === 'elcomercio' &&
+        isStory &&
+        metaValue('opta_scraping_path') &&
+        getOptaWidgetsFromStory.length > 0 ? (
+          <LiveBlogPostingData OptaWidgetsFromStory={OptaWidgetsFromStory} />
         ) : null}
       </body>
     </html>

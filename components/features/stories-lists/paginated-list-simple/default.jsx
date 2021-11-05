@@ -1,22 +1,22 @@
-import React, { Fragment } from 'react'
+import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
-import { useContent } from 'fusion:content'
+import * as React from 'react'
 
-import { customFields } from '../_dependencies/custom-fields'
-import StorySimple from '../../../global-components/story-simple'
-import Pagination from '../../../global-components/pagination'
 import Ads from '../../../global-components/ads'
-import StructuredData from './_children/structured-data'
+import Pagination from '../../../global-components/pagination'
+import StorySimple from '../../../global-components/story-simple'
 import { SITE_DEPOR } from '../../../utilities/constants/sitenames'
+import { customFields } from '../_dependencies/custom-fields'
+import StructuredData from './_children/structured-data'
 
 const classes = {
   adsBox: 'flex items-center flex-col no-desktop pb-20',
   storySimpleHeader: 'story-simple__header',
 }
 
-const StoriesListPaginatedList = props => {
-  const hasAds = (index, adsList) => adsList.filter(el => el.pos === index)
+const StoriesListPaginatedList = (props) => {
+  const hasAds = (index, adsList) => adsList.filter((el) => el.pos === index)
 
   const {
     globalContent,
@@ -69,29 +69,24 @@ const StoriesListPaginatedList = props => {
   }
 
   const activeAds = Object.keys(customFieldsProps)
-    .filter(prop => prop.match(/adsMobile(\d)/))
-    .filter(key => customFieldsProps[key] === true)
+    .filter((prop) => prop.match(/adsMobile(\d)/))
+    .filter((key) => customFieldsProps[key] === true)
   const typeSpace = isDfp ? 'caja' : 'movil'
 
-  const activeAdsArray = activeAds.map(el => {
-    return {
-      name: `${typeSpace}${el.slice(-1)}`,
-      pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
-      inserted: false,
-    }
-  })
+  const activeAdsArray = activeAds.map((el) => ({
+    name: `${typeSpace}${el.slice(-1)}`,
+    pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
+    inserted: false,
+  }))
 
   return (
     <>
       <div className="pl-20 pr-20">
         {author && (
           <div className={classes.storySimpleHeader}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 53 54">
+            <svg fill="none" viewBox="0 0 53 54">
               <defs />
-              <g clip-path="url(#clip0)">
+              <g clipPath="url(#clip0)">
                 <path
                   fill="#000"
                   d="M26.5 54c14.498 0 26.25-12.088 26.25-27S40.998 0 26.5 0C12.003 0 .25 12.088.25 27S12.003 54 26.5 54z"
@@ -117,7 +112,7 @@ const StoriesListPaginatedList = props => {
         {stories.map((story, index) => {
           const ads = hasAds(index + 1, activeAdsArray)
           return (
-            <Fragment key={`Paginated-list-${story._id}`}>
+            <React.Fragment key={`Paginated-list-${story._id}`}>
               <StorySimple
                 data={story}
                 {...{ deployment, contextPath, arcSite }}
@@ -132,14 +127,12 @@ const StoriesListPaginatedList = props => {
                   />
                 </div>
               )}
-            </Fragment>
+            </React.Fragment>
           )
         })}
       </div>
 
-      {arcSite == SITE_DEPOR && isSearchSection && (
-        <div id="afscontainer1"></div>
-      )}
+      {arcSite === SITE_DEPOR && isSearchSection && <div id="afscontainer1" />}
       {count !== 0 && (
         <Pagination
           totalElements={count}

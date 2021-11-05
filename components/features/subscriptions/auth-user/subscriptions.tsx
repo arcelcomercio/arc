@@ -16,6 +16,7 @@ import {
 import { getQuery } from '../../../utilities/parse/queries'
 import { isLoggedIn } from '../../../utilities/subscriptions/identity'
 import Loading from '../../signwall/_children/loading'
+import { AuthProvider } from '../_context/auth'
 import { PropertiesCommon } from '../_dependencies/Properties'
 import { SignOrganic } from './_children/Organic'
 
@@ -53,7 +54,7 @@ const AuthUser = () => {
       setActiveModal(Modals.ReloginEmail)
     } else if (getQuery('signHash') || getQuery('ReloginHash')) {
       setActiveModal(Modals.ReloginHash)
-    } else if (getQuery('tokenVerify')) {
+    } else if (getQuery('tokenVerify') || getQuery('tokenMagicLink')) {
       setActiveModal(Modals.TokenVerify)
     } else if (getQuery('tokenReset')) {
       setActiveModal(Modals.ResetPassword)
@@ -115,6 +116,7 @@ const AuthUser = () => {
               onClose={() => closePopUp()}
               arcSite={arcSite}
               typeDialog={activeModal}
+              tokenMagicLink={isTokenVerify && getQuery('tokenMagicLink')}
               tokenVerify={isTokenVerify && getQuery('tokenVerify')}
               tokenReset={isResetPassword && getQuery('tokenReset')}
             />
@@ -127,7 +129,9 @@ const AuthUser = () => {
 
 const AuthUserContainer = (): JSX.Element => (
   <SdksProvider>
-    <AuthUser />
+    <AuthProvider>
+      <AuthUser />
+    </AuthProvider>
   </SdksProvider>
 )
 

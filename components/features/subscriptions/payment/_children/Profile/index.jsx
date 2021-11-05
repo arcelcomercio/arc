@@ -31,6 +31,7 @@ import {
   sendAction,
   Taggeo,
   TaggeoJoao,
+  TagsAdsMurai,
 } from '../../../_dependencies/Taggeo'
 import {
   checkFbEmail,
@@ -80,6 +81,7 @@ const Profile = () => {
     email,
     phone,
     emailVerified,
+    province,
   } = conformProfile(getStorageProfile())
 
   const [msgError, setMsgError] = React.useState(false)
@@ -133,6 +135,18 @@ const Profile = () => {
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
 
+    TagsAdsMurai(
+      {
+        event: 'adsmurai_pageview',
+        em: email,
+        fn: `${firstName || ''}`,
+        ln: `${lastName || ''} ${secondLastName || ''}`,
+        ct: `${province || ''}`,
+        ph: `${phone || ''}`,
+      },
+      window.location.pathname
+    )
+
     Sentry.configureScope((scope) => {
       scope.setTag('document', documentNumber || 'none')
       scope.setTag('phone', phone || 'none')
@@ -150,7 +164,6 @@ const Profile = () => {
     })
 
     if (printedSubscriber || error) {
-      // Datalayer solicitados por Joao
       TaggeoJoao(
         {
           event: 'Pasarela Suscripciones Digitales',
@@ -380,7 +393,6 @@ const Profile = () => {
         })
       }
 
-      // Datalayer solicitados por Joao
       TaggeoJoao(
         {
           event: 'Pasarela Suscripciones Digitales',
@@ -392,6 +404,19 @@ const Profile = () => {
           }),
           action: userPeriod,
           label: uuid,
+        },
+        window.location.pathname
+      )
+
+      TagsAdsMurai(
+        {
+          event: 'AddToCart',
+          content_ids: sku,
+          content_type: 'product',
+          content_name: namePlanApi,
+          value: amount,
+          currency: 'PEN',
+          subscription_type: userPeriod,
         },
         window.location.pathname
       )
@@ -416,7 +441,7 @@ const Profile = () => {
             updateStep(3)
           })
           .catch((err) => {
-            if (err.code === '100018') {
+            if (err.code === '100018' || err.code === '300040') {
               const currentProfile = Identity.userProfile
               const newProfile = Object.assign(currentProfile, profile)
               setLocaleStorage('ArcId.USER_PROFILE', newProfile)

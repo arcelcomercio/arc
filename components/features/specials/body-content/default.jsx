@@ -57,7 +57,7 @@ const classes = {
   author: 'body-content__author mx-auto text-black',
 }
 
-const BodyContentSpecial = props => {
+const BodyContentSpecial = (props) => {
   const { customFields: { storyCode = '', hideAuthor = false } = {} } = props
 
   const { arcSite, contextPath, deployment } = useFusionContext()
@@ -71,10 +71,7 @@ const BodyContentSpecial = props => {
     filter: schemaFilter,
   })
 
-  const {
-    author,
-    contentPosicionPublicidad,
-  } = new StoryData({
+  const { author, contentPosicionPublicidad } = new StoryData({
     data: story,
     contextPath,
     deployment,
@@ -187,7 +184,7 @@ const BodyContentSpecial = props => {
         <ArcStoryContent
           data={contentPosicionPublicidad}
           elementClasses={classes}
-          renderElement={element => {
+          renderElement={(element) => {
             const {
               type,
               subtype: sub,
@@ -202,10 +199,7 @@ const BodyContentSpecial = props => {
             if (type === ELEMENT_IMAGE) {
               return (
                 <div className="body-content__animated">
-                  <StoryContentsChildImage
-                    {...element}
-                    completeImage
-                  />
+                  <StoryContentsChildImage {...element} completeImage />
                 </div>
               )
             }
@@ -252,11 +246,7 @@ const BodyContentSpecial = props => {
               )
             }
             if (type === ELEMENT_LINK_LIST) {
-              return (
-                <StoryContentsChildLinkList
-                  items={items}
-                />
-              )
+              return <StoryContentsChildLinkList items={items} />
             }
             if (type === ELEMENT_OEMBED) {
               return (

@@ -1,15 +1,15 @@
 import Consumer from 'fusion:consumer'
-import StoryData from '../../../utilities/story-data'
-import { localISODate } from '../../../utilities/helpers'
 
-import buildHtml from './_dependencies/build-html'
+import { localISODate } from '../../../utilities/date-time/dates'
 import {
   includeContentBasic,
+  includeGalleryUrls,
   includePromoItems,
   includePromoItemsCaptions,
-  includeGalleryUrls,
 } from '../../../utilities/included-fields'
 import { sizeImg } from '../../../utilities/resizer/image-presets'
+import StoryData from '../../../utilities/story-data'
+import buildHtml from './_dependencies/build-html'
 
 const SOURCE = 'story-feed-by-section'
 const IMAGE_SIZE = 'amp_new'
@@ -105,7 +105,7 @@ class XmlGoogleKiosko {
           { ttl: '1' },
           { 'sy:updatePeriod': 'hourly' },
           { 'sy:updateFrequency': '1' },
-          ...stories.map(story => {
+          ...stories.map((story) => {
             storyData.__data = story
 
             const buildHtmlProps = {
@@ -151,7 +151,7 @@ class XmlGoogleKiosko {
                     '#cdata': buildHtml(buildHtmlProps),
                   },
                 },
-                ...promoImages.map(image => {
+                ...promoImages.map((image) => {
                   // Imagen o imagenes de promoItems
                   const imageUrl = image.isImage
                     ? image.url
@@ -183,7 +183,7 @@ class XmlGoogleKiosko {
                     },
                   }
                 }),
-                ...contentImages.map(image => {
+                ...contentImages.map((image) => {
                   // Imagenes en el contenido de la historia
                   const {
                     height,

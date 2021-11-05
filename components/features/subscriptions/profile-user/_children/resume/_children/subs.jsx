@@ -1,12 +1,12 @@
-import Identity from '@arc-publishing/sdk-identity'
 import Sales from '@arc-publishing/sdk-sales'
 import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
+import * as React from 'react'
 
 import {
   SITE_ELCOMERCIO,
   SITE_GESTION,
 } from '../../../../../../utilities/constants/sitenames'
+import { extendSession } from '../../../../../../utilities/subscriptions/identity'
 import Loading from '../../../../../signwall/_children/loading'
 import {
   getListBundle,
@@ -16,7 +16,7 @@ import {
 import { Taggeo } from '../../../../_dependencies/Taggeo'
 
 @Consumer
-class Subs extends Component {
+class Subs extends React.Component {
   _isMounted = false
 
   constructor(props) {
@@ -38,27 +38,10 @@ class Subs extends Component {
 
   componentDidMount() {
     this._isMounted = true
-    if (typeof window !== 'undefined') {
-      Identity.extendSession().then(() => {
-        this.getListSubs().then((p) => {
-          setTimeout(() => {
-            if (p.length && this._isMounted) {
-              this.setState({
-                userSubsDetail: p,
-                isSubs: true,
-                isLoad: false,
-              })
-            } else if (this._isMounted) {
-              this.setState({
-                isSubs: false,
-                isLoad: false,
-              })
-            }
-          }, 2000)
-        })
-        this.getCampain()
-      })
-    }
+    extendSession().then(() => {
+      this.checkSubscriptions()
+      this.getCampain()
+    })
   }
 
   componentWillUnmount() {
@@ -145,6 +128,25 @@ class Subs extends Component {
       }
     }
     return '-'
+  }
+
+  checkSubscriptions() {
+    this.getListSubs().then((p) => {
+      setTimeout(() => {
+        if (p?.length && this._isMounted) {
+          this.setState({
+            userSubsDetail: p,
+            isSubs: true,
+            isLoad: false,
+          })
+        } else if (this._isMounted) {
+          this.setState({
+            isSubs: false,
+            isLoad: false,
+          })
+        }
+      }, 2000)
+    })
   }
 
   render() {

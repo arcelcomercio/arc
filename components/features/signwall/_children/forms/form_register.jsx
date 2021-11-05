@@ -5,10 +5,13 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { setCookie } from '../../../../utilities/client/cookies'
+import { isStorageAvailable } from '../../../../utilities/client/storage'
 import {
   SITE_ELCOMERCIO,
   SITE_GESTION,
 } from '../../../../utilities/constants/sitenames'
+import { extendSession } from '../../../../utilities/subscriptions/identity'
+import AuthFacebookGoogle from '../../../subscriptions/_children/auth-facebook-google'
 import { useModalContext } from '../../../subscriptions/_context/modal'
 import getCodeError, {
   acceptCheckTerms,
@@ -47,10 +50,13 @@ const FormRegister = ({
     arcSite,
     siteProperties: {
       signwall: { mainColorLink, mainColorBtn, mainColorBr, authProviders },
+      activeMagicLink,
+      activeRegisterwall,
       activeNewsletter,
       activeVerifyEmail,
       activeDataTreatment,
       activePhoneRegister,
+      activeAuthSocialNative,
       siteDomain,
     },
   } = useAppContext() || {}
@@ -71,6 +77,7 @@ const FormRegister = ({
   const [showUserWithSubs, setShowUserWithSubs] = React.useState(false)
   const [showSendEmail, setShowSendEmail] = React.useState(false)
   const [showContinueVerify, setShowContinueVerify] = React.useState(false)
+  const [hideFormRegister, setHideFormRegister] = React.useState(false)
 
   const stateSchema = {
     remail: { value: '', error: '' },
@@ -137,6 +144,10 @@ const FormRegister = ({
     if (activeNewsletter && profile.accessToken) {
       handleNewsleters(profile)
     }
+    if (activeMagicLink) {
+      // requestVerifyEmail se ejecuta automáticamente con el SignUp
+      Identity.requestOTALink(profile.profile.email)
+    }
     setShowConfirm(true)
     setShowContinueVerify(true)
     window.localStorage.removeItem('ArcId.USER_INFO')
@@ -161,7 +172,8 @@ const FormRegister = ({
       .catch(() => {
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_registro_error_registrarme`
+          `web_sw${typeDialog[0]}_registro_error_registrarme`,
+          arcSite
         )
       })
   }
@@ -236,9 +248,7 @@ const FormRegister = ({
             type: 'String',
           },
         ],
-      },
-      { doLogin: true },
-      { rememberMe: true }
+      }
     )
       .then((resSignUp) => {
         if (activeVerifyEmail) {
@@ -248,7 +258,8 @@ const FormRegister = ({
         }
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_registro_success_registrarme`
+          `web_sw${typeDialog[0]}_registro_success_registrarme`,
+          arcSite
         )
       })
       .catch((errLogin) => {
@@ -257,14 +268,15 @@ const FormRegister = ({
         setShowLoading(false)
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_registro_error_registrarme`
+          `web_sw${typeDialog[0]}_registro_error_registrarme`,
+          arcSite
         )
         setCookie('lostEmail', remail, 1)
       })
   }
 
   const getListSubs = () =>
-    Identity.extendSession().then((resExt) => {
+    extendSession().then((resExt) => {
       const checkEntitlement = getEntitlement(resExt.accessToken, arcSite)
         .then((res) => {
           if (res.skus) {
@@ -278,21 +290,29 @@ const FormRegister = ({
       return checkEntitlement
     })
 
+  // agregado despues de pasar test por default/form_login
+  // es un codigo diferente al de login
+  const unblockContent = () => {
+    setShowUserWithSubs(true) // tengo subs
+    const divPremium = document.getElementById('contenedor')
+    if (divPremium) {
+      divPremium.classList.remove('story-content__nota-premium')
+      divPremium.removeAttribute('style')
+    }
+  }
+
   const checkUserSubs = () => {
     if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true)
 
       getListSubs()
         .then((p) => {
-          if (p && p.length === 0) {
+          if (activeRegisterwall) {
+            unblockContent()
+          } else if (p && p.length === 0) {
             setShowUserWithSubs(false) // no tengo subs
           } else {
-            setShowUserWithSubs(true) // tengo subs
-            const divPremium = document.getElementById('contenedor')
-            if (divPremium) {
-              divPremium.classList.remove('story-content__nota-premium')
-              divPremium.removeAttribute('style')
-            }
+            unblockContent()
           }
         })
         .finally(() => {
@@ -326,10 +346,15 @@ const FormRegister = ({
   const sendVerifyEmail = (e) => {
     e.preventDefault()
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(remail)
+    if (activeMagicLink) {
+      Identity.requestOTALink(remail)
+    } else {
+      Identity.requestVerifyEmail(remail)
+    }
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
-      `web_sw${typeDialog[0]}_registro_reenviar_correo`
+      `web_sw${typeDialog[0]}_registro_reenviar_correo`,
+      arcSite
     )
     let timeleft = 9
     const downloadTimer = setInterval(() => {
@@ -345,6 +370,21 @@ const FormRegister = ({
   }
 
   const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
+
+  const registerSuccessFabebook = () => {
+    Identity.getUserProfile().then((resProfile) => {
+      handleGetProfile(resProfile)
+      // checkar taggeo
+      Taggeo(
+        `Web_Sign_Wall_${typeDialog}`,
+        `web_sw${typeDialog[0]}_registro_success_registrarme`,
+        arcSite
+      )
+      onLogged()
+    })
+  }
+
+  const registerFailedFacebook = () => setShowError(getCodeError())
 
   return (
     <>
@@ -371,33 +411,51 @@ const FormRegister = ({
                       Accede fácilmente con:
                     </p>
 
-                    {authProviders.map((item) => (
-                      <ButtonSocial
-                        key={item}
-                        brand={item}
-                        size={sizeBtnSocial}
-                        onLogged={onLogged}
-                        onClose={onClose}
+                    {activeAuthSocialNative ? (
+                      <AuthFacebookGoogle
+                        hideFormParent={() =>
+                          setHideFormRegister(!hideFormRegister)
+                        }
+                        onAuthSuccess={registerSuccessFabebook}
+                        onAuthFailed={registerFailedFacebook}
                         typeDialog={typeDialog}
-                        onStudents={() => setShowStudents(!showStudents)}
-                        arcSite={arcSite}
-                        typeForm="registro"
-                        activeNewsletter={activeNewsletter}
-                        checkUserSubs={checkUserSubs}
                         dataTreatment={checkedPolits ? '1' : '0'}
+                        arcSite={arcSite}
+                        arcType="login"
+                        activeNewsletter={activeNewsletter}
+                        showMsgVerify={() => {}}
                       />
-                    ))}
+                    ) : (
+                      <>
+                        {authProviders.map((item) => (
+                          <ButtonSocial
+                            key={item}
+                            brand={item}
+                            size={sizeBtnSocial}
+                            onLogged={onLogged}
+                            onClose={onClose}
+                            typeDialog={typeDialog}
+                            onStudents={() => setShowStudents(!showStudents)}
+                            arcSite={arcSite}
+                            typeForm="registro"
+                            activeNewsletter={activeNewsletter}
+                            checkUserSubs={checkUserSubs}
+                            dataTreatment={checkedPolits ? '1' : '0'}
+                          />
+                        ))}
 
-                    <AuthURL
-                      arcSite={arcSite}
-                      onClose={onClose}
-                      typeDialog={typeDialog}
-                      activeNewsletter={activeNewsletter}
-                      typeForm="registro"
-                      onLogged={onLogged}
-                      checkUserSubs={checkUserSubs}
-                      onStudents={() => setShowStudents(!showStudents)}
-                    />
+                        <AuthURL
+                          arcSite={arcSite}
+                          onClose={onClose}
+                          typeDialog={typeDialog}
+                          activeNewsletter={activeNewsletter}
+                          typeForm="registro"
+                          onLogged={onLogged}
+                          checkUserSubs={checkUserSubs}
+                          onStudents={() => setShowStudents(!showStudents)}
+                        />
+                      </>
+                    )}
 
                     <p className="signwall-inside_forms-text mt-15 center">
                       o completa tus datos para registrarte
@@ -549,7 +607,8 @@ const FormRegister = ({
                     onClick={() => {
                       Taggeo(
                         `Web_Sign_Wall_${typeDialog}`,
-                        `web_sw${typeDialog[0]}_registro_boton_registrarme`
+                        `web_sw${typeDialog[0]}_registro_boton_registrarme`,
+                        arcSite
                       )
                     }}>
                     {showLoading ? 'REGISTRANDO...' : 'Registrarme'}
@@ -571,7 +630,8 @@ const FormRegister = ({
                         e.preventDefault()
                         Taggeo(
                           `Web_Sign_Wall_${typeDialog}`,
-                          `web_sw${typeDialog[0]}_registro_link_volver`
+                          `web_sw${typeDialog[0]}_registro_link_volver`,
+                          arcSite
                         )
                         switch (typeDialog) {
                           case 'relogemail':
@@ -655,21 +715,25 @@ const FormRegister = ({
                                 background: mainColorLink,
                               }}
                               onClick={() => {
+                                // modificado para el taggeo de diario correo por valla
                                 Taggeo(
-                                  `Web_${typeDialog}_Hard`,
+                                  `Web_${typeDialog}_${
+                                    activeRegisterwall &&
+                                    typeDialog === 'premium'
+                                      ? 'Registro'
+                                      : 'Hard'
+                                  }`,
                                   `web_${typeDialog}_boton_sigue_navegando`
                                 )
-                                if (
-                                  window.sessionStorage.getItem(
-                                    'paywall_last_url'
-                                  ) &&
-                                  window.sessionStorage.getItem(
-                                    'paywall_last_url'
-                                  ) !== ''
-                                ) {
-                                  window.location.href = window.sessionStorage.getItem(
+                                if (isStorageAvailable('sessionStorage')) {
+                                  const paywallLastUrl = window.sessionStorage.getItem(
                                     'paywall_last_url'
                                   )
+                                  if (paywallLastUrl && paywallLastUrl !== '') {
+                                    window.location.href = paywallLastUrl
+                                  } else {
+                                    onClose()
+                                  }
                                 } else {
                                   onClose()
                                 }
@@ -688,8 +752,10 @@ const FormRegister = ({
                             onClick={() => {
                               Taggeo(
                                 `Web_Sign_Wall_${typeDialog}`,
-                                `web_sw${typeDialog[0]}_boton_ver_planes`
+                                `web_sw${typeDialog[0]}_boton_ver_planes`,
+                                arcSite
                               )
+
                               handleSuscription()
                             }}>
                             VER PLANES
@@ -723,7 +789,8 @@ const FormRegister = ({
                         onClick={() => {
                           Taggeo(
                             `Web_Sign_Wall_${typeDialog}`,
-                            `web_sw${typeDialog[0]}_registro_continuar_navegando`
+                            `web_sw${typeDialog[0]}_registro_continuar_navegando`,
+                            arcSite
                           )
                           if (typeDialog === 'students') {
                             if (showContinueVerify) {

@@ -18,6 +18,7 @@ const formatStories = ({ data, deployment, contextPath, arcSite }) => {
       imageUrl: element.multimedia,
       storyType: element.multimediaType,
       title: element.title,
+      isPremium: element.isPremium,
       id: el._id,
     })
   })

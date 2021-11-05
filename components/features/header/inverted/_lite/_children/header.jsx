@@ -16,6 +16,7 @@ import {
 import {
   headerStickyScript,
   menuScript,
+  pianoScript,
   searchScript,
   singwallScript,
   stickyScript,
@@ -127,6 +128,7 @@ export default (props) => {
     hideMenu ? '' : menuScript,
     disableSignwall ? '' : singwallScript(paramSignwall),
     arcSite === SITE_GESTION ? headerStickyScript : '',
+    arcSite === SITE_ELCOMERCIO ? pianoScript : '',
   ]
 
   const filterSectionStyles = (section) => {
@@ -162,9 +164,8 @@ export default (props) => {
         </nav>
       )}
       <header
-        className={`h-basic pos-rel f f-center ${
-          isSomos ? 'h-basic--somos' : ''
-        }`}
+        className={`h-basic pos-rel f f-center ${isSomos ? 'h-basic--somos' : ''
+          }`}
         id="h-basic">
         {arcSite === SITE_GESTION && <div className="h-basic__loader" />}
         <div className="h-basic__wrapper f just-between alg-center">
@@ -185,7 +186,6 @@ export default (props) => {
               alt="abrir cuadro de búsqueda"
               className="h-basic__btn-search h-basic__btn">
               <svg
-                xmlns="http://www.w3.org/2000/svg"
                 className="h-basic__search"
                 width="22"
                 height="22"
@@ -233,13 +233,17 @@ export default (props) => {
           {(activePaywall || activeSignwall) && (
             <div className="h-basic__signwall f">
               {activePaywall && (
-                <button type="button" className="h-basic__sub uppercase">
+                <button
+                  id="btn-subscribe-arc"
+                  type="button"
+                  className="h-basic__sub uppercase">
                   Suscríbete
                 </button>
               )}
 
               {activeSignwall && (
                 <button
+                  id="btn-identity-arc"
                   type="button"
                   alt="Iniciar sesión / Perfil"
                   title="Iniciar sesión / Perfil"

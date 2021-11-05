@@ -35,6 +35,8 @@ $map-icons: (
   arrow-r: $arrow-r,
   padlock: $padlock,
   down: $down,
+  angle-up: $angle-up,
+  angle-down: $angle-down,
 ) !default;
 
 @mixin generate-icons() {
