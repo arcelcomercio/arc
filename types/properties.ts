@@ -126,6 +126,11 @@ export interface JwplayersMatching {
   videoId: string
 }
 
+interface SocialNetworks {
+  name: string
+  url: string
+}
+
 export interface SiteProperties {
   siteName: string
   sitemapNewsName: string
@@ -154,8 +159,10 @@ export interface SiteProperties {
   paywall: Paywall
   social: Social
   linkTabloide: string
+  activeMagicLink: boolean
   activeSignwall: boolean
   activePaywall: boolean
+  activeRegisterwall: boolean
   activeRulesCounter: boolean
   activeNewsletter: boolean
   activeVerifyEmail: boolean
@@ -174,4 +181,5 @@ export interface SiteProperties {
   archiveLimit: string
   jwplayers: Jwplayers
   jwplayersMatching: JwplayersMatching
+  socialNetworks: SocialNetworks[]
 }

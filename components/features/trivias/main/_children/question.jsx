@@ -91,7 +91,8 @@ const TriviasMainQuestion = ({
             x2="100%"
             style={{
               strokeWidth: 2,
-            }} />
+            }}
+          />
         </svg>
         <h3 className={classes.question}>{`${number}. ${question}`}</h3>
         <ol
@@ -120,7 +121,6 @@ const TriviasMainQuestion = ({
                     {name}
                     {isRight && rightAnswer && select && (
                       <svg
-                        xmlns="http://www.w3.org/2000/svg"
                         width="22.354"
                         height="22.354"
                         viewBox="0 0 22.354 22.354"
@@ -138,7 +138,6 @@ const TriviasMainQuestion = ({
             {select && response ? (
               <div className={classes.details}>
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
                   className={classes.check}
                   fill="#26D340"
                   width="22.354"
@@ -161,7 +160,6 @@ const TriviasMainQuestion = ({
                     title="Ver más"
                     onClick={handleExpandDetails}>
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
                       style={{
                         pointerEvents: 'none',
                       }}

@@ -11,6 +11,7 @@ declare module 'fusion:environment' {
     NEWSLETTER_API: string
     NEWSLETTER_COVID19_API: string
     NEWSLETTER_API_TEMATICO: string
+    NEWSLETTER_API_LANDING: string
     FB_SUBSCRIPTION_NODE_ID: string
     FB_APP_SECRET: string
     GS_EMAIL_CLIENT: string
@@ -22,6 +23,8 @@ declare module 'fusion:environment' {
     PAGO_EFECTIVO_ACCESS_GESTION: string
     PAGO_EFECTIVO_ID_ELCOMERCIO: string
     PAGO_EFECTIVO_ID_GESTION: string
+    OPTA_SCRAPING_API_DEV: string
+    OPTA_SCRAPING_TOKEN_DEV: string
   }
 
   const Environment: Env
@@ -37,6 +40,7 @@ declare module 'fusion:environment' {
   export const NEWSLETTER_API: string
   export const NEWSLETTER_COVID19_API: string
   export const NEWSLETTER_API_TEMATICO: string
+  export const NEWSLETTER_API_LANDING: string
   export const FB_SUBSCRIPTION_NODE_ID: string
   export const FB_APP_SECRET: string
   export const GS_EMAIL_CLIENT: string
@@ -48,5 +52,7 @@ declare module 'fusion:environment' {
   export const PAGO_EFECTIVO_ACCESS_GESTION: string
   export const PAGO_EFECTIVO_ID_ELCOMERCIO: string
   export const PAGO_EFECTIVO_ID_GESTION: string
+  export const OPTA_SCRAPING_API_DEV: string
+  export const OPTA_SCRAPING_TOKEN_DEV: string
   export default Environment
 }

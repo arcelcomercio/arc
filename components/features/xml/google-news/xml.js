@@ -1,5 +1,6 @@
 import Consumer from 'fusion:consumer'
-import { localISODate } from '../../../utilities/helpers'
+
+import { localISODate } from '../../../utilities/date-time/dates'
 
 const SOURCE = 'story-feed-by-section'
 
@@ -63,7 +64,7 @@ class XmlGoogleNews {
               link: siteUrl,
             },
           },
-          ...stories.map(story => {
+          ...stories.map((story) => {
             const {
               display_date: date,
               headlines: { basic: title = '' } = {},

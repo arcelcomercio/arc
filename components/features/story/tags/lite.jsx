@@ -21,7 +21,7 @@ const StoryTags = () => {
     tags.length > 0 && (
       <div className={classes.container}>
         <h4 itemProp="name" className={classes.title}>
-            {isTrome ? 'Tags:':'TAGS RELACIONADOS'}
+          {isTrome ? 'tags relacionadas' : 'TAGS RELACIONADOS'}
         </h4>
         <div className={classes.line}></div>
         <div className={classes.box}>

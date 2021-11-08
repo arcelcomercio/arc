@@ -37,11 +37,13 @@ const AfterLoginRegister = (
   resProfile,
   checkUserSubs,
   onStudents,
-  onClose
+  onClose,
+  arcSite
 ) => {
   Taggeo(
     `Web_Sign_Wall_${typeDialog}`,
-    `web_sw${typeDialog[0]}_${typeForm}_success_${provider}`
+    `web_sw${typeDialog[0]}_${typeForm}_success_${provider}`,
+    arcSite
   )
   setCookie('arc_e_id', sha256(emailUser).toString(), 365)
   const USER_IDENTITY = JSON.stringify(Identity.userIdentity || {})
@@ -135,17 +137,7 @@ const setupUserProfile = (
             },
             {
               name: 'dataTreatment',
-              value:
-                dataTreatment &&
-                (arcSite === 'elcomercio' ||
-                  arcSite === 'gestion' ||
-                  arcSite === 'trome' ||
-                  arcSite === 'ojo' ||
-                  arcSite === 'diariocorreo' ||
-                  arcSite === 'peru21' ||
-                  arcSite === 'peru21g21')
-                  ? dataTreatment
-                  : 'NULL',
+              value: dataTreatment,
               type: 'String',
             },
           ],
@@ -172,7 +164,8 @@ const setupUserProfile = (
                     resProfile,
                     checkUserSubs,
                     onStudents,
-                    onClose
+                    onClose,
+                    arcSite
                   )
                 })
                 .catch(() => {
@@ -189,7 +182,8 @@ const setupUserProfile = (
                 resProfile,
                 checkUserSubs,
                 onStudents,
-                onClose
+                onClose,
+                arcSite
               )
             }
           })
@@ -207,7 +201,8 @@ const setupUserProfile = (
           resProfile,
           checkUserSubs,
           onStudents,
-          onClose
+          onClose,
+          arcSite
         )
       }
     })
@@ -311,7 +306,8 @@ export const ButtonSocial = ({
   const taggeoError = (resProvider) => {
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
-      `web_sw${typeDialog[0]}_${typeForm}_error_${resProvider}`
+      `web_sw${typeDialog[0]}_${typeForm}_error_${resProvider}`,
+      arcSite
     )
   }
 
@@ -412,7 +408,8 @@ export const ButtonSocial = ({
       onClick={() => {
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_${typeForm}_boton_${brand}`
+          `web_sw${typeDialog[0]}_${typeForm}_boton_${brand}`,
+          arcSite
         )
         clickLoginSocialEcoID(brand)
       }}>

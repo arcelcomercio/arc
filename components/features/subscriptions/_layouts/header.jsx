@@ -1,10 +1,7 @@
 import Identity from '@arc-publishing/sdk-identity'
 import * as React from 'react'
 
-import {
-  deleteQuery,
-  // getQuery
-} from '../../../utilities/parse/queries'
+import { deleteQuery } from '../../../utilities/parse/queries'
 import { formatUsername } from '../../../utilities/subscriptions/identity'
 import Signwall from '../_children/Signwall'
 import { AuthProvider, useAuthContext } from '../_context/auth'
@@ -24,14 +21,18 @@ const HeaderSubscriptions = ({ userProfile, arcSite, arcType }) => {
   const { urls } = PropertiesSite[arcSite]
   const { links } = PropertiesCommon
   const { userLoaded, activateAuth, updateStep } = useAuthContext()
-  const { firstName, lastName, secondLastName } = userProfile || {}
   const [showSignwall, setShowSignwall] = React.useState(false)
   const [showTypeLanding, setShowTypeLanding] = React.useState('landing')
+  const [buttonText, setButtonText] = React.useState('Invitado')
 
-  const profileButtonText = userLoaded
-    ? formatUsername(`${firstName} ${lastName} ${secondLastName}`, 15) ||
-      'Usuario'
-    : 'Invitado'
+  React.useEffect(() => {
+    const { firstName, lastName, secondLastName } = userProfile || {}
+    const profileButtonText = isAuthenticated()
+      ? formatUsername(`${firstName} ${lastName} ${secondLastName}`, 15) ||
+        'Usuario'
+      : 'Invitado'
+    setButtonText(profileButtonText)
+  }, [userProfile])
 
   const handleSignwall = () => {
     if (typeof window !== 'undefined') {
@@ -58,11 +59,6 @@ const HeaderSubscriptions = ({ userProfile, arcSite, arcType }) => {
       deleteQuery('dataTreatment')
     }
   }
-
-  // React.useEffect(() => {
-  // const isParamsRedirect = getQuery('signLanding')
-  // setShowSignwall(isParamsRedirect)
-  // }, [])
 
   return (
     <>
@@ -91,7 +87,7 @@ const HeaderSubscriptions = ({ userProfile, arcSite, arcType }) => {
               }
             }}
             type="button">
-            <span>Hola</span> {profileButtonText}
+            <span>Hola</span> {buttonText}
           </button>
         </div>
       </header>

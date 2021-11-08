@@ -102,7 +102,7 @@
     }
 
     &.size-mini {
-      width: 80%;
+      width: 90%;
       height: auto;
       padding: 20px;
     }
@@ -225,7 +225,7 @@
       }
       &.size-large {
         width: 90%;
-        height: 580px;
+        height: 620px;
         .left-modal {
           display: inline-block;
           width: 58%;
@@ -252,7 +252,7 @@
       }
       &.size-large {
         max-width: 1000px;
-        height: 600px;
+        height: 640px;
       }
     }
   }
@@ -295,6 +295,7 @@
           height: auto;
         }
       }
+
       &.premium {
         min-height: 140px !important;
         p {
@@ -309,6 +310,46 @@
           margin-top: 20px;
           max-width: 200px;
         }
+        // .title-register{
+        //   font-weight: bold;
+        // }
+
+        // .subtitle-register{
+        //   color: #000;
+        // }
+
+        .first__block {
+          &-access {
+            font-size: 15px;
+            font-family: "Bitter", Arial, Helvetica, sans-serif;
+            color: #000;
+            text-align: left;
+            font-weight: bold;
+          }
+          &-categories {
+            font-size: 13px;
+            padding-left: 10px;
+            font-family: "Bitter", Arial, Helvetica, sans-serif;
+            color: #000;
+            text-align: left;
+            line-height: 1.3;
+          }
+        }
+        .second__block {
+          margin-top: 10px;
+          &-nav {
+            font-size: 15px;
+            font-family: "Bitter", Arial, Helvetica, sans-serif;
+            color: #000;
+            text-align: left;
+            line-height: 1.3;
+            font-weight: bold;
+            &-link {
+              text-decoration: underline;
+            }
+          }
+        }
+
         .list-benefits {
           line-height: 22px;
           margin-top: 20px;
@@ -345,7 +386,7 @@
         right: 10px;
       }
       &.premium {
-        top: 155px;
+        // top: 155px;
         right: 5px;
       }
     }
@@ -371,6 +412,10 @@
     }
     &-right {
       background-color: #fff;
+
+      &.register {
+        padding: 20px 0;
+      }
     }
     &-left {
       overflow: hidden;
@@ -693,6 +738,138 @@
       &:disabled {
         opacity: 0.7;
       }
+    }
+    &-cont-correo-register {
+      margin-top: 30px;
+      font-family: "Bitter", Arial, Helvetica, sans-serif;
+      position: relative;
+
+      .logo-correo {
+        width: 80px;
+        position: absolute;
+        top: -100px;
+        transform: translateX(-50%);
+        left: 50%;
+      }
+      .title-register {
+        font-weight: bold;
+        color: #000;
+        padding-bottom: 10px;
+      }
+
+      .subtitle-register {
+        font-family: "Titillium Web";
+        font-size: 18px;
+        color: #000;
+      }
+      .block-list {
+        padding-top: 20px;
+        justify-content: center;
+        display: inline-block;
+      }
+      .block__benefits {
+        padding: 5px 30px 4px;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+
+        @media screen and (max-width: 360px) {
+          padding-right: 0;
+          padding-left: 0;
+        }
+
+        &_first {
+          @media (--subs-desktop) {
+            width: 20%;
+          }
+          @media (--subs-tabletp) {
+            width: 15%;
+          }
+          @media screen and (min-width: 640px) {
+            width: 15%;
+          }
+          @media (--only-mobile) {
+            width: 20%;
+          }
+          &-img {
+            width: 40px;
+            height: auto;
+          }
+        }
+        &_second {
+          @media (--subs-desktop) {
+            width: 80%;
+          }
+          @media (--subs-tabletp) {
+            width: 85%;
+          }
+
+          @media screen and (min-width: 640px) {
+            width: 85%;
+          }
+
+          @media (--only-mobile) {
+            width: 80%;
+          }
+          &-description {
+            text-align: left;
+            font-family: "Titillium Web";
+            line-height: normal;
+            font-size: 15px;
+            padding-left: 20px;
+            @media (--subs-desktop) {
+              padding-left: 20px;
+            }
+            @media (--subs-tabletp) {
+              padding-left: 10px;
+            }
+            @media screen and (min-width: 640px) {
+              padding-left: 0px;
+            }
+            @media (--only-mobile) {
+              padding-left: 20px;
+            }
+          }
+        }
+      }
+
+      .button__continue {
+        margin-top: 15px;
+        font-size: 18px;
+        width: 70%;
+        font-family: "Titillium Web";
+      }
+
+      .text-info {
+        font-size: 17px;
+        font-family: "Titillium", Arial, Helvetica, sans-serif;
+        font-weight: normal;
+        color: #000;
+        margin-bottom: 5px;
+      }
+      .text-boletin {
+        font-family: "Titillium", Arial, Helvetica, sans-serif;
+        color: #000;
+        font-size: 20px;
+        font-weight: bold;
+        // margin-bottom: 1.5px;
+      }
+      .barra {
+        width: 50%;
+        background-color: #000;
+        margin-top: 14px;
+        margin-bottom: 14px;
+        color: #000;
+      }
+      .text-news {
+        font-family: "Bitter", Arial, Helvetica, sans-serif;
+        font-size: 32px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      // @media (--subs-mobile) {
+      //   margin-top: 0;
+      // }
     }
     &-cont-paywall {
       font-family: "Open Sans", Arial, Helvetica, sans-serif;
@@ -1064,13 +1241,118 @@
       & .spacing-trome {
         display: none;
       }
+      & .fb-login-button {
+        display: table;
+        margin: 0 auto;
+      }
+      #google-sign-in-button {
+        display: table;
+        margin: 10px auto 10px auto;
+      }
+      #google-sign-in-button > div {
+        border-radius: 4px;
+        box-shadow: none !important;
+      }
+      #google-sign-in-button span {
+        font-size: 17px !important;
+        font-weight: bold;
+        color: white;
+      }
+      .step__left-img-facebok {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 20px;
+      }
+      .step__left-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 24px;
+        text-align: center;
+      }
+      .step__left-block label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        font-size: 12px;
+        color: #6a6a6a;
+        text-align: left;
+      }
+      .step__left-text-notice {
+        font-weight: 700;
+        font-size: 16px;
+        margin-bottom: 20px;
+        line-height: 20px;
+        color: #807f7f;
+        text-align: center;
+      }
+      .input-error {
+        border: 1px solid #db0033;
+      }
+      .msn-error {
+        color: #db0033;
+        font-size: 9px;
+        font-weight: bold;
+        float: right;
+        position: relative;
+        right: 0;
+        top: 2px;
+        align-items: center;
+      }
+      .step__left-textblock {
+        margin-top: 20px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #6a6a6a;
+        margin-bottom: 20px;
+        display: block;
+        text-align: center;
+      }
+      .step__left-link-register {
+        font-size: 12px;
+        text-align: center;
+        color: #2e3a43;
+        margin-top: 20px;
+        margin-bottom: 16px;
+        line-height: 18px;
+      }
+      .step__btn-link {
+        -webkit-appearance: none;
+        background: none;
+        border: none;
+        font-size: 12px;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+        outline: none;
+        text-decoration: underline;
+        color: #1781a8;
+        font-weight: bold;
+        display: contents;
+      }
+      .step__left-btn-next {
+        margin-top: 10px;
+        border: none;
+        font-size: 0.9375em;
+        border-radius: 0.3em;
+        font-weight: bold;
+        cursor: pointer;
+        outline: none;
+        color: #fff;
+        background-color: #1781a8;
+        &:disabled {
+          opacity: 0.6;
+        }
+      }
     }
     &-title {
       color: #000;
       font-family: inherit;
       font-weight: bold;
       line-height: 28px;
-      word-break: break-all;
+      word-break: break-word;
     }
     &-text {
       color: #444;

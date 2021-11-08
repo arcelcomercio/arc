@@ -124,6 +124,12 @@ class XmlFacebookInstantArticles {
         ids: { opta },
         jwplayers,
       } = {},
+      customFields: {
+        editableText1,
+        editableText2,
+        editableText3,
+        editableText4,
+      } = {},
     } = this.props
 
     if (!this.stories) {
@@ -267,6 +273,10 @@ class XmlFacebookInstantArticles {
                 promoItemJwplayer: storyData.promoItemJwplayer,
                 tags: storyData.tags,
                 jwplayers,
+                editableText1,
+                editableText2,
+                editableText3,
+                editableText4,
               }
               const today = new Date()
               const localTime = new Date(today.setHours(today.getHours() - 5))
