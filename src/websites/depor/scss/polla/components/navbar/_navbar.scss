@@ -23,6 +23,18 @@
     }
   }
 
+  &__d {
+    background-image: url(https://cdna.depor.com/resources/dist/depor/images/d.png);
+    width: 36px;
+    height: 36px;
+    background-position: center;
+    border-radius: 50%;
+    margin-right: 8px;
+    @media (--desktop) {
+      margin-right: 16px;
+    }
+  }
+
   &__logo {
     flex: 1;
     display: flex;
@@ -116,7 +128,7 @@
   }
   &__tournament {
     color: #fff;
-    font: 400 16px/19px $secondary-font;
+    font: 400 18px/19px $primary-font;
     padding: 3px 24px 3px 10px;
     margin-right: 24px;
     border-right: 1px solid #d2d900;

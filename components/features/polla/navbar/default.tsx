@@ -45,6 +45,13 @@ const PollaNavbar: FC<Props> = (props) => {
             <path d="M4 16h16c0.6 0 1 0.5 1 1l0 0c0 0.6-0.4 1-1 1H4c-0.5 0-1-0.4-1-1l0 0C3 16.5 3.5 16 4 16z" />
           </svg>
         </button>
+        <button
+          id="polla-nav__btn-d"
+          type="button"
+          className="polla-nav__d"
+          aria-label="d logo"
+        />
+
         <h1 className="polla-nav__logo">
           <a href={`${customFields?.navInicio}`}>
             LA POLLA <span>DEPOR</span>
