@@ -37,7 +37,6 @@ import {
   SITE_ELCOMERCIOMAG,
   SITE_GESTION,
   SITE_PERU21,
-  SITE_TROME,
 } from '../../../utilities/constants/sitenames'
 import {
   GALLERY_VERTICAL,
@@ -147,7 +146,6 @@ class StoryContentAmp extends React.PureComponent {
     const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`
     const isComercio = arcSite === SITE_ELCOMERCIO
     const isMag = arcSite === SITE_ELCOMERCIOMAG
-    const isTrome = arcSite === SITE_TROME
     const isLegacy =
       source.source_id &&
       (arcSite === SITE_ELBOCON || arcSite === SITE_DIARIOCORREO)
@@ -224,7 +222,7 @@ class StoryContentAmp extends React.PureComponent {
           }
           entryHtml = `${entryHtml} ${divContent} ${entry} ${
             publicidad &&
-            `<div class='text-center ad-amp-movil'>${publicidad.__html} </div>`
+            `<div class='text-center ad-amp-movil'>${publicidad.__html}</div>`
           }`
         })
       }
@@ -662,4 +660,3 @@ StoryContentAmp.propType = {
 
 StoryContentAmp.static = true
 export default StoryContentAmp
-

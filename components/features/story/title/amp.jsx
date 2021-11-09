@@ -121,9 +121,9 @@ const StoryTitleAmp = () => {
           ) : null}
 
           {arcSite === SITE_ELCOMERCIO ||
-            (arcSite === SITE_DEPOR &&
-              (/^\/mexico\//.test(requestUri) ||
-                /^\/colombia\//.test(requestUri))) ? null : (
+          (arcSite === SITE_DEPOR &&
+            (/^\/mexico\//.test(requestUri) ||
+              /^\/colombia\//.test(requestUri))) ? null : (
             <AmpStoriesChild arcSite={arcSite} />
           )}
 
@@ -153,6 +153,10 @@ const StoryTitleAmp = () => {
         {arcSite !== SITE_ELCOMERCIOMAG && subtype !== GALLERY_VERTICAL && (
           <div
             className={classes.adsAmp}
+            style={{
+              width: `${parameters.width}px`,
+              height: `${parameters.height}px`,
+            }}
             dangerouslySetInnerHTML={publicidadAmp(parameters)}
           />
         )}

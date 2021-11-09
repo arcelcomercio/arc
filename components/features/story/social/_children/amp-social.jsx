@@ -38,13 +38,17 @@ const StoryHeaderAmp = ({ isContent = false }) => {
         height="32"
         type="facebook"
         aria-label="Compartir en facebook"
-        data-param-app_id={fbAppId}></amp-social-share>
+        data-param-app_id={fbAppId}
+        style={{ width: 32, height: 32 }}
+      />
       <amp-social-share
         width="32"
         height="32"
         class={shareButtonClass}
         type="twitter"
-        aria-label="Compartir en twitter"></amp-social-share>
+        aria-label="Compartir en twitter"
+        style={{ width: 32, height: 32 }}
+      />
     </>
   ) : (
     <>
@@ -69,13 +73,17 @@ const StoryHeaderAmp = ({ isContent = false }) => {
         height="32"
         type="facebook"
         aria-label="Compartir en facebook"
-        data-param-app_id={fbAppId}></amp-social-share>
+        data-param-app_id={fbAppId}
+        style={{ width: 32, height: 32 }}
+      />
       <amp-social-share
         width="32"
         height="32"
         class={shareButtonClass}
         type="twitter"
-        aria-label="Compartir en twitter"></amp-social-share>
+        aria-label="Compartir en twitter"
+        style={{ width: 32, height: 32 }}
+      />
       {!isMag && (
         <amp-social-share
           width="32"
@@ -86,14 +94,18 @@ const StoryHeaderAmp = ({ isContent = false }) => {
           data-share-endpoint="fb-messenger://share"
           data-param-text={` ${postTitle}: ${siteUrl}${postPermaLink
             .concat('&app_id=')
-            .concat(fbAppId)}`}></amp-social-share>
+            .concat(fbAppId)}`}
+          style={{ width: 32, height: 32 }}
+        />
       )}
       <amp-social-share
         width="32"
         height="32"
         class={shareButtonClass}
         type="whatsapp"
-        aria-label="Compartir en whatsapp"></amp-social-share>
+        aria-label="Compartir en whatsapp"
+        style={{ width: 32, height: 32 }}
+      />
     </>
   )
 }

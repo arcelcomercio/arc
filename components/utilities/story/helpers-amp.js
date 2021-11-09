@@ -37,7 +37,7 @@ export const publicidadAmp = ({
   }
 
   if (secctionPrimary[1] !== 'respuestas') {
-    resultData = `<amp-ad width="${width}" height="${height}" ${adsLoadAmp} type="doubleclick"
+    resultData = `<amp-ad width="${width}" height="${height}" style="width:${width}px;height:${height}px;" ${adsLoadAmp} type="doubleclick"
     data-slot="${dataSlot}" ${json}></amp-ad>`
   }
   return createMarkup(resultData)
@@ -65,7 +65,7 @@ export const publicidadAmpAd = ({
     }
   }
   if (secctionPrimary[1] !== 'respuestas') {
-    resultData = `<amp-ad width="${width}" height="${height}" ${adsLoadAmp} type="doubleclick"
+    resultData = `<amp-ad width="${width}" height="${height}" ${adsLoadAmp} style="width:${width}px;height:${height}px;" type="doubleclick"
   data-slot="${dataSlot}" ${json}></amp-ad>`
   }
   return createMarkup(resultData)
@@ -91,6 +91,7 @@ export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '' }) => {
     ${adsLoadAmp}
     type="doubleclick"
     data-slot="${dataSlot}"
+    style="width:320px;height:50px;"
     ${json}
   />`
   return createMarkup(resultData)
@@ -111,6 +112,7 @@ export const publicidadAmpCaja1 = ({ dataSlot, arcSite = '' }) => {
     width="320"
     height="100"
     ${adsLoadAmp}
+    style="width:320px;height:100px;"
     type="doubleclick"
     data-slot="${dataSlot}"
   />`

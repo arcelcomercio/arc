@@ -1,14 +1,14 @@
-import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import React from 'react'
 
-import StorySocialChildAmpSocial from '../social/_children/amp-social'
-import StoryHeaderChildAmpGallery from '../gallery/_children/amp-gallery'
+import { getAssetsPath } from '../../../utilities/assets'
+import { GALLERY_VERTICAL } from '../../../utilities/constants/subtypes'
+import { publicidadAmp } from '../../../utilities/story/helpers-amp'
 import StoryData from '../../../utilities/story-data'
 import { storyTagsBbc } from '../../../utilities/tags'
-import { getAssetsPath } from '../../../utilities/assets'
-import { publicidadAmp } from '../../../utilities/story/helpers-amp'
-import { GALLERY_VERTICAL } from '../../../utilities/constants/subtypes'
+import StoryHeaderChildAmpGallery from '../gallery/_children/amp-gallery'
+import StorySocialChildAmpSocial from '../social/_children/amp-social'
 
 const classes = {
   stories: 'amp-sh bg-white pr-20 pl-20 m-5 mx-auto',
@@ -48,7 +48,7 @@ const StoryTitleAmp = () => {
     height,
     movil1: false,
     arcSite,
-    size:'320x50'
+    size: '320x50',
   }
 
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
@@ -84,6 +84,10 @@ const StoryTitleAmp = () => {
         {subtype !== GALLERY_VERTICAL && (
           <div
             className={classes.adsAmp}
+            style={{
+              width: `${parameters.width}px`,
+              height: `${parameters.height}px`,
+            }}
             dangerouslySetInnerHTML={publicidadAmp(parameters)}
           />
         )}

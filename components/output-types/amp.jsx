@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { BaseMarkup, Html } from '@arc-core-components/amp-document-boilerplate'
+import { Html } from '@arc-core-components/amp-document-boilerplate'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
@@ -27,6 +27,7 @@ import OpenGraph from './_children/open-graph'
 import Styles from './_children/styles'
 import TwitterCards from './_children/twitter-cards'
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const AmpOutputType = ({
   children,
   contextPath,
@@ -265,44 +266,39 @@ const AmpOutputType = ({
   return (
     <Html lang={lang}>
       <head>
-        <BaseMarkup
+        {/* <BaseMarkup
           canonicalUrl={`${envOrigin}${addSlashToEnd(canonicalUrl)}`}
+        /> */}
+        <meta charset="utf-8" />
+        <meta
+          name="viewport"
+          content="width=device-width,minimum-scale=1,initial-scale=1"
+        />
+        {/* -- preload --*/}
+        {/* -- dns-prefetch --*/}
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+        <link
+          rel="canonical"
+          href={`${envOrigin}${addSlashToEnd(canonicalUrl)}`}
         />
         <title>{title}</title>
-        <Styles {...metaSiteData} />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
         {arcSite === SITE_GESTION && (
           <meta name="amp-experiments-opt-in" content="amp-next-page" />
         )}
         <TwitterCards {...twitterCardsData} />
-        <OpenGraph {...openGraphData} />
         <MetaStory {...metaPageData} />
+        <OpenGraph {...openGraphData} />
         {/* add additional head elements here */}
 
         {/* add additional head elements here */}
-
-        <Resource
-          path={`resources/dist/${arcSite}/css/${
-            isTrivia ? 'amp-trivias' : 'amp'
-          }.css`}>
-          {({ data }) =>
-            data ? (
-              <style
-                amp-custom="amp-custom"
-                dangerouslySetInnerHTML={{
-                  __html: data
-                    .replace('@charset "UTF-8";', '')
-                    .replace('-----------', ''),
-                }}
-              />
-            ) : null
-          }
-        </Resource>
         {
           //* TODO habilitar subscriptions en AMP
           // isPremium && ( <script async custom-element="amp-subscriptions" src="https://cdn.ampproject.org/v0/amp-subscriptions-0.1.js"  /> )*/
         }
+        <script async src="https://cdn.ampproject.org/v0.js" />
         <script
           async
           custom-element="amp-analytics"
@@ -480,6 +476,24 @@ const AmpOutputType = ({
             />
           </>
         )}
+        <Styles {...metaSiteData} />
+        <Resource
+          path={`resources/dist/${arcSite}/css/${
+            isTrivia ? 'amp-trivias' : 'amp'
+          }.css`}>
+          {({ data }) =>
+            data ? (
+              <style
+                amp-custom="amp-custom"
+                dangerouslySetInnerHTML={{
+                  __html: data
+                    .replace('@charset "UTF-8";', '')
+                    .replace('-----------', ''),
+                }}
+              />
+            ) : null
+          }
+        </Resource>
       </head>
       <body className={subtype}>
         {!isTrivia && (
