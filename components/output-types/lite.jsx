@@ -53,6 +53,7 @@ import {
 import vallaScript from './_dependencies/valla'
 import videoScript from './_dependencies/video-script'
 import widgets from './_dependencies/widgets'
+import { getEnabledServerside, getScriptAdPushup } from './_dependencies/serverside'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const LiteOutput = ({
@@ -293,6 +294,9 @@ const LiteOutput = ({
   const fontFace = `@font-face {font-family: fallback-local; src: local(Arial); ascent-override: 125%; descent-override: 25%; line-gap-override: 0%;}`
 
   const OptaWidgetsFromStory = getOptaWidgetsFromStory(globalContent)
+  
+  const enabledPushup = getEnabledServerside(arcSite)
+  const scriptAdpushup = getScriptAdPushup(arcSite)
 
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
@@ -887,24 +891,6 @@ const LiteOutput = ({
             )}
           </>
         )}
-        {arcSite === SITE_OJO && (
-          <>
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `setTimeout(function(){var e,t;window,e=document,(t=e.createElement("script")).src="//cdn.adpushup.com/42879/adpushup.js",t.crossOrigin="anonymous",t.type="text/javascript",t.async=!0,(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(t)},5e3);`,
-              }}
-            />
-          </>
-        )}
-        {arcSite === SITE_ELBOCON && (
-          <>
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `setTimeout(function(){var e,t;window,e=document,(t=e.createElement("script")).src="//cdn.adpushup.com/42614/adpushup.js",t.crossOrigin="anonymous",t.type="text/javascript",t.async=!0,(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(t)},5e3);`,
-              }}
-            />
-          </>
-        )}
         {vallaSignwall === false &&
         (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
         !isPreview ? (
@@ -935,24 +921,15 @@ const LiteOutput = ({
           <LiveBlogPostingData OptaWidgetsFromStory={OptaWidgetsFromStory} />
         ) : null}
         {/* <RegisterServiceWorker path={deployment("/sw.js")}/> */}
-        {arcSite === SITE_OJO && (
+        {enabledPushup ? (
           <>
             <script
-              dangerouslySetInnerHTML={{
-                __html: `setTimeout(function(){var e,t;window,e=document,(t=e.createElement("script")).src="//cdn.adpushup.com/42879/adpushup.js",t.crossOrigin="anonymous",t.type="text/javascript",t.async=!0,(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(t)},5e3);`,
-              }}
+              type="text/javascript"
+              data-cfasync="false"
+              dangerouslySetInnerHTML={{ __html: scriptAdpushup }}
             />
           </>
-        )}
-        {arcSite === SITE_ELBOCON && (
-          <>
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `setTimeout(function(){var e,t;window,e=document,(t=e.createElement("script")).src="//cdn.adpushup.com/42614/adpushup.js",t.crossOrigin="anonymous",t.type="text/javascript",t.async=!0,(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(t)},5e3);`,
-              }}
-            />
-          </>
-        )}
+        ) : null}
       </body>
     </html>
   )
