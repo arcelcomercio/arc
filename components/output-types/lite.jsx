@@ -920,7 +920,7 @@ const LiteOutput = ({
         OptaWidgetsFromStory.length > 0 ? (
           <LiveBlogPostingData OptaWidgetsFromStory={OptaWidgetsFromStory} />
         ) : null}
-        {/* <RegisterServiceWorker path={deployment("/sw.js")}/> */}
+        {/*  <RegisterServiceWorker path={deployment("/sw.js")}/> */}
         {enabledPushup ? (
           <>
             <script
