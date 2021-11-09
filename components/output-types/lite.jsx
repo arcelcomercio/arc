@@ -925,7 +925,6 @@ const LiteOutput = ({
           <>
             <script
               type="text/javascript"
-              data-cfasync="false"
               dangerouslySetInnerHTML={{ __html: scriptAdpushup }}
             />
           </>
