@@ -15,7 +15,12 @@ interface Props {
     landingUrl?: string
     terminosUrl?: string
     rankingUrl?: string
-    awardsHtml?: string
+    awards1Image?: string
+    awards1Title?: string
+    awards2Image?: string
+    awards2Title?: string
+    awards3Image?: string
+    awards3Title?: string
     awardsUrl?: string
     serviceEndPoint?: string
   }
@@ -198,11 +203,44 @@ const PollaHomepage: FC<Props> = (props) => {
           <h2 className="polla-home__aw-title">
             ¡Estos son algunos de los premios!
           </h2>
-          {customFields.awardsHtml && (
-            <div
-              dangerouslySetInnerHTML={{ __html: customFields.awardsHtml }}
-            />
-          )}
+          <div className="polla-home__aw-list">
+            <div className="polla-home__aw-list__block">
+              {customFields.awards1Image && (
+                <img
+                  src={customFields.awards1Image}
+                  alt=""
+                  className="polla-home__aw-list__block-image"
+                />
+              )}
+              <span className="polla-home__aw-list__block-title">
+                {customFields.awards1Title}
+              </span>
+            </div>
+            <div className="polla-home__aw-list__block">
+              {customFields.awards2Image && (
+                <img
+                  src={customFields.awards2Image}
+                  alt=""
+                  className="polla-home__aw-list__block-image"
+                />
+              )}
+              <span className="polla-home__aw-list__block-title">
+                {customFields.awards2Title}
+              </span>
+            </div>
+            <div className="polla-home__aw-list__block">
+              {customFields.awards3Image && (
+                <img
+                  src={customFields.awards3Image}
+                  alt=""
+                  className="polla-home__aw-list__block-image"
+                />
+              )}
+              <span className="polla-home__aw-list__block-title">
+                {customFields.awards3Title}
+              </span>
+            </div>
+          </div>
           <a href={`${customFields.awardsUrl}`} className="polla-home__aw-link">
             VER MÁS
           </a>
@@ -254,9 +292,28 @@ PollaHomepage.propTypes = {
       defaultValue: '/',
       group: 'ranking',
     }),
-    awardsHtml: PropTypes.richtext.tag({
-      name: 'HTML libre',
-      defaultValue: '',
+    awards1Image: PropTypes.string.tag({
+      name: 'URL de la imagen del premio 1',
+      group: 'awards',
+    }),
+    awards1Title: PropTypes.string.tag({
+      name: 'Titulo del premio 1',
+      group: 'awards',
+    }),
+    awards2Image: PropTypes.string.tag({
+      name: 'URL de la imagen del premio 2',
+      group: 'awards',
+    }),
+    awards2Title: PropTypes.string.tag({
+      name: 'Titulo del premio 2',
+      group: 'awards',
+    }),
+    awards3Image: PropTypes.string.tag({
+      name: 'URL de la imagen del premio 3',
+      group: 'awards',
+    }),
+    awards3Title: PropTypes.string.tag({
+      name: 'Titulo del premio 3',
       group: 'awards',
     }),
     awardsUrl: PropTypes.string.tag({
