@@ -1,0 +1,16 @@
+.s-buttons {
+  display: flex;
+  align-items: center;
+  margin: 25px auto;
+  &__i {
+    width: 45px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 2px solid #ffcb05;
+    &:last-child {
+      border-right: 2px solid #ffcb05;
+    }
+  }
+}

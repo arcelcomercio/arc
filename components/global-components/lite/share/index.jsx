@@ -3,7 +3,8 @@ import getProperties from 'fusion:properties'
 import * as React from 'react'
 
 import { socialMediaUrlShareList } from '../../../utilities/social-media'
-import { copyLink,popup } from './utils'
+import { ShareButtonsV2 } from '../share-buttons-v2'
+import { copyLink, popup } from './utils'
 
 const classes = {
   share: '',
@@ -19,8 +20,9 @@ const ShareButtons = ({
   activeGoogleNews = false,
   activeCopyLink = false,
   activeLinkedin = true,
+  renderScripts = false,
 }) => {
-  const { globalContent, arcSite } = useAppContext()
+  const { globalContent, arcSite, metaValue } = useAppContext()
 
   // const urlRoot = () => {
   //   const { websites = {} } = globalContent || {}
@@ -44,6 +46,42 @@ const ShareButtons = ({
     postTitle,
     siteNameRedSocial
   )
+
+  if (metaValue('section_style') === 'story-v2-standard') {
+    return (
+      <>
+        <ShareButtonsV2
+          urlsShareList={urlsShareList}
+          googleNewsUrl={googleNewsUrl}
+        />
+        {renderScripts && (
+          <>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `${popup}${activeCopyLink ? copyLink : ''}`,
+              }}
+            />
+            {/*
+                document.addEventListener("DOMContentLoaded", () => {
+                  window.requestIdle(() => {
+                    const printButton = document.getElementById("s-print-button");
+                    printButton.addEventListener("click", () => {
+                      window.print();
+                    });
+                  })
+                })
+              */}
+            <script
+              dangerouslySetInnerHTML={{
+                __html:
+                  '"use strict";document.addEventListener("DOMContentLoaded",function(){window.requestIdle(function(){document.getElementById("s-print-button").addEventListener("click",function(){window.print()})})});',
+              }}
+            />
+          </>
+        )}
+      </>
+    )
+  }
 
   return (
     <>
@@ -129,7 +167,8 @@ const ShareButtons = ({
       <script
         dangerouslySetInnerHTML={{
           __html: `${popup}${activeCopyLink ? copyLink : ''}`,
-        }} />
+        }}
+      />
     </>
   )
 }

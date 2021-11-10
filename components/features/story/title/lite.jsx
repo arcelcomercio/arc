@@ -1,6 +1,7 @@
 import { useFusionContext } from 'fusion:context'
 import React from 'react'
 
+import ShareButtons from '../../../global-components/lite/share'
 import { SITE_DEPOR } from '../../../utilities/constants/sitenames'
 import StoryData from '../../../utilities/story-data'
 import PremiumTag from './_children/premium'
@@ -18,6 +19,7 @@ const StoryTitleLite = () => {
     globalContent: data,
     arcSite,
     requestUri,
+    metaValue,
   } = useFusionContext()
 
   const {
@@ -32,6 +34,10 @@ const StoryTitleLite = () => {
     arcSite,
     contextPath,
   })
+
+  const isStoryV2StandarStyle =
+    metaValue('section_style') === 'story-v2-standard'
+
   return (
     <>
       {arcSite === SITE_DEPOR &&
@@ -46,8 +52,8 @@ const StoryTitleLite = () => {
       <h1 itemProp="name" className={classes.title}>
         {title}
       </h1>
-      {items && type === 'list' ? (
-        <div style={{ ' margin-right': '20px;', 'margin-left': '20px;' }}>
+      {items && type === 'list' && !isStoryV2StandarStyle ? (
+        <div style={{ marginRight: '20px', marginLeft: '20px' }}>
           <ul className={classes.listClasses}>
             {items.map(({ content }) => (
               <>
@@ -61,7 +67,19 @@ const StoryTitleLite = () => {
           <h2 itemProp="name" className={classes.description}>
             {subTitle}
           </h2>
-          <PremiumTag isPremium={isPremium} arcSite={arcSite} />
+          {!isStoryV2StandarStyle && (
+            <PremiumTag isPremium={isPremium} arcSite={arcSite} />
+          )}
+          {items && type === 'list' && isStoryV2StandarStyle && (
+            <ul className={classes.listClasses}>
+              {items.map(({ content }) => (
+                <>
+                  <li dangerouslySetInnerHTML={{ __html: content }} />
+                </>
+              ))}
+            </ul>
+          )}
+          {isStoryV2StandarStyle && <ShareButtons renderScripts />}
         </>
       )}
     </>
