@@ -38,9 +38,8 @@ const StoryTags = () => {
                       itemProp="url"
                       className={classes.link}
                       href={slug && `/noticias/${slug}/`}>
-                      {idx !== 0 && arcSite === 'elcomercio' && metaValue('section_style') !== 'story-v2-standard' && <span>|</span>}
+                      {idx !== 0 && arcSite === 'elcomercio' && <span>|</span>}
                       {text}
-                      {idx !== (tags.length - 1) && arcSite === 'elcomercio' && metaValue('section_style') === 'story-v2-standard' && <span>|</span>}
                     </a>
                   </h2>
                 </>
