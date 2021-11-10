@@ -42,6 +42,10 @@ import iframeScript from './_dependencies/iframe-script'
 import jwplayerScript from './_dependencies/jwplayer-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-lite-script'
 import {
+  getEnabledServerside,
+  getScriptAdPushup,
+} from './_dependencies/serverside'
+import {
   getDescription,
   getIsStory,
   getKeywords,
@@ -51,7 +55,6 @@ import {
 import vallaScript from './_dependencies/valla'
 import videoScript from './_dependencies/video-script'
 import widgets from './_dependencies/widgets'
-import { getEnabledServerside, getScriptAdPushup } from './_dependencies/serverside'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const LiteOutput = ({
@@ -217,7 +220,7 @@ const LiteOutput = ({
   const vgalleryStyles = 'dlite-vgallery'
 
   let inlineStyleUrl = `resources/dist/${arcSite}/css/${dstyle}.css`
-  const inlineVgalleryStyles = `resources/dist/${arcSite}/css/${vgalleryStyles}.css`
+  let inlineVgalleryStyles = `resources/dist/${arcSite}/css/${vgalleryStyles}.css`
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   const mStyleUrl = `${contextPath}/resources/dist/${arcSite}/css/${mstyle}.css`
@@ -259,6 +262,7 @@ const LiteOutput = ({
   if (metaValue('section_style') === 'story-v2-standard') {
     inlineStyleUrl = `resources/dist/elcomercio/css/story-v2-standard.css`
     styleUrl = ''
+    inlineVgalleryStyles = ''
   }
   /** */
 
@@ -538,7 +542,7 @@ const LiteOutput = ({
             ) : null
           }
         </Resource>
-        {subtype === GALLERY_VERTICAL ? (
+        {inlineVgalleryStyles && subtype === GALLERY_VERTICAL ? (
           <Resource path={inlineVgalleryStyles}>
             {({ data }) =>
               data ? (
