@@ -1,0 +1,8 @@
+// TODO: Esto debe eliminarlo el equipo de signwall y agregar todos los estilos que necesitan en la carpeta correcta
+#signwall-app {
+  display: none;
+}
+
+@import "./layouts/story-sidebar";
+
+@import "./features/header/inverted";
