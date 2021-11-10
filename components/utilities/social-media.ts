@@ -1,4 +1,4 @@
-type ShareList = {
+export type ShareList = {
   facebook: string
   twitter: string
   linkedin: string
