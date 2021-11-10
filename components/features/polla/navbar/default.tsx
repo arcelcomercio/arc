@@ -49,8 +49,32 @@ const PollaNavbar: FC<Props> = (props) => {
           id="polla-nav__btn-d"
           type="button"
           className="polla-nav__d"
-          aria-label="d logo"
-        />
+          aria-label="d logo">
+          <svg
+            data-name="Capa 1"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 36 36"
+            {...props}>
+            <g data-name="Grupo 2492">
+              <circle
+                data-name="Elipse 169"
+                cx={18}
+                cy={18}
+                r={18}
+                style={{
+                  fill: '#83f73d',
+                }}
+              />
+              <path
+                data-name="Trazado 79431"
+                d="M17.18 24.77a1.66 1.66 0 0 1-1.51 1.11c-1.17 0-1.45-.63-.63-5.29.76-4.3 1.29-5.12 2.49-5.12a1.12 1.12 0 0 1 1.15.78Zm3.64 4.93L25 6l-4.55.21-.64 3.62-.36 2.39-.07.06a3.06 3.06 0 0 0-2.49-1.17c-3 0-5.27 2.63-6.45 9.3-1.24 7 .19 9.59 3.33 9.59a4.37 4.37 0 0 0 3.38-1.52h.09l.14 1.22Z"
+                style={{
+                  fill: '#222',
+                }}
+              />
+            </g>
+          </svg>
+        </button>
 
         <h1 className="polla-nav__logo">
           <a href={`${customFields?.navInicio}`}>

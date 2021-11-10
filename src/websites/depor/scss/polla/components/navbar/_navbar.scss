@@ -57,7 +57,7 @@
   &__play-link {
     color: #35126a;
     background-color: #83f73d;
-    font: 700 14px/1 $primary-font;
+    font: 700 12px/1 $primary-font;
     padding: 10px 25px;
     border-radius: 4px;
     margin-right: 18px;
@@ -67,6 +67,9 @@
       letter-spacing: 1.12px;
       margin-right: 24px;
       padding: 10px 50px;
+    }
+    @media (--desktop) {
+      font-size: 14px;
     }
   }
 
