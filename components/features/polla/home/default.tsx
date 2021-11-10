@@ -13,6 +13,7 @@ interface Props {
     landingBrand?: string
     landingSubtitle?: string
     landingUrl?: string
+    terminosUrl?: string
     rankingUrl?: string
     awardsHtml?: string
     awardsUrl?: string
@@ -69,6 +70,14 @@ const PollaHomepage: FC<Props> = (props) => {
                 className="polla-home__desc-link">
                 ¡JUEGA!
               </a>
+              <div className="polla-home__desc-terminos">
+                ver los{' '}
+                <a
+                  className="polla-home__desc-terminos__link"
+                  href={customFields.terminosUrl}>
+                  Términos y Condiciones
+                </a>
+              </div>
             </div>
             <img
               className="polla-home__desc-img"
@@ -226,6 +235,11 @@ PollaHomepage.propTypes = {
     }),
     landingUrl: PropTypes.string.tag({
       name: 'URL del boton ¡Juega!',
+      defaultValue: '/',
+      group: 'landing',
+    }),
+    terminosUrl: PropTypes.string.tag({
+      name: 'URL de los terminos y condiciones',
       defaultValue: '/',
       group: 'landing',
     }),
