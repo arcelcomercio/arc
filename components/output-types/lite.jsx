@@ -926,14 +926,6 @@ const LiteOutput = ({
           <LiveBlogPostingData OptaWidgetsFromStory={OptaWidgetsFromStory} />
         ) : null}
         {/*  <RegisterServiceWorker path={deployment("/sw.js")}/> */}
-        {enabledPushup ? (
-          <>
-            <script
-              type="text/javascript"
-              dangerouslySetInnerHTML={{ __html: scriptAdpushup }}
-            />
-          </>
-        ) : null}
       </body>
     </html>
   )
