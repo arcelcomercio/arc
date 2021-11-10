@@ -70,6 +70,21 @@
       margin-bottom: 30px;
     }
   }
+  &__desc-terminos {
+    color: #0072d8;
+    font-family: $primary-font;
+    font-size: 13px;
+    letter-spacing: -0.13px;
+    margin: 0 24px 20px 26px;
+    @media (--desktop) {
+      margin-bottom: 30px;
+    }
+    &__link {
+      color: #0072d8;
+      font-weight: 700;
+      text-decoration: underline;
+    }
+  }
   &__desc-img {
     width: 100%;
     @media (--desktop) {
