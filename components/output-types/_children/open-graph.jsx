@@ -2,6 +2,7 @@ import React from 'react'
 
 import { getAssetsPath, getAssetsPathVideo } from '../../utilities/assets'
 import {
+  SITE_DEPOR,
   SITE_DIARIOCORREO,
   SITE_ELCOMERCIO,
   SITE_TROME,
@@ -99,7 +100,7 @@ export default ({
       <meta property="og:title" content={story ? seoTitle : title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
-      {story && (
+      {!(isAmp && arcSite === SITE_DEPOR) && story && (
         <link
           rel="preload"
           as="image"
