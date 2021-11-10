@@ -4,6 +4,7 @@ import { getAssetsPath, getAssetsPathVideo } from '../../utilities/assets'
 import {
   SITE_DIARIOCORREO,
   SITE_ELCOMERCIO,
+  SITE_TROME,
 } from '../../utilities/constants/sitenames'
 import { deleteQueryString } from '../../utilities/parse/queries'
 import { createResizedParams } from '../../utilities/resizer/resizer'
@@ -58,7 +59,8 @@ export default ({
         }).large
       : `${imageYoutube}`
   const imges = { '360x550': { width: 360, height: 550 } }
-  const imagenPreloadAmp = isAmp ? 'large:600x360' : 'large:280x159'
+  const imagenAmp = arcSite !== SITE_TROME ? 'large:420x280' : 'large:600x360'
+  const imagenPreloadAmp = isAmp ? imagenAmp : 'large:280x159'
   const imagePreload =
     story &&
     multimediaLarge &&

@@ -3,7 +3,7 @@ import * as React from 'react'
 import useProfile from '../../../../../hooks/useProfile'
 import UpdateLocation from './_children/update-location'
 import UpdatePass from './_children/update-pass'
-import UpdateProfile from './_children/update-profile-hooks'
+import UpdateProfile from './_children/update-profile'
 
 const MiPerfil = (): JSX.Element => {
   const { composeUserProfile, userProfile, updateUserProfile } = useProfile()

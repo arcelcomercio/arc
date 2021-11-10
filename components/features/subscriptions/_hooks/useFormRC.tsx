@@ -137,7 +137,11 @@ function useForm<TValues extends StateValues = StateValues>(
   // To be able to disable the button
   React.useEffect(() => {
     if (isDirty) {
-      setDisable(validateErrorState())
+      if (validateErrorState() && !disable) {
+        setDisable(true)
+      } else if (!validateErrorState() && disable) {
+        setDisable(false)
+      }
     }
   }, [errors, isDirty])
 
