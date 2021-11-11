@@ -66,7 +66,7 @@ const PollaHomepage: FC<Props> = (props) => {
           <div className="polla-home__desc-container">
             <div>
               <h2 className="polla-home__desc-title">
-                ¡Juega la Polla Depor y gana increíbles premios!
+                ¡Juega la <u>Polla Depor</u> y gana increíbles premios!
               </h2>
               <p className="polla-home__desc-parag">
                 {customFields.landingSubtitle}
