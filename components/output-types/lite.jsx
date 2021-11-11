@@ -45,10 +45,6 @@ import minutoMinutoScript from './_dependencies/minuto-minuto-lite-script'
 import { getOptaWidgetsFromStory } from './_dependencies/opta-widget-utils'
 import { getEnabledServerside, getScriptAdPushup } from './_dependencies/serverside'
 import {
-  getEnabledServerside,
-  getScriptAdPushup,
-} from './_dependencies/serverside'
-import {
   getDescription,
   getIsStory,
   getKeywords,
