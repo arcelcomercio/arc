@@ -13,7 +13,9 @@ import AgendaNota from './_children/nota'
  */
 
 const StaticsAgendaPresidencial = (props) => {
-  const { customFields: { titleUpDown, isLastDayClick } = {} } = props
+  const {
+    customFields: { titleUpDown, isLastDayClick, isYesterday } = {},
+  } = props
 
   const { requestUri } = useAppContext()
 
@@ -120,7 +122,10 @@ const StaticsAgendaPresidencial = (props) => {
       {isNotaWeb === true && JSON.stringify(dataNota) !== '{}' ? (
         <AgendaNota dataNota={dataNota} titleUpDown={titleUpDown} />
       ) : (
-        <AgendaCalendario isLastDayClick={isLastDayClick} />
+        <AgendaCalendario
+          isLastDayClick={isLastDayClick}
+          isYesterday={isYesterday}
+        />
       )}
       <Footer isBack={BackUrl} isAhead={NextUrl} />
     </>
@@ -137,6 +142,9 @@ StaticsAgendaPresidencial.propTypes = {
     }),
     isLastDayClick: PropTypes.bool.tag({
       name: '¿Es el ultimo dia clickable?',
+    }),
+    isYesterday: PropTypes.bool.tag({
+      name: '¿Resaltar dia anterior?',
     }),
   }),
 }

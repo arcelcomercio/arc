@@ -12,7 +12,7 @@ const classes = {
 }
 
 const AgendaCalendario = (props) => {
-  const { isLastDayClick = false } = props
+  const { isLastDayClick = false, isYesterday = false } = props
   const {
     globalContentConfig: { query },
   } = useAppContext()
@@ -22,6 +22,17 @@ const AgendaCalendario = (props) => {
     if (date instanceof Date) return date
     const [year, month, day] = date.split('-')
     const newDate = [year, Number(month - 1), Number(day)]
+    return new Date(...newDate)
+  }
+  const getCalendarDate2 = (date = new Date(), yesterday) => {
+    let ant = 0
+    if (yesterday === true) {
+      ant = 1
+    }
+    console.log('ant', ant)
+    if (date instanceof Date) return date
+    const [year, month, day] = date.split('-')
+    const newDate = [year, Number(month - 1), Number(day - ant)]
     return new Date(...newDate)
   }
 
@@ -68,7 +79,8 @@ const AgendaCalendario = (props) => {
                 maxDate={new Date(day(isLastDayClick))}
                 minDate={new Date(2021, 6, 28)}
                 onChange={(newDate) => setNewDate(newDate)}
-                value={new Date()}
+                value={getCalendarDate2(urlDate, isYesterday)}
+                //  value={new Date()}
                 locale="es-419"
                 // navigationLabel={({ date, locale }) =>
                 //   `${mes(date.toLocaleDateString(locale))}`
