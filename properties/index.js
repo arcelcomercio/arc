@@ -181,4 +181,8 @@ export default {
     playerId: '',
     videoId: '',
   },
+  pianoID: {
+    sandbox: '',
+    prod: '',
+  },
 }
