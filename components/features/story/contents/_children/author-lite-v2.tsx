@@ -4,7 +4,7 @@ import Image from '../../../../global-components/image'
 import { locale } from '../../../../utilities/date-time/constants'
 
 interface FeatureProps {
-  authorsList: {
+  authorsList?: {
     nameAuthor: string
     urlAuthor: string
     slugAuthor: string
