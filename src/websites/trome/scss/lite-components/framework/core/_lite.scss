@@ -6,6 +6,10 @@ $tertiary-font: $secondary-font;
   display: flex;
 }
 
+.f-wrap {
+  flex-wrap: wrap;
+}
+
 .f-center {
   justify-content: center;
   align-items: center;
@@ -50,6 +54,7 @@ $tertiary-font: $secondary-font;
 .premium__wrapper.flex.hidden {
   display: none;
 }
+
 .st-sidebar__content {
   background: white;
 }
@@ -66,25 +71,30 @@ $tertiary-font: $secondary-font;
   padding: 20px;
   background-color: #262627;
 }
+
 .story-gallery-slider__content {
   -webkit-transition: -webkit-transform 0.4s ease;
   transition: -webkit-transform 0.4s ease;
   transition: transform 0.4s ease;
   transition: transform 0.4s ease, -webkit-transform 0.4s ease;
 }
+
 .story-gallery-slider__item {
   width: 280px;
   pointer-events: none;
   user-select: none;
 }
+
 .story-gallery-slider__img {
   height: 240px;
   object-fit: cover;
 }
+
 .story-gallery-slider__body {
   position: relative;
   overflow: hidden;
 }
+
 .story-gallery-slider__quantity {
   color: #7f7f7f;
   width: 102px;
@@ -94,6 +104,7 @@ $tertiary-font: $secondary-font;
   margin-right: 10px;
   align-items: center;
 }
+
 .story-gallery-slider__arrows {
   position: absolute;
   outline: 0;
@@ -103,43 +114,59 @@ $tertiary-font: $secondary-font;
   align-items: center;
   justify-content: center;
 }
+
 .story-gallery-slider__arrows--left,
 .story-gallery-slider__arrows--right {
   background-color: rgba(0, 0, 0, 0.5);
   font-size: 36px;
   height: 181px;
   width: 100px;
+
   @media (--only-mobile) {
     border-radius: 0 26px 26px 0;
     background-color: #000;
     height: 52px;
     width: 28px;
   }
+
   svg {
     fill: #fff;
     margin: 0 auto;
   }
 }
+
 .story-gallery-slider__arrows--right {
   @media (--only-mobile) {
     border-radius: 26px 0 0 26px;
   }
 }
+
 .story-gallery-slider__caption {
   padding: 20px 20px 20px 0;
 }
+
 .story-gallery-slider__figure {
   position: relative;
 }
+
 .story-gallery-slider__right {
   right: 0;
 }
+
 .gv {
   &.story-contents__author {
-    padding: 0 20px;
+    padding: 0 16px;
+
+    @media (--desktop) {
+      padding: 0 20px;
+    }
   }
+
   .story-contents__author-date {
-    border-bottom: 1px solid #d6d6d6;
+    padding-bottom: 16px;
+    color: #444;
+    font-size: 13px;
+    border-bottom: 1px solid #aaa;
   }
 }
 
@@ -164,6 +191,7 @@ $tertiary-font: $secondary-font;
   justify-content: center;
   align-items: center;
   height: auto;
+
   @media print {
     display: none;
   }
