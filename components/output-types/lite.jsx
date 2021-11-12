@@ -756,7 +756,8 @@ const LiteOutput = ({
           />
         )}
 
-        {subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL ? (
+        {metaValue('section_style') !== 'story-v2-standard' &&
+        (subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL) ? (
           <script
             dangerouslySetInnerHTML={{
               __html: minutoMinutoScript,

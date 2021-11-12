@@ -1,14 +1,20 @@
-import * as React from 'react'
 import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
-import StoryData from '../../../utilities/story-data'
 import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
+import { getDateSeo } from '../../../utilities/date-time/dates'
+import StoryData from '../../../utilities/story-data'
+import StoryContentChildAuthorLiteV2 from '../contents/_children/author-lite-v2'
 import StoryContentsChildAuthor from './_children/author-lite'
 import StoryContentsChildAuthorTrust from './_children/author-trust-lite'
-import { getDateSeo } from '../../../utilities/date-time/dates'
 
 const StoryAuthorLite = () => {
-  const { arcSite, contextPath, globalContent: data } = useAppContext()
+  const {
+    arcSite,
+    contextPath,
+    globalContent: data,
+    metaValue,
+  } = useAppContext()
 
   const {
     subtype,
@@ -52,13 +58,23 @@ const StoryAuthorLite = () => {
     arcSite,
   }
 
+  const isStoryV2StandarStyle =
+    metaValue('section_style') === 'story-v2-standard'
+
   return (
     <>
-      {SITE_ELCOMERCIO === arcSite ? (
-        <StoryContentsChildAuthorTrust {...params} />
-      ) : (
-        <StoryContentsChildAuthor {...params} />
-      )}
+      {(() => {
+        if (isStoryV2StandarStyle)
+          return (
+            <StoryContentChildAuthorLiteV2
+              displayDate={getDateSeo(displayDate || createdDate)}
+              publishDate={getDateSeo(updateDate)}
+            />
+          )
+        if (SITE_ELCOMERCIO === arcSite)
+          return <StoryContentsChildAuthorTrust {...params} />
+        return <StoryContentsChildAuthor {...params} />
+      })()}
     </>
   )
 }
