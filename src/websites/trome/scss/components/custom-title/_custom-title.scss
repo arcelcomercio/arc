@@ -1,19 +1,38 @@
 .custom-title {
-  font-family: $secondary-font;
-  color: $color-base-300;
+  font-family: $encode-c;
+  color: #a1a1a1;
   font-weight: 400;
   margin-bottom: 20px;
-  @media (--tablet) {
-    padding-left: 20px;
-  }
-  @media (--desktop) {
-    padding-left: 20px;
-  }
-  &.medium,
-  &.large {
-    font-size: 20px;
+
+  &.medium {
+    color: #000;
+    font-size: 22px;
+    letter-spacing: -0.22px;
+
     @media (--tablet) {
-      font-size: 35px;
+      padding-left: 20px;
+    }
+  }
+
+  &.large {
+    font-size: 24px;
+    font-weight: 900;
+  }
+
+  &__page-search {
+    // solo cuando esta en la pagina de buscar
+    @media (--tablet) {
+      padding-left: 0 !important;
+      margin: 31px 0;
+    }
+    @media (--only-mobile) {
+      padding: 0 20px !important;
+      margin-bottom: 0;
+    }
+
+    span {
+      text-decoration: underline;
+      text-transform: capitalize;
     }
   }
 }

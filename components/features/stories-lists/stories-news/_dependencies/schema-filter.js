@@ -1,7 +1,6 @@
-export default (arcSite) => {
-  return `{ 
+export default (arcSite) => `{ 
     content_elements { 
-      headlines { basic }
+      headlines { basic mobile }
       subheadlines { basic }
       display_date
       credits {
@@ -48,4 +47,3 @@ export default (arcSite) => {
       }
     }    
   }`
-}
