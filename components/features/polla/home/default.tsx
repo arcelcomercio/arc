@@ -50,7 +50,7 @@ const PollaHomepage: FC<Props> = (props) => {
               src="https://cdna.depor.com/resources/dist/depor/images-polla/logo.png"
               alt="Logo La Polla"
             />
-            <h1 className="polla-home__logo-title">Copa América 2021</h1>
+            <h1 className="polla-home__logo-title">Liga 1</h1>
             <div className="polla-home__brand-container">
               <span>Auspicia: </span>
               <img src={`${customFields.landingBrand}`} alt="Brand" />
