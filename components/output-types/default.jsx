@@ -112,9 +112,8 @@ export default ({
   )
 
   let classBody = isStory
-    ? `story ${promoItems.basic_gallery && 'basic_gallery'} ${arcSite} ${
-        storySectionPath.split('/')[1]
-      } ${subtype} `
+    ? `story ${promoItems.basic_gallery && 'basic_gallery'} ${arcSite} ${storySectionPath.split('/')[1]
+    } ${subtype} `
     : ''
   classBody = isBlogPost ? 'blogPost' : classBody
 
@@ -144,9 +143,8 @@ export default ({
   } else if (/^\/peru21tv\//.test(requestUri)) {
     classBody = `${isStory ? 'story' : ''} section-peru21tv`
   } else if (isVideosSection) {
-    classBody = `${
-      isStory && arcSite !== SITE_OJO ? 'story' : ''
-    } section-videos`
+    classBody = `${isStory && arcSite !== SITE_OJO ? 'story' : ''
+      } section-videos`
   }
 
   if (arcSite === SITE_ELCOMERCIO) {
@@ -157,10 +155,10 @@ export default ({
   const isHome = metaValue('id') === META_HOME && true
   const scriptAdpush = getPushud(arcSite)
   const enabledPushud = getEnablePushud(arcSite)
-  
+
   const enabledPushup = getEnabledServerside(arcSite)
   const scriptAdpushup = getScriptAdPushup(arcSite)
-  
+
   const jsAdpushup = `
   (function(w, d) {
     var s = d.createElement('script');
@@ -207,13 +205,13 @@ export default ({
     // eslint-disable-next-line no-nested-ternary
     arcSite === SITE_ELCOMERCIOMAG
       ? `https://d1r08wok4169a5.cloudfront.net/ads/elcomerciomag/arcads.js?v=${new Date()
-          .toISOString()
-          .slice(0, 10)}`
+        .toISOString()
+        .slice(0, 10)}`
       : indPrebid
-      ? `https://d1r08wok4169a5.cloudfront.net/ads/arcads.js?v=${new Date()
+        ? `https://d1r08wok4169a5.cloudfront.net/ads/arcads.js?v=${new Date()
           .toISOString()
           .slice(0, 10)}`
-      : `https://d1r08wok4169a5.cloudfront.net/ads/ec/arcads.js?v=${new Date()
+        : `https://d1r08wok4169a5.cloudfront.net/ads/ec/arcads.js?v=${new Date()
           .toISOString()
           .slice(0, 10)}`
 
@@ -369,13 +367,12 @@ export default ({
 
   const isFonts = isTrivia || isCovid
 
-  const robotsIndex = `${
-    /(\/(autor|autores)\/)(|[\w\d-]+\/)([0-9]+)\//.test(requestUri) &&
+  const robotsIndex = `${/(\/(autor|autores)\/)(|[\w\d-]+\/)([0-9]+)\//.test(requestUri) &&
     !/(\/(autor|autores)\/)([\w\d-]+\/|)([1])\//.test(requestUri) &&
     arcSite === 'trome'
-      ? 'noindex, follow'
-      : 'index, follow,max-image-preview:large'
-  }`
+    ? 'noindex, follow'
+    : 'index, follow,max-image-preview:large'
+    }`
 
   const OptaWidgetsFromStory = getOptaWidgetsFromStory(globalContent)
 
@@ -391,11 +388,10 @@ export default ({
         {(arcSite === 'trome' || arcSite === 'depor') && isStory ? (
           <meta
             name="robots"
-            content={`${
-              /-agnc-/.test(requestUri)
-                ? 'noindex, follow'
-                : 'index, follow,max-image-preview:large'
-            }`}
+            content={`${/-agnc-/.test(requestUri)
+              ? 'noindex, follow'
+              : 'index, follow,max-image-preview:large'
+              }`}
           />
         ) : (
           <>
@@ -682,7 +678,7 @@ export default ({
         })()}
         {/* <!-- Paywall - Fin --> */}
         {enabledPushud ||
-        (arcSite !== SITE_PERU21 && arcSite !== SITE_GESTION) ? (
+          (arcSite !== SITE_PERU21 && arcSite !== SITE_GESTION) ? (
           <>
             <script
               type="text/javascript"
@@ -827,14 +823,13 @@ export default ({
           <>
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.preroll='${
-                  getPreroll({
-                    section: sectionPath,
-                    arcSite,
-                    siteDomain,
-                    metaValue,
-                  }) || siteProperties.urlPreroll
-                }';
+                __html: `window.preroll='${getPreroll({
+                  section: sectionPath,
+                  arcSite,
+                  siteDomain,
+                  metaValue,
+                }) || siteProperties.urlPreroll
+                  }';
                 window.addPrefetch('preconnect', 'https://d1tqo5nrys2b20.cloudfront.net/')`,
               }}
             />
@@ -949,9 +944,9 @@ export default ({
         ) : null}
 
         {arcSite === 'elcomercio' &&
-        isStory &&
-        metaValue('opta_scraping_path') &&
-        getOptaWidgetsFromStory.length > 0 ? (
+          isStory &&
+          metaValue('opta_scraping_path') &&
+          getOptaWidgetsFromStory.length > 0 ? (
           <LiveBlogPostingData OptaWidgetsFromStory={OptaWidgetsFromStory} />
         ) : null}
       </body>
