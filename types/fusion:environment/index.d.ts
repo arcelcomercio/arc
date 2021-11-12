@@ -23,6 +23,7 @@ declare module 'fusion:environment' {
     PAGO_EFECTIVO_ACCESS_GESTION: string
     PAGO_EFECTIVO_ID_ELCOMERCIO: string
     PAGO_EFECTIVO_ID_GESTION: string
+    PIANO_URL: string
   }
 
   const Environment: Env
@@ -50,5 +51,6 @@ declare module 'fusion:environment' {
   export const PAGO_EFECTIVO_ACCESS_GESTION: string
   export const PAGO_EFECTIVO_ID_ELCOMERCIO: string
   export const PAGO_EFECTIVO_ID_GESTION: string
+  export const PIANO_URL: string
   export default Environment
 }
