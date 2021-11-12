@@ -39,6 +39,7 @@ type CustomImageProps = {
   icon?: React.ReactNode
   movilImage?: string
   defaultImg?: InlinePresets
+  pictureStyle?: React.CSSProperties
 }
 
 const CustomImage: React.FC<CustomImageProps> = ({
@@ -65,6 +66,7 @@ const CustomImage: React.FC<CustomImageProps> = ({
   icon,
   movilImage,
   defaultImg,
+  pictureStyle,
 }) => {
   /**
    * Se espera el atributo `loading` para simular los
@@ -147,7 +149,7 @@ const CustomImage: React.FC<CustomImageProps> = ({
   )
 
   return sizes && sizes.length >= 1 ? (
-    <picture className={pictureClassName}>
+    <picture className={pictureClassName} style={pictureStyle}>
       {sizes.map((size) => {
         const { width: sourceWidth, height: sourceHeight, media } = size
         const sourceImage =
