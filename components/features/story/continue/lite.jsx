@@ -164,7 +164,6 @@ const StoryContinueLite = () => {
             </span>
             <svg
               role="button"
-              xmlns="http://www.w3.org/2000/svg"
               className="st-continue__close pos-abs"
               width="20"
               height="20"

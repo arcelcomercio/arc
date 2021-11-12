@@ -15,6 +15,10 @@ const customFields = PropTypes.shape({
     name: 'Deshabilitar footer interno',
     defaultValue: false,
   }),
+  disableAuthSocialArc: PropTypes.bool.tag({
+    name: 'Activar/Desactivar Autenticación Social ARC Nativa',
+    defaultValue: false,
+  }),
 })
 
 export default customFields

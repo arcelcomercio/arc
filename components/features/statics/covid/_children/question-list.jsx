@@ -38,7 +38,6 @@ const CovidChildQuestionList = ({ path }) => {
               <span className={classes.question}>{pregunta}</span>
               <svg
                 className={classes.iconRight}
-                xmlns="http://www.w3.org/2000/svg"
                 width="7.678"
                 height="12.686"
                 viewBox="0 0 7.678 12.686">
@@ -72,11 +71,7 @@ const CovidChildQuestionList = ({ path }) => {
             top: '5px',
           }}>
           <a href="/covid-19/mas-informacion/">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="13.979"
-              height="13.979"
-              viewBox="0 0 13.979 13.979">
+            <svg width="13.979" height="13.979" viewBox="0 0 13.979 13.979">
               <g transform="translate(-314.287 -136.011)">
                 <line
                   style={{ fill: '#fff', stroke: '#707070' }}

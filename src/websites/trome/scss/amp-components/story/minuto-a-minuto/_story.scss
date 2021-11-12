@@ -1,0 +1,53 @@
+.minuto_minuto {
+  .amp-nav__wrapper {
+    background-color: #fff;
+  }
+
+  .live-event {
+    padding-right: 4px;
+    padding-left: 4px;
+    padding-bottom: 64px;
+  }
+
+  .live-event2-comment {
+    font-family: $fira-s;
+    font-size: 21px;
+    letter-spacing: -0.34px;
+    line-height: 29px;
+    color: #333;
+    padding: 16px;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.161);
+
+    & > div {
+      padding-bottom: 16px;
+    }
+
+    & > p {
+      padding-top: 0;
+      padding-bottom: 16px;
+    }
+
+    & > p:last-of-type {
+      padding-bottom: 0;
+    }
+
+    strong {
+      font-family: $encode-c;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0;
+      line-height: 30px;
+      text-align: left;
+    }
+
+    a {
+      font-family: $encode-c;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0;
+      color: #d35b2c;
+      text-decoration: none;
+    }
+  }
+}

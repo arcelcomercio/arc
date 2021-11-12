@@ -1,8 +1,8 @@
 import React from 'react'
-// import { alignmentClassesPropType } from '@arc-core-components/feature_article-body/build/helpers'
-import Icon from './multimedia-icon'
 
 import { formatDateLocalTimeZone } from '../utilities/helpers'
+// import { alignmentClassesPropType } from '@arc-core-components/feature_article-body/build/helpers'
+import Icon from './multimedia-icon'
 
 const classes = {
   storyItem: `story-item w-full pr-20 pl-20 pb-20 mb-20 border-b-1 border-solid border-gray md:pl-0 md:pr-0  lg:p-0`,
@@ -41,67 +41,64 @@ export default ({
   multimediaLazyDefault,
   multimediaLandscapeS,
   formato,
-}) => {
-  return (
-    <div
-      className={`${classes.storyItem} ${
-        formato && formato === 'row' ? 'story-item--row' : ''
-      }`}>
-      <div className={classes.bottom}>
-        <div className={classes.left}>
-          <div className={classes.top}>
-            <a
-              itemProp="url"
-              href={primarySectionLink}
-              className={classes.section}>
-              {primarySection}
-            </a>
-            <p itemProp="description" className={classes.date}>
-              {formatDateLocalTimeZone(date)}
-            </p>
-          </div>
-          <div className={classes.wrapperTitle}>
-            <h2 itemProp="name" className={classes.contentTitle}>
-              <a itemProp="url" className={classes.title} href={websiteLink}>
-                {title}
-              </a>
-            </h2>
-            <p itemProp="description" className={classes.subtitle}>
-              {subTitle}
-            </p>
-            <a
-              itemProp="url"
-              href={primarySectionLink}
-              className={classes.sectionHidden}>
-              {primarySection}
-            </a>
-          </div>
-          <div className={classes.contenetAuthor}>
-            <a itemProp="url" href={authorLink} className={classes.author}>
-              {author}
-            </a>
-          </div>
-        </div>
-        <figure className={classes.right}>
-          <a itemProp="url" href={websiteLink} className={classes.rightLink}>
-            <Icon type={multimediaType} iconClass={classes.icon} />
-            <picture>
-              <source
-                className={isAdmin ? '' : 'lazy'}
-                media="(max-width: 639px)"
-                srcSet={isAdmin ? multimediaLandscapeXS : multimediaLazyDefault}
-                data-srcset={multimediaLandscapeXS}
-              />
-              <img
-                alt={title}
-                className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
-                src={isAdmin ? multimediaLandscapeS : multimediaLazyDefault}
-                data-src={multimediaLandscapeS}
-              />
-            </picture>
+}) => (
+  <div
+    className={`${classes.storyItem} 
+    ${formato && formato === 'row' ? 'story-item--row' : ''}`}>
+    <div className={classes.bottom}>
+      <div className={classes.left}>
+        <div className={classes.top}>
+          <a
+            itemProp="url"
+            href={primarySectionLink}
+            className={classes.section}>
+            {primarySection}
           </a>
-        </figure>
+          <p itemProp="description" className={classes.date}>
+            {formatDateLocalTimeZone(date)}
+          </p>
+        </div>
+        <div className={classes.wrapperTitle}>
+          <h2 itemProp="name" className={classes.contentTitle}>
+            <a itemProp="url" className={classes.title} href={websiteLink}>
+              {title}
+            </a>
+          </h2>
+          <p itemProp="description" className={classes.subtitle}>
+            {subTitle}
+          </p>
+          <a
+            itemProp="url"
+            href={primarySectionLink}
+            className={classes.sectionHidden}>
+            {primarySection}
+          </a>
+        </div>
+        <div className={classes.contenetAuthor}>
+          <a itemProp="url" href={authorLink} className={classes.author}>
+            {author}
+          </a>
+        </div>
       </div>
+      <figure className={classes.right}>
+        <a itemProp="url" href={websiteLink} className={classes.rightLink}>
+          <Icon type={multimediaType} iconClass={classes.icon} />
+          <picture>
+            <source
+              className={isAdmin ? '' : 'lazy'}
+              media="(max-width: 639px)"
+              srcSet={isAdmin ? multimediaLandscapeXS : multimediaLazyDefault}
+              data-srcset={multimediaLandscapeXS}
+            />
+            <img
+              alt={title}
+              className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
+              src={isAdmin ? multimediaLandscapeS : multimediaLazyDefault}
+              data-src={multimediaLandscapeS}
+            />
+          </picture>
+        </a>
+      </figure>
     </div>
-  )
-}
+  </div>
+)

@@ -285,7 +285,7 @@ const ButtonSocial = ({
       onClick={clickLoginSocialEcoID}
       disabled={loading}
       type="button">
-      {loading ? loadText : `Continua con ${Capitalize(arcSocial)}`}
+      {loading ? loadText : `Iniciar sesión con ${Capitalize(arcSocial)}`}
     </button>
   )
 }

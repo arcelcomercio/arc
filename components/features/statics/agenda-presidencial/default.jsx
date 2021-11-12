@@ -13,7 +13,14 @@ import AgendaNota from './_children/nota'
  */
 
 const StaticsAgendaPresidencial = (props) => {
-  const { customFields: { titleUpDown, isLastDayClick } = {} } = props
+  const {
+    customFields: {
+      titleUpDown,
+
+      isYesterday,
+      grayLaterDays,
+    } = {},
+  } = props
 
   const { requestUri } = useAppContext()
 
@@ -120,7 +127,10 @@ const StaticsAgendaPresidencial = (props) => {
       {isNotaWeb === true && JSON.stringify(dataNota) !== '{}' ? (
         <AgendaNota dataNota={dataNota} titleUpDown={titleUpDown} />
       ) : (
-        <AgendaCalendario isLastDayClick={isLastDayClick} />
+        <AgendaCalendario
+          isYesterday={isYesterday}
+          grayLaterDays={grayLaterDays}
+        />
       )}
       <Footer isBack={BackUrl} isAhead={NextUrl} />
     </>
@@ -135,8 +145,12 @@ StaticsAgendaPresidencial.propTypes = {
       name: 'Titulo de subida y bajada de precios',
       default: 'SUBIDA Y BAJADA DE PRECIOS',
     }),
-    isLastDayClick: PropTypes.bool.tag({
-      name: '¿Es el ultimo dia clickable?',
+
+    isYesterday: PropTypes.bool.tag({
+      name: '¿Resaltar dia anterior?',
+    }),
+    grayLaterDays: PropTypes.bool.tag({
+      name: '¿Pintar de gris los dias posteriores?',
     }),
   }),
 }

@@ -14,14 +14,14 @@ const classes = {
 }
 
 const StoryTags = () => {
-  const { globalContent, arcSite } = useFusionContext()
+  const { globalContent, arcSite, metaValue } = useFusionContext()
   const { taxonomy: { tags = [] } = {} } = globalContent || {}
   const isTrome = arcSite === SITE_TROME
   return (
     tags.length > 0 && (
       <div className={classes.container}>
         <h4 itemProp="name" className={classes.title}>
-            {isTrome ? 'Tags:':'TAGS RELACIONADOS'}
+          {isTrome ? 'Tags:' : (metaValue('section_style') === 'story-v2-standard' ? 'TAGS' : 'TAGS RELACIONADOS')}
         </h4>
         <div className={classes.line}></div>
         <div className={classes.box}>
