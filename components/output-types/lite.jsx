@@ -45,6 +45,10 @@ import minutoMinutoScript from './_dependencies/minuto-minuto-lite-script'
 import { getOptaWidgetsFromStory } from './_dependencies/opta-widget-utils'
 import { getEnabledServerside, getScriptAdPushup } from './_dependencies/serverside'
 import {
+  getEnabledServerside,
+  getScriptAdPushup,
+} from './_dependencies/serverside'
+import {
   getDescription,
   getIsStory,
   getKeywords,
@@ -261,6 +265,10 @@ const LiteOutput = ({
     inlineStyleUrl = `resources/dist/elcomercio/css/story-v2-standard.css`
     styleUrl = ''
     inlineVgalleryStyles = ''
+  }
+  if (metaValue('section_style') === 'story-v2-video') {
+    inlineStyleUrl = `resources/dist/elcomercio/css/story-v2-video.css`
+    styleUrl = ''
   }
   /** */
 
