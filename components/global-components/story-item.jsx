@@ -4,9 +4,9 @@
 import React from 'react'
 
 import ConfigParams from '../utilities/config-params'
-import { formatDateLocalTimeZoneTemp, reduceWord } from '../utilities/helpers'
+import { SITE_TROME } from '../utilities/constants/sitenames'
 import { formatDateStory } from '../utilities/date-time/dates'
-
+import { formatDateLocalTimeZoneTemp, reduceWord } from '../utilities/helpers'
 import StoryData from '../utilities/story-data'
 // import { alignmentClassesPropType } from '@arc-core-components/feature_article-body/build/helpers'
 import Icon from './multimedia-icon'
@@ -56,13 +56,15 @@ const StoriesList = ({
 
   return (
     <div
-      className={`${classes.storyItem} ${formato && formato === 'row' ? 'story-item--row' : ''
-        }`}>
-      {arcSite === 'trome' ? (
+      className={`${classes.storyItem} ${
+        formato && formato === 'row' ? 'story-item--row' : ''
+      }`}>
+      {arcSite === SITE_TROME ? (
         <div className={classes.bottom}>
           <div
-            className={`${classes.left} ${isOpinionPeru21 ? classes.opinion : ''
-              }`}>
+            className={`${classes.left} ${
+              isOpinionPeru21 ? classes.opinion : ''
+            }`}>
             <div className={classes.wrapperTitle}>
               <a
                 itemProp="url"
@@ -112,13 +114,13 @@ const StoriesList = ({
               </picture>
             </a>
           </figure>
-
         </div>
       ) : (
         <div className={classes.bottom}>
           <div
-            className={`${classes.left} ${isOpinionPeru21 ? classes.opinion : ''
-              }`}>
+            className={`${classes.left} ${
+              isOpinionPeru21 ? classes.opinion : ''
+            }`}>
             <div className={classes.top}>
               <a
                 itemProp="url"
