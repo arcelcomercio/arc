@@ -5,6 +5,7 @@ import { useEditableContent } from 'fusion:content'
 import PropTypes from 'prop-types'
 import { getVerboseDate } from '../../../utilities/date-time/dates'
 import { formatSlugToText } from '../../../utilities/parse/strings'
+import { SITE_TROME } from '../../../utilities/constants/sitenames'
 
 const classes = {
   title: 'w-full pt-10 mt-20 custom-title',
@@ -12,10 +13,11 @@ const classes = {
     'custom-title__button position-absolute right-0 text-sm font-normal border-1 border-gray border-solid p-10 text-gray-200',
   darkButton:
     'custom-title__button position-absolute right-0 text-sm font-normal border-1 border-white border-solid p-10 text-white',
+  titleSearch: 'custom-title__page-search'
 }
 
 const CustomTitleFeat = props => {
-  const { globalContent, globalContentConfig } = useAppContext()
+  const { globalContent, globalContentConfig, arcSite } = useAppContext()
   const { editableField } = useEditableContent()
 
   const {
@@ -55,18 +57,26 @@ const CustomTitleFeat = props => {
     return `ARCHIVO, ${getVerboseDate({ date, showTime: false }).toUpperCase()}` // ARCHIVO, LUNES 03 DE FEBRERO DEL 2018
   }
 
+  const getSearch = () => {
+    const { query: { query = '' } = {} } = globalContentConfig || {}
+
+    let search = query && query.replace(/\+/g, ' ')
+    search = decodeURIComponent(search)
+    return search
+  }
+
   const getSearchTitle = () => {
     const { source } = globalContentConfig || {}
     if (source !== 'story-feed-by-search') {
       return undefined
     }
-    const { query: { query = '' } = {} } = globalContentConfig || {}
     const { count = 0 } = globalContent || {}
-
-    let search = query && query.replace(/\+/g, ' ')
-    search = decodeURIComponent(search)
+    const search = getSearch();
     const title = search
-      ? `SE ENCONTRARON ${count} RESULTADOS PARA: ${search.toUpperCase()}` // SE ENCONTRARON 99 RESULTADOS PARA: MADURO
+      ? (arcSite === SITE_TROME
+        ? <> Se encontraron {count} resultado para: <span>{search}</span></>
+        : `SE ENCONTRARON ${count} RESULTADOS PARA: ${search.toUpperCase()}` // SE ENCONTRARON 99 RESULTADOS PARA: MADURO
+      )
       : `ÚLTIMAS NOTICIAS`
 
     return title
@@ -78,15 +88,11 @@ const CustomTitleFeat = props => {
         {...editableField('customText')}
         itemProp="name"
         suppressContentEditableWarning
-        className={`${classes.title} text-${textAlign} ${
-          isUppercase ? 'uppercase' : ''
-        } ${isThreeCol ? 'col-3' : ''} ${
-          isCustomBorder ? 'custom-border' : ''
-        } ${seeMoreButton ? 'position-relative ' : ''} ${
-          isDarkBg ? 'dark-bg text-white bg-base-100' : ''
-        } ${size} ${
-          subLine ? 'border-b-1 border-solid border-gray pb-20' : 'pb-10'
-        }`}>
+        className={`${classes.title} text-${textAlign} ${isUppercase ? 'uppercase' : ''
+          } ${isThreeCol ? 'col-3' : ''} ${isCustomBorder ? 'custom-border' : ''
+          } ${seeMoreButton ? 'position-relative ' : ''} ${isDarkBg ? 'dark-bg text-white bg-base-100' : ''
+          } ${size} ${subLine ? 'border-b-1 border-solid border-gray pb-20' : 'pb-10'
+          } ${(getSearch() && arcSite === SITE_TROME) && classes.titleSearch}`}>
         {customText ||
           sectionName ||
           tagName ||
@@ -107,9 +113,8 @@ const CustomTitleFeat = props => {
       {subtitleField ? (
         <h2
           itemProp="name"
-          className={`text-lg ${
-            subLine ? 'mt-20' : 'mt-10'
-          } mb-20 line-h-xs pl-20 pr-20 md:pl-0 md:pr-0`}
+          className={`text-lg ${subLine ? 'mt-20' : 'mt-10'
+            } mb-20 line-h-xs pl-20 pr-20 md:pl-0 md:pr-0`}
           dangerouslySetInnerHTML={{ __html: subtitleField }}
         />
       ) : null}

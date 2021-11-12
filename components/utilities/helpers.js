@@ -15,7 +15,7 @@ export const appendScript = (code, position = 'body') => {
   return document.body.append(script)
 }
 
-export const formatAMPM = _date => {
+export const formatAMPM = (_date) => {
   const date = new Date(_date)
   let hours = date.getHours()
   let minutes = date.getMinutes()
@@ -27,7 +27,7 @@ export const formatAMPM = _date => {
   return strTime
 }
 
-export const formatDate = date => {
+export const formatDate = (date) => {
   const actual = new Date()
   const day = actual.getDate()
   const month = actual.getMonth() + 1
@@ -45,7 +45,7 @@ export const formatDate = date => {
   return fecha
 }
 
-export const formattedTime = date => {
+export const formattedTime = (date) => {
   const hours =
     date.getHours() < 10 ? `0${date.getHours()}` : `${date.getHours()}`
 
@@ -55,7 +55,7 @@ export const formattedTime = date => {
   return `${hours}:${minutes}`
 }
 
-export const getYYYYMMDDfromISO = date =>
+export const getYYYYMMDDfromISO = (date) =>
   date.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
 
 export const getActualDate = () => {
@@ -133,8 +133,9 @@ export const formatDateLocalTimeZoneTemp = (
     formattedDate = formattedTime(publishDate)
   else {
     // eslint-disable-next-line prefer-destructuring
-    formattedDate = `${publishDate.getFullYear()}-${publishDate.getMonth() +
-      1}-${publishDate.getDate()}`
+    formattedDate = `${publishDate.getFullYear()}-${
+      publishDate.getMonth() + 1
+    }-${publishDate.getDate()}`
     formattedDate = formattedDate.replace(/-/g, delimiter)
   }
   return formattedDate
@@ -164,6 +165,37 @@ export const arrayDays = [
   'Viernes',
   'Sábado',
 ]
+
+// Nueva funcion para obtener la fecha completa con día.
+// Output: 09:25 - Jueves 2021-10-28
+export const formatDateLocalTimeZoneFull = (
+  publishDateString,
+  delimiter = '-',
+  isClient = false,
+  dateFormat = 'YYYY-MM-DD'
+) => {
+  const publishDate = new Date(publishDateString)
+  if (!isClient) publishDate.setHours(publishDate.getHours() - 5)
+
+  let formattedDate = ''
+
+  if (dateFormat === 'DD-MM-YYYY') {
+    formattedDate = `${publishDate.getDate()}-${
+      publishDate.getMonth() + 1
+    }-${publishDate.getFullYear()}`
+  } else {
+    formattedDate = `${publishDate.getFullYear()}-${
+      publishDate.getMonth() + 1
+    }-${publishDate.getFullYear()}`
+  }
+  formattedDate = formattedDate.replace(/-/g, delimiter)
+
+  formattedDate = `${formattedTime(publishDate)} - ${
+    arrayDays[publishDate.getDay()]
+  } ${formattedDate}`
+
+  return formattedDate
+}
 
 export const formatDayMonthYear = (
   currentDate,
@@ -202,7 +234,7 @@ export const getFullDateIso8601 = (
   }
 }
 
-export const isEmpty = val => {
+export const isEmpty = (val) => {
   // test results
   //---------------
   // []        true, empty array
@@ -243,7 +275,7 @@ export const isEmpty = val => {
   return false
 }
 
-export const getIcon = type => {
+export const getIcon = (type) => {
   switch (type) {
     case 'basic_gallery':
       return 'img'
@@ -317,18 +349,18 @@ export const socialMediaUrlShareList = (
   }
 }
 
-export const createMarkup = html => {
+export const createMarkup = (html) => {
   return {
     __html: html,
   }
 }
 
-export const getCookie = cookieName => {
+export const getCookie = (cookieName) => {
   const cookieValue = document.cookie.match(`(^|;) ?${cookieName}=([^;]*)(;|$)`)
   return cookieValue ? cookieValue[2] : null
 }
 
-export const nlToBrTag = paragraph => {
+export const nlToBrTag = (paragraph) => {
   return paragraph.trim().replace(/\r?\n|\r/g, '<br />')
 }
 
@@ -402,14 +434,14 @@ export const createScript = ({ src, async, defer, textContent = '' }) => {
   return node
 }
 
-export const createLink = url => {
+export const createLink = (url) => {
   const node = document.createElement('link')
   node.rel = 'stylesheet'
   node.href = url
   return node
 }
 
-export const appendToBody = node => {
+export const appendToBody = (node) => {
   document.body.append(node)
 }
 
@@ -421,8 +453,8 @@ export const breadcrumbList = (siteUrl = '', primarySectionLink = '') => {
   let sectionQueue = '/'
   return primarySectionLink
     .split('/')
-    .filter(section => section !== '')
-    .map(section => {
+    .filter((section) => section !== '')
+    .map((section) => {
       sectionQueue = `${sectionQueue}${section}/`
       return {
         name:
@@ -439,7 +471,7 @@ export const getUrlParameter = () => {
   return parseInt(tmp[1], 0) || 1
 }
 
-export const getMultimediaIcon = multimediaType => {
+export const getMultimediaIcon = (multimediaType) => {
   let icon = ''
   switch (multimediaType) {
     case VIDEO:
@@ -466,7 +498,7 @@ export const getResponsiveClasses = ({
   return responsiveClasses.join(' ')
 }
 
-export const preventDefault = e => {
+export const preventDefault = (e) => {
   const event = e || window.event
   if (event.preventDefault) event.preventDefault()
   event.returnValue = false
@@ -479,7 +511,7 @@ export const replacer = (str, p1 = '', p2 = '', p3 = '') => {
   return `href="${p1}://${p2}${isSlash !== '/' ? psReplace : p3}"`
 }
 
-export const replaceTags = text => {
+export const replaceTags = (text) => {
   const resultText = text.replace(
     /href="(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?"/g,
     replacer
@@ -494,7 +526,7 @@ export const replaceTags = text => {
     .replace('http://', 'https://')
 }
 
-export const formatDateStory = date => {
+export const formatDateStory = (date) => {
   const fechaZone = date.match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)[0]
   const fecha = new Date(fechaZone)
   const day = fecha.getDate()
@@ -511,12 +543,12 @@ export const formatDateStory = date => {
   return `Actualizado el ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${formatHours}:${formatMinutes} `
 }
 
-export const deleteQueryString = url => {
+export const deleteQueryString = (url) => {
   const onlyUrl = url.split('?')[0]
   return onlyUrl.split('#')[0]
 }
 
-export const addSlashToDateEnd = url => {
+export const addSlashToDateEnd = (url) => {
   let urlSlash = url
   const fecha = new Date('2019-07-16T22:30:00')
   const hoy = new Date()
@@ -562,7 +594,7 @@ export const getMultimediaAnalitycs = (
   return type
 }
 
-export const getRemoveSlug = slug => {
+export const getRemoveSlug = (slug) => {
   return slug
     .replace(/[àáâãäå]/g, 'a')
     .replace(/[èéêë]/g, 'e')
@@ -572,7 +604,7 @@ export const getRemoveSlug = slug => {
     .replace(/[ùúûü]/g, 'u')
 }
 
-export const getRelatedIds = data => {
+export const getRelatedIds = (data) => {
   return (
     data &&
     data.map(({ _id }) => {
@@ -581,7 +613,7 @@ export const getRelatedIds = data => {
   )
 }
 
-export const nbspToSpace = text => {
+export const nbspToSpace = (text) => {
   return text.replace(/&nbsp;/gi, ' ')
 }
 
@@ -589,16 +621,16 @@ export const countWords = (text, delimitter = ' ') => {
   return !isEmpty(text) ? text.split(delimitter).length : 0
 }
 
-export const formatSections = (data = {}) => {
-  const link = 'link'
-  const { children = [] } = data
-  return children.map(el => {
-    return {
-      name: el.node_type === link ? el.display_name : el.name,
-      url: el.node_type === link ? el.url : el._id,
-    }
-  })
-}
+// export const formatSections = (data = {}) => {
+//   const link = 'link'
+//   const { children = [] } = data
+//   return children.map(el => {
+//     return {
+//       name: el.node_type === link ? el.display_name : el.name,
+//       url: el.node_type === link ? el.url : el._id,
+//     }
+//   })
+// }
 
 export const skipAdvertising = (data = []) => {
   return data
@@ -623,14 +655,14 @@ export const storyVideoPlayerId = (content = '') => {
   return content.match(pattern) || []
 }
 
-export const getPhotoId = photoUrl => {
+export const getPhotoId = (photoUrl) => {
   if (!photoUrl) return ''
   const customPhotoUrl = photoUrl.match(/\/([A-Z0-9]{26})(:?.[\w]+)?$/)
   const [, photoId] = customPhotoUrl || []
   return photoId
 }
 
-export const getDateSeo = data => {
+export const getDateSeo = (data) => {
   const fechaZone = data
     ? data.match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)[0]
     : new Date()
@@ -673,18 +705,18 @@ export const msToTime = (duration = 5555, seo = true) => {
   return resultSeo
 }
 
-export const localISODate = date => {
+export const localISODate = (date) => {
   let localDate = date ? new Date(date) : new Date()
   localDate.setHours(localDate.getHours() - 5)
   localDate = `${localDate.toISOString().split('.')[0]}-05:00`
   return localDate
 }
 
-export const clearBrTag = paragraph => {
+export const clearBrTag = (paragraph) => {
   return nbspToSpace(paragraph.trim().replace(/<\/?br[^<>]+>/, ''))
 }
 
-export const clearHtml = paragraph => {
+export const clearHtml = (paragraph) => {
   return nbspToSpace(
     clearBrTag(
       paragraph
@@ -710,7 +742,7 @@ export const getContentCurrentPage = ({ next, previous, count, length }) => {
   return page
 } */
 
-export const pixelAmpDate = arcSite => {
+export const pixelAmpDate = (arcSite) => {
   const hoy = new Date()
   const day = hoy.getDate()
   const month = hoy.getMonth() + 1
@@ -723,4 +755,22 @@ export const pixelAmpDate = arcSite => {
       ? true
       : ''
   return pixelEc
+}
+
+/**
+ * @typedef FormattedSection
+ * @property {string} name
+ * @property {string} url
+ */
+/**
+ * @param {object} data
+ * @returns {Array<FormattedSection>}
+ */
+export const formatSections = (data = {}) => {
+  const link = 'link'
+  const { children = [] } = data
+  return children.map((el) => ({
+    name: el.node_type === link ? el.display_name : el.name,
+    url: el.node_type === link ? el.url : el._id,
+  }))
 }

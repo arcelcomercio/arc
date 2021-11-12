@@ -6,6 +6,7 @@ const classes = {
   sectionColumn:
     'footer-secction__content-column footer-secction__item-border flex flex-col',
   item: 'footer-secction__item',
+  itemTitle: 'footer-secction__item__title'
 }
 
 const ItemLinkSubSection = ({ url, subsectionName, isBold }) => (
@@ -22,38 +23,39 @@ const SectionColumn = ({
     _id: urlSec = '',
     children: listSubSections = [],
   } = {},
-}) => (
-  <ul className={classes.sectionColumn}>
-    <li className={classes.item}>
-      <a
-        itemProp="url"
-        href={addSlashToEnd(urlSec)}
-        className={classes.itemTop}>
-        {title}
-      </a>
-    </li>
-    {listSubSections.map(
-      ({ display_name: subsectionName = '', url = '' }, index) => {
-        const keyString = `id${index}`
-        let subItemName = subsectionName
-        const rawMatch = subItemName.match(/\[.*\]/g)
-        const match =
-          rawMatch === null ? '' : rawMatch[0].replace('[', '').replace(']', '')
+}) => {
+  return (
+    <ul className={classes.sectionColumn}>
+      <li className={`${classes.item} ${classes.itemTitle}`}>
+        <a itemProp="url" href={urlSec} className={classes.itemTop}>
+          {title}
+        </a>
+      </li>
+      {listSubSections.map(
+        ({ display_name: subsectionName = '', url = '' }, index) => {
+          const keyString = `id${index}`
+          let subItemName = subsectionName
+          const rawMatch = subItemName.match(/\[.*\]/g)
+          const match =
+            rawMatch === null
+              ? ''
+              : rawMatch[0].replace('[', '').replace(']', '')
 
-        if (match) {
-          subItemName = subItemName.replace(/\[.*\]/g, '')
+          if (match) {
+            subItemName = subItemName.replace(/\[.*\]/g, '')
+          }
+          return (
+            <ItemLinkSubSection
+              key={keyString}
+              subsectionName={subItemName}
+              url={url}
+              isBold={match === 'bold'}
+            />
+          )
         }
-        return (
-          <ItemLinkSubSection
-            key={keyString}
-            subsectionName={subItemName}
-            url={url}
-            isBold={match === 'bold'}
-          />
-        )
-      }
-    )}
-  </ul>
-)
+      )}
+    </ul>
+  )
+}
 
 export default React.memo(SectionColumn)
