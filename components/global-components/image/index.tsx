@@ -61,6 +61,8 @@ type ArcImageProps = {
   movilImage?: string
   /** Define si se defaultImg */
   defaultImg?: InlinePresets
+  /** Estilos inline de la etiqueta picture */
+  pictureStyle?: React.CSSProperties
 }
 
 /** @returns Static resized `<img/>`, `<picture/>` or `<amp-img/>` */
@@ -88,6 +90,7 @@ const ArcImage: React.FC<ArcImageProps> = ({
   clientResize = false,
   movilImage = '',
   defaultImg = {},
+  pictureStyle = {},
 }) => {
   const { arcSite, contextPath, outputType, isAdmin } = useAppContext()
   /**
@@ -118,6 +121,7 @@ const ArcImage: React.FC<ArcImageProps> = ({
           layout={layout}
           movilImage={movilImage}
           defaultImg={defaultImg}
+          pictureStyle={pictureStyle}
         />
       </Static>
     )
@@ -147,6 +151,7 @@ const ArcImage: React.FC<ArcImageProps> = ({
       icon={children}
       isAdmin={isAdmin}
       movilImage={movilImage}
+      pictureStyle={pictureStyle}
     />
   ) : (
     <Static id={staticId}>
@@ -173,6 +178,7 @@ const ArcImage: React.FC<ArcImageProps> = ({
         icon={children}
         movilImage={movilImage}
         defaultImg={defaultImg}
+        pictureStyle={pictureStyle}
       />
     </Static>
   )
