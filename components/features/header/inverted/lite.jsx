@@ -21,7 +21,7 @@ const HeaderBasic = (props) => {
     metaValue,
   } = useAppContext()
   const {
-    customFields: { hideMenu, activeSticky, customLogo },
+    customFields: { hideMenu, activeSticky, customLogo, isTopNavVisible },
   } = props
 
   const {
@@ -60,7 +60,7 @@ const HeaderBasic = (props) => {
 
   const navSections =
     useContent(
-      arcSite === SITE_GESTION
+      arcSite === SITE_GESTION || isTopNavVisible
         ? {
             source: 'navigation-by-hierarchy',
             query: {
@@ -111,6 +111,7 @@ const HeaderBasic = (props) => {
       storyTitle={storyTitle}
       navSections={navSections}
       siteProperties={siteProperties}
+      isTopNavVisible={isTopNavVisible}
     />
   )
 }

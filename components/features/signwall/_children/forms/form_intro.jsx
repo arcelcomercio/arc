@@ -4,6 +4,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import Markdown from 'react-markdown/with-html'
 
+import { isStorageAvailable } from '../../../../utilities/client/storage'
 import { useModalContext } from '../../../subscriptions/_context/modal'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import { getUrlPaywall } from '../../_dependencies/domains'
@@ -138,22 +139,24 @@ const FormIntro = ({
                   `Web_${typeDialog}_Hard`,
                   `web_${typeDialog}_boton_iniciar_continuar`
                 )
-
-                if (typeDialog === 'premium') {
-                  window.sessionStorage.setItem(
-                    'paywall_last_url',
-                    window.location.pathname ? window.location.pathname : ''
-                  )
-                } else {
-                  window.sessionStorage.setItem(
-                    'paywall_last_url',
-                    window.document.referrer
-                      ? window.document.referrer.split(
-                          window.location.origin
-                        )[1]
-                      : ''
-                  )
+                if (isStorageAvailable('sessionStorage')) {
+                  if (typeDialog === 'premium') {
+                    window.sessionStorage.setItem(
+                      'paywall_last_url',
+                      window.location.pathname ? window.location.pathname : ''
+                    )
+                  } else {
+                    window.sessionStorage.setItem(
+                      'paywall_last_url',
+                      window.document.referrer
+                        ? window.document.referrer.split(
+                            window.location.origin
+                          )[1]
+                        : ''
+                    )
+                  }
                 }
+
                 changeTemplate('login')
                 checkModal()
               }}>

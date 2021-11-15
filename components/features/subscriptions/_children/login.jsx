@@ -1,4 +1,5 @@
 import Identity from '@arc-publishing/sdk-identity'
+import getProperties from 'fusion:properties'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
@@ -47,6 +48,7 @@ const Login = ({
   const [showSendEmail, setShowSendEmail] = React.useState(false)
   const [checkedPolits, setCheckedPolits] = React.useState(true)
   const { texts } = PropertiesCommon
+  const { activeMagicLink } = getProperties(arcSite)
 
   const stateSchema = {
     lemail: { value: contTempl || '', error: '' },
@@ -70,7 +72,11 @@ const Login = ({
   const onFormSignIn = ({ lemail, lpass }) => {
     if (typeof window !== 'undefined') {
       setLoading(true)
-      Taggeo(nameTagCategory, `web_sw${typeDialog[0]}_login_boton_ingresar`)
+      Taggeo(
+        nameTagCategory,
+        `web_sw${typeDialog[0]}_login_boton_ingresar`,
+        arcSite
+      )
       Identity.login(lemail, lpass, {
         rememberMe: true,
         cookie: true,
@@ -87,7 +93,8 @@ const Login = ({
               setShowVerify(true)
               Taggeo(
                 nameTagCategory,
-                `web_sw${typeDialog[0]}_login_show_reenviar_correo`
+                `web_sw${typeDialog[0]}_login_show_reenviar_correo`,
+                arcSite
               )
               window.localStorage.removeItem('ArcId.USER_INFO')
               window.localStorage.removeItem('ArcId.USER_PROFILE')
@@ -101,7 +108,8 @@ const Login = ({
               }
               Taggeo(
                 nameTagCategory,
-                `web_sw${typeDialog[0]}_login_success_ingresar`
+                `web_sw${typeDialog[0]}_login_success_ingresar`,
+                arcSite
               )
             }
           })
@@ -113,12 +121,14 @@ const Login = ({
           if (err.code === '130051') {
             Taggeo(
               nameTagCategory,
-              `web_sw${typeDialog[0]}_login_show_reenviar_correo`
+              `web_sw${typeDialog[0]}_login_show_reenviar_correo`,
+              arcSite
             )
           } else {
             Taggeo(
               nameTagCategory,
-              `web_sw${typeDialog[0]}_login_error_ingresar`
+              `web_sw${typeDialog[0]}_login_error_ingresar`,
+              arcSite
             )
           }
         })
@@ -145,8 +155,16 @@ const Login = ({
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(lemail)
-    Taggeo(nameTagCategory, `web_sw${typeDialog[0]}_login_reenviar_correo`)
+    if (activeMagicLink) {
+      Identity.requestOTALink(lemail)
+    } else {
+      Identity.requestVerifyEmail(lemail)
+    }
+    Taggeo(
+      nameTagCategory,
+      `web_sw${typeDialog[0]}_login_reenviar_correo`,
+      arcSite
+    )
     let timeleft = 9
     const downloadTimer = setInterval(() => {
       if (timeleft <= 0) {
@@ -303,7 +321,8 @@ const Login = ({
               changeTemplate('forgot')
               Taggeo(
                 nameTagCategory,
-                `web_sw${typeDialog[0]}_contrasena_link_olvide`
+                `web_sw${typeDialog[0]}_contrasena_link_olvide`,
+                arcSite
               )
             }}>
             Olvidé mi contraseña
@@ -328,7 +347,8 @@ const Login = ({
             changeTemplate('register')
             Taggeo(
               nameTagCategory,
-              `web_sw${typeDialog[0]}_login_boton_registrate`
+              `web_sw${typeDialog[0]}_login_boton_registrate`,
+              arcSite
             )
           }}>
           Registrarme

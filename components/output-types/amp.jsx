@@ -262,7 +262,6 @@ const AmpOutputType = ({
     prebidSlot: `19186-${namePublicidad}-amp-zocalo`,
   }
   const isTrivia = /^\/trivias\//.test(requestUri)
-
   return (
     <Html lang={lang}>
       <head>
@@ -270,6 +269,12 @@ const AmpOutputType = ({
           canonicalUrl={`${envOrigin}${addSlashToEnd(canonicalUrl)}`}
         />
         <title>{title}</title>
+        {arcSite === SITE_DEPOR && (
+          <>
+            <link rel="preconnect" href="//cdn.ampproject.org" />
+            <link rel="preconnect" href="//cdna.depor.com" />
+          </>
+        )}
         <Styles {...metaSiteData} />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
@@ -337,11 +342,15 @@ const AmpOutputType = ({
           custom-element="amp-social-share"
           src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"
         />
-        <script
-          async
-          custom-element="amp-sticky-ad"
-          src="https://cdn.ampproject.org/v0/amp-sticky-ad-1.0.js"
-        />
+        {metaValue('exclude_ads_amp') !== 'true' && (
+          <>
+            <script
+              async
+              custom-element="amp-sticky-ad"
+              src="https://cdn.ampproject.org/v0/amp-sticky-ad-1.0.js"
+            />
+          </>
+        )}
         <script
           async
           custom-element="amp-ad"
@@ -368,11 +377,16 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"
           />
         )}
-        <script
-          async
-          custom-element="amp-sidebar"
-          src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"
-        />
+
+        {arcSite !== SITE_ELCOMERCIO &&
+          arcSite !== SITE_DEPOR &&
+          arcSite !== SITE_ELCOMERCIOMAG && (
+            <script
+              async
+              custom-element="amp-sidebar"
+              src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"
+            />
+          )}
 
         {(arcSite === SITE_DEPOR || arcSite === SITE_ELBOCON) && hasJwVideo && (
           <script
@@ -426,11 +440,13 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-soundcloud-0.1.js"
           />
         )}
-        <script
-          async
-          custom-element="amp-bind"
-          src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"
-        />
+        {arcSite === SITE_TROME && (
+          <script
+            async
+            custom-element="amp-bind"
+            src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"
+          />
+        )}
         {arcSite === SITE_ELCOMERCIOMAG && (
           <script
             async
@@ -445,7 +461,7 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-next-page-0.1.js"
           />
         )}
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+
         {isTrivia && (
           <>
             <link

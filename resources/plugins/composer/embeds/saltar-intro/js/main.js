@@ -1,7 +1,7 @@
 const renderForEditAndView = (dataParams) => {
-    const {id, config:{title='', score=0, chapter='', year='', plataform='', director = [], cast = [], genre = [], duration, clasification, interviewed = '', career_interviewed = '', release_date = '', premiere_image = '' }} = dataParams
+    const {id, config:{title='', score=0, chapter='', year='', plataform='', director = [], cast = [], genre = [], duration, clasification, interviewed = '', career_interviewed = '', release_date = '', premiere_image = '', is_premiere = 0 }} = dataParams
 
-    const html = renderViewEdit({id, title, score, chapter, year, plataform, director, cast, genre, duration, clasification, interviewed, career_interviewed, release_date, premiere_image});
+    const html = renderViewEdit({id, title, score, chapter, year, plataform, director, cast, genre, duration, clasification, interviewed, career_interviewed, release_date, premiere_image, is_premiere});
 
     const element = document.createElement('div');
     document.getElementById('content_holder').innerHTML = '<br>';
@@ -13,7 +13,7 @@ const renderForEditAndView = (dataParams) => {
 }
 
 const renderViewEdit = (data) => {
-  const {id, title='', chapter='', score=0, year='', plataform='', director = [], cast = [], genre = [], duration, clasification, interviewed, career_interviewed, release_date, premiere_image } = data;
+  const {id, title='', chapter='', score=0, year='', plataform='', director = [], cast = [], genre = [], duration, clasification, interviewed, career_interviewed, release_date, premiere_image, is_premiere } = data;
   const template = document.getElementById('content_template').innerHTML;
   const directors = director.map((v,i) => {
     return v.name != '' && v.url != '' ? `<div class="card-text text-muted"><b>Director ${(i) === 0 ? '': (i+1)} :</b> ${v.name} (${v.url})</div>`: '';
@@ -52,6 +52,8 @@ const renderViewEdit = (data) => {
         <input class="w-50" type="textfield" id="genre_url[${i}]" name="genre_url" value="${v.url}" />
       </label>`;
   });
+  const isPremiere = is_premiere == 1 ? 'Si': 'No'
+  const isPremiereChecked = is_premiere == 1 ? 'checked': ''
   return template
       .replace(/%item_id%/gi, 'row-' + id)
       .replace(/%title%/gi, title)
@@ -68,6 +70,8 @@ const renderViewEdit = (data) => {
       .replace(/%career_interviewed%/gi, career_interviewed)
       .replace(/%release_date%/gi, release_date)
       .replace(/%premiere_image%/gi, premiere_image)
+      .replace(/%is_premiere%/gi, isPremiere)
+      .replace(/%is_premiere_checked%/gi, isPremiereChecked)
       .replace(/%director_edit%/gi, directorsEdit.join(''))
       .replace(/%cast_edit%/gi, castsEdit.join(''))
       .replace(/%genre_edit%/gi, genresEdit.join(''))
@@ -119,7 +123,7 @@ const buildDataAns = (data) => {
   data.genre.forEach((val, index) => {
     genre.push({name: val, url: data.genre_url[index]});
   });
-  const {title, score, chapter, year, plataform, duration, clasification, interviewed, career_interviewed, release_date,premiere_image} = data || {};
+  const {title, score, chapter, year, plataform, duration, clasification, interviewed, career_interviewed, release_date, premiere_image, is_premiere = 0} = data || {};
   return {
       title, 
       score,
@@ -132,6 +136,7 @@ const buildDataAns = (data) => {
       career_interviewed,
       release_date,
       premiere_image,
+      is_premiere,
       director, 
       cast, 
       genre,
