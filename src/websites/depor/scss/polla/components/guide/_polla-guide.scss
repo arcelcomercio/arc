@@ -7,15 +7,20 @@
     align-items: flex-end;
     position: relative;
     h2 {
-      font: 800 22px/26px $primary-font;
-      letter-spacing: 0.7px;
-      color: #004b91;
+      font: 800 24px/28px $primary-font;
+      letter-spacing: 0.77px;
+      color: #f91362;
     }
     span {
-      font: 500 16px/19px $primary-font;
-      letter-spacing: 0.51px;
-      color: #004b91;
+      font: 500 17px/20px $primary-font;
+      letter-spacing: 0.54px;
+      color: #666;
       margin-left: 8px;
+      @media (--desktop) {
+        font-size: 18px;
+        line-height: 21px;
+        letter-spacing: 0.58;
+      }
     }
     &::before {
       content: "";
@@ -40,7 +45,7 @@
   &__results {
     margin-top: 17px;
     text-align: center;
-    padding: 12px 18px;
+    padding: 12px 14px;
     background-color: #83f73d;
     border-radius: 1px;
     font: 400 12px/14px $primary-font;
