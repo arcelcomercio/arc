@@ -13,7 +13,7 @@
   }
   &__table {
     padding: 16px 15px 32px;
-    background-color: #004b91;
+    background-color: #6732b8;
     border-radius: 10px 10px 0 0;
     width: 100%;
     max-width: 580px;
@@ -32,7 +32,7 @@
     margin-bottom: 16px;
   }
   &__table-item {
-    background-color: #002c6b;
+    background-color: #3c1478;
     border-radius: 4px;
     margin-bottom: 4px;
     padding: 5px 16px;
@@ -69,7 +69,7 @@
     align-items: center;
     span {
       font: 400 15px/28px $primary-font;
-      color: #2c78ff;
+      color: #35126a;
       margin: 0 8px;
     }
     @media (--tablet) {
