@@ -8,6 +8,7 @@ import {
   getCookie,
   setCookie,
 } from '../../../../utilities/client/cookies'
+import { extendSession } from '../../../../utilities/subscriptions/identity'
 import useForm from '../../../subscriptions/_hooks/useForm'
 import { checkCodeStudents, checkStudents } from '../../_dependencies/services'
 import { Back } from '../icons'
@@ -37,7 +38,7 @@ const FormCode = ({ arcSite, showRequest }) => {
 
   const sendRequestMail = () => {
     const REQUEST = JSON.parse(getCookie(cookieStudents))
-    Identity.extendSession()
+    extendSession()
       .then((resExtend) => {
         checkStudents(
           REQUEST.uemail,
@@ -65,7 +66,7 @@ const FormCode = ({ arcSite, showRequest }) => {
 
   const onSubmitFormCode = ({ ucode }) => {
     setShowLoading(true)
-    Identity.extendSession()
+    extendSession()
       .then((resExtend) => {
         checkCodeStudents(
           ucode.trim(),
@@ -292,7 +293,7 @@ const FormRequest = ({ arcSite, showCode }) => {
           window.localStorage.getItem('ArcId.USER_INFO') || '{}'
         )
         Identity.userIdentity = userCredentials
-        Identity.extendSession()
+        extendSession()
           .then((resExtend) => {
             checkStudents(uemail, udate, ugrade, arcSite, resExtend.accessToken)
               .then((res) => {

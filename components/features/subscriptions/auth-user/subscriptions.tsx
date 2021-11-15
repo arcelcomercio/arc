@@ -53,7 +53,7 @@ const AuthUser = () => {
       setActiveModal(Modals.ReloginEmail)
     } else if (getQuery('signHash') || getQuery('ReloginHash')) {
       setActiveModal(Modals.ReloginHash)
-    } else if (getQuery('tokenVerify')) {
+    } else if (getQuery('tokenVerify') || getQuery('tokenMagicLink')) {
       setActiveModal(Modals.TokenVerify)
     } else if (getQuery('tokenReset')) {
       setActiveModal(Modals.ResetPassword)
@@ -115,6 +115,7 @@ const AuthUser = () => {
               onClose={() => closePopUp()}
               arcSite={arcSite}
               typeDialog={activeModal}
+              tokenMagicLink={isTokenVerify && getQuery('tokenMagicLink')}
               tokenVerify={isTokenVerify && getQuery('tokenVerify')}
               tokenReset={isResetPassword && getQuery('tokenReset')}
             />

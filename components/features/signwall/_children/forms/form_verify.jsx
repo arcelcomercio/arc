@@ -1,4 +1,5 @@
 import Identity from '@arc-publishing/sdk-identity'
+import { isAPIErrorResponse } from '@arc-publishing/sdk-identity/lib/serviceHelpers/APIErrorResponse'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
@@ -8,7 +9,7 @@ import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import { MsgResetPass } from '../icons'
 import Loading from '../loading'
 
-const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
+const FormVerify = ({ onClose, tokenVerify, tokenMagicLink, typeDialog }) => {
   const {
     arcSite,
     siteProperties: {
@@ -26,32 +27,40 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
   const [showBtnContinue, setShowBtnContinue] = React.useState(false)
 
   React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      Identity.verifyEmail(tokenVerify)
-        .then(() => {
-          setShowConfirm(true)
-          Taggeo(
-            `Web_Sign_Wall_${typeDialog}`,
-            `web_sw${typeDialog[0]}_aceptar_sucess`
-          )
-          if (Identity.userProfile || Identity.userIdentity.uuid) {
-            Identity.getUserProfile()
-          }
-        })
-        .catch((errLogin) => {
-          setShowError(getCodeError(errLogin.code))
+    Identity[tokenMagicLink ? 'redeemOTALink' : 'verifyEmail'](
+      tokenMagicLink || tokenVerify
+    )
+      .then((response) => {
+        if (isAPIErrorResponse(response)) {
+          const error = `Error al iniciar sesión: ${response.message} - ${response.code}`
+          setShowError(error)
           Taggeo(
             `Web_Sign_Wall_${typeDialog}`,
             `web_sw${typeDialog[0]}_aceptar_error`
           )
-        })
-        .finally(() => {
-          setShowLoading(false)
-        })
+          throw new Error(error)
+        }
 
-      if (Identity.userProfile || Identity.userIdentity.uuid) {
-        setShowBtnContinue(true)
-      }
+        setShowConfirm(true)
+        Taggeo(
+          `Web_Sign_Wall_${typeDialog}`,
+          `web_sw${typeDialog[0]}_aceptar_sucess`
+        )
+        Identity.getUserProfile()
+      })
+      .catch((errLogin) => {
+        setShowError(getCodeError(errLogin.code))
+        Taggeo(
+          `Web_Sign_Wall_${typeDialog}`,
+          `web_sw${typeDialog[0]}_aceptar_error`
+        )
+      })
+      .finally(() => {
+        setShowLoading(false)
+      })
+
+    if (Identity.isLoggedIn()) {
+      setShowBtnContinue(true)
     }
   }, [])
 

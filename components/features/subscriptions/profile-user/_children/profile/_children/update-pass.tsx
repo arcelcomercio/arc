@@ -7,7 +7,7 @@ import { Status } from '../_dependencies/types'
 import FormContainer from './form-container'
 
 const UpdatePassword = () => {
-  const [status, setStatus] = React.useState<Status>(Status.Initial)
+  const [status, setStatus] = React.useState<Status>(Status.Loading)
   const [errorMessage, setErrorMessage] = React.useState('')
   const [hasSuccessMessage, setHasSuccessMessage] = React.useState(false)
 
@@ -43,12 +43,12 @@ const UpdatePassword = () => {
     setStatus(Status.Loading)
     Identity.updatePassword(oldPassword, newPassword)
       .then(() => {
-        setStatus(Status.Ready)
         setHasSuccessMessage(true)
+        setStatus(Status.Initial)
       })
       .catch((err) => {
-        setStatus(Status.Ready)
         setErrorMessage(getCodeError(err.code))
+        setStatus(Status.Ready)
       })
       .finally(() => {
         setTimeout(() => {
@@ -63,12 +63,13 @@ const UpdatePassword = () => {
     errors: { newPassword: newPasswordError, oldPassword: oldPasswordError },
     handleOnChange,
     handleOnSubmit,
-    // disable,
+    disable,
   } = useForm(stateSchema, stateValidatorSchema, submitConfirmPassword)
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleOnChange(e)
-    setErrorMessage('')
+    if (status !== Status.Ready) setStatus(Status.Ready)
+    if (errorMessage) setErrorMessage('')
   }
 
   return (
@@ -81,6 +82,7 @@ const UpdatePassword = () => {
           : undefined
       }
       errorMessage={errorMessage}
+      disabled={disable}
       status={status}>
       <div className="row three">
         <div className="sign-profile_update-form-group">
