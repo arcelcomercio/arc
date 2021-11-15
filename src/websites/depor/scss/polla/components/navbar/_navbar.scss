@@ -1,5 +1,5 @@
 .polla-nav {
-  background-color: #00185a;
+  background-color: #017b31;
   display: flex;
   align-items: center;
   height: 52px;
@@ -23,6 +23,18 @@
     }
   }
 
+  &__d {
+    background-image: url(https://cdna.depor.com/resources/dist/depor/images/d.png);
+    width: 36px;
+    height: 36px;
+    background-position: center;
+    border-radius: 50%;
+    margin-right: 8px;
+    @media (--desktop) {
+      margin-right: 16px;
+    }
+  }
+
   &__logo {
     flex: 1;
     display: flex;
@@ -43,9 +55,9 @@
   }
 
   &__play-link {
-    color: #fff;
-    background-color: #dc532e;
-    font: 700 11px/1 $primary-font;
+    color: #35126a;
+    background-color: #83f73d;
+    font: 700 12px/1 $primary-font;
     padding: 10px 25px;
     border-radius: 4px;
     margin-right: 18px;
@@ -56,6 +68,9 @@
       margin-right: 24px;
       padding: 10px 50px;
     }
+    @media (--desktop) {
+      font-size: 14px;
+    }
   }
 
   &__sign-arrow {
@@ -64,7 +79,7 @@
   &__sign {
     display: flex;
     align-items: center;
-    color: #d2d900;
+    color: #fff;
     font: 400 14px/16px $primary-font;
     span {
       margin-right: 10px;
@@ -116,7 +131,7 @@
   }
   &__tournament {
     color: #fff;
-    font: 400 16px/19px $secondary-font;
+    font: 400 18px/19px $primary-font;
     padding: 3px 24px 3px 10px;
     margin-right: 24px;
     border-right: 1px solid #d2d900;
