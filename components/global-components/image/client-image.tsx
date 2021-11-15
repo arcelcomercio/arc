@@ -38,6 +38,7 @@ type ClientImageProps = {
   icon?: React.ReactNode
   movilImage?: string
   isAdmin?: boolean
+  pictureStyle?: React.CSSProperties
 }
 
 const ClientImage: React.FC<ClientImageProps> = ({
@@ -64,6 +65,7 @@ const ClientImage: React.FC<ClientImageProps> = ({
   icon,
   movilImage,
   isAdmin = false,
+  pictureStyle = {},
 }) => {
   /**
    * Se espera el atributo `loading` para simular los
@@ -154,7 +156,7 @@ const ClientImage: React.FC<ClientImageProps> = ({
   if (!mainImage) return null // arregla error de validación en la versión 3.0 de Fusion
 
   return sizes && sizes.length >= 1 ? (
-    <picture className={pictureClassName}>
+    <picture className={pictureClassName} style={pictureStyle}>
       {sizes.map((size) => {
         const { width: sourceWidth, height: sourceHeight, media } = size
         const sourceImage =
