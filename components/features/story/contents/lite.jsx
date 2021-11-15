@@ -432,7 +432,7 @@ const StoryContentsLite = (props) => {
                         (arcSite === 'depor' &&
                           (/^\/mexico\//.test(requestUri) ||
                             /^\/colombia\//.test(requestUri)))) &&
-                      nameAds === 'caja3' ? (
+                        nameAds === 'caja3' ? (
                         <div id="spc_post_stories" />
                       ) : null}
                     </>

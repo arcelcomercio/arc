@@ -56,5 +56,6 @@ const SectionColumn = ({
     )}
   </ul>
 )
+}
 
 export default React.memo(SectionColumn)
