@@ -126,22 +126,286 @@ const PollaRankingWithPagintation: FC<Props> = (props) => {
           </g>
         </g>
       </svg>
-      <div className="polla-ranking__table">
-        <h2 className="polla-ranking__table-title">Ranking</h2>
-        {isLoading ? <div className="polla-score__spinner ranking" /> : null}
-        {list
-          .slice(
-            itemsPerPage * (currentPage - 1),
-            itemsPerPage * (currentPage - 1) + itemsPerPage
-          )
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          .map((item, i) => (
-            <div className="polla-ranking__table-item" key={item?.id}>
-              <div className="polla-ranking__table-first">{item?.puesto}.</div>
-              <div className="polla-ranking__table-second">{item?.nombre}</div>
-              <div className="polla-ranking__table-third">{item?.puntaje}</div>
-            </div>
-          ))}
+      <div className="polla-ranking__container-tri">
+        <div className="polla-ranking__table-img-1">
+          <svg
+            className="polla-ranking__table-img-1"
+            id="Capa_1"
+            data-name="Capa 1"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 275 720">
+            <defs>
+              <style>{'.cls-1{fill:#ddd}'}</style>
+            </defs>
+            <g id="Lines">
+              <path
+                id="Trazado_79407"
+                data-name="Trazado 79407"
+                className="cls-1"
+                d="m233.28 599.9.05-.15 40-119.8L233.28 360l.05-.15 40-119.8-40.08-120 .06-.15L273.41 0l1.59.29-40 119.8 40.08 120-.05.14-40 119.8L275 480l-.05.14-40 119.8L275 719.7l-1.54.29Z"
+              />
+              <path
+                id="Trazado_79408"
+                data-name="Trazado 79408"
+                className="cls-1"
+                d="m220.32 599.9.05-.15 40-119.8L220.32 360l.05-.16 40-119.79-40.08-120 .05-.15L260.45 0l1.55.29-40 119.8 40.08 120-.05.15L222 360l40 120-.05.14-40 119.8L262 719.7l-1.54.29Z"
+              />
+              <path
+                id="Trazado_79409"
+                data-name="Trazado 79409"
+                className="cls-1"
+                d="m207.35 599.9.05-.15 40-119.8L207.35 360l.05-.15 40-119.8-40.08-120 .05-.15L247.48 0l1.52.29-40 119.8 40.08 120v.14L209 360l40.08 120v.14l-40 119.8L249 719.7l-1.54.29Z"
+              />
+              <path
+                id="Trazado_79410"
+                data-name="Trazado 79410"
+                className="cls-1"
+                d="m194.39 599.9.05-.15 40-119.8L194.39 360l.05-.15 40-119.8-40.08-120 .05-.15L234.52 0l1.54.29-40 119.8 40.08 120-.05.14L196 360l40.08 120-.05.14-40 119.8 40 119.81-1.54.29Z"
+              />
+              <path
+                id="Trazado_79411"
+                data-name="Trazado 79411"
+                className="cls-1"
+                d="M181.43 599.9v-.15l40-119.8-40-119.95v-.16l40-119.79-40.08-120v-.15L221.56 0l1.54.29-40 119.8 40.08 120-.05.14-40 119.8 40.08 120-.05.14-40 119.8 40 119.81-1.54.29Z"
+              />
+              <path
+                id="Trazado_79412"
+                data-name="Trazado 79412"
+                className="cls-1"
+                d="M168.49 599.9v-.15l40-119.8-40-119.95v-.16l40-119.79-40.08-120v-.15L208.62 0l1.54.29-40 119.8 40.07 120v.15l-40 119.8L210.2 480v.15l-40 119.8 40 119.8-1.54.3Z"
+              />
+              <path
+                id="Trazado_79413"
+                data-name="Trazado 79413"
+                className="cls-1"
+                d="M155.52 599.9v-.15l40-119.8-40-119.95v-.15l40-119.8-40.08-120v-.15L195.65 0l1.54.29-40 119.8 40.08 120-.05.14-40 119.8 40.08 120-.05.14-40 119.8 40 119.82-1.54.29Z"
+              />
+              <path
+                id="Trazado_79414"
+                data-name="Trazado 79414"
+                className="cls-1"
+                d="m142.56 599.9.05-.15 40-119.8L142.56 360l.05-.15 40-119.8-40.08-120 .05-.15L182.69 0l1.54.29-40 119.8 40.08 120-.05.14L144.2 360l40.08 120-.05.14-40 119.8 40 119.81-1.54.29Z"
+              />
+              <path
+                id="Trazado_79415"
+                data-name="Trazado 79415"
+                className="cls-1"
+                d="M129.6 599.9v-.15l40-119.8-40-119.95v-.16l40-119.79-40.08-120v-.15L169.72 0l1.54.29-40 119.8 40.08 120-.05.15-40 119.8 40.08 120-.05.15-40 119.8 40 119.8-1.54.3Z"
+              />
+              <path
+                id="Trazado_79416"
+                data-name="Trazado 79416"
+                className="cls-1"
+                d="M116.65 599.9v-.15l40-119.8-40-119.95v-.16l40-119.79-40.08-120v-.15L156.78 0l1.54.29-40 119.8 40.08 120-.05.15-40 119.8 40.08 120-.05.14-40 119.8 40 119.81-1.54.29Z"
+              />
+              <path
+                id="Trazado_79417"
+                data-name="Trazado 79417"
+                className="cls-1"
+                d="M103.69 599.9v-.15l40-119.8-40-119.95v-.16l40-119.79-40.08-120v-.15L143.82 0l1.54.29-40 119.8 40.08 120v.15l-40 119.8 40.08 120v.14l-40 119.81 40 119.81-1.54.29Z"
+              />
+              <path
+                id="Trazado_79418"
+                data-name="Trazado 79418"
+                className="cls-1"
+                d="M90.73 599.9v-.15l40-119.8-40-119.95v-.16l40-119.79-40.09-120v-.15L130.85 0l1.54.29-40 119.8 40.08 120-.05.15L92.36 360l40.08 120-.05.15-40 119.8 40 119.8-1.54.3Z"
+              />
+              <path
+                id="Trazado_79419"
+                data-name="Trazado 79419"
+                className="cls-1"
+                d="M77.76 599.9v-.15l40-119.8-40-119.95v-.15l40-119.8-40.08-120v-.15L117.89 0l1.54.29-40 119.8 40.08 120v.15L79.4 360l40.08 120v.14L79.4 599.9l40 119.81-1.54.29Z"
+              />
+              <path
+                id="Trazado_79420"
+                data-name="Trazado 79420"
+                className="cls-1"
+                d="M64.8 599.9v-.15l40-119.8L64.8 360v-.16l40-119.79-40.08-120v-.15L104.93 0l1.54.29-40 119.8 40.07 120v.15L66.44 360l40.07 120v.14l-40 119.8 40 119.82-1.54.29Z"
+              />
+              <path
+                id="Trazado_79421"
+                data-name="Trazado 79421"
+                className="cls-1"
+                d="M51.84 599.9v-.15l40-119.8-40-119.95v-.15l40-119.8-40.08-120v-.15L92 0l1.5.29-40 119.8 40.08 120v.15L53.47 360l40.08 120v.15l-40 119.8 40 119.8L92 720Z"
+              />
+              <path
+                id="Trazado_79422"
+                data-name="Trazado 79422"
+                className="cls-1"
+                d="M38.89 599.9v-.15L79 480 38.89 360v-.15l40-119.8-40.08-120v-.15L79 0l1.54.29-40 119.8 40.08 120v.14L40.53 360l40.08 120v.14l-40 119.8 40 119.82L79 720Z"
+              />
+              <path
+                id="Trazado_79423"
+                data-name="Trazado 79423"
+                className="cls-1"
+                d="M25.93 599.9v-.15L66 480 25.93 360v-.15l40-119.8-40.08-120v-.15L66.05 0l1.54.29-40 119.8 40.08 120v.14L27.56 360l40.08 120v.14l-40 119.8 40 119.82-1.54.29Z"
+              />
+              <path
+                id="Trazado_79424"
+                data-name="Trazado 79424"
+                className="cls-1"
+                d="M13 599.9v-.15L53 480 13 360v-.16l40-119.79-40-119.96v-.15L53.09 0l1.54.29-40 119.8 40.08 120v.14L14.6 360l40.08 120v.14l-40 119.8 40 119.81-1.54.29Z"
+              />
+              <path
+                id="Trazado_79425"
+                data-name="Trazado 79425"
+                className="cls-1"
+                d="m0 599.9.05-.15 40-119.8L0 360l.05-.16 40-119.79L0 120.09l.05-.15L40.13 0l1.54.29-40 119.8 40.08 120v.15L1.64 360l40.08 120v.15l-40 119.8 40 119.8-1.54.3Z"
+              />
+            </g>
+          </svg>
+        </div>
+        <div className="polla-ranking__table">
+          <h2 className="polla-ranking__table-title">Ranking</h2>
+          {isLoading ? <div className="polla-score__spinner ranking" /> : null}
+          {list
+            .slice(
+              itemsPerPage * (currentPage - 1),
+              itemsPerPage * (currentPage - 1) + itemsPerPage
+            )
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            .map((item, i) => (
+              <div className="polla-ranking__table-item" key={item?.id}>
+                <div className="polla-ranking__table-first">
+                  {item?.puesto}.
+                </div>
+                <div className="polla-ranking__table-second">
+                  {item?.nombre}
+                </div>
+                <div className="polla-ranking__table-third">
+                  {item?.puntaje}
+                </div>
+              </div>
+            ))}
+        </div>
+        <div className="polla-ranking__table-img-2">
+          <svg
+            className="polla-ranking__table-img-2"
+            id="Capa_1"
+            data-name="Capa 1"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 275 720">
+            <defs>
+              <style>{'.cls-1{fill:#ddd}'}</style>
+            </defs>
+            <g id="Lines">
+              <path
+                id="Trazado_79407"
+                data-name="Trazado 79407"
+                className="cls-1"
+                d="m233.28 599.9.05-.15 40-119.8L233.28 360l.05-.15 40-119.8-40.08-120 .06-.15L273.41 0l1.59.29-40 119.8 40.08 120-.05.14-40 119.8L275 480l-.05.14-40 119.8L275 719.7l-1.54.29Z"
+              />
+              <path
+                id="Trazado_79408"
+                data-name="Trazado 79408"
+                className="cls-1"
+                d="m220.32 599.9.05-.15 40-119.8L220.32 360l.05-.16 40-119.79-40.08-120 .05-.15L260.45 0l1.55.29-40 119.8 40.08 120-.05.15L222 360l40 120-.05.14-40 119.8L262 719.7l-1.54.29Z"
+              />
+              <path
+                id="Trazado_79409"
+                data-name="Trazado 79409"
+                className="cls-1"
+                d="m207.35 599.9.05-.15 40-119.8L207.35 360l.05-.15 40-119.8-40.08-120 .05-.15L247.48 0l1.52.29-40 119.8 40.08 120v.14L209 360l40.08 120v.14l-40 119.8L249 719.7l-1.54.29Z"
+              />
+              <path
+                id="Trazado_79410"
+                data-name="Trazado 79410"
+                className="cls-1"
+                d="m194.39 599.9.05-.15 40-119.8L194.39 360l.05-.15 40-119.8-40.08-120 .05-.15L234.52 0l1.54.29-40 119.8 40.08 120-.05.14L196 360l40.08 120-.05.14-40 119.8 40 119.81-1.54.29Z"
+              />
+              <path
+                id="Trazado_79411"
+                data-name="Trazado 79411"
+                className="cls-1"
+                d="M181.43 599.9v-.15l40-119.8-40-119.95v-.16l40-119.79-40.08-120v-.15L221.56 0l1.54.29-40 119.8 40.08 120-.05.14-40 119.8 40.08 120-.05.14-40 119.8 40 119.81-1.54.29Z"
+              />
+              <path
+                id="Trazado_79412"
+                data-name="Trazado 79412"
+                className="cls-1"
+                d="M168.49 599.9v-.15l40-119.8-40-119.95v-.16l40-119.79-40.08-120v-.15L208.62 0l1.54.29-40 119.8 40.07 120v.15l-40 119.8L210.2 480v.15l-40 119.8 40 119.8-1.54.3Z"
+              />
+              <path
+                id="Trazado_79413"
+                data-name="Trazado 79413"
+                className="cls-1"
+                d="M155.52 599.9v-.15l40-119.8-40-119.95v-.15l40-119.8-40.08-120v-.15L195.65 0l1.54.29-40 119.8 40.08 120-.05.14-40 119.8 40.08 120-.05.14-40 119.8 40 119.82-1.54.29Z"
+              />
+              <path
+                id="Trazado_79414"
+                data-name="Trazado 79414"
+                className="cls-1"
+                d="m142.56 599.9.05-.15 40-119.8L142.56 360l.05-.15 40-119.8-40.08-120 .05-.15L182.69 0l1.54.29-40 119.8 40.08 120-.05.14L144.2 360l40.08 120-.05.14-40 119.8 40 119.81-1.54.29Z"
+              />
+              <path
+                id="Trazado_79415"
+                data-name="Trazado 79415"
+                className="cls-1"
+                d="M129.6 599.9v-.15l40-119.8-40-119.95v-.16l40-119.79-40.08-120v-.15L169.72 0l1.54.29-40 119.8 40.08 120-.05.15-40 119.8 40.08 120-.05.15-40 119.8 40 119.8-1.54.3Z"
+              />
+              <path
+                id="Trazado_79416"
+                data-name="Trazado 79416"
+                className="cls-1"
+                d="M116.65 599.9v-.15l40-119.8-40-119.95v-.16l40-119.79-40.08-120v-.15L156.78 0l1.54.29-40 119.8 40.08 120-.05.15-40 119.8 40.08 120-.05.14-40 119.8 40 119.81-1.54.29Z"
+              />
+              <path
+                id="Trazado_79417"
+                data-name="Trazado 79417"
+                className="cls-1"
+                d="M103.69 599.9v-.15l40-119.8-40-119.95v-.16l40-119.79-40.08-120v-.15L143.82 0l1.54.29-40 119.8 40.08 120v.15l-40 119.8 40.08 120v.14l-40 119.81 40 119.81-1.54.29Z"
+              />
+              <path
+                id="Trazado_79418"
+                data-name="Trazado 79418"
+                className="cls-1"
+                d="M90.73 599.9v-.15l40-119.8-40-119.95v-.16l40-119.79-40.09-120v-.15L130.85 0l1.54.29-40 119.8 40.08 120-.05.15L92.36 360l40.08 120-.05.15-40 119.8 40 119.8-1.54.3Z"
+              />
+              <path
+                id="Trazado_79419"
+                data-name="Trazado 79419"
+                className="cls-1"
+                d="M77.76 599.9v-.15l40-119.8-40-119.95v-.15l40-119.8-40.08-120v-.15L117.89 0l1.54.29-40 119.8 40.08 120v.15L79.4 360l40.08 120v.14L79.4 599.9l40 119.81-1.54.29Z"
+              />
+              <path
+                id="Trazado_79420"
+                data-name="Trazado 79420"
+                className="cls-1"
+                d="M64.8 599.9v-.15l40-119.8L64.8 360v-.16l40-119.79-40.08-120v-.15L104.93 0l1.54.29-40 119.8 40.07 120v.15L66.44 360l40.07 120v.14l-40 119.8 40 119.82-1.54.29Z"
+              />
+              <path
+                id="Trazado_79421"
+                data-name="Trazado 79421"
+                className="cls-1"
+                d="M51.84 599.9v-.15l40-119.8-40-119.95v-.15l40-119.8-40.08-120v-.15L92 0l1.5.29-40 119.8 40.08 120v.15L53.47 360l40.08 120v.15l-40 119.8 40 119.8L92 720Z"
+              />
+              <path
+                id="Trazado_79422"
+                data-name="Trazado 79422"
+                className="cls-1"
+                d="M38.89 599.9v-.15L79 480 38.89 360v-.15l40-119.8-40.08-120v-.15L79 0l1.54.29-40 119.8 40.08 120v.14L40.53 360l40.08 120v.14l-40 119.8 40 119.82L79 720Z"
+              />
+              <path
+                id="Trazado_79423"
+                data-name="Trazado 79423"
+                className="cls-1"
+                d="M25.93 599.9v-.15L66 480 25.93 360v-.15l40-119.8-40.08-120v-.15L66.05 0l1.54.29-40 119.8 40.08 120v.14L27.56 360l40.08 120v.14l-40 119.8 40 119.82-1.54.29Z"
+              />
+              <path
+                id="Trazado_79424"
+                data-name="Trazado 79424"
+                className="cls-1"
+                d="M13 599.9v-.15L53 480 13 360v-.16l40-119.79-40-119.96v-.15L53.09 0l1.54.29-40 119.8 40.08 120v.14L14.6 360l40.08 120v.14l-40 119.8 40 119.81-1.54.29Z"
+              />
+              <path
+                id="Trazado_79425"
+                data-name="Trazado 79425"
+                className="cls-1"
+                d="m0 599.9.05-.15 40-119.8L0 360l.05-.16 40-119.79L0 120.09l.05-.15L40.13 0l1.54.29-40 119.8 40.08 120v.15L1.64 360l40.08 120v.15l-40 119.8 40 119.8-1.54.3Z"
+              />
+            </g>
+          </svg>
+        </div>
       </div>
       <div className="polla-ranking__pag">
         <button

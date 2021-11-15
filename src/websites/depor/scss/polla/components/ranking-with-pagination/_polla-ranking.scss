@@ -11,6 +11,27 @@
   &__rank-img-cls2 {
     fill: #89c2e8;
   }
+
+  &__container-tri {
+    display: flex;
+    flex-direction: row;
+  }
+  &__table-img-1 {
+    width: 100%;
+    max-width: 180px;
+    height: 100%;
+    max-height: 720px;
+    padding-top: 200px;
+  }
+  &__table-img-2 {
+    width: 100%;
+    max-width: 180px;
+    height: 100%;
+    max-height: 720px;
+    padding-top: 30px;
+    margin-left: -13px;
+  }
+
   &__table {
     padding: 16px 15px 32px;
     background-color: #6732b8;
@@ -23,6 +44,7 @@
       border-radius: 10px;
     }
   }
+
   &__table-title {
     text-align: center;
     font: 700 24px/29px $secondary-font;
@@ -31,6 +53,7 @@
     text-transform: uppercase;
     margin-bottom: 16px;
   }
+
   &__table-item {
     background-color: #3c1478;
     border-radius: 4px;
