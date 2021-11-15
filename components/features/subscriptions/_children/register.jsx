@@ -1,4 +1,5 @@
 import Identity from '@arc-publishing/sdk-identity'
+import getProperties from 'fusion:properties'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
@@ -54,6 +55,7 @@ const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
   const [showConfirm, setShowConfirm] = React.useState(false)
   const [showSendEmail, setShowSendEmail] = React.useState(false)
   const { texts, urls } = PropertiesCommon
+  const { activeMagicLink } = getProperties(arcSite)
 
   const stateSchema = {
     remail: { value: '', error: '' },
@@ -93,7 +95,8 @@ const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
     if (typeof window !== 'undefined') {
       Taggeo(
         nameTagCategory,
-        `web_sw${typeDialog[0]}_registro_boton_registrarme`
+        `web_sw${typeDialog[0]}_registro_boton_registrarme`,
+        arcSite
       )
       setLoading(true)
       setLoadText('Registrando...')
@@ -148,14 +151,15 @@ const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
               type: 'String',
             },
           ],
-        },
-        { doLogin: true },
-        { rememberMe: true }
+        }
       )
         .then((resSignUp) => {
           setShowConfirm(true)
-
           setLoadText('Cargando Perfil...')
+          if (activeMagicLink) {
+            // requestVerifyEmail se ejecuta automáticamente con el SignUp
+            Identity.requestOTALink(resSignUp.profile.email)
+          }
           Identity.getUserProfile().then((resProfile) => {
             setLoadText('Cargando Servicios...')
             sendNewsLettersUser(
@@ -175,7 +179,8 @@ const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
               .finally(() => {
                 Taggeo(
                   nameTagCategory,
-                  `web_sw${typeDialog[0]}_registro_success_registrarme`
+                  `web_sw${typeDialog[0]}_registro_success_registrarme`,
+                  arcSite
                 )
               })
           })
@@ -186,7 +191,8 @@ const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
           setLoading(false)
           Taggeo(
             nameTagCategory,
-            `web_sw${typeDialog[0]}_registro_error_registrarme`
+            `web_sw${typeDialog[0]}_registro_error_registrarme`,
+            arcSite
           )
         })
     }
@@ -217,8 +223,16 @@ const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(remail)
-    Taggeo(nameTagCategory, `web_sw${typeDialog[0]}_registro_reenviar_correo`)
+    if (activeMagicLink) {
+      Identity.requestOTALink(remail)
+    } else {
+      Identity.requestVerifyEmail(remail)
+    }
+    Taggeo(
+      nameTagCategory,
+      `web_sw${typeDialog[0]}_registro_reenviar_correo`,
+      arcSite
+    )
     let timeleft = 9
     const downloadTimer = setInterval(() => {
       if (timeleft <= 0) {
@@ -462,7 +476,7 @@ const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
               type="button"
               onClick={() => {
                 changeTemplate('login')
-                Taggeo(nameTagCategory, `web_swl_registro_link_volver`)
+                Taggeo(nameTagCategory, `web_swl_registro_link_volver`, arcSite)
               }}>
               Iniciar Sesión
             </button>

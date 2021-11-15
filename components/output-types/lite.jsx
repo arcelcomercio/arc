@@ -42,6 +42,10 @@ import iframeScript from './_dependencies/iframe-script'
 import jwplayerScript from './_dependencies/jwplayer-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-lite-script'
 import {
+  getEnabledServerside,
+  getScriptAdPushup,
+} from './_dependencies/serverside'
+import {
   getDescription,
   getIsStory,
   getKeywords,
@@ -259,6 +263,10 @@ const LiteOutput = ({
     inlineStyleUrl = `resources/dist/elcomercio/css/story-v2-standard.css`
     styleUrl = ''
   }
+  if (metaValue('section_style') === 'story-v2-video') {
+    inlineStyleUrl = `resources/dist/elcomercio/css/story-v2-video.css`
+    styleUrl = ''
+  }
   /** */
 
   let lang = 'es'
@@ -289,6 +297,9 @@ const LiteOutput = ({
   ).replace(/^\/carga-continua/, '')}`
 
   const fontFace = `@font-face {font-family: fallback-local; src: local(Arial); ascent-override: 125%; descent-override: 25%; line-gap-override: 0%;}`
+
+  const enabledPushup = getEnabledServerside(arcSite)
+  const scriptAdpushup = getScriptAdPushup(arcSite)
 
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
@@ -884,24 +895,14 @@ const LiteOutput = ({
             )}
           </>
         )}
-        {arcSite === SITE_OJO && (
+        {enabledPushup ? (
           <>
             <script
-              dangerouslySetInnerHTML={{
-                __html: `setTimeout(function(){var e,t;window,e=document,(t=e.createElement("script")).src="//cdn.adpushup.com/42879/adpushup.js",t.crossOrigin="anonymous",t.type="text/javascript",t.async=!0,(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(t)},5e3);`,
-              }}
+              type="text/javascript"
+              dangerouslySetInnerHTML={{ __html: scriptAdpushup }}
             />
           </>
-        )}
-        {arcSite === SITE_ELBOCON && (
-          <>
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `setTimeout(function(){var e,t;window,e=document,(t=e.createElement("script")).src="//cdn.adpushup.com/42614/adpushup.js",t.crossOrigin="anonymous",t.type="text/javascript",t.async=!0,(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(t)},5e3);`,
-              }}
-            />
-          </>
-        )}
+        ) : null}
         {vallaSignwall === false &&
         (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
         !isPreview ? (

@@ -42,3 +42,10 @@
 .oflow-h {
   overflow: hidden;
 }
+
+.hidden-label {
+  font-size: 0;
+  height: 0;
+  overflow: hidden;
+  width: 0;
+}

@@ -1,0 +1,51 @@
+.st-social {
+  padding-top: 20px;
+  &__tooltip,
+  &__link {
+    display: block;
+    font: 500 12px/1 $secondary-font;
+    letter-spacing: 2.4px;
+    @media (--desktop) {
+      font: 500 16px/1 $secondary-font;
+      letter-spacing: 3.2px;
+    }
+  }
+  &__tooltip {
+    position: relative;
+    span {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 25px;
+      width: 315px;
+      background-color: #fff;
+      color: #404040;
+      border: 1px solid #d7d7d7;
+      padding: 15px;
+      letter-spacing: normal;
+      font: 400 15px/22px $primary-font;
+    }
+    &:hover {
+      span {
+        display: block;
+      }
+    }
+  }
+  &__link {
+    margin-right: 5px;
+    text-transform: uppercase;
+  }
+  &__bbc {
+    img {
+      width: 164px;
+      height: 24px;
+      display: block;
+      margin-right: 10px;
+    }
+  }
+  &--bbc {
+    .st-social__link {
+      display: none;
+    }
+  }
+}

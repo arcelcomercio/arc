@@ -2,7 +2,10 @@ import * as React from 'react'
 
 import Image from '../../../../global-components/image'
 import Icon from '../../../../global-components/multimedia-icon'
-import { SITE_PERU21 } from '../../../../utilities/constants/sitenames'
+import {
+  SITE_DIARIOCORREO,
+  SITE_PERU21,
+} from '../../../../utilities/constants/sitenames'
 
 const classes = {
   item: 'separator__item hidden w-full h-full p-0 position-relative',
@@ -21,6 +24,7 @@ const SeparatorsBasicChildSeparatorStory = ({
   imageUrl,
   author,
   authorLink,
+  isPremium,
   isAuthorVisible,
   isImageVisible,
   arcSite,
@@ -33,13 +37,14 @@ const SeparatorsBasicChildSeparatorStory = ({
       width = 314
       height = 374
       sizes = ''
-      break;
+      break
     default:
       width = 234
       height = 161
       sizes = '(max-width: 639px) 640px, 234px'
-      break;
+      break
   }
+  const shouldRenderPremiumTag = isPremium && arcSite === SITE_DIARIOCORREO
 
   return (
     <div className={classes.item}>
@@ -51,7 +56,13 @@ const SeparatorsBasicChildSeparatorStory = ({
             className="separator__title-link"
             href={websiteLink}>
             <h3 itemProp="name" className={classes.text}>
-              {title}
+              {shouldRenderPremiumTag ? (
+                <>
+                  <span style={{ color: '#FFD333' }}>★</span>&nbsp;&nbsp;{title}
+                </>
+              ) : (
+                title
+              )}
             </h3>
           </a>
           {isAuthorVisible && (

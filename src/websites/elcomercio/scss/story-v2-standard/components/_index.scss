@@ -5,4 +5,12 @@
 
 @import "./layouts/story-sidebar";
 
-@import "./features/story/tags/st-tags"
+@import "./features/header/inverted";
+@import "./features/story/title";
+@import "./features/story/social";
+@import "./global-components/lite/share-buttons-v2";
+@import "./features/story/author";
+@import "./features/story/multimedia";
+@import "./features/breaking-news/breaking-news";
+@import "./features/cards/most-read/most-read";
+@import "./features/story/tags/st-tags";
