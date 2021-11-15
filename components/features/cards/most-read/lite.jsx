@@ -18,6 +18,7 @@ const CardMostReadLite = (props) => {
     arcSite,
     requestUri,
     isAdmin,
+    metaValue,
   } = useFusionContext()
 
   const presets = 'no-presets'
@@ -59,6 +60,7 @@ const CardMostReadLite = (props) => {
     isAdmin,
     classList: '',
     contextPath,
+    metaValue
   }
 
   return (
