@@ -151,9 +151,14 @@ export default ({
         .catch(console.error)
   }
 
-  const fecha = principalVideo.displayDate
-    ? formatDayMonthYear(principalVideo.displayDate, true, false, true, true, false)
-    : ''
+  const getFecha = () => {
+    if (!principalVideo.displayDate) {
+      return ''
+    }
+
+    return arcSite === 'trome' ? formatDayMonthYear(principalVideo.displayDate, true, false, true, true, false)
+      : formatDayMonthYear(principalVideo.displayDate, true, false)
+  }
 
   const playListParams = {
     ...playListVideo,
@@ -353,7 +358,7 @@ export default ({
                         </li>
                       )}
                       {principalVideo.displayDate !== '' && (
-                        <li className="section-video__text">{fecha}</li>
+                        <li className="section-video__text">{getFecha()}</li>
                       )}
                       {!(
                         principalVideo.videoDuration === '00:00' ||
@@ -393,7 +398,7 @@ export default ({
                     </li>
                   )}
                   {principalVideo.displayDate !== '' && (
-                    <li className="section-video__text">{fecha}</li>
+                    <li className="section-video__text">{getFecha()}</li>
                   )}
                   {!(
                     principalVideo.videoDuration === '00:00' ||
