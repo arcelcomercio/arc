@@ -42,6 +42,10 @@ import iframeScript from './_dependencies/iframe-script'
 import jwplayerScript from './_dependencies/jwplayer-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-lite-script'
 import {
+  getEnabledServerside,
+  getScriptAdPushup,
+} from './_dependencies/serverside'
+import {
   getDescription,
   getIsStory,
   getKeywords,
@@ -51,7 +55,6 @@ import {
 import vallaScript from './_dependencies/valla'
 import videoScript from './_dependencies/video-script'
 import widgets from './_dependencies/widgets'
-import { getEnabledServerside, getScriptAdPushup } from './_dependencies/serverside'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const LiteOutput = ({
@@ -258,6 +261,10 @@ const LiteOutput = ({
 
   if (metaValue('section_style') === 'story-v2-standard') {
     inlineStyleUrl = `resources/dist/elcomercio/css/story-v2-standard.css`
+    styleUrl = ''
+  }
+  if (metaValue('section_style') === 'story-v2-video') {
+    inlineStyleUrl = `resources/dist/elcomercio/css/story-v2-video.css`
     styleUrl = ''
   }
   /** */
