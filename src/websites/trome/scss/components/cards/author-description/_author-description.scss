@@ -11,6 +11,7 @@ $author-main-font: "Encode Sans Condensed", sans-serif;
 
     @media (--desktop) {
       font-size: 23px;
+      min-height: 272px;
       // solo porque el tamaño del main es otro y tons se tuvo que forzar con lo siguiente
       width: 5000px;
       left: -2000px;
@@ -18,6 +19,7 @@ $author-main-font: "Encode Sans Condensed", sans-serif;
     @media (--tablet) {
       display: flex;
       justify-content: center;
+      min-height: 270px;
       // solo porque el tamaño del main es otro y tons se tuvo que forzar con lo siguiente
       width: 1024px;
       left: -200px;
