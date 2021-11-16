@@ -245,14 +245,13 @@ window.addEventListener('load', () => {requestIdle(() => {
   })
 })})
 */
-export const sticky = `window.addEventListener("load",function(){requestIdle(function(){ 
+export const sticky = `
   var a = document.querySelector(".header-inverted-featured")
   var o = new IntersectionObserver(
     ([e]) => e.target.classList.toggle("header-inverted-featured__header-sticky", e.intersectionRatio < 1),
     { threshold: [1] }
   );
-  o.observe(a);
-})})`
+  o.observe(a);`
 
 /* */
 export const hoverSearch = `window.addEventListener("load",function(){requestIdle(function(){ 
