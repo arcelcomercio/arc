@@ -536,6 +536,9 @@ const PollaScoreList: FC<Props> = (props) => {
                       }}>
                       <div className="polla-score__form-top">
                         <div className="polla-score__country-cont">
+                          <div className="polla-score__country-text">
+                            {score.equipo1}
+                          </div>
                           <img
                             className="polla-score__country-img"
                             src={`${COUNTRIES_ASSETS_PATH}${slugify(
@@ -543,9 +546,6 @@ const PollaScoreList: FC<Props> = (props) => {
                             )}.svg`}
                             alt="País"
                           />
-                          <div className="polla-score__country-text">
-                            {score.equipo1}
-                          </div>
                         </div>
                         <input
                           disabled={score.estado > 1}
@@ -580,6 +580,9 @@ const PollaScoreList: FC<Props> = (props) => {
                           defaultValue={score2}
                         />
                         <div className="polla-score__country-cont">
+                          <div className="polla-score__country-text">
+                            {score.equipo2}
+                          </div>
                           <img
                             className="polla-score__country-img"
                             src={`${COUNTRIES_ASSETS_PATH}${slugify(
@@ -587,9 +590,6 @@ const PollaScoreList: FC<Props> = (props) => {
                             )}.svg`}
                             alt="País"
                           />
-                          <div className="polla-score__country-text">
-                            {score.equipo2}
-                          </div>
                         </div>
                       </div>
                       <div className="polla-score__error-cont">
