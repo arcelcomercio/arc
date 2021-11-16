@@ -66,7 +66,7 @@ const CustomImage: React.FC<CustomImageProps> = ({
   icon,
   movilImage,
   defaultImg,
-  pictureStyle,
+  pictureStyle = {},
 }) => {
   /**
    * Se espera el atributo `loading` para simular los
