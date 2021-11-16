@@ -5,7 +5,6 @@ import * as React from 'react'
 
 import FeaturedStory from '../../../global-components/featured-story'
 import schemaFilter from '../../../global-components/featured-story/schema-filter'
-import { featuredStoryFields } from '../../../utilities/included-fields'
 import {
   includeCredits,
   includePrimarySection,
@@ -79,9 +78,9 @@ const CardFeaturedStoryAdvanced = (props) => {
     useContent(
       adsSpace && adsSpace !== 'none'
         ? {
-          source: 'get-ads-spaces',
-          query: { space: adsSpace },
-        }
+            source: 'get-ads-spaces',
+            query: { space: adsSpace },
+          }
         : {}
     ) || {}
 
@@ -150,7 +149,9 @@ const CardFeaturedStoryAdvanced = (props) => {
             arcSite={arcSite}
             siteName={siteName}
             isLazyLoadActivate={isLazyLoadActivate}
-            titleHeader={titleHeaderField || titleHeader}
+            titleHeader={
+              arcSite === 'trome' ? titleHeaderField || titleHeader : ''
+            }
             invertedTitle={invertedTitle}
             invertedColor={invertedColor}
             hideAuthor={hideAuthor}

@@ -82,7 +82,7 @@ const StoryTitleLite = () => {
             </ul>
           )}
           {isStoryV2StandarStyle && <ShareButtons renderScripts />}
-          {contentElementsQuoteOne && (
+          {arcSite === 'trome' && contentElementsQuoteOne && (
             <div
               className={classes.related}
               dangerouslySetInnerHTML={{ __html: contentElementsQuoteOne }}
