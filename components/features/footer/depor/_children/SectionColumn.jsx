@@ -6,7 +6,7 @@ const classes = {
   sectionColumn:
     'footer-secction__content-column footer-secction__item-border flex flex-col',
   item: 'footer-secction__item',
-  itemTitle: 'footer-secction__item__title'
+  itemTitle: 'footer-secction__item__title',
 }
 
 const ItemLinkSubSection = ({ url, subsectionName, isBold }) => (
