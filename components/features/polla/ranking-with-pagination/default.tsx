@@ -44,17 +44,12 @@ const PollaRankingWithPagintation: FC<Props> = (props) => {
         className="polla-ranking__rank-img"
         id="Capa_1"
         data-name="Capa 1"
-<<<<<<< HEAD
-        viewBox="0 0 100 92">
-        <g id="Grupo_1172" data-name="Grupo 1172">
-=======
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 180 166">
         <defs>
           <style>{'.cls-2{fill:#bbb}.cls-3{fill:#83f73d}'}</style>
         </defs>
         <g id="Copa">
->>>>>>> hu-54071
           <g id="Grupo_1169" data-name="Grupo 1169">
             <g id="Grupo_1162" data-name="Grupo 1162">
               <path
@@ -131,23 +126,6 @@ const PollaRankingWithPagintation: FC<Props> = (props) => {
           </g>
         </g>
       </svg>
-<<<<<<< HEAD
-      <div className="polla-ranking__table">
-        <h2 className="polla-ranking__table-title">Ranking</h2>
-        {isLoading ? <div className="polla-score__spinner ranking" /> : null}
-        {list
-          .slice(
-            itemsPerPage * (currentPage - 1),
-            itemsPerPage * (currentPage - 1) + itemsPerPage
-          )
-          .map((item) => (
-            <div className="polla-ranking__table-item" key={item?.id}>
-              <div className="polla-ranking__table-first">{item?.puesto}.</div>
-              <div className="polla-ranking__table-second">{item?.nombre}</div>
-              <div className="polla-ranking__table-third">{item?.puntaje}</div>
-            </div>
-          ))}
-=======
       <div className="polla-ranking__container-tri">
         <div className="polla-ranking__table">
           <h2 className="polla-ranking__table-title">Ranking</h2>
@@ -172,7 +150,6 @@ const PollaRankingWithPagintation: FC<Props> = (props) => {
               </div>
             ))}
         </div>
->>>>>>> hu-54071
       </div>
       <div className="polla-ranking__pag">
         <button
