@@ -58,10 +58,15 @@ const FormVerify = ({ onClose, tokenVerify, tokenMagicLink, typeDialog }) => {
       .finally(() => {
         setShowLoading(false)
       })
-
-    if (Identity.isLoggedIn()) {
+    /* if (Identity.isLoggedIn()) {
       setShowBtnContinue(true)
-    }
+    } */
+    // Antes estaba el if, pero el if no se usa con promesas
+    Identity.isLoggedIn().then((response) => {
+      if (response === true) {
+        setShowBtnContinue(true)
+      }
+    })
   }, [])
 
   return (
