@@ -5,6 +5,7 @@
 
 @import "./layouts/story-sidebar";
 
+@import "./features/story/content/story-content";
 @import "./features/header/inverted";
 @import "./features/story/title";
 @import "./features/story/social";
@@ -15,4 +16,3 @@
 @import "./features/breaking-news/breaking-news";
 @import "./features/cards/most-read/most-read";
 @import "./features/story/tags/st-tags";
-@import "./features/story/content/story-content";
