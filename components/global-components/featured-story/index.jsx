@@ -14,7 +14,7 @@ const IMAGE_COMPLETE = 'complete'
 const classes = {
   featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-0`,
   featuredStoryInvertedColor: `featured-story--inverted`,
-  detail: `featured-story__detail position relative md:p-20`,
+  detail: `featured-story__detail flex flex-col position relative md:p-20`,
   detailInverted: `featured-story__detail__inverted`,
 
   category:

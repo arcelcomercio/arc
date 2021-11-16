@@ -78,9 +78,9 @@ const CardFeaturedStoryAdvanced = (props) => {
     useContent(
       adsSpace && adsSpace !== 'none'
         ? {
-          source: 'get-ads-spaces',
-          query: { space: adsSpace },
-        }
+            source: 'get-ads-spaces',
+            query: { space: adsSpace },
+          }
         : {}
     ) || {}
 
@@ -149,7 +149,9 @@ const CardFeaturedStoryAdvanced = (props) => {
             arcSite={arcSite}
             siteName={siteName}
             isLazyLoadActivate={isLazyLoadActivate}
-            titleHeader={titleHeaderField || titleHeader}
+            titleHeader={
+              arcSite === 'trome' ? titleHeaderField || titleHeader : ''
+            }
             invertedTitle={invertedTitle}
             invertedColor={invertedColor}
             hideAuthor={hideAuthor}
