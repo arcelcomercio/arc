@@ -474,10 +474,15 @@ const HeaderChildInverted = ({
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
-          __html: `${toggleMenu} ${toggleSearch} 
+          __html: `${sticky}`,
+        }}
+      />
+      <script
+        type="text/javascript"
+        dangerouslySetInnerHTML={{
+          __html: `${toggleMenu} ${toggleSearch}
           ${btnSearch}
           ${hoverSearch}
-          ${sticky}
           ${hideMenu ? '' : searchScript}
           ${singwallScript}`,
         }} />
@@ -486,7 +491,8 @@ const HeaderChildInverted = ({
         dangerouslySetInnerHTML={{
           __html: `${initSearch} 
           ${sections}`,
-        }} />
+        }}
+      />
       {invertedTema && !hideTema && <Header />}
     </>
   )
