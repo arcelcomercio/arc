@@ -28,7 +28,7 @@ export const getEnabledServerside = (arcSite) => {
     arcSite === 'ojo' ||
     arcSite === 'elcomercio' ||
     arcSite === 'peru21' ||
-    arcSite === 'gestion' || 
+    arcSite === 'gestion' ||
     arcSite === 'diariocorreo'
   ) {
     epushud = true
