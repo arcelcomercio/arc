@@ -18,6 +18,7 @@ import {
   sections,
   singwallScript,
   sticky,
+  stickyLoaded,
   toggleMenu,
   toggleSearch,
 } from '../_dependencies/scripts'
@@ -480,12 +481,19 @@ const HeaderChildInverted = ({
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
+          __html: `${stickyLoaded}`,
+        }}
+      />
+      <script
+        type="text/javascript"
+        dangerouslySetInnerHTML={{
           __html: `${toggleMenu} ${toggleSearch}
           ${btnSearch}
           ${hoverSearch}
           ${hideMenu ? '' : searchScript}
           ${singwallScript}`,
-        }} />
+        }}
+      />
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{

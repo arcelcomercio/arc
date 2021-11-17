@@ -855,7 +855,7 @@ $min-with-header: 961px;
     .header-inverted-featured__btn-menu {
       @media (--only-mobile) {
         height: 53px;
-        position: sticky;
+        position: relative !important;
         top: auto;
         width: 43px;
       }
