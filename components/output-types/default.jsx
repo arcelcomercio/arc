@@ -7,6 +7,7 @@ import { PREMIUM } from '../utilities/constants/content-tiers'
 import { META_HOME } from '../utilities/constants/meta'
 import {
   SITE_DEPOR,
+  SITE_DIARIOCORREO,
   SITE_ELBOCON,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
