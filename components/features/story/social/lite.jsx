@@ -59,8 +59,8 @@ const StorySocialLite = () => {
   ) : (
     <div
       className={`${classes.container} ${metaValue('section_style') === 'story-v2-standard' && storyTagsBbc(tags)
-          ? 'st-social--bbc'
-          : ''
+        ? 'st-social--bbc'
+        : ''
         }`}>
       <div className={classes.upsection}>
         {metaValue('section_style') === 'story-v2-standard' && isPremium && (
@@ -123,28 +123,6 @@ const StorySocialLite = () => {
           />
         )}
       </div>
-<<<<<<< HEAD
-      {metaValue('section_style') !== 'story-v2-standard' && (
-        <div className={classes.buttons}>
-          <ShareButtons
-            activeGoogleNews={
-              arcSite === 'elcomercio' ||
-              arcSite === 'elcomerciomag' ||
-              arcSite === 'trome'
-            }
-            activeLinkedin={
-              arcSite === 'elcomercio' ||
-              arcSite === 'elcomerciomag' ||
-              arcSite === 'peru21' ||
-              arcSite === 'elbocon' ||
-              arcSite === 'ojo' ||
-              arcSite === 'gestion' ||
-              arcSite === 'trome'
-            }
-          />
-        </div>
-      )}
-=======
       {metaValue('section_style') !== 'story-v2-standard' &&
         metaValue('section_style') !== 'story-v2-video' && (
           <div className={classes.buttons}>
@@ -160,12 +138,12 @@ const StorySocialLite = () => {
                 arcSite === 'peru21' ||
                 arcSite === 'elbocon' ||
                 arcSite === 'ojo' ||
-                arcSite === 'gestion'
+                arcSite === 'gestion' ||
+                arcSite === 'trome'
               }
             />
           </div>
         )}
->>>>>>> ec-red-54067
     </div>
   )
 }
