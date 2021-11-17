@@ -15,6 +15,7 @@ export default (arcSite) => `
           basic {
             type 
             url
+            resized_urls { mobile }
           }
         }
       }
@@ -24,6 +25,7 @@ export default (arcSite) => `
         embed{
           config{
             thumbnail_url
+            resized_urls { mobile }
           }
         }
       }
@@ -33,12 +35,14 @@ export default (arcSite) => `
           basic {
             type 
             url
+            resized_urls { mobile }
           }
         }
       }
       basic {
         type 
         url
+        resized_urls { mobile }
       }
     }
     headlines{
@@ -46,5 +50,6 @@ export default (arcSite) => `
     }
   } 
   section_name
+  section_id
 }
 `
