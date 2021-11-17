@@ -30,7 +30,7 @@ const StoryTitleLite = () => {
     primarySectionLink,
     primarySection,
     contentElementsListOne: { items = [], type = '' } = {},
-    contentElementsQuoteOne
+    contentElementsQuoteOne,
   } = new StoryData({
     data,
     arcSite,
@@ -43,7 +43,7 @@ const StoryTitleLite = () => {
   return (
     <>
       {arcSite === SITE_DEPOR &&
-        !(/^\/mexico\//.test(requestUri) || /^\/colombia\//.test(requestUri)) ? (
+      !(/^\/mexico\//.test(requestUri) || /^\/colombia\//.test(requestUri)) ? (
         <div id="spc_post_stories" />
       ) : null}
       {arcSite === SITE_DEPOR && (
@@ -69,7 +69,7 @@ const StoryTitleLite = () => {
           <h2 itemProp="name" className={classes.description}>
             {subTitle}
           </h2>
-          {contentElementsQuoteOne && (
+          {arcSite === 'trome' && contentElementsQuoteOne && (
             <div
               className={classes.related}
               dangerouslySetInnerHTML={{ __html: contentElementsQuoteOne }}

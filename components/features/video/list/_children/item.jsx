@@ -4,10 +4,10 @@ const videoListChild = ({
   websiteLink,
   title,
   multimediaLandscapeMD,
-  primarySection,
-  primarySectionLink,
+  // primarySection,
+  // primarySectionLink,
   videoDuration,
-  index,
+  // index,
   arcSite
 }) => {
   // const link = `${websiteLink}?ref=landingvideos&pos=${index + 1}`
