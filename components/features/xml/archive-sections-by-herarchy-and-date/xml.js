@@ -1,10 +1,10 @@
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
 
-import { localISODate } from '../../../utilities/helpers'
+import { localISODate } from '../../../utilities/date-time/dates'
 
 const OUTPUTTYPE = '?outputType=xml'
-const MIN_YEAR = 2014
+// const MIN_YEAR = 2014
 
 /**
  * @description Muestra los sitemaps de archivo disponible, por anio.

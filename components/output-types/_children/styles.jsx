@@ -50,6 +50,7 @@ const Styles = ({
     style = 'provecho'
   // else if (requestUri.includes('/covid-19/')) style = 'covid'
   else if (/^\/covid-19\//.test(requestUri)) style = 'covid'
+  // else if (requestUri.includes('/covid-19/')) style = 'covid'
   else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
     style = 'story'
   else if (
@@ -70,6 +71,7 @@ const Styles = ({
     style = 'polla'
 
   style = isHome && arcSite === SITE_ELCOMERCIO ? 'basic' : style
+  style = isHome && arcSite === SITE_TROME ? 'home-v2' : style
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
 

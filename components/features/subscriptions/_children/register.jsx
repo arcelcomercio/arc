@@ -1,5 +1,5 @@
 import Identity from '@arc-publishing/sdk-identity'
-import getProperties from 'fusion:properties'
+import { useFusionContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
@@ -25,6 +25,7 @@ import { sendNewsLettersUser } from '../_dependencies/Services'
 import { Taggeo } from '../_dependencies/Taggeo'
 import { isFbBrowser } from '../_dependencies/Utils'
 import useForm from '../_hooks/useForm'
+import AuthFacebookGoogle from './auth-facebook-google'
 import ButtonSocial from './social'
 
 const styles = {
@@ -54,8 +55,13 @@ const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
   const [showHidePass, setShowHidePass] = React.useState('password')
   const [showConfirm, setShowConfirm] = React.useState(false)
   const [showSendEmail, setShowSendEmail] = React.useState(false)
+  const [hideFormRegister, setHideFormRegister] = React.useState(false)
   const { texts, urls } = PropertiesCommon
-  const { activeMagicLink } = getProperties(arcSite)
+
+  const {
+    customFields: { disableAuthSocialArc = false } = {},
+    siteProperties: { activeNewsletter, activeMagicLink },
+  } = useFusionContext() || {}
 
   const stateSchema = {
     remail: { value: '', error: '' },
@@ -262,44 +268,68 @@ const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
     }
   }
 
+  const loginSuccessFabebook = () => {
+    Identity.getUserProfile().then((resProfile) => {
+      activateAuth(resProfile)
+      updateStep(2)
+    })
+  }
+
+  const loginFailedFacebook = () => setMsgError(getCodeError())
+
   return (
     <>
       {!showConfirm ? (
         <>
           <h2 className={styles.title}>{texts.register}</h2>
-          <div
-            className={`${styles.blockMiddle} ${
-              isFbBrowser ? styles.blockFull : ''
-            }`}>
-            <ButtonSocial
-              arcSocial="facebook"
-              arcSite={arcSite}
-              arcType="registro"
-              dataTreatment={checkedPolits ? '1' : '0'}
-              typeDialog={typeDialog}
-            />
-            {!isFbBrowser && (
+
+          {disableAuthSocialArc ? (
+            <>
+              <AuthFacebookGoogle
+                hideFormParent={() => setHideFormRegister(!hideFormRegister)}
+                onAuthSuccess={loginSuccessFabebook}
+                onAuthFailed={loginFailedFacebook}
+                typeDialog={typeDialog}
+                dataTreatment={checkedPolits ? '1' : '0'}
+                arcSite={arcSite}
+                arcType="registro"
+                activeNewsletter={activeNewsletter}
+              />
+            </>
+          ) : (
+            <div
+              className={`${styles.blockMiddle} ${
+                isFbBrowser ? styles.blockFull : ''
+              }`}>
               <ButtonSocial
-                arcSocial="google"
+                arcSocial="facebook"
                 arcSite={arcSite}
                 arcType="registro"
                 dataTreatment={checkedPolits ? '1' : '0'}
                 typeDialog={typeDialog}
               />
-            )}
-
-            {isFbBrowser && (
-              <AuthURL
-                arcSite={arcSite}
-                onClose={() => {}}
-                typeDialog={typeDialog}
-                activeNewsletter
-                typeForm="registro"
-                onLogged={onLoggedFia}
-                checkUserSubs={() => {}}
-              />
-            )}
-          </div>
+              {!isFbBrowser && (
+                <ButtonSocial
+                  arcSocial="google"
+                  arcSite={arcSite}
+                  arcType="registro"
+                  dataTreatment={checkedPolits ? '1' : '0'}
+                  typeDialog={typeDialog}
+                />
+              )}
+              {isFbBrowser && (
+                <AuthURL
+                  arcSite={arcSite}
+                  onClose={() => {}}
+                  typeDialog={typeDialog}
+                  activeNewsletter
+                  typeForm="registro"
+                  onLogged={onLoggedFia}
+                  checkUserSubs={() => {}}
+                />
+              )}
+            </div>
+          )}
 
           <div className={styles.titleLine}>
             <p className="large">{texts.orEnterDates}</p>

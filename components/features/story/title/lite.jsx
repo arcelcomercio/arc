@@ -11,6 +11,7 @@ const classes = {
   listClasses: 'sht__list',
   title: 'sht__title',
   category: 'sht__category',
+  related: 'sht__related',
 }
 
 const StoryTitleLite = () => {
@@ -29,6 +30,7 @@ const StoryTitleLite = () => {
     primarySectionLink,
     primarySection,
     contentElementsListOne: { items = [], type = '' } = {},
+    contentElementsQuoteOne,
   } = new StoryData({
     data,
     arcSite,
@@ -67,6 +69,12 @@ const StoryTitleLite = () => {
           <h2 itemProp="name" className={classes.description}>
             {subTitle}
           </h2>
+          {arcSite === 'trome' && contentElementsQuoteOne && (
+            <div
+              className={classes.related}
+              dangerouslySetInnerHTML={{ __html: contentElementsQuoteOne }}
+            />
+          )}
           {!isStoryV2StandarStyle && (
             <PremiumTag isPremium={isPremium} arcSite={arcSite} />
           )}

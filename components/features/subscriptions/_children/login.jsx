@@ -1,5 +1,5 @@
 import Identity from '@arc-publishing/sdk-identity'
-import getProperties from 'fusion:properties'
+import { useFusionContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
@@ -16,6 +16,7 @@ import { PropertiesCommon } from '../_dependencies/Properties'
 import { Taggeo } from '../_dependencies/Taggeo'
 import { isFbBrowser } from '../_dependencies/Utils'
 import useForm from '../_hooks/useForm'
+import AuthFacebookGoogle from './auth-facebook-google'
 import ButtonSocial from './social'
 
 const styles = {
@@ -47,8 +48,13 @@ const Login = ({
   const [showHidePass, setShowHidePass] = React.useState('password')
   const [showSendEmail, setShowSendEmail] = React.useState(false)
   const [checkedPolits, setCheckedPolits] = React.useState(true)
+  const [hideFormLogin, setHideFormLogin] = React.useState(false)
   const { texts } = PropertiesCommon
-  const { activeMagicLink } = getProperties(arcSite)
+
+  const {
+    customFields: { disableAuthSocialArc = false } = {},
+    siteProperties: { activeNewsletter, activeMagicLink },
+  } = useFusionContext() || {}
 
   const stateSchema = {
     lemail: { value: contTempl || '', error: '' },
@@ -199,197 +205,227 @@ const Login = ({
     }
   }
 
+  const registerSuccessFabebook = () => {
+    Identity.getUserProfile().then((resProfile) => {
+      activateAuth(resProfile)
+      updateStep(2)
+    })
+  }
+
+  const registerFailedFacebook = () => setMsgError(getCodeError())
+
   return (
     <>
       <h2 className={styles.title}>{texts.login}</h2>
-      <div
-        className={`${styles.blockMiddle} ${
-          isFbBrowser ? styles.blockFull : ''
-        }`}>
-        <ButtonSocial
-          arcSocial="facebook"
+
+      {disableAuthSocialArc ? (
+        <AuthFacebookGoogle
+          hideFormParent={() => setHideFormLogin(!hideFormLogin)}
+          onAuthSuccess={registerSuccessFabebook}
+          onAuthFailed={registerFailedFacebook}
+          typeDialog={typeDialog}
+          dataTreatment={checkedPolits ? '1' : '0'}
           arcSite={arcSite}
           arcType="login"
+          activeNewsletter={activeNewsletter}
           showMsgVerify={() => triggerShowVerify()}
-          dataTreatment={checkedPolits ? '1' : '0'}
-          typeDialog={typeDialog}
         />
-        {!isFbBrowser && (
+      ) : (
+        <div
+          className={`${styles.blockMiddle} ${
+            isFbBrowser ? styles.blockFull : ''
+          }`}>
           <ButtonSocial
-            arcSocial="google"
+            arcSocial="facebook"
             arcSite={arcSite}
             arcType="login"
             showMsgVerify={() => triggerShowVerify()}
             dataTreatment={checkedPolits ? '1' : '0'}
             typeDialog={typeDialog}
           />
-        )}
-
-        {isFbBrowser && (
-          <AuthURL
-            arcSite={arcSite}
-            onClose={() => {}}
-            typeDialog={typeDialog}
-            activeNewsletter
-            typeForm="login"
-            onLogged={onLoggedFia}
-            checkUserSubs={() => {}}
-          />
-        )}
-      </div>
-      <div className={styles.titleLine}>
-        <p>{texts.orEnterDatesLog}</p>
-      </div>
-      {msgError && (
-        <div className={styles.block}>
-          <div className={showVerify ? ' msg-warning' : 'msg-alert'}>
-            {` ${msgError} `}
-            {showVerify && (
-              <>
-                <br />
-                {!showSendEmail ? (
-                  <button
-                    className="step__btn-link"
-                    type="button"
-                    onClick={sendVerifyEmail}>
-                    {texts.reSendEmail}
-                  </button>
-                ) : (
-                  <span>
-                    {texts.youCanSendEmail}
-                    <strong id="countdown"> 10 </strong> segundos
-                  </span>
-                )}
-              </>
-            )}
-          </div>
+          {!isFbBrowser && (
+            <ButtonSocial
+              arcSocial="google"
+              arcSite={arcSite}
+              arcType="login"
+              showMsgVerify={() => triggerShowVerify()}
+              dataTreatment={checkedPolits ? '1' : '0'}
+              typeDialog={typeDialog}
+            />
+          )}
+          {isFbBrowser && (
+            <AuthURL
+              arcSite={arcSite}
+              onClose={() => {}}
+              typeDialog={typeDialog}
+              activeNewsletter={activeNewsletter}
+              typeForm="login"
+              onLogged={onLoggedFia}
+              checkUserSubs={() => {}}
+            />
+          )}
         </div>
       )}
-      <form onSubmit={handleOnSubmit} className="form-login">
-        <div className={styles.block}>
-          <label htmlFor="lemail">
-            Correo electrónico
-            <input
-              className={lemailError && 'input-error'}
-              type="email"
-              inputMode="email"
-              autoComplete="email"
-              name="lemail"
-              value={lemail}
-              required
-              onChange={handleChangeInput}
-              onBlur={handleOnChange}
-              maxLength="80"
-              disabled={loading}
-            />
-            {lemailError && <span className="msn-error">{lemailError}</span>}
-          </label>
-        </div>
 
-        <div className={styles.block}>
-          <label htmlFor="lpass">
-            Contraseña
-            <input
-              className={lpassError && 'input-error'}
-              type={showHidePass}
-              autoComplete="current-password"
-              name="lpass"
-              value={lpass}
-              required
-              onChange={handleChangeInput}
-              maxLength="50"
-              onBlur={handleOnChange}
-              disabled={loading}
-            />
+      {!hideFormLogin && (
+        <>
+          <div className={styles.titleLine}>
+            <p>{texts.orEnterDatesLog}</p>
+          </div>
+          {msgError && (
+            <div className={styles.block}>
+              <div className={showVerify ? ' msg-warning' : 'msg-alert'}>
+                {` ${msgError} `}
+                {showVerify && (
+                  <>
+                    <br />
+                    {!showSendEmail ? (
+                      <button
+                        className="step__btn-link"
+                        type="button"
+                        onClick={sendVerifyEmail}>
+                        {texts.reSendEmail}
+                      </button>
+                    ) : (
+                      <span>
+                        {texts.youCanSendEmail}
+                        <strong id="countdown"> 10 </strong> segundos
+                      </span>
+                    )}
+                  </>
+                )}
+              </div>
+            </div>
+          )}
+          <form onSubmit={handleOnSubmit} className="form-login">
+            <div className={styles.block}>
+              <label htmlFor="lemail">
+                Correo electrónico
+                <input
+                  className={lemailError && 'input-error'}
+                  type="email"
+                  inputMode="email"
+                  autoComplete="email"
+                  name="lemail"
+                  value={lemail}
+                  required
+                  onChange={handleChangeInput}
+                  onBlur={handleOnChange}
+                  maxLength="80"
+                  disabled={loading}
+                />
+                {lemailError && (
+                  <span className="msn-error">{lemailError}</span>
+                )}
+              </label>
+            </div>
+
+            <div className={styles.block}>
+              <label htmlFor="lpass">
+                Contraseña
+                <input
+                  className={lpassError && 'input-error'}
+                  type={showHidePass}
+                  autoComplete="current-password"
+                  name="lpass"
+                  value={lpass}
+                  required
+                  onChange={handleChangeInput}
+                  maxLength="50"
+                  onBlur={handleOnChange}
+                  disabled={loading}
+                />
+                <button
+                  name="lshowpass"
+                  aria-label="lshowpass"
+                  className={`${styles.btnShow}-${showHidePass}`}
+                  type="button"
+                  tabIndex={-1}
+                  onClick={toogleHidePass}
+                />
+                {lpassError && <span className="msn-error">{lpassError}</span>}
+              </label>
+            </div>
+
+            <p className={styles.titleForgot}>
+              <button
+                className={styles.link}
+                type="button"
+                onClick={() => {
+                  changeTemplate('forgot')
+                  Taggeo(
+                    nameTagCategory,
+                    `web_sw${typeDialog[0]}_contrasena_link_olvide`,
+                    arcSite
+                  )
+                }}>
+                Olvidé mi contraseña
+              </button>
+            </p>
+
+            <div className={styles.block}>
+              <button
+                className={`${styles.btn} ${loading && 'btn-loading'}`}
+                type="submit"
+                disabled={disable || loading}>
+                {loading ? 'Cargando...' : 'Iniciar sesión'}
+              </button>
+            </div>
+          </form>
+          <p className={styles.titleRegister}>
+            {texts.notHasAccount}
             <button
-              name="lshowpass"
-              aria-label="lshowpass"
-              className={`${styles.btnShow}-${showHidePass}`}
+              className={styles.link}
               type="button"
-              tabIndex={-1}
-              onClick={toogleHidePass}
-            />
-            {lpassError && <span className="msn-error">{lpassError}</span>}
-          </label>
-        </div>
-
-        <p className={styles.titleForgot}>
-          <button
-            className={styles.link}
-            type="button"
-            onClick={() => {
-              changeTemplate('forgot')
-              Taggeo(
-                nameTagCategory,
-                `web_sw${typeDialog[0]}_contrasena_link_olvide`,
-                arcSite
-              )
-            }}>
-            Olvidé mi contraseña
-          </button>
-        </p>
-
-        <div className={styles.block}>
-          <button
-            className={`${styles.btn} ${loading && 'btn-loading'}`}
-            type="submit"
-            disabled={disable || loading}>
-            {loading ? 'Cargando...' : 'Iniciar sesión'}
-          </button>
-        </div>
-      </form>
-      <p className={styles.titleRegister}>
-        {texts.notHasAccount}
-        <button
-          className={styles.link}
-          type="button"
-          onClick={() => {
-            changeTemplate('register')
-            Taggeo(
-              nameTagCategory,
-              `web_sw${typeDialog[0]}_login_boton_registrate`,
-              arcSite
-            )
-          }}>
-          Registrarme
-        </button>
-      </p>
-      <div className={styles.block}>
-        <label htmlFor="rpolit" className="terms">
-          <input
-            id="rpolit"
-            type="checkbox"
-            name="rpolit"
-            value={checkedPolits ? '1' : '0'}
-            checked={checkedPolits}
-            disabled={loading}
-            onChange={() => {
-              setCheckedPolits(!checkedPolits)
-            }}
-          />
-          Al ingresar por redes sociales autorizo el uso de mis datos para{' '}
-          <a
-            href={dataTreatment}
-            className={`${styles.link} link-color`}
-            target="_blank"
-            rel="noreferrer">
-            fines adicionales
-          </a>
-          <span className="checkmark" />
-        </label>
-      </div>
-      <p className={styles.titleRegister} style={{ textAlign: 'justify' }}>
-        En caso hayas autorizado los fines de uso adicionales anteriormente, no
-        es necesario que lo vuelvas a marcar. Si deseas retirar dicho
-        consentimiento, revisa el procedimiento en nuestras{' '}
-        <a
-          href={PolicyPrivacy(arcSite)}
-          className={`${styles.link} link-color`}
-          target="_blank"
-          rel="noreferrer">
-          Políticas de Privacidad.
-        </a>
-      </p>
+              onClick={() => {
+                changeTemplate('register')
+                Taggeo(
+                  nameTagCategory,
+                  `web_sw${typeDialog[0]}_login_boton_registrate`,
+                  arcSite
+                )
+              }}>
+              Registrarme
+            </button>
+          </p>
+          <div className={styles.block}>
+            <label htmlFor="rpolit" className="terms">
+              <input
+                id="rpolit"
+                type="checkbox"
+                name="rpolit"
+                value={checkedPolits ? '1' : '0'}
+                checked={checkedPolits}
+                disabled={loading}
+                onChange={() => {
+                  setCheckedPolits(!checkedPolits)
+                }}
+              />
+              Al ingresar por redes sociales autorizo el uso de mis datos para{' '}
+              <a
+                href={dataTreatment}
+                className={`${styles.link} link-color`}
+                target="_blank"
+                rel="noreferrer">
+                fines adicionales
+              </a>
+              <span className="checkmark" />
+            </label>
+          </div>
+          <p className={styles.titleRegister} style={{ textAlign: 'justify' }}>
+            En caso hayas autorizado los fines de uso adicionales anteriormente,
+            no es necesario que lo vuelvas a marcar. Si deseas retirar dicho
+            consentimiento, revisa el procedimiento en nuestras{' '}
+            <a
+              href={PolicyPrivacy(arcSite)}
+              className={`${styles.link} link-color`}
+              target="_blank"
+              rel="noreferrer">
+              Políticas de Privacidad.
+            </a>
+          </p>
+        </>
+      )}
     </>
   )
 }

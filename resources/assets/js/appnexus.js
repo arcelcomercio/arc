@@ -474,15 +474,15 @@ var inline = function inline(data) {
 
 var getTagInline = function getTagInline() {
   var spaces = IS_MOBILE ? [{
-    target: '#contenedor',
+    target: '#container',
     name: 'ads_m_movil3',
     position: 3
   }, {
-    target: '#contenedor',
+    target: '#container',
     name: 'ads_m_movil_video',
     position: 1
   }] : [{
-    target: '#contenedor',
+    target: '#container',
     name: 'ads_d_inline',
     position: 2
   }];

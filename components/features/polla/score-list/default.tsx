@@ -292,12 +292,7 @@ const PollaScoreList: FC<Props> = (props) => {
                     ? parsedAliasFases[currentPhase]
                     : currentPhase}
                 </span>
-                <svg
-                  width="13"
-                  height="7"
-                  viewBox="0 0 13 7"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
+                <svg width="13" height="7" viewBox="0 0 13 7" fill="none">
                   <path d="M0 0L6.5 7L13 0" fill="#DC532E" />
                 </svg>
               </div>
@@ -331,12 +326,7 @@ const PollaScoreList: FC<Props> = (props) => {
                 }
               }}>
               <div className="polla-score__arrow-btn">
-                <svg
-                  width="7"
-                  height="12"
-                  viewBox="0 0 7 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
+                <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
                   <path
                     d="M7 1.07273L5.9323 0L0 6L5.9383 12L7 10.9273L2.12339 6L7 1.07273V1.07273Z"
                     fill="#FFFFFF"
@@ -352,12 +342,7 @@ const PollaScoreList: FC<Props> = (props) => {
               <div className="polla-score__nav-sel-p">
                 <span className="bold">Jornada {currentSchedule}</span>
                 <span>{parsedDatesPerJornada[currentSchedule]}</span>
-                <svg
-                  width="13"
-                  height="7"
-                  viewBox="0 0 13 7"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
+                <svg width="13" height="7" viewBox="0 0 13 7" fill="none">
                   <path d="M0 0L6.5 7L13 0" fill="#DC532E" />
                 </svg>
               </div>
@@ -395,12 +380,7 @@ const PollaScoreList: FC<Props> = (props) => {
                   : listOfSchedules[currentIndex]}
               </span>
               <div className="polla-score__arrow-btn">
-                <svg
-                  width="8"
-                  height="13"
-                  viewBox="0 0 8 13"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
+                <svg width="8" height="13" viewBox="0 0 8 13" fill="none">
                   <path
                     d="M0.752442 11.7774L1.82014 12.8501L7.75244 6.8501L1.81414 0.850097L0.752443 1.92282L5.62905 6.8501L0.752442 11.7774V11.7774Z"
                     fill="#FFFFFF"
@@ -556,6 +536,9 @@ const PollaScoreList: FC<Props> = (props) => {
                       }}>
                       <div className="polla-score__form-top">
                         <div className="polla-score__country-cont">
+                          <div className="polla-score__country-text">
+                            {score.equipo1}
+                          </div>
                           <img
                             className="polla-score__country-img"
                             src={`${COUNTRIES_ASSETS_PATH}${slugify(
@@ -563,9 +546,6 @@ const PollaScoreList: FC<Props> = (props) => {
                             )}.svg`}
                             alt="País"
                           />
-                          <div className="polla-score__country-text">
-                            {score.equipo1}
-                          </div>
                         </div>
                         <input
                           disabled={score.estado > 1}
@@ -580,16 +560,14 @@ const PollaScoreList: FC<Props> = (props) => {
                             width="4"
                             height="4"
                             viewBox="0 0 4 4"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
+                            fill="none">
                             <circle cx="2" cy="2" r="2" fill="#333333" />
                           </svg>
                           <svg
                             width="4"
                             height="4"
                             viewBox="0 0 4 4"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
+                            fill="none">
                             <circle cx="2" cy="2" r="2" fill="#333333" />
                           </svg>
                         </div>
@@ -602,6 +580,9 @@ const PollaScoreList: FC<Props> = (props) => {
                           defaultValue={score2}
                         />
                         <div className="polla-score__country-cont">
+                          <div className="polla-score__country-text">
+                            {score.equipo2}
+                          </div>
                           <img
                             className="polla-score__country-img"
                             src={`${COUNTRIES_ASSETS_PATH}${slugify(
@@ -609,9 +590,6 @@ const PollaScoreList: FC<Props> = (props) => {
                             )}.svg`}
                             alt="País"
                           />
-                          <div className="polla-score__country-text">
-                            {score.equipo2}
-                          </div>
                         </div>
                       </div>
                       <div className="polla-score__error-cont">
@@ -646,7 +624,6 @@ const PollaScoreList: FC<Props> = (props) => {
                           {score.msg === 'success' && (
                             <svg
                               className="polla-score__btn-done"
-                              xmlns="http://www.w3.org/2000/svg"
                               height="24"
                               viewBox="0 0 24 24"
                               width="24">
@@ -677,12 +654,7 @@ const PollaScoreList: FC<Props> = (props) => {
                 }
               }}>
               <div className="polla-score__arrow-btn">
-                <svg
-                  width="7"
-                  height="12"
-                  viewBox="0 0 7 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
+                <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
                   <path
                     d="M7 1.07273L5.9323 0L0 6L5.9383 12L7 10.9273L2.12339 6L7 1.07273V1.07273Z"
                     fill="#FFFFFF"
@@ -713,12 +685,7 @@ const PollaScoreList: FC<Props> = (props) => {
                   : listOfSchedules[currentIndex]}
               </span>
               <div className="polla-score__arrow-btn">
-                <svg
-                  width="8"
-                  height="13"
-                  viewBox="0 0 8 13"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
+                <svg width="8" height="13" viewBox="0 0 8 13" fill="none">
                   <path
                     d="M0.752442 11.7774L1.82014 12.8501L7.75244 6.8501L1.81414 0.850097L0.752443 1.92282L5.62905 6.8501L0.752442 11.7774V11.7774Z"
                     fill="#FFFFFF"

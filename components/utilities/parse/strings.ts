@@ -23,10 +23,10 @@ export const formatSlugToText = (text: string, length = 0): string | null => {
 
 export const formatHtmlToText = (html = ''): string => {
   const htmlData = html.toString()
-
   return htmlData
     .replace(/"(.+?)"/g, '“$1”')
     .replace(/<[^>]*>/g, '')
+    .replace(/"/g, '“')
     .replace(/\\/g, '')
     .replace(/"/g, '“')
 }

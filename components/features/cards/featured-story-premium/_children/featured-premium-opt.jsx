@@ -28,9 +28,8 @@ const FeaturedStoryPremiumChild = ({
   const classes = {
     featuredPremium: `f-premium featured-story position-relative flex expand`,
     detail: `flex flex-col flex-1 ${!isComercio && 'pt-20 pl-20 pb-15'}`,
-    section: `featured-story__category position-relative ${
-      isComercio ? 'mt-10 mb-10' : 'pb-15 hidden md:inline-block'
-    }`,
+    section: `featured-story__category position-relative ${isComercio ? 'mt-10 mb-10' : 'pb-15 hidden md:inline-block'
+      }`,
     sectionLink: 'featured-story__category-link text-md',
 
     title: 'featured-story__title overflow-hidden mb-5 line-h-xs flex-1',
@@ -45,12 +44,10 @@ const FeaturedStoryPremiumChild = ({
     image: 'featured-story__img w-full h-full object-cover',
     icon: `${isComercio ? 'featured-premium__icon' : 'featured-story__icon'}`,
 
-    premiumWrapper: `premium__wrapper flex justify-center items-center ${
-      isComercio && 'bg-primary'
-    }`,
-    premiumText: `premium__text flex justify-center items-center ${
-      isComercio ? 'icon-padlock text-black font-bold' : 'text-white'
-    }`,
+    premiumWrapper: `premium__wrapper flex justify-center items-center ${isComercio && 'bg-primary'
+      }`,
+    premiumText: `premium__text flex justify-center items-center ${isComercio ? 'icon-padlock text-black font-bold' : 'text-white'
+      }`,
   }
 
   const { editableField } = useEditableContent()
@@ -99,9 +96,8 @@ const FeaturedStoryPremiumChild = ({
 
   return (
     <article
-      className={`${classes.featuredPremium}${
-        bgColor === 'gray' ? ' featured-premium--gray' : ''
-      }`}>
+      className={`${classes.featuredPremium}${bgColor === 'gray' ? ' featured-premium--gray' : ''
+        }`}>
       <a itemProp="url" href={websiteLink} className={classes.imageLink}>
         <Icon type={multimediaType} iconClass={classes.icon} />
         <Image
@@ -117,13 +113,8 @@ const FeaturedStoryPremiumChild = ({
         />
       </a>
 
-      <div
-        className={`${classes.detail}`}
-      >
-        <h3
-          itemProp="name"
-          className={`${classes.section}`}
-        >
+      <div className={`${classes.detail}`}>
+        <h3 itemProp="name" className={`${classes.section}`}>
           <a
             itemProp="url"
             className={classes.sectionLink}
@@ -155,10 +146,7 @@ const FeaturedStoryPremiumChild = ({
         </h6>
         {isPremium ? (
           <div className={`${classes.premiumWrapper}`}>
-            <p
-              itemProp="description"
-              className={`${classes.premiumText}`}
-            >
+            <p itemProp="description" className={`${classes.premiumText}`}>
               {isComercio ? (
                 'Suscriptor Digital'
               ) : (

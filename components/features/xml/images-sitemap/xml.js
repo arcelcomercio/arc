@@ -1,6 +1,7 @@
 import Consumer from 'fusion:consumer'
+
 import ConfigParams from '../../../utilities/config-params'
-import { localISODate } from '../../../utilities/helpers'
+import { localISODate } from '../../../utilities/date-time/dates'
 // import schemaFilter from './_dependencies/schema-filter'
 
 const SOURCE = 'story-feed-by-section'
@@ -103,9 +104,7 @@ class XmlImagesSitemap {
                 { 'video:duration': this.msToSec(duration) },
                 // { 'video:view_count': '15: ni idea de donde sacar esto' },
                 { 'video:publication_date': localISODate(date) },
-                ...tags.map((tag) => {
-                  return { 'video:tag': tag.text !== 'sample' ? tag.text : '' }
-                }),
+                ...tags.map((tag) => ({ 'video:tag': tag.text !== 'sample' ? tag.text : '' })),
                 { 'video:category': section },
                 { 'video:family_friendly': 'yes' }, // o no
               ],

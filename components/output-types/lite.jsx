@@ -27,6 +27,7 @@ import { storyTagsBbc } from '../utilities/tags'
 import AppNexus from './_children/appnexus'
 import ChartbeatBody from './_children/chartbeat-body'
 import LiteAds from './_children/lite-ads'
+import LiveBlogPostingData from './_children/live-blog-posting-data'
 import MetaSite from './_children/meta-site'
 import MetaStory from './_children/meta-story'
 import OpenGraph from './_children/open-graph'
@@ -41,6 +42,7 @@ import htmlScript from './_dependencies/html-script'
 import iframeScript from './_dependencies/iframe-script'
 import jwplayerScript from './_dependencies/jwplayer-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-lite-script'
+import { getOptaWidgetsFromStory } from './_dependencies/opta-widget-utils'
 import {
   getEnabledServerside,
   getScriptAdPushup,
@@ -183,8 +185,8 @@ const LiteOutput = ({
   }
 
   const structuredTaboola = ` 
-    window._taboola = window._taboola || [];
-    _taboola.push({flush: true});`
+  window._taboola = window._taboola || [];
+  _taboola.push({flush: true});`
 
   const structuredBBC = `
   !function(s,e,n,c,r){if(r=s._ns_bbcws=s._ns_bbcws||r,s[r]||(s[r+"_d"]=s[r+"_d"]||[],s[r]=function(){s[r+"_d"].push(arguments)},s[r].sources=[]),c&&0>s[r].sources.indexOf(c)){var t=e.createElement(n);t.async=1,t.src=c;var a=e.getElementsByTagName(n)[0];a.parentNode.insertBefore(t,a),s[r].sources.push(c)}}
@@ -220,7 +222,7 @@ const LiteOutput = ({
   const vgalleryStyles = 'dlite-vgallery'
 
   let inlineStyleUrl = `resources/dist/${arcSite}/css/${dstyle}.css`
-  const inlineVgalleryStyles = `resources/dist/${arcSite}/css/${vgalleryStyles}.css`
+  let inlineVgalleryStyles = `resources/dist/${arcSite}/css/${vgalleryStyles}.css`
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   const mStyleUrl = `${contextPath}/resources/dist/${arcSite}/css/${mstyle}.css`
@@ -262,6 +264,7 @@ const LiteOutput = ({
   if (metaValue('section_style') === 'story-v2-standard') {
     inlineStyleUrl = `resources/dist/elcomercio/css/story-v2-standard.css`
     styleUrl = ''
+    inlineVgalleryStyles = ''
   }
   if (metaValue('section_style') === 'story-v2-video') {
     inlineStyleUrl = `resources/dist/elcomercio/css/story-v2-video.css`
@@ -297,6 +300,8 @@ const LiteOutput = ({
   ).replace(/^\/carga-continua/, '')}`
 
   const fontFace = `@font-face {font-family: fallback-local; src: local(Arial); ascent-override: 125%; descent-override: 25%; line-gap-override: 0%;}`
+
+  const OptaWidgetsFromStory = getOptaWidgetsFromStory(globalContent)
 
   const enabledPushup = getEnabledServerside(arcSite)
   const scriptAdpushup = getScriptAdPushup(arcSite)
@@ -483,7 +488,6 @@ const LiteOutput = ({
           section={sectionAds}
           subtype={subtype}
         />
-
         <Styles
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...metaSiteData}
@@ -545,7 +549,7 @@ const LiteOutput = ({
             ) : null
           }
         </Resource>
-        {subtype === GALLERY_VERTICAL ? (
+        {inlineVgalleryStyles && subtype === GALLERY_VERTICAL ? (
           <Resource path={inlineVgalleryStyles}>
             {({ data }) =>
               data ? (
@@ -575,7 +579,7 @@ const LiteOutput = ({
             }
           </Resource>
         ) : null}
-        {/* metaValue('section_style') === 'provecho' ? (
+        {metaValue('section_style') === 'provecho' ? (
           <Resource path="resources/dist/elcomercio/css/lite-provecho.css">
             {({ data }) =>
               data ? (
@@ -589,7 +593,7 @@ const LiteOutput = ({
               ) : null
             }
           </Resource>
-        ) : null */}
+        ) : null}
         {metaValue('section_style') === 'saltar-intro' ? (
           <Resource path="resources/dist/elcomercio/css/lite-saltar-intro.css">
             {({ data }) =>
@@ -645,7 +649,8 @@ const LiteOutput = ({
             />
           </>
         ) : null}
-        {arcSite === SITE_PERU21 ? (
+        {arcSite === SITE_PERU21 ||
+        (arcSite === SITE_ELCOMERCIO && requestUri.includes('/mundo/')) ? (
           <>
             <script
               type="text/javascript"
@@ -762,7 +767,8 @@ const LiteOutput = ({
           />
         )}
 
-        {subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL ? (
+        {metaValue('section_style') !== 'story-v2-standard' &&
+        (subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL) ? (
           <script
             dangerouslySetInnerHTML={{
               __html: minutoMinutoScript,
@@ -926,7 +932,13 @@ const LiteOutput = ({
             )}
           />
         )}
-        {/* <RegisterServiceWorker path={deployment("/sw.js")}/> */}
+        {arcSite === 'elcomercio' &&
+        isStory &&
+        metaValue('opta_scraping_path') &&
+        OptaWidgetsFromStory.length > 0 ? (
+          <LiveBlogPostingData OptaWidgetsFromStory={OptaWidgetsFromStory} />
+        ) : null}
+        {/*  <RegisterServiceWorker path={deployment("/sw.js")}/> */}
       </body>
     </html>
   )
