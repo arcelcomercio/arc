@@ -156,7 +156,7 @@ export default {
     videoId: 'z0YAXqp2',
   },
   pianoID: {
-    sandbox: 'XXXXX',
-    prod: 'XXXXX',
+    sandbox: '6UafT9Fjsu',
+    prod: '',
   },
 }
