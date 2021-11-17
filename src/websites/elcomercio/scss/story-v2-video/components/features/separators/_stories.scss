@@ -1,0 +1,134 @@
+$offset: 187;
+$duration: 1.4s;
+
+.spinner {
+  content-visibility: auto;
+  contain-intrinsic-size: 100px;
+  padding: 0;
+  &__svg {
+    animation: spinner__rotator $duration linear infinite;
+    stroke: #ab8900;
+    height: 19px;
+  }
+
+  &__circle {
+    stroke-dasharray: $offset;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    animation: spinner__dash $duration ease-in-out infinite,
+      colors ($duration * 4) ease-in-out infinite;
+  }
+}
+
+.sep-st {
+  padding: 35px 16px 40px;
+  border-top: 1px solid #ffcb05;
+  @media (--tablet) {
+    padding: 28px 0 48px;
+  }
+  &__title {
+    a {
+      font: 700 12px/29px $secondary-font;
+      letter-spacing: 2.4px;
+      color: #ad9130;
+      margin-bottom: 32px;
+      display: block;
+      @media (--tablet) {
+        font: 700 16px/29px $secondary-font;
+        letter-spacing: 3.2px;
+        color: #ab8900;
+        margin-bottom: 20px;
+      }
+    }
+  }
+  &__item-c {
+    display: grid;
+    @media (--tablet) {
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, auto);
+      grid-row-gap: 40px;
+      grid-column-gap: 10px;
+    }
+    @media (--desktop) {
+      grid-column-gap: 19px;
+    }
+  }
+  &__item {
+    display: flex;
+    margin: 0 0 5px 0;
+    @media (--tablet) {
+      flex-direction: column;
+      margin: 0;
+    }
+  }
+  &__i-img {
+    object-fit: cover;
+    min-width: 160px;
+    height: 92px;
+    @media (--tablet) {
+      min-width: auto;
+      width: 100%;
+      height: 84px;
+    }
+    @media (--desktop) {
+      height: 132px;
+    }
+  }
+  &__i-title {
+    font: 700 14px/18px $secondary-font;
+    color: #635318;
+    margin: 0 0 0 10px;
+    @media (--tablet) {
+      margin: 5px 0 0;
+    }
+    @media (--desktop) {
+      font: 700 16px/24px $secondary-font;
+      color: #665202;
+    }
+  }
+  &__btn {
+    display: block;
+    border: 1px solid #ab8900;
+    border-radius: 8px;
+    width: 112px;
+    height: 32px;
+    font: 500 14px/16px $secondary-font;
+    letter-spacing: 0.84px;
+    color: #ab8900;
+    margin: 25px auto 0;
+    .spinner {
+      display: none;
+    }
+    &.loading {
+      span {
+        display: none;
+      }
+      .spinner {
+        display: block;
+      }
+    }
+  }
+}
+
+@keyframes spinner__rotator {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}
+
+@keyframes spinner__dash {
+  0% {
+    stroke-dashoffset: $offset;
+  }
+  50% {
+    stroke-dashoffset: $offset/4;
+    transform: rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: $offset;
+    transform: rotate(450deg);
+  }
+}
