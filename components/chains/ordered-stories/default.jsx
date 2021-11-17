@@ -1,15 +1,15 @@
-import * as React from 'react'
 import PropTypes from 'prop-types'
+import * as React from 'react'
 
 /* **************** SIN USO ****************** */
 
 const OrderedStories = ({ children, customFields }) => {
   // let { initialStory: storyNumber } = customFields
-  const { paddingConfig, backgroundChain } = customFields
+  const { paddingConfig, backgroundChain, blockColor } = customFields
   /* storyNumber = storyNumber || 1
   storyNumber -= 1 */
 
-  const renderBackground = bg => {
+  const renderBackground = (bg) => {
     const colors = {
       white: 'bg-white',
       primary: 'bg-primary',
@@ -19,6 +19,18 @@ const OrderedStories = ({ children, customFields }) => {
       default: '',
     }
     return colors[bg] || colors.transparent
+  }
+
+  const renderBlock = (color) => {
+    const colors = {
+      default: 'section-default',
+      celeste: 'section-opinion',
+      rosado: 'section-celebrities',
+      rojo: 'section-historias',
+      verde: 'section-deportes',
+      amarillo: 'section-virales',
+    }
+    return colors[color] || colors.default
   }
 
   /**
@@ -42,9 +54,10 @@ const OrderedStories = ({ children, customFields }) => {
 
   return (
     <div
-      className={`grid grid--content grid--col-3 grid--col-2 grid--col-1 w-full mt-20 col-3 ${paddingConfig &&
-        'pl-20 pr-20 pb-20'} ${renderBackground(
-        backgroundChain
+      className={`grid grid--content grid--col-3 grid--col-2 grid--col-1 w-full mt-20 col-3 ${
+        paddingConfig && 'pl-20 pr-20 pb-20'
+      } ${renderBackground(backgroundChain)} ${renderBlock(
+        blockColor
       )} chain-ordered-stories`}>
       {children}
     </div>
@@ -82,6 +95,26 @@ OrderedStories.propTypes = {
       name: 'Margen Interno',
       description: 'Agrega un pequeño margen interno para que se vean bordes',
       defaultValue: false,
+    }),
+    blockColor: PropTypes.oneOf([
+      'default',
+      'celeste',
+      'rosado',
+      'verde',
+      'rojo',
+      'amarillo',
+    ]).tag({
+      name: 'Color de bloque',
+      labels: {
+        default: 'Por defecto',
+        celeste: 'Celeste',
+        rosado: 'Rosado',
+        verde: 'Verde',
+        rojo: 'Rojo',
+        amarillo: 'Amarillo',
+      },
+      defaultValue: 'default',
+      group: 'Configuración',
     }),
   }),
 }

@@ -1,15 +1,27 @@
+/******* Fonts *******/
+@import "./scss/partials/lite/import-fonts";
+
 /******* Base *******/
 @import "../../general-styles/framework/variables/index";
+@import "../../general-styles/framework/generators/index";
 @import "./scss/lite-components/framework/core/lite";
 
 /******* Variables Lite *******/
 @import "./scss/variables/index";
 
 $primary-font: "Roboto", sans-serif;
-$secondary-font: Arial, Helvetica, sans-serif;
+$secondary-font: arial, helvetica, sans-serif;
 $tertiary-font: $secondary-font;
 
 @import "../../general-styles/framework/core/reset";
+
+/******* Framework Variables *******/
+@import "./scss/partials/import-icons";
+@import "../../general-styles/framework/variables/declare-icons";
+
+/******* Site Variables *******/
+@import "../../general-styles/framework/core/index";
+@import "./scss/partials/import-fonts";
 
 /******* Components *******/
 
@@ -24,9 +36,14 @@ $tertiary-font: $secondary-font;
 // Completados - en curso
 
 @import "./scss/lite-components/features/layout/navbar-nomenu/navbar-nm";
+@import "./scss/lite-components/features/layout/nav-sidebar";
+
 @import "./scss/lite-components/features/header/header-full/header-full";
+@import "./scss/lite-components/features/header/basic/h-basic";
+// @import "../../general-styles/components/features/header/inverted";
 
 @import "./scss/lite-components/layouts/story-sidebar/st-sidebar";
+@import "./scss/lite-components/layouts/wide-nav-wide-content/wn-wide-content";
 @import "./scss/lite-components/features/story/title/title";
 @import "./scss/lite-components/features/widgets/breaking-news/b-news";
 @import "./scss/lite-components/features/story/multimedia/multimedia";
@@ -46,3 +63,16 @@ $tertiary-font: $secondary-font;
 @import "./scss/lite-components/features/cards/most-read/most-read-inline";
 @import "./scss/lite-components/features/stories-lists/linked-by-site/link-site-inline";
 @import "./scss/lite-components/features/story/interest/st-interest-inline";
+
+// VIDEOS
+@import "./scss/lite-components/features/video/search";
+@import "./scss/lite-components/features/video/section";
+@import "./scss/lite-components/features/video/list";
+@import "./scss/lite-components/features/video/section-list";
+@import "./scss/lite-components/features/video/play-list";
+@import "./scss/lite-components/features/video/video-container";
+
+@import "./scss/components/footer/trome";
+@import "./scss/components/header/inverted-featured";
+
+@import "../../general-styles/framework/generators/generate-icons";

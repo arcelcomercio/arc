@@ -2,6 +2,10 @@ import React from 'react'
 import { useEditableContent } from 'fusion:content'
 import CardMostReadItem from './item'
 import { getAssetsPath } from '../../../../../utilities/assets'
+import {
+  SITE_ELCOMERCIO,
+  SITE_TROME,
+} from '../../../../../utilities/constants/sitenames'
 
 const classes = {
   mostRead: 'most-read f f-col ',
@@ -11,7 +15,7 @@ const classes = {
   icon: 'most-read__icon ',
 }
 
-const CardMostReadChildList = props => {
+const CardMostReadChildList = (props) => {
   const {
     viewImage,
     stories,
@@ -23,13 +27,18 @@ const CardMostReadChildList = props => {
   } = props
   const { editableField } = useEditableContent()
 
-  const logoSidebar =
-    arcSite === 'elcomercio'
-      ? `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/elcomercio/images/logo-sidebar.png?d=1`
-      : ''
+  let logoSidebar = ''
+  if (arcSite === SITE_ELCOMERCIO) {
+    logoSidebar = `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/elcomercio/images/logo-sidebar.png?d=1`
+  } else if (arcSite === SITE_TROME) {
+    logoSidebar = `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/trome/images/logo_twitter.jpg`
+  }
 
   return (
     <div role="list" className={classes.mostRead}>

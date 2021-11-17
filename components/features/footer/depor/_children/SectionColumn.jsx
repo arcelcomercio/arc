@@ -6,6 +6,7 @@ const classes = {
   sectionColumn:
     'footer-secction__content-column footer-secction__item-border flex flex-col',
   item: 'footer-secction__item',
+  itemTitle: 'footer-secction__item__title',
 }
 
 const ItemLinkSubSection = ({ url, subsectionName, isBold }) => (
@@ -24,11 +25,8 @@ const SectionColumn = ({
   } = {},
 }) => (
   <ul className={classes.sectionColumn}>
-    <li className={classes.item}>
-      <a
-        itemProp="url"
-        href={addSlashToEnd(urlSec)}
-        className={classes.itemTop}>
+    <li className={`${classes.item} ${classes.itemTitle}`}>
+      <a itemProp="url" href={urlSec} className={classes.itemTop}>
         {title}
       </a>
     </li>
