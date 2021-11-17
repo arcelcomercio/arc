@@ -40,6 +40,8 @@ const StoryTitleLite = () => {
   const isStoryV2StandarStyle =
     metaValue('section_style') === 'story-v2-standard'
 
+  const isStoryV2VideoStyle = metaValue('section_style') === 'story-v2-video'
+
   return (
     <>
       {arcSite === SITE_DEPOR &&
@@ -87,7 +89,9 @@ const StoryTitleLite = () => {
               ))}
             </ul>
           )}
-          {isStoryV2StandarStyle && <ShareButtons renderScripts />}
+          {(isStoryV2StandarStyle || isStoryV2VideoStyle) && (
+            <ShareButtons renderScripts />
+          )}
         </>
       )}
     </>

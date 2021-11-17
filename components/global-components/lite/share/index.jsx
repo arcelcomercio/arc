@@ -49,7 +49,10 @@ const ShareButtons = ({
     siteNameRedSocial
   )
 
-  if (metaValue('section_style') === 'story-v2-standard') {
+  if (
+    metaValue('section_style') === 'story-v2-standard' ||
+    metaValue('section_style') === 'story-v2-video'
+  ) {
     return (
       <>
         <ShareButtonsV2
