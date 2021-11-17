@@ -194,6 +194,7 @@ export default ({
       arcSite === SITE_ELCOMERCIO ||
       arcSite === SITE_ELCOMERCIOMAG ||
       arcSite === SITE_ELBOCON ||
+      arcSite === SITE_DIARIOCORREO ||
       (arcSite === 'peru21' && requestUri.match(`^/cheka`))
     ) {
       prebid = false
