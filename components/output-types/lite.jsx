@@ -264,6 +264,10 @@ const LiteOutput = ({
     styleUrl = ''
     inlineVgalleryStyles = ''
   }
+  if (metaValue('section_style') === 'story-v2-video') {
+    inlineStyleUrl = `resources/dist/elcomercio/css/story-v2-video.css`
+    styleUrl = ''
+  }
   /** */
 
   let lang = 'es'
