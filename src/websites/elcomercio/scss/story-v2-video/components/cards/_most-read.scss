@@ -2,22 +2,26 @@
   content-visibility: auto;
   contain-intrinsic-size: 380px;
   margin: 0;
+  display: none;
+  @media (--desktop) {
+    display: block;
+  }
   &__title {
     text-transform: uppercase;
     font: 900 14px/24px $secondary-font;
     letter-spacing: 2.8px;
     text-align: left;
     padding-top: 13px;
-    border-top: 1px solid #FFCB05;
+    border-top: 1px solid #ffcb05;
     @media (--only-mobile) {
       padding: 13px 15px 0 40px;
     }
-    svg>path {
-      fill: #AB8900;
+    svg > path {
+      fill: #ab8900;
     }
   }
   &__link {
-    color: #AB8900;
+    color: #ab8900;
   }
   &__logo {
     margin: auto 0;
@@ -32,7 +36,7 @@
     top: 2px;
   }
   &__item {
-    border-bottom: 1px solid #FFCB05;
+    border-bottom: 1px solid #ffcb05;
     padding-bottom: 20px;
     padding-top: 15px;
     &:last-child {
@@ -56,16 +60,16 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     font: 700 14px/18px $secondary-font;
-    letter-spacing: 0px;
+    letter-spacing: 0;
     height: 93px;
     text-align: left;
     opacity: 1;
     color: #665202;
   }
-  &__box-time{
+  &__box-time {
     position: absolute;
     display: flex;
-    border: 1px solid #FFCB05;
+    border: 1px solid #ffcb05;
     padding: 4px 9px;
     border-radius: 4px;
     width: 80px;
@@ -76,14 +80,14 @@
   &__time {
     color: #fff;
     font: 500 13px/16px $secondary-font;
-    letter-spacing: 0px;
+    letter-spacing: 0;
     text-align: center;
     margin-left: auto;
   }
   &__icon-play {
     width: 0;
     height: 0;
-    border-left: 13px solid #FFCB05;
+    border-left: 13px solid #ffcb05;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
   }
