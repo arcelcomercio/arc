@@ -3,7 +3,7 @@
   flex-direction: column;
   @media (--desktop) {
     flex-direction: row;
-    column-gap: 10px;
+    column-gap: 15px;
   }
   &__main {
     @media (--desktop) {
