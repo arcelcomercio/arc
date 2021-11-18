@@ -1,6 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
+import PropTypes from 'prop-types'
+import React from 'react'
+
 import VideoJwplayer from '../../../../global-components/video-jwplayer'
 
 const classes = {
@@ -37,22 +38,21 @@ const ItemVideoCenterDestacado = ({
   return (
     <>
       <div
-        className='stories-video__box-jwplayer'
+        className="stories-video__box-jwplayer"
         data-img={image}
         data-time={time}
         data-live={liveStory}
         data-stream={jwplayerId}
         data-uuid={videoID}
         data-account={account}>
-
-        <VideoJwplayer data={promoItemJwplayer}></VideoJwplayer>
+        <VideoJwplayer data={promoItemJwplayer} />
         {/* <script
           dangerouslySetInnerHTML={{
             __html: scr,
           }}
         /> */}
-        <script
-          src={`https://cdn.jwplayer.com/players/${videoID}-${jwplayerId}.js`}></script>
+        {/* <script
+          src={`https://cdn.jwplayer.com/players/${videoID}-${jwplayerId}.js`}></script> */}
       </div>
 
       <div className={classes.listItemText}>
