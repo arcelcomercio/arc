@@ -54,7 +54,10 @@ const StoryTitleLite = () => {
       <h1 itemProp="name" className={classes.title}>
         {title}
       </h1>
-      {items && type === 'list' && !isStoryV2StandarStyle ? (
+      {items &&
+      type === 'list' &&
+      !isStoryV2StandarStyle &&
+      !isStoryV2VideoStyle ? (
         <div style={{ marginRight: '20px', marginLeft: '20px' }}>
           <ul className={classes.listClasses}>
             {items.map(({ content }) => (
@@ -72,15 +75,17 @@ const StoryTitleLite = () => {
           {!isStoryV2StandarStyle && (
             <PremiumTag isPremium={isPremium} arcSite={arcSite} />
           )}
-          {items && type === 'list' && isStoryV2StandarStyle && (
-            <ul className={classes.listClasses}>
-              {items.map(({ content }) => (
-                <>
-                  <li dangerouslySetInnerHTML={{ __html: content }} />
-                </>
-              ))}
-            </ul>
-          )}
+          {items &&
+            type === 'list' &&
+            (isStoryV2StandarStyle || isStoryV2VideoStyle) && (
+              <ul className={classes.listClasses}>
+                {items.map(({ content }) => (
+                  <>
+                    <li dangerouslySetInnerHTML={{ __html: content }} />
+                  </>
+                ))}
+              </ul>
+            )}
           {(isStoryV2StandarStyle || isStoryV2VideoStyle) && (
             <ShareButtons renderScripts />
           )}
