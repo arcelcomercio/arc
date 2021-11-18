@@ -407,7 +407,7 @@ const LiteAds = ({
           arcSite === 'elbocon' ||
           arcSite === 'depor' ||
           arcSite === 'ojo' ||
-          (arcSite === 'elcomercio' && section === 'luces') ? (
+          arcSite === 'elcomercio' ? (
             <>
               <script
                 type="text/javascript"
