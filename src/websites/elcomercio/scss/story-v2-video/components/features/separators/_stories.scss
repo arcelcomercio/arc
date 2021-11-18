@@ -75,6 +75,10 @@ $duration: 1.4s;
     }
   }
   &__i-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
     font: 700 14px/18px $secondary-font;
     color: #635318;
     margin: 0 0 0 10px;
