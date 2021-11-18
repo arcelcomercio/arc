@@ -411,7 +411,7 @@ const LiteOutput = ({
               (arcSite === SITE_ELCOMERCIOMAG ||
                 arcSite === SITE_PERU21 ||
                 arcSite === SITE_DEPOR ||
-                (arcSite === SITE_ELCOMERCIO)) && (
+                arcSite === SITE_ELCOMERCIO) && (
                 <>
                   <link
                     rel="preconnect"
