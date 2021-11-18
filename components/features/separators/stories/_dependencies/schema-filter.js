@@ -51,5 +51,6 @@ export default (arcSite) => `
   } 
   section_name
   section_id
+  next
 }
 `

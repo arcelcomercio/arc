@@ -12,6 +12,7 @@ import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import { seeMoreButtonScript } from './_dependencies/scripts'
 
+// Este feature se creo en version lite para la seccion de videos del rediseño de El Comercio
 const SeparatorStories: FeatureComponent<any> = (props) => {
   const {
     customFields: {
@@ -44,15 +45,10 @@ const SeparatorStories: FeatureComponent<any> = (props) => {
       filter: schemaFilter(arcSite),
     }) || {}
 
-  console.log(
-    'stories |||||||||||||||||||',
-    stories,
-    Object.assign(contentConfigValues, {
-      presets,
-      includedFields,
-    }),
-    titleSeparator
-  )
+  const defaultImage = `${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/dist/${arcSite}/images/default-sm.png`
 
   return (
     <div className="sep-st">
@@ -68,13 +64,12 @@ const SeparatorStories: FeatureComponent<any> = (props) => {
             href={story?.websites?.[arcSite]?.website_url}
             className="sep-st__item">
             <img
-              src={`${getAssetsPath(
-                arcSite,
-                contextPath
-              )}/resources/dist/${arcSite}/images/default-sm.png`}
+              src={defaultImage}
               alt={story?.headlines?.basic}
               className="sep-st__i-img lazy"
-              data-src={getPromoItemRezisedUrl(story)?.mobile || ''}
+              data-src={
+                getPromoItemRezisedUrl(story)?.mobile || defaultImage || ''
+              }
             />
 
             <h4 className="sep-st__i-title">{story?.headlines?.basic}</h4>
@@ -87,13 +82,17 @@ const SeparatorStories: FeatureComponent<any> = (props) => {
           type="button"
           id={stories?.section_id}
           data-stories_qty={contentConfigValues?.stories_qty}
-          data-page="1">
+          data-next={stories?.next}>
           <span>VER MÁS</span>
           <Spinner />
         </button>
       )}
       {isSeeMoreScriptActivate && (
-        <script dangerouslySetInnerHTML={{ __html: seeMoreButtonScript }} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: seeMoreButtonScript(arcSite, defaultImage),
+          }}
+        />
       )}
     </div>
   )
