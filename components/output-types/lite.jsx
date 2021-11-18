@@ -842,7 +842,7 @@ const LiteOutput = ({
         arcSite === SITE_ELBOCON ||
         arcSite === SITE_DEPOR ||
         arcSite === SITE_OJO ||
-        (arcSite === SITE_ELCOMERCIO) ? (
+        arcSite === SITE_ELCOMERCIO ? (
           <script
             defer
             src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()
