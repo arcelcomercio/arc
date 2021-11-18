@@ -3,7 +3,7 @@ import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 import * as React from 'react'
 
-import DatepickerVisualHelp from '../../../global-components/datepicker-visual-help'
+// import DatepickerVisualHelp from '../../../global-components/datepicker-visual-help'
 import { getAssetsPath } from '../../../utilities/assets'
 import {
   SITE_DIARIOCORREO,
@@ -44,7 +44,7 @@ const FeaturedStoryPremium = (props) => {
       imgField,
       categoryField,
       adsSpace,
-      dateInfo,
+      // dateInfo,
     } = {},
   } = props
 
@@ -155,7 +155,7 @@ const FeaturedStoryPremium = (props) => {
 
   return (
     <>
-      {dateInfo && isAdmin ? (
+      {/* {dateInfo && isAdmin ? (
         <DatepickerVisualHelp
           note1={note1}
           note2={note2}
@@ -164,7 +164,7 @@ const FeaturedStoryPremium = (props) => {
           date2={date2}
           date3={date3}
         />
-      ) : null}
+      ) : null} */}
       {(() => {
         if (flagLive) {
           return (
