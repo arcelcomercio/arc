@@ -31,12 +31,12 @@
     margin-bottom: 10px;
   }
   &__current-wrap {
-    border: 1px solid #89c2e8;
+    border: 1px solid #83f73d;
     display: inline-block;
     border-radius: 6px;
   }
   &__current-cont {
-    background-color: #004b91;
+    background-color: #6732b8;
     border: 4px solid #fff;
     border-radius: 6px;
     width: 188px;
@@ -61,10 +61,10 @@
   &__current-bot {
     span {
       font: 400 13px/15px $primary-font;
-      color: #89c2e8;
+      color: #83f73d;
     }
     .right {
-      color: #fed900;
+      color: #83f73d;
       font-weight: 700;
       margin-left: 5px;
     }
@@ -83,7 +83,7 @@
   &__arrow-btn {
     width: 32px;
     height: 32px;
-    background-color: #dc532e;
+    background-color: #f91362;
     border-radius: 50px;
     display: flex;
     align-items: center;
@@ -176,7 +176,7 @@
     text-transform: uppercase;
     flex: 1;
     padding-left: 10px;
-    border-left: 2px solid #dc532e;
+    border-left: 2px solid #f91362;
   }
   &__group-aus {
     font: normal 12px/20px $primary-font;
