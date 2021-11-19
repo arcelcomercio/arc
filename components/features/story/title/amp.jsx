@@ -60,11 +60,13 @@ const StoryTitleAmp = () => {
   const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja1`
   const width = '320'
 
+
+
   const parameters = {
     dataSlot,
     prebidSlot: `19186-${namePublicidad}-amp-caja1`,
     width,
-    height: '100',
+    height: (arcSite === SITE_TROME) ? '50' : '100',
     movil1: false,
     primarySectionLink,
     arcSite,
