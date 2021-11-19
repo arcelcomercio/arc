@@ -1,11 +1,10 @@
 .liveblognews {
-  /* margin-top: 15px;
-  margin-left: 15px;
-  margin-right: 15px;
+  background-color: #f4f4f4;
+  padding: 20px 20px;
   @media (--desktop) {
-    margin-left: 0;
-    margin-right: 0;
-  } */
+    padding: 20px 40px;
+    border-top: 1px solid #efc843;
+  }
   .story-header {
     &-title {
       font: 900 26px/32px $primary-font;
