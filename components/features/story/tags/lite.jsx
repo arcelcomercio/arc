@@ -20,7 +20,7 @@ const StoryTags = () => {
 
   let title = 'TAGS RELACIONADOS'
   if (isTrome) {
-    title = 'Tags:'
+    title = 'tags relacionadas'
   }
   if (metaValue('section_style') === 'story-v2-standard') {
     title = 'TAGS'
@@ -30,7 +30,7 @@ const StoryTags = () => {
     tags.length > 0 && (
       <div className={classes.container}>
         <h4 itemProp="name" className={classes.title}>
-          {isTrome ? 'tags relacionadas' : 'TAGS RELACIONADOS'}
+          {title}
         </h4>
         <div className={classes.line} />
         <div className={classes.box}>
