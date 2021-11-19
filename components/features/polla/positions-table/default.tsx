@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 import { FC } from 'types/features'
 
-import { slugify } from '../../../utilities/parse/slugify'
+// import { slugify } from '../../../utilities/parse/slugify'
 import { GroupData } from './_utlis/types'
 
 // const DEFAULT_ENDPOINT =
@@ -11,8 +11,8 @@ import { GroupData } from './_utlis/types'
 
 // const UUID_COMPETITION = '45db8orh1qttbsqq9hqapmbit'
 
-const COUNTRIES_ASSETS_PATH =
-  'https://cdna.depor.com/resources/dist/depor/images-polla/paises/'
+// const COUNTRIES_ASSETS_PATH =
+//   'https://cdna.depor.com/resources/dist/depor/images-polla/paises/'
 
 interface Props {
   customFields?: {
@@ -50,7 +50,7 @@ const PollaPositionsTable: FC<Props> = (props) => {
     <>
       <div className="polla-positions">
         <div className="polla-positions__title">
-          <div className="polla-positions__title-left">COPA AMÉRICA 2021</div>
+          <div className="polla-positions__title-left">LIGA 1</div>
           <div className="polla-positions__title-right">POSICIONES</div>
         </div>
         {isLoading ? (
@@ -87,9 +87,10 @@ const PollaPositionsTable: FC<Props> = (props) => {
                     </span>
                     <span className="polla-positions__group-left__teams-flag">
                       <img
-                        src={`${COUNTRIES_ASSETS_PATH}${slugify(
-                          team?.name
-                        )}.svg`}
+                        // src={`${COUNTRIES_ASSETS_PATH}${slugify(
+                        //   team?.name
+                        // )}.svg`}
+                        src={`https://resultadosopta.minoticia.pe${team?.local_image}`}
                         alt="flag"
                       />
                     </span>
