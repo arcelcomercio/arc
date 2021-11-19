@@ -132,6 +132,88 @@ const StoryHeaderChildAmpGallery = props => {
                     )}
                   />
                 )}
+                {arcSite === SITE_TROME && (
+                  (i === 8 && (
+                    <div
+                      className={classes.adsAmp}
+                      dangerouslySetInnerHTML={publicidadAmp(
+                        publicidadAmpAd('caja6', '320x100,320x50')
+                      )}
+                    />
+                  ))
+                  (i === 10 && (
+                    <div
+                      className={classes.adsAmp}
+                      dangerouslySetInnerHTML={publicidadAmp(
+                        publicidadAmpAd('caja7', '320x100,320x50')
+                      )}
+                    />
+                  ))
+                  (i === 12 && (
+                    <div
+                      className={classes.adsAmp}
+                      dangerouslySetInnerHTML={publicidadAmp(
+                        publicidadAmpAd('caja8', '320x100,320x50')
+                      )}
+                    />
+                  ))
+                  (i === 14 && (
+                    <div
+                      className={classes.adsAmp}
+                      dangerouslySetInnerHTML={publicidadAmp(
+                        publicidadAmpAd('caja9', '320x100,320x50')
+                      )}
+                    />
+                  ))
+                  (i === 16 && (
+                    <div
+                      className={classes.adsAmp}
+                      dangerouslySetInnerHTML={publicidadAmp(
+                        publicidadAmpAd('caja10', '320x100,320x50')
+                      )}
+                    />
+                  ))
+                  (i === 18 && (
+                    <div
+                      className={classes.adsAmp}
+                      dangerouslySetInnerHTML={publicidadAmp(
+                        publicidadAmpAd('caja11', '320x100,320x50')
+                      )}
+                    />
+                  ))
+                  (i === 20 && (
+                    <div
+                      className={classes.adsAmp}
+                      dangerouslySetInnerHTML={publicidadAmp(
+                        publicidadAmpAd('caja12', '320x100,320x50')
+                      )}
+                    />
+                  ))
+                  (i === 22 && (
+                    <div
+                      className={classes.adsAmp}
+                      dangerouslySetInnerHTML={publicidadAmp(
+                        publicidadAmpAd('caja13', '320x100,320x50')
+                      )}
+                    />
+                  ))
+                  (i === 24 && (
+                    <div
+                      className={classes.adsAmp}
+                      dangerouslySetInnerHTML={publicidadAmp(
+                        publicidadAmpAd('caja14', '320x100,320x50')
+                      )}
+                    />
+                  ))
+                  (i === 26 && (
+                    <div
+                      className={classes.adsAmp}
+                      dangerouslySetInnerHTML={publicidadAmp(
+                        publicidadAmpAd('caja15', '320x100,320x50')
+                      )}
+                    />
+                  ))
+                )}
               </>
             )
           }
