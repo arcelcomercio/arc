@@ -66,6 +66,7 @@ const classes = {
   // nnButtonReceive2: 'newsletter--landing__container3__form1__button-receive2',
 }
 
+// PASE 2 para sandbox martes 02 nov (fix botones para iphone)
 // URL DE ESTILOS EN DEPOR
 // src/websites/depor/scss/lite-components/features/statics/_newsletter-landing.scss
 
@@ -173,12 +174,12 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
         checkb = [chkb1.value, chkb2.value]
       }
 
-      if(validEmail && formInputs[2].checked) {
+      if(validEmail) {
 
         localStorage.setItem("Correo-NL-"+brandNL, formInputs[0].value);
         localStorage.setItem("Topic-NL-"+brandNL, JSON.stringify(checkb));
 
-       var xhr = new XMLHttpRequest()
+        var xhr = new XMLHttpRequest()
             xhr.open("POST", URL_API, true)
             xhr.setRequestHeader('Content-Type', 'application/json')
             xhr.send(JSON.stringify({ 
@@ -186,7 +187,7 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
               brand: brandNL, 
               topics: checkb
           
-      }))
+        }))
 
        form.style.display = "none"
        divSuccessDesktop.style.display = "flex"
@@ -198,7 +199,7 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
 */
 
   let customJs = ''
-  customJs = `"use strict";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.getElementById("formNL"),t=e.elements,c=document.getElementById("msg_success"),n=document.getElementById("formNLlast"),l="${NEWSLETTER_API_LANDING}",a="${newsletterBrand}",d=(JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")||"{}").uuid,JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")||"{}").accessToken,document.getElementById("checkb1")),o=document.getElementById("checkb2"),s=[],r=localStorage.getItem("Correo-NL-"+a),i=JSON.parse(localStorage.getItem("Topic-NL-"+a));r?(n.style.display="flex",i.forEach(function(e){d.value==e&&(d.checked=!0),o.value==e&&(o.checked=!0)})):e.style.display="flex",n.addEventListener("submit",function(e){if(e.preventDefault(),0==d.checked&&0==o.checked)return alert("Seleccione un Boletín"),!1;d.checked&&0==o.checked&&(d.value,s=[d.value]),o.checked&&0==d.checked&&(o.value,s=[o.value]),d.checked&&o.checked&&(s=[d.value,o.value]),localStorage.setItem("Topic-NL-"+a,JSON.stringify(s));var t=new XMLHttpRequest;t.open("POST",l,!0),t.setRequestHeader("Content-Type","application/json"),t.send(JSON.stringify({email:r,brand:a,topics:s})),n.style.display="none",c.style.display="flex"}),e.addEventListener("submit",function(n){n.preventDefault();var r=new RegExp(/[\\w\\.-]+@[\\w\\.-]+/,"i").test(t[0].value);if(0==d.checked&&0==o.checked)return alert("Seleccione un Boletín"),!1;if(d.checked&&0==o.checked&&(d.value,s=[d.value]),o.checked&&0==d.checked&&(o.value,s=[o.value]),d.checked&&o.checked&&(s=[d.value,o.value]),r&&t[2].checked){localStorage.setItem("Correo-NL-"+a,t[0].value),localStorage.setItem("Topic-NL-"+a,JSON.stringify(s));var i=new XMLHttpRequest;i.open("POST",l,!0),i.setRequestHeader("Content-Type","application/json"),i.send(JSON.stringify({email:t[0].value,brand:a,topics:s})),e.style.display="none",c.style.display="flex"}return!1})})});`
+  customJs = `"use strict";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.getElementById("formNL"),t=e.elements,c=document.getElementById("msg_success"),n=document.getElementById("formNLlast"),l="${NEWSLETTER_API_LANDING}",a="${newsletterBrand}",d=(JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")||"{}").uuid,JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")||"{}").accessToken,document.getElementById("checkb1")),o=document.getElementById("checkb2"),s=[],r=localStorage.getItem("Correo-NL-"+a),i=JSON.parse(localStorage.getItem("Topic-NL-"+a));r?(n.style.display="flex",i.forEach(function(e){d.value==e&&(d.checked=!0),o.value==e&&(o.checked=!0)})):e.style.display="flex",n.addEventListener("submit",function(e){if(e.preventDefault(),0==d.checked&&0==o.checked)return alert("Seleccione un Boletín"),!1;d.checked&&0==o.checked&&(d.value,s=[d.value]),o.checked&&0==d.checked&&(o.value,s=[o.value]),d.checked&&o.checked&&(s=[d.value,o.value]),localStorage.setItem("Topic-NL-"+a,JSON.stringify(s));var t=new XMLHttpRequest;t.open("POST",l,!0),t.setRequestHeader("Content-Type","application/json"),t.send(JSON.stringify({email:r,brand:a,topics:s})),n.style.display="none",c.style.display="flex"}),e.addEventListener("submit",function(n){n.preventDefault();var r=new RegExp(/[\\w\\.-]+@[\\w\\.-]+/,"i").test(t[0].value);if(0==d.checked&&0==o.checked)return alert("Seleccione un Boletín"),!1;if(d.checked&&0==o.checked&&(d.value,s=[d.value]),o.checked&&0==d.checked&&(o.value,s=[o.value]),d.checked&&o.checked&&(s=[d.value,o.value]),r){localStorage.setItem("Correo-NL-"+a,t[0].value),localStorage.setItem("Topic-NL-"+a,JSON.stringify(s));var i=new XMLHttpRequest;i.open("POST",l,!0),i.setRequestHeader("Content-Type","application/json"),i.send(JSON.stringify({email:t[0].value,brand:a,topics:s})),e.style.display="none",c.style.display="flex"}return!1})})});`
 
   return (
     <>
@@ -309,11 +310,9 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
               required
               className={classes.nnTextBox}
             />
-            <input
-              type="submit"
-              value="Recibir"
-              className={classes.nnButtonReceive}
-            />
+            <button type="submit" className={classes.nnButtonReceive}>
+              Recibir
+            </button>
             <div className={classes.nnBoxCheckbox2}>
               <input
                 type="checkbox"
@@ -335,11 +334,10 @@ const NewsletterLanding: FC<FeatureProps> = (props) => {
             </div>
           </form>
           <form action="" id="formNLlast" className={classes.nnCont3}>
-            <input
-              type="submit"
-              value="Recibir"
-              className={classes.nnButtonReceive}
-            />
+            <button type="submit" className={classes.nnButtonReceive}>
+              {' '}
+              Recibir{' '}
+            </button>
           </form>
           <div className={classes.nnSuccess} id="msg_success">
             <div className={classes.nnSuccessButton}>

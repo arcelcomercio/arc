@@ -12,8 +12,9 @@ import customFields from './_dependencies/custom-fields'
 import Formatter from './_dependencies/formatter'
 import { bandFilter, menuFilter } from './_dependencies/schema-filter'
 
-const BAND_HIERARCHY = 'navegacion-cabecera-tema-del-dia'
-const MENU_HIERARCHY = 'header-default'
+const BAND_HIERARCHY = 'header-default'
+const THEME_HIERARCHY = 'navegacion-cabecera-tema-del-dia'
+const MENU_HIERARCHY = 'menu-default'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
 
 const HeaderInvertedFeatured = (props) => {
@@ -37,7 +38,6 @@ const HeaderInvertedFeatured = (props) => {
     arcSite,
     contextPath,
     deployment,
-    requestUri,
     metaValue,
     siteProperties,
     globalContent: {
@@ -68,9 +68,8 @@ const HeaderInvertedFeatured = (props) => {
       !metaValue('title').match(/content/) &&
       metaValue('title')
 
-    customLogoTitle = `${seoTitle}: ${
-      storyTitleRe ? storyTitleRe.substring(0, 70) : ''
-    } | ${siteProperties.siteTitle.toUpperCase()}`
+    customLogoTitle = `${seoTitle}: ${storyTitleRe ? storyTitleRe.substring(0, 70) : ''
+      } | ${siteProperties.siteTitle.toUpperCase()}`
   }
 
   const urlsShareList = socialMediaUrlShareList(
@@ -133,9 +132,9 @@ const HeaderInvertedFeatured = (props) => {
   const sourceQuery = isHierarchyReady
     ? contentConfigValues
     : {
-        website: arcSite,
-        hierarchy: MENU_HIERARCHY,
-      }
+      website: arcSite,
+      hierarchy: BAND_HIERARCHY,
+    }
 
   const isHierarchyReadyTema = !!contentConfigValuesTema.hierarchy
   const bandSourceTema = isHierarchyReadyTema
@@ -144,9 +143,9 @@ const HeaderInvertedFeatured = (props) => {
   const sourceQueryTema = isHierarchyReadyTema
     ? contentConfigValuesTema
     : {
-        website: arcSite,
-        hierarchy: BAND_HIERARCHY,
-      }
+      website: arcSite,
+      hierarchy: THEME_HIERARCHY,
+    }
 
   const bandData = useContent({
     source: bandSource,
@@ -177,16 +176,16 @@ const HeaderInvertedFeatured = (props) => {
     arcSite === SITE_DEPOR
       ? 'https://d1r08wok4169a5.cloudfront.net/iframes/depor_logo.svg'
       : `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/trome-logo_5.png?d=1`
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/trome-logo_5.png?d=1`
 
   const winningCallLogo =
     arcSite === 'trome'
       ? `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/super_llamada_ganadora_trome_2x.png?d=1`
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/super_llamada_ganadora_trome_2x.png?d=1`
       : ''
 
   return (

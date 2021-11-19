@@ -3,7 +3,6 @@ import { isAPIErrorResponse } from '@arc-publishing/sdk-identity/lib/serviceHelp
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { originByEnv } from '../../../../utilities/arc/env'
 import { useModalContext } from '../../../subscriptions/_context/modal'
 import getCodeError from '../../../subscriptions/_dependencies/Errors'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
@@ -48,6 +47,11 @@ const FormVerify = ({ onClose, tokenVerify, tokenMagicLink, typeDialog }) => {
           `web_sw${typeDialog[0]}_aceptar_sucess`
         )
         Identity.getUserProfile()
+        Identity.isLoggedIn().then((isLogged) =>
+          isLogged === true
+            ? setShowBtnContinue(true)
+            : setShowBtnContinue(false)
+        )
       })
       .catch((errLogin) => {
         setShowError(getCodeError(errLogin.code))
@@ -55,14 +59,25 @@ const FormVerify = ({ onClose, tokenVerify, tokenMagicLink, typeDialog }) => {
           `Web_Sign_Wall_${typeDialog}`,
           `web_sw${typeDialog[0]}_aceptar_error`
         )
-      })
-      .finally(() => {
         setShowLoading(false)
       })
+      .finally(() => {
+        // se llama a este nivel para que cargue el profile del user
+        // para que finalmente se verifique si esta logueado
+        Identity.isLoggedIn()
+          .then((isLogged) =>
+            isLogged === true
+              ? setShowBtnContinue(true)
+              : setShowBtnContinue(false)
+          )
+          .finally(() => {
+            setShowLoading(false)
+          })
+      })
 
-    if (Identity.userProfile || Identity.userIdentity.uuid) {
-      setShowBtnContinue(true)
-    }
+    // if (Identity.isLoggedIn()) {
+    //   setShowBtnContinue(true)
+    // }
   }, [])
 
   return (
@@ -151,8 +166,7 @@ const FormVerify = ({ onClose, tokenVerify, tokenMagicLink, typeDialog }) => {
                   `Web_Sign_Wall_${typeDialog}`,
                   `web_sw${typeDialog[0]}_continuar_boton`
                 )
-                if (tokenMagicLink) window.location.href = originByEnv(arcSite)
-                else changeTemplate('login')
+                changeTemplate('login')
               }}>
               CONTINUAR
             </button>

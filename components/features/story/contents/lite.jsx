@@ -53,6 +53,7 @@ import StoryContentsChildImage from '../multimedia/_children/image'
 import StoryContentsChildVideo from '../multimedia/_children/video'
 import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
 import StoryContentsChildAuthorLite from './_children/author-lite'
+import StoryContentChildAuthorLiteV2 from './_children/author-lite-v2'
 import StoryContentsChildAuthorTrustLite from './_children/author-trust-lite'
 import StoryContentsChildBlockQuote from './_children/blockquote'
 import StoryContentsChildCorrection from './_children/correction'
@@ -97,6 +98,7 @@ const StoryContentsLite = (props) => {
     contextPath,
     deployment,
     requestUri,
+    metaValue,
     siteProperties: {
       ids: { opta },
       isDfp = false,
@@ -181,16 +183,27 @@ const StoryContentsLite = (props) => {
     isGsapRequired = elementsWithScrollGallery.length > 0
   }
 
+  const isStoryV2StandarStyle =
+    metaValue('section_style') === 'story-v2-standard'
+
   return (
     <>
       <div className={classes.news}>
         {subtype !== GALLERY_VERTICAL && (
           <>
-            {SITE_ELCOMERCIO === arcSite ? (
-              <StoryContentsChildAuthorTrustLite {...params} />
-            ) : (
-              <StoryContentsChildAuthorLite {...params} />
-            )}
+            {(() => {
+              if (isStoryV2StandarStyle)
+                return (
+                  <StoryContentChildAuthorLiteV2
+                    authorsList={authorsList}
+                    displayDate={getDateSeo(displayDate || createdDate)}
+                    publishDate={getDateSeo(updateDate)}
+                  />
+                )
+              if (SITE_ELCOMERCIO === arcSite)
+                return <StoryContentsChildAuthorTrustLite {...params} />
+              return <StoryContentsChildAuthorLite {...params} />
+            })()}
           </>
         )}
         <div
@@ -419,7 +432,7 @@ const StoryContentsLite = (props) => {
                         (arcSite === 'depor' &&
                           (/^\/mexico\//.test(requestUri) ||
                             /^\/colombia\//.test(requestUri)))) &&
-                      nameAds === 'caja3' ? (
+                        nameAds === 'caja3' ? (
                         <div id="spc_post_stories" />
                       ) : null}
                     </>

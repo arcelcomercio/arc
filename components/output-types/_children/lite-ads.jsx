@@ -378,7 +378,7 @@ const LiteAds = ({
       arcSite === 'depor' ||
       arcSite === 'ojo' ? (
         <>
-          {arcSite !== 'elcomerciomag' &&
+          {arcSite !== 'elcomerciomag' && arcSite !== 'elbocon' &&
           !(
             arcSite === 'depor' &&
             (section === 'futbol-internacional' || section === 'off-side')
@@ -407,7 +407,7 @@ const LiteAds = ({
           arcSite === 'elbocon' ||
           arcSite === 'depor' ||
           arcSite === 'ojo' ||
-          (arcSite === 'elcomercio' && section === 'luces') ? (
+          arcSite === 'elcomercio' ? (
             <>
               <script
                 type="text/javascript"

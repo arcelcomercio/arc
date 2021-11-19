@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { BaseMarkup, Html } from '@arc-core-components/amp-document-boilerplate'
-import getProperties from 'fusion:properties'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
@@ -263,7 +262,6 @@ const AmpOutputType = ({
     prebidSlot: `19186-${namePublicidad}-amp-zocalo`,
   }
   const isTrivia = /^\/trivias\//.test(requestUri)
-  const { siteDomain } = getProperties(arcSite)
   return (
     <Html lang={lang}>
       <head>
@@ -271,24 +269,15 @@ const AmpOutputType = ({
           canonicalUrl={`${envOrigin}${addSlashToEnd(canonicalUrl)}`}
         />
         <title>{title}</title>
+        {arcSite === SITE_DEPOR && (
+          <>
+            <link rel="preconnect" href="//cdn.ampproject.org" />
+            <link rel="preconnect" href="//cdna.depor.com" />
+          </>
+        )}
         <Styles {...metaSiteData} />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        {arcSite !== SITE_TROME && (
-          <>
-            <link
-              rel="preload"
-              href="https://cdn.ampproject.org/v0.js"
-              as="script"
-            />
-            <link rel="preconnect" href="https://cdn.ampproject.org" />
-            <link rel="dns-prefetch" href="https://cdn.ampproject.org" />
-            <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-            <link rel="dns-prefetch" href={`https://cdna.${siteDomain}`} />
-            <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-          </>
-        )}
         {arcSite === SITE_GESTION && (
           <meta name="amp-experiments-opt-in" content="amp-next-page" />
         )}
@@ -360,13 +349,13 @@ const AmpOutputType = ({
               custom-element="amp-sticky-ad"
               src="https://cdn.ampproject.org/v0/amp-sticky-ad-1.0.js"
             />
-            <script
-              async
-              custom-element="amp-ad"
-              src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
-            />
           </>
         )}
+        <script
+          async
+          custom-element="amp-ad"
+          src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
+        />
         {hasIframe && (
           <script
             async
@@ -502,13 +491,11 @@ const AmpOutputType = ({
         {!isTrivia && (
           <>
             <AmpTagManager {...parametros} />
-            {metaValue('exclude_ads_amp') !== 'true' && (
-              <amp-sticky-ad
-                layout="nodisplay"
-                class="ad-amp-movil"
-                dangerouslySetInnerHTML={publicidadAmpMovil0(parameters)}
-              />
-            )}
+            <amp-sticky-ad
+              layout="nodisplay"
+              class="ad-amp-movil"
+              dangerouslySetInnerHTML={publicidadAmpMovil0(parameters)}
+            />
           </>
         )}
         {children}
