@@ -233,8 +233,8 @@ class StoryContentAmp extends React.PureComponent {
       const formattedUpdateDate = formatDateTime(updateDate)
 
       return `${formattedDisplayDate} ${formattedDisplayDate !== formattedUpdateDate
-          ? `| Actualizado ${formattedUpdateDate}`
-          : ''
+        ? `| Actualizado ${formattedUpdateDate}`
+        : ''
         }`
     }
 
