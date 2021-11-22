@@ -25,7 +25,7 @@ const PollaBanner: FC<Props> = (props) => {
           />
           {customFields?.bottomTitle && (
             <h1 className="polla-banner__logo-title">
-              {customFields?.bottomText}
+              {customFields?.bottomTitle}
             </h1>
           )}
         </div>
@@ -38,7 +38,7 @@ const PollaBanner: FC<Props> = (props) => {
           />
           {customFields?.bottomTitle && (
             <h1 className="polla-banner__logo-title">
-              {customFields?.bottomText}
+              {customFields?.bottomTitle}
             </h1>
           )}
         </div>
