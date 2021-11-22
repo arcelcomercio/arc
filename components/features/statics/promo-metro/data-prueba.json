@@ -1,0 +1,72 @@
+[
+  {
+    "code": "0101010101",
+    "discount": 10,
+    "discountType": "$",
+    "title": "PIQUEOS",
+    "legal": "Válido hasta el jueves"
+  },
+{
+    "code": "0202020202",
+    "discount": 50,
+    "discountType":"$",
+    "title":"CARNES",
+    "legal": "Válido hasta el miércoles"
+  },
+ {
+    "code": "0303030303",
+    "discount": 24,
+    "discountType": "$",
+    "title": "LECHE",
+    "legal": "Válido hasta fin de mes"
+  },
+{
+    "code": "2525252525",
+    "discount": 60,
+    "discountType":"%",
+    "title":"MANTEQUILLA",
+    "legal": "Válido hasta el viernes"
+  },
+   {
+    "code": "8228474434",
+    "discount": 24,
+    "discountType": "$",
+    "title": "ACEITES",
+    "legal": "Válido hasta fin de mes"
+  },
+{
+    "code": "0929385345",
+    "discount": 30,
+    "discountType":"%",
+    "title":"SHAMPOOS",
+    "legal": "Válido hasta agotar stock"
+  },
+{
+    "code": "0928443434",
+    "discount": 30,
+    "discountType":"%",
+    "title":"COMIDA DE GATO",
+    "legal": "Válido hasta agotar stock"
+  },
+{
+    "code": "9283571925",
+    "discount": 50,
+    "discountType":"%",
+    "title":"ROPA",
+    "legal": "Válido hasta el sábado"
+  },
+{
+    "code": "1012329999",
+    "discount": 50,
+    "discountType":"$",
+    "title":"FRUTAS",
+    "legal": "Válido hasta el sábado"
+  },
+{
+    "code": "0808484833",
+    "discount": 20,
+    "discountType":"%",
+    "title":"ZAPATILLAS",
+    "legal": "Válido hasta el 30 diciembre"
+  }
+]

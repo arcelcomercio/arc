@@ -5,10 +5,10 @@ import * as React from 'react'
 import { FC } from 'types/features'
 
 const classes = {
-  container: 'metro-container w-full h-full flex flex-col justify-center',
+  container: 'metro w-full h-full flex flex-col justify-center',
   title: 'metro-title',
   subtitle: 'metro-subtitle',
-  grid: 'metro-coupons',
+  grid: 'metro-grid',
   footer: 'metro-footer',
   // download: 'metro-download',
   // share: 'metro-share',
@@ -66,7 +66,7 @@ interface Coupon {
 
 const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
   const {
-    // couponsJson,
+    couponsJson,
     // logo = 'logo-de-metro.jpg',
     title = '¡Bienvenido!¡Gracias por ser un trome!',
     subtitle = 'Ahora como buen Trome, disfruta de estos descuentazos en cualquier tienda Metro',
@@ -76,15 +76,17 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
 
   // Esto es un ejemplo. Se debe usar couponsJson
   // const coupons = couponsJson && JSON.parse(couponsJson)
-  const coupons: Coupon[] = [
-    {
-      code: '0101010101',
-      discount: 10, // number
-      discountType: DiscountType.Percentage, // DiscountType
-      title: 'PIQUEOS',
-      legal: 'Válido hasta el jueves',
-    },
-  ]
+  const coupons: Coupon[] =
+    (couponsJson && JSON.parse(couponsJson)) ||
+    [
+      // {
+      //   code: '0101010101',
+      //   discount: 10, // number
+      //   discountType: DiscountType.Percentage, // DiscountType
+      //   title: 'PIQUEOS',
+      //   legal: 'Válido hasta el jueves',
+      // },
+    ]
 
   return (
     <div className={classes.container}>
@@ -97,9 +99,9 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
               <strong className={classes.couponHead}>
                 <span className={classes.couponAmount}>{coupon.discount}</span>
                 <span className={classes.couponType}>
-                  {coupon.discountType}
+                  &nbsp;{coupon.discountType}
                 </span>
-                <span className={classes.couponText}>de descuento</span>
+                <span className={classes.couponText}>&nbsp;de descuento</span>
               </strong>
               <h3 className={classes.couponTitle}>{coupon.title}</h3>
               <span className={classes.couponCode}>{coupon.code}</span>
