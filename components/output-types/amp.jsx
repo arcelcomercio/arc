@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/html-has-lang */
+
 import * as React from 'react'
 
 const AmpOutputType = ({ globalContent }) => {
