@@ -49,7 +49,8 @@ const StorySocialLite = () => {
     contextPath,
   })
 
-  return isArchivoElcomercio ? (
+  return metaValue('section_style') !== 'story-v2-standard' &&
+    isArchivoElcomercio ? (
     <div className={classes.center}>
       <div className={classes.special}>
         <ShareButtons activeGoogleNews />
@@ -124,25 +125,26 @@ const StorySocialLite = () => {
           />
         )}
       </div>
-      {metaValue('section_style') !== 'story-v2-standard' && (
-        <div className={classes.buttons}>
-          <ShareButtons
-            activeGoogleNews={
-              arcSite === 'elcomercio' ||
-              arcSite === 'elcomerciomag' ||
-              arcSite === 'trome'
-            }
-            activeLinkedin={
-              arcSite === 'elcomercio' ||
-              arcSite === 'elcomerciomag' ||
-              arcSite === 'peru21' ||
-              arcSite === 'elbocon' ||
-              arcSite === 'ojo' ||
-              arcSite === 'gestion'
-            }
-          />
-        </div>
-      )}
+      {metaValue('section_style') !== 'story-v2-standard' &&
+        metaValue('section_style') !== 'story-v2-video' && (
+          <div className={classes.buttons}>
+            <ShareButtons
+              activeGoogleNews={
+                arcSite === 'elcomercio' ||
+                arcSite === 'elcomerciomag' ||
+                arcSite === 'trome'
+              }
+              activeLinkedin={
+                arcSite === 'elcomercio' ||
+                arcSite === 'elcomerciomag' ||
+                arcSite === 'peru21' ||
+                arcSite === 'elbocon' ||
+                arcSite === 'ojo' ||
+                arcSite === 'gestion'
+              }
+            />
+          </div>
+        )}
     </div>
   )
 }
