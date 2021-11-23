@@ -9,7 +9,7 @@ import {
   SITE_ELCOMERCIOMAG,
   SITE_TROME,
 } from '../../../utilities/constants/sitenames'
-import { GALLERY_VERTICAL } from '../../../utilities/constants/subtypes'
+import { GALLERY_VERTICAL, MINUTO_MINUTO } from '../../../utilities/constants/subtypes'
 import {
   publicidadAmp,
   publicidadAmpCaja1,
@@ -60,11 +60,13 @@ const StoryTitleAmp = () => {
   const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja1`
   const width = '320'
 
+
+
   const parameters = {
     dataSlot,
     prebidSlot: `19186-${namePublicidad}-amp-caja1`,
     width,
-    height: '100',
+    height: (arcSite === SITE_TROME) ? '50' : '100',
     movil1: false,
     primarySectionLink,
     arcSite,
@@ -149,18 +151,19 @@ const StoryTitleAmp = () => {
             </div>
           ) : null}
         </header>
-
-        {arcSite !== SITE_ELCOMERCIOMAG && subtype !== GALLERY_VERTICAL && (
-          <div
-            className={classes.adsAmp}
-            dangerouslySetInnerHTML={publicidadAmp(parameters)}
-          />
-        )}
-        {arcSite === SITE_ELCOMERCIOMAG && (
-          <div
-            className={classes.adsAmp}
-            dangerouslySetInnerHTML={publicidadAmpCaja1(parametersCaja1)}
-          />
+        {arcSite !== SITE_TROME || (subtype !== MINUTO_MINUTO && subtype !== GALLERY_VERTICAL) && (
+          (arcSite !== SITE_ELCOMERCIOMAG && subtype !== GALLERY_VERTICAL && (
+            <div
+              className={classes.adsAmp}
+              dangerouslySetInnerHTML={publicidadAmp(parameters)}
+            />
+          ))
+            (arcSite === SITE_ELCOMERCIOMAG && (
+              <div
+                className={classes.adsAmp}
+                dangerouslySetInnerHTML={publicidadAmpCaja1(parametersCaja1)}
+              />
+            ))
         )}
         {subTitle && <div className={classes.description}> {subTitle}</div>}
         {arcSite !== SITE_ELCOMERCIOMAG && arcSite !== SITE_TROME && (
