@@ -283,26 +283,27 @@ export const hoverSearch = `window.addEventListener("load",function(){requestIdl
   }, false)
 })})`
 
-/* TODO: Agregar la lógica sin minificar de este script, no son iguales
-document.addEventListener('DOMContentLoaded', function() {
+/* TODO: Agregar la lógica sin minificar de este script, no son iguales */
+/* document.addEventListener('DOMContentLoaded', function() {
   requestIdle(() => {
     const localProfile = JSON.parse(
       window.localStorage.getItem('ArcId.USER_PROFILE') 
     )
+    console.log(localProfile)
     const { firstName = '', lastName = '', uuid = '' } = localProfile || {}
     document.getElementById("signwall-nav-btn").addEventListener("click", () => {
       if (uuid) {
         window.location.href  = '/mi-perfil/?outputType=signwall'
       } else {
-        // window.location.href  = '/signwall/?outputType=signwall'
-        window.location.href  = '/politica/?reloginEmail=1'
+        window.location.href  = '/signwall/?outputType=signwall'
+        //window.location.href  = '/politica/?reloginEmail=1'
       }
     })
     if (uuid) {
-      const signwallButton = document.getElementById('signwall-nav-user')
+      const signwallButton = document.getElementById('signwall-nav-btn')
       const signwallIcon = document.getElementById('signwall-nav-icon')
       if (!firstName && !lastName) {
-        signwallButton.innerHTML = 'Bienvenido Usuario'
+        signwallButton.innerHTML = 'Mi perfil'
       } else {
         let buttonText = ''
         let iconText = ''
@@ -322,11 +323,11 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   })
-})
-*/
+}) */
 
 export const singwallScript =
-  '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var n=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},e=n.firstName,t=void 0===e?"":e,c=n.lastName,a=void 0===c?"":c,i=n.uuid,o=void 0===i?"":i;if(document.getElementById("signwall-nav-btn").addEventListener("click",function(){window.location.href=o?"/mi-perfil/?outputType=signwall":"/politica/?reloginEmail=1"}),o){var l=document.getElementById("signwall-nav-user"),d=document.getElementById("signwall-nav-icon");if(t||a){var r="",s="";t&&a?(r="".concat(t," ").concat(a),s="".concat(t[0]||"").concat(a[0]||"")):t&&!a?(r=t,s="".concat(t[0]||"").concat(t[1]||"")):!t&&a&&(r=a,s="".concat(a[0]||"").concat(a[1]||"")),l.innerHTML=r.length>=15?"".concat(r.slice(0,15),"..."):r,d.innerHTML=s,d.className="uppercase"}else l.innerHTML="Bienvenido Usuario"}})});'
+  '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var n=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"));console.log(n);var e=n||{},t=e.firstName,c=void 0===t?"":t,a=e.lastName,o=void 0===a?"":a,i=e.uuid,l=void 0===i?"":i;if(document.getElementById("signwall-nav-btn").addEventListener("click",function(){window.location.href=l?"/mi-perfil/?outputType=signwall":"/signwall/?outputType=signwall"}),l){var d=document.getElementById("signwall-nav-btn"),s=document.getElementById("signwall-nav-icon");if(c||o){var r="",u="";c&&o?(r="".concat(c," ").concat(o),u="".concat(c[0]||"").concat(o[0]||"")):c&&!o?(r=c,u="".concat(c[0]||"").concat(c[1]||"")):!c&&o&&(r=o,u="".concat(o[0]||"").concat(o[1]||"")),d.innerHTML=r.length>=15?"".concat(r.slice(0,15),"..."):r,s.innerHTML=u,s.className="uppercase"}else d.innerHTML="Mi perfil"}})});'
+
 export const getQueryReloginEmailScript = (_env, arcSite) => `"use strict";
 document.addEventListener('DOMContentLoaded', function () {
   requestIdle(function () {
