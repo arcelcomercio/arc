@@ -260,10 +260,6 @@ const HeaderChildInverted = ({
     </nav>
   )
 
-  // console.log(bandLinks)
-  // const locations = location.pathname;
-  // console.log(initSearch)
-
   return (
     <>
       {!invertedTema && !hideTema && <Header />}
