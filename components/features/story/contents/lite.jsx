@@ -196,6 +196,7 @@ const StoryContentsLite = (props) => {
                     authorsList={authorsList}
                     displayDate={getDateSeo(displayDate || createdDate)}
                     publishDate={getDateSeo(updateDate)}
+                    metaValue={metaValue}
                   />
                 )
               if (SITE_ELCOMERCIO === arcSite)
