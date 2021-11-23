@@ -1,0 +1,75 @@
+$hi-font-primary: "Encode Sans Condensed";
+
+.editorial-team {
+  height: auto;
+  background-color: #f5f5f5;
+  padding: 0 35px;
+  padding-top: 34px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0;
+  margin-top: -20px; // solo para quitar el margin del layaut
+
+  @media (--desktop) {
+    // solo porque el tamaño del main es otro y tons se tuvo que forzar con lo siguiente
+    width: 5000px;
+    left: -2010px;
+  }
+  @media (--tablet) {
+    // solo porque el tamaño del main es otro y tons se tuvo que forzar con lo siguiente
+    width: 1024px;
+    left: -200px;
+  }
+
+  h2 {
+    font-family: $hi-font-primary;
+    text-align: center;
+    text-transform: uppercase;
+    color: #888888;
+    font-weight: 500;
+    border-bottom: 1px dashed #a1a1a1;
+    font-size: 13px;
+    padding-bottom: 15px;
+    width: 630px;
+
+    @media (--only-mobile) {
+      width: 100%;
+    }
+  }
+
+  &__item {
+    text-align: center;
+    font-family: $hi-font-primary;
+    font-weight: 600;
+    font-size: 20px;
+
+    strong {
+      display: block;
+      font-weight: 500;
+      height: 16px;
+      font-size: 13px;
+    }
+
+    @media (--tablet) {
+      padding-bottom: 18px;
+    }
+    @media (--only-mobile) {
+      padding-bottom: 15px;
+    }
+
+    &:first-child {
+      margin-top: 19px;
+    }
+    &:last-child {
+      @media (--tablet) {
+        padding-bottom: 53px;
+      }
+      @media (--only-mobile) {
+        padding-bottom: 41px;
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+.header-video-section {
+  display: flex;
+  flex-direction: column;
+  @media (--desktop) {
+    flex-direction: row;
+  }
+  &__main {
+    @media (--desktop) {
+      width: 625px;
+    }
+  }
+  &__side {
+    @media (--desktop) {
+      width: calc(100% - 640px);
+    }
+  }
+}

@@ -13,7 +13,9 @@ const classes = {
     'custom-title__button position-absolute right-0 text-sm font-normal border-1 border-gray border-solid p-10 text-gray-200',
   darkButton:
     'custom-title__button position-absolute right-0 text-sm font-normal border-1 border-white border-solid p-10 text-white',
-  titleSearch: 'custom-title__page-search'
+  titleSearch: 'custom-title__page-search',
+  titleAuthors: 'custom-title__page-authors',
+  subtitleField: 'custom-title__subtitleField'
 }
 
 const CustomTitleFeat = props => {
@@ -82,6 +84,15 @@ const CustomTitleFeat = props => {
     return title
   }
 
+  const autoresTrome = () => {
+    const { query: { uri = '' } = {} } = globalContentConfig || {}
+    let newUri = uri && uri.replace(new RegExp('/', 'g'), '')
+    if (newUri === 'autores' && arcSite === SITE_TROME) return true
+    else return ''
+  }
+
+  console.log(customText)
+
   return (
     <>
       <TextType
@@ -92,7 +103,8 @@ const CustomTitleFeat = props => {
           } ${isThreeCol ? 'col-3' : ''} ${isCustomBorder ? 'custom-border' : ''
           } ${seeMoreButton ? 'position-relative ' : ''} ${isDarkBg ? 'dark-bg text-white bg-base-100' : ''
           } ${size} ${subLine ? 'border-b-1 border-solid border-gray pb-20' : 'pb-10'
-          } ${(getSearch() && arcSite === SITE_TROME) && classes.titleSearch}`}>
+          } ${(getSearch() && arcSite === SITE_TROME) && classes.titleSearch
+          } ${autoresTrome() && classes.titleAuthors}`}>
         {customText ||
           sectionName ||
           tagName ||
@@ -114,7 +126,7 @@ const CustomTitleFeat = props => {
         <h2
           itemProp="name"
           className={`text-lg ${subLine ? 'mt-20' : 'mt-10'
-            } mb-20 line-h-xs pl-20 pr-20 md:pl-0 md:pr-0`}
+            } mb-20 line-h-xs pl-20 pr-20 md:pl-0 md:pr-0 ${autoresTrome() && classes.subtitleField}`}
           dangerouslySetInnerHTML={{ __html: subtitleField }}
         />
       ) : null}

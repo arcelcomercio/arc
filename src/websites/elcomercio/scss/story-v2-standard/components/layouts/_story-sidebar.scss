@@ -13,7 +13,10 @@
   &__content {
     flex-direction: column;
     width: 100%;
-    margin: 20px 0;
+    padding: 20px 15px;
+    @media (--tablet) {
+      padding: 20px 0;
+    }
     @media (--desktop) {
       flex-direction: row;
       flex-wrap: wrap;

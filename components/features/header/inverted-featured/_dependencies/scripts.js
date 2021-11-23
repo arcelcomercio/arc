@@ -121,6 +121,7 @@ window.addEventListener('load', () => {requestIdle(() => {
 
 export const toggleSearch = `window.addEventListener("load",function(){requestIdle(function(){
   var f=document.getElementById("header-search-form"),
+  d=document.getElementById("header-search-input"),
   e=document.getElementById("header-search-button"),
   s=document.body.querySelector('.header-inverted-featured__buscador-container'),
   b=document.body.querySelector('.header-inverted-featured__btn-search'),
@@ -149,6 +150,7 @@ export const toggleSearch = `window.addEventListener("load",function(){requestId
       b.className.baseVal=b.className.baseVal.concat(" active"),
       c.className.baseVal=c.className.baseVal.replace(" hidden", ""),
       s.className=s.className.replace(" hidden", " flex"),
+      d.focus(),
       i.className=i.className.replace(" mt-0", " mt-70")
     )
     })
@@ -194,11 +196,19 @@ export const btnSearch = `window.addEventListener("load",function(){requestIdle(
   var e=document.getElementById("btn-search"),
   a=document.getElementById("header-search-input")
   ;e.addEventListener("click",function(){
-    console.log(a);
     var t=a.value;
     if(t){
       var n=encodeURIComponent(t).replace(/%20/g,"+");
-      window.location.href="/buscar/".concat(n,"/todas/descendiente/?query=").concat(n);}})})})`
+      window.location.href="/buscar/".concat(n,"/todas/descendiente/?query=").concat(n);
+    }})
+  ;a.addEventListener("keydown", function(e){
+    if( e.keyCode === 13 ) {
+      var t=a.value;
+      var n=encodeURIComponent(t).replace(/%20/g,"+");
+      window.location.href="/buscar/".concat(n,"/todas/descendiente/?query=").concat(n);
+    }
+  })
+  })})`
 
 /*
 window.addEventListener('load', () => {requestIdle(() => {
@@ -245,14 +255,21 @@ window.addEventListener('load', () => {requestIdle(() => {
   })
 })})
 */
-export const sticky = `window.addEventListener("load",function(){requestIdle(function(){ 
+export const sticky = `
+  var a = document.querySelector(".header-inverted-featured")
+  var o = new IntersectionObserver(
+    ([e]) => e.target.classList.toggle("header-inverted-featured__header-sticky", e.intersectionRatio < 1),
+    { threshold: [1] }
+  );
+  o.observe(a);`
+export const stickyLoaded = `window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){ 
   var a = document.querySelector(".header-inverted-featured")
   var o = new IntersectionObserver(
     ([e]) => e.target.classList.toggle("header-inverted-featured__header-sticky", e.intersectionRatio < 1),
     { threshold: [1] }
   );
   o.observe(a);
-})})`
+})});`
 
 /* */
 export const hoverSearch = `window.addEventListener("load",function(){requestIdle(function(){ 

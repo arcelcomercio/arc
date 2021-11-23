@@ -1,27 +1,26 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import * as React from 'react'
-import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
+import PropTypes from 'prop-types'
+import * as React from 'react'
 
 import Button from '../../../../global-components/button'
+import ShareButtons from '../../../../global-components/lite/share'
 import Menu from '../../../../global-components/menu'
 import searchQuery from '../../../../utilities/client/search'
-
-import ShareButtons from '../../../../global-components/lite/share'
-
 import {
-  toggleMenu,
-  toggleSearch,
-  searchScript,
   btnSearch,
-  searchScriptMobile,
   btnSearchMobile,
-  singwallScript,
-  sticky,
   hoverSearch,
   initSearch,
-  sections
+  searchScript,
+  searchScriptMobile,
+  sections,
+  singwallScript,
+  sticky,
+  stickyLoaded,
+  toggleMenu,
+  toggleSearch,
 } from '../_dependencies/scripts'
 
 const classes = {
@@ -67,7 +66,7 @@ const classes = {
   callLink: 'header-inverted-featured__call-link',
 }
 
-const popUpWindow = (url, title, w, h) => {
+/* const popUpWindow = (url, title, w, h) => {
   const left = window.screen.width / 2 - w / 2
   const top = window.screen.height / 2 - h / 2
   return window.open(
@@ -75,7 +74,7 @@ const popUpWindow = (url, title, w, h) => {
     title,
     `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`
   )
-}
+} */
 
 // TODO: Agregar el click afuera del menu
 const HeaderChildInverted = ({
@@ -92,11 +91,11 @@ const HeaderChildInverted = ({
   isStory,
   winningCallLogo,
   hideMenu,
-  invertedTema
+  invertedTema,
 }) => {
   const [scrolled, setScrolled] = React.useState(false)
   const [statusSidebar, setStatusSidebar] = React.useState(false)
-  const [statusSearch, setStatusSearch] = React.useState(false)
+  // const [statusSearch, setStatusSearch] = React.useState(false)
 
   const {
     contextPath,
@@ -115,36 +114,36 @@ const HeaderChildInverted = ({
   // let layerBackground = null
 
   /** ------ SEARCH ----- */
-  const _handleSearch = () => {
+  const handleSearch = () => {
     const { value } = inputSearch.current
     searchQuery(value)
   }
 
-  const _handleKeyDown = (e) => {
+  const handleKeyDown = (e) => {
     e.preventDefault()
     const { value } = e.target
     if (value !== '' && e.which === 13) {
       inputSearch.current = { value }
-      _handleSearch()
+      handleSearch()
     }
   }
 
   // Open search and automatic focus input
-  const focusInputSearch = () => {
+  /* const focusInputSearch = () => {
     inputSearch.current.focus()
-  }
+  } */
 
   // Add - Remove Class active input and button search
-  const activeSearch = () => {
+  /* const activeSearch = () => {
     return statusSearch ? 'active' : ''
-  }
+  } */
 
   // If input search is empty, buton close search else buton find search
-  const optionButtonClick = () => {
-    if (statusSearch) _handleSearch()
+  /* const optionButtonClick = () => {
+    if (statusSearch) handleSearch()
     else focusInputSearch()
     setStatusSearch(!statusSearch)
-  }
+  } */
 
   /** ------ // SEARCH ----- */
 
@@ -159,35 +158,35 @@ const HeaderChildInverted = ({
     }
   }
 
-  const _setPosition = (posX) => {
+  const setPosition = (posX) => {
     document.body.querySelector(
       '.nav-sidebar'
     ).style.transform = `scaleX(${posX})`
   }
 
-  const _openMenu = () => {
+  const openMenu = () => {
     const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
-    if (!isIOS) _setPosition(1)
+    if (!isIOS) setPosition(1)
     document.body.querySelector('.layer').style.display = 'block'
     setStatusSidebar(true)
   }
 
-  const _closeMenu = () => {
+  const closeMenu = () => {
     const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
-    if (!isIOS) _setPosition(0)
+    if (!isIOS) setPosition(0)
     document.body.querySelector('.layer').style.display = 'none'
     setStatusSidebar(false)
   }
 
-  const _handleToggleSectionElements = () => {
+  const handleToggleSectionElements = () => {
     toggleBodyOverflow()
-    if (statusSidebar) _closeMenu()
-    else _openMenu()
+    if (statusSidebar) closeMenu()
+    else openMenu()
   }
 
   /** ------ // SIDEBAR ----- */
 
-  const moreList = () => {
+  /* const moreList = () => {
     const el = document.body.querySelector('.story-header__list')
     if (el.classList.contains('block')) {
       el.classList.remove('block')
@@ -196,16 +195,15 @@ const HeaderChildInverted = ({
       el.classList.remove('hidden')
       el.classList.add('block')
     }
-  }
+  } */
 
-  const openLink = (event, item) => {
+  /* const openLink = (event, item) => {
     event.preventDefault()
     if (item === 3) moreList()
     else popUpWindow(item.link, '', 600, 400)
-  }
+  } */
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const _handleScroll = () => {
+  const handleScroll = () => {
     // ------ Logic to set state to hidden or show logo in navbar
     const { body = {}, documentElement = {} } = document
     const { scrollTop: scrollBody = 0 } = body
@@ -218,17 +216,21 @@ const HeaderChildInverted = ({
   }
 
   React.useEffect(() => {
-    window.addEventListener('scroll', _handleScroll)
+    window.addEventListener('scroll', handleScroll)
 
     return () => {
-      window.removeEventListener('scroll', _handleScroll)
+      window.removeEventListener('scroll', handleScroll)
     }
-  }, [_handleScroll])
+  }, [handleScroll])
 
   const Header = () => (
     <nav className={classes.bandInverted}>
       <div className={classes.menuFull}>
-        {tagsTema && <div className={`${(invertedTema) ? classes.tags : classes.tagsTema}`}>{tagsTema}</div>}
+        {tagsTema && (
+          <div className={`${invertedTema ? classes.tags : classes.tagsTema}`}>
+            {tagsTema}
+          </div>
+        )}
 
         {bandLinksTema && bandLinksTema[0] && (
           <ul className={`${classes.menuList}`}>
@@ -257,13 +259,9 @@ const HeaderChildInverted = ({
     </nav>
   )
 
-  // console.log(bandLinks)
-  // const locations = location.pathname;
-  // console.log(initSearch)
-
   return (
     <>
-      {(!invertedTema && !hideTema) && <Header />}
+      {!invertedTema && !hideTema && <Header />}
       <header className={classes.header}>
         <div className={classes.navLoader} />
         <div className={classes.wrapper}>
@@ -273,7 +271,7 @@ const HeaderChildInverted = ({
             <button
               type="button"
               className={classes.btnMenu}
-              onClick={_handleToggleSectionElements}
+              onClick={handleToggleSectionElements}
               id="btn-menu"
               tabIndex="0">
               <svg
@@ -305,10 +303,9 @@ const HeaderChildInverted = ({
               <span aria-hidden="true">Menú</span>
             </button>
             <form
-              id='header-search-form'
+              id="header-search-form"
               className={classes.form}
-              onSubmit={(e) => e.preventDefault()}
-            >
+              onSubmit={(e) => e.preventDefault()}>
               <svg
                 id="header-search-button"
                 className={classes.btnSearch}
@@ -370,7 +367,7 @@ const HeaderChildInverted = ({
         </div>
         <Menu
           sections={menuSections}
-          showSidebar={true}
+          showSidebar
           contextPath={contextPath}
           siteProperties={siteProperties}
           winningCallLogo={winningCallLogo}
@@ -387,8 +384,7 @@ const HeaderChildInverted = ({
             itemProp="url"
             href="https://promociones.trome.pe/registro/super-llamada-ganadora/"
             title="Llamada Ganadora"
-            className={classes.callLink}
-          >
+            className={classes.callLink}>
             <img src={winningCallLogo} alt="Llamada Ganadora" />
           </a>
         </div>
@@ -416,7 +412,7 @@ const HeaderChildInverted = ({
               type="search"
               defaultValue={search}
               /* onBlur={this._handleCloseSectionsSearch} */
-              onKeyUp={_handleKeyDown}
+              onKeyUp={handleKeyDown}
               placeholder="¿Qué estas buscando?"
               className={classes.search}
             />
@@ -429,22 +425,24 @@ const HeaderChildInverted = ({
         </div>
       </header>
 
-
       {!hideMenu && (
-        <nav className={`${classes.band} ${(!hideTema) && classes.bandInverted}`}>
-          <div className={`${classes.bandWrapper} ${(!hideTema) && classes.bandWrapperInveted}`}>
-            {(tags && hideTema) && <div className={classes.tags}>{tags}</div>}
+        <nav className={`${classes.band} ${!hideTema && classes.bandInverted}`}>
+          <div
+            className={`${classes.bandWrapper} ${!hideTema && classes.bandWrapperInveted
+              }`}>
+            {tags && hideTema && <div className={classes.tags}>{tags}</div>}
 
             {bandLinks && bandLinks[0] && (
               <ul className={`${classes.featured}`}>
                 {bandLinks.map(({ url, name, styles = [] }) => (
                   <li
                     className={`${classes.item}${styles ? ' header__custom-item' : ''
-                      } ${(!hideTema) && classes.itemInverted}`}
+                      } ${!hideTema && classes.itemInverted}`}
                     key={`band-${url}`}>
                     <a
                       itemProp="url"
-                      className={`${classes.link} ${(!hideTema) && classes.linkInverted}`}
+                      className={`${classes.link} ${!hideTema && classes.linkInverted
+                        }`}
                       href={url}
                       {...(styles && {
                         style: {
@@ -469,23 +467,33 @@ const HeaderChildInverted = ({
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
-          __html: `${toggleMenu} ${toggleSearch} 
+          __html: `${sticky}`,
+        }}
+      />
+      <script
+        type="text/javascript"
+        dangerouslySetInnerHTML={{
+          __html: `${stickyLoaded}`,
+        }}
+      />
+      <script
+        type="text/javascript"
+        dangerouslySetInnerHTML={{
+          __html: `${toggleMenu} ${toggleSearch}
           ${btnSearch}
           ${hoverSearch}
-          ${sticky}
           ${hideMenu ? '' : searchScript}
-          ${singwallScript}`
+          ${singwallScript}`,
         }}
-      ></script>
+      />
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
           __html: `${initSearch} 
-          ${sections}`
+          ${sections}`,
         }}
-      >
-      </script>
-      {(invertedTema && !hideTema) && <Header />}
+      />
+      {invertedTema && !hideTema && <Header />}
     </>
   )
 }

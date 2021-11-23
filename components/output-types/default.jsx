@@ -183,6 +183,7 @@ export default ({
     if (
       arcSite === SITE_ELCOMERCIO ||
       arcSite === SITE_ELCOMERCIOMAG ||
+      arcSite === SITE_ELBOCON ||
       (arcSite === 'peru21' && requestUri.match(`^/cheka`))
     ) {
       prebid = false
