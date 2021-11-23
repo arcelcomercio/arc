@@ -7,7 +7,6 @@ interface Props {
     bottomTitle?: string
     bottomText?: string
     transBack?: boolean
-    // showTitle?: boolean
   }
 }
 
@@ -63,9 +62,6 @@ PollaBanner.propTypes = {
     transBack: PropTypes.bool.tag({
       name: '¿Mostrar fondo transparente?',
     }),
-    // showTitle: PropTypes.bool.tag({
-    //   name: '¿Mostrar titulo de banner?',
-    // }),
   }),
 }
 
