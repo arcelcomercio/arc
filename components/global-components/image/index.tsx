@@ -5,6 +5,7 @@ import { InlinePresets } from 'types/resizer'
 
 import ClientImage from './client-image'
 import Image from './image'
+import ImagePlaceholder from './image-placeholder'
 import { validateSizes } from './utils'
 
 type ArcImageProps = {
@@ -93,6 +94,7 @@ const ArcImage: React.FC<ArcImageProps> = ({
   pictureStyle = {},
 }) => {
   const { arcSite, contextPath, outputType, isAdmin } = useAppContext()
+  const isTestLCP = true
   /**
    * `src` puede fallar como id, si hay un comportamiento
    * inesperado renderizando la imagen, puedes probar
@@ -119,6 +121,38 @@ const ArcImage: React.FC<ArcImageProps> = ({
           alt={alt}
           className={className}
           layout={layout}
+          movilImage={movilImage}
+          defaultImg={defaultImg}
+          pictureStyle={pictureStyle}
+        />
+      </Static>
+    )
+  }
+
+  if (isTestLCP) {
+    return (
+      <Static id={staticId}>
+        <ImagePlaceholder
+          id={id}
+          src={src}
+          loading={loading}
+          quality={quality}
+          type={type}
+          itemProp={itemProp}
+          placeholder={placeholder}
+          sizes={validSizes}
+          title={title}
+          alt={alt}
+          style={style}
+          className={className}
+          pictureClassName={pictureClassName}
+          importance={importance}
+          width={width}
+          height={height}
+          arcSite={arcSite}
+          contextPath={contextPath}
+          outputType={outputType}
+          icon={children}
           movilImage={movilImage}
           defaultImg={defaultImg}
           pictureStyle={pictureStyle}
