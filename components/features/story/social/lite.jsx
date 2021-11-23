@@ -49,7 +49,8 @@ const StorySocialLite = () => {
     contextPath,
   })
 
-  return isArchivoElcomercio ? (
+  return metaValue('section_style') !== 'story-v2-standard' &&
+    isArchivoElcomercio ? (
     <div className={classes.center}>
       <div className={classes.special}>
         <ShareButtons activeGoogleNews />
