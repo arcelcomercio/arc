@@ -5,6 +5,7 @@ import * as React from 'react'
 
 import { originByEnv } from '../utilities/arc/env'
 import { METERED, PREMIUM } from '../utilities/constants/content-tiers'
+import { GALLERY_VERTICAL, MINUTO_MINUTO } from '../utilities/constants/subtypes'
 import {
   SITE_DEPOR,
   SITE_DIARIOCORREO,
@@ -242,8 +243,8 @@ const AmpOutputType = ({
 
   const hasPowaVideo =
     content.includes('id="powa-') ||
-    videoSeo[0] ||
-    rawHtmlContent.includes('.mp4')
+      videoSeo[0] ||
+      rawHtmlContent.includes('.mp4')
       ? 1
       : false
 
@@ -289,9 +290,8 @@ const AmpOutputType = ({
         {/* add additional head elements here */}
 
         <Resource
-          path={`resources/dist/${arcSite}/css/${
-            isTrivia ? 'amp-trivias' : 'amp'
-          }.css`}>
+          path={`resources/dist/${arcSite}/css/${isTrivia ? 'amp-trivias' : 'amp'
+            }.css`}>
           {({ data }) =>
             data ? (
               <style
@@ -488,7 +488,7 @@ const AmpOutputType = ({
         )}
       </head>
       <body className={subtype}>
-        {!isTrivia && (
+        {!isTrivia || !(arcSite === SITE_TROME && (subtype === GALLERY_VERTICAL || subtype === MINUTO_MINUTO)) && (
           <>
             <AmpTagManager {...parametros} />
             <amp-sticky-ad
