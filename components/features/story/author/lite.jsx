@@ -69,6 +69,7 @@ const StoryAuthorLite = () => {
             <StoryContentChildAuthorLiteV2
               displayDate={getDateSeo(displayDate || createdDate)}
               publishDate={getDateSeo(updateDate)}
+              metaValue={metaValue}
             />
           )
         if (SITE_ELCOMERCIO === arcSite)
