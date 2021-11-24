@@ -1,3 +1,5 @@
+@import "./authors/editorial-team/editorial-team";
+@import "./authors/authors-list/authors-list";
 @import "./layout/navbar/nav";
 @import "./layout/navbar/nav-sidebar";
 @import "./layout/navbar/nav-story";
@@ -7,6 +9,7 @@
 @import "./layout/footer/footer-secction";
 @import "./layout/navbar-no-menu/navbar-nm";
 @import "./breaking-news/breaking-news";
+@import "./cards/author-description/author-description";
 @import "./cards/triplet/triplet";
 @import "./cards/opinion/opinion-card";
 @import "./cards/tabloid/tabloid";
@@ -47,4 +50,3 @@
 @import "./video/search";
 @import "./video/sections-list";
 @import "./footer/trome";
-@import "./cards/author-description/author-description";

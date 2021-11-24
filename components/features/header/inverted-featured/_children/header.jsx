@@ -236,9 +236,8 @@ const HeaderChildInverted = ({
           <ul className={`${classes.menuList}`}>
             {bandLinksTema.map(({ url, name, styles = [] }) => (
               <li
-                className={`${classes.menuItem}${
-                  styles ? ' header__custom-item' : ''
-                }`}
+                className={`${classes.menuItem}${styles ? ' header__custom-item' : ''
+                  }`}
                 key={`band-${url}`}>
                 <a
                   itemProp="url"
@@ -259,10 +258,6 @@ const HeaderChildInverted = ({
       </div>
     </nav>
   )
-
-  // console.log(bandLinks)
-  // const locations = location.pathname;
-  // console.log(initSearch)
 
   return (
     <>
@@ -433,24 +428,21 @@ const HeaderChildInverted = ({
       {!hideMenu && (
         <nav className={`${classes.band} ${!hideTema && classes.bandInverted}`}>
           <div
-            className={`${classes.bandWrapper} ${
-              !hideTema && classes.bandWrapperInveted
-            }`}>
+            className={`${classes.bandWrapper} ${!hideTema && classes.bandWrapperInveted
+              }`}>
             {tags && hideTema && <div className={classes.tags}>{tags}</div>}
 
             {bandLinks && bandLinks[0] && (
               <ul className={`${classes.featured}`}>
                 {bandLinks.map(({ url, name, styles = [] }) => (
                   <li
-                    className={`${classes.item}${
-                      styles ? ' header__custom-item' : ''
-                    } ${!hideTema && classes.itemInverted}`}
+                    className={`${classes.item}${styles ? ' header__custom-item' : ''
+                      } ${!hideTema && classes.itemInverted}`}
                     key={`band-${url}`}>
                     <a
                       itemProp="url"
-                      className={`${classes.link} ${
-                        !hideTema && classes.linkInverted
-                      }`}
+                      className={`${classes.link} ${!hideTema && classes.linkInverted
+                        }`}
                       href={url}
                       {...(styles && {
                         style: {
