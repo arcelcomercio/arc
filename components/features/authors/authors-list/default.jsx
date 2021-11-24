@@ -89,12 +89,15 @@ const AuthorsList = (props) => {
               </li>
             ))}
         </ul>
-        <Pagination
-          totalElements={totalCount}
-          storiesQty={customSize}
-          currentPage={page}
-          requestUri={requestUri}
-        />
+        {
+          arcSite !== SITE_TROME
+          && <Pagination
+            totalElements={totalCount}
+            storiesQty={customSize}
+            currentPage={page}
+            requestUri={requestUri}
+          />
+        }
       </div>
     </div>
   )
