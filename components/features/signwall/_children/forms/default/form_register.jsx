@@ -60,7 +60,9 @@ const FormRegister = ({
 
   const isTromeOrganic =
     arcSite === 'trome' &&
-    (typeDialog === 'organico' || typeDialog === 'verify')
+    (typeDialog === 'organico' ||
+      typeDialog === 'verify' ||
+      typeDialog === 'banner')
 
   const { changeTemplate } = useModalContext()
   const [showError, setShowError] = React.useState(false)
