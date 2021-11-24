@@ -1,10 +1,12 @@
 .react-calendar {
+  max-width: 351px;
+  min-width: 336px;
+  margin: auto;
+
   &__box {
     background-color: $color-white;
   }
-  &__header {
-    background-color: transparent;
-  }
+
   &__title {
     color: $color-secondary;
     font-size: 18px;
@@ -12,31 +14,121 @@
     font-family: $secondary-font;
     text-align: center;
   }
+
+  &__header {
+    display: none;
+    background-color: transparent;
+  }
+
+  &__content-calendar {
+    position: relative;
+    top: -17px;
+    padding: 35px 12px 20px 12px;
+    background-color: #f5f5f5;
+  }
+
+  // ? Navigation
+  &__navigation {
+    font-family: $encode-c;
+  }
+
+  &__navigation__prev2-button,
+  &__navigation__prev-button {
+    border-right: 1px solid #a1a1a1;
+  }
+
+  &__navigation__next2-button,
+  &__navigation__next-button {
+    border-left: 1px solid #a1a1a1;
+  }
+
+  &__navigation__prev2-button,
+  &__navigation__next2-button {
+    color: #a1a1a1;
+    padding-right: 9px;
+    padding-left: 9px;
+  }
+
+  &__navigation__prev-button,
+  &__navigation__next-button {
+    color: #a1a1a1;
+    padding-right: 13px;
+    padding-left: 12px;
+  }
+
+  // ? Navigation labels
+  &__navigation__label {
+    font-size: 21px;
+    font-weight: 600;
+    color: #888;
+    text-transform: capitalize;
+  }
+
+  &__viewContainer {
+    font-family: $encode-c;
+  }
+
+  &__year-view__months__month,
+  &__decade-view__years__year,
+  &__century-view__decades__decade {
+    font-size: 14px;
+    font-weight: 700;
+    color: #888;
+    margin-bottom: 15px;
+  }
+
+  // ? Calendar container
+  &__month-view__weekdays {
+    gap: 14px;
+  }
+
+  &__month-view__days {
+    // ! specifity issues
+    display: grid !important;
+    grid-template-columns: repeat(7, auto);
+    gap: 14px;
+    justify-items: center;
+  }
+
   &__brand {
     display: none;
   }
-  &__tile--active {
-    background-color: transparent;
-  }
+
   &__month-view__weekdays,
   &__month-view__days__day {
     border: 0;
   }
+
+  &__month-view__weekdays__weekday abbr {
+    color: #888;
+    font-weight: 600;
+    font-family: $encode-c;
+    font-size: 12px;
+  }
+
   &__month-view__days__day {
-    font-family: $primary-font;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-family: $encode-c;
+    font-size: 14px;
+    font-weight: 700;
+    color: #888;
+    border: 1px solid #888;
+    width: 35px;
+    // ! specifity issues
+    max-width: none !important;
+
     &:disabled {
+      border: 1px solid #d1d1d1;
+
       abbr {
-        color: #bbbbbb;
+        color: #d1d1d1;
       }
     }
   }
-  &__month-view__weekdays__weekday abbr {
-    color: #bbbbbb;
-    font-weight: 900;
-    font-family: $primary-font;
-    font-size: 13px;
-  }
+
   &__tile--active {
-    background-color: #f2f2f2;
+    background-color: #ff8303;
+    color: #fff;
   }
 }
