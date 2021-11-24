@@ -21,6 +21,8 @@ const ShareButtons = ({
   activeCopyLink = false,
   activeLinkedin = true,
   renderScripts = false,
+  path: customPath = '',
+  title: customTitle = '',
 }) => {
   const { globalContent, arcSite, metaValue } = useAppContext()
 
@@ -40,10 +42,13 @@ const ShareButtons = ({
     googleNewsUrl,
   } = getProperties(arcSite)
 
+  const path = postPermaLink || customPath
+  const title = postTitle || customTitle
+
   const urlsShareList = socialMediaUrlShareList(
     siteUrl,
-    postPermaLink,
-    postTitle,
+    path,
+    title,
     siteNameRedSocial
   )
 
