@@ -1,6 +1,17 @@
 import * as React from 'react'
 
-const PianoAdblock = (): JSX.Element => {
+type PianoAdblockProps = {
+  disable?: boolean
+}
+
+/**
+ * @param props
+ * @param props.disable
+ */
+
+const PianoAdblock: React.FC<PianoAdblockProps> = ({ disable = false }) => {
+  if (disable) return null
+
   const pianoScript = `
   document.cookie = "__adblocker=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
   var setNptTechAdblockerCookie = function(adblocker) {
