@@ -1,5 +1,12 @@
 import PropTypes from 'prop-types'
 
+const posicion = {
+  1: 'Posicion 2',
+  2: 'Posicion 3',
+  3: 'Posicion 4',
+  4: 'Posicion 5',
+  5: 'Posicion 6',
+}
 const customFields = PropTypes.shape({
   adsEvery: PropTypes.number.tag({
     name: '¿Inyectar Ads cada cuantos párrafos?',
@@ -28,6 +35,100 @@ const customFields = PropTypes.shape({
       'Si se activa, al final del cuerpo de la nota aparecerá el butón para Copiar enlace',
     defaultValue: false,
     group: 'Opciones Lite',
+  }),
+
+  ampAdName1: PropTypes.string.tag({
+    name: 'Nombre',
+    group: 'AMP',
+  }),
+
+  liteAdLoadBlock1: PropTypes.oneOf(['0', '1', '2', '3', '4']).tag({
+    name: 'Seleccion la posicion',
+    description: 'posicion de la publicidad',
+    defaultValue: false,
+    group: 'AMP',
+    labels: posicion,
+  }),
+
+  freeHtml1: PropTypes.richtext.tag({
+    name: 'Código HTML Adicional',
+    group: 'AMP',
+    description: 'HTML a renderizar en el espacios de publicidad en AMP',
+  }),
+
+  ampAdName2: PropTypes.string.tag({
+    name: 'Nombre',
+    group: 'AMP',
+  }),
+
+  liteAdLoadBlock2: PropTypes.oneOf(['0', '1', '2', '3', '4']).tag({
+    name: 'Seleccion la posicion',
+    description: 'posicion de la publicidad',
+    defaultValue: false,
+    group: 'AMP',
+    labels: posicion,
+  }),
+
+  freeHtml2: PropTypes.richtext.tag({
+    name: 'Código HTML Adicional',
+    group: 'AMP',
+    description: 'HTML a renderizar en el espacios de publicidad en AMP',
+  }),
+
+  ampAdName3: PropTypes.string.tag({
+    name: 'Nombre',
+    group: 'AMP',
+  }),
+
+  liteAdLoadBlock3: PropTypes.oneOf(['0', '1', '2', '3', '4']).tag({
+    name: 'Seleccion la posicion',
+    description: 'posicion de la publicidad',
+    defaultValue: false,
+    group: 'AMP',
+    labels: posicion,
+  }),
+
+  freeHtml3: PropTypes.richtext.tag({
+    name: 'Código HTML Adicional',
+    group: 'AMP',
+    description: 'HTML a renderizar en el espacios de publicidad en AMP',
+  }),
+
+  ampAdName4: PropTypes.string.tag({
+    name: 'Nombre publicidad',
+    group: 'AMP',
+  }),
+
+  liteAdLoadBlock4: PropTypes.oneOf(['0', '1', '2', '3', '4']).tag({
+    name: 'Seleccion la posicion',
+    description: 'posicion de la publicidad',
+    defaultValue: false,
+    group: 'AMP',
+    labels: posicion,
+  }),
+
+  freeHtml4: PropTypes.richtext.tag({
+    name: 'Código HTML Adicional',
+    group: 'AMP',
+    description: 'HTML a renderizar en el espacios de publicidad en AMP',
+  }),
+  ampAdName5: PropTypes.string.tag({
+    name: 'Nombre',
+    group: 'AMP',
+  }),
+
+  liteAdLoadBlock5: PropTypes.oneOf(['0', '1', '2', '3', '4']).tag({
+    name: 'Seleccion la posicion',
+    description: 'posicion de la publicidad',
+    defaultValue: false,
+    group: 'AMP',
+    labels: posicion,
+  }),
+
+  freeHtml5: PropTypes.richtext.tag({
+    name: 'Código HTML Adicional',
+    group: 'AMP',
+    description: 'HTML a renderizar en el espacios de publicidad en AMP',
   }),
 })
 

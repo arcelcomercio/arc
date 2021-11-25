@@ -1,5 +1,4 @@
 import { useFusionContext } from 'fusion:context'
-import getProperties from 'fusion:properties'
 import React from 'react'
 
 import { getAssetsPath } from '../../../utilities/assets'
@@ -8,15 +7,11 @@ import {
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
 } from '../../../utilities/constants/sitenames'
-import { GALLERY_VERTICAL } from '../../../utilities/constants/subtypes'
-import {
-  publicidadAmp,
-  publicidadAmpCaja1,
-} from '../../../utilities/story/helpers-amp'
 import StoryData from '../../../utilities/story-data'
 import { storyTagsBbc } from '../../../utilities/tags'
 import StorySocialChildAmpSocial from '../social/_children/amp-social'
 import AmpStoriesChild from './_children/amp-stories'
+import customFields from './_dependencies/custom-fields'
 
 const classes = {
   stories: 'amp-sh bg-white pr-20 pl-20 m-5 mx-auto',
@@ -36,15 +31,13 @@ const StoryTitleAmp = () => {
     contextPath,
     globalContent: data,
     requestUri = '',
+    customFields: { ampAdjson = '', ampAdName = '', ampAdDimensions = '' } = {},
   } = useFusionContext()
-
-  const { adsAmp } = getProperties(arcSite)
 
   const {
     title,
     subTitle,
     tags,
-    subtype,
     primarySectionLink,
     promoItems: { basic_gallery: { content_elements: galleryItems } = {} } = {},
     contentElementsListOne: { items = [], type = '' } = {},
@@ -53,26 +46,6 @@ const StoryTitleAmp = () => {
     arcSite,
     contextPath,
   })
-  const namePublicidad = arcSite !== 'peru21g21' ? arcSite : 'peru21'
-  const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja1`
-  const width = '320'
-
-  const parameters = {
-    dataSlot,
-    prebidSlot: `19186-${namePublicidad}-amp-caja1`,
-    width,
-    height: '100',
-    movil1: false,
-    primarySectionLink,
-    arcSite,
-    size: '320x100',
-  }
-
-  const parametersCaja1 = {
-    dataSlot,
-    arcSite,
-    prebidSlot: `19186-${namePublicidad}-amp-caja1`,
-  }
 
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
   const imgBbc =
@@ -80,6 +53,12 @@ const StoryTitleAmp = () => {
       arcSite,
       contextPath
     )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
+
+  const medida = (ampAdDimensions && ampAdDimensions.split('x')) || []
+  const widthx = medida[0]
+  const heightx = medida[1]
+  const getDiv = () =>
+    `<amp-ad data-loading-strategy="prefer-viewability-over-views" type="doubleclick"  data-slot=${ampAdName} width="${widthx}"  height="${heightx}" json="${ampAdjson}" />`
 
   return (
     <>
@@ -139,24 +118,22 @@ const StoryTitleAmp = () => {
             </div>
           ) : null}
         </header>
+        {ampAdName && (
+          <div
+            className="text-center ad-amp-movil"
+            dangerouslySetInnerHTML={{ __html: getDiv() }}
+          />
+        )}
 
-        {arcSite !== SITE_ELCOMERCIOMAG && subtype !== GALLERY_VERTICAL && (
-          <div
-            className={classes.adsAmp}
-            dangerouslySetInnerHTML={publicidadAmp(parameters)}
-          />
-        )}
-        {arcSite === SITE_ELCOMERCIOMAG && (
-          <div
-            className={classes.adsAmp}
-            dangerouslySetInnerHTML={publicidadAmpCaja1(parametersCaja1)}
-          />
-        )}
         {subTitle && <div className={classes.description}> {subTitle}</div>}
         {arcSite !== SITE_ELCOMERCIOMAG && <StorySocialChildAmpSocial />}
       </div>
     </>
   )
+}
+
+StoryTitleAmp.propTypes = {
+  customFields,
 }
 
 StoryTitleAmp.static = true

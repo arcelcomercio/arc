@@ -56,4 +56,17 @@ const StoryTitle = () => {
 StoryTitle.label = 'Artículo - Título'
 StoryTitle.static = true
 
+StoryTitle.propTypes = {
+  customFields: PropTypes.shape({
+    urlBook: PropTypes.string.tag({
+      name: 'Url de libro de reclamación',
+      defaultValue: URL_BOOK_DEFAULT,
+      description: `Por defecto es ${URL_BOOK_DEFAULT}`,
+    }),
+    isDeporPlay: PropTypes.bool.tag({
+      name: 'Activar tipo Depor Play',
+    }),
+  }),
+}
+
 export default StoryTitle

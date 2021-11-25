@@ -36,11 +36,9 @@ import {
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_GESTION,
-  SITE_PERU21,
 } from '../../../utilities/constants/sitenames'
 import {
   GALLERY_VERTICAL,
-  MINUTO_MINUTO,
   STAMP_TRUST,
   STORY_CORRECTION,
   VIDEO_JWPLAYER,
@@ -49,19 +47,10 @@ import {
 import { formatDateTime, getDateSeo } from '../../../utilities/date-time/dates'
 import { formatHtmlToText } from '../../../utilities/parse/strings'
 import { createResizedParams } from '../../../utilities/resizer/resizer'
-import {
-  ampHtml,
-  publicidadAmp,
-  publicidadAmpAd,
-} from '../../../utilities/story/helpers-amp'
+import { ampHtml } from '../../../utilities/story/helpers-amp'
 import StoryData from '../../../utilities/story-data'
-import {
-  cleanLegacyAnchor,
-  replaceTags,
-  storyTagsBbc,
-} from '../../../utilities/tags'
+import { cleanLegacyAnchor, replaceTags } from '../../../utilities/tags'
 import AmpStoriesChild from '../title/_children/amp-stories'
-import ElePrincipal from './_children/amp-ele-principal'
 import StoryContentsChildJwplayerRecommender from './_children/amp-jwplayer-recommender'
 import StoryContentChildVideo from './_children/amp-video'
 import StoryContentChildVideoJwplayer from './_children/amp-video-jwplayer'
@@ -70,7 +59,7 @@ import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildLinkList from './_children/link-list'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
-import StoryContentChildTags from './_children/tags'
+import customFields from './_dependencies/custom-fields'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
@@ -99,9 +88,9 @@ class StoryContentAmp extends React.PureComponent {
       requestUri,
       arcSite,
       deployment,
+      customFields,
       siteProperties: {
         siteUrl,
-        adsAmp,
         activePaywall,
         activeRulesCounter,
         jwplayersMatching,
@@ -109,14 +98,16 @@ class StoryContentAmp extends React.PureComponent {
       globalContent: data = {},
     } = this.props
 
+    const activeAds = Object.keys(customFields).filter((prop) =>
+      prop.match(/liteAdLoadBlock(\d)/)
+    )
+
     const {
       source,
       content_restrictions: { content_code: contentCode = '' } = {},
     } = data
     const {
       contentPosicionPublicidadAmp,
-      promoItems,
-      tags,
       authorLink,
       displayDate,
       publishDate: updateDate,
@@ -125,20 +116,18 @@ class StoryContentAmp extends React.PureComponent {
       author,
       subtype,
       canonicalUrl,
-      promoItemJwplayer = {},
       authorsList,
     } = new StoryData({
       data,
       arcSite,
       contextPath,
       siteUrl,
+      customFields,
     })
 
     const isMetered = contentCode === METERED
     const envOrigin = originByEnv(arcSite)
     const encodedStoryUrl = encodeURIComponent(`${envOrigin}${canonicalUrl}`)
-    const namePublicidad = arcSite !== 'peru21g21' ? arcSite : SITE_PERU21
-    const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`
     const isComercio = arcSite === SITE_ELCOMERCIO
     const isMag = arcSite === SITE_ELCOMERCIOMAG
     const isLegacy =
@@ -146,78 +135,20 @@ class StoryContentAmp extends React.PureComponent {
       (arcSite === SITE_ELBOCON || arcSite === SITE_DIARIOCORREO)
 
     const imgTag = 'amp-img'
-    const width = '300'
-    const height = '250'
-    const parametersCaja2 = {
-      // movil2 caja2
-      dataSlot,
-      prebidSlot: `19186-${namePublicidad}-amp-caja2`,
-      width,
-      height,
-      primarySectionLink,
-      arcSite,
-      movil1: true,
-      size: '320x100,320x50',
-    }
-    const parametersCaja3 = {
-      // movil4 caja3 caja3
-      dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja3`,
-      prebidSlot: `19186-${namePublicidad}-amp-caja3`,
-      width,
-      height,
-      primarySectionLink,
-      arcSite,
-      movil1: true,
-      size: '320x100,320x50,300x1',
-    }
-    const parametersCaja4 = {
-      // movil5 caja5 caja4
-      dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja4`,
-      prebidSlot: `19186-${namePublicidad}-amp-caja4`,
-      width,
-      height,
-      primarySectionLink,
-      arcSite,
-      movil1: true,
-      size: '320x100,320x50',
-    }
-    const parametersCaja5 = {
-      // movil5 caja5 caja4
-      dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja5`,
-      prebidSlot: `19186-${namePublicidad}-amp-caja5`,
-      width,
-      height,
-      primarySectionLink,
-      arcSite,
-      movil1: true,
-      size: '320x100,320x50',
-    }
-
-    const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
-    const imgBbc =
-      'https://elcomercio.pe/resizer/Y9rKZd1sqJPCAxhHUsbA4lixQJo=/740x0/smart/filters:format(png):quality(100)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/BSK5BMFDTBCMDDJNDOI45PWN3U.png'
 
     const processedAdsAmp = (content) => {
       let entryHtml = ''
 
       const res = content.split('<div class="live-event2-comment">')
-
       res.forEach((entry, i) => {
-        let publicidad = ''
         const divContent = i === 0 ? '' : '<div class="live-event2-comment">'
-        if (i === 3) {
-          publicidad = publicidadAmp(parametersCaja2)
-        }
-        if (i === 7) {
-          publicidad = publicidadAmp(parametersCaja3)
-        }
-        if (i === 11) {
-          publicidad = publicidadAmp(parametersCaja3)
-        }
-        entryHtml = `${entryHtml} ${divContent} ${entry} ${
-          publicidad &&
-          `<div class='text-center ad-amp-movil'>${publicidad.__html} </div>`
-        }`
+        let publicidad = ''
+        activeAds.forEach((el) => {
+          if (i === customFields[el]) {
+            publicidad = customFields[`freeHtml${customFields[el]}`]
+          }
+        })
+        entryHtml = `${entryHtml} ${divContent} ${entry} ${`<div class='text-center ad-amp-movil'>${publicidad} </div>`}`
       })
 
       return entryHtml
@@ -233,26 +164,10 @@ class StoryContentAmp extends React.PureComponent {
           : ''
       }`
     }
-
+    // separar principal y jwplayer
     return (
       <>
         <div className={classes.content}>
-          {promoItemJwplayer.key ? (
-            <StoryContentChildVideoJwplayer data={promoItemJwplayer} />
-          ) : (
-            <>
-              {promoItems && (
-                <ElePrincipal data={promoItems} siteUrl={siteUrl} />
-              )}
-            </>
-          )}
-          {!isMag && subtype !== GALLERY_VERTICAL && (
-            <div
-              className={classes.adsAmp}
-              dangerouslySetInnerHTML={publicidadAmp(parametersCaja2)}
-            />
-          )}
-
           {subtype !== GALLERY_VERTICAL && (
             <div
               className={isMag ? classes.authorTimeContainer : 'pt-15 pb-15'}>
@@ -317,9 +232,7 @@ class StoryContentAmp extends React.PureComponent {
                   content_elements: innerContentElements,
                   content,
                   level,
-                  publicidadCaja2 = false,
-                  publicidadCaja3 = false,
-                  publicidadCaja4 = false,
+                  publicidad = '',
                   url = '',
                   list_type: listType = 'unordered',
                   items = [],
@@ -501,39 +414,14 @@ class StoryContentAmp extends React.PureComponent {
                         }
                         className={classes.textClasses}
                       />
-                      {isMag &&
-                        publicidadCaja2 &&
-                        subtype !== MINUTO_MINUTO &&
-                        subtype !== GALLERY_VERTICAL && (
-                          <div
-                            className={classes.adsAmp}
-                            dangerouslySetInnerHTML={publicidadAmp(
-                              parametersCaja2
-                            )}
-                          />
-                        )}
-                      {publicidadCaja3 &&
-                        subtype !== MINUTO_MINUTO &&
-                        subtype !== GALLERY_VERTICAL && (
-                          <div
-                            className={classes.adsAmp}
-                            dangerouslySetInnerHTML={publicidadAmpAd(
-                              parametersCaja3
-                            )}
-                          />
-                        )}
-                      {isMag &&
-                        publicidadCaja4 &&
-                        subtype !== MINUTO_MINUTO &&
-                        subtype !== GALLERY_VERTICAL && (
-                          <div
-                            className={classes.adsAmp}
-                            dangerouslySetInnerHTML={publicidadAmpAd(
-                              parametersCaja4
-                            )}
-                          />
-                        )}
-
+                      {publicidad && (
+                        <div
+                          className={classes.adsAmp}
+                          dangerouslySetInnerHTML={{
+                            __html: publicidad,
+                          }}
+                        />
+                      )}
                       {element?.activateStories &&
                       (arcSite === SITE_ELCOMERCIO ||
                         (arcSite === SITE_DEPOR &&
@@ -599,46 +487,16 @@ class StoryContentAmp extends React.PureComponent {
               }}
             />
           )}
-          {!isMag &&
-            subtype !== MINUTO_MINUTO &&
-            subtype !== GALLERY_VERTICAL && (
-              <div
-                className={classes.adsAmp}
-                dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
-              />
-            )}
 
           {isComercio && <StoryGoogleNews />}
-          <StoryContentChildTags data={tags} arcSite={arcSite} isAmp />
-          {storyTagsBbc(tags) && (
-            <div className={classes.bbcHead}>
-              <a
-                href={URL_BBC}
-                rel="nofollow noopener noreferrer"
-                target="_blank">
-                <amp-img
-                  alt="BBC"
-                  layout="responsive"
-                  width="560"
-                  height="34"
-                  src={imgBbc}
-                  data-src={imgBbc}
-                />
-              </a>
-            </div>
-          )}
         </div>
-
-        {!isMag && subtype !== GALLERY_VERTICAL && (
-          <div
-            className={classes.adsAmp}
-            dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja5)}
-          />
-        )}
       </>
     )
   }
 }
 
 StoryContentAmp.static = true
+StoryContentAmp.propTypes = {
+  customFields,
+}
 export default StoryContentAmp
