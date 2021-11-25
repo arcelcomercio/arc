@@ -901,7 +901,7 @@ const LiteOutput = ({
             )}
           </>
         )}
-        {enabledPushup ? (
+        {enabledPushup && !requestUri.includes('/publirreportaje/') ? (
           <>
             <script
               type="text/javascript"
