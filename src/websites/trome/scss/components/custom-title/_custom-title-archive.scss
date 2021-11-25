@@ -3,6 +3,21 @@
   flex-direction: column;
   padding-bottom: 30px;
 
+  @media (--desktop) {
+    flex-direction: row;
+    padding-top: 30px;
+    padding-bottom: 42px;
+    justify-content: center;
+  }
+
+  &--active {
+    padding-bottom: 0;
+
+    @media (--desktop) {
+      padding-bottom: 42px;
+    }
+  }
+
   &__title {
     font-family: $encode-c;
     font-size: 24px;
@@ -11,6 +26,11 @@
     color: #a1a1a1;
     text-align: center;
     padding: 20px;
+
+    @media (--desktop) {
+      padding: 0 15px;
+      border-right: 1px solid #a1a1a1;
+    }
   }
 
   &__button {
@@ -26,6 +46,12 @@
     padding: 10px 22px;
     z-index: 1;
     transition: all 0.2s;
+
+    @media (--desktop) {
+      padding: 0 0 0 15px;
+      border: none;
+      margin: 0;
+    }
 
     .icon {
       display: inline-block;
@@ -43,9 +69,18 @@
   &__button:hover {
     color: #fff;
     background-color: #ff8303;
+
+    @media (--desktop) {
+      color: #ff8303;
+      background-color: transparent;
+    }
   }
 
   &__button:hover .icon {
     fill: #fff;
+
+    @media (--desktop) {
+      fill: #ff8303;
+    }
   }
 }
