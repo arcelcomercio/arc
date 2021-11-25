@@ -1,3 +1,6 @@
+/******* Fonts *******/
+@import "./scss/partials/amp/import-fonts";
+
 /******* Framework Variables *******/
 @import "../../general-styles/framework/variables/amp-index";
 
@@ -17,3 +20,14 @@
 @import "../../general-styles/components/amp";
 @import "./scss/components/layout/header/amp-header";
 @import "./scss/components/layout/footer/amp-footer";
+@import "./scss/amp-components/navbar/amp-navbar";
+@import "./scss/amp-components/social/amp-social";
+@import "./scss/amp-components/header/amp-sh";
+@import "./scss/amp-components/story/amp-story-content";
+@import "./scss/amp-components/story/amp-story-author";
+@import "./scss/amp-components/story/table";
+@import "./scss/amp-components/story/amp-story-interest";
+@import "./scss/amp-components/story/gallery";
+@import "./scss/amp-components/story/gallery-vertical";
+@import "./scss/amp-components/story/minuto-a-minuto/story";
+@import "./scss/amp-components/footer/trome";

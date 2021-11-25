@@ -20,7 +20,7 @@ const StoryTags = () => {
 
   let title = 'TAGS RELACIONADOS'
   if (isTrome) {
-    title = 'Tags:'
+    title = 'tags relacionadas'
   }
   if (metaValue('section_style') === 'story-v2-standard') {
     title = 'TAGS'

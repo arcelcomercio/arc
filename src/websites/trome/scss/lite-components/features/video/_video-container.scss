@@ -1,0 +1,44 @@
+.lite-video-container {
+  position: relative;
+  height: auto;
+  gap: 20px;
+  background: #363636;
+
+  @media (--tablet) {
+    &::after {
+      z-index: -1;
+      content: "";
+      display: block;
+      position: absolute;
+      top: -20px;
+      bottom: 0;
+      left: -200%;
+      background-color: #363636;
+      width: 500%;
+    }
+  }
+
+  @media (--desktop) {
+    gap: 12px;
+  }
+}
+
+// ? Overflow for body videos:
+.videos {
+  overflow-x: hidden;
+
+  // ? Overflow for div that encapsulates the main content
+  > div > div > div.flex.justify-center {
+    @media (--tablet) {
+      overflow-x: hidden;
+    }
+
+    .content-layout-wide {
+      background: linear-gradient(
+        180deg,
+        rgba(54, 54, 54, 1) 20px,
+        rgba(255, 255, 255, 1) 20px
+      );
+    }
+  }
+}

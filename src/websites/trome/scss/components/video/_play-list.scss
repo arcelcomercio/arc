@@ -1,11 +1,99 @@
 .play-list {
-  &__title a {
-    font-weight: 700;
+  display: none;
+  padding: 32px 11px 24px 11px;
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    @media (--tablet) {
+      flex-direction: row;
+      justify-content: space-between;
+      margin: 0 78px;
+    }
+  }
+  @media (max-width: 1400px) {
+    display: block;
+  }​
+  &__item {
     @media (--desktop) {
-      font-family: $tertiary-font;
+      width: 180px;
+    }
+  }
+  &__current {
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-color: rgba(255, 255, 255, .8);
+    }
+  }​
+  &__image-box {
+    display: block;
+    position: relative;
+    @media (--desktop) {
+      max-height: 102px;
+      height: 102px !important;
+      margin-bottom: 8px !important;
+    }
+  }
+  &__image {
+    width: 100%;
+    height: 102px;
+    object-fit: contain;
+    object-position: center;
+    position: relative;
+    background-color: #000;
+    @media (--tablet) {
+      max-height: 186px;
+    }
+    @media (--desktop) {
+      max-height: 102px;
+    }
+  }
+  &__title,
+  &__title a {
+    font-family: $fira-s !important;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    color: #fff;
+  }
+  &__duration {
+    position: absolute;
+    bottom: 6px;
+    right: 4px;
+    padding: 2px 4px;
+    background-color: #000;
+    border-radius: 3px;
+    color: white;
+    text-align: center;
+    font-size: 0.75rem;
+    opacity: 0.8;
+    @media (--desktop) {
+      max-height: 102px;
+    }
+  }
+  &__icon {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 48px;
+    height: 48px;
+    &-back {
+      fill: none;
+    }
+    &-front {
+      fill: #fff;
     }
   }
   &__name {
+    padding: 0;
+    margin-bottom: 15px;
+    font-size: 18px !important;
+    font-family: $fira-s;
     text-transform: capitalize;
   }
 }
