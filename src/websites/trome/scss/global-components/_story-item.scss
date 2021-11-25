@@ -43,11 +43,12 @@
   &__left {
     flex: none;
     display: block;
-    padding-right: 10px;
     @media (--tablet) {
+      padding-right: 30px;
       width: 378px;
     }
     @media (--only-mobile) {
+      padding-right: 10px;
       max-width: 240px;
     }
   }
