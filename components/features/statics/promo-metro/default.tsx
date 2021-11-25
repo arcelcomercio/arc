@@ -84,17 +84,17 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
   const coupons: Coupon[] =
     (couponsJson && JSON.parse(couponsJson)) ||
     [
-      // {
-      //   code: '0101010101',
-      //   discount: 10, // number
-      //   discountType: DiscountType.Percentage, // DiscountType
-      //   title: 'PIQUEOS',
-      //   legal: 'Válido hasta el jueves',
-      // },
+      {
+        code: '0101010101',
+        discount: 10, // number
+        discountType: DiscountType.Percentage, // DiscountType
+        title: 'PIQUEOS',
+        legal: 'Válido hasta el jueves',
+      },
     ]
 
-  const wdTitle = window.document.title || 'no se encontro'
-  const wdPath = window.document.location.pathname
+  const wdTitle = window.document.title || 'undefined'
+  const wdHref = window.document.location.href
 
   const btnShared = 'btn-shared'
   const activeBtnSocialNetworks = 'social-network'
@@ -103,7 +103,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
     const buttonShare = document.getElementById(btnShared)
     buttonShare?.addEventListener('click', () => {
       const windowTitle = wdTitle
-      const windowPath = wdPath
+      const windowPath = wdHref
       if (navigator.share) {
         navigator
           .share({
@@ -165,7 +165,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
               <ShareButtons
                 activeCopyLink
                 activeLinkedin={false}
-                path={wdPath}
+                path={wdHref}
                 title={wdTitle}
               />
             </div>
