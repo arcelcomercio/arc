@@ -4,6 +4,9 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 import { FC } from 'types/features'
 
+import ShareButtons from '../../../global-components/lite/share/index'
+// import { shareNatively } from './_dependencies/scripts'
+
 const classes = {
   container: 'metro w-full h-full flex flex-col justify-center',
   title: 'metro-title',
@@ -30,6 +33,7 @@ interface StaticsPromoMetroProps {
     subtitle?: string
     disableDownload?: boolean
     disableShareByEmail?: boolean
+    disableShareBySocialNetwork?: boolean
   }
 }
 
@@ -72,6 +76,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
     subtitle = 'Ahora como buen Trome, disfruta de estos descuentazos en cualquier tienda Metro',
     disableDownload = false,
     disableShareByEmail = false,
+    disableShareBySocialNetwork = false,
   } = customFields || {}
 
   // Esto es un ejemplo. Se debe usar couponsJson
@@ -87,6 +92,40 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
       //   legal: 'Válido hasta el jueves',
       // },
     ]
+
+  const wdTitle = window.document.title || 'no se encontro'
+  const wdPath = window.document.location.pathname
+
+  const btnShared = 'btn-shared'
+  const activeBtnSocialNetworks = 'social-network'
+
+  React.useEffect(() => {
+    const buttonShare = document.getElementById(btnShared)
+    buttonShare?.addEventListener('click', () => {
+      const windowTitle = wdTitle
+      const windowPath = wdPath
+      if (navigator.share) {
+        navigator
+          .share({
+            title: `${windowTitle}`,
+            url: `${windowPath}`,
+          })
+          .then(() => {
+            console.log('corriendo la api nativa')
+          })
+          .catch(() => {
+            console.log('ocurrió un error al correr la api nativa')
+          })
+      } else {
+        const activeShareButtons = document.getElementById(
+          activeBtnSocialNetworks
+        )
+        if (activeShareButtons?.style?.display) {
+          activeShareButtons.style.display = 'flex'
+        }
+      }
+    })
+  }, [])
 
   return (
     <div className={classes.container}>
@@ -113,7 +152,38 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
           <button type="button">Enviar al email</button>
         )}
         {disableDownload ? null : <button type="button">Descargar</button>}
+        {disableShareBySocialNetwork ? null : (
+          <>
+            <button id={btnShared} type="button">
+              Compartir
+            </button>
+            <div
+              id={activeBtnSocialNetworks}
+              className="metro-footer__social"
+              style={{ display: 'none' }}>
+              <ShareButtons
+                activeCopyLink
+                activeLinkedin={false}
+                path={wdPath}
+                title={wdTitle}
+              />
+            </div>
+          </>
+        )}
       </div>
+
+      {/* 
+      // REVISAR POR QUE NO FUNCIONA
+      <script
+        dangerouslySetInnerHTML={{
+          __html: shareNatively(
+            btnShared,
+            activeBtnSocialNetworks,
+            wdTitle,
+            wdPath
+          ),
+        }}
+      /> */}
     </div>
   )
 }
@@ -151,6 +221,11 @@ StaticsPromoMetro.propTypes = {
     }),
     disableShareByEmail: PropTypes.bool.tag({
       name: 'Desactivar botón de compartir por email',
+      defaultValue: false,
+      group: 'configuración',
+    }),
+    disableShareBySocialNetwork: PropTypes.bool.tag({
+      name: 'Desactivar botón de compartir por redes sociales y portapapeles',
       defaultValue: false,
       group: 'configuración',
     }),
