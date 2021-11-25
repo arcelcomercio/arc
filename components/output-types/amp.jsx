@@ -18,7 +18,6 @@ import {
 } from '../utilities/constants/sitenames'
 import { addSlashToEnd } from '../utilities/parse/strings'
 import RedirectError from '../utilities/redirect-error'
-import { publicidadAmpMovil0 } from '../utilities/story/helpers-amp'
 import StoryData from '../utilities/story-data'
 import AmpTagManager from './_children/amp-tag-manager'
 import MetaSite from './_children/meta-site'
