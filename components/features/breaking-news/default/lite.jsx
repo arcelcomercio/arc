@@ -92,7 +92,8 @@ const BreakingNewsFeat = (props) => {
                   </>
                 ) : null}
                 <span className={classes.tag}>{tags}</span>
-                {metaValue('section_style') === 'story-v2-standard' && (
+                {(metaValue('section_style') === 'story-v2-standard' ||
+                  metaValue('section_style') === 'story-v2-video') && (
                   <span className={classes.hint}>{hint}</span>
                 )}
                 <span className={classes.title}>{objContent.title}</span>
