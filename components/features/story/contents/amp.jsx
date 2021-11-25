@@ -124,7 +124,7 @@ class StoryContentAmp extends React.PureComponent {
       arcSite,
       contextPath,
       siteUrl,
-      customFields,
+      customFields: customFieldsData,
     })
 
     const isMetered = contentCode === METERED
@@ -147,8 +147,8 @@ class StoryContentAmp extends React.PureComponent {
         const divContent = i === 0 ? '' : '<div class="live-event2-comment">'
         let publicidad = ''
         activeAds.forEach((el) => {
-          if (i === customFields[el]) {
-            publicidad = customFields[`freeHtml${customFields[el]}`]
+          if (i === customFieldsData[el]) {
+            publicidad = customFieldsData[`freeHtml${customFieldsData[el]}`]
           }
         })
         entryHtml = `${entryHtml} ${divContent} ${entry} ${`<div class='text-center ad-amp-movil'>${publicidad} </div>`}`

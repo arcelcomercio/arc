@@ -5,6 +5,7 @@ import ShareButtons from '../../../global-components/lite/share'
 import { SITE_DEPOR } from '../../../utilities/constants/sitenames'
 import StoryData from '../../../utilities/story-data'
 import PremiumTag from './_children/premium'
+import customFields from './_dependencies/custom-fields'
 
 const classes = {
   description: 'sht__summary',
@@ -45,7 +46,7 @@ const StoryTitleLite = () => {
   return (
     <>
       {arcSite === SITE_DEPOR &&
-      !(/^\/mexico\//.test(requestUri) || /^\/colombia\//.test(requestUri)) ? (
+        !(/^\/mexico\//.test(requestUri) || /^\/colombia\//.test(requestUri)) ? (
         <div id="spc_post_stories" />
       ) : null}
       {arcSite === SITE_DEPOR && (
@@ -57,9 +58,9 @@ const StoryTitleLite = () => {
         {title}
       </h1>
       {items &&
-      type === 'list' &&
-      !isStoryV2StandarStyle &&
-      !isStoryV2VideoStyle ? (
+        type === 'list' &&
+        !isStoryV2StandarStyle &&
+        !isStoryV2VideoStyle ? (
         <div style={{ marginRight: '20px', marginLeft: '20px' }}>
           <ul className={classes.listClasses}>
             {items.map(({ content }) => (
@@ -101,6 +102,9 @@ const StoryTitleLite = () => {
       )}
     </>
   )
+}
+StoryTitleLite.propTypes = {
+  customFields
 }
 
 StoryTitleLite.label = 'Artículo - Título '
