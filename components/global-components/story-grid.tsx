@@ -41,7 +41,11 @@ interface Props {
   author: string
   multimedia: string
   multimediaType: string
-  multimediaCaption: string
+  multimediaLazyDefault?: string
+  multimediaLandscapeS?: string
+  multimediaCaption?: string
+  /** Definse si se utiliza el componente Image */
+  imgRendering?: 'Image' | 'img'
 }
 
 const StoryGrid: React.FC<Props> = ({
@@ -56,9 +60,12 @@ const StoryGrid: React.FC<Props> = ({
   subTitle,
   authorLink,
   author,
-  multimedia,
+  multimedia = '',
   multimediaType,
+  multimediaLazyDefault,
+  multimediaLandscapeS,
   multimediaCaption,
+  imgRendering = 'Image',
 }) => {
   const imageWidth = 314
   const imageHeight = 157
@@ -76,18 +83,27 @@ const StoryGrid: React.FC<Props> = ({
 
         <figure className={classes.top}>
           <a itemProp="url" href={websiteLink} className={classes.topLink}>
-            <Image
-              src={multimedia}
-              alt={multimediaCaption || title}
-              height={imageHeight}
-              width={imageWidth}
-              sizes={`(max-width: 639px) ${imageMobileWidth}px, ${imageWidth}px`}
-              sizesHeight={[imageMobileHeight]}
-              className={classes.img}
-              loading={isAdmin ? 'auto' : 'lazy'}
-              uid={index}>
-              <Icon type={multimediaType} iconClass={classes.icon} />
-            </Image>
+            {imgRendering === 'Image' ? (
+              <Image
+                src={multimedia}
+                alt={multimediaCaption || title}
+                height={imageHeight}
+                width={imageWidth}
+                sizes={`(max-width: 639px) ${imageMobileWidth}px, ${imageWidth}px`}
+                sizesHeight={[imageMobileHeight]}
+                className={classes.img}
+                loading={isAdmin ? 'auto' : 'lazy'}
+                uid={index}
+              />
+            ) : (
+              <img
+                alt={title}
+                className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
+                src={isAdmin ? multimediaLandscapeS : multimediaLazyDefault}
+                data-src={multimediaLandscapeS}
+              />
+            )}
+            <Icon type={multimediaType} iconClass={classes.icon} />
           </a>
         </figure>
 
