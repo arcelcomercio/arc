@@ -6,6 +6,7 @@ import {
   SITE_DIARIOCORREO,
   SITE_ELCOMERCIO,
   SITE_GESTION,
+  SITE_TROME,
 } from '../../../../../utilities/constants/sitenames'
 import importRetry from '../../../../../utilities/core/import-retry'
 import { deleteQuery, getQuery } from '../../../../../utilities/parse/queries'
@@ -23,7 +24,11 @@ const FormIntro = React.lazy(() =>
   importRetry(() => import('../../../_children/forms/form_intro'))
 )
 
-const FormIntroFree = React.lazy(() =>
+const FormIntroFreeTrome = React.lazy(() =>
+  importRetry(() => import('../../../_children/forms/trome/form-intro-free'))
+)
+
+const FormIntroFreeCorreo = React.lazy(() =>
   importRetry(() => import('../../../_children/forms/form-intro-free'))
 )
 
@@ -47,28 +52,35 @@ const FormRegisterDef = React.lazy(() =>
   importRetry(() => import('../../../_children/forms/default/form_register'))
 )
 
+
+
 const lazyFallback = <div style={{ padding: '30px' }}>Cargando...</div>
 
 const renderTemplate = (template, valTemplate, attributes) => {
+  
   const {
     siteProperties: { activeRegisterwall },
     arcSite,
   } = useAppContext() || {}
-  const marca = arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION
+  const paymentSite = arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION
+  const isCorreo = arcSite === SITE_DIARIOCORREO
+  const isTrome = arcSite === SITE_TROME
 
   const templates = {
     intro: (
       <React.Suspense fallback={lazyFallback}>
-        {activeRegisterwall && arcSite === SITE_DIARIOCORREO ? (
-          <FormIntroFree {...attributes} />
-        ) : (
+        {activeRegisterwall ?(<>
+        {isCorreo ? <FormIntroFreeCorreo {...attributes}/>:null}
+        {isTrome ? <FormIntroFreeTrome {...attributes}/>:null
+        }
+        </>): (
           <FormIntro {...attributes} />
         )}
       </React.Suspense>
     ),
     login: (
       <React.Suspense fallback={lazyFallback}>
-        {marca ? (
+        {paymentSite ? (
           <FormLogin {...{ valTemplate, attributes }} />
         ) : (
           <FormLoginDef {...{ valTemplate, attributes }} />
@@ -82,7 +94,7 @@ const renderTemplate = (template, valTemplate, attributes) => {
     ),
     register: (
       <React.Suspense fallback={lazyFallback}>
-        {marca ? (
+        {paymentSite ? (
           <FormRegister {...attributes} />
         ) : (
           <FormRegisterDef {...attributes} />
@@ -154,6 +166,7 @@ export const PremiumInt = ({ properties }) => {
 
   const isCorreo = arcSite === SITE_DIARIOCORREO
   const isGestion = arcSite === SITE_GESTION
+  const isTrome = arcSite === SITE_TROME
 
   let bgRightSite = '#f4f4f4'
   if (isGestion) {
@@ -162,23 +175,30 @@ export const PremiumInt = ({ properties }) => {
     bgRightSite = 'white'
   }
 
+  let colorBorder = 'none'
+  if (isCorreo) {
+    colorBorder = '2px red solid'
+  } else if(isTrome){
+    colorBorder = '2px black solid'
+  }
+
   return (
     <Modal
-      size={isCorreo ? 'mini' : resizeModal}
+      size={isCorreo||isTrome ? 'mini' : resizeModal}
       position="bottom"
-      margin={isCorreo ? '0px 0px 10px' : ''}
-      padding={isCorreo ? '0px' : ''}
-      noOverflow={isCorreo}
+      margin={isCorreo||isTrome ? '0px 0px 10px' : ''}
+      padding={isCorreo||isTrome ? '0px' : ''}
+      noOverflow={isCorreo||isTrome}
       bgColor={isGestion ? 'black' : 'white'}>
       <div
         className="signwall-inside_body-container premium"
-        style={{ border: isCorreo ? '2px red solid' : 'none' }}>
-        {activeRegisterwall && isCorreo ? null : (
+        style={{ border: colorBorder }}>
+        {activeRegisterwall ? null : (
           <PremiumPayment name={name} feature={feature} />
         )}
         <div
           className={`signwall-inside_body-right premium ${
-            isCorreo && 'register'
+            activeRegisterwall && 'register'
           }`}
           style={{
             backgroundColor: bgRightSite,
@@ -187,7 +207,7 @@ export const PremiumInt = ({ properties }) => {
             type="button"
             className="signwall-inside_body-close premium"
             style={
-              activeRegisterwall && isCorreo
+              activeRegisterwall && (isCorreo || isTrome)
                 ? {
                     top: -25,
                     right: -25,
@@ -211,7 +231,7 @@ export const PremiumInt = ({ properties }) => {
                 onClose()
               }
             }}>
-            {arcSite === SITE_DIARIOCORREO ? <CloseCircle /> : <Close />}
+            {isCorreo || isTrome ? <CloseCircle /> : <Close />}
           </button>
           {renderTemplate(selectedTemplate, valTemplate, {
             removeBefore,
