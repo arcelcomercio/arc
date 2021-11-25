@@ -45,7 +45,6 @@ $hi-font-primary: "Encode Sans Condensed";
     text-align: center;
     font-family: $hi-font-primary;
     font-weight: 600;
-    font-size: 20px;
 
     strong {
       display: block;
@@ -56,9 +55,11 @@ $hi-font-primary: "Encode Sans Condensed";
 
     @media (--tablet) {
       padding-bottom: 18px;
+      font-size: 18px;
     }
     @media (--only-mobile) {
       padding-bottom: 15px;
+      font-size: 20px;
     }
 
     &:first-child {
