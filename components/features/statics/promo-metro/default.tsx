@@ -108,6 +108,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
         navigator
           .share({
             title: `${windowTitle}`,
+            text: `${windowPath}`,
             url: `${windowPath}`,
           })
           .then(() => {
