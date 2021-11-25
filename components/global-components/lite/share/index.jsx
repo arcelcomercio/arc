@@ -26,6 +26,8 @@ const ShareButtons = ({
   path: customPath = '',
   title: customTitle = '',
 }) => {
+  if (hideShareLinks) return null
+
   const { globalContent, arcSite, metaValue } = useAppContext()
 
   // const urlRoot = () => {
@@ -93,7 +95,7 @@ const ShareButtons = ({
     )
   }
 
-  const getShareLinks = () => (
+  return (
     <>
       {activeGoogleNews ? (
         <a
@@ -166,12 +168,6 @@ const ShareButtons = ({
           Copiar enlace
         </button>
       ) : null}
-    </>
-  )
-
-  return (
-    <>
-      {hideShareLinks ? null : getShareLinks()}
       <script
         dangerouslySetInnerHTML={{
           __html: `${popup}${activeCopyLink ? copyLink : ''}`,
