@@ -98,12 +98,14 @@ class StoryData {
     contextPath = '',
     arcSite = '',
     siteUrl = '',
+    customFields = '',
   }) {
     this._data = data
     this._deployment = deployment
     this._contextPath = contextPath
     this._website = arcSite
     this._siteUrl = siteUrl
+    this._customFields = customFields
   }
 
   get __data() {
@@ -984,35 +986,20 @@ class StoryData {
         } else {
           dataElements = dataContent
         } */
-        if (this._website === 'elcomerciomag') {
-          /**
-           * Si, para Mag, primero registra el parrafo
-           * y luego valida la publicidad
-           */
-          if (typeElement === ELEMENT_TEXT) {
-            i += 1
+        const activeAds = Object.keys(this._customFields).filter((prop) =>
+          prop.match(/liteAdLoadBlock(\d)/)
+        )
+
+        activeAds.forEach((el) => {
+          if (i === this._customFields[el]) {
+            dataElements.publicidad = this._customFields[
+              `freeHtml${this._customFields[el]}`
+            ]
           }
-          if (i === 1) {
-            dataElements.publicidadCaja2 = true
-          }
-          if (i === 3) {
-            dataElements.publicidadCaja3 = true
-          }
-          if (i === 5) {
-            dataElements.publicidadCaja4 = true
-          }
-        } else {
-          if (i === 1) {
-            dataElements.publicidadInline = true
-            i += 1
-          }
-          if (i === 4 && contentElements.length > 4) {
-            dataElements.publicidadCaja3 = true
-            i += 1
-          }
-          if (typeElement === ELEMENT_TEXT) {
-            i += 1
-          }
+        })
+
+        if (typeElement === ELEMENT_TEXT) {
+          i += 1
         }
 
         if (i === 1) {

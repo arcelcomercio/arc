@@ -103,7 +103,7 @@ const StoryTitleLite = () => {
   )
 }
 
-StoryTitleLite.label = 'Artículo - Título'
+StoryTitleLite.label = 'Artículo - Título '
 StoryTitleLite.static = true
 
 export default StoryTitleLite
