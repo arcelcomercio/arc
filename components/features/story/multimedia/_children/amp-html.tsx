@@ -1,7 +1,7 @@
-import React from 'react'
-import { useFusionContext } from 'fusion:context'
-
 import { RawHtml } from '@arc-core-components/feature_article-body'
+import { useFusionContext } from 'fusion:context'
+import React from 'react'
+
 import { ampHtml } from '../../../../utilities/story/helpers-amp'
 
 const StoryContentChildHtml = ({
