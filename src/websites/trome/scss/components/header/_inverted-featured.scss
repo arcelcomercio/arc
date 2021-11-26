@@ -357,6 +357,9 @@ $min-with-header: 961px;
 
   &__left-btn-container {
     left: 0;
+    @media (--only-mobile) {
+      width: 0;
+    }
   }
 
   &__right-btn-container {
@@ -869,6 +872,11 @@ $min-with-header: 961px;
       @media (--only-mobile) {
         padding: 8px 13px;
         width: 110px;
+      }
+    }
+    .header-inverted-featured__left-btn-container {
+      @media (--only-mobile) {
+        width: 43px;
       }
     }
   }
