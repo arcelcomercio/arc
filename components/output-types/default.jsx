@@ -806,7 +806,7 @@ export default ({
             .toISOString()
             .slice(0, 10)}`}
         />
-        {enabledPushup && !requestUri.includes('/publirreportaje/') ? (
+        {enabledPushup && !requestUri.includes('/publirreportaje/') && !requestUri.includes('/publireportaje/') ? (
           <>
             <script
               type="text/javascript"
