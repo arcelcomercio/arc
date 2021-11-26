@@ -88,17 +88,21 @@ class StoriesListLoadMore extends PureComponent {
   componentDidMount() {
     this.setState({ isRender: true })
 
-    document.getElementById('loadbtn').addEventListener('click', () => {
-      const { isAdmin } = this.props
-      const { data: { next = 0 } = {} } = this.state
+    window.addEventListener('load', () => {
+      const bclick = document.getElementById('loadbtn')
 
-      if (!isAdmin) {
-        const { isLoading } = this.state
-        if (!isLoading && next > 0) {
-          this.fetch()
-          this.setState({ isLoading: true })
+      bclick.addEventListener('click', () => {
+        const { isAdmin } = this.props
+        const { data: { next = 0 } = {} } = this.state
+
+        if (!isAdmin) {
+          const { isLoading } = this.state
+          if (!isLoading && next > 0) {
+            this.fetch()
+            this.setState({ isLoading: true })
+          }
         }
-      }
+      })
     })
   }
 
