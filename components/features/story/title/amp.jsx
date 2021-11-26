@@ -133,7 +133,6 @@ const StoryTitleAmp = () => {
 }
 
 StoryTitleAmp.propTypes = {
-  // eslint-disable-next-line react/no-unused-prop-types
   customFields,
 }
 
