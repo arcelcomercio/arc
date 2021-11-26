@@ -1,20 +1,20 @@
-import { useFusionContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
 import React from 'react'
-import { storyTagsBbc } from '../../../utilities/tags'
 
-import StorySocialChildAmpSocial from '../../story/social/_children/amp-social'
-import ElePrincipal from '../../story/contents/_children/amp-ele-principal'
-import StoryContentChildVideoJwplayer from '../../story/contents/_children/amp-video-jwplayer'
-import StoryData from '../../../utilities/story-data'
-import StoryContentChildTags from '../../story/contents/_children/tags'
-import StoryContentChildRelated from './_children/related'
-import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
 import { getAssetsPath } from '../../../utilities/assets'
+import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
 import {
   publicidadAmp,
   publicidadAmpAd,
 } from '../../../utilities/story/helpers-amp'
+import StoryData from '../../../utilities/story-data'
+import { storyTagsBbc } from '../../../utilities/tags'
+import ElePrincipal from '../../story/contents/_children/amp-ele-principal'
+import StoryContentChildVideoJwplayer from '../../story/contents/_children/amp-video-jwplayer'
+import StoryContentChildTags from '../../story/contents/_children/tags'
+import StorySocialChildAmpSocial from '../../story/social/_children/amp-social'
+import StoryContentChildRelated from './_children/related'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
@@ -67,7 +67,6 @@ const VideoSectionAmp = () => {
   const parametersCaja1 = {
     // top
     dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja1`,
-    prebidSlot: `19186-${namePublicidad}-amp-caja1`,
     width: '320',
     height: '100',
     movil1: false,
@@ -76,7 +75,6 @@ const VideoSectionAmp = () => {
 
   const parametersCaja2 = {
     dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`,
-    prebidSlot: `19186-${namePublicidad}-amp-caja2`,
     width,
     height,
     movil1: true,
@@ -86,7 +84,6 @@ const VideoSectionAmp = () => {
   const parametersCaja3 = {
     // movil4 caja4 caja3
     dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja3`,
-    prebidSlot: `19186-${namePublicidad}-amp-caja3`,
     width,
     height,
     movil1: true,
@@ -95,7 +92,6 @@ const VideoSectionAmp = () => {
   const parametersCaja4 = {
     // movil5 caja5 caja4
     dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja4`,
-    prebidSlot: `19186-${namePublicidad}-amp-caja4`,
     width,
     height,
     movil1: true,
@@ -146,8 +142,7 @@ const VideoSectionAmp = () => {
       </div>
       <div className={classes.content}>
         {promoItemJwplayer && promoItemJwplayer.key ? (
-          <StoryContentChildVideoJwplayer
-            data={promoItemJwplayer}></StoryContentChildVideoJwplayer>
+          <StoryContentChildVideoJwplayer data={promoItemJwplayer} />
         ) : (
           <>{promoItems && <ElePrincipal data={promoItems} />}</>
         )}

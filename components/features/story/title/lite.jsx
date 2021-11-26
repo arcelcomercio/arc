@@ -46,7 +46,7 @@ const StoryTitleLite = () => {
   return (
     <>
       {arcSite === SITE_DEPOR &&
-        !(/^\/mexico\//.test(requestUri) || /^\/colombia\//.test(requestUri)) ? (
+      !(/^\/mexico\//.test(requestUri) || /^\/colombia\//.test(requestUri)) ? (
         <div id="spc_post_stories" />
       ) : null}
       {arcSite === SITE_DEPOR && (
@@ -58,9 +58,9 @@ const StoryTitleLite = () => {
         {title}
       </h1>
       {items &&
-        type === 'list' &&
-        !isStoryV2StandarStyle &&
-        !isStoryV2VideoStyle ? (
+      type === 'list' &&
+      !isStoryV2StandarStyle &&
+      !isStoryV2VideoStyle ? (
         <div style={{ marginRight: '20px', marginLeft: '20px' }}>
           <ul className={classes.listClasses}>
             {items.map(({ content }) => (
@@ -104,9 +104,9 @@ const StoryTitleLite = () => {
   )
 }
 StoryTitleLite.propTypes = {
-  customFields
+  // eslint-disable-next-line react/no-unused-prop-types
+  customFields,
 }
-
 StoryTitleLite.label = 'Artículo - Título '
 StoryTitleLite.static = true
 

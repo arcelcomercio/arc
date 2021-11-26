@@ -6,7 +6,7 @@ import {
   SITE_TROME,
 } from '../../../../utilities/constants/sitenames'
 import { createResizedParams } from '../../../../utilities/resizer/resizer'
-import { ampHtml,publicidadAmp } from '../../../../utilities/story/helpers-amp'
+import { ampHtml, publicidadAmp } from '../../../../utilities/story/helpers-amp'
 
 const classes = {
   gallery: 'story-gallery pt-10 pr-20 pl-20 md:pr-0 md:pl-0',

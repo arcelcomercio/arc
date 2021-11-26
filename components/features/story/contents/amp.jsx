@@ -90,6 +90,7 @@ class StoryContentAmp extends React.PureComponent {
       requestUri,
       arcSite,
       deployment,
+      customFields: dataCustomFields,
       siteProperties: {
         siteUrl,
         activePaywall,
@@ -97,11 +98,10 @@ class StoryContentAmp extends React.PureComponent {
         jwplayersMatching,
       },
       globalContent: data = {},
-      customFields: customFieldsData = {},
     } = this.props
 
-    const activeAds = Object.keys(customFieldsData).filter((prop) =>
-      prop.match(/liteAdLoadBlock(\d)/)
+    const activeAds = Object.keys(dataCustomFields).filter((prop) =>
+      prop.match(/ampAdLoadBlock(\d)/)
     )
 
     const {
@@ -124,7 +124,7 @@ class StoryContentAmp extends React.PureComponent {
       arcSite,
       contextPath,
       siteUrl,
-      customFields: customFieldsData,
+      customFields: dataCustomFields,
     })
 
     const isMetered = contentCode === METERED
@@ -147,8 +147,8 @@ class StoryContentAmp extends React.PureComponent {
         const divContent = i === 0 ? '' : '<div class="live-event2-comment">'
         let publicidad = ''
         activeAds.forEach((el) => {
-          if (i === customFieldsData[el]) {
-            publicidad = customFieldsData[`freeHtml${customFieldsData[el]}`]
+          if (i === dataCustomFields[el]) {
+            publicidad = dataCustomFields[`freeHtml${dataCustomFields[el]}`]
           }
         })
         entryHtml = `${entryHtml} ${divContent} ${entry} ${`<div class='text-center ad-amp-movil'>${publicidad} </div>`}`
@@ -161,10 +161,11 @@ class StoryContentAmp extends React.PureComponent {
       const formattedDisplayDate = formatDateTime(displayDate)
       const formattedUpdateDate = formatDateTime(updateDate)
 
-      return `${formattedDisplayDate} ${formattedDisplayDate !== formattedUpdateDate
-        ? `| Actualizado ${formattedUpdateDate}`
-        : ''
-        }`
+      return `${formattedDisplayDate} ${
+        formattedDisplayDate !== formattedUpdateDate
+          ? `| Actualizado ${formattedUpdateDate}`
+          : ''
+      }`
     }
     // separar principal y jwplayer
     return (
@@ -185,17 +186,17 @@ class StoryContentAmp extends React.PureComponent {
                   </a>
                 </p>
               ) : // Validamos si es EC
-                isComercio ? (
-                  authorsList.map((authorData) => (
-                    <p className={classes.author}>
-                      <a href={authorData.urlAuthor}>{authorData.nameAuthor}</a>
-                    </p>
-                  ))
-                ) : (
+              isComercio ? (
+                authorsList.map((authorData) => (
                   <p className={classes.author}>
-                    <a href={authorLink}>{author}</a>
+                    <a href={authorData.urlAuthor}>{authorData.nameAuthor}</a>
                   </p>
-                )}
+                ))
+              ) : (
+                <p className={classes.author}>
+                  <a href={authorLink}>{author}</a>
+                </p>
+              )}
               <time
                 dateTime={getDateSeo(displayDate)}
                 className={classes.datetime}>
@@ -206,9 +207,9 @@ class StoryContentAmp extends React.PureComponent {
             </div>
           )}
           {isMetered &&
-            activeRulesCounter &&
-            activePaywall &&
-            arcSite === SITE_GESTION ? (
+          activeRulesCounter &&
+          activePaywall &&
+          arcSite === SITE_GESTION ? (
             // Contador de paywall para AMP
             <amp-iframe
               width="1"
@@ -406,13 +407,13 @@ class StoryContentAmp extends React.PureComponent {
                         content={
                           isLegacy
                             ? formatHtmlToText(
-                              replaceTags(cleanLegacyAnchor(content))
-                            )
+                                replaceTags(cleanLegacyAnchor(content))
+                              )
                             : ampHtml(
-                              replaceTags(content),
-                              arcSite,
-                              !!source.source_id
-                            )
+                                replaceTags(content),
+                                arcSite,
+                                !!source.source_id
+                              )
                         }
                         className={classes.textClasses}
                       />
@@ -425,10 +426,10 @@ class StoryContentAmp extends React.PureComponent {
                         />
                       )}
                       {element?.activateStories &&
-                        (arcSite === SITE_ELCOMERCIO ||
-                          (arcSite === SITE_DEPOR &&
-                            (/^\/mexico\//.test(requestUri) ||
-                              /^\/colombia\//.test(requestUri)))) ? (
+                      (arcSite === SITE_ELCOMERCIO ||
+                        (arcSite === SITE_DEPOR &&
+                          (/^\/mexico\//.test(requestUri) ||
+                            /^\/colombia\//.test(requestUri)))) ? (
                         <AmpStoriesChild arcSite={arcSite} />
                       ) : null}
                     </>
@@ -490,7 +491,7 @@ class StoryContentAmp extends React.PureComponent {
             />
           )}
 
-          {customFieldsData.shareLinksAMP && (
+          {dataCustomFields.shareLinksAMP && (
             <div className={classes.social}>
               <StorySocialChildAmpSocial isContent />
             </div>
@@ -511,4 +512,3 @@ StoryContentAmp.propTypes = {
   customFields,
 }
 export default StoryContentAmp
-

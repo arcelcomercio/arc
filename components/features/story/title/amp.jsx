@@ -27,15 +27,16 @@ const classes = {
   bbcHead: 'bbc-head',
   listClasses: 'amp-story-content mt-20',
 }
-const StoryTitleAmp = () => {
+const StoryTitleAmp = (props) => {
   const {
     arcSite,
     contextPath,
     globalContent: data,
     requestUri = '',
-    customFields: { ampAdjson = '', ampAdName = '', ampAdDimensions = '' } = {},
   } = useFusionContext()
-
+  const {
+    customFields: { ampAdjson = '', ampAdName = '', ampAdDimensions = '' },
+  } = props
   const {
     title,
     subTitle,
@@ -100,9 +101,9 @@ const StoryTitleAmp = () => {
           ) : null}
 
           {arcSite === SITE_ELCOMERCIO ||
-            (arcSite === SITE_DEPOR &&
-              (/^\/mexico\//.test(requestUri) ||
-                /^\/colombia\//.test(requestUri))) ? null : (
+          (arcSite === SITE_DEPOR &&
+            (/^\/mexico\//.test(requestUri) ||
+              /^\/colombia\//.test(requestUri))) ? null : (
             <AmpStoriesChild arcSite={arcSite} />
           )}
 
@@ -134,7 +135,6 @@ const StoryTitleAmp = () => {
             dangerouslySetInnerHTML={{ __html: getDiv() }}
           />
         )}
-
         {subTitle && <div className={classes.description}> {subTitle}</div>}
         {arcSite !== SITE_ELCOMERCIOMAG && arcSite !== SITE_TROME && (
           <StorySocialChildAmpSocial />
@@ -145,7 +145,7 @@ const StoryTitleAmp = () => {
 }
 
 StoryTitleAmp.propTypes = {
-  customFields
+  customFields,
 }
 
 StoryTitleAmp.static = true
