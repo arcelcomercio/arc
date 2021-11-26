@@ -5,7 +5,8 @@ import * as React from 'react'
 import { FC } from 'types/features'
 
 import ShareButtons from '../../../global-components/lite/share/index'
-// import { shareNatively } from './_dependencies/scripts'
+import { isProd } from '../../../utilities/arc/env'
+import { sharedNative } from './_dependencies/scripts'
 
 const classes = {
   container: 'metro w-full h-full flex flex-col justify-center',
@@ -81,20 +82,21 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
 
   // Esto es un ejemplo. Se debe usar couponsJson
   // const coupons = couponsJson && JSON.parse(couponsJson)
-  const coupons: Coupon[] =
-    (couponsJson && JSON.parse(couponsJson)) ||
-    [
-      {
-        code: '0101010101',
-        discount: 10, // number
-        discountType: DiscountType.Percentage, // DiscountType
-        title: 'PIQUEOS',
-        legal: 'Válido hasta el jueves',
-      },
-    ]
+  const coupons: Coupon[] = (couponsJson && JSON.parse(couponsJson)) || [
+    {
+      code: '0101010101',
+      discount: 10, // number
+      discountType: DiscountType.Percentage, // DiscountType
+      title: 'PIQUEOS',
+      legal: 'Válido hasta el jueves',
+    },
+  ]
 
   const wdTitle = window.document.title || 'undefined'
-  const wdHref = window.document.location.href
+  const urlCuponera = 'cuponera-metro'
+  const wdHref = isProd
+    ? `https://trome.pe/${urlCuponera}`
+    : `https://elcomercio-trome-sandbox.cdn.arcpublishing.com/${urlCuponera}`
 
   const btnShared = 'btn-shared'
   const activeBtnSocialNetworks = 'social-network'
@@ -102,21 +104,10 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
   React.useEffect(() => {
     const buttonShare = document.getElementById(btnShared)
     buttonShare?.addEventListener('click', () => {
-      const windowTitle = wdTitle
-      const windowPath = wdHref
-      if (navigator.share) {
-        navigator
-          .share({
-            title: `${windowTitle}`,
-            text: `${windowPath}`,
-            url: `${windowPath}`,
-          })
-          .then(() => {
-            console.log('corriendo la api nativa')
-          })
-          .catch(() => {
-            console.log('ocurrió un error al correr la api nativa')
-          })
+      // casi todos los navegadores tienen el navigator.share
+      // pero casos como Firefox, al llamar a esa función retorna undefined
+      if (navigator.share !== undefined) {
+        sharedNative(wdTitle, wdHref, wdHref)
       } else {
         const activeShareButtons = document.getElementById(
           activeBtnSocialNetworks
@@ -172,25 +163,13 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
           </>
         )}
       </div>
-
-      {/* 
-      // REVISAR POR QUE NO FUNCIONA
-      <script
-        dangerouslySetInnerHTML={{
-          __html: shareNatively(
-            btnShared,
-            activeBtnSocialNetworks,
-            wdTitle,
-            wdPath
-          ),
-        }}
-      /> */}
     </div>
   )
 }
 
-StaticsPromoMetro.static = true
+// StaticsPromoMetro.static = true
 StaticsPromoMetro.label = 'Promo Metro'
+StaticsPromoMetro.lazy = true
 
 StaticsPromoMetro.propTypes = {
   customFields: PropTypes.shape({
