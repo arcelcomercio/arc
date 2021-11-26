@@ -39,3 +39,5 @@ $tertiary-font: $secondary-font;
 
 @import "./scss/lite-components/features/story/continue/st-continue";
 @import "./scss/lite-components/global-components/multimedia-icon/m-icon";
+@import "../../general-styles/components/features/signwall/modal";
+@import "../../general-styles/components/features/signwall/loading";

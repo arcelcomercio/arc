@@ -16,6 +16,7 @@ import {
 } from '../../../../subscriptions/_context/modal'
 import { Taggeo } from '../../../../subscriptions/_dependencies/Taggeo'
 import { Close, CloseCircle } from '../../../_children/icons'
+import { Modal } from '../../../_children/modal/index'
 import { PremiumPayment } from './_children/payment'
 
 const FormIntro = React.lazy(() =>
@@ -167,7 +168,7 @@ export const PremiumInt = ({ properties }) => {
   let bgRightSite = '#f4f4f4'
   if (isGestion) {
     bgRightSite = '#fff6f0'
-  } else if (isCorreo) {
+  } else if (isCorreo || isTrome) {
     bgRightSite = 'white'
   }
 
