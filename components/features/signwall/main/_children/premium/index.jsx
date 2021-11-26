@@ -16,8 +16,6 @@ import {
 } from '../../../../subscriptions/_context/modal'
 import { Taggeo } from '../../../../subscriptions/_dependencies/Taggeo'
 import { Close, CloseCircle } from '../../../_children/icons'
-import { Modal } from '../../../_children/modal/index'
-// import { PremiumFree } from './_children/free'
 import { PremiumPayment } from './_children/payment'
 
 const FormIntro = React.lazy(() =>
@@ -52,12 +50,9 @@ const FormRegisterDef = React.lazy(() =>
   importRetry(() => import('../../../_children/forms/default/form_register'))
 )
 
-
-
 const lazyFallback = <div style={{ padding: '30px' }}>Cargando...</div>
 
 const renderTemplate = (template, valTemplate, attributes) => {
-  
   const {
     siteProperties: { activeRegisterwall },
     arcSite,
@@ -69,11 +64,12 @@ const renderTemplate = (template, valTemplate, attributes) => {
   const templates = {
     intro: (
       <React.Suspense fallback={lazyFallback}>
-        {activeRegisterwall ?(<>
-        {isCorreo ? <FormIntroFreeCorreo {...attributes}/>:null}
-        {isTrome ? <FormIntroFreeTrome {...attributes}/>:null
-        }
-        </>): (
+        {activeRegisterwall ? (
+          <>
+            {isCorreo && <FormIntroFreeCorreo {...attributes} />}
+            {isTrome && <FormIntroFreeTrome {...attributes} />}
+          </>
+        ) : (
           <FormIntro {...attributes} />
         )}
       </React.Suspense>
@@ -178,17 +174,17 @@ export const PremiumInt = ({ properties }) => {
   let colorBorder = 'none'
   if (isCorreo) {
     colorBorder = '2px red solid'
-  } else if(isTrome){
+  } else if (isTrome) {
     colorBorder = '2px black solid'
   }
 
   return (
     <Modal
-      size={isCorreo||isTrome ? 'mini' : resizeModal}
+      size={isCorreo || isTrome ? 'mini' : resizeModal}
       position="bottom"
-      margin={isCorreo||isTrome ? '0px 0px 10px' : ''}
-      padding={isCorreo||isTrome ? '0px' : ''}
-      noOverflow={isCorreo||isTrome}
+      margin={isCorreo || isTrome ? '0px 0px 10px' : ''}
+      padding={isCorreo || isTrome ? '0px' : ''}
+      noOverflow={isCorreo || isTrome}
       bgColor={isGestion ? 'black' : 'white'}>
       <div
         className="signwall-inside_body-container premium"
