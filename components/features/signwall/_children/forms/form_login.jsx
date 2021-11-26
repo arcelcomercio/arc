@@ -364,6 +364,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                       dataTreatment={checkedPolits ? '1' : '0'}
                     />
                   ))}
+
                   <AuthURL
                     arcSite={arcSite}
                     onClose={onClose}
