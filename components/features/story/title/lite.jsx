@@ -5,6 +5,7 @@ import ShareButtons from '../../../global-components/lite/share'
 import { SITE_DEPOR } from '../../../utilities/constants/sitenames'
 import StoryData from '../../../utilities/story-data'
 import PremiumTag from './_children/premium'
+import customFields from './_dependencies/custom-fields'
 
 const classes = {
   description: 'sht__summary',
@@ -85,7 +86,10 @@ const StoryTitleLite = () => {
     </>
   )
 }
-
+StoryTitleLite.propTypes = {
+  // eslint-disable-next-line react/no-unused-prop-types
+  customFields,
+}
 StoryTitleLite.label = 'Artículo - Título '
 StoryTitleLite.static = true
 

@@ -1,8 +1,9 @@
-import React from 'react'
 import { useAppContext } from 'fusion:context'
-import { createResizedParams } from '../../../../utilities/resizer/resizer'
-import { publicidadAmp, ampHtml } from '../../../../utilities/story/helpers-amp'
+import React from 'react'
+
 import { SITE_PERU21 } from '../../../../utilities/constants/sitenames'
+import { createResizedParams } from '../../../../utilities/resizer/resizer'
+import { ampHtml,publicidadAmp } from '../../../../utilities/story/helpers-amp'
 
 const classes = {
   gallery: 'story-gallery pt-10 pr-20 pl-20 md:pr-0 md:pl-0',
@@ -16,7 +17,7 @@ const classes = {
   adsAmp: 'text-center ad-amp-movil',
 }
 
-const StoryHeaderChildAmpGallery = props => {
+const StoryHeaderChildAmpGallery = (props) => {
   const { data, primarySectionLink, adsAmp } = props
 
   const { arcSite } = useAppContext()
@@ -48,7 +49,7 @@ const StoryHeaderChildAmpGallery = props => {
       primarySectionLink,
       arcSite,
       movil1: true,
-      size
+      size,
     }
   }
   return (

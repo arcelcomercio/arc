@@ -6,6 +6,12 @@ const posicion = {
   3: 'Posicion 4',
   4: 'Posicion 5',
   5: 'Posicion 6',
+  6: 'Posicion 7',
+  7: 'Posicion 8',
+  8: 'Posicion 9',
+  9: 'Posicion 10',
+  10: 'Posicion 11',
+  11: 'Posicion 12',
 }
 const customFields = PropTypes.shape({
   adsEvery: PropTypes.number.tag({
@@ -42,7 +48,7 @@ const customFields = PropTypes.shape({
     group: 'AMP',
   }),
 
-  liteAdLoadBlock1: PropTypes.oneOf(['0', '1', '2', '3', '4']).tag({
+  ampAdLoadBlock1: PropTypes.oneOf(['0', '1', '2', '3', '4']).tag({
     name: 'Seleccion la posicion',
     description: 'posicion de la publicidad',
     defaultValue: false,
@@ -61,7 +67,7 @@ const customFields = PropTypes.shape({
     group: 'AMP',
   }),
 
-  liteAdLoadBlock2: PropTypes.oneOf(['0', '1', '2', '3', '4']).tag({
+  ampAdLoadBlock2: PropTypes.oneOf(['0', '1', '2', '3', '4']).tag({
     name: 'Seleccion la posicion',
     description: 'posicion de la publicidad',
     defaultValue: false,
@@ -80,7 +86,7 @@ const customFields = PropTypes.shape({
     group: 'AMP',
   }),
 
-  liteAdLoadBlock3: PropTypes.oneOf(['0', '1', '2', '3', '4']).tag({
+  ampAdLoadBlock3: PropTypes.oneOf(['0', '1', '2', '3', '4']).tag({
     name: 'Seleccion la posicion',
     description: 'posicion de la publicidad',
     defaultValue: false,
@@ -99,7 +105,7 @@ const customFields = PropTypes.shape({
     group: 'AMP',
   }),
 
-  liteAdLoadBlock4: PropTypes.oneOf(['0', '1', '2', '3', '4']).tag({
+  ampAdLoadBlock4: PropTypes.oneOf(['0', '1', '2', '3', '4']).tag({
     name: 'Seleccion la posicion',
     description: 'posicion de la publicidad',
     defaultValue: false,
@@ -117,7 +123,7 @@ const customFields = PropTypes.shape({
     group: 'AMP',
   }),
 
-  liteAdLoadBlock5: PropTypes.oneOf(['0', '1', '2', '3', '4']).tag({
+  ampAdLoadBlock5: PropTypes.oneOf(['0', '1', '2', '3', '4']).tag({
     name: 'Seleccion la posicion',
     description: 'posicion de la publicidad',
     defaultValue: false,

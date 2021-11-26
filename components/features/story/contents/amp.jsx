@@ -88,7 +88,7 @@ class StoryContentAmp extends React.PureComponent {
       requestUri,
       arcSite,
       deployment,
-      customFields,
+      customFields: dataCustomFields,
       siteProperties: {
         siteUrl,
         activePaywall,
@@ -98,8 +98,8 @@ class StoryContentAmp extends React.PureComponent {
       globalContent: data = {},
     } = this.props
 
-    const activeAds = Object.keys(customFields).filter((prop) =>
-      prop.match(/liteAdLoadBlock(\d)/)
+    const activeAds = Object.keys(dataCustomFields).filter((prop) =>
+      prop.match(/ampAdLoadBlock(\d)/)
     )
 
     const {
@@ -122,7 +122,7 @@ class StoryContentAmp extends React.PureComponent {
       arcSite,
       contextPath,
       siteUrl,
-      customFields,
+      customFields: dataCustomFields,
     })
 
     const isMetered = contentCode === METERED
@@ -144,8 +144,8 @@ class StoryContentAmp extends React.PureComponent {
         const divContent = i === 0 ? '' : '<div class="live-event2-comment">'
         let publicidad = ''
         activeAds.forEach((el) => {
-          if (i === customFields[el]) {
-            publicidad = customFields[`freeHtml${customFields[el]}`]
+          if (i === dataCustomFields[el]) {
+            publicidad = dataCustomFields[`freeHtml${dataCustomFields[el]}`]
           }
         })
         entryHtml = `${entryHtml} ${divContent} ${entry} ${`<div class='text-center ad-amp-movil'>${publicidad} </div>`}`

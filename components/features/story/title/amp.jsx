@@ -25,15 +25,16 @@ const classes = {
   bbcHead: 'bbc-head',
   listClasses: 'amp-story-content mt-20',
 }
-const StoryTitleAmp = () => {
+const StoryTitleAmp = (props) => {
   const {
     arcSite,
     contextPath,
     globalContent: data,
     requestUri = '',
-    customFields: { ampAdjson = '', ampAdName = '', ampAdDimensions = '' } = {},
   } = useFusionContext()
-
+  const {
+    customFields: { ampAdjson = '', ampAdName = '', ampAdDimensions = '' },
+  } = props
   const {
     title,
     subTitle,
@@ -124,7 +125,6 @@ const StoryTitleAmp = () => {
             dangerouslySetInnerHTML={{ __html: getDiv() }}
           />
         )}
-
         {subTitle && <div className={classes.description}> {subTitle}</div>}
         {arcSite !== SITE_ELCOMERCIOMAG && <StorySocialChildAmpSocial />}
       </div>

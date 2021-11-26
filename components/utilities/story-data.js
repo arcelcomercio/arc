@@ -970,7 +970,7 @@ class StoryData {
           dataElements = dataContent
         } */
         const activeAds = Object.keys(this._customFields).filter((prop) =>
-          prop.match(/liteAdLoadBlock(\d)/)
+          prop.match(/ampAdLoadBlock(\d)/)
         )
 
         activeAds.forEach((el) => {
