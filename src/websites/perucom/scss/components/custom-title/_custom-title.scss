@@ -1,0 +1,18 @@
+.custom-title {
+  font-family: $secondary-font;
+  color: $color-gray-300;
+  background-color: $color-white;
+  padding: 0 10px;
+  display: block;
+  font-weight: 700;
+  position: relative;
+  z-index: 0;
+  &.medium,
+  &.large {
+    font-size: 20px;
+    @media (--desktop) {
+      line-height: 50px;
+      font-size: 24px;
+    }
+  }
+}

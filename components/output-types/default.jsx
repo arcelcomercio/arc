@@ -8,12 +8,14 @@ import { META_HOME } from '../utilities/constants/meta'
 import {
   SITE_DEPOR,
   SITE_ELBOCON,
+  SITE_DIARIOCORREO,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_GESTION,
   SITE_OJO,
   SITE_PERU21,
   SITE_PERU21G21,
+  SITE_PERUCOM,
   SITE_TROME,
 } from '../utilities/constants/sitenames'
 import {
@@ -40,6 +42,7 @@ import iframeScript from './_dependencies/iframe-script'
 import jwplayerScript from './_dependencies/jwplayer-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-script'
 import { getEnablePushud, getPushud } from './_dependencies/pushud'
+import { getEnabledServerside, getScriptAdPushup } from './_dependencies/serverside'
 import {
   getDescription,
   getIsStory,
@@ -153,6 +156,9 @@ export default ({
   const isHome = metaValue('id') === META_HOME && true
   const scriptAdpush = getPushud(arcSite)
   const enabledPushud = getEnablePushud(arcSite)
+  const enabledPushup = getEnabledServerside(arcSite)
+  const scriptAdpushup = getScriptAdPushup(arcSite)
+  
   const isElcomercioHome = arcSite === SITE_ELCOMERCIO && isHome
   const isPreview = /^\/preview\//.test(requestUri)
   const { uuid_match: idMatch = '' } = promoItems
@@ -177,6 +183,8 @@ export default ({
     if (
       arcSite === SITE_ELCOMERCIO ||
       arcSite === SITE_ELCOMERCIOMAG ||
+      arcSite === SITE_ELBOCON ||
+      arcSite === SITE_DIARIOCORREO ||
       (arcSite === 'peru21' && requestUri.match(`^/cheka`))
     ) {
       prebid = false
@@ -282,6 +290,7 @@ export default ({
 
   const isCovid = /^\/covid-19\//.test(requestUri)
   const isElecciones = metaValue('section_style') === 'resultados_elecciones'
+  const isAgendaPre = metaValue('section_style') === 'agenda_presidencial'
   // const isSaltarIntro = /^\/saltar-intro\//.test(requestUri)
   const isPremium = contentCode === PREMIUM || false
   const htmlAmpIs = isPremium ? '' : true
@@ -336,6 +345,9 @@ export default ({
   if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
   }
+  if (arcSite === SITE_PERUCOM && CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.elcomercio.pe/dist/${arcSite}/css/${style}.css`
+  }
   const iscriptJwplayer = jwplayerSeo || isVideosSection
 
   const isStyleBasic = arcSite === 'elcomercio c' && isHome && true
@@ -349,8 +361,8 @@ export default ({
     /(\/(autor|autores)\/)(|[\w\d-]+\/)([0-9]+)\//.test(requestUri) &&
     !/(\/(autor|autores)\/)([\w\d-]+\/|)([1])\//.test(requestUri) &&
     arcSite === 'trome'
-      ? 'noindex'
-      : 'index'
+      ? 'noindex, follow'
+      : 'index, follow,max-image-preview:large'
   }`
 
   return (
@@ -366,12 +378,14 @@ export default ({
           <meta
             name="robots"
             content={`${
-              /-agnc-/.test(requestUri) ? 'noindex' : 'index'
-            }, follow`}
+              /-agnc-/.test(requestUri)
+                ? 'noindex, follow'
+                : 'index, follow,max-image-preview:large'
+            }`}
           />
         ) : (
           <>
-            <meta name="robots" content={`${robotsIndex}, follow`} />
+            <meta name="robots" content={`${robotsIndex}`} />
           </>
         )}
         {arcSite === 'trome' || arcSite === 'depor' ? null : (
@@ -427,11 +441,9 @@ export default ({
         <link rel="preconnect dns-prefetch" href="//connect.facebook.net" />
         <link rel="preconnect dns-prefetch" href="//tags.bkrtx.com" />
         <link rel="preconnect dns-prefetch" href="//static.chartbeat.com" />
-        <link rel="preconnect dns-prefetch" href="//scomcluster.cxense.com" />
         <link rel="preconnect dns-prefetch" href="//sb.scorecardresearch.com" />
         <link rel="preconnect dns-prefetch" href="//ping.chartbeat.net" />
         <link rel="preconnect dns-prefetch" href="//mab.chartbeat.com" />
-        <link rel="preconnect dns-prefetch" href="//cdn.cxense.com" />
         <link
           rel="preconnect dns-prefetch"
           href="//arc-subs-sdk.s3.amazonaws.com"
@@ -462,24 +474,28 @@ export default ({
             />
           </>
         )}
-        {arcSite === 'elcomercio' && !isTrivia && !isCovid && !isElecciones && (
-          <>
-            <link
-              rel="preload"
-              as="font"
-              crossOrigin="crossorigin"
-              type="font/woff2"
-              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/libre-franklin-v4-latin-500.woff2"
-            />
-            <link
-              rel="preload"
-              as="font"
-              crossOrigin="crossorigin"
-              type="font/woff2"
-              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-serif-sc-v6-latin-500.woff2"
-            />
-          </>
-        )}
+        {arcSite === 'elcomercio' &&
+          !isTrivia &&
+          !isCovid &&
+          !isElecciones &&
+          !isAgendaPre && (
+            <>
+              <link
+                rel="preload"
+                as="font"
+                crossOrigin="crossorigin"
+                type="font/woff2"
+                href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/libre-franklin-v4-latin-500.woff2"
+              />
+              <link
+                rel="preload"
+                as="font"
+                crossOrigin="crossorigin"
+                type="font/woff2"
+                href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-serif-sc-v6-latin-500.woff2"
+              />
+            </>
+          )}
 
         {/* Este cambio se ha devuelto para evaluar problema 
         de monetizacion con los ads.
@@ -594,7 +610,7 @@ export default ({
             {indPrebid && (
               <script
                 defer
-                src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?v=${new Date()
+                src={`https://d2dvq461rdwooi.cloudfront.net/output/assets/js/prebid.js?v=v1${new Date()
                   .toISOString()
                   .slice(0, 10)}`}
               />
@@ -628,7 +644,9 @@ export default ({
           arcSite={arcSite}
           subtype={subtype}
         />
-        {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
+        {(!(metaValue('exclude_libs') === 'true') || isAdmin || isPremium) && (
+          <Libs />
+        )}
         {/* <!-- Paywall - Inicio --> */}
         {(() => {
           if (
@@ -671,7 +689,7 @@ export default ({
           {...siteProperties}
         />
         {/* ============== WebTracking */}
-        {arcSite === SITE_ELCOMERCIO && requestUri.includes('/lima/') ? (
+        {arcSite === SITE_ELCOMERCIO ? (
           <>
             <script
               defer
@@ -686,7 +704,7 @@ export default ({
           </>
         ) : null}
 
-        {arcSite === SITE_GESTION && requestUri.includes('/economia/') ? (
+        {arcSite === SITE_GESTION ? (
           <>
             <script
               defer
@@ -733,7 +751,9 @@ export default ({
         <div id="fusion-app" role="application">
           {children}
         </div>
-        {(!(metaValue('exclude_fusion') === 'true') || isAdmin) && <Fusion />}
+        {(!(metaValue('exclude_fusion') === 'true') ||
+          isAdmin ||
+          isPremium) && <Fusion />}
         {isStory && (
           <script
             type="text/javascript"
@@ -772,15 +792,14 @@ export default ({
             .toISOString()
             .slice(0, 10)}`}
         />
-        {arcSite === SITE_OJO && (
+        {enabledPushup ? (
           <>
             <script
-              dangerouslySetInnerHTML={{
-                __html: `setTimeout(function(){var e,t;window,e=document,(t=e.createElement("script")).src="//cdn.adpushup.com/42879/adpushup.js",t.crossOrigin="anonymous",t.type="text/javascript",t.async=!0,(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(t)},5e3);`,
-              }}
+              type="text/javascript"
+              dangerouslySetInnerHTML={{ __html: scriptAdpushup }}
             />
           </>
-        )}
+        ) : null}
         {(arcSite === SITE_DEPOR || arcSite === SITE_GESTION) &&
           isSearchSection && (
             <script

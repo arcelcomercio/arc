@@ -1,0 +1,102 @@
+.agenda_presidencial__navbar {
+  &__box {
+    display: flex;
+    background-color: #fffcf5;
+    justify-content: flex-start;
+    @media (--tablet) {
+      justify-content: center;
+    }
+    @media (--desktop) {
+      justify-content: flex-start;
+      max-width: 1000px;
+    }
+  }
+  &__flag {
+    margin-left: 18px;
+    @media (--desktop) {
+      margin-left: 180px;
+    }
+    & svg {
+      width: 42px;
+      height: 156px;
+    }
+  }
+
+  &__box-logo {
+    margin-left: 10px;
+    margin-top: 30px;
+    margin-right: 25px;
+    @media (--desktop) {
+      margin-left: 90px;
+      margin-top: 35px;
+      margin-right: 95px;
+    }
+    &__agenda {
+      & svg {
+        width: 190px;
+        height: 80px;
+        @media (--desktop) {
+          width: 370px;
+          height: 80px;
+        }
+      }
+    }
+    &__fecha {
+      color: #d64b4b;
+      font-size: 18px;
+      font-weight: 700;
+      // margin-top: 16px;
+      margin-bottom: 10px;
+      text-align: left;
+      width: max-content;
+      font-family: $primary-font;
+      @media (--desktop) {
+        text-align: center;
+        margin: auto;
+        margin-bottom: 10px;
+      }
+      &::first-letter {
+        text-transform: uppercase;
+      }
+    }
+    &__calendario {
+      margin-bottom: 10px;
+      width: 116px;
+      height: 25px;
+      @media (--desktop) {
+        margin-bottom: 10px;
+        width: 100%;
+        height: 25px;
+      }
+      & svg {
+        width: 125px;
+        height: 25px;
+      }
+    }
+  }
+  &__dia {
+    border-left: 1px solid #707070;
+    max-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: initial;
+    padding-left: 10px;
+    font-family: $tertiary-font;
+    @media (--desktop) {
+      max-height: 138px;
+      padding-left: 30px;
+    }
+    &__letra {
+      font-size: 18px;
+      height: 23px;
+    }
+    &__numero {
+      font-size: 34px;
+    }
+  }
+  &__marginleft35 {
+    margin-left: 35px;
+  }
+}

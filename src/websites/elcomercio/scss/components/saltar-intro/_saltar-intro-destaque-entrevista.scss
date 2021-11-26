@@ -1,0 +1,212 @@
+.saltar-intro-destaque-entrevista {
+  font-family: $primary-font;
+  display: flex;
+  flex-direction: column-reverse;
+  margin-top: 20px;
+  @media (--desktop) {
+    flex-direction: row;
+  }
+
+  &__image {
+    //max-width: 430px;
+    width: 100%;
+    @media (--desktop) {
+      max-width: unset;
+      max-height: 450px;
+      height: 100%;
+    }
+  }
+  &__info {
+    background-color: #f4f2f2;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #000;
+    @media (--desktop) {
+      max-width: calc(100% - 634px);
+    }
+  }
+  &__title {
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 30px;
+    letter-spacing: -0.25px;
+    display: block;
+    margin-top: 15px;
+    @media (--desktop) {
+      font-size: 30px;
+      line-height: 35px;
+      letter-spacing: -0.3px;
+      margin-top: 35px;
+    }
+  }
+  &__author {
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 24px;
+    letter-spacing: 0.14px;
+    text-transform: uppercase;
+    display: block;
+    margin-top: 20px;
+    position: relative;
+    &::after {
+      content: "";
+      width: 36px;
+      position: absolute;
+      border-bottom: 2px solid #000;
+      left: 0;
+      bottom: 0;
+      @media (--desktop) {
+        border-bottom: 3px solid #000;
+      }
+    }
+  }
+  &__rol {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 24px;
+    letter-spacing: 0.17px;
+    border-bottom: 1px dotted #818181;
+  }
+  &__interviewed {
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 24px;
+    letter-spacing: -0.38px;
+  }
+  &--card {
+    flex-direction: column-reverse !important;
+    margin-top: 0 !important;
+    @media (--desktop) {
+      align-self: start;
+    }
+    .saltar-intro-destaque-entrevista {
+      &__info {
+        max-width: unset;
+        padding-top: 10px !important;
+      }
+      &__interviewed {
+        // font: normal normal 900 18px/24px Bitter;
+        font-size: 18px !important;
+        line-height: 24px !important;
+        letter-spacing: -0.29px !important;
+      }
+      &__rol {
+        // font: normal normal medium 14px/24px Bitter;
+        font-size: 14px !important;
+        line-height: 24px !important;
+        letter-spacing: 0.2px !important;
+      }
+      &__title {
+        // font: normal normal bold 23px/28px Bitter;
+        font-size: 23px !important;
+        line-height: 28px !important;
+        letter-spacing: 0 !important;
+        margin-top: 10px !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        // height: 52px;
+      }
+    }
+  }
+  &--trailer {
+    .saltar-intro-destaque-entrevista {
+      &__info {
+        @media (--only-mobile) {
+          padding-top: 10px;
+        }
+      }
+      &__title {
+        font-size: 30px;
+        line-height: 35px;
+        letter-spacing: -0.3px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 5;
+        display: -webkit-box;
+        @media (--desktop) {
+          margin-top: 15px;
+        }
+        @media (--only-mobile) {
+          margin-top: 0;
+          font-size: 25px;
+          line-height: 30px;
+          letter-spacing: -0.25px;
+        }
+      }
+      &__subtitle {
+        // font: normal normal medium 14px/17px Bitter;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 18px;
+        letter-spacing: 0;
+        color: #000;
+        opacity: 1;
+        margin-bottom: 7px;
+        margin-top: 7px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 5;
+        display: -webkit-box;
+        @media (--only-mobile) {
+          font-size: 15px;
+          line-height: 19px;
+        }
+      }
+      &__category-link {
+        font-family: $primary-font;
+        font-weight: 600;
+        font-size: 12px;
+        background-color: #000;
+        text-transform: uppercase;
+        color: #fff;
+        transform: skew(10deg);
+        display: block;
+      }
+      &__category {
+        background-color: #000;
+        color: #fff;
+        display: inline-block;
+        letter-spacing: 0.17px;
+        line-height: 18px;
+        padding: 3px 8px 3px;
+        text-transform: uppercase;
+        -webkit-transform: skew(-10deg);
+        transform: skew(-10deg);
+        &::after {
+          display: none;
+        }
+        @media (--desktop) {
+          top: -30%;
+          width: fit-content;
+          z-index: 1;
+        }
+
+        top: -18%;
+        width: fit-content;
+        z-index: 1;
+        @media (--only-mobile) {
+          position: relative;
+          bottom: 20px;
+        }
+      }
+    }
+  }
+}
+.saltar-intro {
+  .bg-white {
+    background-color: #fff !important;
+  }
+  .grid.grid--content {
+    @media (--desktop) {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  }
+}

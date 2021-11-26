@@ -14,7 +14,8 @@ export default {
   urlPrerollAmp:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ojo/amp/post/default/preroll&description_url=https%3A%2F%2Fojo.pe%2F&tfcd=0&npa=0&sz=640x480|400x300|640x360&cust_params=fuente%3Damp%26publisher%3Dojo%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '1579310032347237',
-  googleTagManagerId: 'GTM-KZX7JN3',
+  googleTagManagerId: 'GTM-KZX7JN3', // Google Tag Manager Prod
+  googleTagManagerIdSandbox: 'GTM-KZX7JN3', // Google Tag Manager Sandbox
   ampGoogleTagManagerId: 'UA-15668535-1',
   ampGoogleTagManagerName: 'ojo',
   charbeatAccountNumber: 57773,
@@ -33,6 +34,7 @@ export default {
     cookiesPolicy: 'FKYQXTQVJBBIXGT6P22O6E24OE',
     aboutUs: '',
     frequentQuestions: '',
+    dataTreatment: 'JR6SWNIIHVDF3DPHXCBNNHBJKE',
   },
   infoPagesProd: {
     termsAndConditions: 'OX3HQTTGGNGEFO6X2MH7OM2ZMI',
@@ -43,6 +45,10 @@ export default {
     cookiesPolicy: 'NH3NHETIQBEUDKMEVTH5KW576Q',
     aboutUs: '',
     frequentQuestions: '',
+    dataTreatment: 'RLJ5XMTMIBDMFC76MJRUQSJPRM',
+  },
+  paywall: {
+    title: 'Ingresar | Ojo',
   },
   assets: {
     seo: {

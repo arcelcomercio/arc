@@ -33,7 +33,15 @@ const docPatterns = {
   CEX: /^([a-zA-Z0-9-]{5,15})/,
 }
 
+// prettier-ignore
+const birthDatePattern = [/[0-3]/, /[0-9]/, '-', /[0-1]/, /[0-9]/, '-', /\d/, /\d/, /\d/, /\d/]
+const birthDateRegex = new RegExp(
+  /^(0[1-9]|1[0-9]|2[0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])(\/|-)(19[0-9]{2}|20[0-1][0-9])$/
+)
+
 export {
+  birthDatePattern,
+  birthDateRegex,
   cellphoneRegex,
   descripRegex,
   docPatterns,

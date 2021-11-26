@@ -42,7 +42,7 @@ const classes = {
   contactName: 'block',
 }
 
-const StandardFooter = props => {
+const StandardFooter = (props) => {
   const {
     socialNetworks,
     gecSites,
@@ -65,14 +65,14 @@ const StandardFooter = props => {
           />
         </a>
         <ul className={classes.legalList}>
-          {siteLegal.map(el => (
+          {siteLegal?.map((el) => (
             <li className={classes.legalItem} key={el}>
               {el}
             </li>
           ))}
 
           <li className={classes.legalLinksWrapper}>
-            {legalLinks.map(el => (
+            {legalLinks.map((el) => (
               <a
                 itemProp="url"
                 className={` ${classes.legalLinks}`}
@@ -89,7 +89,7 @@ const StandardFooter = props => {
         <ul className={classes.list}>
           <li className={classes.listTitle}>Nuestras secciones</li>
           {sections &&
-            sections.map(el => (
+            sections.map((el) => (
               <li className={classes.listLinkSection} key={el.url}>
                 <a itemProp="url" className={classes.listLink} href={el.url}>
                   {el.name}
@@ -103,7 +103,7 @@ const StandardFooter = props => {
         <ul className={classes.list}>
           {/* <li className={classes.listTitle}>Contacto</li> */}
           {contacts.map(
-            el =>
+            (el) =>
               el.position && (
                 <li className={classes.listItem} key={el.name}>
                   <span
@@ -125,23 +125,21 @@ const StandardFooter = props => {
         </div>
         <ul className={classes.listSocial}>
           {socialNetworks &&
-            socialNetworks.map(el => {
-              return (
-                <li className={classes.listSocialItem}>
-                  <a
-                    itemProp="url"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={el.url}
-                    className={classes.listSocialLink}>
-                    <i
-                      className={`icon-${el.name} footer__social-icon pr-15`}
-                      aria-label={el.name}
-                    />
-                  </a>
-                </li>
-              )
-            })}
+            socialNetworks.map((el) => (
+              <li className={classes.listSocialItem}>
+                <a
+                  itemProp="url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={el.url}
+                  className={classes.listSocialLink}>
+                  <i
+                    className={`icon-${el.name} footer__social-icon pr-15`}
+                    aria-label={el.name}
+                  />
+                </a>
+              </li>
+            ))}
         </ul>
       </div>
       <div className={classes.sites}>
@@ -149,7 +147,7 @@ const StandardFooter = props => {
           Red el comercio
         </p>
         <p itemProp="description" className={classes.sitesList}>
-          {gecSites.map(site => {
+          {gecSites.map((site) => {
             if (site.arcSite === arcSite) return ''
             return (
               <a

@@ -1,0 +1,73 @@
+.header {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  position: relative;
+  padding: 25px 25px 25px 23px;
+  @media (--tablet) {
+    max-width: 322px;
+  }
+  @media (--desktop) {
+    max-width: 400px;
+  }
+  &__menu-icon {
+    margin-right: 25px;
+    &.true {
+      fill: #ff000f;
+    }
+    &:hover {
+      @media (--desktop) {
+        transform: matrix(0, 1, -1, 0, 0, 0);
+        fill: #ff000f;
+      }
+    }
+  }
+
+  &__svga {
+    fill: #fff;
+  }
+
+  &__svgc {
+    fill: #d9000f;
+  }
+  &__menu-list {
+    padding: 15px 0;
+    list-style: none;
+    background: #ebebeb 0% 0% no-repeat padding-box;
+    box-shadow: 10px 20px 10px #00000034;
+    border-radius: 9px;
+    position: absolute;
+    top: 10px;
+    left: 79px;
+    width: 251px;
+  }
+  &__menu-des {
+    left: 56px;
+    position: absolute;
+    width: 74px;
+    height: 50px;
+    transform: matrix(-0.4, -0.97, 0.97, 0.2, 0, 0);
+    background: #ebebeb 0% 0% no-repeat padding-box;
+    box-shadow: -37px -6px 17px #00000034;
+    opacity: 1;
+  }
+  &__menu-link {
+    font: normal normal normal 15px/17px $primary-font;
+    text-align: left;
+    letter-spacing: 0;
+    color: #000;
+    opacity: 1;
+  }
+  &__menu-item {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #707070;
+    margin: 0 20px 0 20px;
+    padding-top: 15px;
+  }
+  &__sub-menu {
+    list-style: none;
+  }
+  &__svgb {
+    fill: #121212;
+  }
+}

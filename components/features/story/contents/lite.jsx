@@ -10,7 +10,6 @@ import Image from '../../../global-components/image'
 import ShareButtons from '../../../global-components/lite/share'
 import LiteYoutube from '../../../global-components/lite-youtube'
 import StoryContentsChildTable from '../../../global-components/story-table'
-import { getAssetsPath } from '../../../utilities/assets'
 import {
   ELEMENT_BLOCKQUOTE,
   ELEMENT_CUSTOM_EMBED,
@@ -53,6 +52,7 @@ import StoryContentsChildImage from '../multimedia/_children/image'
 import StoryContentsChildVideo from '../multimedia/_children/video'
 import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
 import StoryContentsChildAuthorLite from './_children/author-lite'
+import StoryContentChildAuthorLiteV2 from './_children/author-lite-v2'
 import StoryContentsChildAuthorTrustLite from './_children/author-trust-lite'
 import StoryContentsChildBlockQuote from './_children/blockquote'
 import StoryContentsChildCorrection from './_children/correction'
@@ -96,6 +96,7 @@ const StoryContentsLite = (props) => {
     contextPath,
     deployment,
     requestUri,
+    metaValue,
     siteProperties: {
       ids: { opta },
       isDfp = false,
@@ -163,16 +164,12 @@ const StoryContentsLite = (props) => {
   }
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
   const imgBbc =
-    `${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
+    'https://cdna.elcomercio.pe/resources/dist/elcomercio/images/bbc-footer.png'
   const seccArary = canonicalUrl?.split('/') || '/'
   const secc = seccArary[1] && seccArary[1]?.replace(/-/gm, '')
   const storyContent = contentWithAds({
     contentElements,
     adsEvery: liteAdsEvery,
-    arcSite,
   })
   const isPreview = /^\/preview\//.test(requestUri)
 
@@ -184,16 +181,27 @@ const StoryContentsLite = (props) => {
     isGsapRequired = elementsWithScrollGallery.length > 0
   }
 
+  const isStoryV2StandarStyle =
+    metaValue('section_style') === 'story-v2-standard'
+
   return (
     <>
       <div className={classes.news}>
         {subtype !== GALLERY_VERTICAL && (
           <>
-            {SITE_ELCOMERCIO === arcSite ? (
-              <StoryContentsChildAuthorTrustLite {...params} />
-            ) : (
-              <StoryContentsChildAuthorLite {...params} />
-            )}
+            {(() => {
+              if (isStoryV2StandarStyle)
+                return (
+                  <StoryContentChildAuthorLiteV2
+                    authorsList={authorsList}
+                    displayDate={getDateSeo(displayDate || createdDate)}
+                    publishDate={getDateSeo(updateDate)}
+                  />
+                )
+              if (SITE_ELCOMERCIO === arcSite)
+                return <StoryContentsChildAuthorTrustLite {...params} />
+              return <StoryContentsChildAuthorLite {...params} />
+            })()}
           </>
         )}
         <div
@@ -298,9 +306,12 @@ const StoryContentsLite = (props) => {
                       <>
                         <div
                           className="jwplayer-lazy "
-                          id={`botr_${mediaId}_${jwplayerId}_div`}>
+                          id={mediaId}
+                          data-hasAds={hasAds}
+                          data-playerId={jwplayerId}>
                           <div className="jwplayer-lazy-icon-play" />
                           <Image
+                            id={`image_${mediaId}`}
                             src={image}
                             width={580}
                             height={326}
@@ -355,40 +366,48 @@ const StoryContentsLite = (props) => {
                       {nameAds === 'caja3' &&
                         subtype !== MINUTO_MINUTO &&
                         subtype !== GALLERY_VERTICAL && (
+                          <div className="content_gpt_caja3">
+                            <div
+                              id="gpt_caja3"
+                              data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
+                              data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+                              data-bloque="3"
+                              data-prebid-enabled
+                            />
+                          </div>
+                        )}
+                      {nameAds === 'inline' && (
+                        <div className="content_gpt_inline">
                           <div
-                            id="gpt_caja3"
-                            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
+                            id="gpt_inline"
+                            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/inline`}
+                            data-ads-dimensions="[[1,1]]"
+                            data-bloque="3"
+                            data-ads-dimensions-m="[[1,1]]"
+                          />
+                        </div>
+                      )}
+                      {nameAds === 'caja4' && subtype !== GALLERY_VERTICAL && (
+                        <div className="content_gpt_caja4">
+                          <div
+                            id="gpt_caja4"
+                            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja4`}
                             data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
                             data-bloque="3"
                             data-prebid-enabled
                           />
-                        )}
-                      {nameAds === 'inline' && (
-                        <div
-                          id="gpt_inline"
-                          data-ads-name={`/28253241/${arcSite}/web/post/${secc}/inline`}
-                          data-ads-dimensions="[[1,1]]"
-                          data-bloque="3"
-                          data-ads-dimensions-m="[[1,1]]"
-                        />
-                      )}
-                      {nameAds === 'caja4' && subtype !== GALLERY_VERTICAL && (
-                        <div
-                          id="gpt_caja4"
-                          data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja4`}
-                          data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
-                          data-bloque="3"
-                          data-prebid-enabled
-                        />
+                        </div>
                       )}
                       {nameAds === 'caja5' && subtype !== GALLERY_VERTICAL && (
-                        <div
-                          id="gpt_caja5"
-                          data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja5`}
-                          data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
-                          data-bloque="4"
-                          data-prebid-enabled
-                        />
+                        <div className="content_gpt_caja5">
+                          <div
+                            id="gpt_caja5"
+                            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja5`}
+                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+                            data-bloque="4"
+                            data-prebid-enabled
+                          />
+                        </div>
                       )}
                       {(arcSite === 'elcomercio' ||
                         arcSite === 'gestion' ||
@@ -686,8 +705,14 @@ const StoryContentsLite = (props) => {
               itemProp="url"
               href={URL_BBC}
               rel="nofollow noopener noreferrer"
-              target="_blank">
-              <img alt="BBC" src={imgBbc} data-src={imgBbc} />
+              target="_blank"
+              className="banner-bbc-footer">
+              <img
+                className="lazy"
+                alt="BBC"
+                src={`data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${740} ${22}"%3E%3C/svg%3E`}
+                data-src={imgBbc}
+              />
             </a>
           </div>
         )}

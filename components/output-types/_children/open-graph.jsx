@@ -2,8 +2,10 @@ import React from 'react'
 
 import { getAssetsPath, getAssetsPathVideo } from '../../utilities/assets'
 import {
+  SITE_DEPOR,
   SITE_DIARIOCORREO,
   SITE_ELCOMERCIO,
+  SITE_TROME,
 } from '../../utilities/constants/sitenames'
 import { deleteQueryString } from '../../utilities/parse/queries'
 import { createResizedParams } from '../../utilities/resizer/resizer'
@@ -22,6 +24,7 @@ export default ({
   globalContent: data,
   requestUri,
   isTrivia,
+  isAmp = false,
 }) => {
   let link = deleteQueryString(requestUri)
   link = link.replace(/\/homepage[/]?$/, '/')
@@ -57,13 +60,15 @@ export default ({
         }).large
       : `${imageYoutube}`
   const imges = { '360x550': { width: 360, height: 550 } }
+  const imagenAmp = arcSite !== SITE_TROME ? 'large:420x280' : 'large:600x360'
+  const imagenPreloadAmp = isAmp ? imagenAmp : 'large:280x159'
   const imagePreload =
     story &&
     multimediaLarge &&
     !idYoutube &&
     createResizedParams({
       url: isTrivia ? movilImage : multimediaLarge,
-      presets: isTrivia ? imges : 'large:280x159',
+      presets: isTrivia ? imges : imagenPreloadAmp,
       arcSite,
     })
   if (arcSite === SITE_DIARIOCORREO && primarySectionLink === '/opinion/') {
@@ -95,7 +100,7 @@ export default ({
       <meta property="og:title" content={story ? seoTitle : title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
-      {story && (
+      {!(isAmp && arcSite === SITE_DEPOR) && story && (
         <link
           rel="preload"
           as="image"

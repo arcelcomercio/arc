@@ -6,6 +6,7 @@ import {
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_PERU21G21,
+  SITE_PERUCOM,
   SITE_TROME,
 } from '../../utilities/constants/sitenames'
 
@@ -43,6 +44,8 @@ const Styles = ({
   else if (requestUri.includes('/trivias/')) style = 'trivias'
   else if (metaValue('section_style') === 'resultados_elecciones')
     style = 'elecciones-2021'
+  else if (metaValue('section_style') === 'agenda_presidencial')
+    style = 'agenda-presidencial'
   else if (!isStory && metaValue('section_style') === 'provecho')
     style = 'provecho'
   // else if (requestUri.includes('/covid-19/')) style = 'covid'
@@ -74,6 +77,8 @@ const Styles = ({
     styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/${style}.css`
   } else if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
+  } else if (arcSite === SITE_PERUCOM && CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.elcomercio.pe/dist/${arcSite}/css/${style}.css`
   } else if (CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
   }

@@ -1,5 +1,5 @@
-import * as React from 'react'
 import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
 import Button from '../../../../global-components/button'
 
@@ -38,6 +38,7 @@ const NavbarChildMenu = ({ sections }) => {
   /* document.addEventListener('DOMContentLoaded', () => {
     requestIdle(() => {
       const $sidebarContent = document.body.querySelector('.nav-sidebar__content')
+      const $navContainer = document.querySelector(".nav")
       if (
         /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
           window.navigator.userAgent
@@ -56,9 +57,11 @@ const NavbarChildMenu = ({ sections }) => {
           ) {
             $sidebar.classList.remove('active')
             $sidebarContent.classList.remove('active')
+            $navContainer.classList.remove('nav__menu-open')
           } else {
             $sidebar.classList.add('active')
             $sidebarContent.classList.add('active')
+            $navContainer.classList.add('nav__menu-open')
           }
           if (document.body.querySelector(".nav-sidebar__item") === null) {
             // Se reemplazará ["<<sections>>"]
@@ -123,7 +126,7 @@ const NavbarChildMenu = ({ sections }) => {
     })
   }) */
 
-  const menuScript = '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.body.querySelector(".nav-sidebar__content");/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(window.navigator.userAgent)?e.classList.add("w-full"):e.classList.add("w-desktop"),document.querySelector(".nav__btn--section").addEventListener("click",function(){var t=document.body.querySelector(".nav-sidebar");t.classList.contains("active")?(t.classList.remove("active"),e.classList.remove("active")):(t.classList.add("active"),e.classList.add("active")),null===document.body.querySelector(".nav-sidebar__item")&&["<<sections>>"].forEach(function(e){var t=e.children,a=void 0===t?[]:t,n=e.name,i=void 0===n?"":n,d=e._id,o=void 0===d?"":d,s=e.display_name,r=void 0===s?"":s,c=e.url,l=void 0===c?"":c,m=e.styles,u=void 0===m?[]:m,v=("root-"+(i||r)).toLowerCase(),b=document.createElement("li");b.className="nav-sidebar__item position-relative flex justify-between items-center flex-wrap";var p=document.createElement("a");if(p.className="nav-sidebar__link block p-15 pl-25 text-md text-white",p.href=l||o||"/",u.length>0&&(b.style="background-color: "+u[0]+"; color: "+(u[1]||"#ffffff")+";"),p.innerHTML=i||r,b.append(p),a&&a.length>0){var f=document.createElement("input");f.className="nav-sidebar__menu-arrow hidden",f.setAttribute("type","checkbox"),f.setAttribute("id",v),f.setAttribute("name","checkbox-submenu");var _=document.createElement("label");_.htmlFor=v,_.className="nav-sidebar__parent-item pl-25 pt-10 pr-20 pb-10 position-absolute right-0";var h=document.createElement("ul");h.className="nav-sidebar__container-submenu w-full overflow-hidden deep-0"+v,b.append(f,_,h),a.forEach(function(e){var t=e.name,a=void 0===t?"":t,n=e._id,i=void 0===n?"":n,d=e.display_name,o=void 0===d?"":d,s=e.urlChild,r=void 0===s?"":s,c=document.createElement("li");c.className="nav-sidebar__item position-relative flex justify-between items-center flex-wrap";var l=document.createElement("a");l.className="nav-sidebar__link block p-15 pl-25 text-md text-white",l.style="padding-left: 40px;",l.href=r||i||"/",l.innerHTML=a||o,c.append(l),h.append(c)})}document.body.querySelector(".nav-sidebar__list").append(b)})})})});'.replace(
+  const menuScript = '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.body.querySelector(".nav-sidebar__content"),t=document.querySelector(".nav");/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(window.navigator.userAgent)?e.classList.add("w-full"):e.classList.add("w-desktop"),document.querySelector(".nav__btn--section").addEventListener("click",function(){var a=document.body.querySelector(".nav-sidebar");a.classList.contains("active")?(a.classList.remove("active"),e.classList.remove("active"),t.classList.remove("nav__menu-open")):(a.classList.add("active"),e.classList.add("active"),t.classList.add("nav__menu-open")),null===document.body.querySelector(".nav-sidebar__item")&&["<<sections>>"].forEach(function(e){var t=e.children,a=void 0===t?[]:t,n=e.name,i=void 0===n?"":n,o=e._id,s=void 0===o?"":o,d=e.display_name,r=void 0===d?"":d,c=e.url,l=void 0===c?"":c,m=e.styles,u=void 0===m?[]:m,v=("root-"+(i||r)).toLowerCase(),p=document.createElement("li");p.className="nav-sidebar__item position-relative flex justify-between items-center flex-wrap";var b=document.createElement("a");b.className="nav-sidebar__link block p-15 pl-25 text-md text-white",b.href=l||s||"/",u.length>0&&(p.style="background-color: "+u[0]+"; color: "+(u[1]||"#ffffff")+";"),b.innerHTML=i||r,p.append(b),a&&a.length>0&&function(){var e=document.createElement("input");e.className="nav-sidebar__menu-arrow hidden",e.setAttribute("type","checkbox"),e.setAttribute("id",v),e.setAttribute("name","checkbox-submenu");var t=document.createElement("label");t.htmlFor=v,t.className="nav-sidebar__parent-item pl-25 pt-10 pr-20 pb-10 position-absolute right-0";var n=document.createElement("ul");n.className="nav-sidebar__container-submenu w-full overflow-hidden deep-0"+v,p.append(e,t,n),a.forEach(function(e){var t=e.name,a=void 0===t?"":t,i=e._id,o=void 0===i?"":i,s=e.display_name,d=void 0===s?"":s,r=e.urlChild,c=void 0===r?"":r,l=document.createElement("li");l.className="nav-sidebar__item position-relative flex justify-between items-center flex-wrap";var m=document.createElement("a");m.className="nav-sidebar__link block p-15 pl-25 text-md text-white",m.style="padding-left: 40px;",m.href=c||o||"/",m.innerHTML=a||d,l.append(m),n.append(l)})}(),document.body.querySelector(".nav-sidebar__list").append(p)})})})});'.replace(
     '["<<sections>>"]',
     JSON.stringify(sections)
   )
@@ -160,7 +163,7 @@ const NavbarChildMenu = ({ sections }) => {
             <a itemProp="url" href="/" className={classes.text}>
               {siteDomain}
             </a>
-            {legalLinks.map(link => (
+            {legalLinks.map((link) => (
               <a
                 itemProp="url"
                 key={link.url}

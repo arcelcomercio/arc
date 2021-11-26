@@ -1,3 +1,4 @@
+import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import Image from '../../../../global-components/image'
@@ -23,11 +24,18 @@ const StoryHeaderChildPicture = ({
   height,
   width,
 } = {}) => {
+  const { metaValue } = useAppContext()
+
   const inlineStyles = {
     height: 0,
     overflow: 'hidden',
     paddingBottom: `${(height * 100) / width}%`,
   }
+
+  const pictureStules =
+    metaValue('section_style') === 'story-v2-standard'
+      ? { ...inlineStyles, display: 'block' }
+      : {}
   return i === 0 ? (
     <div style={width && height ? inlineStyles : {}}>
       <Image
@@ -49,6 +57,7 @@ const StoryHeaderChildPicture = ({
       alt={caption || subtitle}
       className={classes.image}
       loading={i === 0 ? 'auto' : 'lazy'}
+      pictureStyle={pictureStules}
     />
   )
 }

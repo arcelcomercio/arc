@@ -1,0 +1,95 @@
+.trivias-quiz {
+  &__picture {
+    position: absolute;
+    top: 0;
+  }
+  &__body {
+    padding: 20px 15px 30px;
+
+    @media (--desktop) {
+      padding: 20px 0 30px;
+    }
+  }
+  &__question {
+    color: $color-black;
+    font-size: 21px;
+    line-height: 26px;
+    font-weight: 900;
+    text-align: left;
+    width: 100%;
+    padding: 20px 0;
+
+    @media (--tablet) {
+      font-size: 25px;
+      line-height: 32px;
+    }
+  }
+  &__question-btn {
+    width: 100%;
+    padding: 12px 16px 12px 40px;
+    background-color: $color-soft;
+    border: 2px solid $color-soft;
+    margin-bottom: 10px;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 500;
+  }
+  &__question-txt {
+    padding: 0 32px 0 4px;
+    text-align: left;
+    position: relative;
+  }
+  &__question-check {
+    position: absolute;
+    right: 0;
+    fill: $color-green;
+  }
+  &__details {
+    position: relative;
+    width: 100%;
+    padding: 65px 30px 20px;
+    background-color: $color-soft;
+    margin-bottom: 10px;
+    font-size: 18px;
+    line-height: 30px;
+    font-weight: 500;
+
+    @media (--tablet) {
+      padding: 40px 60px;
+    }
+  }
+  &__details-b {
+    display: inline-block;
+    overflow: hidden;
+    max-height: 90px;
+  }
+  &__check {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 30px;
+
+    @media (--tablet) {
+      left: 30px;
+      top: 40px;
+    }
+  }
+  &__more {
+    position: absolute;
+    right: 20px;
+    bottom: 25px;
+
+    @media (--tablet) {
+      bottom: 45px;
+    }
+  }
+  &__next {
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 800;
+    padding: 8px 0;
+    background-color: $color-white;
+    border: 1px solid $color-black;
+    width: 132px;
+  }
+}

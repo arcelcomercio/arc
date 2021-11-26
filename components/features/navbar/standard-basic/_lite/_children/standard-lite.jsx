@@ -6,7 +6,10 @@ import * as React from 'react'
 
 import Button from '../../../../../global-components/button'
 import { ELEMENT_STORY } from '../../../../../utilities/constants/element-types'
-import { SITE_PERU21 } from '../../../../../utilities/constants/sitenames'
+import {
+  SITE_DIARIOCORREO,
+  SITE_PERU21,
+} from '../../../../../utilities/constants/sitenames'
 import getResponsiveClasses from '../../../../../utilities/responsive-classes'
 import { socialMediaUrlShareList } from '../../../../../utilities/social-media'
 import {
@@ -388,12 +391,10 @@ const NavBarDefault = (props) => {
 
               {activeSignwall && (
                 <button
-                  aria-label="Iniciar"
+                  aria-label="Ingresar / Mi perfil"
                   id="signwall-nav-btn"
                   site="elcomercio"
                   className="f alg-center btn capitalize text-md nav__btn-sign"
-                  title="Iniciar sesión / Perfil"
-                  alt="Iniciar sesión / Perfil"
                   type="button">
                   <i
                     id="signwall-nav-icon"
@@ -413,7 +414,7 @@ const NavBarDefault = (props) => {
                     id="signwall-nav-user"
                     className="capitalize"
                     aria-hidden="true">
-                    Iniciar
+                    {arcSite === SITE_DIARIOCORREO ? 'Regístrate' : 'Iniciar'}
                   </span>
                 </button>
               )}
@@ -426,9 +427,9 @@ const NavBarDefault = (props) => {
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
-          __html: `${activeSignwall && !isPreview ? singwallScript : ''}${
-            disableSticky ? '' : stickyScript
-          }${searchScript}${
+          __html: `${
+            activeSignwall && !isPreview ? singwallScript(arcSite) : ''
+          }${disableSticky ? '' : stickyScript}${searchScript}${
             activePaywall && !isPreview
               ? getBtnSubsScript(arcEnv, arcSite, urlSubsOnline)
               : ''

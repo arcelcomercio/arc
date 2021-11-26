@@ -1,9 +1,8 @@
 import * as React from 'react'
 
-import Icon from '../../../../global-components/multimedia-icon'
 import Image from '../../../../global-components/image'
+import Icon from '../../../../global-components/multimedia-icon'
 import { SITE_PERU21 } from '../../../../utilities/constants/sitenames'
-
 
 const SeparatorOptPartial = ({
   websiteLink,
@@ -15,7 +14,7 @@ const SeparatorOptPartial = ({
   author,
   index,
   isImageVisible,
-  arcSite
+  arcSite,
 }) => {
   let width
   let height
@@ -25,12 +24,12 @@ const SeparatorOptPartial = ({
       width = 314
       height = 374
       sizes = ''
-      break;
+      break
     default:
       width = 234
       height = 161
       sizes = '(max-width: 639px) 640px, 234px'
-      break;
+      break
   }
 
   return (
@@ -40,17 +39,18 @@ const SeparatorOptPartial = ({
         index === 0 ? '' : 'md:ml-5'
       }`}>
       <Icon type={multimediaType} iconClass="sep-opt__icon" />
-      {isImageVisible ? 
+      {isImageVisible ? (
         <Image
           src={imageUrl}
           width={width}
           height={height}
           sizes={sizes}
           alt={title}
-          className='sep-opt__img w-full object-cover'
+          className="sep-opt__img w-full object-cover"
           loading="lazy"
           pictureClassName="block"
-        /> : null}
+        />
+      ) : null}
       <h3
         itemProp="name"
         className="sep-opt__title overflow-hidden font-bold line-h-sm bottom-0 m-10">
@@ -71,6 +71,7 @@ const SeparatorOptPartial = ({
         {title}
       </a>
     </div>
-)}
+  )
+}
 
 export default React.memo(SeparatorOptPartial)

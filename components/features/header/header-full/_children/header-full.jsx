@@ -778,7 +778,7 @@ export default ({
       {activeSignwall && (
         <script
           dangerouslySetInnerHTML={{
-            __html: getBtnSignScript,
+            __html: getBtnSignScript(arcSite),
           }}
         />
       )}

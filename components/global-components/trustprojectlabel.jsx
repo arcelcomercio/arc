@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TProLbl = ({ trustproject, plantilla }) => {
+const TProLbl = ({ trustproject, plantilla, sectionStyle }) => {
   let txt = ''
   if (trustproject.text !== '') {
     switch (trustproject.url) {
@@ -71,8 +71,7 @@ const TProLbl = ({ trustproject, plantilla }) => {
               ? 'st-social__tooltip'
               : 'story-header__tooltip'
           }>
-          {' '}
-          | {trustproject.text}
+          {sectionStyle === 'story-v2-standard' ? '/' : '|'} {trustproject.text}
           {txt !== '' ? <span>{txt}</span> : ''}
         </p>
       ) : (

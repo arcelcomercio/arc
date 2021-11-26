@@ -163,7 +163,6 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
   const storyContent = contentWithAds({
     contentElements,
     adsEvery: liteAdsEvery,
-    arcSite,
   })
   const isPreview = /^\/preview\//.test(requestUri)
 
@@ -210,13 +209,15 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
           arcSite !== SITE_DEPOR &&
           subtype !== MINUTO_MINUTO &&
           subtype !== GALLERY_VERTICAL && (
-            <div
-              id={`gpt_caja_${index + 1}`}
-              data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
-              data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
-              data-bloque="3"
-              data-prebid-enabled
-            />
+            <div className={`content_gpt_caja${index + 1}`}>
+              <div
+                id={`gpt_caja_${index + 1}`}
+                data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
+                data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+                data-bloque="3"
+                data-prebid-enabled
+              />
+            </div>
           )}
         <div
           className={`${classes.content} ${
@@ -328,10 +329,13 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
                     return (
                       <>
                         <div
-                          className="jwplayer-lazy "
-                          id={`botr_${mediaId}_${jwplayerId}_div`}>
+                          className="jwplayer-lazy"
+                          id={mediaId}
+                          data-hasAds={hasAds}
+                          data-playerId={jwplayerId}>
                           <div className="jwplayer-lazy-icon-play" />
                           <Image
+                            id={`image_${mediaId}`}
                             src={image}
                             width={580}
                             height={326}
@@ -393,40 +397,48 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
                           arcSite === SITE_DEPOR) &&
                         subtype !== MINUTO_MINUTO &&
                         subtype !== GALLERY_VERTICAL && (
+                          <div className={`content_gpt_caja3_${index + 1}`}>
+                            <div
+                              id={`gpt_caja3_${index + 1}`}
+                              data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
+                              data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+                              data-bloque="3"
+                              data-prebid-enabled
+                            />
+                          </div>
+                        )}
+                      {nameAds === 'inline' && (
+                        <div className={`content_gpt_inline_${index + 1}`}>
                           <div
-                            id={`gpt_caja3_${index + 1}`}
-                            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
+                            id={`gpt_inline_${index + 1}`}
+                            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/inline`}
+                            data-ads-dimensions="[[1,1]]"
+                            data-bloque="3"
+                            data-ads-dimensions-m="[[1,1]]"
+                          />
+                        </div>
+                      )}
+                      {nameAds === 'caja4' && subtype !== GALLERY_VERTICAL && (
+                        <div className={`content_gpt_caja4_${index + 1}`}>
+                          <div
+                            id={`gpt_caja4_${index + 1}`}
+                            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja4`}
                             data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
                             data-bloque="3"
                             data-prebid-enabled
                           />
-                        )}
-                      {nameAds === 'inline' && (
-                        <div
-                          id={`gpt_inline_${index + 1}`}
-                          data-ads-name={`/28253241/${arcSite}/web/post/${secc}/inline`}
-                          data-ads-dimensions="[[1,1]]"
-                          data-bloque="3"
-                          data-ads-dimensions-m="[[1,1]]"
-                        />
-                      )}
-                      {nameAds === 'caja4' && subtype !== GALLERY_VERTICAL && (
-                        <div
-                          id={`gpt_caja4_${index + 1}`}
-                          data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja4`}
-                          data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
-                          data-bloque="3"
-                          data-prebid-enabled
-                        />
+                        </div>
                       )}
                       {nameAds === 'caja5' && subtype !== GALLERY_VERTICAL && (
-                        <div
-                          id={`gpt_caja5_${index + 1}`}
-                          data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja5`}
-                          data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
-                          data-bloque="4"
-                          data-prebid-enabled
-                        />
+                        <div className={`content_gpt_caja5_${index + 1}`}>
+                          <div
+                            id={`gpt_caja5_${index + 1}`}
+                            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja5`}
+                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+                            data-bloque="4"
+                            data-prebid-enabled
+                          />
+                        </div>
                       )}
                       {arcSite !== SITE_DEPOR && (
                         <p

@@ -1,26 +1,29 @@
-import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
-import schemaFilter from './_dependencies/schema-filter'
-import customFields from './_dependencies/custom-fields'
-import List from './_children/list'
-import StoryData from '../../../utilities/story-data'
+import * as React from 'react'
+
 import {
   includeCredits,
   separatorBasicFields,
 } from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
+import List from './_children/list'
+import customFields from './_dependencies/custom-fields'
+import schemaFilter from './_dependencies/schema-filter'
 
-const SaltarIntroListado = props => {
+const SaltarIntroListado = (props) => {
   const {
     customFields: {
       seeMoreLink,
+      infoInterviewed,
+      isTrailer,
       storiesConfig: { contentService = '', contentConfigValues = {} } = {},
     },
   } = props
 
   const { arcSite, deployment, contextPath, isAdmin } = useFusionContext()
 
-  const dataTransform = data => {
+  const dataTransform = (data) => {
     const { content_elements: contentElements = [] } = data || {}
 
     const dataFormat = new StoryData({
@@ -31,7 +34,7 @@ const SaltarIntroListado = props => {
 
     const newData =
       contentElements.length > 0
-        ? contentElements.map(story => {
+        ? contentElements.map((story) => {
             dataFormat.__data = story
             return { ...dataFormat.attributesRaw }
           })
@@ -45,7 +48,7 @@ const SaltarIntroListado = props => {
       source: contentService,
       query: Object.assign(contentConfigValues, {
         presets: 'landscape_s:280x150',
-        includedFields: `${separatorBasicFields},${includeCredits},display_date,publish_date`,
+        includedFields: `${separatorBasicFields},${includeCredits},display_date,publish_date,content_elements.embed.config,content_elements.type,content_elements.subtype`,
       }),
       filter: schemaFilter(arcSite),
       transform: dataTransform,
@@ -57,7 +60,12 @@ const SaltarIntroListado = props => {
     return { items }
   }
 
-  return <List data={getDataComponent()} {...{ isAdmin, seeMoreLink }} />
+  return (
+    <List
+      data={getDataComponent()}
+      {...{ isAdmin, seeMoreLink, infoInterviewed, isTrailer }}
+    />
+  )
 }
 
 SaltarIntroListado.propTypes = {

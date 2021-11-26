@@ -15,7 +15,8 @@ export default {
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/trome/amp/post/default/preroll&description_url=https%3A%2F%2Ftrome.pe%2F&tfcd=0&npa=0&sz=640x480|400x300|640x360&cust_params=fuente%3Damp%26publisher%3Dtrome%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
 
   fbAppId: 'fbappidDEEEEEPOR',
-  googleTagManagerId: 'GTM-PP8XNMR',
+  googleTagManagerId: 'GTM-PP8XNMR', // Google Tag Manager Prod
+  googleTagManagerIdSandbox: 'GTM-PP8XNMR', // Google Tag Manager Sandbox
   ampGoogleTagManagerId: 'UA-3055636-13',
   ampGoogleTagManagerName: 'trome',
   charbeatAccountNumber: 99999,
@@ -31,12 +32,13 @@ export default {
   infoPagesDev: {
     termsAndConditions: '',
     guidingPrinciples: '',
-    privacyPolicies: '',
+    privacyPolicies: 'RVQF23ZVKZCARMOZDNH4U4EGUM',
     integratedManagementPolicy: '',
     arcoProcedure: '',
     cookiesPolicy: '',
     aboutUs: '',
     frequentQuestions: '',
+    dataTreatment: 'BWEVGA3XC5A6VEGCTFFLJXPBEU',
   },
   infoPagesProd: {
     termsAndConditions: 'VYFDOX6VOZH7ZDDDA6ZRIW44ZM',
@@ -47,8 +49,11 @@ export default {
     cookiesPolicy: 'Q3OMMN6EQBE3XCX46Q44NDNNRU',
     aboutUs: '',
     frequentQuestions: '',
+    dataTreatment: '6SH4XPKURFH5TAP5PEA6LT5Y2E',
   },
-
+  paywall: {
+    title: 'Ingresar | Club Trome',
+  },
   assets: {
     seo: {
       logoAmp: 'logo-amp.png',
@@ -126,6 +131,7 @@ export default {
   activeSignwall: true,
   activeVerifyEmail: true,
   activeDataTreatment: true,
+  activeNewsletter: true,
   activePhoneRegister: true,
   signwall: {
     mainColorBg: '#000000',

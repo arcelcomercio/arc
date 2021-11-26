@@ -1,21 +1,23 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import * as React from 'react'
 
-import StoryData from '../../../utilities/story-data'
-import { featuredStoryPremiumFields } from '../../../utilities/included-fields'
+// import DatepickerVisualHelp from '../../../global-components/datepicker-visual-help'
 import { getAssetsPath } from '../../../utilities/assets'
-import DatepickerVisualHelp from '../../../global-components/datepicker-visual-help'
-
-import customFields from './_dependencies/custom-fields'
-import schemaFilter from './_dependencies/schema-filter'
-import LiveStreaming from './_children/streaming-live'
+import {
+  SITE_DIARIOCORREO,
+  SITE_ELCOMERCIO,
+} from '../../../utilities/constants/sitenames'
+import { featuredStoryPremiumFields } from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
 import FeaturedStoryPremiumChild from './_children/feature-premium'
 import FeaturedStoryPremiumOpt from './_children/featured-premium-opt'
+import LiveStreaming from './_children/streaming-live'
+import customFields from './_dependencies/custom-fields'
+import schemaFilter from './_dependencies/schema-filter'
 
-const FeaturedStoryPremium = props => {
+const FeaturedStoryPremium = (props) => {
   const { arcSite, contextPath, deployment, isAdmin } = useAppContext()
   const {
     assets: {
@@ -42,7 +44,7 @@ const FeaturedStoryPremium = props => {
       imgField,
       categoryField,
       adsSpace,
-      dateInfo,
+      // dateInfo,
     } = {},
   } = props
 
@@ -62,8 +64,8 @@ const FeaturedStoryPremium = props => {
       date: date3,
     },
   ]
-    .filter(el => el.path && el.date)
-    .filter(el => actualDate > el.date)
+    .filter((el) => el.path && el.date)
+    .filter((el) => actualDate > el.date)
     .sort((a, b) => (b.date > a.date ? 1 : -1))
 
   const currentNotePath =
@@ -121,7 +123,7 @@ const FeaturedStoryPremium = props => {
     ) || {}
 
   const getAdsSpace = () => {
-    const toDate = dateStr => {
+    const toDate = (dateStr) => {
       const [date, time] = dateStr.split(' ')
       const [day, month, year] = date.split('/')
       return new Date(`${year}/${month}/${day} ${time} GMT-0500`)
@@ -153,7 +155,7 @@ const FeaturedStoryPremium = props => {
 
   return (
     <>
-      {dateInfo && isAdmin ? (
+      {/* {dateInfo && isAdmin ? (
         <DatepickerVisualHelp
           note1={note1}
           note2={note2}
@@ -162,7 +164,7 @@ const FeaturedStoryPremium = props => {
           date2={date2}
           date3={date3}
         />
-      ) : null}
+      ) : null} */}
       {(() => {
         if (flagLive) {
           return (
@@ -175,7 +177,7 @@ const FeaturedStoryPremium = props => {
             />
           )
         }
-        if (arcSite === 'elcomercio')
+        if (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DIARIOCORREO)
           return (
             <FeaturedStoryPremiumOpt
               websiteLink={websiteLink}
@@ -195,6 +197,7 @@ const FeaturedStoryPremium = props => {
               bgColor={bgColor}
               titleField={titleField}
               categoryField={categoryField}
+              arcSite={arcSite}
             />
           )
         return (

@@ -1,0 +1,323 @@
+/** ----------------------------*
+*             FONTS             *
+* ----------------------------- */
+
+@charset "UTF-8";
+
+@font-face {
+  font-family: "Georgia";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Georgia"), local("Georgia-Regular"),
+    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/georgia-latin-regular.woff2")
+      format("woff2"),
+    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/georgia-latin-regular.woff")
+      format("woff");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215;
+}
+
+@font-face {
+  font-family: "PreloSlab-SemiBold";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local("PreloSlab"), local("PreloSlab-SemiBold"),
+    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/PreloSlab-SemiBold.woff2")
+      format("woff2"),
+    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/PreloSlab-SemiBold.woff")
+      format("woff");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215;
+}
+
+@font-face {
+  font-family: "Georgia Pro";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Georgia Pro Bold"), local("GeorgiaPro-Bold"),
+    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/GeorgiaPro-Bold.woff2")
+      format("woff2"),
+    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/GeorgiaPro-Bold.woff")
+      format("woff");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215;
+}
+@font-face {
+  font-family: "Guardian Egyp Regular";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Guardian Egyp Regular"), local("GuardianEgyp-Regular"),
+    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/GuardianEgyp-Regular.woff2")
+      format("woff2"),
+    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/GuardianEgyp-Regular.woff")
+      format("woff");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215;
+}
+
+/** ----------------------------*
+*           VARIABLES           *
+* ----------------------------- */
+@import "../../general-styles/framework/variables/declare-sizes";
+@import "../../general-styles/framework/variables/breakpoints";
+
+$assets_url: "https://cdna.elcomercio.pe";
+
+/******* Color Variables *******/
+$color-black: hsl(0, 0%, 0%);
+$color-dark: hsl(0, 0%, 3%);
+$color-dark-text: hsl(0, 0%, 10%);
+$color-text: $color-dark-text;
+$color-grey: hsl(0, 0%, 53%);
+$color-gray: $color-grey;
+
+$color-silver: hsla(0, 0%, 89%, 1);
+$color-soft: hsla(0, 0%, 96%, 1);
+$color-white: hsl(0, 0%, 100%);
+
+$color-red: hsla(0, 72%, 49%, 1);
+$color-green: hsla(129, 69%, 49%, 1);
+$color-gold: hsla(48, 100%, 51%, 1);
+
+/******* Font Variables *******/
+$primary-font: "Georgia", serif;
+// Falta que nos pasen esta fuente, se usa solo en las fechas "Chronicle Text G4, Bold"
+// $secondary-font: "Chronicle Text G4", sans, system-ui;
+$secondary-font: serif, system-ui;
+$tertiary-font: "PreloSlab-SemiBold";
+$quinary-font: "Guardian Egyp Regular";
+$quaternary-font: "Georgia Pro";
+
+/* ---------------------------- */
+
+/** ----------------------------*
+*           NORMALIZE           *
+* ----------------------------- */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  color: $color-dark-text;
+  font-family: $primary-font;
+  font-size: 13px;
+
+  @media (--tablet) {
+    font-size: 14px;
+  }
+
+  @media (--desktop) {
+    font-size: 16px;
+  }
+}
+
+html,
+body,
+button,
+div,
+span,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+address,
+img,
+small,
+strong,
+b,
+u,
+i,
+ol,
+ul,
+li,
+form,
+label,
+article,
+aside,
+figure,
+figcaption,
+footer,
+menu,
+nav,
+section,
+summary,
+time,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+  background-color: #e8e8e8;
+}
+
+a,
+button,
+[type="button"],
+[type="submit"],
+[role="button"] {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  font-family: inherit;
+  border-style: none;
+  color: $color-dark-text;
+  background-color: transparent;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+}
+
+/** ----------------------------*
+*              BASE             *
+* ----------------------------- */
+.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.justify-center {
+  justify-content: center;
+}
+.items-center {
+  align-items: center;
+}
+.w-full {
+  width: 100%;
+}
+
+/** ----------------------------*
+*               ADS             *
+* ----------------------------- */
+// #gpt_top {
+//   z-index: 1;
+// }
+// #top_wrap {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: auto;
+//   min-height: 50px;
+// }
+// @media (--tablet) {
+//   #top_wrap {
+//     min-height: 120px;
+//   }
+// }
+// #top_wrap::before {
+//   content: "PUBLICIDAD";
+//   position: absolute;
+//   font-size: x-small;
+//   border: 1px solid #ccc;
+//   color: #888;
+//   padding: 4px 6px 2px;
+//   border-radius: 4px;
+// }
+
+// .ads__zocalo {
+//   display: none;
+//   position: sticky;
+//   width: 160px;
+//   top: 0;
+// }
+// @media (--desktop) {
+//   .ads__zocalo {
+//     display: block;
+//   }
+// }
+// .ads__zocalo--l {
+//   left: 0;
+// }
+// .ads__zocalo--r {
+//   right: 0;
+// }
+
+/* -------------CALENDAR---------------- */
+$calendar-background: #bed6e2 !default;
+$calendar-title: #19191d !default;
+$calendar-bg-icon: #fff !default;
+$calendar-icon: #fff !default;
+$calendar-line: #cac4c4 !default;
+$calendar-month: #8c8c8c !default;
+$calendar-day: #8c8c8c !default;
+
+/** ----------------------------*
+*             STYLES            *
+* ----------------------------- */
+@import "./scss/components/header/simple";
+@import "./scss/components/agenda-presidencial/navbar";
+@import "./scss/components/agenda-presidencial/calendario";
+@import "./scss/components/agenda-presidencial/nota";
+@import "./scss/components/agenda-presidencial/footer";
+
+.content-layout-container {
+  text-align: -webkit-center;
+  // background: url(https://server1.dev/others/imgjp/Grupo_23_crop.png), #fffcf5;
+  background: url("data:image/png;base64,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"),
+    #fffcf5;
+  background-repeat: repeat-y;
+  background-position: center;
+  min-height: 600px;
+  @media (--desktop) {
+    // background: url(https://server1.dev/others/imgjp/Grupo_212_crop.png),#fffcf5;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAAJcCAQAAACr7gjtAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQflCRQSCC8knEJnAAAAAW9yTlQBz6J3mgAACx5JREFUeNrt3T2rbGcdh+Fn5YwYXwpfcJOYNwliFAkIIqIwlcVOayHYWWgt2PsJBHvb7NZiCguLNLuz8BPYZa+dqI1iIYYo5ywrP4A3i/MwM9fFfIDfv7phPcWMcRHW47qtp9krAK7JC7MHAHCeBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgGR5uJs9YRc3y+143O5nzwDgzPhHQoDnzScsABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREACS5eFu9oRd3Cy343G7nz0DgDOzHtdtPc1eAXBNfMICIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASBZ1ndnT9jFzXhnWbf72TMAODPrcd3W0+wVANfEJywAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQAJLl4W72hF3cLLfjcbufPQOAM7Me1209zV4BcE18wgIgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIFke7mZP2MXNcjset/vZMwA4M+tx3dbT7BUA18QnLAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAkuXhbvaEXdwst+Nxu589A4Azsx7XbT3NXgFwTXzCAiAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgOay/mT1hFy+NsX3rQm4BOAvLnz89e8Ie/vP95b3td5/48ewdANfj8OV/zZ6wh/XjMZanl3ELwHnwBgJAIiAAJAICQCIgACQCAkAiIAAkAgJAIiAAJAICQCIgACQCAkAiIAAkAgJAIiAAJAICQCIgACQCAkAiIAAkAgJAIiAAJAICQCIgACQCAkAiIAAkAgJAIiAAJIeHX82esIdnr74wxjcv4xaA87C8//LsCXvYvvvkNH7/7KezdwBcj8NX/jJ7wh7Wv40xPr6MWwDOgzcQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASA5rL+cPWEP2xvL2N66jFsAzsPhyW9nT9jDs29vP1s+vIxbAM7D4ZU/zZ6wh/VmjPHPy7gF4Dx4AwEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAksPDz2dP2MP25jLGm5dxC8B5OCx/mD1hD9tHY4y/X8YtAOfh8PofZ0/Yw/riGOMfl3ELwHnwBgJAIiAAJAICQCIgACQCAkAiIAAkAgJAIiAAJAICQCIgACQCAkAiIAAkAgJAIiAAJAICQCIgACQCAkAiIAAkAgJAIiAAJAICQCIgACQCAkAiIAAkAgJAIiAAJIeHn8yesIdnX3thbK9fxi0A5+Hw5IPZE/bw9PNjjI8u4xYAnqP1uG7rafYKgGviDQSAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASA6PP5w9YQ/bN8YYL1/GLQDn4TCW2RN2sfzvBwD/h/W4butp9gqAa+INBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIDh/8YPaEPTx9exnbly7jFoDzcHj22uwJu7gZY3zqQm4B4PlZj+u2nmavALgm3kAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgERAAEgEBIBEQABIBASAREAASAQEgOSwfmf2hD1sX1/G+Nxl3AJwHg7b92ZP2MWbY4wvXMgtADw/63Hd1tPsFQDXxBsIAImAAJAICACJgACQCAgAiYAAkAgIAImAAJAICACJgACQCAgAiYAAkAgIAImAAJAICACJgACQCAgAiYAAkAgIAImAAJAICACJgACQCAgAiYAAkAgIAImAAJAcPnxr9oQ9PHttG+Ozl3ELwHk4PP3R7Al72N5YxvbKZdwCwHO0HtdtPc1eAXBNvIEAkAgIAImAAJAICACJgACQCAgAiYAAkAgIAImAAJAICACJgACQCAgAiYAAkAgIAImAAJAICACJgACQCAgAiYAAkAgIAImAAJAICACJgACQCAgAiYAAkAgIAMnh/ZdnT9jD0y8+GeOTl3ELwHk4LL+YPWEXr44xvnohtwDw/KzHdVtPs1cAXBNvIAAkAgJAIiAAJAICQCIgACQCAkAiIAAkAgJAIiAAJAICQCIgACQCAkAiIAAkAgJAIiAAJAICQCIgACQCAkAiIAAkAgJAIiAAJAICQCIgACQCAkAiIAAkAgJAcvjrZ2ZP2MPHLy5jPLmMWwDOw+Hfv549YQ/LS2Nsb1/GLQA8R+tx3dbT7BUA18QbCACJgACQCAgAiYAAkAgIAImAAJAICACJgACQCAgAiYAAkAgIAImAAJAICACJgACQCAgAiYAAkAgIAImAAJAICACJgACQCAgAiYAAkAgIAImAAJAICACJgACQCAgAybK+O3vCLm7GO8u63c+eAcCZWY/rtp5mrwC4Jj5hAZAICACJgACQCAgAiYAAkAgIAImAAJAICACJgACQCAgAiYAAkAgIAImAAJAICACJgACQCAgAiYAAkAgIAImAAJAICACJgACQCAgAiYAAkAgIAImAAJAICACJgACQLA93syfs4ma5HY/b/ewZAJyZ9bhu62n2CoBr4hMWAImAAJAICACJgACQCAgAiYAAkAgIAImAAJAICACJgACQCAgAiYAAkAgIAImAAJAICACJgACQCAgAiYAAkAgIAImAAJAICACJgACQCAgAiYAAkAgIAImAAJAICADJ8nA3e8Iubpbb8bjdz54BwJlZj+u2nmavALgmPmEBkAgIAImAAJAICACJgACQCAgAiYAAkAgIAImAAJAICACJgACQCAgAiYAAkAgIAImAAJAICACJgACQCAgAiYAAkAgIAImAAJAICACJgACQCAgAiYAAkAgIAImAAJAsD3ezJ+ziZrkdj9v97BkAnJn1uG7rafYKgGviExYAiYAAkAgIAImAAJD8F42t537NYduOAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIxLTA5LTIwVDE4OjA4OjM0KzAwOjAwv9BeNwAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMS0wOS0yMFQxODowODozNCswMDowMM6N5osAAAAASUVORK5CYII="),
+      #fffcf5;
+    max-width: 1000px;
+    background-repeat: repeat-y;
+    background-position: center;
+    min-height: 500px;
+  }
+}
+.h-simple__container-rigth ul li:nth-child(3) {
+  display: none;
+}
+
+.h-simple__container-left__logo-trivia svg text {
+  font-size: 12px !important;
+}
+.h-simple__container-left__logo-trivia {
+  max-width: inherit !important;
+}

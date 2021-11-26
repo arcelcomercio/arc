@@ -1,0 +1,45 @@
+.link-site {
+  content-visibility: auto;
+  contain-intrinsic-size: 512px;
+  &__image {
+    object-fit: cover;
+  }
+  &__pic {
+    @media (--tablet) {
+      margin-right: 0;
+      margin-bottom: 5px;
+    }
+  }
+  &__header {
+    border-bottom: 2px solid #8a8a8a;
+  }
+  &__h-text {
+    color: #111;
+    font-weight: 700;
+    font-family: $secondary-font;
+  }
+  &__subtitle {
+    font-family: $secondary-font;
+  }
+  &__site {
+    font-weight: 700;
+  }
+  &__title-link {
+    color: #000;
+    font-family: $secondary-font;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    margin-left: 5px;
+    @media (--tablet) {
+      -webkit-line-clamp: 3;
+      margin-left: 0;
+    }
+  }
+  &__item {
+    border-bottom: 2px solid #e1e1e1;
+    @media (--tablet) {
+      border-bottom: 0;
+    }
+  }
+}

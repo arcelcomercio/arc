@@ -175,6 +175,15 @@ export const loadDateFromYYYYMMDD = (date: string): Date | null => {
   return new Date(year, month, day)
 }
 
+export const loadDateFromDDMMYYYY = (date: string): Date | null => {
+  if (!/\d{2}\/\d{2}\/\d{4}/.test(date)) return null
+  const day = parseInt(date.slice(0, 2), 10)
+  const month = parseInt(date.slice(3, 5), 10) - 1
+  const year = parseInt(date.slice(6, 10), 10)
+
+  return new Date(year, month, day)
+}
+
 export const dateDayAndMouthNOYEAR = (): string => {
   const d = new Date()
   d.setHours(d.getHours() - 5)
@@ -186,4 +195,15 @@ export const dateDayAndMouthNOYEAR = (): string => {
   /*
     Martes 31 de Agosto
   */
+}
+
+/**
+ * @returns 31 de Agosto
+ */
+export const dateDayAndMonth = (date: string): string | null => {
+  const d = loadDateFromYYYYMMDD(date)
+  if (d === null) return null
+  const mes = new Intl.DateTimeFormat(locale, { month: 'long' }).format(d)
+  const num = new Intl.DateTimeFormat(locale, { day: '2-digit' }).format(d)
+  return `${num} de ${mes}`
 }

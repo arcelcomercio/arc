@@ -1,0 +1,157 @@
+// @import "../base/responsive";
+.profile-header {
+  &__wrapper {
+    background: gray;
+    color: white;
+    position: relative;
+    width: 100%;
+    &.border-trome {
+      box-shadow: 0 0 0 5px black;
+    }
+  }
+  &__back-default {
+    background: transparent;
+    border: 0;
+    color: white;
+    width: 25%;
+    // cursor: pointer;
+    height: 50px;
+    line-height: 20px;
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 0 0 15px;
+    margin: 0;
+    text-align: left;
+
+    @media (--subs-desktop) {
+      padding: 0;
+    }
+    & > span {
+      text-decoration: underline;
+      margin-left: 20px;
+      font-size: 14px;
+      display: none;
+      @media (--subs-tabletl) {
+        display: inline-block;
+      }
+    }
+  }
+  &__content {
+    max-width: 1120px;
+    width: 100%;
+    margin: 0 auto;
+    height: 50px;
+    box-sizing: border-box;
+  }
+  &__close-default {
+    color: rgb(0, 0, 0);
+    width: auto;
+    cursor: pointer;
+    height: auto;
+    line-height: 0;
+    vertical-align: top;
+    float: right;
+    margin: 20px 20px 0 0;
+    border-radius: 100%;
+    border: 3px solid;
+    padding: 5px;
+  }
+  &__logo-default {
+    width: 50%;
+    display: inline-block;
+    text-align: center;
+    height: 100px;
+    line-height: 65px;
+
+    & > .def {
+      height: 50px;
+      padding: 5px 10px;
+      margin: 0 auto;
+      & > img {
+        max-width: 160px;
+        height: auto;
+      }
+    }
+
+    & > .cont_left {
+      position: absolute;
+      left: 0;
+    }
+
+    & > .def_depor {
+      margin-top: 21px;
+      background-color: #d5d745;
+      -webkit-transform: skew(-13deg);
+      transform: skew(-13deg);
+      width: "140px";
+      & > img {
+        -webkit-transform: skew(13deg);
+        transform: skew(13deg);
+      }
+    }
+
+    // & > .cont_elcomercio {
+    //   display: inline;
+    // }
+
+    // & > .cont_gestion {
+    //   display: inline;
+    //   & > img {
+    //     max-width: 140px;
+    //   }
+    // }
+
+    // & > .cont_trome {
+    //   padding: 0 0;
+    //   & > img {
+    //     max-width: 180px;
+    //   }
+    // }
+
+    & > .def_elbocon {
+      padding: 0 0;
+      & > img {
+        margin-top: 21px;
+        width: 205px;
+      }
+    }
+
+    & > .def_peru21 {
+      margin-top: 21px;
+      background: rgb(12, 112, 191);
+      & > img {
+        max-width: 135px;
+      }
+    }
+
+    & > .def_peru21g21 {
+      & > img {
+        background: rgb(12, 112, 191);
+        margin-top: 21px;
+        max-width: 85px;
+      }
+    }
+
+    & > .def_diariocorreo {
+      padding: 0 0;
+      & > img {
+        margin-top: 21px;
+        width: 83px;
+      }
+    }
+
+    /* & > .cont_elcomerciomag {
+      & > img {
+        max-width: 86px;
+      }
+    } */
+
+    & > .def_ojo {
+      display: inline;
+      & > img {
+        margin-top: 21px;
+        width: 120px;
+      }
+    }
+  }
+}

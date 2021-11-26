@@ -19,7 +19,9 @@ const AdsGlobal: React.FC<AdsGlobalProps> = ({
   isMobile = true,
 }) =>
   isDfp === true ? (
-    <div id={`gpt_${adElement}`} className="flex justify-center" />
+    <div className={`content_gpt_${adElement}`}>
+      <div id={`gpt_${adElement}`} className="flex justify-center" />
+    </div>
   ) : (
     <>
       {adElement && isMobile && (

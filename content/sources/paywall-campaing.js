@@ -127,7 +127,8 @@ const fetch = (key = {}) => {
         plans,
         description: parseJSON(productDescription),
         freeAccess,
-        subscriber: freeAccess ? { firstName, lastName, secondLastName, documentType, documentNumber } : undefined,
+        // eslint-disable-next-line no-nested-ternary
+        subscriber: freeAccess ? { firstName, lastName, secondLastName } : printed ? {documentType, documentNumber} : undefined,
         printedSubscriber: printed,
         printAttributes,
         msgs: printAttributes.reduce((prev, it) => ({...prev, [it.name]: it.value}), {}),

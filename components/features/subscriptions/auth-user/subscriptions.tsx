@@ -30,6 +30,7 @@ enum Modals {
   TokenVerify = 'verify',
   ResetPassword = 'resetpass',
   Organic = 'organico',
+  Banner = 'banner',
 }
 
 const AuthUser = () => {
@@ -53,10 +54,12 @@ const AuthUser = () => {
       setActiveModal(Modals.ReloginEmail)
     } else if (getQuery('signHash') || getQuery('ReloginHash')) {
       setActiveModal(Modals.ReloginHash)
-    } else if (getQuery('tokenVerify')) {
+    } else if (getQuery('tokenVerify') || getQuery('tokenMagicLink')) {
       setActiveModal(Modals.TokenVerify)
     } else if (getQuery('tokenReset')) {
       setActiveModal(Modals.ResetPassword)
+    } else if (getQuery('banner')) {
+      setActiveModal(Modals.Banner)
     } else {
       setActiveModal(Modals.Organic)
     }
@@ -77,6 +80,7 @@ const AuthUser = () => {
   }
 
   const isOrganic = activeModal === Modals.Organic
+  const isBanner = activeModal === Modals.Banner
   const isHard = activeModal === Modals.Hard
   const isReloginEmail = activeModal === Modals.ReloginEmail
   const isReloginHash = activeModal === Modals.ReloginHash
@@ -89,7 +93,11 @@ const AuthUser = () => {
         <Loading typeBg="full" />
       ) : (
         <>
-          {(isOrganic || isHard || isReloginEmail || isReloginHash) && (
+          {(isOrganic ||
+            isHard ||
+            isReloginEmail ||
+            isReloginHash ||
+            isBanner) && (
             <>
               {!isLoggedIn() ? (
                 <SignOrganic
@@ -108,6 +116,7 @@ const AuthUser = () => {
               onClose={() => closePopUp()}
               arcSite={arcSite}
               typeDialog={activeModal}
+              tokenMagicLink={isTokenVerify && getQuery('tokenMagicLink')}
               tokenVerify={isTokenVerify && getQuery('tokenVerify')}
               tokenReset={isResetPassword && getQuery('tokenReset')}
             />

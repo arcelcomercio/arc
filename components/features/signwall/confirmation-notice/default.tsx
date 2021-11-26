@@ -3,7 +3,7 @@ import * as React from 'react'
 import { FC } from 'types/features'
 
 import { env } from '../../../utilities/arc/env'
-import { cintilloScript } from './VerifyEmail'
+import { cintilloScript } from './_dependencies/scripts'
 
 const classes = {
   wrapper:

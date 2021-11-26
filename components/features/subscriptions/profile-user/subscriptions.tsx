@@ -7,6 +7,7 @@ import {
   useSdksContext,
 } from '../../../contexts/subscriptions-sdks'
 import useSentry from '../../../hooks/useSentry'
+import importRetry from '../../../utilities/core/import-retry'
 import Loading from '../../signwall/_children/loading'
 import {
   ModalProvider,
@@ -17,41 +18,54 @@ import { PropertiesCommon } from '../_dependencies/Properties'
 import { isAuthenticated } from '../_dependencies/Session'
 import Header from './_children/header/signwall'
 
-const MenuSignwall = React.lazy(
-  () =>
-    import(
-      /* webpackChunkName: 'Profile-MenuSignwall' */ './_children/menu/signwall'
-    )
+const MenuSignwall = React.lazy(() =>
+  importRetry(
+    () =>
+      import(/* webpackChunkName: 'Profile-MenuSignwall' */ './_children/menu')
+  )
 )
 
-const ResumeProfile = React.lazy(
-  () =>
-    import(/* webpackChunkName: 'Profile-ResumeProfile' */ './_children/resume')
+const ResumeProfile = React.lazy(() =>
+  importRetry(
+    () =>
+      import(
+        /* webpackChunkName: 'Profile-ResumeProfile' */ './_children/resume'
+      )
+  )
 )
 
-const NewsLetter = React.lazy(
-  () =>
-    import(
-      /* webpackChunkName: 'Profile-NewsLetter' */ './_children/newsletters'
-    )
+const NewsLetter = React.lazy(() =>
+  importRetry(
+    () =>
+      import(
+        /* webpackChunkName: 'Profile-NewsLetter' */ './_children/newsletters'
+      )
+  )
 )
 
-const Subscription = React.lazy(
-  () =>
-    import(
-      /* webpackChunkName: 'Profile-Subscription' */ './_children/subscriptions'
-    )
+const Subscription = React.lazy(() =>
+  importRetry(
+    () =>
+      import(
+        /* webpackChunkName: 'Profile-Subscription' */ './_children/subscriptions'
+      )
+  )
 )
 
-const MiPerfil = React.lazy(
-  () => import(/* webpackChunkName: 'Profile-MiPerfil' */ './_children/profile')
+const MiPerfil = React.lazy(() =>
+  importRetry(
+    () =>
+      import(/* webpackChunkName: 'Profile-MiPerfil' */ './_children/profile')
+  )
 )
 
-const SubsDetail = React.lazy(
-  () =>
-    import(
-      /* webpackChunkName: 'Profile-SubsDetail' */ './_children/subscriptions/_children/detail'
-    )
+const SubsDetail = React.lazy(() =>
+  importRetry(
+    () =>
+      import(
+        /* webpackChunkName: 'Profile-SubsDetail' */ './_children/subscriptions/_children/detail'
+      )
+  )
 )
 
 const renderTemplate = (template: ProfileModalTemplates, id: number) => {
@@ -118,7 +132,8 @@ const WrapperProfile = () => {
               </React.Suspense>
             </div>
             <div className="panel-right">
-              {siteProperties.activePaywall ? (
+              {siteProperties.activePaywall ||
+              siteProperties.activeNewsletter ? (
                 renderTemplate(
                   selectedTemplate as ProfileModalTemplates,
                   idTemplate

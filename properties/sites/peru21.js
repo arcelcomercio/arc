@@ -14,7 +14,8 @@ export default {
   urlPrerollAmp:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/peru21/amp/post/default/preroll&description_url=https%3A%2F%2Fperu21.pe%2F&tfcd=0&npa=0&sz=640x480|400x300|640x360&cust_params=fuente%3Dweb%26publisher%3Dperu21%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '1667917060088448',
-  googleTagManagerId: 'GTM-KKQFJ3Z',
+  googleTagManagerId: 'GTM-KKQFJ3Z', // Google Tag Manager Prod
+  googleTagManagerIdSandbox: 'GTM-KKQFJ3Z', // Google Tag Manager Sandbox
   ampGoogleTagManagerId: 'UA-3055636-4',
   ampGoogleTagManagerName: 'peru21',
   charbeatAccountNumber: 57773,
@@ -68,7 +69,9 @@ export default {
     frequentQuestions: 'SLSILPSVUZBPTCQVL4VL6VBRXA',
     dataTreatment: 'ZLRTGACMWVFOPPWUHZXLHRA4KU',
   },
-
+  paywall: {
+    title: 'Ingresar | Perú21',
+  },
   legalLinks: [
     {
       name: 'Quiénes Somos',

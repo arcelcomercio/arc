@@ -9,7 +9,6 @@ import TriviaResult from './amp/_children/result'
 
 import Header from '../../header/simple/_children/amp/header'
 import AmpTagManager from '../../../output-types/_children/amp-tag-manager'
-import { SITE_PERU21 } from '../../../utilities/constants/sitenames'
 
 /**
  * @param {object} props
@@ -85,7 +84,6 @@ const TriviasMainAmp = ({
 
   const namePublicidad = arcSite !== 'peru21g21' ? arcSite : 'peru21'
   const dataSlot = `/28253241/${namePublicidad}/amp/post/default/zocalo`
-  const prebidSlot = `19186-${namePublicidad}-amp-zocalo`
 
   return (
     <>
@@ -107,39 +105,17 @@ const TriviasMainAmp = ({
         />
 
         <amp-story-auto-ads>
-        {arcSite == SITE_PERU21 ? (
-            <script
-              type="application/json"
-              dangerouslySetInnerHTML={{
-                __html: `{
-                  "ad-attributes": {
-                    "type": "doubleclick",
-                    "data-slot": "${dataSlot}",
-                    "rtc-config": {
-                      "vendors": {
-                        "prebidrubicon": {
-                          "REQUEST_ID": "${prebidSlot}", 
-                          "ACCOUNT_ID": "19186"
-                        }
-                      }
-                    }
-                  }
-                }`,
-              }}
-            />
-          ):(
-            <script
-              type="application/json"
-              dangerouslySetInnerHTML={{
-                __html: `{
+          <script
+            type="application/json"
+            dangerouslySetInnerHTML={{
+              __html: `{
                   "ad-attributes": {
                     "type": "doubleclick",
                     "data-slot": "${dataSlot}",
                   }
                 }`,
-              }}
-            />
-          )}
+            }}
+          />
         </amp-story-auto-ads>
 
         <TriviaStart title={title} image={triviaImage} alt={caption}>

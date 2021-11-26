@@ -14,7 +14,7 @@ import { Facebook, Google, Mail } from '../icons'
 
 const originAction = (dialogModal) => {
   switch (dialogModal) {
-    case 'organico':
+    case 'organico' || 'banner':
       return '0'
     case 'hard':
       return '1'
@@ -37,11 +37,13 @@ const AfterLoginRegister = (
   resProfile,
   checkUserSubs,
   onStudents,
-  onClose
+  onClose,
+  arcSite
 ) => {
   Taggeo(
     `Web_Sign_Wall_${typeDialog}`,
-    `web_sw${typeDialog[0]}_${typeForm}_success_${provider}`
+    `web_sw${typeDialog[0]}_${typeForm}_success_${provider}`,
+    arcSite
   )
   setCookie('arc_e_id', sha256(emailUser).toString(), 365)
   const USER_IDENTITY = JSON.stringify(Identity.userIdentity || {})
@@ -172,7 +174,8 @@ const setupUserProfile = (
                     resProfile,
                     checkUserSubs,
                     onStudents,
-                    onClose
+                    onClose,
+                    arcSite
                   )
                 })
                 .catch(() => {
@@ -189,7 +192,8 @@ const setupUserProfile = (
                 resProfile,
                 checkUserSubs,
                 onStudents,
-                onClose
+                onClose,
+                arcSite
               )
             }
           })
@@ -207,7 +211,8 @@ const setupUserProfile = (
           resProfile,
           checkUserSubs,
           onStudents,
-          onClose
+          onClose,
+          arcSite
         )
       }
     })
@@ -266,6 +271,7 @@ export const ButtonSocial = ({
   typeDialog,
   brand,
   size,
+  defaultSize,
   onLogged = (i) => i,
   onClose,
   onStudents,
@@ -288,6 +294,8 @@ export const ButtonSocial = ({
         return 'signEmail'
       case 'reloghash':
         return 'signHash'
+      case 'banner':
+        return 'banner'
       case 'paywall':
         return 'signPaywall'
       case 'premium':
@@ -308,7 +316,8 @@ export const ButtonSocial = ({
   const taggeoError = (resProvider) => {
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
-      `web_sw${typeDialog[0]}_${typeForm}_error_${resProvider}`
+      `web_sw${typeDialog[0]}_${typeForm}_error_${resProvider}`,
+      arcSite
     )
   }
 
@@ -400,16 +409,17 @@ export const ButtonSocial = ({
 
   return (
     <button
-      className={`signwall-inside_forms-btn-social ${brand} ${size} ${brand}-${size} ${
-        arcSite === 'trome' ? `trome-${brand}` : ''
-      }`}
+      className={`signwall-inside_forms-btn-social ${brand} ${size}
+      ${defaultSize || `${brand}-${size}`} 
+      ${arcSite === 'trome' ? `trome-${brand}` : ''}`}
       type="button"
       id={`btn-sign-${brand}`}
       disabled={showTextLoad}
       onClick={() => {
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_${typeForm}_boton_${brand}`
+          `web_sw${typeDialog[0]}_${typeForm}_boton_${brand}`,
+          arcSite
         )
         clickLoginSocialEcoID(brand)
       }}>

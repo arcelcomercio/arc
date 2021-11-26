@@ -1,5 +1,6 @@
 import Identity from '@arc-publishing/sdk-identity'
 import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
@@ -50,6 +51,7 @@ const Login = ({
   const [checkedPolits, setCheckedPolits] = React.useState(true)
   const [hideFormLogin, setHideFormLogin] = React.useState(false)
   const { texts } = PropertiesCommon
+  const { activeMagicLink } = getProperties(arcSite)
 
   const {
     customFields: { disableAuthSocialArc = false } = {},
@@ -78,7 +80,11 @@ const Login = ({
   const onFormSignIn = ({ lemail, lpass }) => {
     if (typeof window !== 'undefined') {
       setLoading(true)
-      Taggeo(nameTagCategory, `web_sw${typeDialog[0]}_login_boton_ingresar`)
+      Taggeo(
+        nameTagCategory,
+        `web_sw${typeDialog[0]}_login_boton_ingresar`,
+        arcSite
+      )
       Identity.login(lemail, lpass, {
         rememberMe: true,
         cookie: true,
@@ -95,7 +101,8 @@ const Login = ({
               setShowVerify(true)
               Taggeo(
                 nameTagCategory,
-                `web_sw${typeDialog[0]}_login_show_reenviar_correo`
+                `web_sw${typeDialog[0]}_login_show_reenviar_correo`,
+                arcSite
               )
               window.localStorage.removeItem('ArcId.USER_INFO')
               window.localStorage.removeItem('ArcId.USER_PROFILE')
@@ -109,7 +116,8 @@ const Login = ({
               }
               Taggeo(
                 nameTagCategory,
-                `web_sw${typeDialog[0]}_login_success_ingresar`
+                `web_sw${typeDialog[0]}_login_success_ingresar`,
+                arcSite
               )
             }
           })
@@ -121,12 +129,14 @@ const Login = ({
           if (err.code === '130051') {
             Taggeo(
               nameTagCategory,
-              `web_sw${typeDialog[0]}_login_show_reenviar_correo`
+              `web_sw${typeDialog[0]}_login_show_reenviar_correo`,
+              arcSite
             )
           } else {
             Taggeo(
               nameTagCategory,
-              `web_sw${typeDialog[0]}_login_error_ingresar`
+              `web_sw${typeDialog[0]}_login_error_ingresar`,
+              arcSite
             )
           }
         })
@@ -153,8 +163,16 @@ const Login = ({
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(lemail)
-    Taggeo(nameTagCategory, `web_sw${typeDialog[0]}_login_reenviar_correo`)
+    if (activeMagicLink) {
+      Identity.requestOTALink(lemail)
+    } else {
+      Identity.requestVerifyEmail(lemail)
+    }
+    Taggeo(
+      nameTagCategory,
+      `web_sw${typeDialog[0]}_login_reenviar_correo`,
+      arcSite
+    )
     let timeleft = 9
     const downloadTimer = setInterval(() => {
       if (timeleft <= 0) {
@@ -355,6 +373,7 @@ const Login = ({
               </button>
             </div>
           </form>
+
           <p className={styles.titleRegister}>
             {texts.notHasAccount}
             <button
@@ -364,12 +383,14 @@ const Login = ({
                 changeTemplate('register')
                 Taggeo(
                   nameTagCategory,
-                  `web_sw${typeDialog[0]}_login_boton_registrate`
+                  `web_sw${typeDialog[0]}_login_boton_registrate`,
+                  arcSite
                 )
               }}>
               Registrarme
             </button>
           </p>
+
           <div className={styles.block}>
             <label htmlFor="rpolit" className="terms">
               <input
@@ -394,6 +415,7 @@ const Login = ({
               <span className="checkmark" />
             </label>
           </div>
+
           <p className={styles.titleRegister} style={{ textAlign: 'justify' }}>
             En caso hayas autorizado los fines de uso adicionales anteriormente,
             no es necesario que lo vuelvas a marcar. Si deseas retirar dicho

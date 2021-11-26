@@ -1,0 +1,61 @@
+.agenda-presidencial__footer {
+  &__contenedor {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    // align-items: center;
+    max-width: 480px;
+    min-height: 150px;
+    align-items: flex-end;
+    background-color: #fffcf5;
+
+    @media (--desktop) {
+      max-width: 1000px;
+    }
+    @media (--tablet) {
+      margin: auto;
+    }
+  }
+
+  &__elemento__contenedor {
+    display: flex;
+  }
+
+  &__elemento__back {
+    margin: auto;
+    width: 50.94px;
+    height: 50.94px;
+    margin-left: 38px;
+    margin-bottom: 30px;
+    & svg {
+      width: 50.94px;
+      height: 50.94px;
+    }
+  }
+
+  &__elemento__contenedor2 {
+    display: flex;
+    position: relative;
+  }
+
+  &__elemento__hoja {
+    background-color: #fffcf5;
+    // position: relative;
+    // z-index: 10;
+    margin: auto;
+  }
+
+  &__elemento__ahead {
+    // position: absolute;
+    // z-index: 20;
+    margin: auto;
+    width: 50.94px;
+    height: 50.94px;
+    margin-right: 20px;
+    margin-bottom: 30px;
+    & svg {
+      width: 50.94px;
+      height: 50.94px;
+    }
+  }
+}

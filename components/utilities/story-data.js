@@ -1048,7 +1048,7 @@ class StoryData {
           dataElements.publicidad = true
           dataElements.nameAds = `caja4`
         }
-        if (i === 6) {
+        if (i === 8) {
           dataElements.publicidad = true
           dataElements.nameAds = `caja5`
         }
@@ -1396,7 +1396,7 @@ class StoryData {
         } = {},
         url: urlImage,
         resized_urls: resizedUrls1 = '',
-        subtitle,
+        caption: subtitle,
       } = basicImage
       return {
         url: urlImage1 || urlImage,
@@ -1949,6 +1949,8 @@ class StoryData {
             url_img: urlImgConfig = '',
             conversions = [],
             has_ads: hasAds = 0,
+            title: titleVideo = '',
+            thumbnail_url: imagenVideo = '',
             account = 'gec',
             // date: dateCorrection = '',
           } = {},
@@ -1963,6 +1965,8 @@ class StoryData {
           streams,
           type_config: '',
           hasAds,
+          titleVideo,
+          imagenVideo,
           account,
         }
         switch (type) {

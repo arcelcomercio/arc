@@ -1,0 +1,201 @@
+.agenda-presidencial__nota {
+  &__contenedor {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__elemento__contenedor1 {
+    display: flex;
+    flex-direction: column;
+    @media (--desktop) {
+      margin-top: 25px;
+    }
+  }
+
+  &__elemento__parrafo {
+    margin: 0 42px;
+    max-width: 361.52px;
+    font-size: 18px;
+    line-height: 30px;
+    font-family: $primary-font;
+    text-align: left;
+    padding-top: 30px;
+    &:first-child {
+      padding-top: 0;
+    }
+    @media (--desktop) {
+      max-width: 589.77px;
+      margin: auto;
+      padding-left: 15px;
+    }
+    @media (--tablet) {
+      max-width: 350px;
+      margin: auto;
+      padding-left: 10px;
+    }
+  }
+  &__elemento__image {
+    // overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 6px;
+    border: 1px solid #ccc;
+    width: 100%;
+    height: auto;
+    max-height: 385px; // lo maximo pe chato estudia sonso !
+
+    @media (--desktop) {
+      width: 418px;
+      height: 261px;
+      margin: 17px 290px 10px 290px;
+    }
+    @media (--tablet) {
+      width: 330px;
+      height: 250px;
+      margin: auto;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  }
+  &__elemento__caption {
+    // overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 0 44px;
+    font-family: $quinary-font;
+    font-size: 18px;
+    color: #868686;
+    text-align: left;
+    line-height: 26px;
+    width: 100%;
+    height: auto; //sino cambiar a 20px
+
+    @media (--desktop) {
+      padding: 0 0;
+      font-family: $primary-font;
+      font-size: 14px;
+      width: 418px;
+      // height: 45px;
+      margin: 0 290px 8px 290px;
+    }
+    @media (--tablet) {
+      padding: 0 0;
+      font-family: $primary-font;
+      font-size: 14px;
+      width: 330px;
+      // height: 30px;
+      margin: auto;
+    }
+  }
+
+  &__linea {
+    border: 1px dashed #d64b4b;
+    margin: 25px 40px;
+    @media (--desktop) {
+      max-width: 605px;
+      margin: 30px 199px;
+    }
+    @media (--tablet) {
+      max-width: 350px;
+      margin: auto;
+      margin-bottom: 25px;
+      margin-top: 25px;
+    }
+  }
+  &__linea2 {
+    border: 0.5px solid #707070;
+    margin: 42px 54px 20px 54px;
+    @media (--desktop) {
+      margin: 102px 340px 20px 340px;
+      max-width: 330px;
+    }
+    @media (--tablet) {
+      max-width: 300px;
+      margin: 50px 250px 20px 250px;
+    }
+  }
+
+  &__elemento__indicador {
+    display: flex;
+    align-items: center;
+    margin: 0 42px;
+    max-width: 361.52px;
+    font-family: $primary-font;
+    font-size: 16px;
+    line-height: 30px;
+    text-align: left;
+    @media (--desktop) {
+      max-width: 589.77px;
+      margin: auto;
+      padding-left: 15px;
+    }
+    @media (--tablet) {
+      max-width: 350px;
+      margin: auto;
+      padding-left: 15px;
+    }
+    & svg {
+      width: 15px !important;
+      height: 20px !important;
+    }
+    & b {
+      margin-right: 10px;
+    }
+  }
+
+  &__elemento__contenedor2 {
+    display: flex;
+    flex-direction: column;
+    padding: 43px 0;
+    background: #fffcf5;
+  }
+
+  &__elemento__caja {
+    // overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    border: 1px solid #ccc;
+    width: 351px;
+    background-color: #fffcf5;
+    @media (--desktop) {
+      border: 1px solid #ccc;
+      margin: auto;
+    }
+  }
+
+  &__informe {
+    margin: 20px;
+    width: 309px;
+    font-family: $primary-font;
+    font-size: 18px;
+    line-height: 30px;
+    text-align: left;
+  }
+
+  &__vernota {
+    margin: 20px;
+    padding: 10px 20px;
+    width: 120px;
+    height: 36px;
+    border-radius: 5px;
+    color: rgb(91, 93, 95);
+    background-color: #fcc716;
+    font-family: $primary-font;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: italic;
+  }
+  &__ecdata {
+    margin: auto;
+    @media (--desktop) {
+      margin: auto;
+    }
+    & svg {
+      width: 124px;
+      height: 26px;
+    }
+  }
+}

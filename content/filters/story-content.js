@@ -26,6 +26,10 @@ content_elements {
       chapter
       score
       plataform
+      interviewed
+      career_interviewed
+      release_date
+      premiere_image
       year
       director {
         name

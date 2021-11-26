@@ -1,0 +1,11 @@
+.most-read {
+  &__title {
+    background-color: #de2326;
+  }
+  &__link {
+    color: $color-white;
+  }
+  &__icon {
+    display: none;
+  }
+}
