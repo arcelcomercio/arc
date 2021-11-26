@@ -10,7 +10,9 @@ const classes = {
   container:
     'justify-center w-full col-1 position-relative text-center flex cursor-pointer',
   text: 'font-bold',
-  respond: 'top-0 right-0 bottom-0 left-0 w-full object-cover',
+  respond: 'pt-20 top-0 right-0 bottom-0 left-0 w-full object-cover',
+  respondT: 'pt-40 top-0 right-0 bottom-0 left-0 w-full object-cover',
+  respondmessage: 'pb-20 top-0 right-0 bottom-0 left-0 w-full object-cover',
 }
 
 /**
@@ -46,13 +48,6 @@ const CardPromotion: FC = () => {
         id={subContainerId}
         className="promotion"
         style={{ backgroundColor: '#f29b1a' }}>
-        <div className={`promotion__msg ${classes.respond}`}>
-          <p
-            id={messageBannerId}
-            className={`promotion__msg-banner ${classes.text}`}>
-            Regístrate y accede a los descuentos de:
-          </p>
-        </div>
         <div className={classes.respond}>
           <img
             id={metroImageId}
@@ -73,14 +68,28 @@ const CardPromotion: FC = () => {
           />
         </div>
 
-        <div className={classes.respond}>
+        <div className={classes.respondT}>
           <img
             src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
             data-src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/tromecard.png?v=1637254479"
             loading="lazy"
             alt={`Logo ${siteName}`}
             className={`${isAdmin ? '' : 'lazy'} promotion__img-second`}
+            style={{
+              padding: '5px',
+              background: '#8d8d8d',
+              border: '1px solid',
+              borderColor: '#CCCCCC #666666 #666666 #CCCCCC',
+            }}
           />
+        </div>
+
+        <div className={`promotion__msg ${classes.respondmessage}`}>
+          <p
+            id={messageBannerId}
+            className={`promotion__msg-banner ${classes.text}`}>
+            Registrate y accede a tus descuentoss
+          </p>
         </div>
       </div>
       <div className="promotion__movil flex justify-center items-center">

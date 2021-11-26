@@ -14,20 +14,20 @@
   }
 
   &__msg {
-    padding: 20px 0px 10px;
+    // padding: 20px 0px 10px;
 
     @media (--only-mobile) {
       padding: 10px 0px 5px;
     }
     &-banner {
-      border: 3.5px solid #fff;
-      background-color: #e1001c;
+      // border: 3.5px solid #fff;
+      // background-color: #e1001c;
       width: 68%;
-      padding: 15px;
+      padding: 0px 5px;
       font-size: 18px;
       font-weight: bold;
       margin: auto;
-      color: white;
+      color: black;
       border: "3.5px solid #fff";
       border-radius: 20px;
 
