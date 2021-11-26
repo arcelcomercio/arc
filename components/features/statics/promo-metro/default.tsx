@@ -1,12 +1,10 @@
-// import { useAppContext } from 'fusion:context'
-// import getProperties from 'fusion:properties'
+import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 import { FC } from 'types/features'
 
 import ShareButtons from '../../../global-components/lite/share/index'
-import { isProd } from '../../../utilities/arc/env'
-import { sharedNative } from './_dependencies/scripts'
+import { originByEnv } from '../../../utilities/arc/env'
 
 const classes = {
   container: 'metro w-full h-full flex flex-col justify-center',
@@ -29,6 +27,9 @@ const classes = {
 interface StaticsPromoMetroProps {
   customFields?: {
     couponsJson?: string
+    titleToShare?: string
+    textToShare?: string
+    pathToShare?: string
     logo?: string
     title?: string
     subtitle?: string
@@ -40,11 +41,12 @@ interface StaticsPromoMetroProps {
 
 enum DiscountType {
   Percentage = '%',
-  Amount = '$',
+  Amount = 'S/',
 }
 
 interface Coupon {
   code: string
+  image?: string
   discount: number
   discountType: DiscountType
   title: string
@@ -64,14 +66,12 @@ interface Coupon {
  * `src/websites/trome/scss/components/statics/promo-metro/promo-metro.scss
  */
 
-/**
- * @todo verificar si `couponsJson` viene como JSON o string
- * @todo definir estructura de JSON en base a datos que necesitamos / recibimos
- */
-
 const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
   const {
     couponsJson,
+    titleToShare = '',
+    textToShare = '',
+    pathToShare = '',
     // logo = 'logo-de-metro.jpg',
     title = '¡Bienvenido!¡Gracias por ser un trome!',
     subtitle = 'Ahora como buen Trome, disfruta de estos descuentazos en cualquier tienda Metro',
@@ -80,11 +80,18 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
     disableShareBySocialNetwork = false,
   } = customFields || {}
 
+  const { arcSite } = useAppContext()
+
+  const [socialTitle, setSocialTitle] = React.useState(titleToShare)
+  const [activeDefaultShare, setActiveDefaultShare] = React.useState(false)
+
   // Esto es un ejemplo. Se debe usar couponsJson
   // const coupons = couponsJson && JSON.parse(couponsJson)
   const coupons: Coupon[] = (couponsJson && JSON.parse(couponsJson)) || [
     {
       code: '0101010101',
+      image:
+        'https://www.metro.com.co/wp-content/uploads/2020/01/promo-metro-0101010101.png',
       discount: 10, // number
       discountType: DiscountType.Percentage, // DiscountType
       title: 'PIQUEOS',
@@ -92,31 +99,23 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
     },
   ]
 
-  const wdTitle = window.document.title || 'undefined'
-  const urlCuponera = 'cuponera-metro'
-  const wdHref = isProd
-    ? `https://trome.pe/${urlCuponera}`
-    : `https://elcomercio-trome-sandbox.cdn.arcpublishing.com/${urlCuponera}`
+  const origin = originByEnv(arcSite)
+  const urlToShare = `${origin}${pathToShare}`
 
-  const btnShared = 'btn-shared'
-  const activeBtnSocialNetworks = 'social-network'
+  const handleShare = (/** e: React.MouseEvent<HTMLButtonElement, MouseEvent> */) => {
+    if ('share' in navigator) {
+      navigator.share({
+        title: socialTitle,
+        text: textToShare,
+        url: urlToShare,
+      })
+    } else {
+      setActiveDefaultShare(!activeDefaultShare)
+    }
+  }
 
   React.useEffect(() => {
-    const buttonShare = document.getElementById(btnShared)
-    buttonShare?.addEventListener('click', () => {
-      // casi todos los navegadores tienen el navigator.share
-      // pero casos como Firefox, al llamar a esa función retorna undefined
-      if (navigator.share !== undefined) {
-        sharedNative(wdTitle, wdHref, wdHref)
-      } else {
-        const activeShareButtons = document.getElementById(
-          activeBtnSocialNetworks
-        )
-        if (activeShareButtons?.style?.display) {
-          activeShareButtons.style.display = 'flex'
-        }
-      }
-    })
+    if (!socialTitle) setSocialTitle(window.document.title || '')
   }, [])
 
   return (
@@ -146,18 +145,18 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
         {disableDownload ? null : <button type="button">Descargar</button>}
         {disableShareBySocialNetwork ? null : (
           <>
-            <button id={btnShared} type="button">
+            <button type="button" onClick={handleShare}>
               Compartir
             </button>
             <div
-              id={activeBtnSocialNetworks}
-              className="metro-footer__social"
-              style={{ display: 'none' }}>
+              className={`metro-footer__social ${
+                activeDefaultShare ? 'flex' : 'hidden'
+              }`}>
               <ShareButtons
                 activeCopyLink
                 activeLinkedin={false}
-                path={wdHref}
-                title={wdTitle}
+                path={urlToShare}
+                title={socialTitle}
               />
             </div>
           </>
@@ -167,7 +166,6 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
   )
 }
 
-// StaticsPromoMetro.static = true
 StaticsPromoMetro.label = 'Promo Metro'
 StaticsPromoMetro.lazy = true
 
@@ -177,6 +175,21 @@ StaticsPromoMetro.propTypes = {
       name: 'JSON de cupones',
       description:
         'Inserte en formato JSON, el listado de cupones a renderizar',
+    }),
+    titleToShare: PropTypes.string.tag({
+      name: 'Título para compartir',
+      description: 'Título para compartir en redes sociales',
+      group: 'redes sociales',
+    }),
+    textToShare: PropTypes.string.tag({
+      name: 'Texto para compartir',
+      description: 'Texto para compartir en redes sociales',
+      group: 'redes sociales',
+    }),
+    pathToShare: PropTypes.string.tag({
+      name: 'URI para compartir en redes sociales',
+      description: 'Ejemplo: /cuponera-trome',
+      group: 'redes sociales',
     }),
     logo: PropTypes.string.tag({
       name: 'Logo de Metro',
