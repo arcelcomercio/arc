@@ -232,9 +232,8 @@ const Login = ({
         />
       ) : (
         <div
-          className={`${styles.blockMiddle} ${
-            isFbBrowser ? styles.blockFull : ''
-          }`}>
+          className={`${styles.blockMiddle} ${isFbBrowser ? styles.blockFull : ''
+            }`}>
           <ButtonSocial
             arcSocial="facebook"
             arcSite={arcSite}
@@ -256,12 +255,12 @@ const Login = ({
           {isFbBrowser && (
             <AuthURL
               arcSite={arcSite}
-              onClose={() => {}}
+              onClose={() => { }}
               typeDialog={typeDialog}
               activeNewsletter={activeNewsletter}
               typeForm="login"
               onLogged={onLoggedFia}
-              checkUserSubs={() => {}}
+              checkUserSubs={() => { }}
             />
           )}
         </div>
@@ -372,6 +371,7 @@ const Login = ({
               </button>
             </div>
           </form>
+
           <p className={styles.titleRegister}>
             {texts.notHasAccount}
             <button
@@ -388,6 +388,7 @@ const Login = ({
               Registrarme
             </button>
           </p>
+
           <div className={styles.block}>
             <label htmlFor="rpolit" className="terms">
               <input
@@ -412,6 +413,7 @@ const Login = ({
               <span className="checkmark" />
             </label>
           </div>
+
           <p className={styles.titleRegister} style={{ textAlign: 'justify' }}>
             En caso hayas autorizado los fines de uso adicionales anteriormente,
             no es necesario que lo vuelvas a marcar. Si deseas retirar dicho

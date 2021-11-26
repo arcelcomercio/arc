@@ -298,9 +298,8 @@ const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
             </>
           ) : (
             <div
-              className={`${styles.blockMiddle} ${
-                isFbBrowser ? styles.blockFull : ''
-              }`}>
+              className={`${styles.blockMiddle} ${isFbBrowser ? styles.blockFull : ''
+                }`}>
               <ButtonSocial
                 arcSocial="facebook"
                 arcSite={arcSite}
@@ -320,12 +319,12 @@ const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
               {isFbBrowser && (
                 <AuthURL
                   arcSite={arcSite}
-                  onClose={() => {}}
+                  onClose={() => { }}
                   typeDialog={typeDialog}
                   activeNewsletter
                   typeForm="registro"
                   onLogged={onLoggedFia}
-                  checkUserSubs={() => {}}
+                  checkUserSubs={() => { }}
                 />
               )}
             </div>
