@@ -104,7 +104,6 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
   React.useEffect(() => {
     const buttonShare = document.getElementById(btnShared)
     buttonShare?.addEventListener('click', () => {
-
       // casi todos los navegadores tienen el navigator.share
       // pero casos como Firefox, al llamar a esa función retorna undefined
       if (navigator.share !== undefined) {
@@ -168,8 +167,9 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
   )
 }
 
-StaticsPromoMetro.static = true
+// StaticsPromoMetro.static = true
 StaticsPromoMetro.label = 'Promo Metro'
+StaticsPromoMetro.lazy = true
 
 StaticsPromoMetro.propTypes = {
   customFields: PropTypes.shape({
