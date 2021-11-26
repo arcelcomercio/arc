@@ -58,7 +58,10 @@ const renderTemplate = (template, valTemplate, attributes) => {
     siteProperties: { activeRegisterwall },
     arcSite,
   } = useAppContext() || {}
-  const paymentSite = arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION
+  const especialSite =
+    arcSite === SITE_ELCOMERCIO ||
+    arcSite === SITE_GESTION ||
+    arcSite === SITE_TROME
   const isCorreo = arcSite === SITE_DIARIOCORREO
   const isTrome = arcSite === SITE_TROME
 
@@ -77,7 +80,7 @@ const renderTemplate = (template, valTemplate, attributes) => {
     ),
     login: (
       <React.Suspense fallback={lazyFallback}>
-        {paymentSite ? (
+        {especialSite ? (
           <FormLogin {...{ valTemplate, attributes }} />
         ) : (
           <FormLoginDef {...{ valTemplate, attributes }} />
@@ -91,7 +94,7 @@ const renderTemplate = (template, valTemplate, attributes) => {
     ),
     register: (
       <React.Suspense fallback={lazyFallback}>
-        {paymentSite ? (
+        {especialSite ? (
           <FormRegister {...attributes} />
         ) : (
           <FormRegisterDef {...attributes} />
