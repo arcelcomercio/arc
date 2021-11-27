@@ -102,7 +102,8 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
   const origin = originByEnv(arcSite)
   const urlToShare = `${origin}${pathToShare}`
 
-  const handleShare = (/** e: React.MouseEvent<HTMLButtonElement, MouseEvent> */) => {
+  const handleShare = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault()
     if ('share' in navigator) {
       navigator.share({
         title: socialTitle,
