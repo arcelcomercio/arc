@@ -274,6 +274,7 @@ const Login = ({
           <div className={styles.titleLine}>
             <p>{texts.orEnterDatesLog}</p>
           </div>
+
           {msgError && (
             <div className={styles.block}>
               <div className={showVerify ? ' msg-warning' : 'msg-alert'}>
@@ -299,6 +300,7 @@ const Login = ({
               </div>
             </div>
           )}
+
           <form onSubmit={handleOnSubmit} className="form-login">
             <div className={styles.block}>
               <label htmlFor="lemail">

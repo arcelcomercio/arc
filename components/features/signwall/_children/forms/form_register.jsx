@@ -463,187 +463,197 @@ const FormRegister = ({
 
                   {isTromeOrganic && <div className="spacing-trome" />}
 
-                  {showError && (
-                    <div className="signwall-inside_forms-error">
-                      {showError.indexOf('ya existe') ? (
-                        <>
-                          {showError}
-                          <a
-                            href="#"
-                            style={{ color: 'white', fontWeight: 'bold' }}
-                            className="signwall-inside_forms-link"
-                            onClick={(e) => {
-                              e.preventDefault()
-                              changeTemplate('forgot')
-                            }}>
-                            Recuperar contraseña
-                          </a>
-                        </>
-                      ) : (
-                        showError
+                  {!hideFormRegister && (
+                    <>
+                      {showError && (
+                        <div className="signwall-inside_forms-error">
+                          {showError.indexOf('ya existe') ? (
+                            <>
+                              {showError}
+                              <a
+                                href="#"
+                                style={{ color: 'white', fontWeight: 'bold' }}
+                                className="signwall-inside_forms-link"
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  changeTemplate('forgot')
+                                }}>
+                                Recuperar contraseña
+                              </a>
+                            </>
+                          ) : (
+                            showError
+                          )}
+                        </div>
                       )}
-                    </div>
-                  )}
 
-                  <Input
-                    type="email"
-                    inputMode="email"
-                    autoComplete="email"
-                    name="remail"
-                    placeholder="Correo electrónico*"
-                    required
-                    value={remail}
-                    onChange={(e) => {
-                      handleOnChange(e)
-                      setShowError(false)
-                    }}
-                    error={remailError}
-                  />
+                      <Input
+                        type="email"
+                        inputMode="email"
+                        autoComplete="email"
+                        name="remail"
+                        placeholder="Correo electrónico*"
+                        required
+                        value={remail}
+                        onChange={(e) => {
+                          handleOnChange(e)
+                          setShowError(false)
+                        }}
+                        error={remailError}
+                      />
 
-                  <Input
-                    type="password"
-                    autoComplete="new-password"
-                    name="rpass"
-                    placeholder="Contraseña*"
-                    required
-                    value={rpass}
-                    onChange={(e) => {
-                      handleOnChange(e)
-                      setShowError(false)
-                      checkFormat(e)
-                    }}
-                    error={rpassError || showFormatInvalid}
-                  />
+                      <Input
+                        type="password"
+                        autoComplete="new-password"
+                        name="rpass"
+                        placeholder="Contraseña*"
+                        required
+                        value={rpass}
+                        onChange={(e) => {
+                          handleOnChange(e)
+                          setShowError(false)
+                          checkFormat(e)
+                        }}
+                        error={rpassError || showFormatInvalid}
+                      />
 
-                  {activePhoneRegister && (
-                    <Input
-                      type="tel"
-                      inputMode="tel"
-                      autoComplete="tel"
-                      name="rphone"
-                      placeholder="Teléfono"
-                      maxLength="12"
-                      value={rphone}
-                      onChange={(e) => {
-                        handleOnChange(e)
-                      }}
-                      error={rphoneError}
-                    />
-                  )}
+                      {activePhoneRegister && (
+                        <Input
+                          type="tel"
+                          inputMode="tel"
+                          autoComplete="tel"
+                          name="rphone"
+                          placeholder="Teléfono"
+                          maxLength="12"
+                          value={rphone}
+                          onChange={(e) => {
+                            handleOnChange(e)
+                          }}
+                          error={rphoneError}
+                        />
+                      )}
 
-                  {activeDataTreatment && (
-                    <CheckBox
-                      checked={checkedPolits}
-                      value={checkedPolits ? '1' : '0'}
-                      name="rpolit"
-                      arcSite={arcSite}
-                      onChange={(e) => {
-                        handleOnChange(e)
-                        setCheckedPolits(!checkedPolits)
-                      }}>
+                      {activeDataTreatment && (
+                        <CheckBox
+                          checked={checkedPolits}
+                          value={checkedPolits ? '1' : '0'}
+                          name="rpolit"
+                          arcSite={arcSite}
+                          onChange={(e) => {
+                            handleOnChange(e)
+                            setCheckedPolits(!checkedPolits)
+                          }}>
+                          <p
+                            style={{
+                              fontSize: '12px',
+                            }}
+                            className="signwall-inside_forms-text mt-10">
+                            Al registrarme por redes sociales o por este
+                            formulario autorizo el uso de mis datos para
+                            <a
+                              href={dataTreatment}
+                              target="_blank"
+                              rel="noreferrer"
+                              style={{
+                                color: mainColorLink,
+                                fontWeight: 'bold',
+                              }}
+                              className="signwall-inside_forms-link ml-5 inline">
+                              fines adicionales
+                            </a>
+                          </p>
+                        </CheckBox>
+                      )}
+
+                      <CheckBox
+                        checked={checkedTerms}
+                        value={checkedTerms ? '1' : '0'}
+                        name="rterms"
+                        arcSite={arcSite}
+                        onChange={(e) => {
+                          handleOnChange(e)
+                          setCheckedTerms(!checkedTerms)
+                          setShowError(false)
+                        }}
+                        valid
+                        error={rtermsError}>
+                        <p
+                          style={{
+                            fontSize: '12px',
+                          }}
+                          className="signwall-inside_forms-text mt-10">
+                          Al crear la cuenta acepto los
+                          <a
+                            href={TermsConditions(arcSite)}
+                            target="_blank"
+                            rel="noreferrer"
+                            style={{ color: mainColorLink, fontWeight: 'bold' }}
+                            className="signwall-inside_forms-link ml-5 mr-5 inline">
+                            Términos y Condiciones
+                          </a>
+                          y
+                          <a
+                            href={PolicyPrivacy(arcSite)}
+                            target="_blank"
+                            rel="noreferrer"
+                            style={{ color: mainColorLink, fontWeight: 'bold' }}
+                            className="signwall-inside_forms-link ml-5 inline">
+                            Políticas de Privacidad
+                          </a>
+                        </p>
+                      </CheckBox>
+
+                      <button
+                        style={{
+                          color: mainColorBtn,
+                          background: mainColorLink,
+                        }}
+                        type="submit"
+                        className="signwall-inside_forms-btn mt-15 mb-5"
+                        disabled={disable || showLoading || showFormatInvalid}
+                        onClick={() => {
+                          Taggeo(
+                            `Web_Sign_Wall_${typeDialog}`,
+                            `web_sw${typeDialog[0]}_registro_boton_registrarme`,
+                            arcSite
+                          )
+                        }}>
+                        {showLoading ? 'REGISTRANDO...' : 'Registrarme'}
+                      </button>
+
                       <p
                         style={{
                           fontSize: '12px',
+                          color: '#000000',
+                          textAlign: 'center',
                         }}
-                        className="signwall-inside_forms-text mt-10">
-                        Al registrarme por redes sociales o por este formulario
-                        autorizo el uso de mis datos para
+                        className="signwall-inside_forms-text mt-20 mb-10">
+                        Ya tengo una cuenta
                         <a
-                          href={dataTreatment}
-                          target="_blank"
-                          rel="noreferrer"
+                          href="#"
                           style={{ color: mainColorLink, fontWeight: 'bold' }}
-                          className="signwall-inside_forms-link ml-5 inline">
-                          fines adicionales
+                          className="signwall-inside_forms-link ml-5"
+                          onClick={(e) => {
+                            e.preventDefault()
+                            Taggeo(
+                              `Web_Sign_Wall_${typeDialog}`,
+                              `web_sw${typeDialog[0]}_registro_link_volver`,
+                              arcSite
+                            )
+                            switch (typeDialog) {
+                              case 'relogemail':
+                              case 'reloghash':
+                                changeTemplate('relogin')
+                                break
+                              default:
+                                changeTemplate('login')
+                            }
+                          }}>
+                          Iniciar Sesión
                         </a>
                       </p>
-                    </CheckBox>
+                    </>
                   )}
-
-                  <CheckBox
-                    checked={checkedTerms}
-                    value={checkedTerms ? '1' : '0'}
-                    name="rterms"
-                    arcSite={arcSite}
-                    onChange={(e) => {
-                      handleOnChange(e)
-                      setCheckedTerms(!checkedTerms)
-                      setShowError(false)
-                    }}
-                    valid
-                    error={rtermsError}>
-                    <p
-                      style={{
-                        fontSize: '12px',
-                      }}
-                      className="signwall-inside_forms-text mt-10">
-                      Al crear la cuenta acepto los
-                      <a
-                        href={TermsConditions(arcSite)}
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{ color: mainColorLink, fontWeight: 'bold' }}
-                        className="signwall-inside_forms-link ml-5 mr-5 inline">
-                        Términos y Condiciones
-                      </a>
-                      y
-                      <a
-                        href={PolicyPrivacy(arcSite)}
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{ color: mainColorLink, fontWeight: 'bold' }}
-                        className="signwall-inside_forms-link ml-5 inline">
-                        Políticas de Privacidad
-                      </a>
-                    </p>
-                  </CheckBox>
-
-                  <button
-                    style={{ color: mainColorBtn, background: mainColorLink }}
-                    type="submit"
-                    className="signwall-inside_forms-btn mt-15 mb-5"
-                    disabled={disable || showLoading || showFormatInvalid}
-                    onClick={() => {
-                      Taggeo(
-                        `Web_Sign_Wall_${typeDialog}`,
-                        `web_sw${typeDialog[0]}_registro_boton_registrarme`,
-                        arcSite
-                      )
-                    }}>
-                    {showLoading ? 'REGISTRANDO...' : 'Registrarme'}
-                  </button>
-
-                  <p
-                    style={{
-                      fontSize: '12px',
-                      color: '#000000',
-                      textAlign: 'center',
-                    }}
-                    className="signwall-inside_forms-text mt-20 mb-10">
-                    Ya tengo una cuenta
-                    <a
-                      href="#"
-                      style={{ color: mainColorLink, fontWeight: 'bold' }}
-                      className="signwall-inside_forms-link ml-5"
-                      onClick={(e) => {
-                        e.preventDefault()
-                        Taggeo(
-                          `Web_Sign_Wall_${typeDialog}`,
-                          `web_sw${typeDialog[0]}_registro_link_volver`,
-                          arcSite
-                        )
-                        switch (typeDialog) {
-                          case 'relogemail':
-                          case 'reloghash':
-                            changeTemplate('relogin')
-                            break
-                          default:
-                            changeTemplate('login')
-                        }
-                      }}>
-                      Iniciar Sesión
-                    </a>
-                  </p>
                 </>
               )}
 
