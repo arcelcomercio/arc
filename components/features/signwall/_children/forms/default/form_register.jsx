@@ -8,7 +8,6 @@ import { isStorageAvailable } from '../../../../../utilities/client/storage'
 import {
   SITE_ELCOMERCIO,
   SITE_GESTION,
-  SITE_TROME,
 } from '../../../../../utilities/constants/sitenames'
 import { extendSession } from '../../../../../utilities/subscriptions/identity'
 import { useModalContext } from '../../../../subscriptions/_context/modal'
@@ -57,10 +56,6 @@ const FormRegister = ({
       siteDomain,
     },
   } = useAppContext() || {}
-
-  const isTromeOrganic =
-    arcSite === 'trome' &&
-    (typeDialog === 'organico' || typeDialog === 'verify')
 
   const { changeTemplate } = useModalContext()
   const [showError, setShowError] = React.useState(false)
@@ -295,8 +290,6 @@ const FormRegister = ({
       return checkEntitlement
     })
 
-  // agregado despues de pasar test por default/form_login
-  // es un codigo diferente al de login
   const unblockContent = () => {
     setShowUserWithSubs(true) // tengo subs
     const divPremium = document.getElementById('contenedor')
@@ -383,8 +376,6 @@ const FormRegister = ({
               onSubmit={handleOnSubmit}>
               {!showConfirm && (
                 <>
-                  {isTromeOrganic && <div className="spacing-trome" />}
-
                   <div className=" mt-10 center">
                     <p className="signwall-inside_forms-text mb-20 center bold">
                       Accede fácilmente con:
@@ -714,62 +705,45 @@ const FormRegister = ({
                       </>
                     )}
                   {(showContinueVerify || !activeVerifyEmail) && (
-                    <>
-                      {!isTromeOrganic && (
-                        <p
-                          style={{
-                            lineHeight: '22px',
-                          }}
-                          className="signwall-inside_forms-text mb-20 center">
-                          Revisa tu bandeja de correo para confirmar tu
-                          {showContinueVerify
-                            ? ` registro y sigue navegando`
-                            : ` solicitud de registro`}
-                        </p>
-                      )}
-
-                      <button
-                        type="button"
-                        className="signwall-inside_forms-btn signwall-inside_forms-btn-codp"
-                        style={{
-                          color: mainColorBtn,
-                          background: mainColorLink,
-                        }}
-                        onClick={() => {
-                          Taggeo(
-                            `Web_Sign_Wall_${typeDialog}`,
-                            `web_sw${typeDialog[0]}_registro_continuar_navegando`,
-                            arcSite
-                          )
-                          if (typeDialog === 'students') {
-                            if (showContinueVerify) {
-                              changeTemplate('login', '', remail)
-                            } else {
-                              setShowStudents(!showStudents)
-                            }
+                    <button
+                      type="button"
+                      className="signwall-inside_forms-btn signwall-inside_forms-btn-codp"
+                      style={{
+                        color: mainColorBtn,
+                        background: mainColorLink,
+                      }}
+                      onClick={() => {
+                        Taggeo(
+                          `Web_Sign_Wall_${typeDialog}`,
+                          `web_sw${typeDialog[0]}_registro_continuar_navegando`,
+                          arcSite
+                        )
+                        if (typeDialog === 'students') {
+                          if (showContinueVerify) {
+                            changeTemplate('login', '', remail)
                           } else {
-                            const btnSignwall = document.getElementById(
-                              'signwall-nav-btn'
-                            )
-                            if (typeDialog === 'newsletter' && btnSignwall) {
-                              btnSignwall.textContent =
-                                arcSite === SITE_ELCOMERCIO ||
-                                arcSite === SITE_GESTION
-                                  ? 'Bienvenido'
-                                  : 'Mi Perfil'
-                            }
-                            if (showContinueVerify) {
-                              changeTemplate('login', '', remail)
-                            } else {
-                              onClose()
-                            }
+                            setShowStudents(!showStudents)
                           }
-                        }}>
-                        {arcSite === SITE_TROME
-                          ? 'Confirmar Correo'
-                          : 'Continuar'}
-                      </button>
-                    </>
+                        } else {
+                          const btnSignwall = document.getElementById(
+                            'signwall-nav-btn'
+                          )
+                          if (typeDialog === 'newsletter' && btnSignwall) {
+                            btnSignwall.textContent =
+                              arcSite === SITE_ELCOMERCIO ||
+                              arcSite === SITE_GESTION
+                                ? 'Bienvenido'
+                                : 'Mi Perfil'
+                          }
+                          if (showContinueVerify) {
+                            changeTemplate('login', '', remail)
+                          } else {
+                            onClose()
+                          }
+                        }
+                      }}>
+                      Continuar
+                    </button>
                   )}
                   {showContinueVerify && (
                     <p
@@ -802,12 +776,6 @@ const FormRegister = ({
                     </p>
                   )}
                 </>
-              )}
-              {showConfirm && isTromeOrganic && (
-                <p className="signwall-inside_forms-text-note">
-                  Al hacer click estarás aceptando los Términos y <br />{' '}
-                  condiciones y la Política de privacidad.
-                </p>
               )}
             </form>
           )}
