@@ -1,18 +1,19 @@
 import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import PropTypes from 'prop-types'
 import * as React from 'react'
 import { FC } from 'types/features'
 
 // import { getAssetsPath } from '../../../utilities/assets'
-import { verifyUserPromotionTrome } from './_dependencies/scripts'
+import { verifyUserPromotion } from './_dependencies/scripts'
 
 const classes = {
-  container:
-    'justify-center w-full col-1 position-relative text-center flex cursor-pointer',
+  container: 'justify-center w-full col-1 position-relative text-center flex',
   text: 'font-bold',
-  respond: 'pt-20 top-0 right-0 bottom-0 left-0 w-full object-cover',
-  respondT: 'pt-40 top-0 right-0 bottom-0 left-0 w-full object-cover',
-  respondmessage: 'pb-20 top-0 right-0 bottom-0 left-0 w-full object-cover',
+  containerMovil: 'cursor-pointer flex justify-center items-center',
+  respond: 'top-0 right-0 bottom-0 left-0 w-full object-cover',
+  respondmessage:
+    'pb-20 top-0 right-0 bottom-0 left-0 w-full object-cover font-bold',
 }
 
 /**
@@ -31,81 +32,83 @@ const classes = {
  * PARA LA VERSION 2.0 DEL NUEVO DISEÑO DE TROME DEBE ESTAR EN ESTA RUTA:
  * `src/websites/trome/scss/home-v2/features/_subscribe-promo.scss`
  */
-const CardPromotion: FC = () => {
+
+interface SubscribePromoProps {
+  customFields?: {
+    pathToPromotion?: string
+    disableMiniVersion?: boolean
+  }
+}
+
+const CardPromotion: FC<SubscribePromoProps> = ({ customFields }) => {
+  const { pathToPromotion = '', disableMiniVersion = true } = customFields || {}
+
   const { arcSite, /* contextPath, */ isAdmin } = useAppContext()
   const { siteName } = getProperties(arcSite)
 
-  const containerId = 'promotion'
-  const subContainerId = 'promotion-subcontainer'
-  const messageBannerId = 'message-banner'
-  const metroImageId = 'logo-metro'
-  const metroBenefitsId = 'logo-metro-bf'
-  const messageMovilId = 'message-movil-banner'
+  const titleId = 'promotion-title-id'
+  const subtitleId = 'promotion-subtitle-id'
+  const btnBannerId = 'btn-banner-id'
+
+  // en caso se llame al caso mini version
+  const containerMovilId = 'promotion-movil-id'
+  const messageMovilId = 'message-movil-Id'
+
+  const isMini = !disableMiniVersion ? '-mini' : ''
 
   return (
-    <div id={containerId} className={classes.container}>
-      <div
-        id={subContainerId}
-        className="promotion"
-        style={{ backgroundColor: '#f29b1a' }}>
+    <div className={classes.container}>
+      <div className={`promotion${isMini}`}>
+        <p id={titleId} className={`promotion${isMini}__title`}>
+          FORMA PARTE DEL
+        </p>
         <div className={classes.respond}>
-          <img
-            id={metroImageId}
-            className={`${isAdmin ? '' : 'lazy'} promotion__img-first`}
-            src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-            data-src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/metrologo.png?v=1637254479"
-            alt="metro logo"
-          />
-          <img
-            id={metroBenefitsId}
-            className={`${isAdmin ? '' : 'lazy'} promotion__img-first`}
-            src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-            data-src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/metro-beneficios.png?v=1637254479"
-            alt="metro logo"
-            style={{
-              display: 'none',
-            }}
-          />
-        </div>
-
-        <div className={classes.respondT}>
           <img
             src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
             data-src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/tromecard.png?v=1637254479"
             loading="lazy"
             alt={`Logo ${siteName}`}
-            className={`${isAdmin ? '' : 'lazy'} promotion__img-second`}
-            style={{
-              padding: '5px',
-              background: '#8d8d8d',
-              border: '1px solid',
-              borderColor: '#CCCCCC #666666 #666666 #CCCCCC',
-            }}
+            className={`${
+              isAdmin ? '' : 'lazy'
+            } promotion${isMini}__header-img`}
           />
         </div>
-
-        <div className={`promotion__msg ${classes.respondmessage}`}>
-          <p
-            id={messageBannerId}
-            className={`promotion__msg-banner ${classes.text}`}>
-            Registrate y accede a tus descuentoss
+        <p id={subtitleId} className={`promotion${isMini}__title`}>
+          Y ACCEDE A BENEFICIOS EXCLUSIVOS EN
+        </p>
+        <div className={classes.respond}>
+          <img
+            className={`${isAdmin ? '' : 'lazy'} promotion${isMini}__metro`}
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+            data-src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/metrologo.png?v=1637254479"
+            alt="metro logo"
+          />
+        </div>
+        <button
+          id={btnBannerId}
+          type="button"
+          className={`promotion${isMini}__btn ${classes.respondmessage}`}>
+          REGÍSTRATE
+        </button>
+      </div>
+      {!disableMiniVersion && (
+        <div
+          id={containerMovilId}
+          className={`promotion__movil ${classes.containerMovil}`}>
+          <p id={messageMovilId} className="promotion__movil-msg">
+            Super descuentos en Metro si formas parte de ClubTrome
           </p>
         </div>
-      </div>
-      <div className="promotion__movil flex justify-center items-center">
-        <p id={messageMovilId} className="promotion__movil-msg">
-          Super descuentos en Metro si formas parte de ClubTrome
-        </p>
-      </div>
+      )}
       <script
         dangerouslySetInnerHTML={{
-          __html: verifyUserPromotionTrome(
-            containerId,
-            subContainerId,
-            messageBannerId,
-            metroImageId,
-            metroBenefitsId,
-            messageMovilId
+          __html: verifyUserPromotion(
+            titleId,
+            subtitleId,
+            btnBannerId,
+            containerMovilId,
+            messageMovilId,
+            pathToPromotion
           ),
         }}
       />
@@ -117,3 +120,18 @@ CardPromotion.label = 'caja promo metro'
 CardPromotion.static = true
 
 export default CardPromotion
+
+CardPromotion.propTypes = {
+  customFields: PropTypes.shape({
+    pathToPromotion: PropTypes.string.tag({
+      name: 'URI para redireccionar a la cuponera',
+      description: 'Ejemplo: /cuponera-trome',
+      group: 'configuración',
+    }),
+    disableMiniVersion: PropTypes.bool.tag({
+      name: 'Desactivar versión mini del banner',
+      defaultValue: true,
+      group: 'configuración',
+    }),
+  }),
+}

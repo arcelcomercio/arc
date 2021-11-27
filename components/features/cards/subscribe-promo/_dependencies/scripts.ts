@@ -1,46 +1,55 @@
-/* document.addEventListener('DOMContentLoaded', () => {
+/*
+document.addEventListener('DOMContentLoaded', () => {
   requestIdle(() => {
     const localProfile = JSON.parse(
       window.localStorage.getItem('ArcId.USER_PROFILE')
     )
     const { uuid = '' } = localProfile || {}
 
-    const promotionTrome = document.getElementById('<<containerBanner>>')
-    const promotionSubCont = document.getElementById('<<subcontainerBanner>>')
-    const messageBanner = document.getElementById('<<messageContainer>>')
-    const metroLogo = document.getElementById('<<metroLogo>>')
-    const metroLogoBenefits = document.getElementById('<<metroLogoBenefits>>')
-    const messageMovilBanner = document.getElementById('<<messageMovil>>')
+    const msgTitle = document.getElementById('<<titleId>>')
+    const msgSubtitle = document.getElementById('<<subtitleId>>')
+    const msgBtnBanner = document.getElementById('<<messageBtnId>>')
+    const containerMovil = document.getElementById('<<containerMovilId>>')
+    const messageMovilBanner = document.getElementById('<<messageMovilId>>')
     if (uuid) {
-      promotionTrome?.addEventListener('click', () => {
-        window.location.href = '/cuponera-metro'
+      const urlLogged = '<<urlCuponera>>'
+      msgBtnBanner.addEventListener('click', () => {
+        window.location.href = urlLogged
       })
-      promotionSubCont.style.backgroundColor = '#598f2d'
-      messageBanner.innerHTML = 'Haz click y accede a tus beneficios'
-      metroLogo.style.display = 'none'
-      metroLogoBenefits.style.display = 'initial'
+      containerMovil.addEventListener('click', () => {
+        window.location.href = urlLogged
+      })
+      msgTitle.innerHTML = ''
+      msgSubtitle.innerHTML = 'ACCEDE A TUS BENEFICIOS EXCLUSIVOS'
+      msgBtnBanner.innerHTML = 'AQUÍ'
       messageMovilBanner.innerHTML =
         '¡Presiona aquí y accede a estos increíbles descuentos!'
     } else {
-      promotionTrome.addEventListener('click', () => {
-        window.location.href = '/signwall/?outputType=subscriptions&banner=1'
+      const urlNoLogged = '/signwall/?outputType=subscriptions&banner=1'
+      msgBtnBanner.addEventListener('click', () => {
+        window.location.href = urlNoLogged
+      })
+      containerMovil.addEventListener('click', () => {
+        window.location.href = urlNoLogged
       })
     }
   })
-}) */
+})
 
-export const verifyUserPromotionTrome = (
-  container: string,
-  subcontainer: string,
-  message: string,
-  imgLogo: string,
-  imgLogo2: string,
-  messageMovil: string
+*/
+
+export const verifyUserPromotion = (
+  titleId: string,
+  subtitleId: string,
+  btnBannerId: string,
+  containerMovilId: string,
+  messageMovilId: string,
+  urlCuponera: string
 ): string =>
-  `"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=(JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{}).uuid,n=void 0===e?"":e,t=document.getElementById("<<containerBanner>>"),o=document.getElementById("<<subcontainerBanner>>"),i=document.getElementById("<<messageContainer>>"),d=document.getElementById("<<metroLogo>>"),c=document.getElementById("<<metroLogoBenefits>>"),e=document.getElementById("<<messageMovil>>");n?(null!=t&&t.addEventListener("click",function(){window.location.href="/cuponera-metro"}),o.style.backgroundColor="#598f2d",i.innerHTML="Haz click y accede a tus beneficios",d.style.display="none",c.style.display="initial",e.innerHTML="¡Presiona aquí y accede a estos increíbles descuentos!"):t.addEventListener("click",function(){window.location.href="/signwall/?outputType=subscriptions&banner=1"})})});`
-    .replace('<<containerBanner>>', container)
-    .replace('<<subcontainerBanner>>', subcontainer)
-    .replace('<<messageContainer>>', message)
-    .replace('<<metroLogo>>', imgLogo)
-    .replace('<<metroLogoBenefits>>', imgLogo2)
-    .replace('<<messageMovil>>', messageMovil)
+  `"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e,n,t=(JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{}).uuid,i=void 0===t?"":t,d=document.getElementById("<<titleId>>"),o=document.getElementById("<<subtitleId>>"),c=document.getElementById("<<messageBtnId>>"),r=document.getElementById("<<containerMovilId>>"),t=document.getElementById("<<messageMovilId>>");i?(e="<<urlCuponera>>",c.addEventListener("click",function(){window.location.href=e}),r.addEventListener("click",function(){window.location.href=e}),d.innerHTML="",o.innerHTML="ACCEDE A TUS BENEFICIOS EXCLUSIVOS",c.innerHTML="AQUÍ",t.innerHTML="¡Presiona aquí y accede a estos increíbles descuentos!"):(n="/signwall/?outputType=subscriptions&banner=1",c.addEventListener("click",function(){window.location.href=n}),r.addEventListener("click",function(){window.location.href=n}))})});`
+    .replace('<<titleId>>', titleId)
+    .replace('<<subtitleId>>', subtitleId)
+    .replace('<<messageBtnId>>', btnBannerId)
+    .replace('<<containerMovilId>>', containerMovilId)
+    .replace('<<messageMovilId>>', messageMovilId)
+    .replace('<<urlCuponera>>', urlCuponera)
