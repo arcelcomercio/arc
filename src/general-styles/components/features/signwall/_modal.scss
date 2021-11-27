@@ -867,9 +867,6 @@
         font-weight: bold;
         text-transform: uppercase;
       }
-      // @media (--subs-mobile) {
-      //   margin-top: 0;
-      // }
     }
 
     &-cont-trome-register {
@@ -887,6 +884,9 @@
 
       .header-img {
         width: 235px;
+        @media screen and (max-width: 300px) {
+          width: 100%;
+        }
       }
 
       .subtitle-register {
@@ -903,12 +903,24 @@
         padding: 0px;
         height: 50px;
         width: 230px;
+        @media screen and (max-width: 300px) {
+          width: 100%;
+        }
+        &-img {
+          width: 230px;
+          @media screen and (max-width: 300px) {
+            width: 100%;
+          }
+        }
       }
 
       .block-list {
         padding-top: 10px;
         display: inline-block;
         columns: 2;
+        @media screen and (max-width: 300px) {
+          width: 100%;
+        }
       }
       .block__benefits {
         padding: 5px 20px 4px;
@@ -916,6 +928,15 @@
         @media screen and (max-width: 360px) {
           padding-right: 0;
           padding-left: 0;
+        }
+        @media screen and (max-width: 300px) {
+          width: 100%;
+        }
+        &-img {
+          width: 98px;
+          @media screen and (max-width: 300px) {
+            width: 100%;
+          }
         }
       }
     }

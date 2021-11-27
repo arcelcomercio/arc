@@ -106,7 +106,7 @@ const FormIntroFreeTrome = ({ typeDialog, checkModal = (i) => i }) => {
                     checkModal()
                   }}>
                   <img
-                    style={{ width: '230px' }}
+                    className="button__continue-img"
                     src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/SW_Club_Trome_0006_registrate-gratis.png?v=1637792483"
                     alt=""
                   />
@@ -118,7 +118,11 @@ const FormIntroFreeTrome = ({ typeDialog, checkModal = (i) => i }) => {
                 {arcSite
                   ? benefits?.trome.map(({ benefit, description }) => (
                       <div key={description} className="block__benefits">
-                        <img src={benefit} alt={description} />
+                        <img
+                          className="block__benefits-img"
+                          src={benefit}
+                          alt={description}
+                        />
                       </div>
                     ))
                   : null}

@@ -270,6 +270,15 @@ const FormRegister = ({
         )
         setCookie('lostEmail', remail, 1)
       })
+      .finally(() => {
+        // eliminamos la noticia premium del storage en caso
+        // el typedialog no sea premium
+        if (typeDialog !== 'premium') {
+          if (isStorageAvailable('localStorage')) {
+            window.localStorage.removeItem('premium_last_url')
+          }
+        }
+      })
   }
 
   const getListSubs = () =>
@@ -287,8 +296,6 @@ const FormRegister = ({
       return checkEntitlement
     })
 
-  // agregado despues de pasar test por default/form_login
-  // es un codigo diferente al de login
   const unblockContent = () => {
     setShowUserWithSubs(true) // tengo subs
     const divPremium = document.getElementById('contenedor')
@@ -689,11 +696,31 @@ const FormRegister = ({
                                   }`,
                                   `web_${typeDialog}_boton_sigue_navegando`
                                 )
-                                if (isStorageAvailable('sessionStorage')) {
+                                // validamos para cuando sea una nota premium
+                                if (
+                                  isStorageAvailable('localStorage') &&
+                                  isStorageAvailable('sessionStorage')
+                                ) {
+                                  const premiumLastUrl = window.localStorage.getItem(
+                                    'premium_last_url'
+                                  )
                                   const paywallLastUrl = window.sessionStorage.getItem(
                                     'paywall_last_url'
                                   )
-                                  if (paywallLastUrl && paywallLastUrl !== '') {
+                                  if (
+                                    premiumLastUrl &&
+                                    premiumLastUrl !== '' &&
+                                    activeRegisterwall
+                                  ) {
+                                    window.location.href = premiumLastUrl
+                                    // removiendo del local la nota premium
+                                    window.localStorage.removeItem(
+                                      'premium_last_url'
+                                    )
+                                  } else if (
+                                    paywallLastUrl &&
+                                    paywallLastUrl !== ''
+                                  ) {
                                     window.location.href = paywallLastUrl
                                   } else {
                                     onClose()
