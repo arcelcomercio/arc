@@ -19,24 +19,28 @@ const FormIntroFreeTrome = ({ typeDialog, checkModal = (i) => i }) => {
 
   const benefits = {
     trome: [
+      // {
+      //   benefit: 'https://cdn.shopify.com/s/files/1/0449/4229/5199/files/maquina_ganadora.png?v=1638049768',
+      //   description: 'maquinita-ganadora'
+      // },
       {
         benefit:
-          'https://cdn.shopify.com/s/files/1/0449/4229/5199/files/SW_Club_Trome_0003_logo_2.png?v=1637798412',
+          'https://cdn.shopify.com/s/files/1/0449/4229/5199/files/beneficios_metro.png?v=1638049768',
         description: 'beneficios-metro',
       },
       {
         benefit:
-          'https://cdn.shopify.com/s/files/1/0449/4229/5199/files/SW_Club_Trome_0001_logo_4.png?v=1637798412',
+          'https://cdn.shopify.com/s/files/1/0449/4229/5199/files/la_fe_de_cuto.png?v=1638049768',
         description: 'la-fe-de-cuto',
       },
       {
         benefit:
-          'https://cdn.shopify.com/s/files/1/0449/4229/5199/files/SW_Club_Trome_0002_Logo_3.png?v=1637798412',
+          'https://cdn.shopify.com/s/files/1/0449/4229/5199/files/cafe_noticias.png?v=1638049768',
         description: 'cafe-noticias',
       },
       {
         benefit:
-          'https://cdn.shopify.com/s/files/1/0449/4229/5199/files/SW_Club_Trome_0000_logo_5.png?v=1637798412',
+          'https://cdn.shopify.com/s/files/1/0449/4229/5199/files/extasiados.png?v=1638049768',
         description: 'extasiados',
       },
     ],
