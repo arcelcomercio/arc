@@ -14,14 +14,21 @@ const classes = {
   footer: 'metro-footer',
   // download: 'metro-download',
   // share: 'metro-share',
-  coupon: 'coupon',
+  coupon: 'coupon position-relative',
+  couponBgImage: 'coupon-bgimage',
   couponHead: 'coupon-head',
   couponAmount: 'coupon-amount',
   couponType: 'coupon-type',
   couponText: 'coupon-discount',
   couponTitle: 'coupon-title',
   couponCode: 'coupon-code',
-  // couponLegal: 'coupon-legal',
+  couponLegal: 'coupon-legal',
+
+  // cambios de Pol
+  minicontainer: 'flex flex-col items-center position-absolute w-full h-full',
+  logo: 'mt-25',
+  imagen:
+    'position-absolute top-0 right-0 bottom-0 left-0 w-full h-full object-cover',
 }
 
 interface StaticsPromoMetroProps {
@@ -119,6 +126,11 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
     if (!socialTitle) setSocialTitle(window.document.title || '')
   }, [])
 
+  // para girar la carta
+  function rotateCard(code: string) {
+    document.getElementById(code)?.classList.toggle('do-flip')
+  }
+
   return (
     <div className={classes.container}>
       <h1 className={classes.title}>{title}</h1>
@@ -126,16 +138,50 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
       <ul className={classes.grid}>
         {coupons &&
           coupons.map((coupon) => (
-            <li className={classes.coupon} key={coupon.code}>
-              <strong className={classes.couponHead}>
-                <span className={classes.couponAmount}>{coupon.discount}</span>
-                <span className={classes.couponType}>
-                  &nbsp;{coupon.discountType}
-                </span>
-                <span className={classes.couponText}>&nbsp;de descuento</span>
-              </strong>
-              <h3 className={classes.couponTitle}>{coupon.title}</h3>
-              <span className={classes.couponCode}>{coupon.code}</span>
+            <li
+              id={`flip-card-${coupon.code}`}
+              className={`${classes.coupon} flip-card`}
+              key={coupon.code}>
+              <div className="flip-card-front">
+                <img
+                  src={coupon.image}
+                  alt="logo"
+                  loading="lazy"
+                  className={`${classes.imagen} ${classes.couponBgImage}`}
+                />
+                <div className={classes.minicontainer}>
+                  <strong className={classes.couponHead}>
+                    <span className={classes.couponAmount}>
+                      {coupon.discount}
+                    </span>
+                    <span className={classes.couponType}>
+                      &nbsp;{coupon.discountType}
+                    </span>
+                  </strong>
+                  <strong>
+                    <p className={classes.couponText}>&nbsp;de descuento</p>
+                  </strong>
+                  <h3 className={classes.couponTitle}>{coupon.title}</h3>
+                  <span className={classes.couponCode}>{coupon.code}</span>
+                  <button
+                    type="button"
+                    onClick={() => rotateCard(`flip-card-${coupon.code}`)}>
+                    Girar
+                  </button>
+                </div>
+              </div>
+              <div className="flip-card-back">
+                <div className={`${classes.coupon}`}>
+                  <div className={`${classes.couponLegal}`}>
+                    Legal
+                    <button
+                      type="button"
+                      onClick={() => rotateCard(`flip-card-${coupon.code}`)}>
+                      Girar
+                    </button>
+                  </div>
+                </div>
+              </div>
             </li>
           ))}
       </ul>
