@@ -6,6 +6,7 @@ import Ads from '../../../global-components/ads'
 import StoryGrid from '../../../global-components/story-grid'
 import StoryItem from '../../../global-components/story-new'
 import ConfigParams from '../../../utilities/config-params'
+import { SITE_TROME } from '../../../utilities/constants/sitenames'
 import { reduceWord } from '../../../utilities/helpers'
 import {
   includeCredits,
@@ -22,6 +23,7 @@ const classes = {
   listadoContent: 'stories-news__list',
   listadoSeeMore: 'story-item__btn flex justify-center mt-20 uppercase',
   adsBox: 'flex items-center flex-col no-desktop pb-20',
+  midAdsBox: 'content_gpt_middle1 col-3',
 }
 
 const StoriesListNew = (props) => {
@@ -44,6 +46,8 @@ const StoriesListNew = (props) => {
   const {
     storyConfig: { contentService = '', contentConfigValues = {} } = {},
     seeMoreLink,
+    showMiddle,
+    adsMiddlePosition,
   } = customFieldsProps
 
   const data =
@@ -165,6 +169,13 @@ const StoriesListNew = (props) => {
                     />
                   </div>
                 )}
+                {showMiddle &&
+                  arcSite === SITE_TROME &&
+                  index === adsMiddlePosition - 1 && (
+                    <div className={classes.midAdsBox}>
+                      <div id="gpt_middle1" className="flex justify-center" />
+                    </div>
+                  )}
               </>
             )
           })}
