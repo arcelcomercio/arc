@@ -335,6 +335,11 @@ promo_items{
     caption
     width
     height
+    credits {
+      by {
+        name
+      }
+    }
     resized_urls { 
       large
       landscape_md
