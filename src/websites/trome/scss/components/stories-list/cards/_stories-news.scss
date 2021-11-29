@@ -33,14 +33,29 @@
     }
   }
 
-  &__btn:hover {
-    background-color: #ff8303;
-    color: #fff;
-    border: 1px solid #fff;
-    text-decoration: none;
+  @media (hover: hover) {
+    &__btn:hover {
+      background-color: #ff8303;
+      color: #fff;
+      border: 1px solid #fff;
+      text-decoration: none;
 
-    .spinner__svg {
-      stroke: #fff;
+      .spinner__svg {
+        stroke: #fff;
+      }
+    }
+  }
+
+  @media (hover: none) {
+    &__btn:active {
+      background-color: #ff8303;
+      color: #fff;
+      border: 1px solid #fff;
+      text-decoration: none;
+
+      .spinner__svg {
+        stroke: #fff;
+      }
     }
   }
 }

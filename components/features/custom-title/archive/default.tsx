@@ -2,7 +2,6 @@ import { useAppContext } from 'fusion:context'
 import React, { useState } from 'react'
 import { FC } from 'types/features'
 
-import { getVerboseDate } from '../../../utilities/date-time/dates'
 import ArchiveCalendar from '../../widgets/archive-calendar/default'
 import customFields from './_dependencies/custom-fields'
 
@@ -21,30 +20,19 @@ interface Props {
 
 const CustomTitleArchive: FC<Props> = (props) => {
   // const { globalContentConfig, arcSite } = useAppContext()
-  const { globalContentConfig } = useAppContext()
+  const { arcSite } = useAppContext()
   const [showCalendar, setShowCalendar] = useState(false)
 
-  const { customFields: { customText, isUppercase } = {} } = props
+  const {
+    customFields: { customText = 'Sin Título!', isUppercase } = {},
+  } = props
 
   const handleClick = () => {
     setShowCalendar(!showCalendar)
   }
 
-  const getArchivoTitle = () => {
-    const { source } = globalContentConfig || {}
-    if (source !== 'story-feed-by-section-and-date') {
-      return undefined
-    }
-
-    const { query: { date = '' } = {} }: { query?: { date?: any } } =
-      globalContentConfig || {}
-
-    if (date === '' || !date.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)) {
-      return 'ÚLTIMO MINUTO'
-    }
-
-    return `ARCHIVO, ${getVerboseDate({ date, showTime: false }).toUpperCase()}` // ARCHIVO, LUNES 03 DE FEBRERO DEL 2018
-  }
+  const formatTitle = (title: string) =>
+    title.replace('ARCHIVO DE TODAS,', 'NOTICIAS')
 
   return (
     <>
@@ -53,7 +41,7 @@ const CustomTitleArchive: FC<Props> = (props) => {
           showCalendar ? 'custom-title-archive--active' : ''
         }`}>
         <h1 className={classes.title}>
-          {customText || getArchivoTitle() || 'Título'}
+          {arcSite === 'trome' ? formatTitle(customText) : customText}
         </h1>
         <button className={classes.button} type="button" onClick={handleClick}>
           <span className="icon">
