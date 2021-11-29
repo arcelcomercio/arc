@@ -13,21 +13,19 @@
     background-color: #000;
     border-radius: 50%;
     border: 2px solid #ffcb05;
+    width: 50px !important;
+    height: 50px !important;
+    .jw-svg-icon {
+      width: 35px !important;
+      height: 35px !important;
+      color: #ffcb05;
+    }
   }
   .jw-display-container {
     text-align: left;
     margin-top: auto;
-  }
-  .jw-display-icon-container {
-    margin: 0 5px;
-  }
-  .jw-icon {
-    width: 60px !important;
-    height: 60px !important;
-  }
-  .jw-svg-icon {
-    width: 40px !important;
-    height: 40px !important;
-    color: #ffcb05;
+    .jw-display-icon-container {
+      margin: 0 5px;
+    }
   }
 }
