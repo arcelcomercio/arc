@@ -4,14 +4,19 @@ import * as React from 'react'
 import { FC } from 'types/features'
 
 import { getAssetsPath } from '../../../utilities/assets'
+import {
+  SITE_DIARIOCORREO,
+  SITE_TROME,
+} from '../../../utilities/constants/sitenames'
 import CardSubscribeAnonymus from './_children/anonymus'
 import CardSubscribeRegister from './_children/register'
 import { handleUserStatus } from './_dependencies/scripts'
 
 const classes = {
-  container: ' flex justify-center w-full row-1 col-1 position-relative',
+  container:
+    'subscribe flex justify-center w-full row-1 col-1 position-relative',
   minicontainer: 'flex flex-col items-center position-absolute w-full h-full',
-  logo: 'mt-25',
+  logo: 'subscribe__logo mt-25',
   text: 'bold',
   button: 'rounded-sm pt-15 pb-15 bold',
   imagen:
@@ -37,34 +42,37 @@ const CardSubscribe: FC = () => {
     signwall: { mainLogo, mainColorLink },
   } = getProperties(arcSite)
 
+  const isCorreo = arcSite === SITE_DIARIOCORREO
+  const isTrome = arcSite === SITE_TROME
+
   return (
-    <div
-      className={classes.container}
-      style={{
-        border: `3.5px solid ${mainColorLink}`,
-      }}>
-      <img
-        className={`${isAdmin ? '' : 'lazy'} ${classes.imagen}`}
-        data-src={`${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/boletin.png`}
-        src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-        alt="fondo boletin"
-      />
-      <div className={classes.minicontainer}>
+    <div className={classes.container}>
+      {isCorreo ? (
         <img
-          src={`${getAssetsPath(
+          className={`${isAdmin ? '' : 'lazy'} ${classes.imagen}`}
+          data-src={`${getAssetsPath(
             arcSite,
             contextPath
-          )}/resources/dist/${arcSite}/images/${mainLogo}?d=1`}
+          )}/resources/dist/${arcSite}/images/boletin.png`}
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+          alt="fondo boletin"
+        />
+      ) : null}
+      <div className={classes.minicontainer}>
+        <img
+          src={
+            isTrome
+              ? 'https://cdn.shopify.com/s/files/1/0449/4229/5199/files/tromecard.png?v=1637254479'
+              : `${getAssetsPath(
+                  arcSite,
+                  contextPath
+                )}/resources/dist/${arcSite}/images/${mainLogo}?d=1`
+          }
           loading="lazy"
-          width={90}
-          height={104}
           alt={`Logo ${siteName}`}
           className={classes.logo}
         />
-        <CardSubscribeAnonymus mainColorLink={mainColorLink} />
+        <CardSubscribeAnonymus arcSite={arcSite} mainColorLink={mainColorLink} />
         <CardSubscribeRegister
           arcSite={arcSite}
           contextPath={contextPath}
