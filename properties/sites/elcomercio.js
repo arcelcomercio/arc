@@ -171,6 +171,7 @@ export default {
   activeDataTreatment: true,
   activePhoneRegister: true,
   activeAuthSocialNative: true,
+  activePiano: true,
   signwall: {
     mainColorBg: '#f7c600',
     mainColorTxt: '#000000',
@@ -197,5 +198,9 @@ export default {
   jwplayersMatching: {
     playerId: 'fB2Mdnsl',
     videoId: '59FMFuA0',
+  },
+  pianoID: {
+    sandbox: 'PeVZORGJsu',
+    prod: '',
   },
 }

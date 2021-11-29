@@ -25,6 +25,7 @@ declare module 'fusion:environment' {
     PAGO_EFECTIVO_ID_GESTION: string
     OPTA_SCRAPING_API_DEV: string
     OPTA_SCRAPING_TOKEN_DEV: string
+    PIANO_URL: string
   }
 
   const Environment: Env
@@ -54,5 +55,6 @@ declare module 'fusion:environment' {
   export const PAGO_EFECTIVO_ID_GESTION: string
   export const OPTA_SCRAPING_API_DEV: string
   export const OPTA_SCRAPING_TOKEN_DEV: string
+  export const PIANO_URL: string
   export default Environment
 }

@@ -1,9 +1,13 @@
 import * as React from 'react'
 
+import PianoAdblock from '../piano/adblock'
+import PianoCore from '../piano/core'
+import PianoTags from '../piano/tags'
 import { getPreroll } from '../utilities/ads/preroll'
 import { env } from '../utilities/arc/env'
 import { getAssetsPath } from '../utilities/assets'
-import { FREE, METERED, PREMIUM } from '../utilities/constants/content-tiers'
+import { ContentTiers } from '../utilities/constants/content-tiers'
+import { PROD } from '../utilities/constants/environment'
 import {
   SITE_DEPOR,
   SITE_ELBOCON,
@@ -20,6 +24,7 @@ import {
   MINUTO_MINUTO,
   PARALLAX,
 } from '../utilities/constants/subtypes'
+import { localISODate } from '../utilities/date-time/dates'
 import { deleteQueryString } from '../utilities/parse/queries'
 import { addSlashToEnd } from '../utilities/parse/strings'
 import StoryData from '../utilities/story-data'
@@ -115,8 +120,9 @@ const LiteOutput = ({
   const isPreview = /^\/preview\//.test(requestUri)
   const isStory = getIsStory({ metaValue, requestUri })
   const classBody = isStory
-    ? `story ${promoItems.basic_gallery && 'basic_gallery'} ${arcSite} ${storySectionPath.split('/')[1]
-    } ${subtype} `
+    ? `story ${promoItems.basic_gallery && 'basic_gallery'} ${arcSite} ${
+        storySectionPath.split('/')[1]
+      } ${subtype} `
     : ''
 
   const metaSiteData = {
@@ -194,8 +200,7 @@ const LiteOutput = ({
           s_bbcws('language', 'mundo');
   s_bbcws('track', 'pageView');`
 
-  const isPremium = contentCode === PREMIUM
-  const htmlAmpIs = isPremium ? '' : true
+  const isPremium = contentCode === ContentTiers.Premium
   const link = deleteQueryString(requestUri).replace(/\/homepage[/]?$/, '/')
 
   const parameters = {
@@ -287,11 +292,13 @@ const LiteOutput = ({
     arcEnv: CURRENT_ENVIRONMENT,
     getdata: new Date().toISOString().slice(0, 10),
   }
-  const sectionAds = getSectionPath({ requestUri })
+  const sectionAds = getSectionPath()
 
-  const premiumValue = getPremiumValue === PREMIUM ? true : getPremiumValue
-  const isPremiumFree = premiumValue === FREE ? 2 : premiumValue
-  const isPremiumMete = isPremiumFree === METERED ? false : isPremiumFree
+  const premiumValue =
+    getPremiumValue === ContentTiers.Premium ? true : getPremiumValue
+  const isPremiumFree = premiumValue === ContentTiers.Free ? 2 : premiumValue
+  const isPremiumMete =
+    isPremiumFree === ContentTiers.Metered ? false : isPremiumFree
   const vallaSignwall = isPremiumMete === 'vacio' ? false : isPremiumMete
   const isIframeStory = requestUri.includes('/carga-continua')
   const iframeStoryCanonical = `${siteProperties.siteUrl}${deleteQueryString(
@@ -319,10 +326,11 @@ const LiteOutput = ({
             {(arcSite === 'trome' || arcSite === 'depor') && isStory ? (
               <meta
                 name="robots"
-                content={`${/-agnc-/.test(requestUri)
+                content={`${
+                  /-agnc-/.test(requestUri)
                     ? 'noindex, follow'
                     : 'index, follow,max-image-preview:large'
-                  }`}
+                }`}
               />
             ) : (
               <meta
@@ -350,7 +358,7 @@ const LiteOutput = ({
                 <meta name="DC.language" scheme="RFC1766" content="es" />
               </>
             )}
-            {isStory && htmlAmpIs && subtype !== PARALLAX && (
+            {isStory && !isPremium && subtype !== PARALLAX && (
               <link
                 rel="amphtml"
                 href={`${siteProperties.siteUrl}${addSlashToEnd(
@@ -449,7 +457,7 @@ const LiteOutput = ({
           dangerouslySetInnerHTML={{
             /**
              * if(typeof window !== "undefined"){
-                window.requestIdle = window.requestIdleCallback ||
+             window.requestIdle = window.requestIdleCallback ||
                 function (cb) {
                   const start = Date.now();
                   return setTimeout(function () {
@@ -461,19 +469,19 @@ const LiteOutput = ({
                     });
                   }, 1);
                 };
-
+                
                 window.addPrefetch = function addPrefetch(kind, url, as) {
                   const linkElem = document.createElement('link');
                   linkElem.rel = kind;
                   linkElem.href = url;
                   if (as) {
-                      linkElem.as = as;
+                    linkElem.as = as;
                   }
                   linkElem.crossOrigin = 'true';
                   document.head.append(linkElem);
                 }
               }
-            */
+              */
             __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){var n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)},window.addPrefetch=function(e,n,t){var i=document.createElement("link");i.rel=e,i.href=n,t&&(i.as=t),i.crossOrigin="true",document.head.append(i)});`,
           }}
         />
@@ -509,6 +517,19 @@ const LiteOutput = ({
             <TwitterCards
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...twitterCardsData}
+            />
+            <PianoAdblock disable={!siteProperties.activePiano} />
+            <PianoTags
+              tags={tags.map((tag) => tag.slug)}
+              debug={env !== PROD}
+              contentTier={contentCode}
+              storyId={globalContent?._id}
+              section={sectionAds}
+              publishDate={localISODate(globalContent?.display_date)}
+              author={globalContent?.credits?.by?.[0]?.name}
+              subtype={subtype}
+              paidContent={false}
+              disable={!siteProperties.activePiano}
             />
           </>
         ) : (
@@ -622,8 +643,8 @@ const LiteOutput = ({
           <Libs />
         ) : null}
         {isPremium &&
-          (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
-          !isPreview ? (
+        (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
+        !isPreview ? (
           <script
             src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
               .toISOString()
@@ -654,7 +675,7 @@ const LiteOutput = ({
           </>
         ) : null}
         {arcSite === SITE_PERU21 ||
-          (arcSite === SITE_ELCOMERCIO && requestUri.includes('/mundo/')) ? (
+        (arcSite === SITE_ELCOMERCIO && requestUri.includes('/mundo/')) ? (
           <>
             <script
               type="text/javascript"
@@ -735,13 +756,14 @@ const LiteOutput = ({
           <>
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.preroll='${getPreroll({
-                  section: storySectionPath,
-                  arcSite,
-                  siteDomain: siteProperties.siteDomain,
-                  metaValue,
-                }) || siteProperties.urlPreroll
-                  }'`,
+                __html: `window.preroll='${
+                  getPreroll({
+                    section: storySectionPath,
+                    arcSite,
+                    siteDomain: siteProperties.siteDomain,
+                    metaValue,
+                  }) || siteProperties.urlPreroll
+                }'`,
               }}
             />
             <script
@@ -771,7 +793,7 @@ const LiteOutput = ({
         )}
 
         {metaValue('section_style') !== 'story-v2-standard' &&
-          (subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL) ? (
+        (subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL) ? (
           <script
             dangerouslySetInnerHTML={{
               __html: minutoMinutoScript,
@@ -840,12 +862,12 @@ const LiteOutput = ({
           }
         />
         {arcSite === SITE_ELCOMERCIOMAG ||
-          arcSite === SITE_PERU21 ||
-          arcSite === SITE_TROME ||
-          arcSite === SITE_ELBOCON ||
-          arcSite === SITE_DEPOR ||
-          arcSite === SITE_OJO ||
-          arcSite === SITE_ELCOMERCIO ? (
+        arcSite === SITE_PERU21 ||
+        arcSite === SITE_TROME ||
+        arcSite === SITE_ELBOCON ||
+        arcSite === SITE_DEPOR ||
+        arcSite === SITE_OJO ||
+        arcSite === SITE_ELCOMERCIO ? (
           <script
             defer
             src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()
@@ -905,8 +927,8 @@ const LiteOutput = ({
           </>
         )}
         {enabledPushup &&
-          !requestUri.includes('/publirreportaje/') &&
-          !requestUri.includes('/publireportaje/') ? (
+        !requestUri.includes('/publirreportaje/') &&
+        !requestUri.includes('/publireportaje/') ? (
           <>
             <script
               type="text/javascript"
@@ -915,8 +937,8 @@ const LiteOutput = ({
           </>
         ) : null}
         {vallaSignwall === false &&
-          (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
-          !isPreview ? (
+        (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
+        !isPreview ? (
           <>
             <script
               dangerouslySetInnerHTML={{
@@ -926,21 +948,27 @@ const LiteOutput = ({
             {!isIframeStory && <VallaHtml />}
           </>
         ) : null}
+
         {contentElementsHtml.includes('graphics.afpforum.com') && (
           <script dangerouslySetInnerHTML={{ __html: htmlScript }} />
         )}
-        {isIframeStory && (
+        {isIframeStory ? (
           <script
             defer
             src={deployment(
               `${contextPath}/resources/assets/js/storyIframe.min.js`
             )}
           />
+        ) : (
+          <PianoCore
+            aid={siteProperties.pianoID?.[env]}
+            disable={!siteProperties.activePiano}
+          />
         )}
         {arcSite === 'elcomercio' &&
-          isStory &&
-          metaValue('opta_scraping_path') &&
-          OptaWidgetsFromStory.length > 0 ? (
+        isStory &&
+        metaValue('opta_scraping_path') &&
+        OptaWidgetsFromStory.length > 0 ? (
           <LiveBlogPostingData OptaWidgetsFromStory={OptaWidgetsFromStory} />
         ) : null}
         {/*  <RegisterServiceWorker path={deployment("/sw.js")}/> */}
