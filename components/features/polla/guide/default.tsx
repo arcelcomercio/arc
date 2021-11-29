@@ -37,7 +37,7 @@ const PollaGuide: FC<Props> = (props) => {
     <div className={`polla-guide ${customFields?.type || ''}`}>
       <div className="polla-guide__title-cont">
         <h2>{customFields?.title || 'Copa América'}</h2>
-        <span>{customFields?.subtitle || ' - Fase de grupos'}</span>
+        <span>{customFields?.subtitle}</span>
       </div>
       {customFields?.type === 'with_social' ? (
         <div className="polla-guide__results with_social">
