@@ -157,4 +157,8 @@ export default {
     playerId: 'UQH16oLN',
     videoId: 'z0YAXqp2',
   },
+  pianoID: {
+    sandbox: '6UafT9Fjsu',
+    prod: '',
+  },
 }

@@ -130,6 +130,10 @@ interface SocialNetworks {
   name: string
   url: string
 }
+export interface PianoID {
+  sandbox: string
+  prod: string
+}
 
 export interface SiteProperties {
   siteName: string
@@ -182,4 +186,5 @@ export interface SiteProperties {
   jwplayers: Jwplayers
   jwplayersMatching: JwplayersMatching
   socialNetworks: SocialNetworks[]
+  pianoID: PianoID
 }
