@@ -171,7 +171,7 @@ export default {
   activeDataTreatment: true,
   activePhoneRegister: true,
   activeAuthSocialNative: true,
-  activePiano: false,
+  activePiano: true,
   signwall: {
     mainColorBg: '#f7c600',
     mainColorTxt: '#000000',
