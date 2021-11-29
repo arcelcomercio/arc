@@ -68,11 +68,15 @@ const StoryContentChildImage = ({
       />
       {showCaption ? (
         <figcaption className={`${classImage}${classes.caption}`}>
-          {caption}
-          {' / '}
-          <span className={`${classImage}${classes.authorName}`}>
-            {authorName}
-          </span>
+          {caption}{' '}
+          {metaValue('section_style') === 'story-v2-standard' && (
+            <>
+              <span>{'/ '}</span>
+              <span className={`${classImage}${classes.authorName}`}>
+                {authorName}
+              </span>
+            </>
+          )}
         </figcaption>
       ) : null}
     </figure>
