@@ -1,9 +1,8 @@
 import { useAppContext } from 'fusion:context'
 import React from 'react'
 
-import { SITE_PERU21 } from '../../../../utilities/constants/sitenames'
 import { createResizedParams } from '../../../../utilities/resizer/resizer'
-import { ampHtml,publicidadAmp } from '../../../../utilities/story/helpers-amp'
+import { ampHtml } from '../../../../utilities/story/helpers-amp'
 
 const classes = {
   gallery: 'story-gallery pt-10 pr-20 pl-20 md:pr-0 md:pl-0',
@@ -18,7 +17,7 @@ const classes = {
 }
 
 const StoryHeaderChildAmpGallery = (props) => {
-  const { data, primarySectionLink, adsAmp } = props
+  const { data, dataCustomFields } = props
 
   const { arcSite } = useAppContext()
   const extractImage = (urlImg, presets) => {
@@ -34,24 +33,9 @@ const StoryHeaderChildAmpGallery = (props) => {
     return urlImg
   }
 
-  const publicidadAmpAd = (
-    caja,
-    size = '300x250,320x100,320x50,300x100,300x50'
-  ) => {
-    const namePublicidad = arcSite !== 'peru21g21' ? arcSite : SITE_PERU21
-    const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/${caja}`
-    const prebidSlot = `19186-${namePublicidad}-amp-${caja}`
-    return {
-      dataSlot,
-      prebidSlot,
-      width: '300',
-      height: '250',
-      primarySectionLink,
-      arcSite,
-      movil1: true,
-      size,
-    }
-  }
+  const activeAds = Object.keys(dataCustomFields).filter((prop) =>
+    prop.match(/ampAdLoadBlock(\d)/)
+  )
   return (
     <>
       <div className={classes.gallery}>
@@ -100,39 +84,21 @@ const StoryHeaderChildAmpGallery = (props) => {
                     }}
                   />
                 </div>
-
-                {i === 0 && (
-                  <div
-                    className={classes.adsAmp}
-                    dangerouslySetInnerHTML={publicidadAmp(
-                      publicidadAmpAd('caja2', '320x100,320x50')
-                    )}
-                  />
-                )}
-                {i === 2 && (
-                  <div
-                    className={classes.adsAmp}
-                    dangerouslySetInnerHTML={publicidadAmp(
-                      publicidadAmpAd('caja3', '320x100,320x50,300x1')
-                    )}
-                  />
-                )}
-                {i === 4 && (
-                  <div
-                    className={classes.adsAmp}
-                    dangerouslySetInnerHTML={publicidadAmp(
-                      publicidadAmpAd('caja4', '320x100,320x50')
-                    )}
-                  />
-                )}
-                {i === 6 && (
-                  <div
-                    className={classes.adsAmp}
-                    dangerouslySetInnerHTML={publicidadAmp(
-                      publicidadAmpAd('caja5', '320x100,320x50')
-                    )}
-                  />
-                )}
+                {activeAds.map((el) => {
+                  let htmlPublicidad = ''
+                  if (i === dataCustomFields[el]) {
+                    const matches = el.match(/([0-9])+/)
+                    htmlPublicidad = dataCustomFields[`freeHtml${matches[1]}`]
+                  }
+                  return (
+                    <div
+                      className={classes.adsAmp}
+                      dangerouslySetInnerHTML={{
+                        __html: htmlPublicidad,
+                      }}
+                    />
+                  )
+                })}
               </>
             )
           }

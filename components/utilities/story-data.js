@@ -975,8 +975,9 @@ class StoryData {
 
         activeAds.forEach((el) => {
           if (i === this._customFields[el]) {
+            const matches = el.match(/([0-9])+/)
             dataElements.publicidad = this._customFields[
-              `freeHtml${this._customFields[el]}`
+              `freeHtml${matches[1]}`
             ]
           }
         })
