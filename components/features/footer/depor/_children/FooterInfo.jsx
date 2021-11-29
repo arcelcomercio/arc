@@ -32,6 +32,10 @@ const FooterInfo = ({
   corporateInfo,
   draftingContact = [],
   copyrightText,
+  isBook,
+  bookUrl,
+  bookLogo,
+  isAdmin,
 }) => {
   let listContacs = ''
   contacts.forEach(({ position, name }) => {
@@ -67,6 +71,19 @@ const FooterInfo = ({
       <a itemProp="url" href={legalLinks[2].url} className={classes.footerLink}>
         {legalLinks[2].name}{' '}
       </a>
+      {isBook && (
+        <div className="foot-book__info">
+          <a className={classes.book} href={bookUrl}>
+            <img
+              className={`${isAdmin ? '' : 'lazy'} `}
+              src={isAdmin ? bookLogo : ''}
+              data-src={bookLogo}
+              alt="Libro de reclamaciones"
+              style={{ width: 145 }}
+            />
+          </a>
+        </div>
+      )}
       <p itemProp="description">
         <h5 itemProp="name" className={classes.titleList}>
           {SITE_TITLE}
