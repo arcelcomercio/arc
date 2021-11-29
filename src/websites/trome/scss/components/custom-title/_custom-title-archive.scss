@@ -1,0 +1,86 @@
+.custom-title-archive {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 30px;
+
+  @media (--desktop) {
+    flex-direction: row;
+    padding-top: 30px;
+    padding-bottom: 42px;
+    justify-content: center;
+  }
+
+  &--active {
+    padding-bottom: 0;
+
+    @media (--desktop) {
+      padding-bottom: 42px;
+    }
+  }
+
+  &__title {
+    font-family: $encode-c;
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 29px;
+    color: #a1a1a1;
+    text-align: center;
+    padding: 20px;
+
+    @media (--desktop) {
+      padding: 0 15px;
+      border-right: 1px solid #a1a1a1;
+    }
+  }
+
+  &__button {
+    font-family: $encode-c;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 16px;
+    color: #a1a1a1;
+    background-color: #fff;
+    margin: auto;
+    border: 1px solid #d1d1d1;
+    border-radius: 50px;
+    padding: 10px 22px;
+    z-index: 1;
+    transition: all 0.2s;
+
+    @media (--desktop) {
+      padding: 0 15px;
+      border: none;
+      margin: 0;
+    }
+
+    .icon {
+      display: inline-block;
+      vertical-align: middle;
+      padding-right: 10px;
+      fill: #a1a1a1;
+
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
+
+  &__button:hover {
+    color: #fff;
+    background-color: #ff8303;
+
+    @media (--desktop) {
+      color: #ff8303;
+      background-color: transparent;
+    }
+  }
+
+  &__button:hover .icon {
+    fill: #fff;
+
+    @media (--desktop) {
+      fill: #ff8303;
+    }
+  }
+}

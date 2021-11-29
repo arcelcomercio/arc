@@ -11,6 +11,7 @@ const classes = {
   listClasses: 'sht__list',
   title: 'sht__title',
   category: 'sht__category',
+  related: 'sht__related',
 }
 
 const StoryTitleLite = () => {
@@ -29,6 +30,7 @@ const StoryTitleLite = () => {
     primarySectionLink,
     primarySection,
     contentElementsListOne: { items = [], type = '' } = {},
+    contentElementsQuoteOne,
   } = new StoryData({
     data,
     arcSite,
@@ -41,7 +43,7 @@ const StoryTitleLite = () => {
   return (
     <>
       {arcSite === SITE_DEPOR &&
-      !(/^\/mexico\//.test(requestUri) || /^\/colombia\//.test(requestUri)) ? (
+        !(/^\/mexico\//.test(requestUri) || /^\/colombia\//.test(requestUri)) ? (
         <div id="spc_post_stories" />
       ) : null}
       {arcSite === SITE_DEPOR && (
@@ -80,6 +82,13 @@ const StoryTitleLite = () => {
             </ul>
           )}
           {isStoryV2StandarStyle && <ShareButtons renderScripts />}
+          {arcSite === 'trome' && contentElementsQuoteOne && (
+            <div
+              className={classes.related}
+              dangerouslySetInnerHTML={{ __html: contentElementsQuoteOne }}
+            />
+          )}
+          <PremiumTag isPremium={isPremium} arcSite={arcSite} />
         </>
       )}
     </>
