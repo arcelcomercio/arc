@@ -111,7 +111,6 @@ const customFields = PropTypes.shape({
     group: 'AMP',
     description: 'HTML a renderizar en el espacios de publicidad en AMP',
   }),
-
   ampAdName5: PropTypes.string.tag({
     name: 'Nombre',
     group: 'AMP',
