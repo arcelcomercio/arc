@@ -91,7 +91,7 @@ const AmpOutputType = ({
   //   storyTitleRe ? storyTitleRe.substring(0, 70) : ''
   // } | ${siteProperties.siteTitle.toUpperCase()}`
   const siteTitleSuffix = siteProperties.siteTitle.toUpperCase()
-  const sectionName = requestUri.split('/')[1].toUpperCase()
+  const sectionName = requestUri && requestUri.split('/')[1].toUpperCase()
   const siteTitleSuffixR = siteTitleSuffix.replace('NOTICIAS ', '')
   const title = `${storyTitleRe} | ${sectionName} | ${siteTitleSuffixR}`
 
