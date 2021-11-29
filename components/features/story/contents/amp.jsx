@@ -148,10 +148,15 @@ class StoryContentAmp extends React.PureComponent {
         let publicidad = ''
         activeAds.forEach((el) => {
           if (i === dataCustomFields[el]) {
-            publicidad = dataCustomFields[`freeHtml${dataCustomFields[el]}`]
+            const matches = el.match(/([0-9])+/)
+            publicidad = dataCustomFields[`freeHtml${matches[1]}`]
           }
         })
-        entryHtml = `${entryHtml} ${divContent} ${entry} ${`<div class='text-center ad-amp-movil'>${publicidad} </div>`}`
+
+        entryHtml = `${entryHtml} ${divContent} ${entry}  ${
+          publicidad &&
+          `<div class='text-center ad-amp-movil'>${publicidad} </div>`
+        }`
       })
 
       return entryHtml
