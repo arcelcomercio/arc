@@ -58,7 +58,7 @@ const VideoSectionAmp = (props) => {
 
   return (
     <>
-      <d iv className={classes.content}>
+      <div iv className={classes.content}>
         {promoItemJwplayer && promoItemJwplayer.key ? (
           <StoryContentChildVideoJwplayer data={promoItemJwplayer} />
         ) : (
@@ -111,7 +111,7 @@ const VideoSectionAmp = (props) => {
             })}
           </div>
         )}
-      </d>
+      </div>
     </>
   )
 }
