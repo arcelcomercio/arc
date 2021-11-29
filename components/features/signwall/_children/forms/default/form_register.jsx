@@ -4,6 +4,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { setCookie } from '../../../../../utilities/client/cookies'
+import { isStorageAvailable } from '../../../../../utilities/client/storage'
 import {
   SITE_ELCOMERCIO,
   SITE_GESTION,
@@ -267,6 +268,15 @@ const FormRegister = ({
           arcSite
         )
         setCookie('lostEmail', remail, 1)
+      })
+      .finally(() => {
+        // eliminamos la noticia premium del storage en caso
+        // el typedialog no sea premium
+        if (typeDialog !== 'premium') {
+          if (isStorageAvailable('localStorage')) {
+            window.localStorage.removeItem('premium_last_url')
+          }
+        }
       })
   }
 
@@ -645,17 +655,36 @@ const FormRegister = ({
                                   }`,
                                   `web_${typeDialog}_boton_sigue_navegando`
                                 )
+
+                                // validamos para cuando sea una nota premium
                                 if (
-                                  window.sessionStorage.getItem(
-                                    'paywall_last_url'
-                                  ) &&
-                                  window.sessionStorage.getItem(
-                                    'paywall_last_url'
-                                  ) !== ''
+                                  isStorageAvailable('localStorage') &&
+                                  isStorageAvailable('sessionStorage')
                                 ) {
-                                  window.location.href = window.sessionStorage.getItem(
+                                  const premiumLastUrl = window.localStorage.getItem(
+                                    'premium_last_url'
+                                  )
+                                  const paywallLastUrl = window.sessionStorage.getItem(
                                     'paywall_last_url'
                                   )
+                                  if (
+                                    premiumLastUrl &&
+                                    premiumLastUrl !== '' &&
+                                    activeRegisterwall
+                                  ) {
+                                    window.location.href = premiumLastUrl
+                                    // removiendo del local la nota premium
+                                    window.localStorage.removeItem(
+                                      'premium_last_url'
+                                    )
+                                  } else if (
+                                    paywallLastUrl &&
+                                    paywallLastUrl !== ''
+                                  ) {
+                                    window.location.href = paywallLastUrl
+                                  } else {
+                                    onClose()
+                                  }
                                 } else {
                                   onClose()
                                 }

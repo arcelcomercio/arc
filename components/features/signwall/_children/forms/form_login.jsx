@@ -5,6 +5,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { setCookie } from '../../../../utilities/client/cookies'
+import { isStorageAvailable } from '../../../../utilities/client/storage'
 import { SITE_TROME } from '../../../../utilities/constants/sitenames'
 import { extendSession } from '../../../../utilities/subscriptions/identity'
 import { useModalContext } from '../../../subscriptions/_context/modal'
@@ -600,13 +601,15 @@ const FormLogin = ({ valTemplate, attributes }) => {
                       }`,
                       `web_${typeDialog}_boton_sigue_navegando`
                     )
-                    if (
-                      window.sessionStorage.getItem('paywall_last_url') &&
-                      window.sessionStorage.getItem('paywall_last_url') !== ''
-                    ) {
-                      window.location.href = window.sessionStorage.getItem(
+                    if (isStorageAvailable('sessionStorage')) {
+                      const paywallLastUrl = window.sessionStorage.getItem(
                         'paywall_last_url'
                       )
+                      if (paywallLastUrl && paywallLastUrl !== '') {
+                        window.location.href = paywallLastUrl
+                      } else {
+                        onClose()
+                      }
                     } else {
                       onClose()
                     }

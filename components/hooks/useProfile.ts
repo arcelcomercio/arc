@@ -2,19 +2,13 @@ import Identity from '@arc-publishing/sdk-identity'
 import { BaseUserProfile } from '@arc-publishing/sdk-identity/lib/sdk/userProfile'
 import { isAPIErrorResponse } from '@arc-publishing/sdk-identity/lib/serviceHelpers/APIErrorResponse'
 import * as React from 'react'
-import { Attribute, ComposedUserProfile, UserProfile } from 'types/identity'
+import { Attribute, ComposedUserProfile } from 'types/identity'
 
 import { getUserProfile } from '../utilities/subscriptions/identity'
 
-interface UpdateProfileProps {
-  onSuccess: (profile: UserProfile) => void
-  onError: (error: any) => void
-}
-
 export type UpdateUserProfile = (
-  profile: BaseUserProfile,
-  { onSuccess, onError }: UpdateProfileProps
-) => Promise<any>
+  profile: BaseUserProfile
+) => Promise<typeof Identity.userProfile>
 
 const composeUserProfile = (
   userProfile: Partial<typeof Identity.userProfile>
@@ -64,26 +58,28 @@ const useProfile = (): {
     }
   }, [Identity.userProfile])
 
-  const updateUserProfile: UpdateUserProfile = async (
-    profile: BaseUserProfile,
-    { onSuccess, onError }: UpdateProfileProps
-  ) =>
-    Identity.updateUserProfile(profile)
-      .then((response) => {
-        if (isAPIErrorResponse(response)) {
-          console.error('Error al actualizar perfil - updateUserProfile()')
-          onError(response)
-        } else {
-          setUserProfile(response)
-          onSuccess(response)
-        }
-        return response
-      })
-      .catch((error) => {
-        console.error('Error al actualizar perfil - updateUserProfile()', error)
-        onError(error)
-        return error
-      })
+  const updateUserProfile = async (
+    profile: BaseUserProfile
+  ): Promise<typeof Identity.userProfile> =>
+    new Promise((resolve, reject) => {
+      Identity.updateUserProfile(profile)
+        .then((response) => {
+          if (isAPIErrorResponse(response)) {
+            console.error('Error al actualizar perfil - updateUserProfile()')
+            reject(response)
+          } else {
+            setUserProfile(response)
+            resolve(response)
+          }
+        })
+        .catch((error) => {
+          console.error(
+            'Error al actualizar perfil - updateUserProfile()',
+            error
+          )
+          reject(error)
+        })
+    })
 
   return { composeUserProfile, userProfile, updateUserProfile }
 }

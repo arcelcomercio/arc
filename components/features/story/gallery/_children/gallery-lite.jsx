@@ -1,3 +1,4 @@
+import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import UtilListKey from '../../../../utilities/list-keys'
@@ -22,6 +23,8 @@ const StoryHeaderChildGallery = (props) => {
     seccioPublicidad,
     contentElementGallery: { content_elements: slides = [] } = {},
   } = props
+
+  const { metaValue } = useAppContext()
 
   return (
     <>
@@ -211,11 +214,15 @@ const StoryHeaderChildGallery = (props) => {
                 // data-slide-number importante para "resources/assets/js/vertical-gallery.js"
                 data-slide-number={i + 1}
                 key={UtilListKey(i)}>
-                <div className="more-compartir" />
-                <span className={classes.galleryNumber}>
-                  <strong> {i + 1} </strong>
-                  de {slides.length}
-                </span>
+                {metaValue('section_style') !== 'story-v2-standard' && (
+                  <>
+                    <div className="more-compartir" />
+                    <span className={classes.galleryNumber}>
+                      <strong> {i + 1} </strong>
+                      de {slides.length}
+                    </span>
+                  </>
+                )}
                 <div className={classes.figure}>
                   <StoryGalleryChildPicture
                     url={url}
@@ -231,19 +238,27 @@ const StoryHeaderChildGallery = (props) => {
                   <span className={classes.galleryCredit}>{name}</span>
                 ) : null}
                 <figcaption className={classes.caption}>
-                  <strong
-                    className={classes.title}
-                    dangerouslySetInnerHTML={{
-                      __html: processText(subtitle),
-                    }}
-                  />
-                  <p
-                    itemProp="description"
-                    className={classes.captionImage}
-                    dangerouslySetInnerHTML={{
-                      __html: processText(caption),
-                    }}
-                  />
+                  {metaValue('section_style') === 'story-v2-standard' && (
+                    <span className={classes.galleryNumber}>
+                      <span className="story-gallery__number-l" />
+                      {i + 1}/{slides.length}
+                    </span>
+                  )}
+                  <div>
+                    <strong
+                      className={classes.title}
+                      dangerouslySetInnerHTML={{
+                        __html: processText(subtitle),
+                      }}
+                    />
+                    <p
+                      itemProp="description"
+                      className={classes.captionImage}
+                      dangerouslySetInnerHTML={{
+                        __html: processText(caption),
+                      }}
+                    />
+                  </div>
                 </figcaption>
               </div>
             </>

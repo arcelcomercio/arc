@@ -8,6 +8,7 @@ import { META_HOME } from '../utilities/constants/meta'
 import {
   SITE_DEPOR,
   SITE_ELBOCON,
+  SITE_DIARIOCORREO,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_GESTION,
@@ -41,6 +42,7 @@ import iframeScript from './_dependencies/iframe-script'
 import jwplayerScript from './_dependencies/jwplayer-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-script'
 import { getEnablePushud, getPushud } from './_dependencies/pushud'
+import { getEnabledServerside, getScriptAdPushup } from './_dependencies/serverside'
 import {
   getDescription,
   getIsStory,
@@ -154,6 +156,9 @@ export default ({
   const isHome = metaValue('id') === META_HOME && true
   const scriptAdpush = getPushud(arcSite)
   const enabledPushud = getEnablePushud(arcSite)
+  const enabledPushup = getEnabledServerside(arcSite)
+  const scriptAdpushup = getScriptAdPushup(arcSite)
+  
   const isElcomercioHome = arcSite === SITE_ELCOMERCIO && isHome
   const isPreview = /^\/preview\//.test(requestUri)
   const { uuid_match: idMatch = '' } = promoItems
@@ -178,6 +183,8 @@ export default ({
     if (
       arcSite === SITE_ELCOMERCIO ||
       arcSite === SITE_ELCOMERCIOMAG ||
+      arcSite === SITE_ELBOCON ||
+      arcSite === SITE_DIARIOCORREO ||
       (arcSite === 'peru21' && requestUri.match(`^/cheka`))
     ) {
       prebid = false
@@ -785,24 +792,14 @@ export default ({
             .toISOString()
             .slice(0, 10)}`}
         />
-        {arcSite === SITE_OJO && (
+        {enabledPushup ? (
           <>
             <script
-              dangerouslySetInnerHTML={{
-                __html: `setTimeout(function(){var e,t;window,e=document,(t=e.createElement("script")).src="//cdn.adpushup.com/42879/adpushup.js",t.crossOrigin="anonymous",t.type="text/javascript",t.async=!0,(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(t)},5e3);`,
-              }}
+              type="text/javascript"
+              dangerouslySetInnerHTML={{ __html: scriptAdpushup }}
             />
           </>
-        )}
-        {arcSite === SITE_ELBOCON && (
-          <>
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `setTimeout(function(){var e,t;window,e=document,(t=e.createElement("script")).src="//cdn.adpushup.com/42614/adpushup.js",t.crossOrigin="anonymous",t.type="text/javascript",t.async=!0,(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(t)},5e3);`,
-              }}
-            />
-          </>
-        )}
+        ) : null}
         {(arcSite === SITE_DEPOR || arcSite === SITE_GESTION) &&
           isSearchSection && (
             <script
