@@ -514,7 +514,11 @@ const StoryContentsLite = (props) => {
                   )
                 }
 
-                if (type === ELEMENT_CUSTOM_EMBED && sub === STORY_CORRECTION) {
+                if (
+                  !isStoryV2StandarStyle &&
+                  type === ELEMENT_CUSTOM_EMBED &&
+                  sub === STORY_CORRECTION
+                ) {
                   const {
                     config: {
                       content: contentCorrectionConfig = '',
@@ -530,7 +534,11 @@ const StoryContentsLite = (props) => {
                   )
                 }
 
-                if (type === ELEMENT_CUSTOM_EMBED && sub === STAMP_TRUST) {
+                if (
+                  !isStoryV2StandarStyle &&
+                  type === ELEMENT_CUSTOM_EMBED &&
+                  sub === STAMP_TRUST
+                ) {
                   const {
                     config: {
                       url: urlConfig = '',
@@ -743,6 +751,39 @@ const StoryContentsLite = (props) => {
             </a>
           </div>
         )}
+        {(() => {
+          if (!isStoryV2StandarStyle) return null
+
+          const trustElement = storyContent.filter(
+            ({ type, subtype: sub }) =>
+              type === ELEMENT_CUSTOM_EMBED && sub === STAMP_TRUST
+          )[0]
+          return trustElement ? (
+            <StoryContentsChildStampTrust
+              url={trustElement?.embed?.config?.url}
+              urlImg={trustElement?.embed?.config?.url_img}
+              isAmp={false}
+              siteUrl={siteUrl}
+            />
+          ) : null
+        })()}
+        {(() => {
+          if (!isStoryV2StandarStyle) return null
+
+          const correctionElement = storyContent.filter(
+            ({ type, subtype: sub }) =>
+              type === ELEMENT_CUSTOM_EMBED && sub === STORY_CORRECTION
+          )[0]
+          return correctionElement ? (
+            <StoryContentsChildCorrection
+              content={correctionElement?.embed?.config?.content}
+              isAmp={false}
+              type={
+                correctionElement?.embed?.config?.type_event || 'correction'
+              }
+            />
+          ) : null
+        })()}
       </div>
       <div id="bottom-content-observed" />
       {arcSite === SITE_ELCOMERCIO && contentElementsHtml.includes('mxm') && (
