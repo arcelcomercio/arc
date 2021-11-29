@@ -146,7 +146,7 @@ class StoryContentAmp extends React.PureComponent {
         activeAds.forEach((el) => {
           if (i === dataCustomFields[el]) {
             const matches = el.match(/([0-9])+/)
-            publicidad = dataCustomFields[`freeHtml${matches[1]}`]
+            publicidad = dataCustomFields[`freeHtml${matches[0]}`]
           }
         })
 

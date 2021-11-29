@@ -977,7 +977,7 @@ class StoryData {
           if (i === this._customFields[el]) {
             const matches = el.match(/([0-9])+/)
             dataElements.publicidad = this._customFields[
-              `freeHtml${matches[1]}`
+              `freeHtml${matches[0]}`
             ]
           }
         })

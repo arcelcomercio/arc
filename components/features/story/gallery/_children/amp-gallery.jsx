@@ -88,8 +88,9 @@ const StoryHeaderChildAmpGallery = (props) => {
                   let htmlPublicidad = ''
                   if (i === dataCustomFields[el]) {
                     const matches = el.match(/([0-9])+/)
-                    htmlPublicidad = dataCustomFields[`freeHtml${matches[1]}`]
+                    htmlPublicidad = dataCustomFields[`freeHtml${matches[0]}`]
                   }
+
                   return (
                     htmlPublicidad && (
                       <div
