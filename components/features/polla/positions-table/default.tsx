@@ -192,28 +192,28 @@ const PollaPositionsTable: FC<Props> = (props) => {
               </div>
               <div className="polla-positions__group-right-full">
                 <ul className="polla-positions__group-right-full__title">
-                  <li className="polla-positions__group-right-full__title__li">
+                  <li className="polla-positions__group-right-full__title__litifull">
                     PJ
                   </li>
-                  <li className="polla-positions__group-right-full__title__li">
+                  <li className="polla-positions__group-right-full__title__litifull">
                     PG
                   </li>
-                  <li className="polla-positions__group-right-full__title__li">
+                  <li className="polla-positions__group-right-full__title__litifull">
                     PE
                   </li>
-                  <li className="polla-positions__group-right-full__title__li">
+                  <li className="polla-positions__group-right-full__title__litifull">
                     PP
                   </li>
-                  <li className="polla-positions__group-right-full__title__li">
+                  <li className="polla-positions__group-right-full__title__litifull">
                     GF
                   </li>
-                  <li className="polla-positions__group-right-full__title__li">
+                  <li className="polla-positions__group-right-full__title__litifull">
                     GC
                   </li>
-                  <li className="polla-positions__group-right-full__title__li">
+                  <li className="polla-positions__group-right-full__title__litifull">
                     DIF
                   </li>
-                  <li className="polla-positions__group-right-full__title__li">
+                  <li className="polla-positions__group-right-full__title__litifull">
                     Pts.
                   </li>
                 </ul>
@@ -221,14 +221,30 @@ const PollaPositionsTable: FC<Props> = (props) => {
                   <ul
                     className="polla-positions__group-right-full__points"
                     key={team.name}>
-                    <li>{team?.played}</li>
-                    <li>{team?.won}</li>
-                    <li>{team?.drawn}</li>
-                    <li>{team?.lost}</li>
-                    <li>{team?.goals_for}</li>
-                    <li>{team?.goals_against}</li>
-                    <li>{team?.goaldifference}</li>
-                    <li>{team?.points}</li>
+                    <li className="polla-positions__group-right-full__points__lipofull">
+                      {team?.played}
+                    </li>
+                    <li className="polla-positions__group-right-full__points__lipofull">
+                      {team?.won}
+                    </li>
+                    <li className="polla-positions__group-right-full__points__lipofull">
+                      {team?.drawn}
+                    </li>
+                    <li className="polla-positions__group-right-full__points__lipofull">
+                      {team?.lost}
+                    </li>
+                    <li className="polla-positions__group-right-full__points__lipofull">
+                      {team?.goals_for}
+                    </li>
+                    <li className="polla-positions__group-right-full__points__lipofull">
+                      {team?.goals_against}
+                    </li>
+                    <li className="polla-positions__group-right-full__points__lipofull">
+                      {team?.goaldifference}
+                    </li>
+                    <li className="polla-positions__group-right-full__points__lipofull">
+                      {team?.points}
+                    </li>
                   </ul>
                 ))}
               </div>

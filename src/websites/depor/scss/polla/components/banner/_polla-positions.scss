@@ -275,7 +275,7 @@
       white-space: nowrap;
       width: 100%;
 
-      &__li {
+      &__lipofull {
         &:nth-child(6) {
           border-right: 1px solid #ddd;
         }
@@ -307,7 +307,7 @@
     &__title {
       white-space: nowrap;
       width: 100%;
-      &__li {
+      &__litifull {
         &:nth-child(6) {
           //   background-color: #004b91;
           border-right: 1px solid #ddd;
