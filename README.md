@@ -69,8 +69,7 @@ Antes de iniciar con la instalación, por favor verifica que cumples los [requer
 ```bash
 git clone git@gitlab.ec.pe:contenidos/arc.git
 cd arc
-npm install
-npm run dev:all
+npm run bootstrap
 npx fusion start
 ```
 

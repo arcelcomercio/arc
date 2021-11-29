@@ -11,6 +11,7 @@ import {
   SITE_GESTION,
 } from '../../../../utilities/constants/sitenames'
 import { extendSession } from '../../../../utilities/subscriptions/identity'
+import AuthFacebookGoogle from '../../../subscriptions/_children/auth-facebook-google'
 import { useModalContext } from '../../../subscriptions/_context/modal'
 import getCodeError, {
   acceptCheckTerms,
@@ -55,6 +56,7 @@ const FormRegister = ({
       activeVerifyEmail,
       activeDataTreatment,
       activePhoneRegister,
+      activeAuthSocialNative,
       siteDomain,
     },
   } = useAppContext() || {}
@@ -75,6 +77,7 @@ const FormRegister = ({
   const [showUserWithSubs, setShowUserWithSubs] = React.useState(false)
   const [showSendEmail, setShowSendEmail] = React.useState(false)
   const [showContinueVerify, setShowContinueVerify] = React.useState(false)
+  const [hideFormRegister, setHideFormRegister] = React.useState(false)
 
   const stateSchema = {
     remail: { value: '', error: '' },
@@ -368,6 +371,21 @@ const FormRegister = ({
 
   const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
 
+  const registerSuccessFabebook = () => {
+    Identity.getUserProfile().then((resProfile) => {
+      handleGetProfile(resProfile)
+      // checkar taggeo
+      Taggeo(
+        `Web_Sign_Wall_${typeDialog}`,
+        `web_sw${typeDialog[0]}_registro_success_registrarme`,
+        arcSite
+      )
+      onLogged()
+    })
+  }
+
+  const registerFailedFacebook = () => setShowError(getCodeError())
+
   return (
     <>
       {!showStudents && (
@@ -393,33 +411,51 @@ const FormRegister = ({
                       Accede fácilmente con:
                     </p>
 
-                    {authProviders.map((item) => (
-                      <ButtonSocial
-                        key={item}
-                        brand={item}
-                        size={sizeBtnSocial}
-                        onLogged={onLogged}
-                        onClose={onClose}
+                    {activeAuthSocialNative ? (
+                      <AuthFacebookGoogle
+                        hideFormParent={() =>
+                          setHideFormRegister(!hideFormRegister)
+                        }
+                        onAuthSuccess={registerSuccessFabebook}
+                        onAuthFailed={registerFailedFacebook}
                         typeDialog={typeDialog}
-                        onStudents={() => setShowStudents(!showStudents)}
-                        arcSite={arcSite}
-                        typeForm="registro"
-                        activeNewsletter={activeNewsletter}
-                        checkUserSubs={checkUserSubs}
                         dataTreatment={checkedPolits ? '1' : '0'}
+                        arcSite={arcSite}
+                        arcType="login"
+                        activeNewsletter={activeNewsletter}
+                        showMsgVerify={() => {}}
                       />
-                    ))}
+                    ) : (
+                      <>
+                        {authProviders.map((item) => (
+                          <ButtonSocial
+                            key={item}
+                            brand={item}
+                            size={sizeBtnSocial}
+                            onLogged={onLogged}
+                            onClose={onClose}
+                            typeDialog={typeDialog}
+                            onStudents={() => setShowStudents(!showStudents)}
+                            arcSite={arcSite}
+                            typeForm="registro"
+                            activeNewsletter={activeNewsletter}
+                            checkUserSubs={checkUserSubs}
+                            dataTreatment={checkedPolits ? '1' : '0'}
+                          />
+                        ))}
 
-                    <AuthURL
-                      arcSite={arcSite}
-                      onClose={onClose}
-                      typeDialog={typeDialog}
-                      activeNewsletter={activeNewsletter}
-                      typeForm="registro"
-                      onLogged={onLogged}
-                      checkUserSubs={checkUserSubs}
-                      onStudents={() => setShowStudents(!showStudents)}
-                    />
+                        <AuthURL
+                          arcSite={arcSite}
+                          onClose={onClose}
+                          typeDialog={typeDialog}
+                          activeNewsletter={activeNewsletter}
+                          typeForm="registro"
+                          onLogged={onLogged}
+                          checkUserSubs={checkUserSubs}
+                          onStudents={() => setShowStudents(!showStudents)}
+                        />
+                      </>
+                    )}
 
                     <p className="signwall-inside_forms-text mt-15 center">
                       o completa tus datos para registrarte
@@ -428,187 +464,197 @@ const FormRegister = ({
 
                   {isTromeOrganic && <div className="spacing-trome" />}
 
-                  {showError && (
-                    <div className="signwall-inside_forms-error">
-                      {showError.indexOf('ya existe') ? (
-                        <>
-                          {showError}
-                          <a
-                            href="#"
-                            style={{ color: 'white', fontWeight: 'bold' }}
-                            className="signwall-inside_forms-link"
-                            onClick={(e) => {
-                              e.preventDefault()
-                              changeTemplate('forgot')
-                            }}>
-                            Recuperar contraseña
-                          </a>
-                        </>
-                      ) : (
-                        showError
+                  {!hideFormRegister && (
+                    <>
+                      {showError && (
+                        <div className="signwall-inside_forms-error">
+                          {showError.indexOf('ya existe') ? (
+                            <>
+                              {showError}
+                              <a
+                                href="#"
+                                style={{ color: 'white', fontWeight: 'bold' }}
+                                className="signwall-inside_forms-link"
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  changeTemplate('forgot')
+                                }}>
+                                Recuperar contraseña
+                              </a>
+                            </>
+                          ) : (
+                            showError
+                          )}
+                        </div>
                       )}
-                    </div>
-                  )}
 
-                  <Input
-                    type="email"
-                    inputMode="email"
-                    autoComplete="email"
-                    name="remail"
-                    placeholder="Correo electrónico*"
-                    required
-                    value={remail}
-                    onChange={(e) => {
-                      handleOnChange(e)
-                      setShowError(false)
-                    }}
-                    error={remailError}
-                  />
+                      <Input
+                        type="email"
+                        inputMode="email"
+                        autoComplete="email"
+                        name="remail"
+                        placeholder="Correo electrónico*"
+                        required
+                        value={remail}
+                        onChange={(e) => {
+                          handleOnChange(e)
+                          setShowError(false)
+                        }}
+                        error={remailError}
+                      />
 
-                  <Input
-                    type="password"
-                    autoComplete="new-password"
-                    name="rpass"
-                    placeholder="Contraseña*"
-                    required
-                    value={rpass}
-                    onChange={(e) => {
-                      handleOnChange(e)
-                      setShowError(false)
-                      checkFormat(e)
-                    }}
-                    error={rpassError || showFormatInvalid}
-                  />
+                      <Input
+                        type="password"
+                        autoComplete="new-password"
+                        name="rpass"
+                        placeholder="Contraseña*"
+                        required
+                        value={rpass}
+                        onChange={(e) => {
+                          handleOnChange(e)
+                          setShowError(false)
+                          checkFormat(e)
+                        }}
+                        error={rpassError || showFormatInvalid}
+                      />
 
-                  {activePhoneRegister && (
-                    <Input
-                      type="tel"
-                      inputMode="tel"
-                      autoComplete="tel"
-                      name="rphone"
-                      placeholder="Teléfono"
-                      maxLength="12"
-                      value={rphone}
-                      onChange={(e) => {
-                        handleOnChange(e)
-                      }}
-                      error={rphoneError}
-                    />
-                  )}
+                      {activePhoneRegister && (
+                        <Input
+                          type="tel"
+                          inputMode="tel"
+                          autoComplete="tel"
+                          name="rphone"
+                          placeholder="Teléfono"
+                          maxLength="12"
+                          value={rphone}
+                          onChange={(e) => {
+                            handleOnChange(e)
+                          }}
+                          error={rphoneError}
+                        />
+                      )}
 
-                  {activeDataTreatment && (
-                    <CheckBox
-                      checked={checkedPolits}
-                      value={checkedPolits ? '1' : '0'}
-                      name="rpolit"
-                      arcSite={arcSite}
-                      onChange={(e) => {
-                        handleOnChange(e)
-                        setCheckedPolits(!checkedPolits)
-                      }}>
+                      {activeDataTreatment && (
+                        <CheckBox
+                          checked={checkedPolits}
+                          value={checkedPolits ? '1' : '0'}
+                          name="rpolit"
+                          arcSite={arcSite}
+                          onChange={(e) => {
+                            handleOnChange(e)
+                            setCheckedPolits(!checkedPolits)
+                          }}>
+                          <p
+                            style={{
+                              fontSize: '12px',
+                            }}
+                            className="signwall-inside_forms-text mt-10">
+                            Al registrarme por redes sociales o por este
+                            formulario autorizo el uso de mis datos para
+                            <a
+                              href={dataTreatment}
+                              target="_blank"
+                              rel="noreferrer"
+                              style={{
+                                color: mainColorLink,
+                                fontWeight: 'bold',
+                              }}
+                              className="signwall-inside_forms-link ml-5 inline">
+                              fines adicionales
+                            </a>
+                          </p>
+                        </CheckBox>
+                      )}
+
+                      <CheckBox
+                        checked={checkedTerms}
+                        value={checkedTerms ? '1' : '0'}
+                        name="rterms"
+                        arcSite={arcSite}
+                        onChange={(e) => {
+                          handleOnChange(e)
+                          setCheckedTerms(!checkedTerms)
+                          setShowError(false)
+                        }}
+                        valid
+                        error={rtermsError}>
+                        <p
+                          style={{
+                            fontSize: '12px',
+                          }}
+                          className="signwall-inside_forms-text mt-10">
+                          Al crear la cuenta acepto los
+                          <a
+                            href={TermsConditions(arcSite)}
+                            target="_blank"
+                            rel="noreferrer"
+                            style={{ color: mainColorLink, fontWeight: 'bold' }}
+                            className="signwall-inside_forms-link ml-5 mr-5 inline">
+                            Términos y Condiciones
+                          </a>
+                          y
+                          <a
+                            href={PolicyPrivacy(arcSite)}
+                            target="_blank"
+                            rel="noreferrer"
+                            style={{ color: mainColorLink, fontWeight: 'bold' }}
+                            className="signwall-inside_forms-link ml-5 inline">
+                            Políticas de Privacidad
+                          </a>
+                        </p>
+                      </CheckBox>
+
+                      <button
+                        style={{
+                          color: mainColorBtn,
+                          background: mainColorLink,
+                        }}
+                        type="submit"
+                        className="signwall-inside_forms-btn mt-15 mb-5"
+                        disabled={disable || showLoading || showFormatInvalid}
+                        onClick={() => {
+                          Taggeo(
+                            `Web_Sign_Wall_${typeDialog}`,
+                            `web_sw${typeDialog[0]}_registro_boton_registrarme`,
+                            arcSite
+                          )
+                        }}>
+                        {showLoading ? 'REGISTRANDO...' : 'Registrarme'}
+                      </button>
+
                       <p
                         style={{
                           fontSize: '12px',
+                          color: '#000000',
+                          textAlign: 'center',
                         }}
-                        className="signwall-inside_forms-text mt-10">
-                        Al registrarme por redes sociales o por este formulario
-                        autorizo el uso de mis datos para
+                        className="signwall-inside_forms-text mt-20 mb-10">
+                        Ya tengo una cuenta
                         <a
-                          href={dataTreatment}
-                          target="_blank"
-                          rel="noreferrer"
+                          href="#"
                           style={{ color: mainColorLink, fontWeight: 'bold' }}
-                          className="signwall-inside_forms-link ml-5 inline">
-                          fines adicionales
+                          className="signwall-inside_forms-link ml-5"
+                          onClick={(e) => {
+                            e.preventDefault()
+                            Taggeo(
+                              `Web_Sign_Wall_${typeDialog}`,
+                              `web_sw${typeDialog[0]}_registro_link_volver`,
+                              arcSite
+                            )
+                            switch (typeDialog) {
+                              case 'relogemail':
+                              case 'reloghash':
+                                changeTemplate('relogin')
+                                break
+                              default:
+                                changeTemplate('login')
+                            }
+                          }}>
+                          Iniciar Sesión
                         </a>
                       </p>
-                    </CheckBox>
+                    </>
                   )}
-
-                  <CheckBox
-                    checked={checkedTerms}
-                    value={checkedTerms ? '1' : '0'}
-                    name="rterms"
-                    arcSite={arcSite}
-                    onChange={(e) => {
-                      handleOnChange(e)
-                      setCheckedTerms(!checkedTerms)
-                      setShowError(false)
-                    }}
-                    valid
-                    error={rtermsError}>
-                    <p
-                      style={{
-                        fontSize: '12px',
-                      }}
-                      className="signwall-inside_forms-text mt-10">
-                      Al crear la cuenta acepto los
-                      <a
-                        href={TermsConditions(arcSite)}
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{ color: mainColorLink, fontWeight: 'bold' }}
-                        className="signwall-inside_forms-link ml-5 mr-5 inline">
-                        Términos y Condiciones
-                      </a>
-                      y
-                      <a
-                        href={PolicyPrivacy(arcSite)}
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{ color: mainColorLink, fontWeight: 'bold' }}
-                        className="signwall-inside_forms-link ml-5 inline">
-                        Políticas de Privacidad
-                      </a>
-                    </p>
-                  </CheckBox>
-
-                  <button
-                    style={{ color: mainColorBtn, background: mainColorLink }}
-                    type="submit"
-                    className="signwall-inside_forms-btn mt-15 mb-5"
-                    disabled={disable || showLoading || showFormatInvalid}
-                    onClick={() => {
-                      Taggeo(
-                        `Web_Sign_Wall_${typeDialog}`,
-                        `web_sw${typeDialog[0]}_registro_boton_registrarme`,
-                        arcSite
-                      )
-                    }}>
-                    {showLoading ? 'REGISTRANDO...' : 'Registrarme'}
-                  </button>
-
-                  <p
-                    style={{
-                      fontSize: '12px',
-                      color: '#000000',
-                      textAlign: 'center',
-                    }}
-                    className="signwall-inside_forms-text mt-20 mb-10">
-                    Ya tengo una cuenta
-                    <a
-                      href="#"
-                      style={{ color: mainColorLink, fontWeight: 'bold' }}
-                      className="signwall-inside_forms-link ml-5"
-                      onClick={(e) => {
-                        e.preventDefault()
-                        Taggeo(
-                          `Web_Sign_Wall_${typeDialog}`,
-                          `web_sw${typeDialog[0]}_registro_link_volver`,
-                          arcSite
-                        )
-                        switch (typeDialog) {
-                          case 'relogemail':
-                          case 'reloghash':
-                            changeTemplate('relogin')
-                            break
-                          default:
-                            changeTemplate('login')
-                        }
-                      }}>
-                      Iniciar Sesión
-                    </a>
-                  </p>
                 </>
               )}
 
@@ -719,6 +765,7 @@ const FormRegister = ({
                                 `web_sw${typeDialog[0]}_boton_ver_planes`,
                                 arcSite
                               )
+
                               handleSuscription()
                             }}>
                             VER PLANES

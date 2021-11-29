@@ -1,8 +1,9 @@
-import * as React from 'react'
-import { useAppContext } from 'fusion:context'
 import { useEditableContent } from 'fusion:content'
-
+import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
+import * as React from 'react'
+
+import { SITE_TROME } from '../../../utilities/constants/sitenames'
 import { getVerboseDate } from '../../../utilities/date-time/dates'
 import { formatSlugToText } from '../../../utilities/parse/strings'
 
@@ -12,10 +13,13 @@ const classes = {
     'custom-title__button position-absolute right-0 text-sm font-normal border-1 border-gray border-solid p-10 text-gray-200',
   darkButton:
     'custom-title__button position-absolute right-0 text-sm font-normal border-1 border-white border-solid p-10 text-white',
+  titleSearch: 'custom-title__page-search',
+  titleAuthors: 'custom-title__page-authors',
+  subtitleField: 'custom-title__subtitleField',
 }
 
-const CustomTitleFeat = props => {
-  const { globalContent, globalContentConfig } = useAppContext()
+const CustomTitleFeat = (props) => {
+  const { globalContent, globalContentConfig, arcSite } = useAppContext()
   const { editableField } = useEditableContent()
 
   const {
@@ -55,22 +59,44 @@ const CustomTitleFeat = props => {
     return `ARCHIVO, ${getVerboseDate({ date, showTime: false }).toUpperCase()}` // ARCHIVO, LUNES 03 DE FEBRERO DEL 2018
   }
 
+  const getSearch = () => {
+    const { query: { query = '' } = {} } = globalContentConfig || {}
+
+    let search = query && query.replace(/\+/g, ' ')
+    search = decodeURIComponent(search)
+    return search
+  }
+
+  const getSearchLabel = (count, search) =>
+    arcSite === SITE_TROME ? (
+      <>
+        {' '}
+        Se encontraron {count} resultado para: <span>{search}</span>
+      </>
+    ) : (
+      `SE ENCONTRARON ${count} RESULTADOS PARA: ${search.toUpperCase()}`
+    )
+
   const getSearchTitle = () => {
     const { source } = globalContentConfig || {}
     if (source !== 'story-feed-by-search') {
       return undefined
     }
-    const { query: { query = '' } = {} } = globalContentConfig || {}
     const { count = 0 } = globalContent || {}
-
-    let search = query && query.replace(/\+/g, ' ')
-    search = decodeURIComponent(search)
-    const title = search
-      ? `SE ENCONTRARON ${count} RESULTADOS PARA: ${search.toUpperCase()}` // SE ENCONTRARON 99 RESULTADOS PARA: MADURO
-      : `ÚLTIMAS NOTICIAS`
+    const search = getSearch()
+    const title = search ? getSearchLabel(count, search) : `ÚLTIMAS NOTICIAS`
 
     return title
   }
+
+  const autoresTrome = () => {
+    const { query: { uri = '' } = {} } = globalContentConfig || {}
+    const newUri = uri && uri.replace(new RegExp('/', 'g'), '')
+    if (newUri === 'autores' && arcSite === SITE_TROME) return true
+    return ''
+  }
+
+  console.log(customText)
 
   return (
     <>
@@ -86,6 +112,8 @@ const CustomTitleFeat = props => {
           isDarkBg ? 'dark-bg text-white bg-base-100' : ''
         } ${size} ${
           subLine ? 'border-b-1 border-solid border-gray pb-20' : 'pb-10'
+        } ${getSearch() && arcSite === SITE_TROME && classes.titleSearch} ${
+          autoresTrome() && classes.titleAuthors
         }`}>
         {customText ||
           sectionName ||
@@ -109,7 +137,9 @@ const CustomTitleFeat = props => {
           itemProp="name"
           className={`text-lg ${
             subLine ? 'mt-20' : 'mt-10'
-          } mb-20 line-h-xs pl-20 pr-20 md:pl-0 md:pr-0`}
+          } mb-20 line-h-xs pl-20 pr-20 md:pl-0 md:pr-0 ${
+            autoresTrome() && classes.subtitleField
+          }`}
           dangerouslySetInnerHTML={{ __html: subtitleField }}
         />
       ) : null}

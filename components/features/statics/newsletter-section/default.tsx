@@ -147,7 +147,6 @@ const NewsletterSection: FC<FeatureProps> = (props) => {
             <svg
               width="64px"
               height="46px"
-              xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 128 96"
               xmlSpace="preserve">
               <style />
@@ -227,11 +226,7 @@ const NewsletterSection: FC<FeatureProps> = (props) => {
             <div className={classes.nnFormMessageSucces}>{txtMessage}</div>
             <div className={classes.nnFormMessageIcon}>
               <div className={classes.nnFormMessageIconSvg}>
-                <svg
-                  width="48"
-                  data-name="Capa 1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 48 48">
+                <svg width="48" data-name="Capa 1" viewBox="0 0 48 48">
                   <path
                     d="M24 0a24 24 0 1 0 24 24A24 24 0 0 0 24 0zm12.16 18.91-13 13a2 2 0 0 1-2.82 0l-6.5-6.5a2 2 0 0 1 2.82-2.82l5.09 5.08 11.59-11.58a2 2 0 0 1 2.82 2.82z"
                     style={{ fill: '#e84f68' }}
@@ -249,7 +244,6 @@ const NewsletterSection: FC<FeatureProps> = (props) => {
             <svg
               width="64px"
               height="46px"
-              xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 128 96"
               xmlSpace="preserve">
               <style />
@@ -270,7 +264,6 @@ const NewsletterSection: FC<FeatureProps> = (props) => {
               <svg
                 width="20px"
                 height="20px"
-                xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 48 48"
                 xmlSpace="preserve">
                 <style />

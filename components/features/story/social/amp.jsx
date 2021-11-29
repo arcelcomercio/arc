@@ -1,9 +1,9 @@
-import * as React from 'react'
 import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
-import StorySocialAmpChildSocial from './_children/amp-social'
-import NextStoryButton from '../next-story-button/amp'
 import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
+import NextStoryButton from '../next-story-button/amp'
+import StorySocialAmpChildSocial from './_children/amp-social'
 
 const classes = {
   container:

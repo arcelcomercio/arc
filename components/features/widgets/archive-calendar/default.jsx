@@ -1,6 +1,6 @@
-import * as React from 'react'
 import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
+import * as React from 'react'
 
 import ArchiveCalendarChild from './_children/calendar'
 
@@ -14,6 +14,7 @@ import ArchiveCalendarChild from './_children/calendar'
 const ArchiveCalendar = (/* { customFields: { sectionField } = {} } */) => {
   const {
     globalContentConfig: { query },
+    arcSite,
   } = useAppContext()
   const { date: urlDate } = query || {}
 
@@ -24,12 +25,12 @@ const ArchiveCalendar = (/* { customFields: { sectionField } = {} } */) => {
     return new Date(...newDate)
   }
 
-  const renderNewURL = date => {
+  const renderNewURL = (date) => {
     // const { section } = query || {}
-    const _date = new Date(date)
-    const year = _date.getFullYear()
-    const month = Number(_date.getMonth() + 1)
-    const day = _date.getDate()
+    const newDate = new Date(date)
+    const year = newDate.getFullYear()
+    const month = Number(newDate.getMonth() + 1)
+    const day = newDate.getDate()
     const dayFormat = day < 10 ? `0${day}` : day
     const monthFormat = month < 10 ? `0${month}` : month
     const newDateFormat = `${year}-${monthFormat}-${dayFormat}`
@@ -43,7 +44,7 @@ const ArchiveCalendar = (/* { customFields: { sectionField } = {} } */) => {
   }
 
   const [calendarDate, setStateDate] = React.useState(getCalendarDate(urlDate))
-  const setNewDate = data => {
+  const setNewDate = (data) => {
     setStateDate(data)
     window.location.href = renderNewURL(data)
   }
@@ -53,9 +54,10 @@ const ArchiveCalendar = (/* { customFields: { sectionField } = {} } */) => {
       activeStartDate={getCalendarDate(urlDate)}
       maxDate={new Date()}
       minDate={new Date(2014, 0, 1)}
-      onChange={newDate => setNewDate(newDate)}
+      onChange={(newDate) => setNewDate(newDate)}
       value={calendarDate}
       locale="es-419"
+      arcSite={arcSite}
     />
   )
 }

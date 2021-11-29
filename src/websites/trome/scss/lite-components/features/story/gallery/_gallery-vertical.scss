@@ -1,83 +1,134 @@
 .story-gallery {
-  padding-top: 5px;
-  padding-right: 20px;
-  padding-left: 20px;
+  padding-top: 32px;
+  padding-right: 16px;
+  padding-left: 16px;
+
+  @media (--desktop) {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
   &__number {
+    font-family: $primary-font;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
     width: 72px;
     height: 32px;
     background: #fff 0% 0% no-repeat padding-box;
     border: 1px solid #aaa;
     opacity: 1;
     color: #888;
-    font-size: 12px;
     align-items: center;
-    margin-left: 10px;
+    margin-left: 4px;
     justify-content: center;
+
+    @media (--desktop) {
+      font-family: $fira-s;
+      font-size: 15px;
+      letter-spacing: -0.15px;
+      margin-left: 10px;
+    }
+
     & strong {
-      color: #000;
+      color: #111;
       margin-right: 4px;
     }
   }
+
   &__figure {
     padding-top: 10px;
   }
+
   &__caption {
-    margin-bottom: 20px;
-    margin-top: 5px;
+    margin-top: 16px;
+    line-height: 25px;
   }
+
   &__caption-image {
     text-align: left;
     letter-spacing: 0;
     color: #333;
     opacity: 1;
-    margin-top: 5px;
-    font: normal normal normal 16px/24px $primary-font;
+    margin-top: 16px;
+    font: normal normal normal 20px/28px $fira-s;
   }
+
   &-social__list {
     border-left: 1px solid #d6d6d6;
     padding-left: 8px;
     width: 75px;
   }
+
   &__item {
-    padding-top: 20px;
+    margin-bottom: 64px;
   }
+
   &__credit {
+    font-family: $fira-s, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.26px;
+    line-height: 20px;
     color: #999;
-    font-size: 0.8rem;
+    margin-top: 10px;
+    display: block;
   }
+
   &-social__link {
     width: 30px;
     height: 30px;
     border-radius: 15px;
     background-color: #999;
   }
+
   &__title {
-    font: normal normal 900 20px/25px $primary-font;
-    letter-spacing: 0.32px;
+    margin-top: 16px;
+    font: normal normal 900 24px/25px $encode-c;
+    letter-spacing: -0.24px;
+    color: #343434;
   }
+
   .itemv {
-    width: 530px;
-    margin: auto;
-    @media (--only-mobile) {
-      width: 100%;
+    width: 100%;
+
+    @media (--desktop) {
+      width: 520px;
+      margin: auto;
     }
   }
 
   & .icon-compartir {
     position: absolute;
-    right: 0;
+    right: 4px;
     cursor: pointer;
     top: 5px;
+
+    @media (--tablet) {
+      right: 10px;
+    }
   }
+
   & .more-compartir {
     position: relative;
+
+    svg {
+      width: 24px;
+      height: 24px;
+
+      path {
+        fill: #888 !important;
+      }
+    }
   }
+
   & .hidden {
     display: none;
   }
+
   .block {
     display: block;
   }
+
   & .story-content__list-more {
     position: absolute;
     right: 0;
@@ -86,11 +137,13 @@
     z-index: 9;
     background-color: #fff;
     box-shadow: 2px 6px 7px rgba(25, 57, 22, 0.2);
+
     & .share-btn {
       margin: 5px;
       margin-right: 0;
     }
   }
+
   &__img-box {
     @media (--only-mobile) {
       padding-left: 20px;

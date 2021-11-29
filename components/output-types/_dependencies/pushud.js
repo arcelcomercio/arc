@@ -28,7 +28,6 @@ export const getEnablePushud = arcSite => {
     arcSite === 'depor' ||
     arcSite === 'elbocon' ||
     arcSite === 'diariocorreo' ||
-    arcSite === 'gestion' ||
     arcSite === 'trome' ||
     arcSite === 'elcomerciomag' ||
     arcSite === 'ojo'

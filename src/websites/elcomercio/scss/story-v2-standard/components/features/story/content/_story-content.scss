@@ -76,6 +76,59 @@
         display: none;
       }
     }
+    &__embed {
+      .live-event-minute {
+        font: 700 14px/24px $secondary-font;
+        text-align: left;
+        letter-spacing: -0.28px;
+        color: #ea3440;
+        position: relative;
+        &::before {
+          content: "__";
+          margin-right: 5px;
+        }
+        &::after {
+          content: " ";
+          position: absolute;
+          background-color: white;
+          top: 1px;
+          margin-left: 1px;
+          width: 10px;
+          height: 20px;
+        }
+      }
+      .icon-compartir {
+        display: none;
+      }
+      .live-event2-comment {
+        padding: 20px 0;
+        border-top: 1px solid #efc843;
+        &:first-child {
+          border-top: 1px solid #ccc;
+        }
+        p {
+          font: 500 18px/24px $secondary-font;
+          text-align: left;
+          letter-spacing: -0.36px;
+          color: #454545;
+          margin-left: 20px;
+          a {
+            text-decoration: underline;
+            color: #408ec7;
+          }
+        }
+        strong {
+          visibility: hidden;
+        }
+      }
+      div[class^="content_gpt"] {
+        padding: 20px 0;
+        border-top: 1px solid #ccc;
+        + .live-event2-comment {
+          border-top: 1px solid #ccc;
+        }
+      }
+    }
   }
   .s-multimedia__caption,
   &__caption {

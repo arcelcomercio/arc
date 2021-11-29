@@ -5,16 +5,12 @@ variables:
 stages:
   - install
   - build
-  - deploy
+  - prepare
+  - promote
   - test
-  - analize
-  - code-quality
-  - test-intsall-e2e
-  - test-e2e
-  - package
   - deploy
-  - monitoring
-  - documentation
+  - analize
+  - package
   - release
   - cleanup
 
@@ -41,6 +37,7 @@ install_dependencies:
     policy: push
   only:
     - master
+    - master-deploy
     - sandbox
     - merge_requests
   tags:
@@ -71,8 +68,8 @@ build-verify:
     - aws
     - docker
 
-deploy-sandbox:
-  stage: deploy
+deploy-sandbox-prepare:
+  stage: prepare
   dependencies:
     - build-verify
   cache:
@@ -87,6 +84,40 @@ deploy-sandbox:
     BUNDLE_FILE: bundle.zip
   script:
     - export BUNDLE_NAME="$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
+    - echo $BUNDLE_NAME
+    - export ARC_DOMAIN=$ARC_DOMAIN_SANDBOX
+    - export TOKEN_ARC=$TOKEN_SANDBOX
+    - export ENV="$CI_JOB_STAGE"
+    - node config/deploy/clean.js
+  artifacts:
+    when: on_success
+    paths:
+      - artifacts/
+      - node_modules/
+    expire_in: 1 day
+  only:
+    - sandbox
+  tags:
+    - aws
+    - docker
+
+promote-sandbox:
+  stage: promote
+  dependencies:
+    - deploy-sandbox-prepare
+  cache:
+    key: '$CI_JOB_NAME-$CI_COMMIT_REF_SLUG'
+    paths:
+      - node_modules/
+    policy: pull
+  variables:
+    ARC_DOMAIN: $ARC_DOMAIN_SANDBOX
+    BUNDLE_NAME: $CI_COMMIT_REF_SLUG
+    PB_VERSION: '2.8.4'
+    BUNDLE_FILE: bundle.zip
+  script:
+    - export BUNDLE_NAME="$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
+    - echo $BUNDLE_NAME
     - export ARC_DOMAIN=$ARC_DOMAIN_SANDBOX
     - export TOKEN_ARC=$TOKEN_SANDBOX
     - export ENV="$CI_JOB_STAGE"
@@ -95,6 +126,60 @@ deploy-sandbox:
     - ls -l bundle.zip
     - cp bundle.zip  ../bundle.zip
     - node config/deploy/deploy.js
+  artifacts:
+    when: on_success
+    paths:
+      - artifacts/
+      - node_modules/
+    expire_in: 1 hour
+  only:
+    - sandbox
+  tags:
+    - aws
+    - docker
+
+test-bundle-sandbox:
+  stage: test
+  dependencies:
+    - promote-sandbox
+  variables:
+    ARC_DOMAIN: $ARC_DOMAIN_SANDBOX
+    BUNDLE_NAME: $CI_COMMIT_REF_SLUG
+    PB_VERSION: latest
+    RETRIES: 4
+    BUNDLE_FILE: bundle.zip
+  script:
+    - node config/deploy/assets.js
+  artifacts:
+    when: on_success
+    paths:
+      - node_modules/
+  only:
+    - sandbox
+  tags:
+    - aws
+    - docker
+
+deploy-sandbox_live:
+  stage: deploy
+  dependencies:
+    - test-bundle-sandbox
+  cache:
+    key: '$CI_JOB_NAME-$CI_COMMIT_REF_SLUG'
+    paths:
+      - node_modules/
+    policy: pull
+  variables:
+    ARC_DOMAIN: $ARC_DOMAIN_SANDBOX
+    BUNDLE_NAME: $CI_COMMIT_REF_SLUG
+    BUNDLE_FILE: bundle.zip
+  script:
+    - export BUNDLE_NAME="$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
+    - echo $BUNDLE_NAME
+    - export ARC_DOMAIN=$ARC_DOMAIN_SANDBOX
+    - export TOKEN_ARC=$TOKEN_SANDBOX
+    - export ENV="$CI_JOB_STAGE"
+    - node config/deploy/deploy_live.js
   only:
     - sandbox
   tags:
