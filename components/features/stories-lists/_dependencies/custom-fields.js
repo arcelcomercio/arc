@@ -41,6 +41,15 @@ export const customFieldsAdsList = {
     name: 'Mostrar título',
     defaultValue: false,
   }),
+  showMiddle: PropTypes.bool.tag({
+    name: 'Mostrar "middle"',
+    group: 'Publicidad Middle',
+    defaultValue: false,
+  }),
+  adsMiddlePosition: PropTypes.number.tag({
+    name: 'Posición en la lista',
+    group: 'Publicidad Middle',
+  }),
 }
 
 export const customFields = PropTypes.shape({

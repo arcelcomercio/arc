@@ -34,7 +34,7 @@ const StoriesListPaginatedList = (props) => {
   } = useFusionContext()
   const { customFields: customFieldsProps = {} } = props
   const {
-    customFields: { showTitle },
+    customFields: { showTitle, adsMiddlePosition, showMiddle },
   } = props
   const { isDfp = false } = getProperties(arcSite)
   const isSearchSection = /^\/buscar\//.test(requestUri)
@@ -62,7 +62,7 @@ const StoriesListPaginatedList = (props) => {
 
   if (stories.length === 0) {
     if (author._id) {
-      ; ({ bio_page: authorPath } = author)
+      ;({ bio_page: authorPath } = author)
       const storiesAuthor = useContent({
         source: 'story-feed-by-author',
         query: {
@@ -78,7 +78,7 @@ const StoriesListPaginatedList = (props) => {
         typeof storiesAuthor.content_elements === 'object' &&
         storiesAuthor.content_elements.length > 0
       ) {
-        ; ({ content_elements: stories, count } = storiesAuthor)
+        ;({ content_elements: stories, count } = storiesAuthor)
         size = sizeAuthor
         from = fromAuthor
       }
@@ -127,6 +127,13 @@ const StoriesListPaginatedList = (props) => {
                 index === 2 && (
                   <div className={classes.adsAfsBox}>
                     <div id="afs_container_1" />
+                  </div>
+                )}
+              {showMiddle &&
+                arcSite === SITE_TROME &&
+                index === adsMiddlePosition - 1 && (
+                  <div className="content_gpt_middle1">
+                    <div id="gpt_middle1" className="flex justify-center" />
                   </div>
                 )}
             </Fragment>
