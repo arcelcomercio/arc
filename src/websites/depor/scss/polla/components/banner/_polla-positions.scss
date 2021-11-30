@@ -24,7 +24,7 @@
   &__title-full {
     display: flex;
     padding: 20px 0 16px;
-    margin-left: 40px;
+    margin-left: 30px;
     @media (--desktop) {
       margin: 0 60px;
     }
@@ -63,7 +63,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 0 20px;
+      padding: 0 34px;
+      @media (--desktop) {
+        padding: 0 20px;
+      }
+      @media (--tablet) {
+        padding: 0 20px;
+      }
     }
   }
   &__button-fase-off {
@@ -86,7 +92,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 0 20px;
+      padding: 0 34px;
+      @media (--desktop) {
+        padding: 0 20px;
+      }
+      @media (--tablet) {
+        padding: 0 20px;
+      }
     }
   }
   &__title-left {
@@ -365,7 +377,7 @@
     line-height: 42px;
     font-family: $primary-font;
     color: #222;
-    width: 230px;
+    width: 250px;
     height: 20px;
     margin-left: 10px;
     @media (--desktop) {
