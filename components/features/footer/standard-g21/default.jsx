@@ -1,12 +1,16 @@
-import React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext, useAppContext } from 'fusion:context'
+import { useAppContext, useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
-import customFields from './_dependencies/custom-fields'
+import React from 'react'
+
+import { getAssetsPath } from '../../../utilities/assets'
+import {
+  SITE_ELCOMERCIO,
+  SITE_ELCOMERCIOMAG,
+} from '../../../utilities/constants/sitenames'
 import getFooterProperties from '../_dependencies/properties'
 import FooterChildStandardG21 from './_children/footer-g21'
-import { getAssetsPath } from '../../../utilities/assets'
-import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
+import customFields from './_dependencies/custom-fields'
 
 const DEFAULT_HIERARCHY = 'footer-default'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
@@ -30,10 +34,12 @@ const FooterStandardG21 = (props) => {
       customLogoTitle = 'Ir a la portada',
       customLogoLink = '/',
       customLogo = null,
+      isBook,
+      bookUrl,
     } = {},
   } = props
 
-  const { contextPath, arcSite } = useFusionContext()
+  const { contextPath, arcSite, isAdmin } = useFusionContext()
 
   const {
     gecSites,
@@ -104,6 +110,12 @@ const FooterStandardG21 = (props) => {
     },
   ]
 
+  const bookLogo =
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/assets/footer/libro-reclamacion.jpg?d=1` || ''
+
   /* const dataSocialNetwork =
     arcSite === SITE_ELCOMERCIO && requestUri.includes('/saltar-intro/')
       ? socialNetworksSaltarIntro
@@ -128,6 +140,11 @@ const FooterStandardG21 = (props) => {
     story,
     customLogoTitle,
     customLogoLink,
+    isMag: arcSite === SITE_ELCOMERCIOMAG,
+    isBook,
+    bookUrl,
+    bookLogo,
+    isAdmin,
   }
 
   return <FooterChildStandardG21 {...params} />

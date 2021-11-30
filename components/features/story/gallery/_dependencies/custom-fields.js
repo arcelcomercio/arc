@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 
 const posicion = {
+  0: 'Posicion 1',
   1: 'Posicion 2',
   2: 'Posicion 3',
   3: 'Posicion 4',
@@ -16,7 +17,20 @@ const posicion = {
   13: 'Posicion 14',
   14: 'Posicion 15',
   15: 'Posicion 16',
+  16: 'Posicion 17',
+  17: 'Posicion 18',
+  18: 'Posicion 19',
+  19: 'Posicion 20',
+  20: 'Posicion 21',
+  21: 'Posicion 22',
+  22: 'Posicion 23',
+  23: 'Posicion 24',
+  24: 'Posicion 25',
+  25: 'Posicion 26',
+  26: 'Posicion 27',
+  27: 'Posicion 28',
 }
+
 const posicionAds = [
   '0',
   '1',
@@ -34,6 +48,19 @@ const posicionAds = [
   '13',
   '14',
   '15',
+  '16',
+  '17',
+  '18',
+  '19',
+  '20',
+  '21',
+  '22',
+  '23',
+  '24',
+  '25',
+  '26',
+  '27',
+  '28',
 ]
 const customFields = PropTypes.shape({
   ampAdName1: PropTypes.string.tag({

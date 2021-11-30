@@ -8,27 +8,25 @@ const classes = {
   item: 'lay-foot__item f f-col just-center ',
 }
 
-const SecondaryFooter = ({ story = [], logoUrl, arcSite }) => {
-  return (
-    <footer className={classes.footer}>
-      {/* Logo */}
+const SecondaryFooter = ({ story = [], logoUrl, arcSite }) => (
+  <footer className={classes.footer}>
+    {/* Logo */}
 
-      <a itemProp="url" href="/" className={classes.logo}>
-        <img className={classes.img} src={logoUrl} alt={`Logo de ${arcSite}`} />
-      </a>
-      {/* Cuerpo */}
+    <a itemProp="url" href="/" className={classes.logo}>
+      <img className={classes.img} src={logoUrl} alt={`Logo de ${arcSite}`} />
+    </a>
+    {/* Cuerpo */}
 
-      {/* Información del sitio */}
-      <div className={classes.legal}>
-        {story.map(({ position, name }) => (
-          <div className={classes.item} key={position}>
-            <div>{position}</div>
-            <div>{name}</div>
-          </div>
-        ))}
-      </div>
-    </footer>
-  )
-}
+    {/* Información del sitio */}
+    <div className={classes.legal}>
+      {story.map(({ position, name }) => (
+        <div className={classes.item} key={position}>
+          <div>{position}</div>
+          <div>{name}</div>
+        </div>
+      ))}
+    </div>
+  </footer>
+)
 
 export default SecondaryFooter

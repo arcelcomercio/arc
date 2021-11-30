@@ -271,7 +271,7 @@ class StoriesListLoadMore extends PureComponent {
                     primarySectionLink={story.primarySectionLink}
                     primarySection={story.primarySection}
                     date={story.date}
-                    websiteLink={story.websiteLink}
+                    websiteLink={story.link}
                     title={reduceWord(story.title)}
                     titleHeader={story.titleHeader}
                     subTitle={reduceWord(story.subTitle)}

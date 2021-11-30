@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 
 const posicion = {
+  0: 'Posicion 1',
   1: 'Posicion 2',
   2: 'Posicion 3',
   3: 'Posicion 4',
