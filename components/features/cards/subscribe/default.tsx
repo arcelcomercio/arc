@@ -45,6 +45,10 @@ const CardSubscribe: FC = () => {
   const isCorreo = arcSite === SITE_DIARIOCORREO
   const isTrome = arcSite === SITE_TROME
 
+  const anonymusId = 'anonymus-container-id'
+  const registerId = 'register-container-id'
+  const hellomessageId = 'hello-msg-id'
+
   return (
     <div className={classes.container}>
       {isCorreo ? (
@@ -72,15 +76,25 @@ const CardSubscribe: FC = () => {
           alt={`Logo ${siteName}`}
           className={classes.logo}
         />
-        <CardSubscribeAnonymus arcSite={arcSite} mainColorLink={mainColorLink} />
+        <CardSubscribeAnonymus
+          id={anonymusId}
+          arcSite={arcSite}
+          mainColorLink={mainColorLink}
+        />
         <CardSubscribeRegister
+          id={registerId}
+          welcomeMsg={hellomessageId}
           arcSite={arcSite}
           contextPath={contextPath}
           mainColorLink={mainColorLink}
         />
       </div>
 
-      <script dangerouslySetInnerHTML={{ __html: handleUserStatus() }} />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: handleUserStatus(anonymusId, registerId, hellomessageId),
+        }}
+      />
     </div>
   )
 }
