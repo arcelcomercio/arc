@@ -4,7 +4,7 @@ const classes = {
   text: 'subscribe__text bold',
   text2: 'subscribe__text2 bold',
   button: 'subscribe__button rounded-sm pt-15 pb-15 bold',
-  imagebutton: 'subscribe__imagebutton',
+  imagebutton: 'subscribe__button pb-20 top-0 right-0 botcribe__imagebutton',
 }
 
 const container: any = {
@@ -24,28 +24,10 @@ const subtitles: any = {
   trome: '!NO ESPERES MÁS!',
 }
 
-const buttons: any = {
-  default: '',
-  trome: '/signwall/?outputType=subscriptions&banner=1',
-  diariocorreo: '/signwall/?outputType=subscriptions&banner=1',
-}
-const images: any = {
-  default: '',
-  trome:
-    'https://cdn.shopify.com/s/files/1/0449/4229/5199/files/registrate_2.png?v=1638160491',
-  diariocorreo: '',
-}
-
 const textButtons: any = {
   default: '',
-  trome: '',
+  trome: 'REGÍSTRATE',
   diariocorreo: 'Regístrate',
-}
-
-const backgroundButton: any = {
-  default: '',
-  trome: '',
-  diariocorreo: '#c00000',
 }
 
 interface CardSubscribeAnonymusProps {
@@ -67,15 +49,9 @@ const CardSubscribeAnonymus: React.FunctionComponent<CardSubscribeAnonymusProps>
     }}>
     <p className={classes.text}>{titles[arcSite]}</p>
     <p className={classes.text2}>{subtitles[arcSite]}</p>
-    <a
-      href={buttons[arcSite]}
-      className={classes.button}
-      style={{
-        background: backgroundButton[arcSite],
-      }}>
-      <img className={classes.imagebutton} src={images[arcSite]} alt="" />
+    <button id="btn-register-id" type="button" className="subscribe__btn">
       {textButtons[arcSite]}
-    </a>
+    </button>
   </div>
 )
 

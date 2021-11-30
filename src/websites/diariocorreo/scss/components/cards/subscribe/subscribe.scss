@@ -33,7 +33,7 @@
     color: black;
     line-height: 35px;
   }
-  &__button {
+  &__btn {
     text-decoration: none;
     width: 100%;
     display: block;
@@ -41,6 +41,9 @@
     border-radius: 8px;
     font-size: 19px;
     color: white;
+    background-color: #c00000;
+    padding-bottom:15px;
+    padding-top:15px;
   }
   &__image {
     width: 125px;
