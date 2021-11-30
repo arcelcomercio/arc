@@ -10,7 +10,7 @@ interface Props {
   customFields?: {
     type?: 'with_score' | 'with_social'
     title?: string
-    subtitle?: string
+    // subtitle?: string
   }
 }
 
@@ -99,9 +99,9 @@ PollaGuide.propTypes = {
     title: PropTypes.string.tag({
       name: 'Título',
     }),
-    subtitle: PropTypes.string.tag({
-      name: 'Subtítulo',
-    }),
+    // subtitle: PropTypes.string.tag({
+    //   name: 'Subtítulo',
+    // }),
   }),
 }
 

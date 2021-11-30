@@ -23,6 +23,7 @@ interface Props {
     tableFase2LinkUrl?: string
     customGroupName?: string
     fullMode?: boolean
+    tableUpdate?: string
   }
 }
 
@@ -123,6 +124,9 @@ const PollaPositionsTable: FC<Props> = (props) => {
     <>
       {customFields?.fullMode ? (
         <div className="polla-positions">
+          <div className="polla-positions__tableUpdate">
+            {customFields?.tableUpdate}
+          </div>
           <div className="polla-positions__title-full">
             <div className="polla-positions__title-box">
               {customFields?.tableFase1LinkUrl ? (
@@ -386,6 +390,9 @@ PollaPositionsTable.propTypes = {
     }),
     fullMode: PropTypes.bool.tag({
       name: 'Habilitar modo full',
+    }),
+    tableUpdate: PropTypes.string.tag({
+      name: 'Texto con fecha de ultima actualizacion de tabla',
     }),
   }),
 }

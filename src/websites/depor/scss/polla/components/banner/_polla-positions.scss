@@ -1,6 +1,6 @@
 .polla-positions {
-  border-radius: 5px;
-  border: 1px solid #ddd;
+  // border-radius: 5px;
+  // border: 1px solid #ddd;
   background: #eee 0% 0% no-repeat padding-box;
   font-family: $primary-font;
   background-color: #fff;
@@ -57,6 +57,8 @@
       height: 32px;
       // margin-top: 20px;
       margin-right: 24px;
+      margin-left: 10px;
+      margin-top: 10px;
       margin-bottom: 16px;
       display: flex;
       justify-content: center;
@@ -78,7 +80,8 @@
       background: #fff;
       height: 32px;
       // margin-top: 20px;
-      margin-right: 24px;
+      margin-right: 10px;
+      margin-top: 10px;
       margin-bottom: 16px;
       display: flex;
       justify-content: center;
@@ -355,6 +358,23 @@
       justify-content: center;
       align-items: center;
       padding: 0 20px;
+    }
+  }
+  &__tableUpdate {
+    font-size: 16px;
+    line-height: 42px;
+    font-family: $primary-font;
+    color: #222;
+    width: 230px;
+    height: 20px;
+    margin-left: 10px;
+    @media (--desktop) {
+      width: 350px;
+      margin-left: 10px;
+    }
+    @media (--tablet) {
+      width: 300px;
+      margin-left: 20px;
     }
   }
 }
