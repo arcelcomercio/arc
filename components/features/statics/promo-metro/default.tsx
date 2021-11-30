@@ -10,6 +10,7 @@ const classes = {
   container: 'metro w-full h-full flex flex-col justify-center',
   title: 'metro-title',
   subtitle: 'metro-subtitle',
+  subtitleBold: 'metro-subtitle-bold',
   grid: 'metro-grid',
   footer: 'metro-footer',
   // download: 'metro-download',
@@ -21,6 +22,7 @@ const classes = {
   couponType: 'coupon-type',
   couponText: 'coupon-discount',
   couponTitle: 'coupon-title',
+  couponDiscountTitle: 'coupon-discount-title',
   couponCode: 'coupon-code',
   couponLegal: 'coupon-legal',
 
@@ -40,6 +42,7 @@ interface StaticsPromoMetroProps {
     logo?: string
     title?: string
     subtitle?: string
+    subtitleBold?: string
     disableDownload?: boolean
     disableShareByEmail?: boolean
     disableShareBySocialNetwork?: boolean
@@ -80,7 +83,8 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
     textToShare = '',
     pathToShare = '',
     // logo = 'logo-de-metro.jpg',
-    title = '¡Bienvenido!¡Gracias por ser un trome!',
+    title = '¡Bienvenido!',
+    subtitleBold = '¡Gracias por ser un trome!',
     subtitle = 'Ahora como buen Trome, disfruta de estos descuentazos en cualquier tienda Metro',
     disableDownload = false,
     disableShareByEmail = false,
@@ -133,7 +137,32 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
 
   return (
     <div className={classes.container}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+        }}>
+        <img
+          src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/metrologo.png?v=1637254479"
+          alt="logo"
+          loading="lazy"
+          style={{
+            width: '70px',
+          }}
+        />
+        <img
+          src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/logo_club_trome.png?v=1638286446"
+          alt="logo"
+          loading="lazy"
+          style={{
+            height: '50px',
+          }}
+        />
+      </div>
+
       <h1 className={classes.title}>{title}</h1>
+      <h1 className={classes.subtitleBold}>{subtitleBold}</h1>
       <h2 className={classes.subtitle}>{subtitle}</h2>
       <ul className={classes.grid}>
         {coupons &&
@@ -143,13 +172,76 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
               className={`${classes.coupon} flip-card`}
               key={coupon.code}>
               <div className="flip-card-front">
-                <img
+                <div style={{ display: 'flex' }}>
+                  <div style={{ margin: 'auto', width: '47%' }}>
+                    <img
+                      src="https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/Arroz-removebg-preview.png?alt=media&token=27b3ca10-eb09-4338-b155-94fb9e7960f4"
+                      alt="logo"
+                      loading="lazy"
+                      style={{
+                        width: '100%',
+                        margin: '0 auto auto',
+                        paddingTop: '10px',
+                      }}
+                    />
+                    <h3 className={classes.couponTitle}>{coupon.title}</h3>
+                  </div>
+                  <div
+                    style={{
+                      width: '2%',
+                      borderLeft: '1px #E46E23 solid',
+                      marginTop: 'auto',
+                      height: '135px',
+                      marginBottom: 'auto',
+                    }}>
+                    &nbsp;
+                  </div>
+                  <div
+                    style={{
+                      // margin: 'auto',
+                      width: '47%',
+                      paddingTop: '15px',
+                      textAlign: 'start',
+                    }}>
+                    <strong className={classes.couponHead}>
+                      <span className={classes.couponAmount}>
+                        {coupon.discount}
+                      </span>
+                      <span className={classes.couponType}>
+                        {coupon.discountType}
+                      </span>
+                    </strong>
+                    <strong>
+                      <p className={classes.couponText}>&nbsp;de descuento</p>
+                    </strong>
+                    <p className={classes.couponCode}>{coupon.code}</p>
+                    <p className={classes.couponDiscountTitle}>
+                      Código de promoción
+                    </p>
+                    <button
+                      style={{
+                        background: '#E46E23',
+                        marginLeft: '50%',
+                        marginRight: 'auto',
+                        color: 'white',
+                        padding: '5px 10px 5px 10px',
+                        borderRadius: '5px',
+                        boxShadow: '0 2px 0.5rem #555',
+                      }}
+                      type="button"
+                      onClick={() => rotateCard(`flip-card-${coupon.code}`)}>
+                      Ver más
+                    </button>
+                  </div>
+                </div>
+
+                {/* <img
                   src={coupon.image}
                   alt="logo"
                   loading="lazy"
                   className={`${classes.imagen} ${classes.couponBgImage}`}
                 />
-                <div className={classes.minicontainer}>
+               <div className={classes.minicontainer}>
                   <strong className={classes.couponHead}>
                     <span className={classes.couponAmount}>
                       {coupon.discount}
@@ -168,7 +260,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
                     onClick={() => rotateCard(`flip-card-${coupon.code}`)}>
                     Girar
                   </button>
-                </div>
+                </div> */}
               </div>
               <div className="flip-card-back">
                 <div className={`${classes.coupon}`}>

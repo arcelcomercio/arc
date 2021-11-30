@@ -1,20 +1,29 @@
 .metro {
-  background-color: #fff;
-  width: 80%;
+  background: linear-gradient(to right, #aeaeae, white 15%, white 85%, #aeaeae);
+  //background-color: #aeaeae;
+  width: 100%;
   margin: auto;
   padding: 40px;
 
   &-title {
     color: #e15917;
     text-align: center;
-    font-style: italic;
+    //font-style: italic;
     font-weight: bold;
     font-size: 40px;
     padding: 25px;
   }
 
+  &-subtitle-bold {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding-bottom: 25px;
+    font-weight: bold;
+  }
+
   &-subtitle {
-    width: 50%;
+    width: 80%;
     margin: auto;
     text-align: center;
     padding-bottom: 25px;
@@ -22,7 +31,7 @@
 
   &-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     grid-gap: 20px;
     margin-bottom: 20px;
   }
@@ -86,7 +95,7 @@
 }
 
 .coupon {
-  text-align: center;
+  text-align: start;
   // border-radius: 20px;
   // background: linear-gradient(135deg, #fdfe4d, #fd287a, #b408af);
   height: 230px;
@@ -97,30 +106,80 @@
     filter: brightness(55%);
   }
   &-amount {
-    color: #fdfe4d;
+    color: #e46e23;
     font-size: 80px;
   }
   &-type {
-    color: #fdfe4d;
-    font-size: 40px;
+    color: #e46e23;
+    font-size: 80px;
   }
   &-discount {
-    color: white;
+    margin-top: 15px;
+    color: gray;
   }
   &-title {
     margin-top: 12px;
-    color: white;
+    color: gray;
     font-weight: bold;
   }
-
+  &-discount-title {
+    color: gray;
+    margin-left: 10px;
+    margin-top: 0px;
+    font-size: 15px;
+    padding-top: 1px;
+    padding-bottom: 10px;
+  }
   &-code {
-    font-style: italic;
-    color: white;
+    font-weight: bold;
+    color: black;
+    font-size: 20px;
+    margin-top: 15px;
   }
 
   &-legal {
     // color de prueba
     background-color: #21589b;
+  }
+
+  @media (--subs-mobile) {
+    &-amount {
+      font-size: 75px;
+    }
+    &-type {
+      font-size: 75px;
+    }
+    &-discount {
+      color: gray;
+      margin-left: 10px;
+      margin-top: 0px;
+      font-size: 17px;
+    }
+    &-title {
+      margin-top: 0px;
+      color: black;
+      font-weight: bold;
+      padding-left: 12px;
+    }
+
+    &-code {
+      font-weight: bold;
+      color: black;
+      font-size: 25px;
+      margin-top: 15px;
+      margin-left: 10px;
+      letter-spacing: -1px;
+    }
+    &-discount-title {
+      margin-left: 10px;
+      margin-top: 0px;
+      font-size: 15px;
+      padding-top: 1px;
+      padding-bottom: 10px;
+    }
+
+    &-legal {
+    }
   }
 }
 
@@ -140,7 +199,7 @@
 .flip-card {
   width: 100%;
   height: 270px;
-  text-align: center;
+  text-align: start;
   border-radius: 20px;
   margin: 0px auto;
   -o-transition: all 1s ease-in-out;
@@ -187,13 +246,15 @@
   -webkit-backface-visibility: hidden;
   -ms-backface-visibility: hidden;
   backface-visibility: hidden;
+  border: 1px #e46e23 solid;
   z-index: 2;
-  -webkit-box-shadow: 5px 6px 32px 2px rgba(133, 133, 133, 0.71);
-  -moz-box-shadow: 5px 6px 32px 2px rgba(133, 133, 133, 0.71);
-  box-shadow: 5px 6px 32px 2px rgba(133, 133, 133, 0.71);
+  //-webkit-box-shadow: 5px 6px 32px 2px rgba(133, 133, 133, 0.71);
+  //-moz-box-shadow: 5px 6px 32px 2px rgba(133, 133, 133, 0.71);
+  //box-shadow: 5px 6px 32px 2px rgba(133, 133, 133, 0.71);
 }
 .flip-card-front {
-  background: linear-gradient(135deg, #fdfe4d, #fd287a, #b408af);
+  background-color: #ffffff;
+  // background: linear-gradient(135deg, #fdfe4d, #fd287a, #b408af);
 }
 .flip-card-back {
   background: lightblue;
@@ -210,3 +271,31 @@
 //   top: 40%;
 //   width: 100%;
 // }
+@media (max-width: 360px) {
+  .metro {
+    width: 100%;
+    margin: auto;
+    padding: 10px;
+
+    &-title {
+    }
+
+    &-subtitle-bold {
+    }
+
+    &-subtitle {
+    }
+
+    &-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
+      grid-gap: 20px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .flip-card-front,
+  .flip-card-back {
+    height: 230px;
+  }
+}
