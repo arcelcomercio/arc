@@ -65,7 +65,7 @@ const CardPromotion: FC<SubscribePromoProps> = ({ customFields }) => {
         <div className={classes.respond}>
           <img
             src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-            data-src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/tromecard.png?v=1637254479"
+            data-src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/logo_club_trome.png?v=1638286446"
             loading="lazy"
             alt={`Logo ${siteName}`}
             className={`${
