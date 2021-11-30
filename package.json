@@ -156,6 +156,7 @@
     "prod:lite": "npm run wp:prod -- --env outputs='lite-story:css, dlite-story:css, mlite-story:css'",
     "prod:story": "npm run wp:prod -- --env outputs='dstory:css, story:css, story-video:css, dstory-video:css'",
     "prod:polla": "npm run wp:prod -- --env outputs='polla:sass'",
+    "prod:home-v2": "npm run wp:prod -- --env outputs='home-v2:css'",
     "prod:resumen": "npm run wp:prod -- --env outputs='resumen-2020:css'",
     "prod:covid": "npm run wp:prod -- --env outputs='covid:css'",
     "prod:elecciones": "npm run wp:prod -- --env outputs='elecciones-2021:css'",
