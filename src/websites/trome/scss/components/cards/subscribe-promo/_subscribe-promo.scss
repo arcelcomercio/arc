@@ -22,7 +22,7 @@
 
   &__btn {
     font-size: 25px;
-    font-style: normal;
+    font-style: oblique;
     padding: 10px 0px;
     background: linear-gradient(
       94deg,
@@ -39,6 +39,8 @@
     width: 230px;
     margin: 5px auto 0px;
     box-shadow: 0 0 0.5rem #353535;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
+      Noto Sans, sans-serif;
 
     &-msg {
       width: 68%;
@@ -88,7 +90,7 @@
 
   &__btn {
     font-size: 25px;
-    font-style: normal;
+    font-style: oblique;
     padding: 10px 0px;
     background: linear-gradient(
       94deg,
@@ -105,6 +107,8 @@
     width: 230px;
     margin: 5px auto 0px;
     box-shadow: 0 0 0.5rem #353535;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
+      Noto Sans, sans-serif;
 
     @media (--only-mobile) {
       width: 55px;
