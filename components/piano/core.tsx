@@ -16,9 +16,6 @@ const PianoCore: React.FC<PianoCoreProps> = ({ aid, disable = false }) => {
   if (disable) return null
 
   const pianoScript = `
-  tp.push(["init", function() {
-    tp.experience.init();
-  }]);
   (function(src) {
     var a = document.createElement("script");
     a.async = true;
