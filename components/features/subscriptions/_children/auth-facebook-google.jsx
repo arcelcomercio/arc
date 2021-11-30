@@ -128,6 +128,7 @@ const AuthFacebookGoogle = ({
   }
 
   const checkStatusForms = (emailArc, emailVerified, name, id) => {
+    console.log(emailArc, emailVerified, name, id)
     if (emailArc && emailVerified) {
       authSuccess('facebook')
     } else if (emailArc && !emailVerified) {
@@ -408,6 +409,7 @@ const AuthFacebookGoogle = ({
                   type="button"
                   onClick={() => {
                     hideFormParent(false)
+                    setShowFormFacebook(false)
                     Taggeo(
                       nameTagCategory,
                       `web_sw${typeDialog[0]}_facebook_email_link_volver`
