@@ -7,9 +7,13 @@
     align-items: flex-end;
     position: relative;
     h2 {
-      font: 700 22px/25px $primary-font;
-      letter-spacing: 0.7px;
+      font: 700 20px/24px $primary-font;
       color: #6732b8;
+      @media (--desktop) {
+        font-size: 22px;
+        line-height: 25px;
+        letter-spacing: 0.7px;
+      }
     }
     span {
       font: 500 17px/20px $primary-font;
@@ -62,6 +66,7 @@
     &.with_social {
       background-color: transparent;
       padding: 0 20px 14px;
+      // max-width: 128px;
     }
   }
   &__results-b {
@@ -78,14 +83,26 @@
     border-radius: 4px;
     justify-content: center;
     align-items: center;
-    width: 128px;
+    width: 44px;
     height: 32px;
     color: #fff;
+    @media (--tablet) {
+      width: 128px;
+    }
+    @media (--desktop) {
+      width: 128px;
+    }
     span {
       font: 500 14px/16px $primary-font;
     }
     svg {
-      margin-right: 10px;
+      margin-right: 0;
+      @media (--desktop) {
+        margin-right: 10px;
+      }
+      @media (--desktop) {
+        margin-right: 10px;
+      }
     }
   }
 

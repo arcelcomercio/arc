@@ -14,6 +14,13 @@ interface Props {
   }
 }
 
+let isMobile: boolean
+
+if (typeof window !== 'undefined')
+  isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
+    window.navigator.userAgent
+  )
+
 const PollaGuide: FC<Props> = (props) => {
   const { customFields } = props
 
@@ -45,7 +52,6 @@ const PollaGuide: FC<Props> = (props) => {
             type="button"
             className="polla-guide__share-btn"
             onClick={() => {
-              console.log('asdasdasd')
               popUpWindow(urlsShareList.facebook, '', 600, 400)
             }}>
             <svg
@@ -59,8 +65,7 @@ const PollaGuide: FC<Props> = (props) => {
                 fill="white"
               />
             </svg>
-
-            <span>Compartir</span>
+            {isMobile ? '' : <span>Compartir</span>}
           </button>
         </div>
       ) : (
