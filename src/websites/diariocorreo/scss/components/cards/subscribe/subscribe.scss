@@ -1,4 +1,9 @@
 .subscribe {
+  border: 3.5px solid #c00000;
+  &__logo {
+    height: 104px;;
+    width:90px;
+  }
   &__hello {
     font-size: 25px;
     font-weight: 501;

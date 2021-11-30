@@ -638,11 +638,10 @@ const FormRegister = ({
                               onClick={() => {
                                 // modificado para el taggeo de diario correo por valla
                                 Taggeo(
-                                  `Web_${typeDialog}_${
-                                    activeRegisterwall &&
+                                  `Web_${typeDialog}_${activeRegisterwall &&
                                     typeDialog === 'premium'
-                                      ? 'Registro'
-                                      : 'Hard'
+                                    ? 'Registro'
+                                    : 'Hard'
                                   }`,
                                   `web_${typeDialog}_boton_sigue_navegando`
                                 )
@@ -731,7 +730,7 @@ const FormRegister = ({
                           if (typeDialog === 'newsletter' && btnSignwall) {
                             btnSignwall.textContent =
                               arcSite === SITE_ELCOMERCIO ||
-                              arcSite === SITE_GESTION
+                                arcSite === SITE_GESTION
                                 ? 'Bienvenido'
                                 : 'Mi Perfil'
                           }
