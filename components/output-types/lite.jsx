@@ -7,7 +7,6 @@ import { getPreroll } from '../utilities/ads/preroll'
 import { env } from '../utilities/arc/env'
 import { getAssetsPath } from '../utilities/assets'
 import { ContentTiers } from '../utilities/constants/content-tiers'
-import { PROD } from '../utilities/constants/environment'
 import {
   SITE_DEPOR,
   SITE_ELBOCON,
@@ -521,14 +520,12 @@ const LiteOutput = ({
             <PianoAdblock disable={!siteProperties.activePiano} />
             <PianoTags
               tags={tags.map((tag) => tag.slug)}
-              debug={env !== PROD}
               contentTier={contentCode}
               storyId={globalContent?._id}
               section={sectionAds}
               publishDate={localISODate(globalContent?.display_date)}
               author={globalContent?.credits?.by?.[0]?.name}
               subtype={subtype}
-              paidContent={false}
               disable={!siteProperties.activePiano}
             />
           </>
