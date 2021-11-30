@@ -157,12 +157,18 @@ m=document.body.querySelector('.header-inverted-featured__btn-menu')
 })})`
 
 /* */
-export const initSearch = `window.addEventListener("load",function(){requestIdle(function(){ 
+export const initSearch = `window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){ 
 var s=document.body.querySelector('.header-inverted-featured__buscador-container'),
+f=document.getElementById("header-search-form"),
+b=document.body.querySelector('.header-inverted-featured__btn-search'),
+c=document.body.querySelector('.search-button-close'),
 i=document.body.querySelector('.header-inverted-featured__band');
 if (location.pathname.split('/').filter(l => l !== '')[0] === 'buscar') {
-s.className=s.className.replace(" hidden", " flex");
-i.className=i.className.replace(" mt-0", " mt-70")
+  f.className=f.className.concat(" header-inverted-featured__btn-search-close");
+  b.className.baseVal=b.className.baseVal.concat(" active");
+  c.className.baseVal=c.className.baseVal.replace(" hidden", "");
+  s.className=s.className.replace(" hidden", " flex");
+  i.className=i.className.replace(" mt-0", " mt-70")
 }
 })})`
 
