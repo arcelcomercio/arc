@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 
 import Loading from '../../signwall/_children/loading'
+import { useNavigateContext } from '../_context/navigate'
 import getCodeError, { formatEmail } from '../_dependencies/Errors'
 import getDevice from '../_dependencies/GetDevice'
 import { PropertiesCommon } from '../_dependencies/Properties'
@@ -44,6 +45,7 @@ const AuthFacebookGoogle = ({
   const [verifyEmailFb, setVerifyEmailFb] = React.useState()
   const [showSendEmail, setShowSendEmail] = React.useState()
   const [loadingSocial, setLoadingSocial] = React.useState()
+  const { changeTemplate } = useNavigateContext()
   const { texts, urls, links } = PropertiesCommon
 
   const stateSchema = {
@@ -128,7 +130,6 @@ const AuthFacebookGoogle = ({
   }
 
   const checkStatusForms = (emailArc, emailVerified, name, id) => {
-    console.log(emailArc, emailVerified, name, id)
     if (emailArc && emailVerified) {
       authSuccess('facebook')
     } else if (emailArc && !emailVerified) {
@@ -138,6 +139,7 @@ const AuthFacebookGoogle = ({
       setVerifyEmailFb(emailArc)
       deleteSessionArc()
     } else {
+      console.log(name, id)
       setLoadingSocial(false)
       hideFormParent(true)
       setShowFormFacebook({ name, id })
@@ -408,8 +410,8 @@ const AuthFacebookGoogle = ({
                   className={styles.link}
                   type="button"
                   onClick={() => {
-                    hideFormParent(false)
-                    setShowFormFacebook(false)
+                    // hideFormParent(false)
+                    changeTemplate('login')
                     Taggeo(
                       nameTagCategory,
                       `web_sw${typeDialog[0]}_facebook_email_link_volver`

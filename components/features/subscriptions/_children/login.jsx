@@ -205,14 +205,14 @@ const Login = ({
     }
   }
 
-  const registerSuccessFabebook = () => {
+  const loginSuccessFabebook = () => {
     Identity.getUserProfile().then((resProfile) => {
       activateAuth(resProfile)
       updateStep(2)
     })
   }
 
-  const registerFailedFacebook = () => setMsgError(getCodeError())
+  const loginFailedFacebook = () => setMsgError(getCodeError())
 
   return (
     <>
@@ -221,8 +221,8 @@ const Login = ({
       {disableAuthSocialArc ? (
         <AuthFacebookGoogle
           hideFormParent={() => setHideFormLogin(!hideFormLogin)}
-          onAuthSuccess={registerSuccessFabebook}
-          onAuthFailed={registerFailedFacebook}
+          onAuthSuccess={loginSuccessFabebook}
+          onAuthFailed={loginFailedFacebook}
           typeDialog={typeDialog}
           dataTreatment={checkedPolits ? '1' : '0'}
           arcSite={arcSite}
