@@ -49,11 +49,7 @@ const CardSubscribeAnonymus: React.FunctionComponent<CardSubscribeAnonymusProps>
     }}>
     <p className={classes.text}>{titles[arcSite]}</p>
     <p className={classes.text2}>{subtitles[arcSite]}</p>
-    <button
-      type="button"
-      className="subscribe__btn"
-      onClick={()=> {window.location.href='/signwall/?outputType=subscriptions&banner=1'}}>
-      
+    <button id="btn-register-id" type="button" className="subscribe__btn">
       {textButtons[arcSite]}
     </button>
   </div>
