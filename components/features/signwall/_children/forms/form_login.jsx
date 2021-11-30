@@ -185,8 +185,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
       } else {
         onClose()
       }
-    }
-    if (typeDialog === 'premium' || typeDialog === 'paywall') {
+    } else if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true) // no tengo subs
       getListSubs().then((p) => {
         if (activeRegisterwall) {
