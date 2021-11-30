@@ -61,10 +61,12 @@ const FormIntroFreeTrome = ({ typeDialog, checkModal = (i) => i }) => {
               <h2 className="title-register">FORMA PARTE DEL</h2>
               <img
                 className="header-img"
-                src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/tromecard.png?v=1637254479"
+                src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/logo_club_trome.png?v=1638286446"
                 alt=""
               />
-              <div className="text-center block" style={{ paddingTop: '5px' }}>
+              <div
+                className="text-center block"
+                style={{ marginTop: '8px', marginBottom: '5px' }}>
                 <button
                   type="button"
                   className="button__continue"
@@ -109,11 +111,7 @@ const FormIntroFreeTrome = ({ typeDialog, checkModal = (i) => i }) => {
                     changeTemplate('register')
                     checkModal()
                   }}>
-                  <img
-                    className="button__continue-img"
-                    src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/SW_Club_Trome_0006_registrate-gratis.png?v=1637792483"
-                    alt=""
-                  />
+                  REGÍSTRATE <span>GRATIS</span>
                 </button>
               </div>
 
