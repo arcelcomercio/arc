@@ -41,7 +41,7 @@ const AdsFeatAmp: FC<AdsFeatAmpProps> = (props) => {
       </>
     )
   }
-  if (ampAdjson) {
+  if (ampAdName) {
     return (
       <div
         style={ampAdInlineStyles && (JSON.parse(ampAdInlineStyles) || {})}

@@ -80,12 +80,14 @@ const VideoSectionAmp = (props) => {
             htmlPublicidad = dataCustomFields[`freeHtml${matches[1]}`]
           }
           return (
-            <div
-              className={classes.adsAmp}
-              dangerouslySetInnerHTML={{
-                __html: htmlPublicidad,
-              }}
-            />
+            htmlPublicidad && (
+              <div
+                className={classes.adsAmp}
+                dangerouslySetInnerHTML={{
+                  __html: htmlPublicidad,
+                }}
+              />
+            )
           )
         })}
 
