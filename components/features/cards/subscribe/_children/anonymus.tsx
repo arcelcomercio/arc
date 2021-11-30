@@ -24,22 +24,10 @@ const subtitles: any = {
   trome: '!NO ESPERES MÁS!',
 }
 
-const buttons: any = {
-  default: '',
-  trome: '/signwall/?outputType=subscriptions&banner=1',
-  diariocorreo: '/signwall/?outputType=subscriptions&banner=1',
-}
-
 const textButtons: any = {
   default: '',
   trome: 'REGÍSTRATE',
   diariocorreo: 'Regístrate',
-}
-
-const backgroundButton: any = {
-  default: '',
-  trome: '',
-  diariocorreo: '#c00000',
 }
 
 interface CardSubscribeAnonymusProps {
@@ -63,7 +51,9 @@ const CardSubscribeAnonymus: React.FunctionComponent<CardSubscribeAnonymusProps>
     <p className={classes.text2}>{subtitles[arcSite]}</p>
     <button
       type="button"
-      className="subscribe__btn">
+      className="subscribe__btn"
+      onClick={()=> {window.location.href='/signwall/?outputType=subscriptions&banner=1'}}>
+      
       {textButtons[arcSite]}
     </button>
   </div>
