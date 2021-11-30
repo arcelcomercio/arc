@@ -1,13 +1,15 @@
+import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import { Zones } from 'types/piano'
 import { ContentCode } from 'types/story'
 
+import { env } from '../utilities/arc/env'
 import { ContentTiers } from '../utilities/constants/content-tiers'
+import { PROD } from '../utilities/constants/environment'
 
 interface PianoTagsProps {
   tags?: string[]
   zone?: Zones
-  debug?: boolean
   contentTier?: ContentCode
   storyId?: string
   section?: string
@@ -19,13 +21,14 @@ interface PianoTagsProps {
 }
 
 /**
- * @description Estas propiedades deben estar definidas antes de inicializar piano
+ * Estas propiedades deben estar definidas antes de inicializar piano
  * con `tp.init()`.
+ *
+ * Para habilitar el **modo depuración**, debes agregar el parámetro `debug=1` a la URL.
  *
  * @param props
  * @param props.tags - Tags del contenido.
  * @param props.zone
- * @param props.debug - Debe ser habilitado para sandbox y localhost.
  * @param props.contentTier - Nivel de acceso a la historia.
  * @param props.storyId - ID de la historia.
  * @param props.section - Sección de la historia.
@@ -40,7 +43,6 @@ interface PianoTagsProps {
 const PianoTags: React.FC<PianoTagsProps> = ({
   tags = [],
   zone = 'web',
-  debug = false,
   contentTier = ContentTiers.Free,
   storyId = '',
   section,
@@ -54,14 +56,16 @@ const PianoTags: React.FC<PianoTagsProps> = ({
 
   const setPianoIdProvider = `tp.push(["setUsePianoIdUserProvider", true ]);`
   const setZone = `tp.push(["setZone", "${zone}"]);`
-  const setSandbox = debug
-    ? 'tp.push(["setSandbox", true]);tp.push(["setDebug", true]);'
-    : ''
+  const setSandbox = env !== PROD ? 'tp.push(["setSandbox", true]);' : ''
+
+  const { requestUri } = useAppContext()
+  const isDebug = /debug=1/.test(requestUri)
+  const setDebug = isDebug ? 'tp.push(["setDebug", true]);' : ''
 
   // Los `pianoBaseTags` se usan en todas la páginas
   const pianoBaseTags = `
   tp = window.tp || [];
-  ${setPianoIdProvider}${setSandbox}${setZone}
+  ${setPianoIdProvider}${setZone}${setSandbox}${setDebug}
   `
 
   const tagsArray = storyId
