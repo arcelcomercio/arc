@@ -4,7 +4,7 @@ import * as React from 'react'
 import { getPreroll } from '../utilities/ads/preroll'
 import { getAssetsPath } from '../utilities/assets'
 import { PREMIUM } from '../utilities/constants/content-tiers'
-import { META_HOME } from '../utilities/constants/meta'
+import { META_HOME, META_SECTION } from '../utilities/constants/meta'
 import {
   SITE_DEPOR,
   SITE_DIARIOCORREO,
@@ -42,7 +42,10 @@ import iframeScript from './_dependencies/iframe-script'
 import jwplayerScript from './_dependencies/jwplayer-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-script'
 import { getEnablePushud, getPushud } from './_dependencies/pushud'
-import { getEnabledServerside, getScriptAdPushup } from './_dependencies/serverside'
+import {
+  getEnabledServerside,
+  getScriptAdPushup,
+} from './_dependencies/serverside'
 import {
   getDescription,
   getIsStory,
@@ -154,11 +157,12 @@ export default ({
     else if (/^\/provecho/.test(requestUri)) classBody = `provecho`
   }
   const isHome = metaValue('id') === META_HOME && true
+  const isSection = metaValue('id') === META_SECTION && true
   const scriptAdpush = getPushud(arcSite)
   const enabledPushud = getEnablePushud(arcSite)
   const enabledPushup = getEnabledServerside(arcSite)
   const scriptAdpushup = getScriptAdPushup(arcSite)
-  
+
   const isElcomercioHome = arcSite === SITE_ELCOMERCIO && isHome
   const isPreview = /^\/preview\//.test(requestUri)
   const { uuid_match: idMatch = '' } = promoItems
@@ -295,6 +299,9 @@ export default ({
   const isPremium = contentCode === PREMIUM || false
   const htmlAmpIs = isPremium ? '' : true
   const link = deleteQueryString(requestUri).replace(/\/homepage[/]?$/, '/')
+
+  const sdkv = deployment(`${contextPath}/resources/assets/js/sdk.v3.min.js`)
+  const worv = deployment(`${contextPath}/resources/assets/js/worker.v3.min.js`)
 
   const {
     videoSeo,
@@ -725,6 +732,34 @@ export default ({
           </>
         ) : null}
         {/* ============== WebTracking */}
+        {/* == SDK PUSH */}
+        {/* window.addEventListener('load', function () {
+              requestIdle(function () {
+                var indigitallParams = {
+                  appKey: "fcd7a137-c984-4394-8015-b5301ca2a9c9",
+                  workerPath: "${worv}",
+                  requestLocation: true
+                };
+                var script = document.createElement("script");
+                script.type = "text/javascript";
+                script.onload = function(script) {
+                  indigitall.init(indigitallParams);
+                };
+                script.src = "${sdkv}";
+                script.async = true;
+                document.getElementsByTagName("head")[0].appendChild(script);
+              });
+            }); */}
+        {(isHome || isSection) && (
+          <>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e={appKey:"fcd7a137-c984-4394-8015-b5301ca2a9c9",workerPath:"${worv}",requestLocation:!0},t=document.createElement("script");t.type="text/javascript",t.onload=function(t){indigitall.init(e)},t.src="${sdkv}",t.async=!0,document.getElementsByTagName("head")[0].appendChild(t)})});`,
+              }}
+            />
+          </>
+        )}
+        {/* == FIN SDK PUSH */}
         {metaValue('section_style') === 'depor-play' ? (
           <Resource path="resources/dist/depor/css/depor-play.css">
             {({ data }) =>
@@ -798,7 +833,9 @@ export default ({
             .toISOString()
             .slice(0, 10)}`}
         />
-        {enabledPushup && !requestUri.includes('/publirreportaje/') && !requestUri.includes('/publireportaje/') ? (
+        {enabledPushup &&
+        !requestUri.includes('/publirreportaje/') &&
+        !requestUri.includes('/publireportaje/') ? (
           <>
             <script
               type="text/javascript"
