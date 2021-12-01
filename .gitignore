@@ -22,3 +22,5 @@ coverage/
 launch.json
 /.idea
 /.scannerwork
+
+resources/plugins/composer/embeds/custom-ec-blocks
