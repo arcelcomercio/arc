@@ -20,15 +20,14 @@ const FormIntroFreeTrome = ({ typeDialog, checkModal = (i) => i }) => {
   const benefits = {
     trome: [
       // {
-      //   benefit: `${getAssetsPath(arcSite,contextPath)}/resources/dist/${arcSite}/images/beneficios-metro.png?d=1`,
-      //   description: 'maquinita-ganadora'
+      //   benefit: `${getAssetsPath(arcSite,contextPath)}/resources/dist/${arcSite}/images/maquina-ganadora.png?d=1`,
+      //   description: 'maquina-ganadora'
       // },
       {
         benefit: `${getAssetsPath(
           arcSite,
           contextPath
         )}/resources/dist/${arcSite}/images/beneficios-metro.png?d=1`,
-        // 'https://cdn.shopify.com/s/files/1/0449/4229/5199/files/beneficios_metro.png?v=1638049768',
         description: 'beneficios-metro',
       },
       {
@@ -36,7 +35,6 @@ const FormIntroFreeTrome = ({ typeDialog, checkModal = (i) => i }) => {
           arcSite,
           contextPath
         )}/resources/dist/${arcSite}/images/la-fe-de-cuto.png?d=1`,
-        // 'https://cdn.shopify.com/s/files/1/0449/4229/5199/files/la_fe_de_cuto.png?v=1638049768',
         description: 'la-fe-de-cuto',
       },
       {
@@ -44,7 +42,6 @@ const FormIntroFreeTrome = ({ typeDialog, checkModal = (i) => i }) => {
           arcSite,
           contextPath
         )}/resources/dist/${arcSite}/images/cafe-noticias.png?d=1`,
-        // 'https://cdn.shopify.com/s/files/1/0449/4229/5199/files/cafe_noticias.png?v=1638049768',
         description: 'cafe-noticias',
       },
       {
@@ -52,7 +49,6 @@ const FormIntroFreeTrome = ({ typeDialog, checkModal = (i) => i }) => {
           arcSite,
           contextPath
         )}/resources/dist/${arcSite}/images/extasiados.png?d=1`,
-        // 'https://cdn.shopify.com/s/files/1/0449/4229/5199/files/extasiados.png?v=1638049768',
         description: 'extasiados',
       },
     ],
