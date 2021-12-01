@@ -40,10 +40,12 @@ const LayoutFooter = (props) => {
         contentConfigValues: { hierarchy: sectionsHierarchy = '' } = {},
       } = {},
       footerType,
+      isBook,
+      bookUrl,
     } = {},
   } = props
 
-  const { contextPath, arcSite } = useFusionContext()
+  const { contextPath, arcSite, isAdmin } = useFusionContext()
 
   const {
     gecSites,
@@ -89,6 +91,12 @@ const LayoutFooter = (props) => {
       contextPath
     )}/resources/dist/${arcSite}/images/${logo}?d=1` || ''
 
+  const bookLogo =
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/assets/footer/libro-reclamacion.jpg?d=1` || ''
+
   const formattedSections = sections && formatData(sections)
 
   const params = {
@@ -101,6 +109,10 @@ const LayoutFooter = (props) => {
     sections: formattedSections,
     arcSite,
     story,
+    isBook,
+    bookUrl,
+    bookLogo,
+    isAdmin,
   }
 
   const footers = {
@@ -128,6 +140,14 @@ LayoutFooter.propTypes = {
     sectionsHierarchyConfig: PropTypes.contentConfig('navigation').tag({
       name: 'Editar navegación de "secciones"',
       group: 'Configuración del contenido',
+    }),
+    isBook: PropTypes.bool.tag({
+      name: 'Activar Libro de Reclamaciones',
+      group: 'Extras',
+    }),
+    bookUrl: PropTypes.string.tag({
+      name: 'URL Libro de Reclamaciones',
+      group: 'Extras',
     }),
   }),
 }
