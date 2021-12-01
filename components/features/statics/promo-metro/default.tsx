@@ -5,6 +5,7 @@ import { FC } from 'types/features'
 
 import ShareButtons from '../../../global-components/lite/share/index'
 import { originByEnv } from '../../../utilities/arc/env'
+import SaleFloorCard from './_children/e-commerce'
 
 const classes = {
   container: 'metro w-full h-full flex flex-col justify-center',
@@ -60,7 +61,12 @@ interface Coupon {
   discount: number
   discountType: DiscountType
   title: string
-  legal: string
+  priceCencosud?: string
+  bonus?: {
+    price: string
+    points: string
+  }
+  restrictions?: []
 }
 
 /**
@@ -165,117 +171,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
       <h1 className={classes.subtitleBold}>{subtitleBold}</h1>
       <h2 className={classes.subtitle}>{subtitle}</h2>
       <ul className={classes.grid}>
-        {coupons &&
-          coupons.map((coupon) => (
-            <li
-              id={`flip-card-${coupon.code}`}
-              className={`${classes.coupon} flip-card`}
-              key={coupon.code}>
-              <div className="flip-card-front">
-                <div style={{ display: 'flex' }}>
-                  <div style={{ margin: 'auto', width: '47%' }}>
-                    <img
-                      src="https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/Arroz-removebg-preview.png?alt=media&token=27b3ca10-eb09-4338-b155-94fb9e7960f4"
-                      alt="logo"
-                      loading="lazy"
-                      style={{
-                        width: '100%',
-                        margin: '0 auto auto',
-                        paddingTop: '10px',
-                      }}
-                    />
-                    <h3 className={classes.couponTitle}>{coupon.title}</h3>
-                  </div>
-                  <div
-                    style={{
-                      width: '2%',
-                      borderLeft: '1px #E46E23 solid',
-                      marginTop: 'auto',
-                      height: '135px',
-                      marginBottom: 'auto',
-                    }}>
-                    &nbsp;
-                  </div>
-                  <div
-                    style={{
-                      // margin: 'auto',
-                      width: '47%',
-                      paddingTop: '15px',
-                      textAlign: 'start',
-                    }}>
-                    <strong className={classes.couponHead}>
-                      <span className={classes.couponAmount}>
-                        {coupon.discount}
-                      </span>
-                      <span className={classes.couponType}>
-                        {coupon.discountType}
-                      </span>
-                    </strong>
-                    <strong>
-                      <p className={classes.couponText}>&nbsp;de descuento</p>
-                    </strong>
-                    <p className={classes.couponCode}>{coupon.code}</p>
-                    <p className={classes.couponDiscountTitle}>
-                      Código de promoción
-                    </p>
-                    <button
-                      style={{
-                        background: '#E46E23',
-                        marginLeft: '50%',
-                        marginRight: 'auto',
-                        color: 'white',
-                        padding: '5px 10px 5px 10px',
-                        borderRadius: '5px',
-                        boxShadow: '0 2px 0.5rem #555',
-                      }}
-                      type="button"
-                      onClick={() => rotateCard(`flip-card-${coupon.code}`)}>
-                      Ver más
-                    </button>
-                  </div>
-                </div>
-
-                {/* <img
-                  src={coupon.image}
-                  alt="logo"
-                  loading="lazy"
-                  className={`${classes.imagen} ${classes.couponBgImage}`}
-                />
-               <div className={classes.minicontainer}>
-                  <strong className={classes.couponHead}>
-                    <span className={classes.couponAmount}>
-                      {coupon.discount}
-                    </span>
-                    <span className={classes.couponType}>
-                      &nbsp;{coupon.discountType}
-                    </span>
-                  </strong>
-                  <strong>
-                    <p className={classes.couponText}>&nbsp;de descuento</p>
-                  </strong>
-                  <h3 className={classes.couponTitle}>{coupon.title}</h3>
-                  <span className={classes.couponCode}>{coupon.code}</span>
-                  <button
-                    type="button"
-                    onClick={() => rotateCard(`flip-card-${coupon.code}`)}>
-                    Girar
-                  </button>
-                </div> */}
-              </div>
-              <div className="flip-card-back">
-                <div className={`${classes.coupon}`}>
-                  <div className={`${classes.couponLegal}`}>
-                    Legal
-                    <button
-                      type="button"
-                      onClick={() => rotateCard(`flip-card-${coupon.code}`)}>
-                      Girar
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </li>
-          ))}
+        {coupons && coupons.map((coupon) => <SaleFloorCard coupon={coupon} />)}
       </ul>
       <div className={classes.footer}>
         {disableShareByEmail ? null : (
