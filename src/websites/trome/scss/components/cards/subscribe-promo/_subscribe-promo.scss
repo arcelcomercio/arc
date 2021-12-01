@@ -3,6 +3,11 @@
   height: 100%;
   line-height: 1.1;
   background-color: rgba(251, 251, 251, 0.66);
+  align-content: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 15px;
 
   &__title {
     font-size: 20px;
@@ -60,6 +65,11 @@
   height: 100%;
   line-height: 1.1;
   background-color: rgba(251, 251, 251, 0.66);
+  align-content: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 15px;
 
   &__title {
     font-size: 20px;
