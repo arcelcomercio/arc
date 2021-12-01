@@ -40,3 +40,18 @@
     }
   }
 }
+.foot-book {
+  &__column {
+    display: none;
+    @media (--desktop) {
+      display: block;
+    }
+  }
+  &__info {
+    display: block;
+    margin: 10px 0;
+    @media (--desktop) {
+      display: none;
+    }
+  }
+}
