@@ -66,7 +66,10 @@ const CardSubscribe: FC = () => {
         <img
           src={
             isTrome
-              ? 'https://cdn.shopify.com/s/files/1/0449/4229/5199/files/tromecard.png?v=1637254479'
+              ? `${getAssetsPath(
+                  arcSite,
+                  contextPath
+                )}/resources/dist/${arcSite}/images/logo-club-trome.png?d=1`
               : `${getAssetsPath(
                   arcSite,
                   contextPath
