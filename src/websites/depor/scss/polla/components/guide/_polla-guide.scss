@@ -1,27 +1,46 @@
 .polla-guide {
-  padding: 32px 0 24px;
+  padding: 24px 0 10px;
   position: relative;
+  @media (--desktop) {
+    padding: 27px 0 20px;
+  }
+  @media (--tablet) {
+    padding: 27px 0 20px;
+  }
   &__title-cont {
     display: flex;
-    padding: 0 20px 18px;
-    align-items: flex-end;
-    position: relative;
-    h2 {
-      font: 800 24px/28px $primary-font;
-      letter-spacing: 0.77px;
-      color: #6732b8;
+    padding: 0 20px 5px;
+    align-items: center;
+    position: initial;
+    justify-content: space-between;
+    @media (--desktop) {
+      padding: 0 20px 18px;
     }
-    span {
-      font: 500 17px/20px $primary-font;
-      letter-spacing: 0.54px;
-      color: #666;
-      margin-left: 8px;
+    @media (--tablet) {
+      padding: 0 20px 18px;
+    }
+
+    h2 {
+      font: 700 19px/24px $primary-font;
+      color: #6732b8;
+      margin-left: -10px;
       @media (--desktop) {
-        font-size: 18px;
-        line-height: 21px;
-        letter-spacing: 0.58;
+        font-size: 22px;
+        line-height: 25px;
+        letter-spacing: 0.7px;
       }
     }
+    // span {
+    //   font: 500 17px/20px $primary-font;
+    //   letter-spacing: 0.54px;
+    //   color: #666;
+    //   margin-left: 8px;
+    //   @media (--desktop) {
+    //     font-size: 18px;
+    //     line-height: 21px;
+    //     letter-spacing: 0.58;
+    //   }
+    // }
     &::before {
       content: "";
       position: absolute;
@@ -62,6 +81,7 @@
     &.with_social {
       background-color: transparent;
       padding: 0 20px 14px;
+      // max-width: 128px;
     }
   }
   &__results-b {
@@ -78,14 +98,27 @@
     border-radius: 4px;
     justify-content: center;
     align-items: center;
-    width: 128px;
+    width: 44px;
     height: 32px;
     color: #fff;
+    @media (--tablet) {
+      width: 100px;
+    }
+    @media (--desktop) {
+      width: 128px;
+    }
     span {
       font: 500 14px/16px $primary-font;
+      color: #fff;
     }
     svg {
-      margin-right: 10px;
+      margin-right: 0;
+      @media (--desktop) {
+        margin-right: 5px;
+      }
+      @media (--tablet) {
+        margin-right: 5px;
+      }
     }
   }
 
