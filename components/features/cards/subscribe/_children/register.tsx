@@ -11,12 +11,6 @@ const classes = {
   image: 'subscribe__image position-absolute bottom-0 right-0',
 }
 
-const colorWelcome: any = {
-  default: '',
-  trome: '',
-  diariocorreo: '#c00000',
-}
-
 const welcome: any = {
   default: '',
   trome:
@@ -60,13 +54,7 @@ const CardSubscribeResgister: React.FC<CardSubscribeResgisterProps> = ({
     <p id={welcomeMsg} className={classes.hello}>
       ¡Hola!
     </p>
-    <p
-      style={{
-        color: colorWelcome[arcSite],
-      }}
-      className={classes.welcome}>
-      {welcome[arcSite]}
-    </p>
+    <p className={classes.welcome}>{welcome[arcSite]}</p>
     <p className={classes.info}>{message[arcSite]}</p>
     <img
       className={classes.image}
