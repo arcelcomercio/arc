@@ -1,0 +1,43 @@
+.story-content {
+  &__author {
+    padding: 16px 0;
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 20px;
+
+    @media (max-width: 600px) {
+      margin-right: 16px;
+      margin-left: 16px;
+    }
+
+    & > div {
+      padding: 0 0 10px 0;
+
+      @media (min-width: 640px) {
+        padding: 0;
+      }
+    }
+
+    &-link {
+      font-family: $fira-s;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 0;
+      line-height: 22px;
+      color: #333;
+    }
+
+    &-email {
+      display: none;
+    }
+
+    .story-content__date {
+      font-family: $fira-s;
+      font-size: 13px;
+      letter-spacing: -0.13px;
+      line-height: 18px;
+      color: #444;
+      padding-bottom: 0;
+    }
+  }
+}

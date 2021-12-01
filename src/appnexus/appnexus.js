@@ -234,7 +234,7 @@ const IS_MOBILE = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
 
 const device = IS_MOBILE ? 'm' : 'd'
 
-const PREBID_TIMEOUT = site==='p21'? 1500:3000
+const PREBID_TIMEOUT = site === 'p21' ? 1500 : 3000
 const BIDDER_PERCENTAGE = 0.85
 
 // eslint-disable-next-line no-use-before-define
@@ -516,19 +516,19 @@ const getTagInline = () => {
   const spaces = IS_MOBILE
     ? [
         {
-          target: '#contenedor',
+          target: '#container',
           name: 'ads_m_movil3',
           position: 3,
         },
         {
-          target: '#contenedor',
+          target: '#container',
           name: 'ads_m_movil_video',
           position: 1,
         },
       ]
     : [
         {
-          target: '#contenedor',
+          target: '#container',
           name: 'ads_d_inline',
           position: 2,
         },

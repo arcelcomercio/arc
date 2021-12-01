@@ -5,12 +5,14 @@ import ShareButtons from '../../../global-components/lite/share'
 import { SITE_DEPOR } from '../../../utilities/constants/sitenames'
 import StoryData from '../../../utilities/story-data'
 import PremiumTag from './_children/premium'
+import customFields from './_dependencies/custom-fields'
 
 const classes = {
   description: 'sht__summary',
   listClasses: 'sht__list',
   title: 'sht__title',
   category: 'sht__category',
+  related: 'sht__related',
 }
 
 const StoryTitleLite = () => {
@@ -29,6 +31,7 @@ const StoryTitleLite = () => {
     primarySectionLink,
     primarySection,
     contentElementsListOne: { items = [], type = '' } = {},
+    contentElementsQuoteOne,
   } = new StoryData({
     data,
     arcSite,
@@ -72,6 +75,12 @@ const StoryTitleLite = () => {
           <h2 itemProp="name" className={classes.description}>
             {subTitle}
           </h2>
+          {arcSite === 'trome' && contentElementsQuoteOne && (
+            <div
+              className={classes.related}
+              dangerouslySetInnerHTML={{ __html: contentElementsQuoteOne }}
+            />
+          )}
           {!isStoryV2StandarStyle && (
             <PremiumTag isPremium={isPremium} arcSite={arcSite} />
           )}
@@ -94,8 +103,11 @@ const StoryTitleLite = () => {
     </>
   )
 }
-
-StoryTitleLite.label = 'Artículo - Título'
+StoryTitleLite.propTypes = {
+  // eslint-disable-next-line react/no-unused-prop-types
+  customFields,
+}
+StoryTitleLite.label = 'Artículo - Título '
 StoryTitleLite.static = true
 
 export default StoryTitleLite

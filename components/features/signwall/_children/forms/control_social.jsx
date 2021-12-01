@@ -137,17 +137,7 @@ const setupUserProfile = (
             },
             {
               name: 'dataTreatment',
-              value:
-                dataTreatment &&
-                (arcSite === 'elcomercio' ||
-                  arcSite === 'gestion' ||
-                  arcSite === 'trome' ||
-                  arcSite === 'ojo' ||
-                  arcSite === 'diariocorreo' ||
-                  arcSite === 'peru21' ||
-                  arcSite === 'peru21g21')
-                  ? dataTreatment
-                  : 'NULL',
+              value: dataTreatment,
               type: 'String',
             },
           ],

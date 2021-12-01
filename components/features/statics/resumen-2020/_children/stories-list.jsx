@@ -53,7 +53,6 @@ const StaticsResumen2020StoriesList = ({
       <div className="st-list__footer">
         <svg
           className="st-list__footer-gec"
-          xmlns="http://www.w3.org/2000/svg"
           width="36.175"
           height="36.175"
           viewBox="0 0 36.175 36.175">

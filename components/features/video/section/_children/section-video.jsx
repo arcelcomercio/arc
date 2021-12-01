@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react'
 
 import LiteYoutube from '../../../../global-components/lite-youtube'
@@ -50,6 +49,12 @@ export default ({
   isAdmin,
   arrSections,
   siteProperties,
+  hideSectionBar,
+  hidePlaylist,
+  hideShare,
+  // hideMeta,
+  hideSticky,
+  categoryTop,
 }) => {
   // const [hasFixedSection, changeFixedSection] = useState(false)
   const [hidden, setHidden] = useState(false)
@@ -84,7 +89,7 @@ export default ({
         const mTop = 450
 
         const playOff = playList.offsetTop
-        if (window.innerWidth >= 1024) {
+        if (!hideSticky && window.innerWidth >= 1024) {
           window.addEventListener('scroll', () => {
             const scrollHeight = window.scrollY
             if (scrollHeight >= playOff && arcSite !== 'gestion') {
@@ -132,12 +137,39 @@ export default ({
     popUpWindow(urlsShareList[origin], '', 600, 400)
   }
 
-  const fecha = principalVideo.displayDate
-    ? formatDayMonthYear(principalVideo.displayDate, true, false)
-    : ''
+  const shareBtnHandler = () => {
+    if (window.navigator && window.navigator.share)
+      window.navigator
+        .share({
+          // title: 'WebShare API Demo',
+          url: window.location.origin,
+        })
+        .then(() => {
+          console.log('Shared btn')
+        })
+        .catch(console.error)
+  }
+
+  const getFecha = () => {
+    if (!principalVideo.displayDate) {
+      return ''
+    }
+
+    return arcSite === 'trome'
+      ? formatDayMonthYear(
+          principalVideo.displayDate,
+          true,
+          false,
+          true,
+          true,
+          false
+        )
+      : formatDayMonthYear(principalVideo.displayDate, true, false)
+  }
 
   const playListParams = {
     ...playListVideo,
+    principalVideo,
     arcSite,
     contextPath,
     deployment,
@@ -154,12 +186,36 @@ export default ({
     )
   }
 
+  const renderDescription = (element) =>
+    element.contentElements[0].type === 'list'
+      ? element.contentElements[0].items.map((el) => (
+          <div
+            dangerouslySetInnerHTML={{ __html: el.content }}
+            className="section-video__list-items"
+            key={el.content}
+          />
+        ))
+      : element.subTitle
+
   return (
     <div className="section-video">
       <div className="section-video__box">
         <div className="section-video__wrapper">
           <div className="section-video__top">
             <div className="section-video__left">
+              {arcSite === 'trome' && (
+                <div
+                  className={`section-video__box-section section-video__box-section-top ${
+                    categoryTop ? 'section-video__box-section-top-mobile' : ''
+                  }`}>
+                  <a
+                    itemProp="url"
+                    href={principalVideo.primarySectionLink}
+                    className="section-video__section block text-white">
+                    {principalVideo.primarySection}
+                  </a>
+                </div>
+              )}
               <div className="section-video__frame">
                 {principalVideo && principalVideo.promoItemJwplayer.key ? (
                   <>
@@ -184,7 +240,21 @@ export default ({
             </div>
             <div className="section-video__right">
               <div className="section-video__information">
-                <div className="section-video__box-section">
+                {arcSite === 'trome' &&
+                  !(
+                    principalVideo.videoDuration === '00:00' ||
+                    principalVideo.videoDuration === '00:00:00'
+                  ) && (
+                    <div className="section-video__mobile-duration">
+                      Duración: {principalVideo.videoDuration}
+                    </div>
+                  )}
+                <div
+                  className={`section-video__box-section section-video__box-section-bottom ${
+                    categoryTop
+                      ? 'section-video__box-section-bottom-mobile'
+                      : null
+                  }`}>
                   <a
                     itemProp="url"
                     href={principalVideo.primarySectionLink}
@@ -200,6 +270,7 @@ export default ({
                     {principalVideo.title}
                   </a>
                 </h1>
+
                 {arcSite === 'peru21' && (
                   <div className="section-video__content-share pt-10 pb-20 flex flex-row justify-between border-b-1 border-solid">
                     <div className="section-video__share">
@@ -245,62 +316,115 @@ export default ({
                   <p itemProp="description" className="section-video__subtitle">
                     {principalVideo.contentElements &&
                     principalVideo.contentElements.length > 0
-                      ? principalVideo.contentElements[0].type === 'list'
-                        ? principalVideo.contentElements[0].items.map((el) => (
-                            <div
-                              dangerouslySetInnerHTML={{ __html: el.content }}
-                              className="section-video__list-items"
-                              key={el.content}
-                            />
-                          ))
-                        : principalVideo.subTitle
+                      ? renderDescription(principalVideo)
                       : principalVideo.subTitle}
                   </p>
                 )}
               </div>
               {principalVideo.captionVideo && !hidden && (
                 <span className="section-video__caption text-sm text-gray-200">
-                  {principalVideo.captionVideo}
+                  {principalVideo.captionVideo}(asdf)
                 </span>
               )}
+              {arcSite === 'trome' && !hideShare ? (
+                <>
+                  <div className="section-video__content-share pt-10 pb-20 flex flex-row justify-between border-b-1 border-solid">
+                    <div className="section-video__share">
+                      <button
+                        onClick={() => shareNew('facebook')}
+                        type="button"
+                        className="section-video__btn section-video__btn--facebook">
+                        <span className="icon-facebook" />
+                      </button>
+                      <button
+                        onClick={() => shareNew('twitter')}
+                        type="button"
+                        className="section-video__btn section-video__btn--twitter">
+                        <span className="icon-twitter" />
+                      </button>
+                      <button
+                        onClick={() => shareNew('linkedin')}
+                        type="button"
+                        className="section-video__btn section-video__btn--linkedin">
+                        <span className="icon-linkedin" />
+                      </button>
+                      <button
+                        onClick={shareBtnHandler}
+                        type="button"
+                        className="section-video__btn">
+                        <svg
+                          viewBox="0 0 28 28"
+                          width="16"
+                          height="16"
+                          fill="#ccc">
+                          <path d="M28 10c0 0.266-0.109 0.516-0.297 0.703l-8 8c-0.187 0.187-0.438 0.297-0.703 0.297-0.547 0-1-0.453-1-1v-4h-3.5c-6.734 0-11.156 1.297-11.156 8.75 0 0.641 0.031 1.281 0.078 1.922 0.016 0.25 0.078 0.531 0.078 0.781 0 0.297-0.187 0.547-0.5 0.547-0.219 0-0.328-0.109-0.438-0.266-0.234-0.328-0.406-0.828-0.578-1.188-0.891-2-1.984-4.859-1.984-7.047 0-1.75 0.172-3.547 0.828-5.203 2.172-5.391 8.547-6.297 13.672-6.297h3.5v-4c0-0.547 0.453-1 1-1 0.266 0 0.516 0.109 0.703 0.297l8 8c0.187 0.187 0.297 0.438 0.297 0.703z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="section-video__detail">
+                    <ul className="section-video__list-text">
+                      {principalVideo.author !== '' && (
+                        <li className="section-video__text">
+                          {principalVideo.author}
+                        </li>
+                      )}
+                      {principalVideo.displayDate !== '' && (
+                        <li className="section-video__text">{getFecha()}</li>
+                      )}
+                      {!(
+                        principalVideo.videoDuration === '00:00' ||
+                        principalVideo.videoDuration === '00:00:00'
+                      ) && (
+                        <li className="section-video__text">
+                          Duración: {principalVideo.videoDuration}
+                        </li>
+                      )}
+                    </ul>
+                  </div>
+                </>
+              ) : null}
             </div>
           </div>
-          <div className="section-video__detail">
-            <div className="section-video__share">
-              <button
-                onClick={() => shareNew('facebook')}
-                type="button"
-                className="section-video__btn section-video__btn--facebook">
-                <span className="icon-facebook" />
-              </button>
-              <button
-                onClick={() => shareNew('twitter')}
-                type="button"
-                className="section-video__btn section-video__btn--twitter">
-                <span className="icon-twitter" />
-              </button>
+          {arcSite !== 'trome' && (
+            <div className="section-video__detail">
+              <div className="section-video__share">
+                <button
+                  onClick={() => shareNew('facebook')}
+                  type="button"
+                  className="section-video__btn section-video__btn--facebook">
+                  <span className="icon-facebook" />
+                </button>
+                <button
+                  onClick={() => shareNew('twitter')}
+                  type="button"
+                  className="section-video__btn section-video__btn--twitter">
+                  <span className="icon-twitter" />
+                </button>
+              </div>
+              {!hidden && (
+                <ul className="section-video__list-text">
+                  {principalVideo.author !== '' && (
+                    <li className="section-video__text">
+                      {principalVideo.author}
+                    </li>
+                  )}
+                  {principalVideo.displayDate !== '' && (
+                    <li className="section-video__text">{getFecha()}</li>
+                  )}
+                  {!(
+                    principalVideo.videoDuration === '00:00' ||
+                    principalVideo.videoDuration === '00:00:00'
+                  ) && (
+                    <li className="section-video__text">
+                      Duración: {principalVideo.videoDuration}
+                    </li>
+                  )}
+                </ul>
+              )}
             </div>
-            {!hidden && (
-              <ul className="section-video__list-text">
-                {principalVideo.author !== '' && (
-                  <li className="section-video__text">
-                    {principalVideo.author}
-                  </li>
-                )}
-                {principalVideo.displayDate !== '' && (
-                  <li className="section-video__text">{fecha}</li>
-                )}
-                {!(
-                  principalVideo.videoDuration === '00:00' ||
-                  principalVideo.videoDuration === '00:00:00'
-                ) && (
-                  <li className="section-video__text">
-                    Duración: {principalVideo.videoDuration}
-                  </li>
-                )}
-              </ul>
-            )}
-          </div>
+          )}
           <div
             className={
               playListParams.arcSite === 'gestion'
@@ -309,9 +433,9 @@ export default ({
             }
           />
         </div>
-        <PlayList {...playListParams} />
+        {!hidePlaylist && <PlayList {...playListParams} />}
       </div>
-      <VideoBar sections={arrSections} />
+      {!hideSectionBar && <VideoBar sections={arrSections} />}
     </div>
   )
 }

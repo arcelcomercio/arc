@@ -1,0 +1,32 @@
+/******* Framework Variables *******/
+@import "../partials/import-icons";
+@import "../../../../general-styles/framework/variables/index";
+
+/******* Site Variables *******/
+@import "../variables/index";
+@import "../../../../general-styles/framework/core/index";
+@import "../partials/import-fonts";
+@import "../../../../general-styles/framework/generators/index";
+
+/******* Partials *******/
+@import "../partials/base";
+
+// /******* Components *******/
+// @import "../../../general-styles/components/index";
+@import "./layouts/content-layout";
+@import "./features/chain-ordered-stories";
+@import "../components/header/inverted-featured";
+@import "../components/layout/footer/footer-secction";
+@import "../components/custom-title/custom-title-section";
+@import "./features/featured-story";
+@import "../components/cards/triplet-doblete/triplet-doblete";
+@import "../components/breaking-news/breaking-news";
+@import "../components/statics/newsletter/newsletter";
+@import "../components/cards/tabloid/tabloid";
+@import "../components/cards/subscribe-promo/subscribe-promo";
+@import "../components/cards/subscribe/subscribe.scss";
+
+// /******* Modificadores *******/
+// @import "./global-components/_";
+// @import "./components/_";
+@import "./modifiers/section-modifier";

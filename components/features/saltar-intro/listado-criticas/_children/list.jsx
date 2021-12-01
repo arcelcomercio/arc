@@ -26,6 +26,7 @@ export default ({ isAdmin, seeMoreLink, data: { items = [] } = {} }) => {
     const star = '☆'.repeat(max - limitCount)
     return `${starFull}${star}`
   }
+
   return (
     <div className={classes.container}>
       <div className={classes.list}>

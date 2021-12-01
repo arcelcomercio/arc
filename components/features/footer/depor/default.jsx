@@ -8,6 +8,7 @@ import { getAssetsPath } from '../../../utilities/assets'
 import getFooterProperties from '../_dependencies/properties'
 import FooterInfo from './_children/FooterInfo'
 import FooterDeporColumnSection from './_children/FooterSection'
+import customFields from './_dependencies/custom-fields'
 
 const DEFAULT_HIERARCHY = 'footer-default'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
@@ -27,14 +28,14 @@ const SCHEMA = `{
 }`
 
 const classes = {
-  footer: 'bg-white',
+  footer: 'footer-secction__footer',
   content: 'footer-secction__content-footer ',
 }
 
 const FooterDepor = (props) => {
   const { arcSite, contextPath, isAdmin } = useFusionContext()
 
-  const { customFields: { isBook, bookUrl } = {} } = props
+  const { customFields: { newDesign, isBook, bookUrl } = {} } = props
 
   const {
     gecSites,
@@ -93,6 +94,7 @@ const FooterDepor = (props) => {
     corporateInfo,
     draftingContact,
     copyrightText,
+    newDesign,
     isBook,
     bookUrl,
     bookLogo,
@@ -107,6 +109,10 @@ const FooterDepor = (props) => {
       </div>
     </footer>
   )
+}
+
+FooterDepor.propTypes = {
+  customFields,
 }
 
 FooterDepor.label = 'Pié de página - Depor'

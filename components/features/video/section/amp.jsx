@@ -1,24 +1,17 @@
-import { useFusionContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
 import React from 'react'
-import { storyTagsBbc } from '../../../utilities/tags'
 
-import StorySocialChildAmpSocial from '../../story/social/_children/amp-social'
+import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
+import StoryData from '../../../utilities/story-data'
 import ElePrincipal from '../../story/contents/_children/amp-ele-principal'
 import StoryContentChildVideoJwplayer from '../../story/contents/_children/amp-video-jwplayer'
-import StoryData from '../../../utilities/story-data'
 import StoryContentChildTags from '../../story/contents/_children/tags'
 import StoryContentChildRelated from './_children/related'
-import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
-import { getAssetsPath } from '../../../utilities/assets'
-import {
-  publicidadAmp,
-  publicidadAmpAd,
-} from '../../../utilities/story/helpers-amp'
+import customFields from './_dependencies/custom-fields'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
-  stories: 'amp-sh bg-white pr-20 pl-20 m-5 mx-auto',
   titleAmp:
     'amp-sh__title font-bold secondary-font title-md text-gray-300 line-h-xs',
   datetime: 'amp-sh__datetime mt-15 mb-15 block secondary-font text-lg',
@@ -27,20 +20,19 @@ const classes = {
   author: 'amp-story-content__author mt-15 mb-15 secondary-font',
   bbcHead: 'bbc-head',
 }
-const VideoSectionAmp = () => {
+const VideoSectionAmp = (props) => {
   const {
     globalContent: data,
     arcSite,
     contextPath,
     deployment,
     isAmp,
-    siteProperties: { adsAmp },
   } = useFusionContext()
+
+  const { customFields: dataCustomFields } = props
 
   const {
     id,
-    title,
-    subTitle,
     tags,
     promoItems,
     authorLink,
@@ -60,94 +52,15 @@ const VideoSectionAmp = () => {
       },
     }) || {}
 
-  const namePublicidad = arcSite !== 'peru21g21' ? arcSite : 'peru21'
-
-  const width = '300'
-  const height = '250'
-  const parametersCaja1 = {
-    // top
-    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja1`,
-    prebidSlot: `19186-${namePublicidad}-amp-caja1`,
-    width: '320',
-    height: '100',
-    movil1: false,
-    arcSite
-  }
-
-  const parametersCaja2 = { 
-    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`, 
-    prebidSlot: `19186-${namePublicidad}-amp-caja2`,
-    width, 
-    height, 
-    movil1: true,
-    arcSite
-  }
-
-  const parametersCaja3 = {
-    // movil4 caja4 caja3
-    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja3`,
-    prebidSlot: `19186-${namePublicidad}-amp-caja3`,
-    width,
-    height,
-    movil1: true,
-    arcSite
-  }
-  const parametersCaja4 = {
-    // movil5 caja5 caja4
-    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja4`,
-    prebidSlot: `19186-${namePublicidad}-amp-caja4`,
-    width,
-    height,
-    movil1: true,
-    arcSite
-  }
-
-  const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
-  const imgBbc =
-    `${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
+  const activeAds = Object.keys(dataCustomFields).filter((prop) =>
+    prop.match(/ampAdLoadBlock(\d)/)
+  )
 
   return (
     <>
-      <div className={classes.stories}>
-        <header>
-          <div
-            className={classes.adsAmp}
-            dangerouslySetInnerHTML={publicidadAmp(parametersCaja1)}
-          />
-          {storyTagsBbc(tags) && (
-            <div className={classes.bbcHead}>
-              <a
-                href={URL_BBC}
-                rel="nofollow noopener noreferrer"
-                target="_blank">
-                <amp-img
-                  alt="BBC"
-                  layout="responsive"
-                  width="500"
-                  height="30"
-                  src={imgBbc}
-                  data-src={imgBbc}
-                />
-              </a>
-            </div>
-          )}
-          <h1 className={classes.titleAmp}>{title}</h1>
-        </header>
-        <div
-          className={classes.adsAmp}
-          dangerouslySetInnerHTML={publicidadAmp(parametersCaja2)}
-        />
-
-        <div className={classes.description}> {subTitle}</div>
-        <StorySocialChildAmpSocial />
-      </div>
       <div className={classes.content}>
         {promoItemJwplayer && promoItemJwplayer.key ? (
-          <StoryContentChildVideoJwplayer
-            data={promoItemJwplayer}></StoryContentChildVideoJwplayer>
+          <StoryContentChildVideoJwplayer data={promoItemJwplayer} />
         ) : (
           <>{promoItems && <ElePrincipal data={promoItems} />}</>
         )}
@@ -156,14 +69,28 @@ const VideoSectionAmp = () => {
           <a href={authorLink}>{author}</a>
         </p>
 
-        <div
-          className={classes.adsAmp}
-          dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja3)}
-        />
-        <div
-          className={classes.adsAmp}
-          dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
-        />
+        {activeAds.map((el) => {
+          let htmlPublicidad = ''
+          if (
+            dataCustomFields[el] === 3 ||
+            dataCustomFields[el] === 4 ||
+            dataCustomFields[el] === 5
+          ) {
+            const matches = el.match(/([0-9])+/)
+            htmlPublicidad = dataCustomFields[`freeHtml${matches[1]}`]
+          }
+          return (
+            htmlPublicidad && (
+              <div
+                className={classes.adsAmp}
+                dangerouslySetInnerHTML={{
+                  __html: htmlPublicidad,
+                }}
+              />
+            )
+          )
+        })}
+
         <StoryContentChildTags data={tags} {...isAmp} />
         {relatedContent.length > 0 && (
           <div className={classes.related}>
@@ -189,6 +116,9 @@ const VideoSectionAmp = () => {
       </div>
     </>
   )
+}
+VideoSectionAmp.propTypes = {
+  customFields,
 }
 
 VideoSectionAmp.static = true

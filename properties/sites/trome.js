@@ -30,12 +30,12 @@ export default {
     'https://news.google.com/publications/CAAiECCiQIt3Kd998hQP1V3qDOIqFAgKIhAgokCLdynfffIUD9Vd6gzi?hl=es-419&gl=PE&ceid=PE%3Aes-419',
   googleNewsImage: 'https://trome.pe/f/i/pub_40.png',
   infoPagesDev: {
-    termsAndConditions: '',
+    termsAndConditions: 'IOT4LCVZIRFSNM62EAA2VOIEPI',
     guidingPrinciples: '',
     privacyPolicies: 'RVQF23ZVKZCARMOZDNH4U4EGUM',
     integratedManagementPolicy: '',
     arcoProcedure: '',
-    cookiesPolicy: '',
+    cookiesPolicy: 'IZQL7TKLWBBF7GGRURHWNVP3JA',
     aboutUs: '',
     frequentQuestions: '',
     dataTreatment: 'BWEVGA3XC5A6VEGCTFFLJXPBEU',
@@ -121,15 +121,17 @@ export default {
   adsAmp: {
     dataSlot: 28253241,
   },
-  listUrlAdvertisings: [
+  listUrlAdvertisings: [  
     'https://d1r08wok4169a5.cloudfront.net/ads-trome/ads-fia-28253241-trm_ia_interna1-300x250-div-gpt-ad-8599377-46.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-trome/ads-fia-28253241-trm_ia_interna2-300x250-div-gpt-ad-8599377-47.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-trome/ads-fia-28253241-trm_ia_interna3-300x250-div-gpt-ad-8599377-48.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-trome/ads-fia-28253241-trm_ia_interna4-300x250-div-gpt-ad-8599377-49.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-trome/ads-fia-28253241-trm_ia_interna5-300x250-div-gpt-ad-8599377-50.html',
   ],
+  activeMagicLink: true,
   activeSignwall: true,
   activeVerifyEmail: true,
+  activeRegisterwall: true,
   activeDataTreatment: true,
   activeNewsletter: true,
   activePhoneRegister: true,
@@ -154,5 +156,9 @@ export default {
   jwplayersMatching: {
     playerId: 'UQH16oLN',
     videoId: 'z0YAXqp2',
+  },
+  pianoID: {
+    sandbox: '6UafT9Fjsu',
+    prod: '',
   },
 }

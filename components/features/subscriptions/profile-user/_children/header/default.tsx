@@ -41,7 +41,6 @@ const HeaderSignwall = ({
 
   return (
     <div
-      className=""
       style={{
         background: '#ffffff',
         color: mainColorTxt,

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+
 import { spacesAdsId, spacesAdsName } from '../../../../utilities/config-params'
 
 const customFields = PropTypes.shape({
@@ -95,11 +96,11 @@ const customFields = PropTypes.shape({
     defaultValue: false,
     group: 'Lite',
     labels: {
-      '0': 'Ninguno',
-      '1': 'Bloque 1',
-      '2': 'Bloque 2',
-      '3': 'Bloque 3',
-      '4': 'Bloque 4',
+      0: 'Ninguno',
+      1: 'Bloque 1',
+      2: 'Bloque 2',
+      3: 'Bloque 3',
+      4: 'Bloque 4',
     },
   }),
   prebidAdEnabled: PropTypes.bool.tag({
@@ -115,6 +116,33 @@ const customFields = PropTypes.shape({
   isContainer: PropTypes.bool.tag({
     name: 'Habilitar Contenedor',
     defaultValue: false,
+  }),
+
+  ampAdjson: PropTypes.string.tag({
+    name: 'json',
+    group: 'AMP',
+  }),
+  ampAdName: PropTypes.string.tag({
+    name: 'Nombre',
+    group: 'AMP',
+  }),
+  ampAdDimensions: PropTypes.string.tag({
+    name: 'Dimensiones',
+    group: 'AMP',
+  }),
+
+  ampAdInlineStyles: PropTypes.string.tag({
+    name: 'Estilos inline',
+    description:
+      'Incluye un JSON de estilos para el contenedor de publicidad. ej. {"position":"fixed","marginTop":0}',
+    group: 'AMP',
+  }),
+
+  ampAdSticky: PropTypes.bool.tag({
+    name: 'Activar sticky ad ',
+    description: 'Si se activa, sticky ad Zocalo.',
+    defaultValue: false,
+    group: 'AMP',
   }),
 })
 

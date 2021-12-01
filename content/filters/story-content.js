@@ -10,6 +10,7 @@ website_section{
 }
 `
 export const storyContent = `
+param
 _id
 type
 content_elements {
@@ -334,6 +335,11 @@ promo_items{
     caption
     width
     height
+    credits {
+      by {
+        name
+      }
+    }
     resized_urls { 
       large
       landscape_md
