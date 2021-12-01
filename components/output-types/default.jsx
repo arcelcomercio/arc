@@ -4,7 +4,7 @@ import * as React from 'react'
 import { getPreroll } from '../utilities/ads/preroll'
 import { getAssetsPath } from '../utilities/assets'
 import { PREMIUM } from '../utilities/constants/content-tiers'
-import { META_HOME } from '../utilities/constants/meta'
+import { META_HOME, META_SECTION } from '../utilities/constants/meta'
 import {
   SITE_DEPOR,
   SITE_DIARIOCORREO,
@@ -157,6 +157,7 @@ export default ({
     else if (/^\/provecho/.test(requestUri)) classBody = `provecho`
   }
   const isHome = metaValue('id') === META_HOME && true
+  const isSection = metaValue('id') === META_SECTION && true
   const scriptAdpush = getPushud(arcSite)
   const enabledPushud = getEnablePushud(arcSite)
 
@@ -303,6 +304,9 @@ export default ({
   const htmlAmpIs = isPremium ? '' : true
   const link = deleteQueryString(requestUri).replace(/\/homepage[/]?$/, '/')
 
+  const sdkv = deployment(`${contextPath}/resources/assets/js/sdk.v3.min.js`)
+  const worv = deployment(`${contextPath}/resources/assets/js/worker.v3.min.js`)
+
   const {
     videoSeo,
     idYoutube,
@@ -366,10 +370,10 @@ export default ({
   const isFonts = isTrivia || isCovid
 
   const robotsIndex = `${/(\/(autor|autores)\/)(|[\w\d-]+\/)([0-9]+)\//.test(requestUri) &&
-      !/(\/(autor|autores)\/)([\w\d-]+\/|)([1])\//.test(requestUri) &&
-      arcSite === 'trome'
-      ? 'noindex, follow'
-      : 'index, follow,max-image-preview:large'
+    !/(\/(autor|autores)\/)([\w\d-]+\/|)([1])\//.test(requestUri) &&
+    arcSite === 'trome'
+    ? 'noindex, follow'
+    : 'index, follow,max-image-preview:large'
     }`
 
   const OptaWidgetsFromStory = getOptaWidgetsFromStory(globalContent)
@@ -387,8 +391,8 @@ export default ({
           <meta
             name="robots"
             content={`${/-agnc-/.test(requestUri)
-                ? 'noindex, follow'
-                : 'index, follow,max-image-preview:large'
+              ? 'noindex, follow'
+              : 'index, follow,max-image-preview:large'
               }`}
           />
         ) : (
@@ -734,6 +738,34 @@ export default ({
           </>
         ) : null}
         {/* ============== WebTracking */}
+        {/* == SDK PUSH */}
+        {/* window.addEventListener('load', function () {
+              requestIdle(function () {
+                var indigitallParams = {
+                  appKey: "fcd7a137-c984-4394-8015-b5301ca2a9c9",
+                  workerPath: "${worv}",
+                  requestLocation: true
+                };
+                var script = document.createElement("script");
+                script.type = "text/javascript";
+                script.onload = function(script) {
+                  indigitall.init(indigitallParams);
+                };
+                script.src = "${sdkv}";
+                script.async = true;
+                document.getElementsByTagName("head")[0].appendChild(script);
+              });
+            }); */}
+        {(isHome || isSection) && (
+          <>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e={appKey:"fcd7a137-c984-4394-8015-b5301ca2a9c9",workerPath:"${worv}",requestLocation:!0},t=document.createElement("script");t.type="text/javascript",t.onload=function(t){indigitall.init(e)},t.src="${sdkv}",t.async=!0,document.getElementsByTagName("head")[0].appendChild(t)})});`,
+              }}
+            />
+          </>
+        )}
+        {/* == FIN SDK PUSH */}
         {metaValue('section_style') === 'depor-play' ? (
           <Resource path="resources/dist/depor/css/depor-play.css">
             {({ data }) =>
