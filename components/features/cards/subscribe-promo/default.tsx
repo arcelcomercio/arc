@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 import { FC } from 'types/features'
 
-// import { getAssetsPath } from '../../../utilities/assets'
+import { getAssetsPath } from '../../../utilities/assets'
 import { verifyUserPromotion } from './_dependencies/scripts'
 
 const classes = {
@@ -43,7 +43,7 @@ interface SubscribePromoProps {
 const CardPromotion: FC<SubscribePromoProps> = ({ customFields }) => {
   const { pathToPromotion = '', disableMiniVersion = true } = customFields || {}
 
-  const { arcSite, /* contextPath, */ isAdmin } = useAppContext()
+  const { arcSite, contextPath, isAdmin } = useAppContext()
   const { siteName } = getProperties(arcSite)
 
   const titleId = 'promotion-title-id'
@@ -65,7 +65,10 @@ const CardPromotion: FC<SubscribePromoProps> = ({ customFields }) => {
         <div className={classes.respond}>
           <img
             src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-            data-src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/logo_club_trome.png?v=1638286446"
+            data-src={`${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/dist/${arcSite}/images/logo-club-trome.png?d=1`}
             loading="lazy"
             alt={`Logo ${siteName}`}
             className={`${
@@ -80,7 +83,10 @@ const CardPromotion: FC<SubscribePromoProps> = ({ customFields }) => {
           <img
             className={`${isAdmin ? '' : 'lazy'} promotion${isMini}__metro`}
             src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-            data-src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/metrologo.png?v=1637254479"
+            data-src={`${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/dist/${arcSite}/images/logo-metro.png?d=1`}
             alt="metro logo"
           />
         </div>
