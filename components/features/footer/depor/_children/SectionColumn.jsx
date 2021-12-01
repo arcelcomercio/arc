@@ -17,43 +17,66 @@ const ItemLinkSubSection = ({ url, subsectionName, isBold }) => (
 )
 
 const SectionColumn = ({
+  isBook,
+  bookUrl,
+  bookLogo,
+  isAdmin,
+  isLastElement,
+  isTrome,
   section: {
     name: title = '',
     _id: urlSec = '',
     children: listSubSections = [],
   } = {},
 }) => (
-  <ul className={classes.sectionColumn}>
-    <li className={classes.item}>
-      <a
-        itemProp="url"
-        href={addSlashToEnd(urlSec)}
-        className={classes.itemTop}>
-        {title}
-      </a>
-    </li>
-    {listSubSections.map(
-      ({ display_name: subsectionName = '', url = '' }, index) => {
-        const keyString = `id${index}`
-        let subItemName = subsectionName
-        const rawMatch = subItemName.match(/\[.*\]/g)
-        const match =
-          rawMatch === null ? '' : rawMatch[0].replace('[', '').replace(']', '')
+  <>
+    <ul className={classes.sectionColumn}>
+      <li className={classes.item}>
+        <a
+          itemProp="url"
+          href={addSlashToEnd(urlSec)}
+          className={classes.itemTop}>
+          {title}
+        </a>
+      </li>
+      {listSubSections.map(
+        ({ display_name: subsectionName = '', url = '' }, index) => {
+          const keyString = `id${index}`
+          let subItemName = subsectionName
+          const rawMatch = subItemName.match(/\[.*\]/g)
+          const match =
+            rawMatch === null
+              ? ''
+              : rawMatch[0].replace('[', '').replace(']', '')
 
-        if (match) {
-          subItemName = subItemName.replace(/\[.*\]/g, '')
+          if (match) {
+            subItemName = subItemName.replace(/\[.*\]/g, '')
+          }
+          return (
+            <ItemLinkSubSection
+              key={keyString}
+              subsectionName={subItemName}
+              url={url}
+              isBold={match === 'bold'}
+            />
+          )
         }
-        return (
-          <ItemLinkSubSection
-            key={keyString}
-            subsectionName={subItemName}
-            url={url}
-            isBold={match === 'bold'}
-          />
-        )
-      }
-    )}
-  </ul>
+      )}
+      {isTrome && isLastElement && isBook && (
+        <div className="foot-book__column">
+          <a className={classes.book} href={bookUrl}>
+            <img
+              className={`${isAdmin ? '' : 'lazy'} `}
+              src={isAdmin ? bookLogo : ''}
+              data-src={bookLogo}
+              alt="Libro de reclamaciones"
+              style={{ width: 145 }}
+            />
+          </a>
+        </div>
+      )}
+    </ul>
+  </>
 )
 
 export default React.memo(SectionColumn)
