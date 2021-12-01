@@ -218,7 +218,7 @@ const PollaPositionsTable: FC<Props> = (props) => {
                     DIF
                   </li>
                   <li className="polla-positions__group-right-full__title__litifull">
-                    Pts.
+                    PTS
                   </li>
                 </ul>
                 {group.teams.map((team) => (
