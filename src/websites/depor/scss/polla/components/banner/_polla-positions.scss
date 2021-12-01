@@ -263,12 +263,13 @@
       letter-spacing: -0.13px;
       line-height: 21px;
       font-weight: bold;
+      width: 10px;
     }
     &__teams-flag {
       margin: 0 10px;
       & img {
         width: 24px;
-        height: 16px;
+        height: 24px;
       }
     }
     &__teams-name {
