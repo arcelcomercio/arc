@@ -17,12 +17,16 @@ basic_gallery {
     }
   }
   content_elements{
+    _id
     subtitle
     caption
     width
     height
     url
     credits{
+      by {
+        name
+      }
       affiliation{
         name
       }
