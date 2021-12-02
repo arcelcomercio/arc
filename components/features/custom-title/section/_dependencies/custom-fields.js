@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types'
 
 const customFields = PropTypes.shape({
-  textAlign: PropTypes.oneOf(['left', 'center', 'right']).tag({
+  textAlign: PropTypes.oneOf(['start', 'center', 'end']).tag({
     name: 'Alineación del texto',
     labels: {
-      left: 'Izquierda',
+      start: 'Izquierda',
       center: 'Centro',
-      right: 'Derecha',
+      end: 'Derecha',
     },
     defaultValue: 'center',
   }),

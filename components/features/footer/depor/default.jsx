@@ -1,7 +1,6 @@
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
-import PropTypes from 'prop-types'
 import React from 'react'
 
 import { getAssetsPath } from '../../../utilities/assets'
@@ -28,7 +27,7 @@ const SCHEMA = `{
 }`
 
 const classes = {
-  footer: 'footer-secction__footer',
+  footer: 'footer-secction__footer bg-white',
   content: 'footer-secction__content-footer ',
 }
 
@@ -117,18 +116,5 @@ FooterDepor.propTypes = {
 
 FooterDepor.label = 'Pié de página - Depor'
 // FooterDepor.static = true
-
-FooterDepor.propTypes = {
-  customFields: PropTypes.shape({
-    isBook: PropTypes.bool.tag({
-      name: 'Activar Libro de Reclamaciones',
-      group: 'Extras',
-    }),
-    bookUrl: PropTypes.string.tag({
-      name: 'URL Libro de Reclamaciones',
-      group: 'Extras',
-    }),
-  }),
-}
 
 export default FooterDepor
