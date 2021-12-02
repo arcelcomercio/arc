@@ -247,6 +247,9 @@ const PollaGuide: FC<Props> = (props) => {
                 <div className="polla-results__list-cont">
                   <div className="polla-results__score-cont">
                     <div className="polla-results__country">
+                      <span>
+                        {game.contestants.home_contestant || 'Por definirse'}
+                      </span>
                       {game.contestants.home_contestant ? (
                         <img
                           src={`${COUNTRIES_ASSETS_PATH}${slugify(
@@ -255,9 +258,6 @@ const PollaGuide: FC<Props> = (props) => {
                           alt="Flag"
                         />
                       ) : null}
-                      <span>
-                        {game.contestants.home_contestant || 'Por definirse'}
-                      </span>
                     </div>
                     <div className="polla-results__score-item">
                       {game.status === 'Played' || game.status === 'Playing' ? (
@@ -302,6 +302,9 @@ const PollaGuide: FC<Props> = (props) => {
                       )}
                     </div>
                     <div className="polla-results__country">
+                      <span>
+                        {game.contestants.away_contestant || 'Por definirse'}
+                      </span>
                       {game.contestants.away_contestant ? (
                         <img
                           src={`${COUNTRIES_ASSETS_PATH}${slugify(
@@ -310,9 +313,9 @@ const PollaGuide: FC<Props> = (props) => {
                           alt="Flag"
                         />
                       ) : null}
-                      <span>
-                        {game.contestants.away_contestant || 'Por definirse'}
-                      </span>
+                    </div>
+                    <div className="polla-results__button-resumen">
+                      <a href="https://www.google.com/">Resumen</a>
                     </div>
                   </div>
                   <a href="/" className="polla-results__score-link">
