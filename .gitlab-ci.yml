@@ -50,7 +50,6 @@ build-verify:
     - install_dependencies
   script:
     - ls
-    - npm run isntall:custom-ec-blocks
     - npm run prod:all || true
     - mkdir artifacts
     - mv __mocks__/ components/ config/ content/ environment/ properties/ resources/ types/  .babelrc .eslintrc.js  .prettierrc .stylelintrc.json  gulpfile.js jest.config.ts package.json tsconfig.eslint.json tsconfig.json -t artifacts/
