@@ -35,7 +35,7 @@ const PianoVerifyEmail: FC<PianoVerifyEmailProps> = ({
         )
 
         if (!tokenMatch) {
-          console.log('No token found, redirecciona a otra página')
+          console.log('No token found, redirecciona a otra página pls')
         }
       },
     ])
