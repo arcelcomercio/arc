@@ -42,6 +42,9 @@ const StoryTitleLite = () => {
     metaValue('section_style') === 'story-v2-standard'
 
   const isStoryV2VideoStyle = metaValue('section_style') === 'story-v2-video'
+  const styleList = isStoryV2VideoStyle
+    ? null
+    : { marginRight: '20px', marginLeft: '20px' }
 
   return (
     <>
@@ -59,17 +62,20 @@ const StoryTitleLite = () => {
       </h1>
       {items &&
       type === 'list' &&
-      !isStoryV2StandarStyle &&
-      !isStoryV2VideoStyle ? (
-        <div style={{ marginRight: '20px', marginLeft: '20px' }}>
-          <ul className={classes.listClasses}>
-            {items.map(({ content }) => (
-              <>
-                <li dangerouslySetInnerHTML={{ __html: content }} />
-              </>
-            ))}
-          </ul>
-        </div>
+      !isStoryV2StandarStyle /* &&
+      !isStoryV2VideoStyle */ ? (
+        <>
+          <div style={styleList}>
+            <ul className={classes.listClasses}>
+              {items.map(({ content }) => (
+                <>
+                  <li dangerouslySetInnerHTML={{ __html: content }} />
+                </>
+              ))}
+            </ul>
+          </div>
+          {isStoryV2VideoStyle && <ShareButtons renderScripts />}
+        </>
       ) : (
         <>
           <h2 itemProp="name" className={classes.description}>
@@ -86,7 +92,7 @@ const StoryTitleLite = () => {
           )}
           {items &&
             type === 'list' &&
-            (isStoryV2StandarStyle || isStoryV2VideoStyle) && (
+            isStoryV2StandarStyle /* || isStoryV2VideoStyle */ && (
               <ul className={classes.listClasses}>
                 {items.map(({ content }) => (
                   <>
