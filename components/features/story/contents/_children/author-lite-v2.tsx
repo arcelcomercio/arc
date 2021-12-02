@@ -116,11 +116,7 @@ const StoryContentChildAuthorLiteV2: React.FC<FeatureProps> = ({
         {publishDate ? ` - ACTUALIZADO A ${formatDate(publishDate)}` : ''}
       </time>
     </div>
-    {metaValue('section_style') === 'story-v2-standard' && (
-      <a href="/" className="s-aut__update">
-        Actualizar
-      </a>
-    )}
+    <span />
   </div>
 )
 
