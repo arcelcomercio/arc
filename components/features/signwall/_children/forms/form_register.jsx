@@ -403,7 +403,9 @@ const FormRegister = ({
                             alt="Logo de Club Trome"
                           />
                         </div>
-                        <h2>Y disfruta de beneficios exclusivos</h2>
+                        <h2 style={{ marginBottom: '20px' }}>
+                          Y disfruta de beneficios exclusivos
+                        </h2>
                       </>
                     )}
 
