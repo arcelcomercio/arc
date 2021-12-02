@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Main } from '../global/components/main'
 import { initPowerUp, sendMessage } from '../global/utils/init'
 
