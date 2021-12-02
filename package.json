@@ -196,7 +196,7 @@
     "zip": "npm run prod:all && npx fusion zip",
     "browserlist": "npx browserslist",
     "browserlist:up": "npx browserslist@latest --update-db",
-    "postinstall": "cd src/plugins/composer/custom-ec-blocks && npm install",
+    "isntall:custom-ec-blocks": "cd src/plugins/composer/custom-ec-blocks && npm install",
     "build:custom-ec-blocks": "rm -rf resources/plugins/composer/embeds/custom-ec-blocks && cd src/plugins/composer/custom-ec-blocks && npm run build && cp -r dist ../../../../resources/plugins/composer/embeds/custom-ec-blocks/",
     "dev:custom-ec-blocks": "cd src/plugins/composer/custom-ec-blocks && npm run dev",
     "pre-commit": "lint-staged",
