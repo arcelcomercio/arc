@@ -69,11 +69,11 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding: 15px;
+  padding: 10px;
 
   &__title {
     font-size: 20px;
-    padding: 10px 0px;
+    padding: 5px 20px;
     font-weight: 700;
     margin: auto;
     color: #ed7225;
@@ -85,14 +85,14 @@
   }
 
   &__header-img {
-    width: 230px;
+    width: 200px;
     @media (--only-mobile) {
       width: 60px;
     }
   }
 
   &__metro {
-    width: 110px;
+    width: 100px;
     @media (--only-mobile) {
       width: 25px;
     }
