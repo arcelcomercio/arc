@@ -7,6 +7,7 @@ import { PREMIUM } from '../utilities/constants/content-tiers'
 import { META_HOME } from '../utilities/constants/meta'
 import {
   SITE_DEPOR,
+  SITE_DIARIOCORREO,
   SITE_ELBOCON,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
@@ -183,6 +184,7 @@ export default ({
       arcSite === SITE_ELCOMERCIO ||
       arcSite === SITE_ELCOMERCIOMAG ||
       arcSite === SITE_ELBOCON ||
+      arcSite === SITE_DIARIOCORREO ||
       (arcSite === 'peru21' && requestUri.match(`^/cheka`))
     ) {
       prebid = false
@@ -628,6 +630,12 @@ export default ({
               />
             )}
             <Dfp />
+            {indPrebid && arcSite === SITE_TROME && (
+              <script
+                defer
+                src="https://boot.pbstck.com/v1/tag/6e13d7a6-e4f7-4063-8d09-248ed9b1f70b"
+              />
+            )}
           </>
         )}
         {/* Scripts de AdManager - Fin */}
@@ -790,7 +798,7 @@ export default ({
             .toISOString()
             .slice(0, 10)}`}
         />
-        {enabledPushup ? (
+        {enabledPushup && !requestUri.includes('/publirreportaje/') && !requestUri.includes('/publireportaje/') ? (
           <>
             <script
               type="text/javascript"

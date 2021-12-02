@@ -49,3 +49,16 @@
     }
   }
 }
+
+.gallery_vertical {
+  .st-social {
+    justify-content: center;
+  }
+  .st-social__link {
+    font: 500 12px/29px $secondary-font;
+    color: #000;
+    @media (--desktop) {
+      font: 500 16px/29px $secondary-font;
+    }
+  }
+}

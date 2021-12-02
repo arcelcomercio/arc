@@ -54,19 +54,25 @@ const FormVerify = ({ onClose, tokenVerify, tokenMagicLink, typeDialog }) => {
           `Web_Sign_Wall_${typeDialog}`,
           `web_sw${typeDialog[0]}_aceptar_error`
         )
-      })
-      .finally(() => {
         setShowLoading(false)
       })
-    /* if (Identity.isLoggedIn()) {
-      setShowBtnContinue(true)
-    } */
-    // Antes estaba el if, pero el if no se usa con promesas
-    Identity.isLoggedIn().then((response) => {
-      if (response === true) {
-        setShowBtnContinue(true)
-      }
-    })
+      .finally(() => {
+        // se llama a este nivel para que cargue el profile del user
+        // para que finalmente se verifique si esta logueado
+        Identity.isLoggedIn()
+          .then((isLogged) =>
+            isLogged === true
+              ? setShowBtnContinue(true)
+              : setShowBtnContinue(false)
+          )
+          .finally(() => {
+            setShowLoading(false)
+          })
+      })
+
+    // if (Identity.isLoggedIn()) {
+    //   setShowBtnContinue(true)
+    // }
   }, [])
 
   return (
