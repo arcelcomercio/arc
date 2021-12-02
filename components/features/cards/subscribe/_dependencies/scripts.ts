@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
       registerSuscribe.classList.remove('hidden')
       registerSuscribe.classList.add('block')
 
-      if (!firstName) {
+      if(!firstName || /undefined|null/.test(firstName)) {
         welcomeMsgSuscribe.innerHTML = '¡Hola!'
       } else {
         const separador = firstName.split(" ")
@@ -35,7 +35,7 @@ export const handleUserStatus = (
   contRegister: string,
   welcomeMsg: string
 ): string =>
-  `"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},t=e.firstName,n=void 0===t?"":t,d=e.uuid,i=void 0===d?"":d,o=document.getElementById("btn-register-id"),t=document.getElementById("<<anonymusId>>"),e=document.getElementById("<<registerId>>"),d=document.getElementById("<<welcomeMsgId>>");i?(t.classList.remove("block"),t.classList.add("hidden"),e.classList.remove("hidden"),e.classList.add("block"),n?(n=n.split(" "),d.innerHTML="¡Hola ".concat(n[0],"! ")):d.innerHTML="¡Hola!"):null!=o&&o.addEventListener("click",function(){window.location.href="/signwall/?outputType=subscriptions&banner=1"})})});`
+  `"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},t=e.firstName,n=void 0===t?"":t,d=e.uuid,i=void 0===d?"":d,o=document.getElementById("btn-register-id"),t=document.getElementById("<<anonymusId>>"),e=document.getElementById("<<registerId>>"),d=document.getElementById("<<welcomeMsgId>>");i?(t.classList.remove("block"),t.classList.add("hidden"),e.classList.remove("hidden"),e.classList.add("block"),!n||/undefined|null/.test(n)?d.innerHTML="¡Hola!":(n=n.split(" "),d.innerHTML="¡Hola ".concat(n[0],"! "))):null!=o&&o.addEventListener("click",function(){window.location.href="/signwall/?outputType=subscriptions&banner=1"})})});`
     .replace('<<anonymusId>>', contAnonymus)
     .replace('<<registerId>>', contRegister)
     .replace('<<welcomeMsgId>>', welcomeMsg)
