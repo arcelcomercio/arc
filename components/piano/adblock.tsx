@@ -1,16 +1,16 @@
 import * as React from 'react'
 
 type PianoAdblockProps = {
-  disable?: boolean
+  disabled?: boolean
 }
 
 /**
  * @param props
- * @param props.disable
+ * @param props.disabled
  */
 
-const PianoAdblock: React.FC<PianoAdblockProps> = ({ disable = false }) => {
-  if (disable) return null
+const PianoAdblock: React.FC<PianoAdblockProps> = ({ disabled = false }) => {
+  if (disabled) return null
 
   const pianoScript = `
   document.cookie = "__adblocker=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";

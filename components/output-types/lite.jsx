@@ -513,7 +513,7 @@ const LiteOutput = ({
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...twitterCardsData}
             />
-            <PianoAdblock disable={!siteProperties.activePiano} />
+            <PianoAdblock disabled={!siteProperties.activePiano} />
             <PianoTags
               tags={tags.map((tag) => tag.slug)}
               contentTier={contentCode}
@@ -522,7 +522,7 @@ const LiteOutput = ({
               publishDate={localISODate(globalContent?.display_date)}
               author={globalContent?.credits?.by?.[0]?.name}
               subtype={subtype}
-              disable={!siteProperties.activePiano}
+              disabled={!siteProperties.activePiano}
             />
           </>
         ) : (
@@ -945,7 +945,7 @@ const LiteOutput = ({
         ) : (
           <PianoCore
             aid={siteProperties.pianoID?.[env]}
-            disable={!siteProperties.activePiano}
+            disabled={!siteProperties.activePiano}
           />
         )}
         {/* <RegisterServiceWorker path={deployment("/sw.js")}/> */}

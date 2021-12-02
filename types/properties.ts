@@ -166,6 +166,7 @@ export interface SiteProperties {
   activeRulesCounter: boolean
   activeNewsletter: boolean
   activeVerifyEmail: boolean
+  activePiano: boolean
   gda: boolean
   isDfp: boolean
   api: Api
