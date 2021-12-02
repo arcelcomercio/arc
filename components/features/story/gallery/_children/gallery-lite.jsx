@@ -31,7 +31,10 @@ const StoryHeaderChildGallery = (props) => {
       <div className={classes.gallery}>
         {slides.map((slide, i) => {
           const {
-            credits: { affiliation: [{ name = '' } = {}] = [] } = {},
+            credits: {
+              affiliation: [{ name = '' } = {}] = [],
+              by: [{ name: authorName = '' } = {}] = [],
+            } = {},
             width,
             height,
             url,
@@ -248,7 +251,11 @@ const StoryHeaderChildGallery = (props) => {
                     <strong
                       className={classes.title}
                       dangerouslySetInnerHTML={{
-                        __html: processText(subtitle),
+                        __html: processText(
+                          metaValue('section_style') === 'story-v2-standard'
+                            ? `${subtitle}<strong class="story-gallery__caption-image"> / ${authorName}</strong>`
+                            : subtitle
+                        ),
                       }}
                     />
                     <p
