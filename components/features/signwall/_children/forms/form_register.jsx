@@ -4,6 +4,7 @@ import sha256 from 'crypto-js/sha256'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
+import { getAssetsPath } from '../../../../utilities/assets'
 import { setCookie } from '../../../../utilities/client/cookies'
 import { isStorageAvailable } from '../../../../utilities/client/storage'
 import {
@@ -47,6 +48,8 @@ const FormRegister = ({
 }) => {
   const {
     arcSite,
+    deployment,
+    contextPath,
     siteProperties: {
       signwall: { mainColorLink, mainColorBtn, mainColorBr, authProviders },
       activeMagicLink,
@@ -384,9 +387,24 @@ const FormRegister = ({
                 <>
                   <div className={isTromeOrganic ? 'group-float-trome' : ''}>
                     {isTromeOrganic && (
-                      <h1 className="group-float-trome__title">
-                        ¡Regístrate gratis!
-                      </h1>
+                      <>
+                        <div className="group-float-trome__head">
+                          <h1 className="group-float-trome__title">
+                            ¡Regístrate gratis!
+                          </h1>
+                          <img
+                            src={deployment(
+                              `${getAssetsPath(
+                                arcSite,
+                                contextPath
+                              )}/resources/dist/${arcSite}/images/logo-club-trome.png?d=1`
+                            )}
+                            style={{ width: '86px', height: '33px' }}
+                            alt="Logo de Club Trome"
+                          />
+                        </div>
+                        <h2>Y disfruta de beneficios exclusivos</h2>
+                      </>
                     )}
 
                     <p className="signwall-inside_forms-text mt-10 mb-10 center">
