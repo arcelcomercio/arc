@@ -47,6 +47,7 @@ import {
   getScriptAdPushup,
 } from './_dependencies/serverside'
 import {
+  getAppIndigitall,
   getDescription,
   getIsStory,
   getKeywords,
@@ -302,6 +303,7 @@ export default ({
 
   const sdkv = deployment(`${contextPath}/resources/assets/js/sdk.v3.min.js`)
   const worv = deployment(`${contextPath}/resources/assets/js/worker.v3.min.js`)
+  const apiKeyIndigitall = getAppIndigitall({ CURRENT_ENVIRONMENT })
 
   const {
     videoSeo,
@@ -736,7 +738,7 @@ export default ({
         {/* window.addEventListener('load', function () {
               requestIdle(function () {
                 var indigitallParams = {
-                  appKey: "fcd7a137-c984-4394-8015-b5301ca2a9c9",
+                  appKey: "${apiKeyIndigitall}",
                   workerPath: "${worv}",
                   requestLocation: true
                 };
@@ -754,7 +756,7 @@ export default ({
           <>
             <script
               dangerouslySetInnerHTML={{
-                __html: `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e={appKey:"fcd7a137-c984-4394-8015-b5301ca2a9c9",workerPath:"${worv}",requestLocation:!0},t=document.createElement("script");t.type="text/javascript",t.onload=function(t){indigitall.init(e)},t.src="${sdkv}",t.async=!0,document.getElementsByTagName("head")[0].appendChild(t)})});`,
+                __html: `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e={appKey:"${apiKeyIndigitall}",workerPath:"${worv}",requestLocation:!0},t=document.createElement("script");t.type="text/javascript",t.onload=function(t){indigitall.init(e)},t.src="${sdkv}",t.async=!0,document.getElementsByTagName("head")[0].appendChild(t)})});`,
               }}
             />
           </>
