@@ -3,17 +3,17 @@ import * as React from 'react'
 
 type PianoCoreProps = {
   aid: string
-  disable?: boolean
+  disabled?: boolean
 }
 
 /**
  * @param props
  * @param props.aid Application ID de Piano
- * @param props.disable
+ * @param props.disabled
  *
  */
-const PianoCore: React.FC<PianoCoreProps> = ({ aid, disable = false }) => {
-  if (disable) return null
+const PianoCore: React.FC<PianoCoreProps> = ({ aid, disabled = false }) => {
+  if (disabled) return null
 
   const pianoScript = `
   (function(src) {
