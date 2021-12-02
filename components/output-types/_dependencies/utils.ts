@@ -1,7 +1,17 @@
 import { useAppContext } from 'fusion:context'
 import { Story } from 'types/story'
 
-import { SITE_DEPOR } from '../../utilities/constants/sitenames'
+import {
+  SITE_DEPOR,
+  SITE_DIARIOCORREO,
+  SITE_ELBOCON,
+  SITE_ELCOMERCIO,
+  SITE_ELCOMERCIOMAG,
+  SITE_GESTION,
+  SITE_OJO,
+  SITE_PERU21,
+  SITE_TROME,
+} from '../../utilities/constants/sitenames'
 import { dateDayAndMouthNOYEAR } from '../../utilities/date-time/dates'
 
 export const getMetaValue = (key: string): string | undefined => {
@@ -142,4 +152,63 @@ export const getDescription = ({
   }
 
   return description
+}
+
+type GetIndigtallProps = {
+  CURRENT_ENVIRONMENT: string
+}
+
+export const getAppIndigitall = ({
+  CURRENT_ENVIRONMENT,
+}: GetIndigtallProps): string => {
+  const { arcSite } = useAppContext()
+  let apiKeyIndigitall = ''
+
+  if (arcSite === SITE_DEPOR && CURRENT_ENVIRONMENT === 'prod') {
+    apiKeyIndigitall = '0b44c03c-dbae-4f9f-8128-de5750bb4dc5'
+  } else {
+    apiKeyIndigitall = '5ff0b626-a41f-4b90-be16-5c6475c9cc05'
+  }
+  if (arcSite === SITE_DIARIOCORREO && CURRENT_ENVIRONMENT === 'prod') {
+    apiKeyIndigitall = '712a1aa5-00ab-412e-8f90-c25c7ce0e6ed'
+  } else {
+    apiKeyIndigitall = 'd4cf5929-34ce-45f3-b04b-b05ce472222b'
+  }
+  if (arcSite === SITE_ELBOCON && CURRENT_ENVIRONMENT === 'prod') {
+    apiKeyIndigitall = 'fe3d629b-5edd-47e6-bb69-f759d2c20674'
+  } else {
+    apiKeyIndigitall = '99888cc6-436e-4336-b169-fef8abaf2339'
+  }
+  if (arcSite === SITE_ELCOMERCIO && CURRENT_ENVIRONMENT === 'prod') {
+    apiKeyIndigitall = 'fcd7a137-c984-4394-8015-b5301ca2a9c9'
+  } else {
+    apiKeyIndigitall = '231e4c67-ca02-435e-ae83-9caae27df94d'
+  }
+  if (arcSite === SITE_ELCOMERCIOMAG && CURRENT_ENVIRONMENT === 'prod') {
+    apiKeyIndigitall = 'e768b29e-be95-4f1c-9d6b-eeb964cc75c7'
+  } else {
+    apiKeyIndigitall = 'e768b29e-be95-4f1c-9d6b-eeb964cc75c7'
+  }
+  if (arcSite === SITE_GESTION && CURRENT_ENVIRONMENT === 'prod') {
+    apiKeyIndigitall = 'bb3bbfe4-df56-40b1-9863-cf7878646ea9'
+  } else {
+    apiKeyIndigitall = '9dfb74e8-91b5-40c8-8a50-ab9cb5edbc5a'
+  }
+  if (arcSite === SITE_OJO && CURRENT_ENVIRONMENT === 'prod') {
+    apiKeyIndigitall = '09fa312a-20fb-4197-867b-4c8f325b1c44'
+  } else {
+    apiKeyIndigitall = '29f0ca92-75ae-47ec-b53b-9264851e97b8'
+  }
+  if (arcSite === SITE_PERU21 && CURRENT_ENVIRONMENT === 'prod') {
+    apiKeyIndigitall = 'eeeb2228-1895-460a-bcdf-77796f23afa8'
+  } else {
+    apiKeyIndigitall = 'd5d2939e-a645-456b-a226-2f62683c9bc5'
+  }
+  if (arcSite === SITE_TROME && CURRENT_ENVIRONMENT === 'prod') {
+    apiKeyIndigitall = 'd7bb6271-ca1b-4c68-9791-722b5a55c3c4'
+  } else {
+    apiKeyIndigitall = 'c36b80b9-9016-4a07-8fad-08d015b947a1'
+  }
+
+  return apiKeyIndigitall
 }
