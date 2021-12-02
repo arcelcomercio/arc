@@ -8,6 +8,9 @@ const classes = {
   couponType: 'coupon-type',
   couponText: 'coupon-discount',
   couponTitle: 'coupon-title',
+  couponReason: 'coupon-reason',
+  couponLimit: 'coupon-limit',
+  couponLocal: 'coupon-local',
   couponDiscountTitle: 'coupon-discount-title',
   couponCode: 'coupon-code',
   couponLegal: 'coupon-legal',
@@ -37,11 +40,11 @@ const ECommerceCard: React.FunctionComponent<CouponProps> = ({
   <div className={`${classes.coupon} flip-card`}>
     <div className="flip-card-front">
       <div style={{ display: 'flex' }}>
-        <div style={{ margin: 'auto', width: '47%', textAlign: 'center' }}>
+        <div style={{ margin: 'auto', width: '47%', textAlign: 'start' }}>
           <h3 className={classes.couponTitle}>{discount}</h3>
-          <h3 className={classes.couponTitle}>{reason}</h3>
-          <h3 className={classes.couponTitle}>{limit}</h3>
-          <h3 className={classes.couponTitle}>{local}</h3>
+          <h3 className={classes.couponReason}>{reason}</h3>
+          <h3 className={classes.couponLimit}>{limit}</h3>
+          <h3 className={classes.couponLocal}>{local}</h3>
         </div>
         <div
           style={{

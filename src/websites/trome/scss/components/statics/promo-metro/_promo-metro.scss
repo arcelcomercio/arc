@@ -142,7 +142,6 @@
   &-amount {
     color: #e46e23;
     font-size: 30px;
-    white-space: nowrap;
     font-weight: bold;
   }
   &-type {
@@ -155,7 +154,18 @@
   }
   &-title {
     margin-top: 12px;
-    color: "EE7325";
+    color: #ee7325;
+    padding-bottom: 5px;
+  }
+  &-reason {
+    color: gray;
+    font-size: 12px;
+  }
+  &-limit {
+    color: #ee7325;
+  }
+  &-local {
+    color: gray;
   }
   &-discount-title {
     color: #696868;
@@ -183,7 +193,7 @@
 
   @media (--subs-mobile) {
     &-amount {
-      font-size: 25px;
+      font-size: 23px;
     }
     &-type {
       font-size: 75px;
@@ -196,23 +206,30 @@
     }
     &-title {
       margin-top: 0px;
-      color: black;
+      color: #e15917;
       font-weight: bold;
       padding-left: 12px;
     }
-
+    &-reason {
+      color: gray;
+      font-size: 12px;
+    }
+    &-limit {
+    }
+    &-local {
+      font-size: 12px;
+    }
     &-code {
       font-weight: bold;
-      color: black;
+      color: gray;
       font-size: 25px;
       margin-top: 15px;
-      margin-left: 10px;
       letter-spacing: -1px;
     }
     &-discount-title {
       margin-left: 10px;
       margin-top: 0px;
-      font-size: 15px;
+      font-size: 11px;
       padding-top: 1px;
       padding-bottom: 10px;
     }
