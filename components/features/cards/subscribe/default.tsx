@@ -48,6 +48,7 @@ const CardSubscribe: FC = () => {
   const anonymusId = 'anonymus-container-id'
   const registerId = 'register-container-id'
   const hellomessageId = 'hello-msg-id'
+  const logoClubTrome = 'logo-club-trome.png'
 
   return (
     <div className={classes.container}>
@@ -69,7 +70,7 @@ const CardSubscribe: FC = () => {
               ? `${getAssetsPath(
                   arcSite,
                   contextPath
-                )}/resources/dist/${arcSite}/images/logo-club-trome.png?d=1`
+                )}/resources/dist/${arcSite}/images/${logoClubTrome}?d=1`
               : `${getAssetsPath(
                   arcSite,
                   contextPath
