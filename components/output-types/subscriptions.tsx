@@ -2,6 +2,9 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 import { OT, OutputProps } from 'types/output-types'
 
+import PianoAdblock from '../piano/adblock'
+import PianoCore from '../piano/core'
+import PianoTags from '../piano/tags'
 import { env } from '../utilities/arc/env'
 import { ORGANIZATION, PROD } from '../utilities/constants/environment'
 import { SITE_ELCOMERCIO } from '../utilities/constants/sitenames'
@@ -30,6 +33,8 @@ const Subscriptions: OT<OutputProps> = ({
     googleTagManagerId,
     googleTagManagerIdSandbox,
     fbPixelId,
+    activePiano,
+    pianoID,
     paywall: {
       urls: { canonical, image } = {},
       title: defaultTitle = siteTitle,
@@ -87,6 +92,7 @@ const Subscriptions: OT<OutputProps> = ({
         <html lang="es">
           <head>
             <TagManager googleTagManagerId={GTMContainer} />
+            <PianoAdblock disabled={!activePiano} />
             <FbPixel fbPixelId={fbPixelId} />
             <meta charSet="utf-8" />
             <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -168,6 +174,7 @@ const Subscriptions: OT<OutputProps> = ({
                 />
               </>
             ) : null}
+            <PianoTags disabled={!activePiano} />
             <FinallyPolyfill />
           </head>
           <body>
@@ -184,6 +191,7 @@ const Subscriptions: OT<OutputProps> = ({
               {children}
             </div>
             <Fusion hydrateOnly />
+            <PianoCore aid={pianoID?.[env]} disabled={!activePiano} />
           </body>
         </html>
       )}

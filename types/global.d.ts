@@ -9,4 +9,5 @@ interface Window {
   ArcP?: any
   MSStream?: any
   requestIdle: (callback: () => void) => void
+  tp?: any
 }
