@@ -1,3 +1,4 @@
+import Identity from '@arc-publishing/sdk-identity'
 import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 import * as React from 'react'
@@ -5,38 +6,26 @@ import { FC } from 'types/features'
 
 import ShareButtons from '../../../global-components/lite/share/index'
 import { originByEnv } from '../../../utilities/arc/env'
-import SaleFloorCard from './_children/e-commerce'
+import { getAssetsPath } from '../../../utilities/assets'
+import ECommerceCard from './_children/e-commerce'
+import SaleFloorCard from './_children/sale-floor'
 
 const classes = {
+  header: 'items-center flex',
   container: 'metro w-full h-full flex flex-col justify-center',
   title: 'metro-title',
   subtitle: 'metro-subtitle',
   subtitleBold: 'metro-subtitle-bold',
   grid: 'metro-grid',
-  footer: 'metro-footer',
+  footer: 'metro-footer flex items-center',
   // download: 'metro-download',
-  // share: 'metro-share',
-  coupon: 'coupon position-relative',
-  couponBgImage: 'coupon-bgimage',
-  couponHead: 'coupon-head',
-  couponAmount: 'coupon-amount',
-  couponType: 'coupon-type',
-  couponText: 'coupon-discount',
-  couponTitle: 'coupon-title',
-  couponDiscountTitle: 'coupon-discount-title',
-  couponCode: 'coupon-code',
-  couponLegal: 'coupon-legal',
-
-  // cambios de Pol
-  minicontainer: 'flex flex-col items-center position-absolute w-full h-full',
-  logo: 'mt-25',
-  imagen:
-    'position-absolute top-0 right-0 bottom-0 left-0 w-full h-full object-cover',
+  share: 'metro-share',
 }
 
 interface StaticsPromoMetroProps {
   customFields?: {
-    couponsJson?: string
+    couponsSaleFloorJson?: string
+    couponsECommerceJson?: string
     titleToShare?: string
     textToShare?: string
     pathToShare?: string
@@ -55,18 +44,41 @@ enum DiscountType {
   Amount = 'S/',
 }
 
-interface Coupon {
+interface Bonus {
+  price: string
+  points: string
+}
+interface CouponSale {
   code: string
   image?: string
-  discount: number
+  discount: string
   discountType: DiscountType
   title: string
   priceCencosud?: string
-  bonus?: {
-    price: string
-    points: string
-  }
+  bonus?: Bonus
   restrictions?: []
+}
+
+interface CouponECommerce {
+  code: string
+  discount: string
+  reason: string
+  limit: string
+  local: string
+  restrictions?: {
+    coupon: string | null
+    ususNumber: string | null
+    rules: string | null
+  }
+}
+interface ProductsSaleFloor {
+  products: CouponSale[]
+  legal: string
+}
+
+interface ProductsECommerce {
+  products: CouponECommerce[]
+  legal: string
 }
 
 /**
@@ -84,11 +96,12 @@ interface Coupon {
 
 const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
   const {
-    couponsJson,
+    couponsSaleFloorJson,
+    couponsECommerceJson,
     titleToShare = '',
     textToShare = '',
     pathToShare = '',
-    // logo = 'logo-de-metro.jpg',
+    logo = 'logo-metro.png',
     title = '¡Bienvenido!',
     subtitleBold = '¡Gracias por ser un trome!',
     subtitle = 'Ahora como buen Trome, disfruta de estos descuentazos en cualquier tienda Metro',
@@ -97,24 +110,38 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
     disableShareBySocialNetwork = false,
   } = customFields || {}
 
-  const { arcSite } = useAppContext()
+  const { arcSite, contextPath } = useAppContext()
 
   const [socialTitle, setSocialTitle] = React.useState(titleToShare)
   const [activeDefaultShare, setActiveDefaultShare] = React.useState(false)
+  const [loading, setLoading] = React.useState(true)
 
   // Esto es un ejemplo. Se debe usar couponsJson
   // const coupons = couponsJson && JSON.parse(couponsJson)
-  const coupons: Coupon[] = (couponsJson && JSON.parse(couponsJson)) || [
-    {
-      code: '0101010101',
-      image:
-        'https://www.metro.com.co/wp-content/uploads/2020/01/promo-metro-0101010101.png',
-      discount: 10, // number
-      discountType: DiscountType.Percentage, // DiscountType
-      title: 'PIQUEOS',
-      legal: 'Válido hasta el jueves',
-    },
-  ]
+  const productsSaleFloor: ProductsSaleFloor =
+    couponsSaleFloorJson && JSON.parse(couponsSaleFloorJson)
+
+  // || [
+  //   {
+  //     code: '0101010101',
+  //     image:
+  //       'https://www.metro.com.co/wp-content/uploads/2020/01/promo-metro-0101010101.png',
+  //     discount: 10, // number
+  //     discountType: DiscountType.Percentage, // DiscountType
+  //     title: 'PIQUEOS',
+  //     legal: 'Válido hasta el jueves',
+  //   },
+  // ]
+
+  const productsECommerce: ProductsECommerce =
+    couponsECommerceJson && JSON.parse(couponsECommerceJson)
+
+  const {
+    products: couponsSale = [],
+    legal: legalSale = '',
+  } = productsSaleFloor
+
+  const { products: couponsEco = [], legal: legalEco = '' } = productsECommerce
 
   const origin = originByEnv(arcSite)
   const urlToShare = `${origin}${pathToShare}`
@@ -134,35 +161,51 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
 
   React.useEffect(() => {
     if (!socialTitle) setSocialTitle(window.document.title || '')
+
+    // verifica si hay un usuario sesionado
+    // en caso haya se muestra la landing, de lo contrario te redirecciona al organic
+    Identity.isLoggedIn()
+      .then((response) => {
+        if (response === false) {
+          window.location.href =
+            '/signwall/?outputType=subscriptions&signwallOrganic=1'
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }, [])
 
-  // para girar la carta
-  function rotateCard(code: string) {
-    document.getElementById(code)?.classList.toggle('do-flip')
-  }
-
-  return (
+  return !loading ? (
     <div className={classes.container}>
       <div
+        className={classes.header}
         style={{
-          display: 'flex',
           justifyContent: 'space-around',
-          alignItems: 'center',
         }}>
         <img
-          src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/metrologo.png?v=1637254479"
-          alt="logo"
+          src={`${getAssetsPath(
+            arcSite,
+            contextPath
+          )}/resources/dist/${arcSite}/images/${logo || 'logo-metro.png'}?d=1`}
+          alt="logo metro"
           loading="lazy"
           style={{
-            width: '70px',
+            width: '170px',
           }}
         />
         <img
-          src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/logo_club_trome.png?v=1638286446"
-          alt="logo"
+          src={`${getAssetsPath(
+            arcSite,
+            contextPath
+          )}/resources/dist/${arcSite}/images/logo-club-trome.png?d=1`}
+          alt="logo club trome"
           loading="lazy"
           style={{
-            height: '50px',
+            height: '80px',
           }}
         />
       </div>
@@ -170,17 +213,60 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
       <h1 className={classes.title}>{title}</h1>
       <h1 className={classes.subtitleBold}>{subtitleBold}</h1>
       <h2 className={classes.subtitle}>{subtitle}</h2>
-      <ul className={classes.grid}>
-        {coupons && coupons.map((coupon) => <SaleFloorCard coupon={coupon} />)}
-      </ul>
-      <div className={classes.footer}>
+      <div className={classes.grid}>
+        {couponsSale &&
+          couponsSale.map((coupon: CouponSale) => (
+            <SaleFloorCard
+              key={coupon.code}
+              code={coupon.code}
+              image={coupon.image}
+              discount={coupon.discount}
+              discountType={coupon.discountType}
+              title={coupon.title}
+              priceCencosud={coupon.priceCencosud}
+              bonus={coupon.bonus || undefined}
+              restrictions={coupon.restrictions || []}
+            />
+          ))}
+        {couponsEco &&
+          couponsEco.map((coupon: CouponECommerce) => (
+            <ECommerceCard
+              key={coupon.code}
+              code={coupon.code}
+              discount={coupon.discount}
+              reason={coupon.reason}
+              limit={coupon.limit}
+              local={coupon.local}
+              restrictions={coupon.restrictions || undefined}
+            />
+          ))}
+      </div>
+      <p>*{legalSale}</p>
+      <p>**{legalEco}</p>
+      <div
+        className={classes.footer}
+        style={{
+          justifyContent: 'space-around',
+        }}>
+        <img
+          src={`${getAssetsPath(
+            arcSite,
+            contextPath
+          )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`}
+          alt="logo club trome"
+          loading="lazy"
+          width="140px"
+        />
         {disableShareByEmail ? null : (
           <button type="button">Enviar al email</button>
         )}
         {disableDownload ? null : <button type="button">Descargar</button>}
         {disableShareBySocialNetwork ? null : (
-          <>
-            <button type="button" onClick={handleShare}>
+          <div style={{display:'flex'}}>
+            <button
+              className={classes.share}
+              type="button"
+              onClick={handleShare}>
               Compartir
             </button>
             <div
@@ -194,10 +280,12 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
                 title={socialTitle}
               />
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>
+  ) : (
+    <p>Cargando...</p>
   )
 }
 
@@ -206,8 +294,13 @@ StaticsPromoMetro.lazy = true
 
 StaticsPromoMetro.propTypes = {
   customFields: PropTypes.shape({
-    couponsJson: PropTypes.json.tag({
-      name: 'JSON de cupones',
+    couponsSaleFloorJson: PropTypes.json.tag({
+      name: 'JSON de cupones de piso de venta',
+      description:
+        'Inserte en formato JSON, el listado de cupones a renderizar',
+    }),
+    couponsECommerceJson: PropTypes.json.tag({
+      name: 'JSON de cupones de ecommerce',
       description:
         'Inserte en formato JSON, el listado de cupones a renderizar',
     }),

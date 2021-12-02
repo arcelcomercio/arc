@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 const classes = {
-  coupon: 'coupon position-relative',
+  coupon: 'coupon',
   couponBgImage: 'coupon-bgimage',
   couponHead: 'coupon-head',
   couponAmount: 'coupon-amount',
@@ -11,51 +11,37 @@ const classes = {
   couponDiscountTitle: 'coupon-discount-title',
   couponCode: 'coupon-code',
   couponLegal: 'coupon-legal',
+  couponRestrictions: 'coupon-restrictions',
 }
 
-enum DiscountType {
-  Percentage = '%',
-  Amount = 'S/',
-}
-
-interface Coupon {
+interface CouponProps {
   code: string
-  image?: string
-  discount: number
-  discountType: DiscountType
-  title: string
-  priceCencosud?: string
-  bonus?: {
-    price: string
-    points: string
+  discount: string
+  reason: string
+  limit: string
+  local: string
+  restrictions?: {
+    coupon: string | null
+    ususNumber: string | null
+    rules: string | null
   }
-  restrictions: []
 }
-
-const SaleFloorCard: React.FunctionComponent<Coupon> = ({
+const ECommerceCard: React.FunctionComponent<CouponProps> = ({
   code,
-  image,
   discount,
-  discountType,
-  title,
-  priceCencosud,
-  bonus,
+  reason,
+  limit,
+  local,
+  restrictions = null,
 }) => (
-  <li className={`${classes.coupon} flip-card`} key={code}>
+  <div className={`${classes.coupon} flip-card`}>
     <div className="flip-card-front">
       <div style={{ display: 'flex' }}>
-        <div style={{ margin: 'auto', width: '47%' }}>
-          <img
-            src="https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/Arroz-removebg-preview.png?alt=media&token=27b3ca10-eb09-4338-b155-94fb9e7960f4"
-            alt="logo"
-            loading="lazy"
-            style={{
-              width: '100%',
-              margin: '0 auto auto',
-              paddingTop: '10px',
-            }}
-          />
-          <h3 className={classes.couponTitle}>{title}</h3>
+        <div style={{ margin: 'auto', width: '47%', textAlign: 'center' }}>
+          <h3 className={classes.couponTitle}>{discount}</h3>
+          <h3 className={classes.couponTitle}>{reason}</h3>
+          <h3 className={classes.couponTitle}>{limit}</h3>
+          <h3 className={classes.couponTitle}>{local}</h3>
         </div>
         <div
           style={{
@@ -69,24 +55,32 @@ const SaleFloorCard: React.FunctionComponent<Coupon> = ({
         </div>
         <div
           style={{
-            // margin: 'auto',
             width: '47%',
             paddingTop: '15px',
             textAlign: 'start',
           }}>
           <strong className={classes.couponHead}>
-            <span className={classes.couponAmount}>{discount}</span>
-            <span className={classes.couponType}>{discountType}</span>
-          </strong>
-          <strong>
-            <p className={classes.couponText}>&nbsp;de descuento</p>
+            {restrictions ? (
+              <ul>
+                <h3>**Restricciones</h3>
+                <li className={classes.couponRestrictions}>
+                  {restrictions.coupon}
+                </li>
+                <li className={classes.couponRestrictions}>
+                  {restrictions.ususNumber}
+                </li>
+                <li className={classes.couponRestrictions}>
+                  {restrictions.rules}
+                </li>
+              </ul>
+            ) : null}
           </strong>
           <p className={classes.couponCode}>{code}</p>
           <p className={classes.couponDiscountTitle}>Código de promoción</p>
         </div>
       </div>
     </div>
-  </li>
+  </div>
 )
 
-export default SaleFloorCard
+export default ECommerceCard

@@ -1,0 +1,41 @@
+{
+  "products": [
+    {
+      "code": "934935355",
+      "discount": "S/ 30 soles",
+      "reason": "dscto. por compras desde",
+      "limit": "S/ 129 soles",
+      "local": "en supermercados",
+      "restrictions": {
+        "coupon": "CUPONTROME129",
+        "ususNumber": "1000",
+        "rules": "Exclusivo metro.pe o app metro y 1 uso por cliente"
+      }
+    },
+    {
+      "code": "121212121",
+      "discount": "S/ 30 soles",
+      "reason": "dscto. por compras desde",
+      "limit": "S/ 99 soles",
+      "local": "en Canastas Navideñas",
+      "restrictions": {
+        "coupon": "CUPONTROME99",
+        "ususNumber": "1000",
+        "rules": "Exclusivo metro.pe o app metro y 1 uso por cliente"
+      }
+    },
+    {
+      "code": "1111111111",
+      "discount": "S/ 30 soles",
+      "reason": "dscto. por compras desde",
+      "limit": "S/ 129 soles",
+      "local": "en Panetones",
+      "restrictions": {
+        "coupon": "CUPONTROME129",
+        "ususNumber": "1000",
+        "rules": "Exclusivo metro.pe o app metro y 1 uso por cliente"
+      }
+    }
+  ],
+  "legal": "Descuentos válidos con en Metro.pe o aplicación Metro del 09 al 23 de diciembre de 2021 y/o hasta agotar stock. Stock mínimo 01 ud./pack/kg por producto. Stock y surtido sujeto a disponibilidad. Promociones exclusivas para consumo familiar. No acumulable con otras promociones. "
+}
