@@ -714,7 +714,7 @@
         border: 0;
         width: 67px !important;
         height: 67px !important;
-        margin-right: 50px !important;
+        margin-right: 20px !important;
         margin-left: 0 !important;
       }
 
@@ -1322,10 +1322,14 @@
       & .group-float-trome {
         position: relative;
         font-family: "Encode Sans Condensed", sans-serif;
+        &__head {
+          display: flex;
+          justify-content: space-between;
+        }
         &__title {
           font-size: 26px;
           font-weight: bold;
-          margin-bottom: 20px;
+          margin-bottom: 5px;
           margin-top: 0;
         }
         &__subtitle {
