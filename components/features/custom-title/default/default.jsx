@@ -96,8 +96,6 @@ const CustomTitleFeat = (props) => {
     return ''
   }
 
-  console.log(customText)
-
   return (
     <>
       <TextType
