@@ -21,7 +21,7 @@ const titles: any = {
 
 const subtitles: any = {
   default: '',
-  trome: '!NO ESPERES MÁS!',
+  trome: '¡NO ESPERES MÁS!',
 }
 
 const textButtons: any = {
