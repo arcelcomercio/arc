@@ -50,6 +50,11 @@ const InterestByTagAmp = (props) => {
   })
 
   const urlTag = `/${tagToFetch || slug}/`
+  const presetsDefault =
+    isFullImage || isSlider ? 'landscape_md:360x202' : 'landscape_md:118x66'
+  const presetsMag =
+    arcSite === SITE_ELCOMERCIOMAG ? 'landscape_md:335x202' : presetsDefault
+
   const { content_elements: storyData = [] } =
     useContent({
       source: CONTENT_SOURCE,
@@ -57,10 +62,7 @@ const InterestByTagAmp = (props) => {
         website: arcSite,
         name: urlTag,
         size: storiesQtyAMP,
-        presets:
-          isFullImage || isSlider
-            ? 'landscape_md:360x202'
-            : 'landscape_md:118x66',
+        presets: presetsMag,
         includedFields: separatorBasicFields,
       },
       filter: schemaFilter(arcSite),
@@ -78,7 +80,7 @@ const InterestByTagAmp = (props) => {
   let key = 0
 
   const dataInterest = storyData
-    .map((story) => story && story._id !== excluir ? story : '')
+    .map((story) => (story && story._id !== excluir ? story : ''))
     .filter(String)
 
   const isMag = arcSite === SITE_ELCOMERCIOMAG

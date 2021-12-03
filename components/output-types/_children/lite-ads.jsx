@@ -376,9 +376,10 @@ const LiteAds = ({
       arcSite === 'elcomercio' ||
       arcSite === 'gestion' ||
       arcSite === 'depor' ||
+      arcSite === 'perucom' ||
       arcSite === 'ojo' ? (
         <>
-          {arcSite !== 'elcomerciomag' && arcSite !== 'elbocon' &&
+          {arcSite !== 'elcomerciomag' && arcSite !== 'elbocon' && arcSite !== 'perucom' &&
           !(
             arcSite === 'depor' &&
             (section === 'futbol-internacional' || section === 'off-side')
@@ -407,6 +408,7 @@ const LiteAds = ({
           arcSite === 'elbocon' ||
           arcSite === 'depor' ||
           arcSite === 'ojo' ||
+          arcSite === 'perucom' ||
           arcSite === 'elcomercio' ? (
             <>
               <script
