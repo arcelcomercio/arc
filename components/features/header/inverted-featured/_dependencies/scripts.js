@@ -312,7 +312,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const username = `${firstName} ${lastName}`
           .replace(/null|undefined/gi, '')
           .trim()
-        signwallButton.innerHTML = username.length >= 15 ? `${username.slice(0, 15)}...` : username || 'Mi Perfil'
+        signwallButton.innerHTML = username.length >= 13 ? `${username.slice(0, 13)}...` : username || 'Mi Perfil'
       } else {
         signwallButton.innerHTML = 'Mi Perfil'
       }
@@ -321,7 +321,7 @@ document.addEventListener('DOMContentLoaded', function() {
 }) */
 
 export const singwallScript =
-  '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},n=e.firstName,t=void 0===n?"":n,i=e.lastName,o=void 0===i?"":i,c=e.uuid,a=void 0===c?"":c,l=document.getElementById("signwall-nav-btn");if(l.addEventListener("click",function(){window.location.href=a?"/mi-perfil/?outputType=subscriptions":"/signwall/?outputType=subscriptions&signwallOrganic=1"}),a)if(t||o){var r="".concat(t," ").concat(o).replace(/null|undefined/gi,"").trim();l.innerHTML=r.length>=15?"".concat(r.slice(0,15),"..."):r||"Mi Perfil"}else l.innerHTML="Mi Perfil"})});'
+  '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},n=e.firstName,t=void 0===n?"":n,i=e.lastName,o=void 0===i?"":i,c=e.uuid,a=void 0===c?"":c,l=document.getElementById("signwall-nav-btn");if(l.addEventListener("click",function(){window.location.href=a?"/mi-perfil/?outputType=subscriptions":"/signwall/?outputType=subscriptions&signwallOrganic=1"}),a)if(t||o){var r="".concat(t," ").concat(o).replace(/null|undefined/gi,"").trim();l.innerHTML=r.length>=13?"".concat(r.slice(0,13),"..."):r||"Mi Perfil"}else l.innerHTML="Mi Perfil"})});'
 
 export const getQueryReloginEmailScript = (_env, arcSite) => `"use strict";
 document.addEventListener('DOMContentLoaded', function () {
