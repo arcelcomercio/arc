@@ -8,6 +8,7 @@ import { META_HOME } from '../utilities/constants/meta'
 import {
   SITE_DEPOR,
   SITE_ELBOCON,
+  SITE_DIARIOCORREO,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_GESTION,
@@ -184,6 +185,7 @@ export default ({
       arcSite === SITE_ELCOMERCIO ||
       arcSite === SITE_ELCOMERCIOMAG ||
       arcSite === SITE_ELBOCON ||
+      arcSite === SITE_DIARIOCORREO ||
       (arcSite === 'peru21' && requestUri.match(`^/cheka`))
     ) {
       prebid = false
@@ -792,7 +794,7 @@ export default ({
             .toISOString()
             .slice(0, 10)}`}
         />
-        {enabledPushup ? (
+        {enabledPushup && !requestUri.includes('/publirreportaje/') && !requestUri.includes('/publireportaje/') ? (
           <>
             <script
               type="text/javascript"

@@ -220,7 +220,7 @@ const LiteOutput = ({
   const vgalleryStyles = 'dlite-vgallery'
 
   let inlineStyleUrl = `resources/dist/${arcSite}/css/${dstyle}.css`
-  const inlineVgalleryStyles = `resources/dist/${arcSite}/css/${vgalleryStyles}.css`
+  let inlineVgalleryStyles = `resources/dist/${arcSite}/css/${vgalleryStyles}.css`
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   const mStyleUrl = `${contextPath}/resources/dist/${arcSite}/css/${mstyle}.css`
@@ -262,6 +262,7 @@ const LiteOutput = ({
   if (metaValue('section_style') === 'story-v2-standard') {
     inlineStyleUrl = `resources/dist/elcomercio/css/story-v2-standard.css`
     styleUrl = ''
+    inlineVgalleryStyles = ''
   }
   if (metaValue('section_style') === 'story-v2-video') {
     inlineStyleUrl = `resources/dist/elcomercio/css/story-v2-video.css`
@@ -406,7 +407,7 @@ const LiteOutput = ({
               (arcSite === SITE_ELCOMERCIOMAG ||
                 arcSite === SITE_PERU21 ||
                 arcSite === SITE_DEPOR ||
-                (arcSite === SITE_ELCOMERCIO && sectionAds === 'luces')) && (
+                arcSite === SITE_ELCOMERCIO) && (
                 <>
                   <link
                     rel="preconnect"
@@ -545,7 +546,7 @@ const LiteOutput = ({
             ) : null
           }
         </Resource>
-        {subtype === GALLERY_VERTICAL ? (
+        {inlineVgalleryStyles && subtype === GALLERY_VERTICAL ? (
           <Resource path={inlineVgalleryStyles}>
             {({ data }) =>
               data ? (
@@ -762,7 +763,8 @@ const LiteOutput = ({
           />
         )}
 
-        {subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL ? (
+        {metaValue('section_style') !== 'story-v2-standard' &&
+        (subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL) ? (
           <script
             dangerouslySetInnerHTML={{
               __html: minutoMinutoScript,
@@ -836,7 +838,7 @@ const LiteOutput = ({
         arcSite === SITE_ELBOCON ||
         arcSite === SITE_DEPOR ||
         arcSite === SITE_OJO ||
-        (arcSite === SITE_ELCOMERCIO && sectionAds === 'luces') ? (
+        arcSite === SITE_ELCOMERCIO ? (
           <script
             defer
             src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()
@@ -895,7 +897,7 @@ const LiteOutput = ({
             )}
           </>
         )}
-        {enabledPushup ? (
+        {enabledPushup && !requestUri.includes('/publirreportaje/') && !requestUri.includes('/publireportaje/') ? (
           <>
             <script
               type="text/javascript"

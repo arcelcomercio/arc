@@ -1,13 +1,13 @@
-import React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import React from 'react'
 
-import getFooterProperties from '../_dependencies/properties'
-import FooterDeporColumnSection from './_children/FooterSection'
-import FooterInfo from './_children/FooterInfo'
-import customFields from './_dependencies/custom-fields'
 import { getAssetsPath } from '../../../utilities/assets'
+import getFooterProperties from '../_dependencies/properties'
+import FooterInfo from './_children/FooterInfo'
+import FooterDeporColumnSection from './_children/FooterSection'
+import customFields from './_dependencies/custom-fields'
 
 const DEFAULT_HIERARCHY = 'footer-default'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
@@ -27,16 +27,13 @@ const SCHEMA = `{
 }`
 
 const classes = {
-  footer: 'footer-secction__footer',
+  footer: 'footer-secction__footer bg-white',
   content: 'footer-secction__content-footer ',
 }
 
 const FooterDepor = (props) => {
-
   const {
-    customFields: {
-      newDesign
-    }
+    customFields: { newDesign },
   } = props
 
   const { arcSite, contextPath } = useFusionContext()
@@ -88,7 +85,7 @@ const FooterDepor = (props) => {
     corporateInfo,
     draftingContact,
     copyrightText,
-    newDesign
+    newDesign,
   }
   const keyString = 'key0'
   return (

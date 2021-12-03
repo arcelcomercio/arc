@@ -1,0 +1,17 @@
+.story-content {
+  &__visual--image {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  &__news-media-description {
+    font-family: "Fira Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: -0.14px;
+    line-height: 18px;
+    color: rgba(68, 68, 68, 0.973);
+    padding: 10px 0;
+    border-bottom: 1px solid #aaa;
+  }
+}
