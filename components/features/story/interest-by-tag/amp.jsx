@@ -52,9 +52,9 @@ const InterestByTagAmp = (props) => {
   const urlTag = `/${tagToFetch || slug}/`
   const presetsDefault =
     isFullImage || isSlider ? 'landscape_md:360x202' : 'landscape_md:118x66'
-  const presetsMag =
-    arcSite === SITE_ELCOMERCIOMAG ? 'landscape_md:335x202' : presetsDefault
-
+  const presetsMag = !isSlider ? '' : presetsDefault
+  const width = isFullImage || isSlider ? 360 : 118
+  const height = isFullImage || isSlider ? 202 : 66
   const { content_elements: storyData = [] } =
     useContent({
       source: CONTENT_SOURCE,
@@ -124,6 +124,8 @@ const InterestByTagAmp = (props) => {
               data={data}
               key={UtilListKey(i)}
               arcSite={arcSite}
+              width={width}
+              height={height}
             />
           )}
         </>
