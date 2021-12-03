@@ -24,7 +24,9 @@ const StoryMultimediaLte = () => {
   return (
     <>
       {promoItemJwplayer?.key ? (
-        <StoryContentChildVideoJwplayer data={promoItemJwplayer} />
+        <div className="pl-20 pr-20">
+          <StoryContentChildVideoJwplayer data={promoItemJwplayer} />
+        </div>
       ) : (
         <>
           {promoItems && <ElePrincipal data={promoItems} siteUrl={siteUrl} />}
