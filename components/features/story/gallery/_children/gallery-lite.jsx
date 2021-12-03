@@ -252,7 +252,8 @@ const StoryHeaderChildGallery = (props) => {
                       className={classes.title}
                       dangerouslySetInnerHTML={{
                         __html: processText(
-                          metaValue('section_style') === 'story-v2-standard'
+                          metaValue('section_style') === 'story-v2-standard' &&
+                            authorName
                             ? `${subtitle}<strong class="story-gallery__caption-image"> / ${authorName}</strong>`
                             : subtitle
                         ),
