@@ -3,19 +3,6 @@
   padding-left: 16px;
   padding-right: 16px;
 
-  .story-content {
-    &__news-media-description {
-      font-family: $fira-s;
-      font-size: 14px;
-      font-weight: 800;
-      letter-spacing: -0.14px;
-      line-height: 18px;
-      color: rgba(68, 68, 68, 0.973);
-      padding: 10px 0;
-      border-bottom: 1px solid #aaa;
-    }
-  }
-
   // ? hyperlinks
   a {
     color: #306d95;
@@ -264,35 +251,5 @@
     color: #fff;
     padding: 3px 6px;
     text-transform: uppercase;
-  }
-
-  // ? Tags
-  .story-tags {
-    padding-top: 10px;
-    border-top: 4px solid #434343;
-  }
-
-  .amp-story-tags {
-    &__title {
-      font-family: $fira-s;
-      font-size: 14px;
-      font-weight: 900;
-      letter-spacing: 0.7px;
-      line-height: 18px;
-      text-transform: uppercase;
-      color: #333;
-    }
-
-    &__link {
-      font-family: $primary-font;
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0;
-      text-decoration: none;
-      color: #333;
-      padding: 4px 10px;
-      border: 1px solid #a5a5a5;
-      background-color: #fff;
-    }
   }
 }
