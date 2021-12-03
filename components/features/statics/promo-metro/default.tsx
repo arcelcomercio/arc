@@ -1,4 +1,3 @@
-import Identity from '@arc-publishing/sdk-identity'
 import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 import * as React from 'react'
@@ -7,6 +6,7 @@ import { FC } from 'types/features'
 import ShareButtons from '../../../global-components/lite/share/index'
 import { originByEnv } from '../../../utilities/arc/env'
 import { getAssetsPath } from '../../../utilities/assets'
+import { isLoggedIn } from '../../../utilities/subscriptions/identity'
 import ECommerceCard from './_children/e-commerce'
 import SaleFloorCard from './_children/sale-floor'
 
@@ -164,19 +164,11 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
 
     // verifica si hay un usuario sesionado
     // en caso haya se muestra la landing, de lo contrario te redirecciona al organic
-    Identity.isLoggedIn()
-      .then((response) => {
-        if (response === false) {
-          window.location.href =
-            '/signwall/?outputType=subscriptions&signwallOrganic=1'
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+
+    if (!isLoggedIn())
+      window.location.href = '/signwall/?outputType=subscriptions'
+
+    setLoading(false)
   }, [])
 
   return !loading ? (
@@ -262,7 +254,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
         )}
         {disableDownload ? null : <button type="button">Descargar</button>}
         {disableShareBySocialNetwork ? null : (
-          <div style={{display:'flex'}}>
+          <div style={{ display: 'flex' }}>
             <button
               className={classes.share}
               type="button"
@@ -270,8 +262,8 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
               Compartir
             </button>
             <div
-              className={`metro-footer__social ${
-                activeDefaultShare ? 'flex' : 'hidden'
+              className={`metro-footer__social flex absolute ${
+                activeDefaultShare ? 'in' : 'out'
               }`}>
               <ShareButtons
                 activeCopyLink
@@ -289,7 +281,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
   )
 }
 
-StaticsPromoMetro.label = 'Promo Metro'
+StaticsPromoMetro.label = 'Promo Metro  '
 StaticsPromoMetro.lazy = true
 
 StaticsPromoMetro.propTypes = {
