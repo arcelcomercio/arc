@@ -632,7 +632,7 @@ export default ({
             <Dfp />
             {indPrebid && arcSite === SITE_TROME && (
               <script
-                defer
+                async
                 src="https://boot.pbstck.com/v1/tag/6e13d7a6-e4f7-4063-8d09-248ed9b1f70b"
               />
             )}
