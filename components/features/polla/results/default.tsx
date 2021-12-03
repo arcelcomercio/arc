@@ -13,6 +13,13 @@ interface Props {
   }
 }
 
+let isMobile: boolean
+
+if (typeof window !== 'undefined')
+  isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
+    window.navigator.userAgent
+  )
+
 const COUNTRIES_ASSETS_PATH =
   'https://cdna.depor.com/resources/dist/depor/images-polla/paises/'
 
@@ -137,6 +144,42 @@ const PollaGuide: FC<Props> = (props) => {
     }
   }
 
+  const diccionarioPaises = (name: string) => {
+    let abrev = ''
+    if (name === 'Colombia') {
+      abrev = 'COL'
+    }
+    if (name === 'Paraguay') {
+      abrev = 'PAR'
+    }
+    if (name === 'Argentina') {
+      abrev = 'ARG'
+    }
+    if (name === 'Uruguay') {
+      abrev = 'URU'
+    }
+    if (name === 'Venezuela') {
+      abrev = 'VEN'
+    }
+    if (name === 'Perú') {
+      abrev = 'PER'
+    }
+    if (name === 'Bolivia') {
+      abrev = 'BOL'
+    }
+    if (name === 'Chile') {
+      abrev = 'CHI'
+    }
+    if (name === 'Brasil') {
+      abrev = 'BRA'
+    }
+    if (name === 'Ecuador') {
+      abrev = 'ECU'
+    }
+
+    return abrev
+  }
+
   return (
     <div className="polla-results__main">
       {isLoading ? (
@@ -248,7 +291,9 @@ const PollaGuide: FC<Props> = (props) => {
                   <div className="polla-results__score-cont">
                     <div className="polla-results__country">
                       <span>
-                        {game.contestants.home_contestant || 'Por definirse'}
+                        {isMobile
+                          ? diccionarioPaises(game.contestants.home_contestant)
+                          : game.contestants.home_contestant || 'Por definirse'}
                       </span>
                       {game.contestants.home_contestant ? (
                         <img
@@ -259,51 +304,63 @@ const PollaGuide: FC<Props> = (props) => {
                         />
                       ) : null}
                     </div>
-                    <div className="polla-results__score-item">
-                      {game.status === 'Played' || game.status === 'Playing' ? (
-                        <>
-                          <div className="polla-results__score-numbers">
-                            <span>{game.home_goals}</span>
-                            <span>{game.away_goals}</span>
-                          </div>
-                          {game.status === 'Played' ? (
-                            <div className="polla-results__score-text">
-                              FINALIZADO
+                    <div className="polla-results__container-mid">
+                      <div className="polla-results__score-item">
+                        {game.status === 'Played' ||
+                        game.status === 'Playing' ? (
+                          <>
+                            <div className="polla-results__score-numbers">
+                              <span>{game.home_goals}</span>
+                              <span>{game.away_goals}</span>
                             </div>
-                          ) : (
-                            <div className="polla-results__score-live">
-                              <span className="polla-results__live-dot" />
-                              <span>En vivo</span>
-                            </div>
-                          )}
-                        </>
-                      ) : (
-                        <div className="polla-results__score-date">
-                          <span>
-                            {new Intl.DateTimeFormat('es-419-u-hc-h12', {
-                              month: '2-digit',
-                              day: '2-digit',
-                            }).format(new Date(game.date.replace(/-/g, '/')))}
-                          </span>
-                          <span>
-                            {' '}
-                            {new Intl.DateTimeFormat('es-419-u-hc-h12', {
-                              hour: '2-digit',
-                              minute: '2-digit',
-                              timeZone: 'America/Lima',
-                              hour12: true,
-                            }).format(
-                              new Date(
-                                `${game.date.replace(/-/g, '/')} ${game.time}`
-                              )
+                            {game.status === 'Played' ? (
+                              <div className="polla-results__score-text">
+                                FINALIZADO
+                              </div>
+                            ) : (
+                              <div className="polla-results__score-live">
+                                <span className="polla-results__live-dot" />
+                                <span>En vivo</span>
+                              </div>
                             )}
-                          </span>
+                          </>
+                        ) : (
+                          <div className="polla-results__score-date">
+                            <span>
+                              {new Intl.DateTimeFormat('es-419-u-hc-h12', {
+                                month: '2-digit',
+                                day: '2-digit',
+                              }).format(new Date(game.date.replace(/-/g, '/')))}
+                            </span>
+                            <span>
+                              {' '}
+                              {new Intl.DateTimeFormat('es-419-u-hc-h12', {
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                timeZone: 'America/Lima',
+                                hour12: true,
+                              }).format(
+                                new Date(
+                                  `${game.date.replace(/-/g, '/')} ${game.time}`
+                                )
+                              )}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                      {isMobile ? (
+                        <div className="polla-results__button-resumen-mob">
+                          <a href="https://www.google.com/">Resumen</a>
                         </div>
+                      ) : (
+                        ''
                       )}
                     </div>
-                    <div className="polla-results__country">
+                    <div className="polla-results__country-right">
                       <span>
-                        {game.contestants.away_contestant || 'Por definirse'}
+                        {isMobile
+                          ? diccionarioPaises(game.contestants.away_contestant)
+                          : game.contestants.away_contestant || 'Por definirse'}
                       </span>
                       {game.contestants.away_contestant ? (
                         <img
@@ -314,9 +371,13 @@ const PollaGuide: FC<Props> = (props) => {
                         />
                       ) : null}
                     </div>
-                    <div className="polla-results__button-resumen">
-                      <a href="https://www.google.com/">Resumen</a>
-                    </div>
+                    {isMobile ? (
+                      ''
+                    ) : (
+                      <div className="polla-results__button-resumen">
+                        <a href="https://www.google.com/">Resumen</a>
+                      </div>
+                    )}
                   </div>
                   <a href="/" className="polla-results__score-link">
                     Resumen
