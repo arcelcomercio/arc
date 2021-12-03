@@ -70,7 +70,7 @@ const CardSubscribe: FC = () => {
               ? `${getAssetsPath(
                   arcSite,
                   contextPath
-                )}/resources/dist/${arcSite}/images${logoClubTrome}?d=1`
+                )}/resources/dist/${arcSite}/images/${logoClubTrome}?d=1`
               : `${getAssetsPath(
                   arcSite,
                   contextPath
