@@ -1,19 +1,17 @@
-import * as React from 'react'
 import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
-import StoryData from '../../../utilities/story-data'
 import {
-  GALLERY_VERTICAL,
   BIG_IMAGE,
+  GALLERY_VERTICAL,
   SPECIAL_BASIC,
 } from '../../../utilities/constants/subtypes'
-
+import StoryData from '../../../utilities/story-data'
 import Infografia from '../multimedia/_children/html'
 import StoryContentsChildMultimedia from '../multimedia/_children/multimedia'
 import PremiumTag from '../title/_children/premium'
-
-import StoryGalleryChildGallerySlider from './_children/gallery-slider-lite'
 import StoryGalleryChildGallery from './_children/gallery-lite'
+import StoryGalleryChildGallerySlider from './_children/gallery-slider-lite'
 
 const classes = {
   gallery: 'w-full',
@@ -27,6 +25,7 @@ const StoryGalleryLite = () => {
     contextPath,
     globalContent: data,
     requestUri,
+    metaValue,
   } = useAppContext()
 
   const {
@@ -59,11 +58,12 @@ const StoryGalleryLite = () => {
 
   return (
     <>
-      {requestUri.includes('/archivo-elcomercio') && (
-        <div className={classes.premiumBox}>
-          <PremiumTag isPremium={isPremium} arcSite={arcSite} />
-        </div>
-      )}
+      {metaValue('section_style') !== 'story-v2-standard' &&
+        requestUri.includes('/archivo-elcomercio') && (
+          <div className={classes.premiumBox}>
+            <PremiumTag isPremium={isPremium} arcSite={arcSite} />
+          </div>
+        )}
       {contentElementGallery ? (
         <div className={classes.gallery}>
           {subtype === GALLERY_VERTICAL ? (

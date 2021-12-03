@@ -1,6 +1,9 @@
 import PropTypes from 'prop-types'
 
-export const customFieldsAdsList = {
+const customFields = PropTypes.shape({
+  storyConfig: PropTypes.contentConfig('stories-dev').tag({
+    name: 'Configuración del contenido',
+  }),
   adsMobile2: PropTypes.bool.tag({
     name: 'Mostrar "movil2"',
     group: 'Publicidad Movil',
@@ -33,25 +36,6 @@ export const customFieldsAdsList = {
     name: 'Posición en la lista',
     group: 'Publicidad Movil',
   }),
-  structuredData: PropTypes.bool.tag({
-    name: '¿Generar datos estructurados?',
-    defaultValue: false,
-  }),
-  showTitle: PropTypes.bool.tag({
-    name: 'Mostrar título',
-    defaultValue: false,
-  }),
-  showMiddle: PropTypes.bool.tag({
-    name: 'Mostrar "middle"',
-    group: 'Publicidad Middle',
-    defaultValue: false,
-  }),
-  adsMiddlePosition: PropTypes.number.tag({
-    name: 'Posición en la lista',
-    group: 'Publicidad Middle',
-  }),
-}
-
-export const customFields = PropTypes.shape({
-  ...customFieldsAdsList,
 })
+
+export default customFields

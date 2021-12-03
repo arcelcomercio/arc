@@ -1,6 +1,6 @@
 .content-layout {
   max-width: 100%;
-  min-width: 375px;
+  min-width: 360px;
 
   @media (--tablet) {
     width: 630px;
@@ -14,7 +14,7 @@
 
 .content-layout-container {
   max-width: 100%;
-  min-width: 375px;
+  min-width: 360px;
   margin-top: 10px;
 
   @media (--tablet) {
@@ -30,7 +30,7 @@
 
 .grid {
   &--col-1 {
-    grid-template-columns: repeat(1, minmax(375px, 100vw));
+    grid-template-columns: repeat(1, minmax(360px, 100vw));
   }
 
   &--col-2 {

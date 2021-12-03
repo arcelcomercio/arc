@@ -57,6 +57,9 @@
       width: 1024px;
       left: -200px;
     }
+    @media (--only-mobile) {
+      color: #a1a1a1;
+    }
   }
   &__subtitleField {
     background-color: #f5f5f5;
