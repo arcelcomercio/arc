@@ -2,23 +2,17 @@ import * as React from 'react'
 
 const classes = {
   coupon: 'coupon',
-  couponBgImage: 'coupon-bgimage',
-  couponHead: 'coupon-head',
-  couponAmount: 'coupon-amount',
-  couponType: 'coupon-type',
-  couponText: 'coupon-discount',
-  couponTitle: 'coupon-title',
+  couponDiscountE: 'coupon-dsctoE',
   couponReason: 'coupon-reason',
   couponLimit: 'coupon-limit',
   couponLocal: 'coupon-local',
   couponDiscountTitle: 'coupon-discount-title',
-  couponCode: 'coupon-code',
-  couponLegal: 'coupon-legal',
-  couponRestrictions: 'coupon-restrictions',
+  couponCodeEco: 'coupon-codeEco',
+  titleRestriction: 'coupon-restriction-title',
+  textRestriction: 'coupon-restriction-text',
+  logoMetroPe: 'coupon-logo-metrope',
 }
-
 interface CouponProps {
-  code: string
   discount: string
   reason: string
   limit: string
@@ -30,58 +24,46 @@ interface CouponProps {
   }
 }
 const ECommerceCard: React.FunctionComponent<CouponProps> = ({
-  code,
   discount,
   reason,
   limit,
   local,
   restrictions = null,
 }) => (
-  <div className={`${classes.coupon} flip-card`}>
-    <div className="flip-card-front">
-      <div style={{ display: 'flex' }}>
-        <div style={{ margin: 'auto', width: '47%', textAlign: 'start' }}>
-          <h3 className={classes.couponTitle}>{discount}</h3>
-          <h3 className={classes.couponReason}>{reason}</h3>
-          <h3 className={classes.couponLimit}>{limit}</h3>
-          <h3 className={classes.couponLocal}>{local}</h3>
+  <div className={`${classes.coupon} flex`}>
+    <div className="coupon-first-column-ec justify-center items-center flex flex-col">
+      <h3 className={classes.couponDiscountE}>
+        {discount}
+        <span> soles</span>
+      </h3>
+      <h3 className={classes.couponReason}>{reason}</h3>
+      <h3 className={classes.couponLimit}>
+        {limit}
+        <span> soles</span>
+      </h3>
+      <h3 className={classes.couponLocal}>{local}</h3>
+    </div>
+    <div className="coupon-second-column-ec flex flex-col">
+      {restrictions ? (
+        <div className="flex flex-col">
+          <div className="flex flex-col">
+            <h3 className={classes.titleRestriction}>Restricciones</h3>
+            <ul>
+              <p className={classes.textRestriction}>
+                &#8226; {restrictions.ususNumber} usos
+              </p>
+              <p className={classes.textRestriction}>
+                &#8226; {restrictions.rules}
+              </p>
+            </ul>
+            <img src="" alt="metro.pe" className={classes.logoMetroPe} />
+          </div>
+          <div className="flex flex-col">
+            <p className={classes.couponCodeEco}>{restrictions.coupon}</p>
+            <p className={classes.couponDiscountTitle}>Cupón</p>
+          </div>
         </div>
-        <div
-          style={{
-            width: '2%',
-            borderLeft: '1px #E46E23 solid',
-            marginTop: 'auto',
-            height: '135px',
-            marginBottom: 'auto',
-          }}>
-          &nbsp;
-        </div>
-        <div
-          style={{
-            width: '47%',
-            paddingTop: '15px',
-            textAlign: 'start',
-          }}>
-          <strong className={classes.couponHead}>
-            {restrictions ? (
-              <ul>
-                <h3>**Restricciones</h3>
-                <li className={classes.couponRestrictions}>
-                  {restrictions.coupon}
-                </li>
-                <li className={classes.couponRestrictions}>
-                  {restrictions.ususNumber}
-                </li>
-                <li className={classes.couponRestrictions}>
-                  {restrictions.rules}
-                </li>
-              </ul>
-            ) : null}
-          </strong>
-          <p className={classes.couponCode}>{code}</p>
-          <p className={classes.couponDiscountTitle}>Código de promoción</p>
-        </div>
-      </div>
+      ) : null}
     </div>
   </div>
 )

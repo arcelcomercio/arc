@@ -11,13 +11,17 @@ import ECommerceCard from './_children/e-commerce'
 import SaleFloorCard from './_children/sale-floor'
 
 const classes = {
-  header: 'items-center flex',
+  header: 'items-center flex metro-header',
+  logoMetro: 'metro-logometro',
+  logoClubTrome: 'metro-logoclubt',
+  logoTrome: 'metro-logotrome',
   container: 'metro w-full h-full flex flex-col justify-center',
   title: 'metro-title',
   subtitle: 'metro-subtitle',
   subtitleBold: 'metro-subtitle-bold',
+  legal: 'metro-legal',
   grid: 'metro-grid',
-  footer: 'metro-footer flex items-center',
+  footer: 'metro-footer flex items-center justify-between',
   // download: 'metro-download',
   share: 'metro-share',
 }
@@ -60,7 +64,6 @@ interface CouponSale {
 }
 
 interface CouponECommerce {
-  code: string
   discount: string
   reason: string
   limit: string
@@ -173,32 +176,24 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
 
   return !loading ? (
     <div className={classes.container}>
-      <div
-        className={classes.header}
-        style={{
-          justifyContent: 'space-around',
-        }}>
+      <div className={classes.header}>
         <img
+          className={classes.logoMetro}
           src={`${getAssetsPath(
             arcSite,
             contextPath
           )}/resources/dist/${arcSite}/images/${logo || 'logo-metro.png'}?d=1`}
           alt="logo metro"
           loading="lazy"
-          style={{
-            width: '170px',
-          }}
         />
         <img
+          className={classes.logoClubTrome}
           src={`${getAssetsPath(
             arcSite,
             contextPath
           )}/resources/dist/${arcSite}/images/logo-club-trome.png?d=1`}
           alt="logo club trome"
           loading="lazy"
-          style={{
-            height: '80px',
-          }}
         />
       </div>
 
@@ -220,11 +215,12 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
               restrictions={coupon.restrictions || []}
             />
           ))}
+      </div>
+      <div className={classes.grid}>
         {couponsEco &&
           couponsEco.map((coupon: CouponECommerce) => (
             <ECommerceCard
-              key={coupon.code}
-              code={coupon.code}
+              key={coupon.restrictions?.coupon}
               discount={coupon.discount}
               reason={coupon.reason}
               limit={coupon.limit}
@@ -233,21 +229,17 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
             />
           ))}
       </div>
-      <p>*{legalSale}</p>
-      <p>**{legalEco}</p>
-      <div
-        className={classes.footer}
-        style={{
-          justifyContent: 'space-around',
-        }}>
+      <p className={classes.legal}>{legalSale}</p>
+      <p className={classes.legal}>{legalEco}</p>
+      <div className={classes.footer}>
         <img
+          className={classes.logoTrome}
           src={`${getAssetsPath(
             arcSite,
             contextPath
           )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`}
-          alt="logo club trome"
+          alt="logo trome"
           loading="lazy"
-          width="140px"
         />
         {disableShareByEmail ? null : (
           <button type="button">Enviar al email</button>
@@ -262,7 +254,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
               Compartir
             </button>
             <div
-              className={`metro-footer__social flex absolute ${
+              className={`metro-footer__social flex position-absolute ${
                 activeDefaultShare ? 'in' : 'out'
               }`}>
               <ShareButtons

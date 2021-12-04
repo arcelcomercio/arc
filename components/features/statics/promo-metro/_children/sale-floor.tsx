@@ -1,16 +1,32 @@
+import { useAppContext } from 'fusion:context'
 import * as React from 'react'
+
+import { getAssetsPath } from '../../../../utilities/assets'
 
 const classes = {
   coupon: 'coupon',
-  couponBgImage: 'coupon-bgimage',
-  couponHead: 'coupon-head',
+  couponImage: 'coupon-image',
+  couponAmountContainer: 'coupon-amount-container',
   couponAmount: 'coupon-amount',
-  couponType: 'coupon-type',
-  couponText: 'coupon-discount',
+  couponAmountPercent: 'coupon-amount-percent',
+  quantity: 'coupon-quantity',
+  percentage: 'coupon-percentage',
+  cencosud: 'coupon-cencosud',
+  imageCencosud: 'coupon-cencosud-image',
+  priceCencosud: 'coupon-cencosud-price',
+  percentageCencosud: 'coupon-cencosud-percentage',
+  couponDsctoCencosud: 'coupon-cencosud-discount',
+  textCencosud: 'coupon-cencosud-text',
+  bonus: 'coupon-bonus',
+  pointsBonus: 'coupon-bonus-points',
+  textPointsBonus: 'coupon-bonus-text',
+  imageBonus: 'coupon-bonus-image',
+  priceBonus: 'coupon-bonus-price',
+  couponDscto: 'coupon-discount',
   couponTitle: 'coupon-title',
   couponDiscountTitle: 'coupon-discount-title',
   couponCode: 'coupon-code',
-  couponLegal: 'coupon-legal',
+  separator: 'coupon-separator',
 }
 
 enum DiscountType {
@@ -32,8 +48,6 @@ interface CouponProps {
   bonus?: Bonus | null
   restrictions?: []
 }
-
-const newLocal = '3px'
 const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
   code = '',
   image = '',
@@ -43,135 +57,109 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
   priceCencosud = '',
   bonus = null,
   restrictions = [],
-}) => (
-  <div className={`${classes.coupon} flip-card`}>
-    <div className="flip-card-front">
-      
-      <div style={{ display: 'flex' }}>
-      <div style={{display:'flex', width:'60%'}}>
-      <div style={{ margin: 'auto', width: '30%' }}>
-          <img
-            src={image}
-            alt="logo"
-            loading="lazy"
-            style={{
-              width: '100%',
-              margin: '0 auto auto',
-              paddingTop: '10px',
-            }}
-          />
-        </div>
-        <div style={{ margin: 'auto', width: '30%' }}>
-          {discountType === 'S/' && (
-            <p className={classes.couponAmount} style={{ color: 'black' }}>
-              {discount}
-            </p>
-          )}
-          {discountType === '%' && (
-            <>
-              <p className={classes.couponAmount}>{discount}</p>
-              <strong>
-                <p className={classes.couponText}>DSCTO</p>
-              </strong>
-            </>
-          )}
-          {priceCencosud && (
-            <>
+}) => {
+  const { arcSite, contextPath } = useAppContext()
+
+  const discountSplitX = discount.split('x')
+  const discountSplitDecimal = discountSplitX[0].split('.')
+  return (
+    <div className={`${classes.coupon} flex`}>
+      <div className="coupon-first-column-sf flex flex-col justify-center">
+        <img
+          className={classes.couponImage}
+          src={image}
+          alt="logo"
+          loading="lazy"
+        />
+        <p className={classes.couponTitle}>{title}</p>
+
+        {restrictions.length > 0
+          ? restrictions.map((restriction) => (
               <p
-                style={{
-                  fontSize: '31px',
-                  fontWeight: 'bold',
-                  color: '#e06437',
-                  paddingTop: '5px',
-                }}>
-                {priceCencosud}
+                style={{ fontSize: '10px', color: '#373736' }}
+                key={restriction}>
+                {restriction}
               </p>
+            ))
+          : null}
+      </div>
+      <div className="coupon-second-column-sf flex flex-col justify-center">
+        {discountType === 'S/' ? (
+          <div className={classes.couponAmountContainer}>
+            <p className={classes.couponAmount}>
+              {discountSplitDecimal[0]}
+              <span>
+                {discountSplitDecimal[1] && `.${discountSplitDecimal[1]}`}
+              </span>
+            </p>
+            {discountSplitX[1] && (
+              <p className={classes.quantity}>x{discountSplitX[1]}</p>
+            )}
+          </div>
+        ) : null}
+        {discountType === '%' ? (
+          <div className="flex items-center justify-start">
+            <p className={classes.couponAmountPercent}>{discount}</p>
+            <div className="flex items-center flex-col">
+              <p className={classes.percentage}>%</p>
+              <p className={classes.couponDscto}>DSCTO</p>
+            </div>
+          </div>
+        ) : null}
+        <div className={`${classes.cencosud} flex flex-col`}>
+          {priceCencosud && (
+            <div className="flex items-end">
+              <p className={classes.priceCencosud}>{priceCencosud}</p>
+              <div className="flex flex-col">
+                <p className={classes.percentageCencosud}>%</p>
+                <p className={classes.couponDsctoCencosud}>DSCTO</p>
+              </div>
               <img
-                width="50px"
-                src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/tarjeta-cencosud.png?v=1638398607"
+                className={classes.imageCencosud}
+                src={`${getAssetsPath(
+                  arcSite,
+                  contextPath
+                )}/resources/dist/${arcSite}/images/tarjeta-cencosud.png?d=1`}
                 alt="cencosud"
               />
-            </>
+              <div style={{ padding: '2px' }}>
+                <p className={classes.textCencosud}>Tarjeta</p>
+                <p className={classes.textCencosud}>Cencosud</p>
+              </div>
+            </div>
           )}
           {bonus && (
-            <div
-              style={{
-                display: 'flex',
-                paddingTop: '10px',
-                justifyItems: 'center',
-                alignItems: 'center',
-                justifyContent: 'space-around',
-              }}>
-              <div style={{flexDirection: 'column',
-    display: 'flex'}}>
-                <p
-                  style={{
-                    fontWeight: 'bold',
-                    fontSize: '20px',
-                    color: '#e06437',
-                  }}>
+            <div className={`${classes.bonus} flex items-end`}>
+              <div className="flex flex-col">
+                <p className={`${classes.pointsBonus} flex items-end`}>
                   {bonus.points}
                 </p>
                 <p
-                  style={{
-                    fontWeight: 'bold',
-                    fontSize: '10px',
-                    color: '#e06437',
-                  }}>
+                  className={`${classes.textPointsBonus} flex items-end font-bold`}>
                   puntos
                 </p>
               </div>
-              <div style={{flexDirection: 'column',
-    display: 'flex'}}>
-                <span
-                  style={{
-                    fontWeight: 'bold',
-                    fontSize: '13px',
-                    color: '#e06437',
-                  }}>
+              <div className="flex flex-col" style={{ paddingLeft: '10px' }}>
+                <p className={`${classes.priceBonus} font-bold`}>
                   S/{bonus.price}
-                </span>
+                </p>
                 <img
-                  width="40px"
-                  src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/puntos-bonus-black.png?v=1638398607"
-                  alt="bonus"
+                  className={`${classes.imageBonus}`}
+                  src={`${getAssetsPath(
+                    arcSite,
+                    contextPath
+                  )}/resources/dist/${arcSite}/images/puntos-bonus-color.png?d=1`}
+                  alt="tarjeta bonus"
                 />
               </div>
             </div>
           )}
-        </div>
-      </div>
-        <div
-          style={{
-            width: '1%',
-            borderLeft: '1px #E46E23 solid',
-            marginTop: 'auto',
-            height: '135px',
-            marginBottom: 'auto',
-          }}>
-          &nbsp;
-        </div>
-        <div
-          style={{
-            width: '40%',
-            paddingTop: '15px',
-            textAlign: 'start',
-            paddingLeft: newLocal,
-          }}>
-          <strong className={classes.couponHead}>
-            <h3 className={classes.couponTitle}>*{title}</h3>
-          </strong>
-          {restrictions.length > 0
-            ? restrictions.map((restriction) => (
-                <p style={{fontSize:'10px'}} key={restriction}>- {restriction}</p>
-              ))
-            : null}
           <p className={classes.couponCode}>{code}</p>
           <p className={classes.couponDiscountTitle}>Código de promoción</p>
         </div>
       </div>
     </div>
-  </div>
-)
+  )
+}
 
 export default SaleFloorCard

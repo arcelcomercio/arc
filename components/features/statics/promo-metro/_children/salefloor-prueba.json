@@ -6,7 +6,7 @@
       "discount": "S/ 95.90",
       "discountType": "S/",
       "title": "Canasta Metro Unión",
-      "priceCencosud": "10%",
+      "priceCencosud": "10",
       "bonus": null,
       "restrictions": []
     },
@@ -16,7 +16,7 @@
       "discount": "S/ 53.99 x6",
       "discountType": "S/",
       "title": "Espumante Porte Fino Semiseco Botella 750 ml",
-      "cencosud": "",
+      "priceCencosud": "",
       "bonus": null,
       "restrictions": []
     },
@@ -26,17 +26,17 @@
       "discount": "S/ 11.50",
       "discountType": "S/",
       "title": "Galletas Danesas Lata 454 g",
-      "cencosud": "",
+      "priceCencosud": "",
       "bonus": null,
       "restrictions": []
     },
     {
       "code": "120329483",
       "image": "https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/vestuario-y-calzado.png?alt=media&token=8b3a97a3-9968-4197-a05c-9a2ab3d0a6c0",
-      "discount": "15%",
+      "discount": "15",
       "discountType": "%",
       "title": "En todo pescados y mariscos frescos",
-      "cencosud": "",
+      "priceCencosud": "",
       "bonus": null,
       "restrictions": []
     },
@@ -46,7 +46,7 @@
       "discount": "S/ 22.99",
       "discountType": "S/",
       "title": "Pollo + Papas + Chicha 1L Metro",
-      "cencosud": "",
+      "priceCencosud": "",
       "bonus": {
         "price": "21.99",
         "points": "33"
@@ -56,40 +56,40 @@
     {
       "code": "322318144",
       "image": "https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/nuggets-pollo-redondos-20u.png?alt=media&token=190bb09d-1649-4f64-a898-979b72c4bef4",
-      "discount": "20%",
+      "discount": "20",
       "discountType": "%",
       "title": "Nuggets de Pechuga de Pollo Redondos x 23 Unid / 350 g",
-      "cencosud": "",
+      "priceCencosud": "",
       "bonus": null,
       "restrictions": []
     },
     {
       "code": "200395179",
       "image": "https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/colchones-y-mas.png?alt=media&token=6b5fd10c-6d01-48e2-9636-01b07f73d402",
-      "discount": "10%",
+      "discount": "10",
       "discountType": "%",
       "title": "En Juegos de Dormitorio, Colchones, Almohadas y Protectores de Cuna",
-      "cencosud": "",
+      "priceCencosud": "",
       "bonus": null,
       "restrictions": []
     },
     {
       "code": "100395100",
       "image": "https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/Arroz-removebg-preview.png?alt=media&token=27b3ca10-eb09-4338-b155-94fb9e7960f4",
-      "discount": "10%",
+      "discount": "10",
       "discountType": "%",
       "title": "En Vestuario y Calzado",
-      "cencosud": "",
+      "priceCencosud": "",
       "bonus": null,
       "restrictions": []
     },
     {
       "code": "155088144",
       "image": "https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/jugueteria.png?alt=media&token=07eff59e-3eb7-4dc3-bcc2-ecc558a6926b",
-      "discount": "10%",
+      "discount": "10",
       "discountType": "%",
       "title": "En toda la Jugueteria",
-      "cencosud": "",
+      "priceCencosud": "",
       "bonus": null,
       "restrictions": [
         "Máximo 6 productos por cliente en total",
