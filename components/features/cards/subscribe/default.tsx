@@ -9,7 +9,7 @@ import CardSubscribeRegister from './_children/register'
 import { handleUserStatus } from './_dependencies/scripts'
 
 const classes = {
-  container: ' flex justify-center w-full row-1 col-1 position-relative',
+  container: 'flex justify-center w-full row-1 col-1 position-relative',
   minicontainer: 'flex flex-col items-center position-absolute w-full h-full',
   logo: 'mt-25',
   text: 'bold',

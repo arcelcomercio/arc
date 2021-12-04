@@ -1,0 +1,103 @@
+{
+  "products": [
+    {
+      "code": "722395146",
+      "image": "https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/canasta-union.png?alt=media&token=a2d94393-73da-4d50-9b87-a3b30778b2ee",
+      "discount": "S/ 95.90",
+      "discountType": "S/",
+      "title": "Canasta Metro Unión",
+      "priceCencosud": "10%",
+      "bonus": null,
+      "restrictions": []
+    },
+    {
+      "code": "133895142",
+      "image": "https://wongfood.vteximg.com.br/arquivos/ids/493149-230-230/16387-01-6743.jpg?v=637717306879530000",
+      "discount": "S/ 53.99 x6",
+      "discountType": "S/",
+      "title": "Espumante Porte Fino Semiseco Botella 750 ml",
+      "cencosud": "",
+      "bonus": null,
+      "restrictions": []
+    },
+    {
+      "code": "122897710",
+      "image": "https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/gallestas-danesas-545g.png?alt=media&token=e978b985-068d-4732-91fe-5d8546666640",
+      "discount": "S/ 11.50",
+      "discountType": "S/",
+      "title": "Galletas Danesas Lata 454 g",
+      "cencosud": "",
+      "bonus": null,
+      "restrictions": []
+    },
+    {
+      "code": "120329483",
+      "image": "https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/vestuario-y-calzado.png?alt=media&token=8b3a97a3-9968-4197-a05c-9a2ab3d0a6c0",
+      "discount": "15%",
+      "discountType": "%",
+      "title": "En todo pescados y mariscos frescos",
+      "cencosud": "",
+      "bonus": null,
+      "restrictions": []
+    },
+    {
+      "code": "029345353",
+      "image": "https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/pollo-a-la-brasa.png?alt=media&token=fe019469-0650-4bf7-b5f6-52bf69d04a67",
+      "discount": "S/ 22.99",
+      "discountType": "S/",
+      "title": "Pollo + Papas + Chicha 1L Metro",
+      "cencosud": "",
+      "bonus": {
+        "price": "21.99",
+        "points": "33"
+      },
+      "restrictions": []
+    },
+    {
+      "code": "322318144",
+      "image": "https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/nuggets-pollo-redondos-20u.png?alt=media&token=190bb09d-1649-4f64-a898-979b72c4bef4",
+      "discount": "20%",
+      "discountType": "%",
+      "title": "Nuggets de Pechuga de Pollo Redondos x 23 Unid / 350 g",
+      "cencosud": "",
+      "bonus": null,
+      "restrictions": []
+    },
+    {
+      "code": "200395179",
+      "image": "https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/colchones-y-mas.png?alt=media&token=6b5fd10c-6d01-48e2-9636-01b07f73d402",
+      "discount": "10%",
+      "discountType": "%",
+      "title": "En Juegos de Dormitorio, Colchones, Almohadas y Protectores de Cuna",
+      "cencosud": "",
+      "bonus": null,
+      "restrictions": []
+    },
+    {
+      "code": "100395100",
+      "image": "https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/Arroz-removebg-preview.png?alt=media&token=27b3ca10-eb09-4338-b155-94fb9e7960f4",
+      "discount": "10%",
+      "discountType": "%",
+      "title": "En Vestuario y Calzado",
+      "cencosud": "",
+      "bonus": null,
+      "restrictions": []
+    },
+    {
+      "code": "155088144",
+      "image": "https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/jugueteria.png?alt=media&token=07eff59e-3eb7-4dc3-bcc2-ecc558a6926b",
+      "discount": "10%",
+      "discountType": "%",
+      "title": "En toda la Jugueteria",
+      "cencosud": "",
+      "bonus": null,
+      "restrictions": [
+        "Máximo 6 productos por cliente en total",
+        "No acumulable con descuentos con la tarjeta Censocud",
+        "No incluye bicicletas, rodados, juguetes de exterior/verano"
+      ]
+    }
+  ],
+
+  "legal": "Descuentos válidos con tarjeta Bonus en Tiendas Metro a nivel nacional del 09 al 23 de diciembre de 2021 y/o hasta agotar stock. Stock mínimo 01 ud./pack/kg por producto. Stock y surtido sujeto a disponibilidad de Tienda. Promociones exclusivas para consumo familiar. No acumulable con otras promociones. Máximo para abarrotes y perecibles 03 uds./packs/kg por cliente durante la vigencia de la promoción. Máximo para non food 3 uds./packs por cliente durante la vigencia de la promoción. Fotos referenciales. Promoción válida sobre precio normal. Ofertas no disponibles en Tiendas Metro: México, Manco Cápac – La Victoria, Óvalo Balta – Barranco, Bellavista, Los Héroes – San Juan de Miraflores, Perricholi – Rímac, Martinto – Breña, Plaza Castilla, Paseo Chorrillos, Chosica, Alameda Sur, Huaylas – Chorrillos, Ventanilla, El Agustino, Santa Clara y en Provincias: Chincha, Santa Victoria, La Victoria – Trujillo, Castilla – Lambayeque, San Eduardo – Piura, Amazonas, Hunter, Arequipa Norte, Cutervo – Ica, Chimbote, Barranca, Penta – Trujillo y Grau – Chiclay"
+}
