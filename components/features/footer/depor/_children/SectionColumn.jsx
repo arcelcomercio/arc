@@ -71,7 +71,6 @@ const SectionColumn = ({
       </div>
     )}
   </ul>
-  </>
 )
 
 export default React.memo(SectionColumn)
