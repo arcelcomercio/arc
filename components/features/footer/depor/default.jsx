@@ -1,13 +1,13 @@
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
-import PropTypes from 'prop-types'
 import React from 'react'
 
 import { getAssetsPath } from '../../../utilities/assets'
 import getFooterProperties from '../_dependencies/properties'
 import FooterInfo from './_children/FooterInfo'
 import FooterDeporColumnSection from './_children/FooterSection'
+import customFields from './_dependencies/custom-fields'
 
 const DEFAULT_HIERARCHY = 'footer-default'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
@@ -27,14 +27,14 @@ const SCHEMA = `{
 }`
 
 const classes = {
-  footer: 'bg-white',
+  footer: 'footer-secction__footer bg-white',
   content: 'footer-secction__content-footer ',
 }
 
 const FooterDepor = (props) => {
   const { arcSite, contextPath, isAdmin } = useFusionContext()
 
-  const { customFields: { isBook, bookUrl } = {} } = props
+  const { customFields: { isBook, bookUrl, newDesign } = {} } = props
 
   const {
     gecSites,
@@ -97,6 +97,7 @@ const FooterDepor = (props) => {
     bookUrl,
     bookLogo,
     isAdmin,
+    newDesign,
   }
   const keyString = 'key0'
   return (
@@ -109,20 +110,11 @@ const FooterDepor = (props) => {
   )
 }
 
+FooterDepor.propTypes = {
+  customFields,
+}
+
 FooterDepor.label = 'Pié de página - Depor'
 // FooterDepor.static = true
-
-FooterDepor.propTypes = {
-  customFields: PropTypes.shape({
-    isBook: PropTypes.bool.tag({
-      name: 'Activar Libro de Reclamaciones',
-      group: 'Extras',
-    }),
-    bookUrl: PropTypes.string.tag({
-      name: 'URL Libro de Reclamaciones',
-      group: 'Extras',
-    }),
-  }),
-}
 
 export default FooterDepor
