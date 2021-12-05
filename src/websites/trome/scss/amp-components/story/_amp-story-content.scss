@@ -1,0 +1,255 @@
+/* stylelint-disable no-descending-specificity */
+.amp-story-content {
+  padding-left: 16px;
+  padding-right: 16px;
+
+  // ? hyperlinks
+  a {
+    color: #306d95;
+    font-weight: unset;
+  }
+
+  // ? Author
+  &__author {
+    font-family: $fira-s;
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 22px;
+
+    a {
+      font-weight: 900;
+      color: #333;
+      text-decoration: none;
+    }
+  }
+
+  &__author + time {
+    font-family: $fira-s;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: -0.13px;
+    line-height: 18px;
+    color: #444;
+  }
+
+  // ? paragraphs
+  &__news-text {
+    font-family: $fira-s;
+    font-weight: 400;
+    font-size: 22px;
+    letter-spacing: -0.44px;
+    line-height: 32px;
+    color: #343434;
+  }
+
+  section {
+    // ? font-sizes for h tags
+    & > h1 {
+      font-size: 1.6rem;
+    }
+
+    & > h2 {
+      font-family: $fira-s;
+      font-size: 22px;
+      letter-spacing: 0;
+      line-height: 24px;
+      margin: 36px 0 16px 0;
+      padding: 0;
+      position: relative;
+    }
+
+    & > h3 {
+      font-size: 1.3rem;
+    }
+
+    & > h4 {
+      font-size: 1.2rem;
+    }
+
+    & > h5 {
+      font-size: 1.1rem;
+    }
+
+    & > h6 {
+      font-size: 1rem;
+    }
+
+    & > h1,
+    & > h3,
+    & > h4,
+    & > h5,
+    & > h6 {
+      font-family: $fira-s;
+      margin: 20px 0;
+      line-height: 1.3;
+    }
+
+    & h2::before {
+      content: "";
+      position: absolute;
+      width: 64px;
+      height: 6px;
+      background-color: #d35b2c;
+      top: -20px;
+    }
+
+    figcaption {
+      font-family: $fira-s;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: -0.14px;
+      line-height: 18px;
+      color: #444444f8;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #aaa;
+    }
+
+    li {
+      font-family: $fira-s;
+      font-size: 22px;
+      letter-spacing: -0.44px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+
+      a {
+        font-family: $fira-s;
+        color: #306d95;
+      }
+    }
+  }
+
+  &__multimedia-caption {
+    font-family: $fira-s;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: -0.14px;
+    line-height: 18px;
+    color: rgba(68, 68, 68, 0.973);
+    padding: 10px 0;
+    border-bottom: 1px solid #aaa;
+  }
+
+  // ? List item for 'Mira Tambien'
+  &__link-list {
+    background: none;
+    border: none;
+    position: relative;
+    margin: 38px 0;
+    padding: 0;
+
+    &-title {
+      font-family: $encode-c;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: #fff;
+      background-color: #000;
+      padding: 5px 6px 3px 6px;
+      display: inline-block;
+    }
+
+    &-title-link {
+      font-family: $encode-c;
+      font-size: 20px;
+      letter-spacing: 0;
+      line-height: 24px;
+      text-decoration: none;
+      font-weight: 800;
+      height: auto;
+
+      a {
+        color: #d35b2c;
+        text-decoration: none;
+      }
+    }
+
+    &-title-link::before {
+      content: "> ";
+      color: #d35b2c;
+    }
+
+    &-item {
+      margin-bottom: 24px;
+    }
+
+    &-figure {
+      display: none;
+    }
+
+    &-information {
+      padding: 0;
+    }
+
+    &-title + .amp-story-content__link-list-item {
+      margin-top: 0;
+    }
+  }
+
+  // ? General Blockquote
+  .pquote {
+    padding: 18px 0;
+    font-family: $encode-c;
+    line-height: 40px;
+
+    &__text {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.32px;
+      line-height: 40px;
+      padding: 0;
+      color: #343434;
+      font-style: normal;
+
+      & br {
+        content: "";
+        display: block;
+        margin-bottom: 20px;
+      }
+
+      & br + p {
+        font-family: $fira-s;
+        font-size: 16px;
+        letter-spacing: -0.16px;
+        line-height: 16px;
+        font-weight: 800;
+        color: rgba(68, 68, 68, 0.973);
+      }
+    }
+  }
+
+  .pquote::first-letter {
+    font-size: unset;
+  }
+
+  // ? 'Puedes Leer' Blockquote
+  &__blockquote {
+    font-family: $encode-c;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 24px;
+    letter-spacing: 0;
+    color: #343434;
+    padding: 19px 0;
+    background-color: unset;
+
+    a {
+      color: #d35b2c;
+      text-decoration: unset;
+    }
+  }
+
+  &__blockquote::before {
+    content: unset;
+  }
+
+  // ? Purple highlight for Blockquote
+  .hl_purple {
+    font-family: $encode-c;
+    font-weight: 800;
+    font-size: 14px;
+    background: #000;
+    color: #fff;
+    padding: 3px 6px;
+    text-transform: uppercase;
+  }
+}
