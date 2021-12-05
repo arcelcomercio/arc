@@ -290,48 +290,38 @@ b.style.color = "#888888";
 })})`
 
 /* TODO: Agregar la lógica sin minificar de este script, no son iguales */
-/* document.addEventListener('DOMContentLoaded', function() {
-requestIdle(() => {
-const localProfile = JSON.parse(
-  window.localStorage.getItem('ArcId.USER_PROFILE') 
-)
-const { firstName = '', lastName = '', uuid = '' } = localProfile || {}
-document.getElementById("signwall-nav-btn").addEventListener("click", () => {
-  if (uuid) {
-    window.location.href  = '/mi-perfil/?outputType=subscriptions'
-  } else {
-    window.location.href  = '/signwall/?outputType=subscriptions'
-    //window.location.href  = '/politica/?reloginEmail=1'
-  }
-})
-if (uuid) {
-  const signwallButton = document.getElementById('signwall-nav-btn')
-  const signwallIcon = document.getElementById('signwall-nav-icon')
-  if (!firstName && !lastName) {
-    signwallButton.innerHTML = 'Mi Perfil'
-  } else {
-    let buttonText = ''
-    let iconText = ''
-    if (firstName && lastName) {
-      buttonText = `${firstName} ${lastName}`
-      iconText = `${firstName[0] || ''}${lastName[0] || ''}`
-    } else if (firstName && !lastName) {
-      buttonText = firstName
-      iconText = `${firstName[0] || ''}${firstName[1] || ''}`
-    } else if (!firstName && lastName) {
-      buttonText = lastName
-      iconText = `${lastName[0] || ''}${lastName[1] || ''}`
+/* 
+document.addEventListener('DOMContentLoaded', function() {
+  requestIdle(() => {
+    const localProfile = JSON.parse(
+      window.localStorage.getItem('ArcId.USER_PROFILE') 
+    )
+    const { firstName = '', lastName = '', uuid = '' } = localProfile || {}
+    const signwallButton = document.getElementById('signwall-nav-btn')
+
+    signwallButton.addEventListener("click", () => {
+      if (uuid) {
+        window.location.href  = '/mi-perfil/?outputType=subscriptions'
+      } else {
+        window.location.href  = '/signwall/?outputType=subscriptions&signwallOrganic=1'
+      }
+    })
+
+    if (uuid) {
+      if(firstName || lastName) {
+        const username = `${firstName} ${lastName}`
+          .replace(/null|undefined/gi, '')
+          .trim()
+        signwallButton.innerHTML = username.length >= 13 ? `${username.slice(0, 13)}...` : username || 'Mi Perfil'
+      } else {
+        signwallButton.innerHTML = 'Mi Perfil'
+      }
     }
-    signwallButton.innerHTML = buttonText.length >= 15 ? `${buttonText.slice(0, 15)}...` : buttonText
-    signwallIcon.innerHTML = iconText
-    signwallIcon.className = 'uppercase'
-  }
-}
-})
+  })
 }) */
 
 export const singwallScript =
-  '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var n=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},t=n.firstName,e=void 0===t?"":t,c=n.lastName,i=void 0===c?"":c,o=n.uuid,a=void 0===o?"":o;document.getElementById("signwall-nav-btn").addEventListener("click",function(){window.location.href=a?"/mi-perfil/?outputType=subscriptions":"/signwall/?outputType=subscriptions"}),a&&(t=document.getElementById("signwall-nav-btn"),c=document.getElementById("signwall-nav-icon"),e||i?(o=n="",e&&i?(n="".concat(e," ").concat(i),o="".concat(e[0]||"").concat(i[0]||"")):e&&!i?o="".concat((n=e)[0]||"").concat(e[1]||""):!e&&i&&(o="".concat((n=i)[0]||"").concat(i[1]||"")),t.innerHTML=15<=n.length?"".concat(n.slice(0,15),"..."):n,c.innerHTML=o,c.className="uppercase"):t.innerHTML="Mi Perfil")})});'
+  '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},n=e.firstName,t=void 0===n?"":n,i=e.lastName,o=void 0===i?"":i,c=e.uuid,a=void 0===c?"":c,l=document.getElementById("signwall-nav-btn");if(l.addEventListener("click",function(){window.location.href=a?"/mi-perfil/?outputType=subscriptions":"/signwall/?outputType=subscriptions&signwallOrganic=1"}),a)if(t||o){var r="".concat(t," ").concat(o).replace(/null|undefined/gi,"").trim();l.innerHTML=r.length>=13?"".concat(r.slice(0,13),"..."):r||"Mi Perfil"}else l.innerHTML="Mi Perfil"})});'
 
 export const getQueryReloginEmailScript = (_env, arcSite) => `"use strict";
 document.addEventListener('DOMContentLoaded', function () {
