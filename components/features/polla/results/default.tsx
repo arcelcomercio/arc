@@ -69,7 +69,7 @@ const PollaGuide: FC<Props> = (props) => {
   const COUNTRIES_ASSETS_PATH =
     'https://cdna.depor.com/resources/dist/depor/images-polla/paises/'
 
-  // const COUNTRIES_ASSETS_PATH2 = 'https://cdna-resultadosopta.minoticia.pe'
+  const COUNTRIES_ASSETS_PATH2 = 'https://cdna-resultadosopta.minoticia.pe'
 
   // rango de las fechas del torneo
   React.useEffect(() => {
@@ -318,10 +318,10 @@ const PollaGuide: FC<Props> = (props) => {
                           </span>
                           {game.contestants.home_contestant ? (
                             <img
-                              src={`${COUNTRIES_ASSETS_PATH}${slugify(
-                                game.contestants.home_contestant
-                              )}.svg`}
-                              // src={`${COUNTRIES_ASSETS_PATH2}${game.contestants.home_img}.png`}
+                              // src={`${COUNTRIES_ASSETS_PATH}${slugify(
+                              //   game.contestants.home_contestant
+                              // )}.svg`}
+                              src={`${COUNTRIES_ASSETS_PATH2}${game.contestants.home_img}.png`}
                               alt="Flag"
                             />
                           ) : null}
