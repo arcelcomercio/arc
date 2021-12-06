@@ -188,7 +188,7 @@
     display: flex;
     justify-content: center;
     @media (--tablet) {
-      justify-content: space-around;
+      justify-content: space-evenly;
     }
     @media (--desktop) {
       justify-content: space-between;
@@ -241,20 +241,23 @@
       }
     }
     span {
-      // text-align: end;
       display: block;
       font: 500 17px/20px $primary-font;
       color: #222;
       max-width: 48px;
       overflow: hidden;
       text-overflow: ellipsis;
+      text-align: center;
 
       // min-width: 180px;
       @media (--desktop) {
+        text-align: right;
         max-width: none;
-        // text-align: end;
         min-width: 180px;
         margin: 0 18px;
+      }
+      @media (--tablet) {
+        text-align: center;
       }
     }
   }
@@ -303,12 +306,16 @@
       max-width: 48px;
       overflow: hidden;
       text-overflow: ellipsis;
+      text-align: center;
       // min-width: 180px;
       @media (--desktop) {
-        text-align: start;
+        text-align: left;
         max-width: none;
         min-width: 180px;
         margin: 0 18px;
+      }
+      @media (--tablet) {
+        text-align: center;
       }
     }
   }

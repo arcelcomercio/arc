@@ -290,19 +290,45 @@ const PollaGuide: FC<Props> = (props) => {
                 <div className="polla-results__list-cont">
                   <div className="polla-results__score-cont">
                     <div className="polla-results__country">
-                      <span>
-                        {isMobile
-                          ? diccionarioPaises(game.contestants.home_contestant)
-                          : game.contestants.home_contestant || 'Por definirse'}
-                      </span>
-                      {game.contestants.home_contestant ? (
-                        <img
-                          src={`${COUNTRIES_ASSETS_PATH}${slugify(
-                            game.contestants.home_contestant
-                          )}.svg`}
-                          alt="Flag"
-                        />
-                      ) : null}
+                      {isMobile ? (
+                        <>
+                          {game.contestants.home_contestant ? (
+                            <img
+                              src={`${COUNTRIES_ASSETS_PATH}${slugify(
+                                game.contestants.home_contestant
+                              )}.svg`}
+                              alt="Flag"
+                            />
+                          ) : null}
+                          <span>
+                            {isMobile
+                              ? diccionarioPaises(
+                                  game.contestants.home_contestant
+                                )
+                              : game.contestants.home_contestant ||
+                                'Por definirse'}
+                          </span>
+                        </>
+                      ) : (
+                        <>
+                          <span>
+                            {isMobile
+                              ? diccionarioPaises(
+                                  game.contestants.home_contestant
+                                )
+                              : game.contestants.home_contestant ||
+                                'Por definirse'}
+                          </span>
+                          {game.contestants.home_contestant ? (
+                            <img
+                              src={`${COUNTRIES_ASSETS_PATH}${slugify(
+                                game.contestants.home_contestant
+                              )}.svg`}
+                              alt="Flag"
+                            />
+                          ) : null}
+                        </>
+                      )}
                     </div>
                     <div className="polla-results__container-mid">
                       <div className="polla-results__score-item">
