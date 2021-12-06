@@ -11,19 +11,21 @@ import ECommerceCard from './_children/e-commerce'
 import SaleFloorCard from './_children/sale-floor'
 
 const classes = {
+  base: 'metro w-full h-full',
   header: 'items-center flex metro-header',
   logoMetro: 'metro-logometro',
   logoClubTrome: 'metro-logoclubt',
-  logoTrome: 'metro-logotrome',
-  container: 'metro w-full h-full flex flex-col justify-center',
+  container: 'metro__container flex flex-col justify-center',
   title: 'metro-title',
   subtitle: 'metro-subtitle',
   subtitleBold: 'metro-subtitle-bold',
-  legal: 'metro-legal',
+  legal: 'metro__legal',
+  legalTitle: 'metro__legal-title',
   grid: 'metro-grid',
-  footer: 'metro-footer flex items-center justify-between',
+  footer: 'metro__footer flex items-center justify-between',
+  logoTrome: 'metro__footer__logo',
   // download: 'metro-download',
-  share: 'metro-share',
+  share: 'metro__footer__share',
 }
 
 interface StaticsPromoMetroProps {
@@ -108,8 +110,8 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
     title = '¡Bienvenido!',
     subtitleBold = '¡Gracias por ser un trome!',
     subtitle = 'Ahora como buen Trome, disfruta de estos descuentazos en cualquier tienda Metro',
-    disableDownload = false,
-    disableShareByEmail = false,
+    // disableDownload = false,
+    // disableShareByEmail = false,
     disableShareBySocialNetwork = false,
   } = customFields || {}
 
@@ -144,7 +146,10 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
     legal: legalSale = '',
   } = productsSaleFloor
 
-  const { products: couponsEco = [], legal: legalEco = '' } = productsECommerce
+  const {
+    products: couponsEco = [],
+    legal: legalEcommerce = '',
+  } = productsECommerce
 
   const origin = originByEnv(arcSite)
   const urlToShare = `${origin}${pathToShare}`
@@ -175,97 +180,109 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
   }, [])
 
   return !loading ? (
-    <div className={classes.container}>
-      <div className={classes.header}>
-        <img
-          className={classes.logoMetro}
-          src={`${getAssetsPath(
-            arcSite,
-            contextPath
-          )}/resources/dist/${arcSite}/images/${logo || 'logo-metro.png'}?d=1`}
-          alt="logo metro"
-          loading="lazy"
-        />
-        <img
-          className={classes.logoClubTrome}
-          src={`${getAssetsPath(
-            arcSite,
-            contextPath
-          )}/resources/dist/${arcSite}/images/logo-club-trome.png?d=1`}
-          alt="logo club trome"
-          loading="lazy"
-        />
-      </div>
+    <div className={classes.base}>
+      <div className={classes.container}>
+        <div className={classes.header}>
+          <img
+            className={classes.logoMetro}
+            src={`${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/dist/${arcSite}/images/${
+              logo || 'logo-metro.png'
+            }?d=1`}
+            alt="logo metro"
+            loading="lazy"
+          />
+          <img
+            className={classes.logoClubTrome}
+            src={`${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/dist/${arcSite}/images/logo-club-trome.png?d=1`}
+            alt="logo club trome"
+            loading="lazy"
+          />
+        </div>
 
-      <h1 className={classes.title}>{title}</h1>
-      <h1 className={classes.subtitleBold}>{subtitleBold}</h1>
-      <h2 className={classes.subtitle}>{subtitle}</h2>
-      <div className={classes.grid}>
-        {couponsSale &&
-          couponsSale.map((coupon: CouponSale) => (
-            <SaleFloorCard
-              key={coupon.code}
-              code={coupon.code}
-              image={coupon.image}
-              discount={coupon.discount}
-              discountType={coupon.discountType}
-              title={coupon.title}
-              priceCencosud={coupon.priceCencosud}
-              bonus={coupon.bonus || undefined}
-              restrictions={coupon.restrictions || []}
-            />
-          ))}
-      </div>
-      <div className={classes.grid}>
-        {couponsEco &&
-          couponsEco.map((coupon: CouponECommerce) => (
-            <ECommerceCard
-              key={coupon.restrictions?.coupon}
-              discount={coupon.discount}
-              reason={coupon.reason}
-              limit={coupon.limit}
-              local={coupon.local}
-              restrictions={coupon.restrictions || undefined}
-            />
-          ))}
-      </div>
-      <p className={classes.legal}>{legalSale}</p>
-      <p className={classes.legal}>{legalEco}</p>
-      <div className={classes.footer}>
-        <img
-          className={classes.logoTrome}
-          src={`${getAssetsPath(
-            arcSite,
-            contextPath
-          )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`}
-          alt="logo trome"
-          loading="lazy"
-        />
-        {disableShareByEmail ? null : (
-          <button type="button">Enviar al email</button>
-        )}
-        {disableDownload ? null : <button type="button">Descargar</button>}
-        {disableShareBySocialNetwork ? null : (
-          <div style={{ display: 'flex' }}>
-            <button
-              className={classes.share}
-              type="button"
-              onClick={handleShare}>
-              Compartir
-            </button>
-            <div
-              className={`metro-footer__social flex position-absolute ${
-                activeDefaultShare ? 'in' : 'out'
-              }`}>
-              <ShareButtons
-                activeCopyLink
-                activeLinkedin={false}
-                path={urlToShare}
-                title={socialTitle}
+        <h1 className={classes.title}>{title}</h1>
+        <h1 className={classes.subtitleBold}>{subtitleBold}</h1>
+        <h2 className={classes.subtitle}>{subtitle}</h2>
+        <div className={classes.grid}>
+          {couponsSale &&
+            couponsSale.map((coupon: CouponSale) => (
+              <SaleFloorCard
+                key={coupon.code}
+                code={coupon.code}
+                image={coupon.image}
+                discount={coupon.discount}
+                discountType={coupon.discountType}
+                title={coupon.title}
+                priceCencosud={coupon.priceCencosud}
+                bonus={coupon.bonus || undefined}
+                restrictions={coupon.restrictions || []}
               />
+            ))}
+          {couponsEco &&
+            couponsEco.map((coupon: CouponECommerce) => (
+              <ECommerceCard
+                key={coupon.restrictions?.coupon}
+                discount={coupon.discount}
+                reason={coupon.reason}
+                limit={coupon.limit}
+                local={coupon.local}
+                restrictions={coupon.restrictions || undefined}
+              />
+            ))}
+        </div>
+        {legalSale ? (
+          <>
+            <h3 className={classes.legalTitle}>
+              Restricción general para piso de venta:
+            </h3>
+            <p className={classes.legal}>{legalSale}</p>
+          </>
+        ) : null}
+        {legalEcommerce ? (
+          <>
+            <h3 className={classes.legalTitle}>
+              Restricción general para ecommerce:
+            </h3>
+            <p className={classes.legal}>{legalEcommerce}</p>
+          </>
+        ) : null}
+        <div className={classes.footer}>
+          <img
+            className={classes.logoTrome}
+            src={`${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`}
+            alt="logo trome"
+            loading="lazy"
+          />
+          {disableShareBySocialNetwork ? null : (
+            <div style={{ display: 'flex' }}>
+              <button
+                className={classes.share}
+                type="button"
+                onClick={handleShare}>
+                Compartir
+              </button>
+              <div
+                className={`metro__footer__social flex position-absolute right-0 ${
+                  activeDefaultShare ? 'in' : 'out'
+                }`}>
+                <ShareButtons
+                  activeCopyLink
+                  activeLinkedin={false}
+                  path={pathToShare}
+                  title={socialTitle}
+                />
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   ) : (
