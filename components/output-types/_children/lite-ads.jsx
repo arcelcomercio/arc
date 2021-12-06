@@ -1,5 +1,6 @@
-/* eslint-disable */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React from 'react'
+
 import {
   SITE_ELBOCON,
   SITE_ELCOMERCIOMAG,
@@ -356,7 +357,7 @@ const LiteAds = ({
     })
   */
 
-  const typeNote = subtype == 'gallery_vertical' ? 'galeria_v' : 'post'
+  const typeNote = subtype === 'gallery_vertical' ? 'galeria_v' : 'post'
   return (
     <>
       {arcSite !== SITE_ELCOMERCIOMAG &&
@@ -366,19 +367,22 @@ const LiteAds = ({
           async
           src={`https://d2dvq461rdwooi.cloudfront.net/output/assets/js/prebid.js?v1${new Date()
             .toISOString()
-            .slice(0, 10)}`}></script>
+            .slice(0, 10)}`}
+        />
       ) : null}
       <script
         defer
         src={`https://d2dvq461rdwooi.cloudfront.net/${arcSite}/${typeNote}/${section?.replace(
           /-/gm,
           ''
-        )}/spaces.js?${new Date().toISOString().slice(0, 10)}`}></script>
+        )}/spaces.js?${new Date().toISOString().slice(0, 10)}`}
+      />
       <script
         defer
         src={`https://d1r08wok4169a5.cloudfront.net/ads/${arcSite}/arcads.js?${new Date()
           .toISOString()
-          .slice(0, 10)}`}></script>
+          .slice(0, 10)}`}
+      />
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
@@ -387,7 +391,8 @@ const LiteAds = ({
       />
       <script
         async
-        src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+        src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"
+      />
     </>
   )
 }
