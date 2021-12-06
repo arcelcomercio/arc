@@ -357,11 +357,6 @@ const PollaGuide: FC<Props> = (props) => {
                       )}
                     </div>
                     <div className="polla-results__country-right">
-                      <span>
-                        {isMobile
-                          ? diccionarioPaises(game.contestants.away_contestant)
-                          : game.contestants.away_contestant || 'Por definirse'}
-                      </span>
                       {game.contestants.away_contestant ? (
                         <img
                           src={`${COUNTRIES_ASSETS_PATH}${slugify(
@@ -370,6 +365,11 @@ const PollaGuide: FC<Props> = (props) => {
                           alt="Flag"
                         />
                       ) : null}
+                      <span>
+                        {isMobile
+                          ? diccionarioPaises(game.contestants.away_contestant)
+                          : game.contestants.away_contestant || 'Por definirse'}
+                      </span>
                     </div>
                     {isMobile ? (
                       ''

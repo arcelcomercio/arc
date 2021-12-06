@@ -241,15 +241,18 @@
       }
     }
     span {
+      // text-align: end;
       display: block;
       font: 500 17px/20px $primary-font;
       color: #222;
       max-width: 48px;
       overflow: hidden;
       text-overflow: ellipsis;
+
       // min-width: 180px;
       @media (--desktop) {
         max-width: none;
+        // text-align: end;
         min-width: 180px;
         margin: 0 18px;
       }
@@ -267,7 +270,7 @@
     // }
     @media (--desktop) {
       margin-top: 13px;
-      margin-left: 31px;
+      margin-left: 44px;
       margin-right: 0;
       display: flex;
       align-items: center;
@@ -302,6 +305,7 @@
       text-overflow: ellipsis;
       // min-width: 180px;
       @media (--desktop) {
+        text-align: start;
         max-width: none;
         min-width: 180px;
         margin: 0 18px;
