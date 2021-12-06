@@ -1,15 +1,20 @@
 .h-continuous {
   height: $header-height-m;
-  background-color: $color-primary;
+  // background-color: $color-primary;
+  background: linear-gradient(90deg, black 0%, black 50%, #e06437 50%, #e06437 100%);
+
   @media (--desktop) {
     height: $header-height;
   }
+
   &__img {
     height: $header-height-m;
+
     @media (--desktop) {
       height: $header-height;
     }
   }
+
   &__anchor {
     right: 0;
     width: 50px;
@@ -17,6 +22,10 @@
     background-color: transparent;
     transform: rotateZ(-90deg);
     padding-bottom: 20px;
+  }
+
+  &__svg {
+    fill: #fff !important;
   }
 
   // ----- MODIFICADOR SOMOS LITE -----

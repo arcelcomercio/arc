@@ -70,6 +70,7 @@ const Styles = ({
     style = 'polla'
 
   style = isHome && arcSite === SITE_ELCOMERCIO ? 'basic' : style
+  style = isHome && arcSite === SITE_TROME ? 'home-v2' : style
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
 

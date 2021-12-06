@@ -1,3 +1,5 @@
+@import "./authors/editorial-team/editorial-team";
+@import "./authors/authors-list/authors-list";
 @import "./layout/navbar/nav";
 @import "./layout/navbar/nav-sidebar";
 @import "./layout/navbar/nav-story";
@@ -7,6 +9,7 @@
 @import "./layout/footer/footer-secction";
 @import "./layout/navbar-no-menu/navbar-nm";
 @import "./breaking-news/breaking-news";
+@import "./cards/author-description/author-description";
 @import "./cards/triplet/triplet";
 @import "./cards/opinion/opinion-card";
 @import "./cards/tabloid/tabloid";
@@ -15,7 +18,9 @@
 @import "./cards/featured-story-full-img/feature-fullimage";
 @import "./separators/basic/separador";
 @import "./custom-title/custom-title";
+@import "./custom-title/custom-title-archive";
 @import "./header/header-full";
+@import "./header/inverted-featured";
 @import "./header/megamenu";
 @import "./story/contents/story-content";
 @import "./story/contents/story-tags";
@@ -33,6 +38,7 @@
 @import "./stories-list/cards/stories-list-header";
 @import "./stories-list/cards/stories-list-item";
 @import "./stories-list/cards/stories-l-footer";
+@import "./stories-list/cards/stories-news";
 @import "./statics/info-pages/info-pages";
 @import "./statics/newsletter/newsletter";
 @import "./statics/promo-metro/promo-metro";
@@ -42,4 +48,6 @@
 @import "./video/play-list";
 @import "./video/video-list";
 @import "./video/section-video";
-@import "./cards/author-description/author-description";
+@import "./video/search";
+@import "./video/sections-list";
+@import "./footer/trome";

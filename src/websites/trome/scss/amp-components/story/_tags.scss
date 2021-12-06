@@ -1,0 +1,30 @@
+.story-tags {
+  padding-top: 10px;
+  border-top: 4px solid #434343;
+  margin-right: 16px;
+  margin-left: 16px;
+  padding-right: 0;
+  padding-left: 0;
+
+  .amp-story-tags__title {
+    font-family: "Fira Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 0.7px;
+    line-height: 18px;
+    text-transform: uppercase;
+    color: #333;
+  }
+
+  .amp-story-tags__link {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-decoration: none;
+    color: #333;
+    padding: 4px 10px;
+    border: 1px solid #a5a5a5;
+    background-color: #fff;
+  }
+}

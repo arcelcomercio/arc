@@ -7,6 +7,10 @@ const customFields = PropTypes.shape({
     min: 1,
     step: 1,
   }),
+  title: PropTypes.string.tag({
+    name: 'Título',
+    defaultValue: '',
+  }),
 })
 
 export default customFields
