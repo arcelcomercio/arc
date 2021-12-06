@@ -20,9 +20,6 @@ if (typeof window !== 'undefined')
     window.navigator.userAgent
   )
 
-const COUNTRIES_ASSETS_PATH =
-  'https://cdna.depor.com/resources/dist/depor/images-polla/paises/'
-
 interface GamesByDate {
   [x: string]: Game[]
 }
@@ -69,6 +66,12 @@ const PollaGuide: FC<Props> = (props) => {
     day: '2-digit',
   })
 
+  const COUNTRIES_ASSETS_PATH =
+    'https://cdna.depor.com/resources/dist/depor/images-polla/paises/'
+
+  // const COUNTRIES_ASSETS_PATH2 = 'https://cdna-resultadosopta.minoticia.pe'
+
+  // rango de las fechas del torneo
   React.useEffect(() => {
     setDatesArray(getDaysArray(new Date('06/11/2021'), new Date('07/15/2021')))
     fetch(
@@ -294,6 +297,7 @@ const PollaGuide: FC<Props> = (props) => {
                         <>
                           {game.contestants.home_contestant ? (
                             <img
+                              //
                               src={`${COUNTRIES_ASSETS_PATH}${slugify(
                                 game.contestants.home_contestant
                               )}.svg`}
@@ -301,29 +305,23 @@ const PollaGuide: FC<Props> = (props) => {
                             />
                           ) : null}
                           <span>
-                            {isMobile
-                              ? diccionarioPaises(
-                                  game.contestants.home_contestant
-                                )
-                              : game.contestants.home_contestant ||
-                                'Por definirse'}
+                            {diccionarioPaises(
+                              game.contestants.home_contestant
+                            ) || 'Por definirse'}
                           </span>
                         </>
                       ) : (
                         <>
                           <span>
-                            {isMobile
-                              ? diccionarioPaises(
-                                  game.contestants.home_contestant
-                                )
-                              : game.contestants.home_contestant ||
-                                'Por definirse'}
+                            {game.contestants.home_contestant ||
+                              'Por definirse'}
                           </span>
                           {game.contestants.home_contestant ? (
                             <img
                               src={`${COUNTRIES_ASSETS_PATH}${slugify(
                                 game.contestants.home_contestant
                               )}.svg`}
+                              // src={`${COUNTRIES_ASSETS_PATH2}${game.contestants.home_img}.png`}
                               alt="Flag"
                             />
                           ) : null}
