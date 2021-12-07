@@ -122,10 +122,10 @@ $font-color: #ee7325;
 
   &__legal {
     font-size: 10px;
-    // color: black;
     text-align: justify;
     margin-bottom: 10px;
     line-height: 1.2em;
+    font-weight: 600;
 
     @media (--desktop) {
       font-size: 12px;
@@ -155,7 +155,7 @@ $font-color: #ee7325;
     &__share {
       background-color: #fff;
       border-radius: 6px;
-      font-weight: medium;
+      font-weight: 600;
       color: $font-color;
       padding: 8px 10px;
       border: 1px solid $border-color;
