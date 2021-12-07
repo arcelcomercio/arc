@@ -66,12 +66,12 @@ interface CouponSale {
 }
 
 interface CouponECommerce {
+  code: string
   discount: string
   reason: string
   limit: string
   local: string
   restrictions?: {
-    coupon: string | null
     ususNumber: string | null
     rules: string | null
   }
@@ -227,7 +227,8 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
           {couponsEco &&
             couponsEco.map((coupon: CouponECommerce) => (
               <ECommerceCard
-                key={coupon.restrictions?.coupon}
+                key={coupon.code}
+                code={coupon.code}
                 discount={coupon.discount}
                 reason={coupon.reason}
                 limit={coupon.limit}

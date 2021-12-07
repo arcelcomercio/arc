@@ -52,7 +52,6 @@ $font-color: #ee7325;
     width: 100%;
     border-radius: 16px;
     padding: 20px;
-
     @media (--desktop) {
       padding: 40px;
     }
@@ -80,7 +79,6 @@ $font-color: #ee7325;
 
   &-title {
     color: $font-color;
-    text-align: center;
     font-weight: bold;
     font-size: 22px;
     padding: 25px;
@@ -254,6 +252,7 @@ $font-color: #ee7325;
 
   &-first-column-ec {
     width: 50%;
+    padding: 0px 10px;
   }
 
   &-second-column-ec {
@@ -279,7 +278,7 @@ $font-color: #ee7325;
     font-size: 1rem;
   }
   &-amount-container {
-    padding-bottom: 10px;
+    // padding-bottom: 10px;
   }
 
   &-amount {
@@ -302,6 +301,7 @@ $font-color: #ee7325;
     color: $font-color;
     font-size: 40px;
     font-weight: bold;
+    letter-spacing: -1px;
     @media (--tablet) {
       font-size: 45px;
     }
@@ -309,15 +309,11 @@ $font-color: #ee7325;
 
   &-percentage {
     color: $font-color;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: 900;
     @media (--tablet) {
       font-size: 25px;
     }
-  }
-
-  &-percentage {
-    color: $font-color;
-    font-size: 18px;
   }
   &-type {
     color: $font-color;
@@ -330,6 +326,7 @@ $font-color: #ee7325;
   &-discount {
     color: $font-color;
     font-size: 6px;
+    font-weight: 900;
     @media (--tablet) {
       font-size: 10px;
     }
@@ -339,7 +336,6 @@ $font-color: #ee7325;
     color: #575557;
     font-size: 26px;
     font-weight: 600;
-    padding-top: 3px;
   }
 
   &-cencosud {
@@ -389,6 +385,7 @@ $font-color: #ee7325;
     &-points {
       font-size: 20px;
       color: #e06437;
+      font-weight: 600;
       @media (--tablet) {
         font-size: 25px;
       }
@@ -422,7 +419,7 @@ $font-color: #ee7325;
     padding-bottom: 5px;
     color: #2d2d2d;
     line-height: 1.2em;
-    text-align: center;
+    // text-align: center;
     @media (--tablet) {
       margin-top: 12px;
     }
@@ -432,7 +429,7 @@ $font-color: #ee7325;
     color: $font-color;
     font-size: 28px;
     font-weight: 600;
-    padding-bottom: 5px;
+    // text-align: center;
     @media (--tablet) {
       font-size: 34px;
     }
@@ -446,8 +443,9 @@ $font-color: #ee7325;
   &-reason {
     color: #1f1f1f;
     font-size: 12px;
-    text-align: center;
+    //text-align: center;
     padding-bottom: 5px;
+    line-height: 1.1;
     @media (--tablet) {
       font-size: 15px;
     }
@@ -456,7 +454,7 @@ $font-color: #ee7325;
     color: $font-color;
     font-size: 20px;
     font-weight: 600;
-    padding-bottom: 5px;
+    //text-align: center;
     @media (--tablet) {
       font-size: 22px;
     }
@@ -468,10 +466,9 @@ $font-color: #ee7325;
     }
   }
   &-local {
-    text-align: center;
+    //text-align: center;
     color: #1f1f1f;
     font-size: 12px;
-    padding-bottom: 5px;
     @media (--tablet) {
       font-size: 15px;
     }
@@ -500,10 +497,10 @@ $font-color: #ee7325;
     font-weight: bold;
     color: #7a7979;
     margin-top: 15px;
-    font-size: 13px;
+    font-size: 11.5px;
     word-break: break-word;
     @media (--tablet) {
-      font-size: 17.5px;
+      font-size: 16.5px;
     }
   }
 
@@ -518,11 +515,11 @@ $font-color: #ee7325;
   }
 
   &-logo-metrope {
-    width: 40px;
+    width: 70%;
     height: auto;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     @media (--tablet) {
-      width: 50px;
+      width: 100px;
     }
   }
 }

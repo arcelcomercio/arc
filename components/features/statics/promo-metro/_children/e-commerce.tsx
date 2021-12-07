@@ -13,17 +13,18 @@ const classes = {
   logoMetroPe: 'coupon-logo-metrope',
 }
 interface CouponProps {
+  code: string
   discount: string
   reason: string
   limit: string
   local: string
   restrictions?: {
-    coupon: string | null
     ususNumber: string | null
     rules: string | null
   }
 }
 const ECommerceCard: React.FunctionComponent<CouponProps> = ({
+  code = 'COUPONTROME129',
   discount,
   reason,
   limit,
@@ -31,19 +32,12 @@ const ECommerceCard: React.FunctionComponent<CouponProps> = ({
   restrictions = null,
 }) => (
   <div className={`${classes.coupon} flex`}>
-    <div className="coupon-first-column-ec justify-center items-center flex flex-col">
-      <h3 className={classes.couponDiscountE}>
-        {discount}
-        <span> soles</span>
-      </h3>
-      <h3 className={classes.couponReason}>{reason}</h3>
-      <h3 className={classes.couponLimit}>
-        {limit}
-        <span> soles</span>
-      </h3>
-      <h3 className={classes.couponLocal}>{local}</h3>
-    </div>
-    <div className="coupon-second-column-ec flex flex-col">
+    <div className="coupon-first-column-ec justify-center flex flex-col">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/logo-metro-pe.png?v=1638892126"
+        alt="metro.pe"
+        className={classes.logoMetroPe}
+      />
       {restrictions ? (
         <div className="flex flex-col">
           <div className="flex flex-col">
@@ -56,14 +50,25 @@ const ECommerceCard: React.FunctionComponent<CouponProps> = ({
                 &#8226; {restrictions.rules}
               </p>
             </ul>
-            <img src="" alt="metro.pe" className={classes.logoMetroPe} />
-          </div>
-          <div className="flex flex-col">
-            <p className={classes.couponCodeEco}>{restrictions.coupon}</p>
-            <p className={classes.couponDiscountTitle}>Cupón</p>
           </div>
         </div>
       ) : null}
+    </div>
+    <div className="coupon-second-column-ec flex flex-col">
+      <h3 className={classes.couponDiscountE}>
+        {discount}
+        <span> soles</span>
+      </h3>
+      <h3 className={classes.couponReason}>{reason}</h3>
+      <h3 className={classes.couponLimit}>
+        {limit}
+        <span> soles</span>
+      </h3>
+      <h3 className={classes.couponLocal}>{local}</h3>
+      <div className="flex flex-col">
+        <p className={classes.couponCodeEco}>{code}</p>
+        <p className={classes.couponDiscountTitle}>Cupón</p>
+      </div>
     </div>
   </div>
 )

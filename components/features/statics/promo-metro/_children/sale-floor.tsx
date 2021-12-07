@@ -76,17 +76,6 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
           alt="logo"
           loading="lazy"
         />
-        <p className={classes.couponTitle}>{title}</p>
-
-        {restrictions.length > 0
-          ? restrictions.map((restriction) => (
-              <p
-                style={{ fontSize: '10px', color: '#373736' }}
-                key={restriction}>
-                {restriction}
-              </p>
-            ))
-          : null}
       </div>
       <div className="coupon-second-column-sf flex flex-col justify-center">
         {discountType === 'S/' ? (
@@ -105,12 +94,23 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
         {discountType === '%' ? (
           <div className="flex items-center justify-start">
             <p className={classes.couponAmountPercent}>{discount}</p>
-            <div className="flex items-center flex-col">
+            <div className="flex flex-col" style={{ paddingLeft: '3px' }}>
               <p className={classes.percentage}>%</p>
               <p className={classes.couponDscto}>DSCTO</p>
             </div>
           </div>
         ) : null}
+        <p className={classes.couponTitle}>{title}</p>
+
+        {restrictions.length > 0
+          ? restrictions.map((restriction) => (
+              <p
+                style={{ fontSize: '10px', color: '#373736' }}
+                key={restriction}>
+                {restriction}
+              </p>
+            ))
+          : null}
         <div className={`${classes.cencosud} flex flex-col`}>
           {priceCencosud && (
             <div className="flex items-end">

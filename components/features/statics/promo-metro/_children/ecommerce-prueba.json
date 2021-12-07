@@ -1,34 +1,34 @@
 {
   "products": [
     {
-      "discount": "S/ 30",
+      "code": "CUPONTROME129",
+      "discount": "s/ 30",
       "reason": "dscto. por compras desde",
-      "limit": "S/ 129",
+      "limit": "s/ 129",
       "local": "en supermercados",
       "restrictions": {
-        "coupon": "CUPONTROME129",
         "ususNumber": "1000",
         "rules": "Exclusivo metro.pe o app metro y 1 uso por cliente"
       }
     },
     {
-      "discount": "S/ 30",
+      "code": "CUPONTROME99",
+      "discount": "s/ 30",
       "reason": "dscto. por compras desde",
-      "limit": "S/ 99",
+      "limit": "s/ 99",
       "local": "en Canastas Navideñas",
       "restrictions": {
-        "coupon": "CUPONTROME99",
         "ususNumber": "1000",
         "rules": "Exclusivo metro.pe o app metro y 1 uso por cliente"
       }
     },
     {
-      "discount": "S/ 30",
+      "code": "CUPONTROMEPANETON",
+      "discount": "s/ 30",
       "reason": "dscto. por compras desde",
-      "limit": "S/ 129",
+      "limit": "s/ 129",
       "local": "en Panetones",
       "restrictions": {
-        "coupon": "CUPONTROME129",
         "ususNumber": "1000",
         "rules": "Exclusivo metro.pe o app metro y 1 uso por cliente"
       }
