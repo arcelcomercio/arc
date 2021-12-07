@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 import { FC } from 'types/features'
 
-import { slugify } from '../../../utilities/parse/slugify'
+// import { slugify } from '../../../utilities/parse/slugify'
 import { Game } from './_types/types'
 
 interface Props {
@@ -66,14 +66,14 @@ const PollaGuide: FC<Props> = (props) => {
     day: '2-digit',
   })
 
-  const COUNTRIES_ASSETS_PATH =
-    'https://cdna.depor.com/resources/dist/depor/images-polla/paises/'
+  // const COUNTRIES_ASSETS_PATH =
+  //   'https://cdna.depor.com/resources/dist/depor/images-polla/paises/'
 
-  const COUNTRIES_ASSETS_PATH2 = 'https://cdna-resultadosopta.minoticia.pe'
+  const COUNTRIES_ASSETS_PATH = 'https://cdna-resultadosopta.minoticia.pe'
 
   // rango de las fechas del torneo
   React.useEffect(() => {
-    setDatesArray(getDaysArray(new Date('06/11/2021'), new Date('07/15/2021')))
+    setDatesArray(getDaysArray(new Date('06/12/2021'), new Date('07/15/2021')))
     fetch(
       customFields?.serviceEndPoint || ''
       // 'https://cdna-resultadosopta.minoticia.pe/api-soccer/statistics/leagues/45db8orh1qttbsqq9hqapmbit/results/'
@@ -284,12 +284,15 @@ const PollaGuide: FC<Props> = (props) => {
               key={`${game.date}-${game.time}-${game.contestants.home_contestant}`}
               className={`polla-results__list ${game.status}`}>
               <div className="polla-results__list-item">
-                <div className="polla-results__list-stadium">
-                  <b>{game.stadium}</b>
+                <div className="polla-results__cont-est">
+                  <div className="polla-results__list-stadium">
+                    <b>{game.stadium}</b>
+                  </div>
+                  <div className="polla-results__list-ub">
+                    {parsedStadiumLocationPerName[game.stadium]}
+                  </div>
                 </div>
-                <div className="polla-results__list-ub">
-                  {parsedStadiumLocationPerName[game.stadium]}
-                </div>
+
                 <div className="polla-results__list-cont">
                   <div className="polla-results__score-cont">
                     <div className="polla-results__country">
@@ -297,10 +300,10 @@ const PollaGuide: FC<Props> = (props) => {
                         <>
                           {game.contestants.home_contestant ? (
                             <img
-                              //
-                              src={`${COUNTRIES_ASSETS_PATH}${slugify(
-                                game.contestants.home_contestant
-                              )}.svg`}
+                              // src={`${COUNTRIES_ASSETS_PATH}${slugify(
+                              //   game.contestants.home_contestant
+                              // )}.svg`}
+                              src={`${COUNTRIES_ASSETS_PATH}${game.contestants.home_img}`}
                               alt="Flag"
                             />
                           ) : null}
@@ -321,7 +324,7 @@ const PollaGuide: FC<Props> = (props) => {
                               // src={`${COUNTRIES_ASSETS_PATH}${slugify(
                               //   game.contestants.home_contestant
                               // )}.svg`}
-                              src={`${COUNTRIES_ASSETS_PATH2}${game.contestants.home_img}.png`}
+                              src={`${COUNTRIES_ASSETS_PATH}${game.contestants.home_img}`}
                               alt="Flag"
                             />
                           ) : null}
@@ -383,9 +386,10 @@ const PollaGuide: FC<Props> = (props) => {
                     <div className="polla-results__country-right">
                       {game.contestants.away_contestant ? (
                         <img
-                          src={`${COUNTRIES_ASSETS_PATH}${slugify(
-                            game.contestants.away_contestant
-                          )}.svg`}
+                          // src={`${COUNTRIES_ASSETS_PATH}${slugify(
+                          //   game.contestants.away_contestant
+                          // )}.svg`}
+                          src={`${COUNTRIES_ASSETS_PATH}${game.contestants.away_img}`}
                           alt="Flag"
                         />
                       ) : null}
@@ -431,6 +435,9 @@ PollaGuide.propTypes = {
     defaultDate: PropTypes.string.tag({
       name: 'Fecha por defecto cuando en la fecha actual no hay partidos',
     }),
+    // startDate: PropTypes.string.tag({
+    //   name: 'Ingrese fecha de inicio dia-mes-año',
+    // }),
   }),
 }
 

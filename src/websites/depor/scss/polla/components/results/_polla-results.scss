@@ -158,6 +158,10 @@
       }
     }
   }
+  &__cont-est {
+    display: flex;
+    flex-direction: row;
+  }
 
   &__list-stadium {
     // display: inline-block;
@@ -166,7 +170,6 @@
     margin-bottom: 4px;
     @media (--desktop) {
       display: inline-block;
-      margin-right: 8px;
       margin-bottom: 12px;
     }
   }
@@ -174,6 +177,7 @@
     font: 400 14px/1 $primary-font;
     color: #999;
     margin-bottom: 12px;
+    margin-left: 10px;
     @media (--desktop) {
       display: inline-block;
     }
