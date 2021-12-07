@@ -2,7 +2,7 @@
   "products": [
     {
       "code": "722395146",
-      "image": "https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/canasta-union.png?alt=media&token=a2d94393-73da-4d50-9b87-a3b30778b2ee",
+      "image": "/pf/resources/dist/trome/images/canasta-union.jpg",
       "discount": "S/ 95.90",
       "discountType": "S/",
       "title": "Canasta Metro Unión",
@@ -12,7 +12,7 @@
     },
     {
       "code": "133895142",
-      "image": "https://wongfood.vteximg.com.br/arquivos/ids/493149-230-230/16387-01-6743.jpg?v=637717306879530000",
+      "image": "",
       "discount": "S/ 53.99 x6",
       "discountType": "S/",
       "title": "Espumante Porte Fino Semiseco Botella 750 ml",
@@ -22,7 +22,7 @@
     },
     {
       "code": "122897710",
-      "image": "https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/gallestas-danesas-545g.png?alt=media&token=e978b985-068d-4732-91fe-5d8546666640",
+      "image": "",
       "discount": "S/ 11.50",
       "discountType": "S/",
       "title": "Galletas Danesas Lata 454 g",
@@ -32,7 +32,7 @@
     },
     {
       "code": "120329483",
-      "image": "https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/vestuario-y-calzado.png?alt=media&token=8b3a97a3-9968-4197-a05c-9a2ab3d0a6c0",
+      "image": "",
       "discount": "15",
       "discountType": "%",
       "title": "En todo pescados y mariscos frescos",
@@ -42,7 +42,7 @@
     },
     {
       "code": "029345353",
-      "image": "https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/pollo-a-la-brasa.png?alt=media&token=fe019469-0650-4bf7-b5f6-52bf69d04a67",
+      "image": "/pf/resources/dist/trome/images/pollo-mas-chicha.jpg",
       "discount": "S/ 22.99",
       "discountType": "S/",
       "title": "Pollo + Papas + Chicha 1L Metro",
@@ -55,7 +55,7 @@
     },
     {
       "code": "322318144",
-      "image": "https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/nuggets-pollo-redondos-20u.png?alt=media&token=190bb09d-1649-4f64-a898-979b72c4bef4",
+      "image": "",
       "discount": "20",
       "discountType": "%",
       "title": "Nuggets de Pechuga de Pollo Redondos x 23 Unid / 350 g",
@@ -65,7 +65,7 @@
     },
     {
       "code": "200395179",
-      "image": "https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/colchones-y-mas.png?alt=media&token=6b5fd10c-6d01-48e2-9636-01b07f73d402",
+      "image": "/pf/resources/dist/trome/images/colchones-camas-dormitorios.jpg",
       "discount": "10",
       "discountType": "%",
       "title": "En Juegos de Dormitorio, Colchones, Almohadas y Protectores de Cuna",
@@ -75,7 +75,7 @@
     },
     {
       "code": "100395100",
-      "image": "https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/Arroz-removebg-preview.png?alt=media&token=27b3ca10-eb09-4338-b155-94fb9e7960f4",
+      "image": "/pf/resources/dist/trome/images/vestuario-y-calzado.jpg",
       "discount": "10",
       "discountType": "%",
       "title": "En Vestuario y Calzado",
@@ -85,7 +85,7 @@
     },
     {
       "code": "155088144",
-      "image": "https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/jugueteria.png?alt=media&token=07eff59e-3eb7-4dc3-bcc2-ecc558a6926b",
+      "image": "",
       "discount": "10",
       "discountType": "%",
       "title": "En toda la Jugueteria",

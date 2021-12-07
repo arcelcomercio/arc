@@ -42,4 +42,20 @@ import './fonts/Roboto-Black.woff'
 import './fonts/Ultra.woff'
 import './fonts/MorganBig-Italic.woff'
 
+/** Promo Metro */
+import './images/metro/colchones-camas-dormitorios.jpg'
+import './images/metro/pollo-mas-chicha.jpg'
+import './images/metro/vestuario-y-calzado.jpg'
+import './images/metro/canasta-union.jpg'
+import './images/metro/productos-fondo.svg'
+import './images/metro/header-background-cuponera.svg'
+import './images/metro/mejores-ofertas-metro.png'
+
+import './fonts/Montserrat-SemiBold.woff'
+// import './fonts/Montserrat-SemiBold.woff2'
+import './fonts/Montserrat-Bold.woff'
+// import './fonts/Montserrat-Bold.woff2'
+import './fonts/Montserrat-Regular.woff'
+// import './fonts/Montserrat-Regular.woff2'
+
 /** Scripts */
