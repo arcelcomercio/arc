@@ -1,10 +1,9 @@
 import Consumer from 'fusion:consumer'
-import * as React from 'react'
 import PropTypes from 'prop-types'
+import * as React from 'react'
 
 import NavBarComercio from '../../navbar/standard/_children/standard'
 import NavbarChildSomos from './_children/somos'
-
 import Formatter from './_dependencies/formatter'
 
 /**

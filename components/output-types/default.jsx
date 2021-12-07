@@ -42,7 +42,10 @@ import iframeScript from './_dependencies/iframe-script'
 import jwplayerScript from './_dependencies/jwplayer-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-script'
 import { getEnablePushud, getPushud } from './_dependencies/pushud'
-import { getEnabledServerside, getScriptAdPushup } from './_dependencies/serverside'
+import {
+  getEnabledServerside,
+  getScriptAdPushup,
+} from './_dependencies/serverside'
 import {
   getDescription,
   getIsStory,
@@ -158,7 +161,7 @@ export default ({
   const enabledPushud = getEnablePushud(arcSite)
   const enabledPushup = getEnabledServerside(arcSite)
   const scriptAdpushup = getScriptAdPushup(arcSite)
-  
+
   const isElcomercioHome = arcSite === SITE_ELCOMERCIO && isHome
   const isTromeHome = arcSite === SITE_TROME && isHome
   const isPreview = /^\/preview\//.test(requestUri)
@@ -292,6 +295,7 @@ export default ({
   const isCovid = /^\/covid-19\//.test(requestUri)
   const isElecciones = metaValue('section_style') === 'resultados_elecciones'
   const isAgendaPre = metaValue('section_style') === 'agenda_presidencial'
+  const isPremiosDep = metaValue('section_style') === 'premios_depor'
   // const isSaltarIntro = /^\/saltar-intro\//.test(requestUri)
   const isPremium = contentCode === PREMIUM || false
   const htmlAmpIs = isPremium ? '' : true
@@ -480,7 +484,8 @@ export default ({
           !isTrivia &&
           !isCovid &&
           !isElecciones &&
-          !isAgendaPre && (
+          !isAgendaPre &&
+          !isPremiosDep && (
             <>
               <link
                 rel="preload"
@@ -800,7 +805,9 @@ export default ({
             .toISOString()
             .slice(0, 10)}`}
         />
-        {enabledPushup && !requestUri.includes('/publirreportaje/') && !requestUri.includes('/publireportaje/') ? (
+        {enabledPushup &&
+        !requestUri.includes('/publirreportaje/') &&
+        !requestUri.includes('/publireportaje/') ? (
           <>
             <script
               type="text/javascript"
