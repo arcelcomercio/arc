@@ -151,20 +151,19 @@ const StoryTitleAmp = () => {
             </div>
           ) : null}
         </header>
-        {arcSite !== SITE_TROME || (subtype !== MINUTO_MINUTO && subtype !== GALLERY_VERTICAL) && (
-          (arcSite !== SITE_ELCOMERCIOMAG && subtype !== GALLERY_VERTICAL && (
-            <div
-              className={classes.adsAmp}
-              dangerouslySetInnerHTML={publicidadAmp(parameters)}
-            />
-          ))
-            (arcSite === SITE_ELCOMERCIOMAG && (
-              <div
-                className={classes.adsAmp}
-                dangerouslySetInnerHTML={publicidadAmpCaja1(parametersCaja1)}
-              />
-            ))
+        {arcSite !== SITE_ELCOMERCIOMAG && subtype !== GALLERY_VERTICAL && (
+          <div
+            className={classes.adsAmp}
+            dangerouslySetInnerHTML={publicidadAmp(parameters)}
+          />
         )}
+        {arcSite === SITE_ELCOMERCIOMAG && (
+          <div
+            className={classes.adsAmp}
+            dangerouslySetInnerHTML={publicidadAmpCaja1(parametersCaja1)}
+          />
+        )}
+
         {subTitle && <div className={classes.description}> {subTitle}</div>}
         {arcSite !== SITE_ELCOMERCIOMAG && arcSite !== SITE_TROME && (
           <StorySocialChildAmpSocial />
