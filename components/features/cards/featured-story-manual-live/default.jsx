@@ -1,18 +1,17 @@
-import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import * as React from 'react'
 
+// import DatepickerVisualHelp from '../../../global-components/datepicker-visual-help'
 import FeaturedStory from '../../../global-components/featured-story'
 import schemaFilter from '../../../global-components/featured-story/schema-filter'
-import DatepickerVisualHelp from '../../../global-components/datepicker-visual-help'
-import StoryData from '../../../utilities/story-data'
 import { featuredStoryFields } from '../../../utilities/included-fields'
-
-import customFields from './_dependencies/custom-fields'
+import StoryData from '../../../utilities/story-data'
 import LiveStreaming from './_children/streaming-live'
+import customFields from './_dependencies/custom-fields'
 
-const CardFeaturedStoryManualLive = props => {
+const CardFeaturedStoryManualLive = (props) => {
   const {
     customFields: {
       imgField,
@@ -33,11 +32,16 @@ const CardFeaturedStoryManualLive = props => {
       platformLive,
       urlVideo,
       isLazyLoadActivate = true,
-      dateInfo,
+      // dateInfo,
     } = {},
   } = props
 
-  const { arcSite, isAdmin, deployment, contextPath } = useAppContext()
+  const {
+    arcSite,
+    // isAdmin,
+    deployment,
+    contextPath,
+  } = useAppContext()
   const { siteName = '' } = getProperties(arcSite)
 
   const regex = /^http/g
@@ -60,8 +64,8 @@ const CardFeaturedStoryManualLive = props => {
       date: date3,
     },
   ]
-    .filter(el => el.path && el.date)
-    .filter(el => actualDate > el.date)
+    .filter((el) => el.path && el.date)
+    .filter((el) => actualDate > el.date)
     .sort((a, b) => (b.date > a.date ? 1 : -1))
 
   const currentNotePath =
@@ -124,7 +128,7 @@ const CardFeaturedStoryManualLive = props => {
 
   return (
     <>
-      {dateInfo && isAdmin ? (
+      {/* {dateInfo && isAdmin ? (
         <DatepickerVisualHelp
           note1={note1}
           note2={note2}
@@ -133,7 +137,7 @@ const CardFeaturedStoryManualLive = props => {
           date2={date2}
           date3={date3}
         />
-      ) : null}
+      ) : null} */}
       {flagLive ? (
         <LiveStreaming
           arcSite={arcSite}

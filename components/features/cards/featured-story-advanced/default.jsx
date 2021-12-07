@@ -5,7 +5,13 @@ import * as React from 'react'
 
 import FeaturedStory from '../../../global-components/featured-story'
 import schemaFilter from '../../../global-components/featured-story/schema-filter'
-import { featuredStoryFields } from '../../../utilities/included-fields'
+import {
+  includeCredits,
+  includePrimarySection,
+  includePromoItems,
+  includePromoItemsCaptions,
+  includeSections,
+} from '../../../utilities/included-fields'
 import StoryData from '../../../utilities/story-data'
 import FacebookLive from './_children/facebook-live'
 import customFields from './_dependencies/custom-fields'
@@ -26,13 +32,19 @@ const CardFeaturedStoryAdvanced = (props) => {
       adsSpace,
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
       isLazyLoadActivate = true,
+      titleHeaderField,
+      invertedTitle,
+      invertedColor,
+      hideAuthor,
     } = {},
   } = props
 
   const { arcSite, contextPath, deployment } = useAppContext()
 
   const { siteName } = getProperties(arcSite)
-  const includedFields = featuredStoryFields
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,headlines.mobile,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection(
+    { arcSite }
+  )},${includeSections},publish_date,display_date`
 
   const data =
     useContent({
@@ -48,6 +60,7 @@ const CardFeaturedStoryAdvanced = (props) => {
     primarySection,
     primarySectionLink,
     title,
+    titleHeader,
     websiteLink,
     author,
     authorLink,
@@ -96,6 +109,7 @@ const CardFeaturedStoryAdvanced = (props) => {
   }
 
   const adSpace = getAdsSpace()
+
   return (
     <>
       {(() => {
@@ -135,6 +149,12 @@ const CardFeaturedStoryAdvanced = (props) => {
             arcSite={arcSite}
             siteName={siteName}
             isLazyLoadActivate={isLazyLoadActivate}
+            titleHeader={
+              arcSite === 'trome' ? titleHeaderField || titleHeader : ''
+            }
+            invertedTitle={invertedTitle}
+            invertedColor={invertedColor}
+            hideAuthor={hideAuthor}
           />
         )
       })()}
