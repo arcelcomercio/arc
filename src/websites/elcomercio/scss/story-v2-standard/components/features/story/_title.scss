@@ -48,3 +48,24 @@
   color: #035a80;
   font-family: $secondary-font;
 }
+
+.gallery_vertical {
+  .sht__title {
+    font: 400 26px/32px $primary-font;
+    text-align: center;
+    letter-spacing: -0.52px;
+    @media (--desktop) {
+      font: 400 36px/40px $secondary-font;
+      letter-spacing: -0.72px;
+    }
+  }
+  .sht__summary {
+    font: 400 19px/24px $primary-font;
+    text-align: center;
+    letter-spacing: -0.38px;
+    @media (--desktop) {
+      font: 400 22px/28px $secondary-font;
+      letter-spacing: -0.44px;
+    }
+  }
+}

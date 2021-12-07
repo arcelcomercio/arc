@@ -4,7 +4,7 @@ const classes = {
   footer: 'footer w-full grid',
   info: 'footer__info p-20  bg-primary position-relative',
   sections: 'footer__sections  bg-primary position-relative md:pt-20 pb-20',
-  contact: 'footer__contact  bg-primary md:pt-20 pb-20 hidden md:block',
+  contact: 'footer__contact  bg-primary md:pt-20 pb-20',
   sites: 'footer__sites flex flex-col p-20 hidden md:block',
   sitesList: 'footer__sites-list flex flex-wrap w-full p-0',
   sitesItemTitle: 'text-sm text-gray-300 line-h-xs uppercase mb-10 font-bold',
@@ -36,7 +36,7 @@ const classes = {
   contactName: 'block',
 }
 
-const FooterChildStandardG21 = props => {
+const FooterChildStandardG21 = (props) => {
   const {
     socialNetworks,
     gecSites,
@@ -47,6 +47,11 @@ const FooterChildStandardG21 = props => {
     arcSite,
     customLogoTitle = 'Ir a la portada',
     customLogoLink = '/',
+    isMag,
+    isBook,
+    bookUrl,
+    bookLogo,
+    isAdmin,
   } = props
 
   return (
@@ -64,7 +69,7 @@ const FooterChildStandardG21 = props => {
           />
         </a>
         <ul className={classes.legalList}>
-          {siteLegal.map(el => (
+          {siteLegal.map((el) => (
             <li className={classes.legalItem} key={el}>
               {el}
             </li>
@@ -76,7 +81,7 @@ const FooterChildStandardG21 = props => {
         <ul className={classes.list}>
           <li className={classes.listTitle}>Nuestras secciones</li>
           {sections &&
-            sections.map(el => (
+            sections.map((el) => (
               <li className={classes.listLinkSection} key={el.url}>
                 <a itemProp="url" className={classes.listLink} href={el.url}>
                   {el.name}
@@ -89,7 +94,7 @@ const FooterChildStandardG21 = props => {
       <div className={classes.contact}>
         <ul className={classes.list}>
           {/* <li className={classes.listTitle}>Legal</li> */}
-          {legalLinks.map(el => (
+          {legalLinks.map((el) => (
             <li className={classes.listLinkSection} key={el.url}>
               <a
                 itemProp="url"
@@ -101,38 +106,53 @@ const FooterChildStandardG21 = props => {
             </li>
           ))}
         </ul>
-        <div className={classes.textContent}>
-          <p itemProp="description" className={classes.socialTitle}>
-            Síguenos
-          </p>
+        <div className="box-social-container flex">
+          {isMag && isBook && (
+            <div className="foot-book__column pl-30">
+              <a className={classes.book} href={bookUrl}>
+                <img
+                  className={`${isAdmin ? '' : 'lazy'} `}
+                  src={isAdmin ? bookLogo : ''}
+                  data-src={bookLogo}
+                  alt="Libro de reclamaciones"
+                  style={{ width: 145 }}
+                />
+              </a>
+            </div>
+          )}
+          <div className="box-social-links hidden md:block">
+            <div className={classes.textContent}>
+              <p itemProp="description" className={classes.socialTitle}>
+                Síguenos
+              </p>
+            </div>
+            <ul className={classes.listSocial}>
+              {socialNetworks &&
+                socialNetworks.map((el) => (
+                  <li className={classes.listSocialItem}>
+                    <a
+                      itemProp="url"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={el.url}
+                      className={classes.listSocialLink}>
+                      <i
+                        className={`icon-${el.name} footer__social-icon pr-15`}
+                        aria-label={el.name}
+                      />
+                    </a>
+                  </li>
+                ))}
+            </ul>
+          </div>
         </div>
-        <ul className={classes.listSocial}>
-          {socialNetworks &&
-            socialNetworks.map(el => {
-              return (
-                <li className={classes.listSocialItem}>
-                  <a
-                    itemProp="url"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={el.url}
-                    className={classes.listSocialLink}>
-                    <i
-                      className={`icon-${el.name} footer__social-icon pr-15`}
-                      aria-label={el.name}
-                    />
-                  </a>
-                </li>
-              )
-            })}
-        </ul>
       </div>
       <div className={classes.sites}>
         <p itemProp="description" className={classes.sitesItemTitle}>
           Red el comercio
         </p>
         <p itemProp="description" className={classes.sitesList}>
-          {gecSites.map(site => {
+          {gecSites.map((site) => {
             if (site.arcSite === arcSite) return ''
             return (
               <a

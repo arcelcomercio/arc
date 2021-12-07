@@ -160,6 +160,7 @@ export default ({
   const scriptAdpushup = getScriptAdPushup(arcSite)
   
   const isElcomercioHome = arcSite === SITE_ELCOMERCIO && isHome
+  const isTromeHome = arcSite === SITE_TROME && isHome
   const isPreview = /^\/preview\//.test(requestUri)
   const { uuid_match: idMatch = '' } = promoItems
 
@@ -332,6 +333,7 @@ export default ({
   else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
     style = 'story'
   else if (isElcomercioHome) style = 'dbasic'
+  else if (isTromeHome) style = 'home-v2'
   else if (arcSite === SITE_TROME && /^\/pollon-eliminatorias/.test(requestUri))
     style = 'polla'
 
@@ -632,7 +634,7 @@ export default ({
             <Dfp />
             {indPrebid && arcSite === SITE_TROME && (
               <script
-                defer
+                async
                 src="https://boot.pbstck.com/v1/tag/6e13d7a6-e4f7-4063-8d09-248ed9b1f70b"
               />
             )}

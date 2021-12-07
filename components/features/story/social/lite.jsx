@@ -58,11 +58,10 @@ const StorySocialLite = () => {
     </div>
   ) : (
     <div
-      className={`${classes.container} ${
-        metaValue('section_style') === 'story-v2-standard' && storyTagsBbc(tags)
+      className={`${classes.container} ${metaValue('section_style') === 'story-v2-standard' && storyTagsBbc(tags)
           ? 'st-social--bbc'
           : ''
-      }`}>
+        }`}>
       <div className={classes.upsection}>
         {metaValue('section_style') === 'story-v2-standard' && isPremium && (
           <svg
@@ -100,22 +99,21 @@ const StorySocialLite = () => {
           )}
         <h2
           itemProp="name"
-          className={`${classes.section}${
-            isPremium ? ' st-social__premium' : ''
-          }`}>
+          className={`${classes.section}${isPremium ? ' st-social__premium' : ''
+            }`}>
           {(editorNote && (
             <p
               itemProp="description"
               dangerouslySetInnerHTML={{ __html: editorNote }}
             />
           )) || (
-            <a
-              itemProp="url"
-              className={classes.sectionLink}
-              href={primarySectionLink}>
-              {primarySection}
-            </a>
-          )}
+              <a
+                itemProp="url"
+                className={classes.sectionLink}
+                href={primarySectionLink}>
+                {primarySection}
+              </a>
+            )}
         </h2>
         {trustproject && (
           <TProLbl
@@ -125,25 +123,26 @@ const StorySocialLite = () => {
           />
         )}
       </div>
-      {metaValue('section_style') !== 'story-v2-standard' && (
-        <div className={classes.buttons}>
-          <ShareButtons
-            activeGoogleNews={
-              arcSite === 'elcomercio' ||
-              arcSite === 'elcomerciomag' ||
-              arcSite === 'trome'
-            }
-            activeLinkedin={
-              arcSite === 'elcomercio' ||
-              arcSite === 'elcomerciomag' ||
-              arcSite === 'peru21' ||
-              arcSite === 'elbocon' ||
-              arcSite === 'ojo' ||
-              arcSite === 'gestion'
-            }
-          />
-        </div>
-      )}
+      {metaValue('section_style') !== 'story-v2-standard' &&
+        metaValue('section_style') !== 'story-v2-video' && (
+          <div className={classes.buttons}>
+            <ShareButtons
+              activeGoogleNews={
+                arcSite === 'elcomercio' ||
+                arcSite === 'elcomerciomag' ||
+                arcSite === 'trome'
+              }
+              activeLinkedin={
+                arcSite === 'elcomercio' ||
+                arcSite === 'elcomerciomag' ||
+                arcSite === 'peru21' ||
+                arcSite === 'elbocon' ||
+                arcSite === 'ojo' ||
+                arcSite === 'gestion'
+              }
+            />
+          </div>
+        )}
     </div>
   )
 }
