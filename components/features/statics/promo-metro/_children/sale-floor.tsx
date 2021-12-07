@@ -41,6 +41,7 @@ interface Bonus {
 interface CouponProps {
   code: string
   image?: string
+  defaultImage?: string
   discount: string
   discountType: DiscountType
   title: string
@@ -51,6 +52,7 @@ interface CouponProps {
 const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
   code = '',
   image = '',
+  defaultImage = '',
   discount = '',
   discountType = '',
   title = '',
@@ -64,10 +66,13 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
   const discountSplitDecimal = discountSplitX[0].split('.')
   return (
     <div className={`${classes.coupon} flex`}>
-      <div className="coupon-first-column-sf flex flex-col justify-center">
+      <div
+        className={`coupon-first-column-sf flex flex-col justify-center ${
+          image ? '' : 'fade'
+        }`}>
         <img
           className={classes.couponImage}
-          src={image}
+          src={image || defaultImage}
           alt="logo"
           loading="lazy"
         />

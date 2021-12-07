@@ -179,20 +179,20 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
     setLoading(false)
   }, [])
 
+  const logoMetro = `${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/dist/${arcSite}/images/${logo || 'logo-metro.png'}?d=1`
+
   return !loading ? (
     <div className={classes.base}>
       <div className={classes.container}>
         <div className={classes.header}>
           <img
             className={classes.logoMetro}
-            src={`${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/dist/${arcSite}/images/${
-              logo || 'logo-metro.png'
-            }?d=1`}
+            src={logoMetro}
             alt="logo metro"
-            loading="lazy"
+            loading="eager"
           />
           <img
             className={classes.logoClubTrome}
@@ -201,7 +201,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
               contextPath
             )}/resources/dist/${arcSite}/images/logo-club-trome.png?d=1`}
             alt="logo club trome"
-            loading="lazy"
+            loading="eager"
           />
         </div>
 
@@ -215,6 +215,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
                 key={coupon.code}
                 code={coupon.code}
                 image={coupon.image}
+                defaultImage={logoMetro}
                 discount={coupon.discount}
                 discountType={coupon.discountType}
                 title={coupon.title}
