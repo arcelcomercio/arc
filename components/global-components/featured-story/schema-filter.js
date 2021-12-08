@@ -1,5 +1,5 @@
 export default (arcSite) => `{ 
-  headlines { basic }
+  headlines { basic mobile }
   credits {
     by { name url type }
   }

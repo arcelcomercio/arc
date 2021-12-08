@@ -21,6 +21,8 @@ const ShareButtons = ({
   activeCopyLink = false,
   activeLinkedin = true,
   renderScripts = false,
+  googleNewsText = true,
+  hideShareLinks = false,
 }) => {
   const { globalContent, arcSite, metaValue } = useAppContext()
 
@@ -47,7 +49,10 @@ const ShareButtons = ({
     siteNameRedSocial
   )
 
-  if (metaValue('section_style') === 'story-v2-standard') {
+  if (
+    metaValue('section_style') === 'story-v2-standard' ||
+    metaValue('section_style') === 'story-v2-video'
+  ) {
     return (
       <>
         <ShareButtonsV2
@@ -83,7 +88,7 @@ const ShareButtons = ({
     )
   }
 
-  return (
+  const getShareLinks = () => (
     <>
       {activeGoogleNews ? (
         <a
@@ -92,7 +97,9 @@ const ShareButtons = ({
           className={`${classes.btn} ${classes.gnews}`}
           rel="noreferrer"
           target="_blank">
-          <span className={classes.gnewsTxt}>Síguenos en Google News</span>
+          {googleNewsText && (
+            <span className={classes.gnewsTxt}>Síguenos en Google News</span>
+          )}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="25"
@@ -164,6 +171,12 @@ const ShareButtons = ({
           Copiar enlace
         </button>
       ) : null}
+    </>
+  )
+
+  return (
+    <>
+      {hideShareLinks ? null : getShareLinks()}
       <script
         dangerouslySetInnerHTML={{
           __html: `${popup}${activeCopyLink ? copyLink : ''}`,

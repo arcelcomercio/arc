@@ -1,4 +1,9 @@
 .subscribe {
+  border: 3.5px solid #c00000;
+  &__logo {
+    height: 104px;
+    width: 90px;
+  }
   &__hello {
     font-size: 25px;
     font-weight: 501;
@@ -10,6 +15,7 @@
   &__welcome {
     text-align: left;
     font-size: 21px;
+    color: #c00000;
     margin-bottom: 18px;
     font-weight: bold;
     line-height: 1.25;
@@ -28,7 +34,7 @@
     color: black;
     line-height: 35px;
   }
-  &__button {
+  &__btn {
     text-decoration: none;
     width: 100%;
     display: block;
@@ -36,6 +42,9 @@
     border-radius: 8px;
     font-size: 19px;
     color: white;
+    background-color: #c00000;
+    padding-bottom: 15px;
+    padding-top: 15px;
   }
   &__image {
     width: 125px;

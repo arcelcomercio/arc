@@ -8,6 +8,11 @@
   &__list-title {
     font-family: $tertiary-font;
   }
+  &__new-design-title{
+    background: red;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
   &__content-column {
     li {
       font-family: $tertiary-font;
@@ -37,6 +42,21 @@
       @media (--only-mobile) {
         display: none;
       }
+    }
+  }
+}
+.foot-book {
+  &__column {
+    display: none;
+    @media (--desktop) {
+      display: block;
+    }
+  }
+  &__info {
+    display: block;
+    margin: 10px 0;
+    @media (--desktop) {
+      display: none;
     }
   }
 }
