@@ -129,7 +129,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
     disableShareBySocialNetwork = false,
   } = customFields || {}
 
-  const { arcSite, contextPath } = useAppContext()
+  const { arcSite, contextPath, deployment } = useAppContext()
 
   const [socialTitle, setSocialTitle] = React.useState(titleToShare)
   const [activeDefaultShare, setActiveDefaultShare] = React.useState(false)
@@ -192,13 +192,17 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
       <header className={classes.header}>
         <img
           className="w-full position-absolute"
-          src="/pf/resources/dist/trome/images/productos-fondo.svg?d=1"
+          src={deployment(
+            '/pf/resources/dist/trome/images/productos-fondo.svg'
+          )}
           alt="fondo productos"
           loading="eager"
         />
         <img
           className="w-full position-absolute"
-          src="/pf/resources/dist/trome/images/header-background-cuponera.png?d=1"
+          src={deployment(
+            '/pf/resources/dist/trome/images/header-background-cuponera.png'
+          )}
           alt="fondo puntitos"
           loading="eager"
         />
@@ -226,13 +230,17 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
             <div className={classes.headerSecondMiniContainer}>
               <img
                 className={classes.headerMetroFamily}
-                src="/pf/resources/dist/trome/images/familia-trome.png?d=1"
+                src={deployment(
+                  '/pf/resources/dist/trome/images/familia-trome.png'
+                )}
                 alt="familia Trome"
                 loading="eager"
               />
               <img
                 className={classes.headerExclusiveDescounts}
-                src="/pf/resources/dist/trome/images/mejores-ofertas-metro.png?d=1"
+                src={deployment(
+                  '/pf/resources/dist/trome/images/mejores-ofertas-metro.png'
+                )}
                 alt="mejores ofertas"
                 loading="eager"
               />
@@ -276,6 +284,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
                     restrictions={coupon.restrictions || []}
                     contextPath={contextPath}
                     arcSite={arcSite}
+                    deployment={deployment}
                   />
                 ))}
               {couponsEco &&

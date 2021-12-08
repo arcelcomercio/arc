@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ArcSite } from 'types/fusion'
+import { AppContext, ArcSite } from 'types/fusion'
 
 import { getAssetsPath } from '../../../../utilities/assets'
 
@@ -58,6 +58,7 @@ interface CouponProps {
   restrictions?: string[]
   contextPath: string
   arcSite: ArcSite
+  deployment: AppContext['deployment']
 }
 const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
   code = '',
@@ -71,6 +72,7 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
   restrictions = [],
   contextPath = '',
   arcSite,
+  deployment,
 }) => {
   const discountSplitX = discount.split('x')
   const discountSplitDecimal = discountSplitX[0].split('.')
@@ -79,7 +81,7 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
       <div className={`${classes.couponFirstColumn} ${image ? '' : 'fade'}`}>
         <img
           className={classes.couponImage}
-          src={image || defaultImage}
+          src={deployment(image) || defaultImage}
           alt="logo"
           loading="lazy"
         />
