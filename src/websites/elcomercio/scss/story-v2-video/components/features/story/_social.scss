@@ -1,0 +1,17 @@
+.st-social {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  &__tooltip,
+  &__link {
+    display: block;
+    font: 500 12px/29px $secondary-font;
+    letter-spacing: 2.4px;
+    @media (--desktop) {
+      font: 500 16px/29px $secondary-font;
+      letter-spacing: 3.2px;
+    }
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

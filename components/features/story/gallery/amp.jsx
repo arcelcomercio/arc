@@ -1,11 +1,11 @@
-import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import React from 'react'
 
+import { GALLERY_VERTICAL } from '../../../utilities/constants/subtypes'
+import StoryData from '../../../utilities/story-data'
 import StoryHeaderChildAmpGallery from './_children/amp-gallery'
 import StoryHeaderChildAmpGallerySlider from './_children/amp-gallery-slider'
-import StoryData from '../../../utilities/story-data'
-import { GALLERY_VERTICAL } from '../../../utilities/constants/subtypes'
 
 const classes = {
   stories: 'amp-sh bg-white pr-20 pl-20 m-5 mx-auto',

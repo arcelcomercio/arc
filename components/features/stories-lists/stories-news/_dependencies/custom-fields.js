@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+
 import { customFieldsAdsList } from '../../_dependencies/custom-fields'
 
 const customFields = PropTypes.shape({
@@ -10,6 +11,15 @@ const customFields = PropTypes.shape({
     description: 'Cree el link a donde redirige ver mas. Ej. /archivo/seccion',
   }),
   ...customFieldsAdsList,
+  showMiddle: PropTypes.bool.tag({
+    name: 'Mostrar "middle"',
+    group: 'Publicidad Middle',
+    defaultValue: false,
+  }),
+  adsMiddlePosition: PropTypes.number.tag({
+    name: 'Posición en la lista',
+    group: 'Publicidad Middle',
+  }),
 })
 
 export default customFields

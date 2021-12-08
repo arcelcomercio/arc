@@ -23,6 +23,7 @@ type GetVerboseDateProps = {
   showWeekday?: boolean
   showYear?: boolean
   defaultTimeZone?: boolean
+  longMonth?: boolean
 }
 /**
  * @returns jueves, 19 de noviembre de 2020 09:30 a.m.
@@ -33,9 +34,10 @@ export const getVerboseDate = ({
   showWeekday = true,
   showYear = true,
   defaultTimeZone = true,
+  longMonth = true,
 }: GetVerboseDateProps): string => {
   const options: Intl.DateTimeFormatOptions = {
-    month: 'long',
+    month: longMonth ? 'long' : 'short',
     day: 'numeric',
     hour12: true,
   }
@@ -67,8 +69,19 @@ export const getVerboseDate = ({
 export const formatDayMonthYear = (
   currentDate: Date,
   showTime = true,
-  showWeekday = true
-): string => getVerboseDate({ date: currentDate, showTime, showWeekday })
+  showWeekday = true,
+  showYear = true,
+  defaultTimeZone = true,
+  longMonth = true
+): string =>
+  getVerboseDate({
+    date: currentDate,
+    showTime,
+    showWeekday,
+    showYear,
+    defaultTimeZone,
+    longMonth,
+  })
 
 /**
  * @deprecated usar `getVerboseDate`
@@ -100,7 +113,8 @@ export const getDateSeo = (date: Date): string => localISODate(date)
  */
 export const formatDateTime = (
   date: Date,
-  cb?: (dateString: string) => string
+  cb?: (dateString: string) => string,
+  inHours: boolean = true
 ): string => {
   const newDate = date ? new Date(date) : new Date()
   const dateTime = new Intl.DateTimeFormat(locale, {
@@ -112,16 +126,28 @@ export const formatDateTime = (
     timeZone: 'America/Lima',
     hour12: true,
   })
+  const inDate = new Intl.DateTimeFormat(locale, {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    timeZone: 'America/Lima',
+  })
 
-  const formattedDateTime = dateTime.format(newDate)
+  const formattedDateTime = inHours
+    ? dateTime.format(newDate)
+    : inDate.format(newDate)
   return cb ? cb(formattedDateTime) : formattedDateTime
 }
 
 /**
- * @returns Actualizado el 19/11/2020, 09:30 a.m.
+ * @returns Actualizado el 19/11/2020, 09:30 a.m. || Actualizado el 19/11/2020
  */
-export const formatDateStory = (date: Date): string =>
-  formatDateTime(date, (formattedDate) => `Actualizado el ${formattedDate}`)
+export const formatDateStory = (date: Date, inHours: boolean): string =>
+  formatDateTime(
+    date,
+    (formattedDate) => `Actualizado el ${formattedDate}`,
+    inHours
+  )
 
 /**
  * @returns 09:30

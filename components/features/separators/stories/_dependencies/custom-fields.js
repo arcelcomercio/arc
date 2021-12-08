@@ -86,4 +86,10 @@ export default PropTypes.shape({
     name: 'Alt de la imagen',
     group: 'Diseños Depor',
   }),
+  isSeeMoreScriptActivate: PropTypes.bool.tag({
+    name: 'Activar script para el botón Ver más',
+    group: 'Lite',
+    defaultValue: false,
+    description: 'Es necesario activarlo solo una vez por plantilla',
+  }),
 })
