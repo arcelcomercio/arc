@@ -66,9 +66,7 @@ const FormRegister = ({
 
   const isTromeOrganic =
     arcSite === 'trome' &&
-    (typeDialog === 'organico' ||
-      typeDialog === 'verify' ||
-      typeDialog === 'banner')
+    (typeDialog === 'organico' || typeDialog === 'verify' || typeDialog === 'banner' || typeDialog === 'promoMetro')
 
   const { changeTemplate } = useModalContext()
   const [showError, setShowError] = React.useState(false)
@@ -185,7 +183,7 @@ const FormRegister = ({
 
   const originAction = () => {
     switch (typeDialog) {
-      case 'organico' || 'banner':
+      case 'organico' || 'banner' || 'promoMetro':
         return '0'
       case 'hard':
         return '1'
@@ -406,9 +404,8 @@ const FormRegister = ({
             <Loading typeBg="block" />
           ) : (
             <form
-              className={`signwall-inside_forms-form ${
-                arcSite === 'trome' ? 'form-trome' : ''
-              } ${typeDialog}`}
+              className={`signwall-inside_forms-form ${arcSite === 'trome' ? 'form-trome' : ''
+                } ${typeDialog}`}
               onSubmit={handleOnSubmit}>
               {!showConfirm && (
                 <>
@@ -452,7 +449,7 @@ const FormRegister = ({
                         arcSite={arcSite}
                         arcType="login"
                         activeNewsletter={activeNewsletter}
-                        showMsgVerify={() => {}}
+                        showMsgVerify={() => { }}
                       />
                     ) : (
                       <>
@@ -715,9 +712,8 @@ const FormRegister = ({
                         style={{ fontSize: '22px' }}
                         className="signwall-inside_forms-title center mb-10">
                         {showUserWithSubs
-                          ? `Bienvenido(a) ${
-                              Identity.userProfile.firstName || 'Usuario'
-                            }`
+                          ? `Bienvenido(a) ${Identity.userProfile.firstName || 'Usuario'
+                          }`
                           : 'Tu cuenta ha sido creada correctamente'}
                       </h4>
                     </>
@@ -756,11 +752,10 @@ const FormRegister = ({
                               onClick={() => {
                                 // modificado para el taggeo de diario correo por valla
                                 Taggeo(
-                                  `Web_${typeDialog}_${
-                                    activeRegisterwall &&
+                                  `Web_${typeDialog}_${activeRegisterwall &&
                                     typeDialog === 'premium'
-                                      ? 'Registro'
-                                      : 'Hard'
+                                    ? 'Registro'
+                                    : 'Hard'
                                   }`,
                                   `web_${typeDialog}_boton_sigue_navegando`
                                 )
@@ -864,7 +859,7 @@ const FormRegister = ({
                             if (typeDialog === 'newsletter' && btnSignwall) {
                               btnSignwall.textContent =
                                 arcSite === SITE_ELCOMERCIO ||
-                                arcSite === SITE_GESTION
+                                  arcSite === SITE_GESTION
                                   ? 'Bienvenido'
                                   : 'Mi Perfil'
                             }

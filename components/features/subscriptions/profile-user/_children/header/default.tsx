@@ -18,6 +18,7 @@ enum Modals {
   Hard = 'hard',
   Organic = 'organico',
   Banner = 'banner',
+  PromoMetro = 'promoMetro',
 }
 
 interface HeaderSignwallProps {
@@ -94,7 +95,9 @@ const HeaderSignwall = ({
               if (
                 /newsletters/.test(window.location.pathname) &&
                 Identity.userProfile &&
-                (typeDialog === Modals.Organic || typeDialog === Modals.Banner)
+                (typeDialog === Modals.Organic ||
+                  typeDialog === Modals.Banner ||
+                  typeDialog === Modals.PromoMetro)
               ) {
                 setTimeout(() => {
                   window.location.reload()

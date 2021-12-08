@@ -34,7 +34,7 @@ const classes = {
 const FooterDepor = (props) => {
   const { arcSite, contextPath, isAdmin } = useFusionContext()
 
-  const { customFields: { newDesign, isBook, bookUrl } = {} } = props
+  const { customFields: { isBook, bookUrl, newDesign } = {} } = props
 
   const {
     gecSites,
@@ -93,11 +93,11 @@ const FooterDepor = (props) => {
     corporateInfo,
     draftingContact,
     copyrightText,
-    newDesign,
     isBook,
     bookUrl,
     bookLogo,
     isAdmin,
+    newDesign,
   }
   const keyString = 'key0'
   return (

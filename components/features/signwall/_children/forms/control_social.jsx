@@ -14,7 +14,7 @@ import { Facebook, Google, Mail } from '../icons'
 
 const originAction = (dialogModal) => {
   switch (dialogModal) {
-    case 'organico' || 'banner':
+    case 'organico' || 'banner' || 'promoMetro':
       return '0'
     case 'hard':
       return '1'
@@ -63,9 +63,8 @@ const AfterLoginRegister = (
       break
     case 'newsletter':
       if (btnSignwall) {
-        btnSignwall.textContent = `${resProfile.firstName || 'Bienvenido'}  ${
-          resProfile.lastName || ''
-        }`
+        btnSignwall.textContent = `${resProfile.firstName || 'Bienvenido'}  ${resProfile.lastName || ''
+          }`
       }
       onClose()
       break
@@ -137,7 +136,17 @@ const setupUserProfile = (
             },
             {
               name: 'dataTreatment',
-              value: dataTreatment,
+              value:
+                dataTreatment &&
+                  (arcSite === 'elcomercio' ||
+                    arcSite === 'gestion' ||
+                    arcSite === 'trome' ||
+                    arcSite === 'ojo' ||
+                    arcSite === 'diariocorreo' ||
+                    arcSite === 'peru21' ||
+                    arcSite === 'peru21g21')
+                  ? dataTreatment
+                  : 'NULL',
               type: 'String',
             },
           ],
@@ -286,6 +295,8 @@ export const ButtonSocial = ({
         return 'signHash'
       case 'banner':
         return 'banner'
+      case 'promoMetro':
+        return 'promoMetro'
       case 'paywall':
         return 'signPaywall'
       case 'premium':
