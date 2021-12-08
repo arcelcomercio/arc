@@ -50,10 +50,7 @@
       "discountType": "S/",
       "title": "Pollo + Papas + Chicha 1L Metro",
       "cencosud": null,
-      "bonus": {
-        "price": "21.99",
-        "points": "33"
-      },
+      "bonus": null,
       "restrictions": []
     },
     {
@@ -84,7 +81,7 @@
       "title": "En Vestuario y Calzado",
       "cencosud": null,
       "bonus": null,
-      "restrictions": []
+      "restrictions": ["Adicional en todo URB temporada verano 2022"]
     },
     {
       "code": "2400029562240",

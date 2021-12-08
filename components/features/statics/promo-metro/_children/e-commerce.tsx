@@ -1,7 +1,9 @@
 import * as React from 'react'
 
 const classes = {
-  coupon: 'coupon',
+  coupon: 'coupon flex',
+  couponFirstColumn: 'coupon-first-column-ec justify-center flex flex-col',
+  couponSecondColumn: 'coupon-second-column-ec flex flex-col justify-center',
   couponDiscountE: 'coupon-dsctoE',
   couponReason: 'coupon-reason',
   couponLimit: 'coupon-limit',
@@ -31,8 +33,8 @@ const ECommerceCard: React.FunctionComponent<CouponProps> = ({
   local,
   restrictions = null,
 }) => (
-  <div className={`${classes.coupon} flex`}>
-    <div className="coupon-first-column-ec justify-center flex flex-col">
+  <div className={classes.coupon}>
+    <div className={classes.couponFirstColumn}>
       <img
         src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/logo-metro-pe.png?v=1638892126"
         alt="metro.pe"
@@ -54,7 +56,7 @@ const ECommerceCard: React.FunctionComponent<CouponProps> = ({
         </div>
       ) : null}
     </div>
-    <div className="coupon-second-column-ec flex flex-col">
+    <div className={classes.couponSecondColumn}>
       <h3 className={classes.couponDiscountE}>
         {discount}
         <span> soles</span>

@@ -12,11 +12,13 @@ import SaleFloorCard from './_children/sale-floor'
 
 const classes = {
   base: 'metro w-full h-full',
-  header: 'items-center flex metro-header',
+  header: 'items-center flex metro-header position-relative',
   headerContainer: 'metro-header-container w-full',
   headerLogoMetro: 'metro-header-logometro',
-  headerSecondContainer: 'metro-header-second-container',
-  headerSecondMiniContainer: 'metro-header-second-mini-container',
+  headerSecondContainer:
+    'metro-header-second-container  w-full position-relative',
+  headerSecondMiniContainer:
+    'metro-header-second-mini-container  position-absolute justify-center flex w-full',
   headerLogoClubTrome: 'metro-header-logoclubt',
   headerMetroFamily: 'metro-header-family',
   headerExclusiveDescounts: 'metro-header-exclusive',
@@ -116,8 +118,6 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
     textToShare = '',
     pathToShare = '',
     logo = 'logo-metro.png',
-    // title = '¡Bienvenido!',
-    // subtitle = 'Ahora como buen Trome, disfruta de estos descuentazos en cualquier tienda Metro',
     // disableDownload = false,
     // disableShareByEmail = false,
     disableShareBySocialNetwork = false,
@@ -214,24 +214,20 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
             />
           </div>
 
-          <div
-            className={`${classes.headerSecondContainer} w-full position-relative`}>
-            <div
-              className={`${classes.headerSecondMiniContainer} position-absolute justify-center flex w-full`}>
+          <div className={classes.headerSecondContainer}>
+            <div className={classes.headerSecondMiniContainer}>
               <img
-                // className={classes.logoClubTrome}
                 // src={`${getAssetsPath(
                 //   arcSite,
                 //   contextPath
                 // )}/resources/dist/${arcSite}/images/familia-trome.png?d=1`}
-                className={`${classes.headerMetroFamily}`}
+                className={classes.headerMetroFamily}
                 src="https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/familia-prueba.png?alt=media&token=0b74eb98-de2d-4864-871b-82577b851cf5"
                 alt="familia Trome"
                 loading="eager"
               />
               <img
-                // className={classes.logoClubTrome}
-                className={`${classes.headerExclusiveDescounts}`}
+                className={classes.headerExclusiveDescounts}
                 src="/pf/resources/dist/trome/images/mejores-ofertas-metro.png"
                 alt="mejores ofertas"
                 loading="eager"
@@ -241,8 +237,6 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
         </div>
       </div>
       <div className={classes.container}>
-        {/* <h1 className={classes.title}>{title}</h1>
-        <h2 className={classes.subtitle}>{subtitle}</h2> */}
         <div className={classes.grid}>
           {couponsSale &&
             couponsSale.map((coupon: CouponSale) => (
@@ -299,7 +293,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
             loading="lazy"
           />
           {disableShareBySocialNetwork ? null : (
-            <div style={{ display: 'flex' }}>
+            <div className="flex">
               <button
                 className={classes.share}
                 type="button"

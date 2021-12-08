@@ -4,14 +4,16 @@ import * as React from 'react'
 import { getAssetsPath } from '../../../../utilities/assets'
 
 const classes = {
-  coupon: 'coupon',
+  coupon: 'coupon flex',
+  couponFirstColumn: 'coupon-first-column-sf flex flex-col justify-center',
+  couponSecondColumn: 'coupon-second-column-sf flex flex-col justify-center',
   couponImage: 'coupon-image',
   couponAmountContainer: 'coupon-amount-container',
   couponAmount: 'coupon-amount',
   couponAmountPercent: 'coupon-amount-percent',
   quantity: 'coupon-quantity',
   percentage: 'coupon-percentage',
-  cencosud: 'coupon-cencosud',
+  cencosud: 'coupon-cencosud  flex flex-col',
   codeCencosud: 'coupon-cencosud-code',
   imageCencosud: 'coupon-cencosud-image',
   priceCencosud: 'coupon-cencosud-price',
@@ -19,11 +21,11 @@ const classes = {
   couponDsctoCencosud: 'coupon-cencosud-discount',
   textCencosud: 'coupon-cencosud-text',
   discountTitleCencosud: 'coupon-cencosud-discount-title',
-  bonus: 'coupon-bonus',
-  pointsBonus: 'coupon-bonus-points',
-  textPointsBonus: 'coupon-bonus-text',
+  bonus: 'coupon-bonus flex items-end',
+  pointsBonus: 'coupon-bonus-points  flex items-end',
+  textPointsBonus: 'coupon-bonus-text flex items-end font-bold',
   imageBonus: 'coupon-bonus-image',
-  priceBonus: 'coupon-bonus-price',
+  priceBonus: 'coupon-bonus-price font-bold',
   couponDscto: 'coupon-discount',
   couponTitle: 'coupon-title',
   couponDiscountTitle: 'coupon-discount-title',
@@ -71,11 +73,8 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
   const discountSplitX = discount.split('x')
   const discountSplitDecimal = discountSplitX[0].split('.')
   return (
-    <div className={`${classes.coupon} flex`}>
-      <div
-        className={`coupon-first-column-sf flex flex-col justify-center ${
-          image ? '' : 'fade'
-        }`}>
+    <div className={classes.coupon}>
+      <div className={`${classes.couponFirstColumn} ${image ? '' : 'fade'}`}>
         <img
           className={classes.couponImage}
           src={image || defaultImage}
@@ -83,7 +82,7 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
           loading="lazy"
         />
       </div>
-      <div className="coupon-second-column-sf flex flex-col justify-center">
+      <div className={classes.couponSecondColumn}>
         {discountType === 'S/' ? (
           <div className={classes.couponAmountContainer}>
             <p className={classes.couponAmount}>
@@ -117,7 +116,7 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
               </p>
             ))
           : null}
-        <div className={`${classes.cencosud} flex flex-col`}>
+        <div className={classes.cencosud}>
           {cencosud && (
             <div className="flex flex-col">
               <div className="flex items-end">
@@ -146,20 +145,13 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
             </div>
           )}
           {bonus && (
-            <div className={`${classes.bonus} flex items-end`}>
+            <div className={classes.bonus}>
               <div className="flex flex-col">
-                <p className={`${classes.pointsBonus} flex items-end`}>
-                  {bonus.points}
-                </p>
-                <p
-                  className={`${classes.textPointsBonus} flex items-end font-bold`}>
-                  puntos
-                </p>
+                <p className={classes.pointsBonus}>{bonus.points}</p>
+                <p className={classes.textPointsBonus}>puntos</p>
               </div>
               <div className="flex flex-col" style={{ paddingLeft: '10px' }}>
-                <p className={`${classes.priceBonus} font-bold`}>
-                  S/{bonus.price}
-                </p>
+                <p className={classes.priceBonus}>S/{bonus.price}</p>
                 <img
                   className={`${classes.imageBonus}`}
                   src={`${getAssetsPath(
