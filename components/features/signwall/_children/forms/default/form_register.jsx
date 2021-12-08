@@ -60,7 +60,7 @@ const FormRegister = ({
 
   const isTromeOrganic =
     arcSite === 'trome' &&
-    (typeDialog === 'organico' || typeDialog === 'verify')
+    (typeDialog === 'organico' || typeDialog === 'verify' || typeDialog === 'banner' || typeDialog === 'promoMetro')
 
   const { changeTemplate } = useModalContext()
   const [showError, setShowError] = React.useState(false)
@@ -176,7 +176,7 @@ const FormRegister = ({
 
   const originAction = () => {
     switch (typeDialog) {
-      case 'organico' || 'banner':
+      case 'organico' || 'banner' || 'promoMetro':
         return '0'
       case 'hard':
         return '1'
@@ -647,11 +647,10 @@ const FormRegister = ({
                               onClick={() => {
                                 // modificado para el taggeo de diario correo por valla
                                 Taggeo(
-                                  `Web_${typeDialog}_${
-                                    activeRegisterwall &&
+                                  `Web_${typeDialog}_${activeRegisterwall &&
                                     typeDialog === 'premium'
-                                      ? 'Registro'
-                                      : 'Hard'
+                                    ? 'Registro'
+                                    : 'Hard'
                                   }`,
                                   `web_${typeDialog}_boton_sigue_navegando`
                                 )
@@ -754,7 +753,7 @@ const FormRegister = ({
                             if (typeDialog === 'newsletter' && btnSignwall) {
                               btnSignwall.textContent =
                                 arcSite === SITE_ELCOMERCIO ||
-                                arcSite === SITE_GESTION
+                                  arcSite === SITE_GESTION
                                   ? 'Bienvenido'
                                   : 'Mi Perfil'
                             }

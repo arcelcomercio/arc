@@ -1,4 +1,7 @@
 import * as React from 'react'
+import { ArcSite } from 'types/fusion'
+
+import { getAssetsPath } from '../../../../utilities/assets'
 
 const classes = {
   coupon: 'coupon flex',
@@ -24,6 +27,8 @@ interface CouponProps {
     ususNumber: string | null
     rules: string | null
   }
+  contextPath: string
+  arcSite: ArcSite
 }
 const ECommerceCard: React.FunctionComponent<CouponProps> = ({
   code = 'COUPONTROME129',
@@ -32,13 +37,19 @@ const ECommerceCard: React.FunctionComponent<CouponProps> = ({
   limit,
   local,
   restrictions = null,
+  contextPath,
+  arcSite,
 }) => (
-  <div className={classes.coupon}>
+  <li className={classes.coupon}>
     <div className={classes.couponFirstColumn}>
       <img
-        src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/logo-metro-pe.png?v=1638892126"
+        src={`${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/logo-metro-pe.png?d=1`}
         alt="metro.pe"
         className={classes.logoMetroPe}
+        loading="lazy"
       />
       {restrictions ? (
         <div className="flex flex-col">
@@ -72,7 +83,7 @@ const ECommerceCard: React.FunctionComponent<CouponProps> = ({
         <p className={classes.couponDiscountTitle}>Cupón</p>
       </div>
     </div>
-  </div>
+  </li>
 )
 
-export default ECommerceCard
+export default React.memo(ECommerceCard)

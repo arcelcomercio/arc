@@ -3,9 +3,12 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 import { FC } from 'types/features'
 
+import ShareIcon from '../../../global-components/icons/share'
 import ShareButtons from '../../../global-components/lite/share/index'
-import { originByEnv } from '../../../utilities/arc/env'
+import Spinner from '../../../global-components/spinner'
+import { isProd, originByEnv } from '../../../utilities/arc/env'
 import { getAssetsPath } from '../../../utilities/assets'
+import { isMobile } from '../../../utilities/client/navigator'
 import { isLoggedIn } from '../../../utilities/subscriptions/identity'
 import ECommerceCard from './_children/e-commerce'
 import SaleFloorCard from './_children/sale-floor'
@@ -23,16 +26,16 @@ const classes = {
   headerMetroFamily: 'metro-header-family',
   headerExclusiveDescounts: 'metro-header-exclusive',
   container: 'metro__container flex flex-col justify-center',
-  title: 'metro-title',
-  subtitle: 'metro-subtitle',
-  subtitleBold: 'metro-subtitle-bold',
+  loginContainer:
+    'metro__login-container flex flex-col items-center text-center w-full mx-auto',
+  title: 'metro__title',
   legal: 'metro__legal',
   legalTitle: 'metro__legal-title',
   grid: 'metro-grid',
   footer: 'metro__footer flex items-center justify-between',
   logoTrome: 'metro__footer__logo',
   // download: 'metro-download',
-  share: 'metro__footer__share',
+  share: 'metro__footer__share flex items-center',
 }
 
 interface StaticsPromoMetroProps {
@@ -43,9 +46,6 @@ interface StaticsPromoMetroProps {
     textToShare?: string
     pathToShare?: string
     logo?: string
-    title?: string
-    subtitle?: string
-    subtitleBold?: string
     disableDownload?: boolean
     disableShareByEmail?: boolean
     disableShareBySocialNetwork?: boolean
@@ -110,13 +110,19 @@ interface ProductsECommerce {
  * `src/websites/trome/scss/components/statics/promo-metro/promo-metro.scss
  */
 
+enum UserState {
+  Loading = 'loading',
+  LoggedIn = 'loggedIn',
+  LoggedOut = 'loggedOut',
+}
+
 const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
   const {
     couponsSaleFloorJson,
     couponsECommerceJson,
     titleToShare = '',
     textToShare = '',
-    pathToShare = '',
+    pathToShare = '/promo-metro',
     logo = 'logo-metro.png',
     // disableDownload = false,
     // disableShareByEmail = false,
@@ -127,7 +133,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
 
   const [socialTitle, setSocialTitle] = React.useState(titleToShare)
   const [activeDefaultShare, setActiveDefaultShare] = React.useState(false)
-  const [loading, setLoading] = React.useState(true)
+  const [userState, setUserState] = React.useState(UserState.Loading)
 
   // Esto es un ejemplo. Se debe usar couponsJson
   // const coupons = couponsJson && JSON.parse(couponsJson)
@@ -152,7 +158,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
 
   const handleShare = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
-    if ('share' in navigator) {
+    if ('share' in navigator && isMobile()) {
       navigator.share({
         title: socialTitle,
         text: textToShare,
@@ -169,10 +175,10 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
     // verifica si hay un usuario sesionado
     // en caso haya se muestra la landing, de lo contrario te redirecciona al organic
 
-    if (!isLoggedIn()) {
-      window.location.href = '/signwall/?outputType=subscriptions'
+    if (isLoggedIn()) {
+      setUserState(UserState.LoggedIn)
     } else {
-      setLoading(false)
+      setUserState(UserState.LoggedOut)
     }
   }, [])
 
@@ -181,18 +187,20 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
     contextPath
   )}/resources/dist/${arcSite}/images/${logo || 'logo-metro.png'}?d=1`
 
-  return !loading ? (
+  return (
     <div className={classes.base}>
-      <div className={classes.header}>
+      <header className={classes.header}>
         <img
           className="w-full position-absolute"
-          src="/pf/resources/dist/trome/images/productos-fondo.svg"
+          src="/pf/resources/dist/trome/images/productos-fondo.svg?d=1"
           alt="fondo productos"
+          loading="eager"
         />
         <img
           className="w-full position-absolute"
-          src="https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/fondo-puntitos.png?alt=media&token=6fb76b2d-3807-4b26-a9de-94f36bc6f2bf"
+          src="/pf/resources/dist/trome/images/header-background-cuponera.png?d=1"
           alt="fondo puntitos"
+          loading="eager"
         />
         <div className={classes.headerContainer}>
           <div className="items-start flex justify-between w-full position-relative">
@@ -217,55 +225,77 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
           <div className={classes.headerSecondContainer}>
             <div className={classes.headerSecondMiniContainer}>
               <img
-                // src={`${getAssetsPath(
-                //   arcSite,
-                //   contextPath
-                // )}/resources/dist/${arcSite}/images/familia-trome.png?d=1`}
                 className={classes.headerMetroFamily}
-                src="https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/familia-prueba.png?alt=media&token=0b74eb98-de2d-4864-871b-82577b851cf5"
+                src="/pf/resources/dist/trome/images/familia-trome.png?d=1"
                 alt="familia Trome"
                 loading="eager"
               />
               <img
                 className={classes.headerExclusiveDescounts}
-                src="/pf/resources/dist/trome/images/mejores-ofertas-metro.png"
+                src="/pf/resources/dist/trome/images/mejores-ofertas-metro.png?d=1"
                 alt="mejores ofertas"
                 loading="eager"
               />
             </div>
           </div>
         </div>
-      </div>
+      </header>
       <div className={classes.container}>
-        <div className={classes.grid}>
-          {couponsSale &&
-            couponsSale.map((coupon: CouponSale) => (
-              <SaleFloorCard
-                key={coupon.code}
-                code={coupon.code}
-                image={coupon.image}
-                defaultImage={logoMetro}
-                discount={coupon.discount}
-                discountType={coupon.discountType}
-                title={coupon.title}
-                cencosud={coupon.cencosud || undefined}
-                bonus={coupon.bonus || undefined}
-                restrictions={coupon.restrictions || []}
-              />
-            ))}
-          {couponsEco &&
-            couponsEco.map((coupon: CouponECommerce) => (
-              <ECommerceCard
-                key={coupon.code}
-                code={coupon.code}
-                discount={coupon.discount}
-                reason={coupon.reason}
-                limit={coupon.limit}
-                local={coupon.local}
-                restrictions={coupon.restrictions || undefined}
-              />
-            ))}
-        </div>
+        {userState === UserState.LoggedOut ? (
+          <div className={classes.loginContainer}>
+            <h1 className={classes.title}>
+              Para ver los cupones, debes estar registrado
+            </h1>
+            <a
+              className={classes.share}
+              href={
+                isProd
+                  ? '/signwall/?outputType=subscriptions&promoMetro=1'
+                  : `/signwall/?outputType=subscriptions&promoMetro=1&_website=${arcSite}`
+              }>
+              Quiero registrarme
+            </a>
+          </div>
+        ) : null}
+        <ul className={classes.grid}>
+          {userState === UserState.Loading ? <Spinner /> : null}
+          {userState === UserState.LoggedIn ? (
+            <>
+              {couponsSale &&
+                couponsSale.map((coupon: CouponSale) => (
+                  <SaleFloorCard
+                    key={coupon.code}
+                    code={coupon.code}
+                    image={coupon.image}
+                    defaultImage={logoMetro}
+                    discount={coupon.discount}
+                    discountType={coupon.discountType}
+                    title={coupon.title}
+                    cencosud={coupon.cencosud || undefined}
+                    bonus={coupon.bonus || undefined}
+                    restrictions={coupon.restrictions || []}
+                    contextPath={contextPath}
+                    arcSite={arcSite}
+                  />
+                ))}
+              {couponsEco &&
+                couponsEco.map((coupon: CouponECommerce) => (
+                  <ECommerceCard
+                    key={coupon.code}
+                    code={coupon.code}
+                    discount={coupon.discount}
+                    reason={coupon.reason}
+                    limit={coupon.limit}
+                    local={coupon.local}
+                    restrictions={coupon.restrictions || undefined}
+                    contextPath={contextPath}
+                    arcSite={arcSite}
+                  />
+                ))}
+            </>
+          ) : null}
+        </ul>
+
         {legalSale ? (
           <>
             <h3 className={classes.legalTitle}>
@@ -298,7 +328,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
                 className={classes.share}
                 type="button"
                 onClick={handleShare}>
-                Compartir
+                Compartir <ShareIcon fill="#EE7325" width={16} height={16} />
               </button>
               <div
                 className={`metro__footer__social flex position-absolute right-0 ${
@@ -316,8 +346,6 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
         </div>
       </div>
     </div>
-  ) : (
-    <p>Cargando...</p>
   )
 }
 
@@ -357,16 +385,6 @@ StaticsPromoMetro.propTypes = {
         'Por defecto ya existe logo, esto es en caso de que quieran modificar el logo por alguna fecha particular',
       group: 'configuración',
     }),
-    // title: PropTypes.string.tag({
-    //   name: 'Título',
-    //   description: 'Título de la landing',
-    //   group: 'configuración',
-    // }),
-    // subtitle: PropTypes.string.tag({
-    //   name: 'Subtítulo',
-    //   description: 'Subtítulo de la landing',
-    //   group: 'configuración',
-    // }),
     disableDownload: PropTypes.bool.tag({
       name: 'Desactivar botón para descargar cuponera',
       defaultValue: false,

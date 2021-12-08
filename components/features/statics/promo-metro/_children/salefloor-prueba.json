@@ -2,7 +2,7 @@
   "products": [
     {
       "code": "2400029562219",
-      "image": "/pf/resources/dist/trome/images/canasta-union.jpg",
+      "image": "/pf/resources/dist/trome/images/canasta.jpg",
       "discount": "S/ 95.90",
       "discountType": "S/",
       "title": "Canasta Metro Unión",
@@ -15,8 +15,8 @@
     },
     {
       "code": "2400029562226",
-      "image": "",
-      "discount": "S/ 53.99 x6",
+      "image": "/pf/resources/dist/trome/images/espumante.jpg",
+      "discount": "S/ 53.99 x6 bot",
       "discountType": "S/",
       "title": "Espumante Porte Fino Semiseco Botella 750 ml",
       "cencosud": null,
@@ -25,7 +25,7 @@
     },
     {
       "code": "2400029562233",
-      "image": "",
+      "image": "/pf/resources/dist/trome/images/galletas.jpg",
       "discount": "S/ 11.50",
       "discountType": "S/",
       "title": "Galletas Danesas Lata 454 g",
@@ -35,7 +35,7 @@
     },
     {
       "code": "2400029562264",
-      "image": "",
+      "image": "/pf/resources/dist/trome/images/pescado.jpg",
       "discount": "15",
       "discountType": "%",
       "title": "En todo pescados marinos y mariscos frescos",
@@ -45,7 +45,7 @@
     },
     {
       "code": "2400029562288",
-      "image": "/pf/resources/dist/trome/images/pollo-mas-chicha.jpg",
+      "image": "/pf/resources/dist/trome/images/pollo.jpg",
       "discount": "S/ 22.99",
       "discountType": "S/",
       "title": "Pollo + Papas + Chicha 1L Metro",
@@ -55,7 +55,7 @@
     },
     {
       "code": "2400029562295",
-      "image": "",
+      "image": "/pf/resources/dist/trome/images/nuggets.jpg",
       "discount": "20",
       "discountType": "%",
       "title": "En hamburguesas y nuggets de pollo",
@@ -65,7 +65,7 @@
     },
     {
       "code": "2400029562301",
-      "image": "/pf/resources/dist/trome/images/colchones-camas-dormitorios.jpg",
+      "image": "/pf/resources/dist/trome/images/colchones.jpg",
       "discount": "10",
       "discountType": "%",
       "title": "En colchones, cama y Dormitorios",
@@ -75,7 +75,7 @@
     },
     {
       "code": "2400029562257",
-      "image": "/pf/resources/dist/trome/images/vestuario-y-calzado.jpg",
+      "image": "/pf/resources/dist/trome/images/ropa.jpg",
       "discount": "10",
       "discountType": "%",
       "title": "En Vestuario y Calzado",
@@ -85,7 +85,7 @@
     },
     {
       "code": "2400029562240",
-      "image": "",
+      "image": "/pf/resources/dist/trome/images/juguetes.jpg",
       "discount": "20",
       "discountType": "%",
       "title": "En toda la Jugueteria",

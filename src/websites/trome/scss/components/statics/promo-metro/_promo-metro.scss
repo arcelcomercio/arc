@@ -72,6 +72,7 @@ $font-color: #ee7325;
 
     &-container {
       padding: 20px;
+
       @media (--desktop) {
         padding: 40px;
       }
@@ -81,7 +82,7 @@ $font-color: #ee7325;
       width: 60px;
       filter: drop-shadow(5px 5px 10px #444);
       @media (--tablet) {
-        width: 170px;
+        width: 120px;
       }
     }
 
@@ -129,34 +130,25 @@ $font-color: #ee7325;
     }
   }
 
-  &-title {
+  &__login-container {
+    max-width: 480px;
+    padding: 30px;
+
+    @media (--tablet) {
+      padding-top: 100px;
+    }
+    @media (--desktop) {
+      padding-top: 200px;
+    }
+  }
+
+  &__title {
     color: $font-color;
     font-weight: bold;
     font-size: 22px;
-    padding: 25px;
+    padding-bottom: 25px;
     @media (--tablet) {
       font-size: 40px;
-    }
-  }
-
-  &-subtitle-bold {
-    font-weight: bold;
-    margin: auto;
-    padding-bottom: 10px;
-    text-align: center;
-    @media (--tablet) {
-      font-size: 25px;
-      padding-bottom: 20px;
-    }
-  }
-
-  &-subtitle {
-    margin: auto;
-    text-align: center;
-    padding-bottom: 25px;
-    font-size: 16px;
-    @media (--tablet) {
-      font-size: 18px;
     }
   }
 
@@ -165,9 +157,11 @@ $font-color: #ee7325;
     grid-template-columns: 1fr;
     grid-gap: 10px;
     margin-bottom: 40px;
+    min-height: 100vh;
 
     @media (--tablet) {
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      min-height: 70vh;
     }
   }
 
@@ -209,6 +203,7 @@ $font-color: #ee7325;
       font-weight: 600;
       color: $font-color;
       padding: 8px 10px;
+      gap: 5px;
       border: 1px solid $border-color;
 
       @media (--tablet) {
@@ -325,11 +320,11 @@ $font-color: #ee7325;
 
   &-image {
     width: 90%;
-    margin: 0 auto 0;
+    margin: 0 auto;
     padding-top: 10px;
     padding-bottom: 4px;
-    font-size: 1rem;
   }
+
   &-amount-container {
     // padding-bottom: 10px;
   }
@@ -397,10 +392,10 @@ $font-color: #ee7325;
       font-weight: bold;
       color: #7a7979;
       font-size: 14.5px;
-      padding-top: 2px;
+      padding-top: 5px;
       text-align: center;
-      word-break: break-word;
-      // color: #575557;
+      word-break: keep-all;
+
       @media (--tablet) {
         font-size: 16px;
       }
@@ -453,6 +448,9 @@ $font-color: #ee7325;
       text-align: center;
       @media (--tablet) {
         font-size: 13px;
+      }
+      @media (--desktop) {
+        font-size: 12px;
       }
     }
   }
@@ -507,11 +505,12 @@ $font-color: #ee7325;
     color: $font-color;
     font-size: 28px;
     font-weight: 900;
+    text-align: center;
 
-    // text-align: center;
     @media (--tablet) {
       font-size: 32px;
     }
+
     & span {
       font-size: 15px;
       @media (--tablet) {
@@ -521,22 +520,25 @@ $font-color: #ee7325;
   }
   &-reason {
     color: #1f1f1f;
-    font-size: 12px;
-    //text-align: center;
+    font-size: 11px;
+    text-align: center;
     padding-bottom: 5px;
     line-height: 1.1;
+
     @media (--tablet) {
-      font-size: 15px;
+      font-size: 13px;
     }
   }
   &-limit {
     color: $font-color;
     font-size: 20px;
     font-weight: 900;
-    //text-align: center;
+    text-align: center;
+
     @media (--tablet) {
       font-size: 22px;
     }
+
     & span {
       font-size: 15px;
       @media (--tablet) {
@@ -545,11 +547,13 @@ $font-color: #ee7325;
     }
   }
   &-local {
-    //text-align: center;
+    text-align: center;
     color: #1f1f1f;
-    font-size: 12px;
+    font-size: 11px;
+    line-height: 1.1;
+
     @media (--tablet) {
-      font-size: 15px;
+      font-size: 13px;
     }
   }
   &-discount-title {
@@ -567,7 +571,7 @@ $font-color: #ee7325;
     font-size: 14.5px;
     text-align: center;
     padding-top: 5px;
-    word-break: break-word;
+    word-break: keep-all;
     // color: #575557;
     @media (--tablet) {
       font-size: 16px;
@@ -580,7 +584,7 @@ $font-color: #ee7325;
     margin-top: 15px;
     text-align: center;
     font-size: 10px;
-    word-break: break-word;
+    word-break: keep-all;
     // color: #575557;
     @media (--tablet) {
       font-size: 11px;
@@ -589,11 +593,13 @@ $font-color: #ee7325;
 
   &-restriction-title {
     color: $font-color;
-    padding-bottom: 2px;
+    font-size: 0.9em;
+    padding-bottom: 4px;
   }
 
   &-restriction-text {
     font-size: 10px;
+    line-height: 1.3;
     list-style-type: disc;
   }
 

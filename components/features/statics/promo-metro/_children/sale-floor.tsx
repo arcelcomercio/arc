@@ -1,5 +1,5 @@
-import { useAppContext } from 'fusion:context'
 import * as React from 'react'
+import { ArcSite } from 'types/fusion'
 
 import { getAssetsPath } from '../../../../utilities/assets'
 
@@ -13,7 +13,7 @@ const classes = {
   couponAmountPercent: 'coupon-amount-percent',
   quantity: 'coupon-quantity',
   percentage: 'coupon-percentage',
-  cencosud: 'coupon-cencosud  flex flex-col',
+  cencosud: 'coupon-cencosud flex flex-col items-center',
   codeCencosud: 'coupon-cencosud-code',
   imageCencosud: 'coupon-cencosud-image',
   priceCencosud: 'coupon-cencosud-price',
@@ -49,13 +49,15 @@ interface Bonus {
 interface CouponProps {
   code: string
   image?: string
-  defaultImage?: string
+  defaultImage: string
   discount: string
   discountType: DiscountType
   title: string
   cencosud?: Cencosud | null
   bonus?: Bonus | null
-  restrictions?: []
+  restrictions?: string[]
+  contextPath: string
+  arcSite: ArcSite
 }
 const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
   code = '',
@@ -67,13 +69,13 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
   cencosud = null,
   bonus = null,
   restrictions = [],
+  contextPath = '',
+  arcSite,
 }) => {
-  const { arcSite, contextPath } = useAppContext()
-
   const discountSplitX = discount.split('x')
   const discountSplitDecimal = discountSplitX[0].split('.')
   return (
-    <div className={classes.coupon}>
+    <li className={classes.coupon}>
       <div className={`${classes.couponFirstColumn} ${image ? '' : 'fade'}`}>
         <img
           className={classes.couponImage}
@@ -110,7 +112,11 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
         {restrictions.length > 0
           ? restrictions.map((restriction) => (
               <p
-                style={{ fontSize: '10px', color: '#373736' }}
+                style={{
+                  fontSize: '10px',
+                  lineHeight: '1.2',
+                  color: '#373736',
+                }}
                 key={restriction}>
                 {restriction}
               </p>
@@ -132,6 +138,7 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
                     contextPath
                   )}/resources/dist/${arcSite}/images/tarjeta-cencosud.png?d=1`}
                   alt="cencosud"
+                  loading="lazy"
                 />
                 <div style={{ padding: '2px' }}>
                   <p className={classes.textCencosud}>Tarjeta</p>
@@ -159,6 +166,7 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
                     contextPath
                   )}/resources/dist/${arcSite}/images/puntos-bonus-color.png?d=1`}
                   alt="tarjeta bonus"
+                  loading="lazy"
                 />
               </div>
             </div>
@@ -167,8 +175,8 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
           <p className={classes.couponDiscountTitle}>Código de promoción</p>
         </div>
       </div>
-    </div>
+    </li>
   )
 }
 
-export default SaleFloorCard
+export default React.memo(SaleFloorCard)
