@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 
 import NavBarComercio from '../../navbar/standard/_children/standard'
+import NavbarPremiosDepor from './_children/premios'
 import NavbarChildSomos from './_children/somos'
 import Formatter from './_dependencies/formatter'
 
@@ -127,6 +128,17 @@ class LayoutNavbar extends React.PureComponent {
           {...this.formatter.main.initParams}
         />
       ),
+      premios: (
+        <NavbarPremiosDepor
+          deviceList={{
+            showInDesktop,
+            showInTablet,
+            showInMobile,
+          }}
+          requestUri={requestUri}
+          {...this.formatter.main.initParams}
+        />
+      ),
     }
     return NavBarType[selectDesing] || NavBarType.standard
   }
@@ -138,11 +150,12 @@ class LayoutNavbar extends React.PureComponent {
 
 LayoutNavbar.propTypes = {
   customFields: PropTypes.shape({
-    selectDesing: PropTypes.oneOf(['standard', 'somos']).tag({
+    selectDesing: PropTypes.oneOf(['standard', 'somos', 'premios']).tag({
       name: 'Modelo de barra de navegación',
       labels: {
         standard: 'Barra de navegación estándar',
         somos: 'Barra de navegación somos',
+        premios: 'Barra de navegación premios depor',
       },
       defaultValue: 'standard',
     }),
