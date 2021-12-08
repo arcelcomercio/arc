@@ -101,9 +101,9 @@ const StoryTitleAmp = (props) => {
           ) : null}
 
           {arcSite === SITE_ELCOMERCIO ||
-          (arcSite === SITE_DEPOR &&
-            (/^\/mexico\//.test(requestUri) ||
-              /^\/colombia\//.test(requestUri))) ? null : (
+            (arcSite === SITE_DEPOR &&
+              (/^\/mexico\//.test(requestUri) ||
+                /^\/colombia\//.test(requestUri))) ? null : (
             <AmpStoriesChild arcSite={arcSite} />
           )}
 
@@ -135,6 +135,13 @@ const StoryTitleAmp = (props) => {
             dangerouslySetInnerHTML={{ __html: getDiv() }}
           />
         )}
+        {arcSite === SITE_ELCOMERCIOMAG && (
+          <div
+            className={classes.adsAmp}
+            dangerouslySetInnerHTML={publicidadAmpCaja1(parametersCaja1)}
+          />
+        )}
+
         {subTitle && <div className={classes.description}> {subTitle}</div>}
         {arcSite !== SITE_ELCOMERCIOMAG && arcSite !== SITE_TROME && (
           <StorySocialChildAmpSocial />

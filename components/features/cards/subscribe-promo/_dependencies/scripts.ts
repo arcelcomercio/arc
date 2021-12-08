@@ -11,9 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const msgBtnBanner = document.getElementById('<<messageBtnId>>')
     const containerMovil = document.getElementById('<<containerMovilId>>')
     const messageMovilBanner = document.getElementById('<<messageMovilId>>')
+    
     if (uuid) {
       const urlLogged = '<<urlCuponera>>'
       if (msgBtnBanner) {
+        msgBtnBanner.innerHTML = 'AQUÍ'
         msgBtnBanner.addEventListener('click', () => {
           window.location.href = urlLogged
         })
@@ -24,11 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
         })
       }
 
-      msgTitle.innerHTML = ''
-      msgSubtitle.innerHTML = 'ACCEDE A TUS BENEFICIOS EXCLUSIVOS'
-      msgBtnBanner.innerHTML = 'AQUÍ'
-      messageMovilBanner.innerHTML =
-        '¡Presiona aquí y accede a estos increíbles descuentos!'
+      if(msgTitle) msgTitle.innerHTML = ''
+      if(msgSubtitle) msgSubtitle.innerHTML = 'ACCEDE A TUS BENEFICIOS EXCLUSIVOS'
+      if(messageMovilBanner) messageMovilBanner.innerHTML = '¡Presiona aquí y accede a estos increíbles descuentos!'
+
     } else {
       const urlNoLogged = '/signwall/?outputType=subscriptions&banner=1'
       if (msgBtnBanner) {
@@ -55,7 +56,7 @@ export const verifyUserPromotion = (
   messageMovilId: string,
   urlCuponera: string
 ): string =>
-  `"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e,n,t=(JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{}).uuid,i=void 0===t?"":t,d=document.getElementById("<<titleId>>"),o=document.getElementById("<<subtitleId>>"),c=document.getElementById("<<messageBtnId>>"),r=document.getElementById("<<containerMovilId>>"),t=document.getElementById("<<messageMovilId>>");i?(e="<<urlCuponera>>",c&&c.addEventListener("click",function(){window.location.href=e}),r&&r.addEventListener("click",function(){window.location.href=e}),d.innerHTML="",o.innerHTML="ACCEDE A TUS BENEFICIOS EXCLUSIVOS",c.innerHTML="AQUÍ",t.innerHTML="¡Presiona aquí y accede a estos increíbles descuentos!"):(n="/signwall/?outputType=subscriptions&banner=1",c&&c.addEventListener("click",function(){window.location.href=n}),r&&r.addEventListener("click",function(){window.location.href=n}))})});`
+  '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=(JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{}).uuid,n=void 0===e?"":e,t=document.getElementById("<<titleId>>"),i=document.getElementById("<<subtitleId>>"),o=document.getElementById("<<messageBtnId>>"),d=document.getElementById("<<containerMovilId>>"),c=document.getElementById("<<messageMovilId>>");if(n){o&&(o.innerHTML="AQUÍ",o.addEventListener("click",function(){window.location.href="<<urlCuponera>>"})),d&&d.addEventListener("click",function(){window.location.href="<<urlCuponera>>"}),t&&(t.innerHTML=""),i&&(i.innerHTML="ACCEDE A TUS BENEFICIOS EXCLUSIVOS"),c&&(c.innerHTML="¡Presiona aquí y accede a estos increíbles descuentos!")}else{var r="/signwall/?outputType=subscriptions&banner=1";o&&o.addEventListener("click",function(){window.location.href=r}),d&&d.addEventListener("click",function(){window.location.href=r})}})});'
     .replace('<<titleId>>', titleId)
     .replace('<<subtitleId>>', subtitleId)
     .replace('<<messageBtnId>>', btnBannerId)
