@@ -171,7 +171,7 @@ const FormRegister = ({
 
   const originAction = () => {
     switch (typeDialog) {
-      case 'organico' || 'banner':
+      case 'organico' || 'banner' || 'promoMetro':
         return '0'
       case 'hard':
         return '1'

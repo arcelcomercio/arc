@@ -32,10 +32,7 @@ const SectionColumn = ({
 }) => (
   <ul className={classes.sectionColumn}>
     <li className={`${classes.item} ${classes.itemTitle}`}>
-      <a
-        itemProp="url"
-        href={addSlashToEnd(urlSec)}
-        className={classes.itemTop}>
+      <a itemProp="url" href={addSlashToEnd(urlSec)} className={classes.itemTop}>
         {title}
       </a>
     </li>
