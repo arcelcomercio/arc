@@ -41,7 +41,8 @@ interface SubscribePromoProps {
 }
 
 const CardPromotion: FC<SubscribePromoProps> = ({ customFields }) => {
-  const { pathToPromotion = '', disableMiniVersion = true } = customFields || {}
+  const { pathToPromotion = '/promo-metro', disableMiniVersion = true } =
+    customFields || {}
 
   const { arcSite, contextPath, isAdmin } = useAppContext()
   const { siteName } = getProperties(arcSite)
@@ -54,10 +55,10 @@ const CardPromotion: FC<SubscribePromoProps> = ({ customFields }) => {
   const containerMovilId = 'promotion-movil-id'
   const messageMovilId = 'message-movil-Id'
 
-  const isMini = !disableMiniVersion ? '-mini' : ''
+  const isMini = disableMiniVersion ? '' : '-mini'
 
   return (
-    <div className={classes.container}>
+    <article className={classes.container}>
       <div className={`promotion${isMini}`}>
         <p id={titleId} className={`promotion${isMini}__title`}>
           FORMA PARTE DEL
@@ -69,7 +70,6 @@ const CardPromotion: FC<SubscribePromoProps> = ({ customFields }) => {
               arcSite,
               contextPath
             )}/resources/dist/${arcSite}/images/logo-club-trome.png?d=1`}
-            loading="lazy"
             alt={`Logo ${siteName}`}
             className={`${
               isAdmin ? '' : 'lazy'
@@ -97,7 +97,7 @@ const CardPromotion: FC<SubscribePromoProps> = ({ customFields }) => {
           REGÍSTRATE
         </button>
       </div>
-      {!disableMiniVersion && (
+      {disableMiniVersion ? null : (
         <div
           id={containerMovilId}
           className={`promotion__movil ${classes.containerMovil}`}>
@@ -118,7 +118,7 @@ const CardPromotion: FC<SubscribePromoProps> = ({ customFields }) => {
           ),
         }}
       />
-    </div>
+    </article>
   )
 }
 
@@ -131,7 +131,7 @@ CardPromotion.propTypes = {
   customFields: PropTypes.shape({
     pathToPromotion: PropTypes.string.tag({
       name: 'URI para redireccionar a la cuponera',
-      description: 'Ejemplo: /cuponera-trome',
+      description: 'Ejemplo: /promo-metro',
       group: 'configuración',
     }),
     disableMiniVersion: PropTypes.bool.tag({

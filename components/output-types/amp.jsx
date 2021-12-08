@@ -16,6 +16,7 @@ import {
   SITE_PERU21,
   SITE_TROME,
 } from '../utilities/constants/sitenames'
+import { GALLERY_VERTICAL, MINUTO_MINUTO } from '../utilities/constants/subtypes'
 import { addSlashToEnd } from '../utilities/parse/strings'
 import RedirectError from '../utilities/redirect-error'
 import StoryData from '../utilities/story-data'
