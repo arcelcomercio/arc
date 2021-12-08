@@ -5,7 +5,6 @@ import * as React from 'react'
 
 import { originByEnv } from '../utilities/arc/env'
 import { METERED, PREMIUM } from '../utilities/constants/content-tiers'
-import { GALLERY_VERTICAL, MINUTO_MINUTO } from '../utilities/constants/subtypes'
 import {
   SITE_DEPOR,
   SITE_DIARIOCORREO,
@@ -17,6 +16,7 @@ import {
   SITE_PERU21,
   SITE_TROME,
 } from '../utilities/constants/sitenames'
+import { GALLERY_VERTICAL, MINUTO_MINUTO } from '../utilities/constants/subtypes'
 import { addSlashToEnd } from '../utilities/parse/strings'
 import RedirectError from '../utilities/redirect-error'
 import { publicidadAmpMovil0 } from '../utilities/story/helpers-amp'
@@ -488,7 +488,7 @@ const AmpOutputType = ({
         )}
       </head>
       <body className={subtype}>
-        {!isTrivia || !(arcSite === SITE_TROME && (subtype === GALLERY_VERTICAL || subtype === MINUTO_MINUTO)) && (
+        {!isTrivia && (
           <>
             <AmpTagManager {...parametros} />
             <amp-sticky-ad
