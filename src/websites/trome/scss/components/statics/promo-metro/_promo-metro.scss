@@ -51,7 +51,7 @@ $font-color: #ee7325;
       #ee8f25
     );
     width: 100%;
-    border-radius: 16px;
+    border-radius: 0px 0px 16px 16px;
     padding: 20px;
     @media (--desktop) {
       padding: 40px;
@@ -59,22 +59,73 @@ $font-color: #ee7325;
   }
 
   &-header {
-    justify-content: space-between;
-  }
+    flex-direction: column;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    background: linear-gradient(
+      to right,
+      #ee8f25,
+      #f9d320 15%,
+      #f9d320 85%,
+      #ee8f25
+    );
 
-  &-logometro {
-    width: 90px;
-    filter: drop-shadow(5px 5px 10px #444);
-    @media (--tablet) {
-      width: 170px;
+    &-container {
+      padding: 20px;
+      @media (--desktop) {
+        padding: 40px;
+      }
     }
-  }
 
-  &-logoclubt {
-    height: 50px;
-    filter: drop-shadow(5px 10px 10px #444);
-    @media (--tablet) {
+    &-logometro {
+      width: 60px;
+      filter: drop-shadow(5px 5px 10px #444);
+      @media (--tablet) {
+        width: 170px;
+      }
+    }
+
+    &-logoclubt {
+      height: 38px;
+      filter: drop-shadow(5px 10px 10px #444);
+      @media (--tablet) {
+        height: 80px;
+      }
+    }
+
+    &-second-container {
       height: 80px;
+
+      @media (--tablet) {
+        height: 150px;
+      }
+    }
+    &-second-mini-container {
+      top: -10px;
+      justify-content: end;
+      @media (--tablet) {
+        top: -70px;
+      }
+      @media (--desktop) {
+        justify-content: center;
+      }
+    }
+
+    &-family {
+      width: 140px;
+
+      @media (--tablet) {
+        width: 300px;
+      }
+    }
+
+    &-exclusive {
+      height: 60px;
+      width: auto;
+      margin: auto 0;
+      @media (--tablet) {
+        height: 150px;
+      }
     }
   }
 
@@ -248,8 +299,8 @@ $font-color: #ee7325;
 
   &-second-column-sf {
     width: 50%;
-    padding-left: 3%;
-    border-left: 1.5px solid $border-color;
+    border-left: 2px #fee6cd solid;
+    padding: 10px 0px 10px 3%;
   }
 
   &-first-column-ec {
@@ -260,8 +311,8 @@ $font-color: #ee7325;
   &-second-column-ec {
     width: 50%;
     text-align: start;
-    padding-left: 3%;
-    border-left: 1.5px #fee6cd solid;
+    border-left: 2px #fee6cd solid;
+    padding: 10px 0px 10px 3%;
   }
 
   // &-separator {
@@ -342,6 +393,19 @@ $font-color: #ee7325;
 
   &-cencosud {
     padding-top: 10px;
+    &-code {
+      font-weight: bold;
+      color: #7a7979;
+      font-size: 14.5px;
+      padding-top: 2px;
+      text-align: center;
+      word-break: break-word;
+      // color: #575557;
+      @media (--tablet) {
+        font-size: 16px;
+      }
+    }
+
     &-image {
       width: 30px;
       padding-left: 5px;
@@ -368,15 +432,27 @@ $font-color: #ee7325;
     &-percentage {
       color: $font-color;
       font-size: 18px;
+      font-weight: 900;
       @media (--tablet) {
         font-size: 20px;
       }
     }
     &-discount {
       color: $font-color;
+      font-weight: 900;
       font-size: 6px;
       @media (--tablet) {
         font-size: 8px;
+      }
+    }
+    &-discount-title {
+      color: #7b7a7a;
+      font-size: 11px;
+      padding-top: 1px;
+      padding-bottom: 5px;
+      text-align: center;
+      @media (--tablet) {
+        font-size: 13px;
       }
     }
   }
@@ -430,10 +506,11 @@ $font-color: #ee7325;
   &-dsctoE {
     color: $font-color;
     font-size: 28px;
-    font-weight: 600;
+    font-weight: 900;
+
     // text-align: center;
     @media (--tablet) {
-      font-size: 34px;
+      font-size: 32px;
     }
     & span {
       font-size: 15px;
@@ -455,7 +532,7 @@ $font-color: #ee7325;
   &-limit {
     color: $font-color;
     font-size: 20px;
-    font-weight: 600;
+    font-weight: 900;
     //text-align: center;
     @media (--tablet) {
       font-size: 22px;
@@ -479,19 +556,21 @@ $font-color: #ee7325;
     color: #7b7a7a;
     font-size: 11px;
     padding-top: 1px;
-
+    text-align: center;
     @media (--tablet) {
-      font-size: 15px;
+      font-size: 13px;
     }
   }
   &-code {
     font-weight: bold;
     color: #7a7979;
-    font-size: 22px;
-    padding-top: 2px;
+    font-size: 14.5px;
+    text-align: center;
+    padding-top: 5px;
     word-break: break-word;
+    // color: #575557;
     @media (--tablet) {
-      font-size: 24px;
+      font-size: 16px;
     }
   }
 
@@ -499,10 +578,12 @@ $font-color: #ee7325;
     font-weight: bold;
     color: #7a7979;
     margin-top: 15px;
-    font-size: 11.5px;
+    text-align: center;
+    font-size: 10px;
     word-break: break-word;
+    // color: #575557;
     @media (--tablet) {
-      font-size: 16.5px;
+      font-size: 11px;
     }
   }
 

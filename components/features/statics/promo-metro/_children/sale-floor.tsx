@@ -12,11 +12,13 @@ const classes = {
   quantity: 'coupon-quantity',
   percentage: 'coupon-percentage',
   cencosud: 'coupon-cencosud',
+  codeCencosud: 'coupon-cencosud-code',
   imageCencosud: 'coupon-cencosud-image',
   priceCencosud: 'coupon-cencosud-price',
   percentageCencosud: 'coupon-cencosud-percentage',
   couponDsctoCencosud: 'coupon-cencosud-discount',
   textCencosud: 'coupon-cencosud-text',
+  discountTitleCencosud: 'coupon-cencosud-discount-title',
   bonus: 'coupon-bonus',
   pointsBonus: 'coupon-bonus-points',
   textPointsBonus: 'coupon-bonus-text',
@@ -34,6 +36,10 @@ enum DiscountType {
   Amount = 'S/',
 }
 
+interface Cencosud {
+  code: string
+  price: string
+}
 interface Bonus {
   price: string
   points: string
@@ -45,7 +51,7 @@ interface CouponProps {
   discount: string
   discountType: DiscountType
   title: string
-  priceCencosud?: string
+  cencosud?: Cencosud | null
   bonus?: Bonus | null
   restrictions?: []
 }
@@ -56,7 +62,7 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
   discount = '',
   discountType = '',
   title = '',
-  priceCencosud = '',
+  cencosud = null,
   bonus = null,
   restrictions = [],
 }) => {
@@ -112,25 +118,31 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
             ))
           : null}
         <div className={`${classes.cencosud} flex flex-col`}>
-          {priceCencosud && (
-            <div className="flex items-end">
-              <p className={classes.priceCencosud}>{priceCencosud}</p>
-              <div className="flex flex-col">
-                <p className={classes.percentageCencosud}>%</p>
-                <p className={classes.couponDsctoCencosud}>DSCTO</p>
+          {cencosud && (
+            <div className="flex flex-col">
+              <div className="flex items-end">
+                <p className={classes.priceCencosud}>{cencosud.price}</p>
+                <div className="flex flex-col">
+                  <p className={classes.percentageCencosud}>%</p>
+                  <p className={classes.couponDsctoCencosud}>DSCTO</p>
+                </div>
+                <img
+                  className={classes.imageCencosud}
+                  src={`${getAssetsPath(
+                    arcSite,
+                    contextPath
+                  )}/resources/dist/${arcSite}/images/tarjeta-cencosud.png?d=1`}
+                  alt="cencosud"
+                />
+                <div style={{ padding: '2px' }}>
+                  <p className={classes.textCencosud}>Tarjeta</p>
+                  <p className={classes.textCencosud}>Cencosud</p>
+                </div>
               </div>
-              <img
-                className={classes.imageCencosud}
-                src={`${getAssetsPath(
-                  arcSite,
-                  contextPath
-                )}/resources/dist/${arcSite}/images/tarjeta-cencosud.png?d=1`}
-                alt="cencosud"
-              />
-              <div style={{ padding: '2px' }}>
-                <p className={classes.textCencosud}>Tarjeta</p>
-                <p className={classes.textCencosud}>Cencosud</p>
-              </div>
+              <p className={classes.codeCencosud}>{cencosud.code}</p>
+              <p className={classes.discountTitleCencosud}>
+                Código con Tarjeta
+              </p>
             </div>
           )}
           {bonus && (

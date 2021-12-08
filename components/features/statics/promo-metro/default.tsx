@@ -13,8 +13,13 @@ import SaleFloorCard from './_children/sale-floor'
 const classes = {
   base: 'metro w-full h-full',
   header: 'items-center flex metro-header',
-  logoMetro: 'metro-logometro',
-  logoClubTrome: 'metro-logoclubt',
+  headerContainer: 'metro-header-container w-full',
+  headerLogoMetro: 'metro-header-logometro',
+  headerSecondContainer: 'metro-header-second-container',
+  headerSecondMiniContainer: 'metro-header-second-mini-container',
+  headerLogoClubTrome: 'metro-header-logoclubt',
+  headerMetroFamily: 'metro-header-family',
+  headerExclusiveDescounts: 'metro-header-exclusive',
   container: 'metro__container flex flex-col justify-center',
   title: 'metro-title',
   subtitle: 'metro-subtitle',
@@ -54,13 +59,17 @@ interface Bonus {
   price: string
   points: string
 }
+interface Cencosud {
+  code: string
+  price: string
+}
 interface CouponSale {
   code: string
   image?: string
   discount: string
   discountType: DiscountType
   title: string
-  priceCencosud?: string
+  cencosud?: Cencosud
   bonus?: Bonus
   restrictions?: []
 }
@@ -107,9 +116,8 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
     textToShare = '',
     pathToShare = '',
     logo = 'logo-metro.png',
-    title = '¡Bienvenido!',
-    subtitleBold = '¡Gracias por ser un trome!',
-    subtitle = 'Ahora como buen Trome, disfruta de estos descuentazos en cualquier tienda Metro',
+    // title = '¡Bienvenido!',
+    // subtitle = 'Ahora como buen Trome, disfruta de estos descuentazos en cualquier tienda Metro',
     // disableDownload = false,
     // disableShareByEmail = false,
     disableShareBySocialNetwork = false,
@@ -125,18 +133,6 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
   // const coupons = couponsJson && JSON.parse(couponsJson)
   const productsSaleFloor: ProductsSaleFloor =
     couponsSaleFloorJson && JSON.parse(couponsSaleFloorJson)
-
-  // || [
-  //   {
-  //     code: '0101010101',
-  //     image:
-  //       'https://www.metro.com.co/wp-content/uploads/2020/01/promo-metro-0101010101.png',
-  //     discount: 10, // number
-  //     discountType: DiscountType.Percentage, // DiscountType
-  //     title: 'PIQUEOS',
-  //     legal: 'Válido hasta el jueves',
-  //   },
-  // ]
 
   const productsECommerce: ProductsECommerce =
     couponsECommerceJson && JSON.parse(couponsECommerceJson)
@@ -173,10 +169,11 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
     // verifica si hay un usuario sesionado
     // en caso haya se muestra la landing, de lo contrario te redirecciona al organic
 
-    if (!isLoggedIn())
+    if (!isLoggedIn()) {
       window.location.href = '/signwall/?outputType=subscriptions'
-
-    setLoading(false)
+    } else {
+      setLoading(false)
+    }
   }, [])
 
   const logoMetro = `${getAssetsPath(
@@ -186,28 +183,66 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
 
   return !loading ? (
     <div className={classes.base}>
-      <div className={classes.container}>
-        <div className={classes.header}>
-          <img
-            className={classes.logoMetro}
-            src={logoMetro}
-            alt="logo metro"
-            loading="eager"
-          />
-          <img
-            className={classes.logoClubTrome}
-            src={`${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/dist/${arcSite}/images/logo-club-trome.png?d=1`}
-            alt="logo club trome"
-            loading="eager"
-          />
-        </div>
+      <div className={classes.header}>
+        <img
+          className="w-full position-absolute"
+          src="/pf/resources/dist/trome/images/productos-fondo.svg"
+          alt="fondo productos"
+        />
+        <img
+          className="w-full position-absolute"
+          src="https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/fondo-puntitos.png?alt=media&token=6fb76b2d-3807-4b26-a9de-94f36bc6f2bf"
+          alt="fondo puntitos"
+        />
+        <div className={classes.headerContainer}>
+          <div className="items-start flex justify-between w-full position-relative">
+            <img
+              className={classes.headerLogoMetro}
+              src={logoMetro}
+              alt="logo metro"
+              loading="eager"
+            />
 
-        <h1 className={classes.title}>{title}</h1>
-        <h1 className={classes.subtitleBold}>{subtitleBold}</h1>
-        <h2 className={classes.subtitle}>{subtitle}</h2>
+            <img
+              className={classes.headerLogoClubTrome}
+              src={`${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/${arcSite}/images/logo-club-trome.png?d=1`}
+              alt="logo club trome"
+              loading="eager"
+            />
+          </div>
+
+          <div
+            className={`${classes.headerSecondContainer} w-full position-relative`}>
+            <div
+              className={`${classes.headerSecondMiniContainer} position-absolute justify-center flex w-full`}>
+              <img
+                // className={classes.logoClubTrome}
+                // src={`${getAssetsPath(
+                //   arcSite,
+                //   contextPath
+                // )}/resources/dist/${arcSite}/images/familia-trome.png?d=1`}
+                className={`${classes.headerMetroFamily}`}
+                src="https://firebasestorage.googleapis.com/v0/b/imagenes-4f708.appspot.com/o/familia-prueba.png?alt=media&token=0b74eb98-de2d-4864-871b-82577b851cf5"
+                alt="familia Trome"
+                loading="eager"
+              />
+              <img
+                // className={classes.logoClubTrome}
+                className={`${classes.headerExclusiveDescounts}`}
+                src="/pf/resources/dist/trome/images/mejores-ofertas-metro.png"
+                alt="mejores ofertas"
+                loading="eager"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={classes.container}>
+        {/* <h1 className={classes.title}>{title}</h1>
+        <h2 className={classes.subtitle}>{subtitle}</h2> */}
         <div className={classes.grid}>
           {couponsSale &&
             couponsSale.map((coupon: CouponSale) => (
@@ -219,7 +254,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
                 discount={coupon.discount}
                 discountType={coupon.discountType}
                 title={coupon.title}
-                priceCencosud={coupon.priceCencosud}
+                cencosud={coupon.cencosud || undefined}
                 bonus={coupon.bonus || undefined}
                 restrictions={coupon.restrictions || []}
               />
@@ -328,16 +363,16 @@ StaticsPromoMetro.propTypes = {
         'Por defecto ya existe logo, esto es en caso de que quieran modificar el logo por alguna fecha particular',
       group: 'configuración',
     }),
-    title: PropTypes.string.tag({
-      name: 'Título',
-      description: 'Título de la landing',
-      group: 'configuración',
-    }),
-    subtitle: PropTypes.string.tag({
-      name: 'Subtítulo',
-      description: 'Subtítulo de la landing',
-      group: 'configuración',
-    }),
+    // title: PropTypes.string.tag({
+    //   name: 'Título',
+    //   description: 'Título de la landing',
+    //   group: 'configuración',
+    // }),
+    // subtitle: PropTypes.string.tag({
+    //   name: 'Subtítulo',
+    //   description: 'Subtítulo de la landing',
+    //   group: 'configuración',
+    // }),
     disableDownload: PropTypes.bool.tag({
       name: 'Desactivar botón para descargar cuponera',
       defaultValue: false,

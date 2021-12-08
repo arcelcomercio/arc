@@ -2,9 +2,9 @@
   "products": [
     {
       "code": "CUPONTROME129",
-      "discount": "s/ 30",
+      "discount": "S/ 30",
       "reason": "dscto. por compras desde",
-      "limit": "s/ 129",
+      "limit": "S/ 129",
       "local": "en supermercados",
       "restrictions": {
         "ususNumber": "1000",
@@ -13,9 +13,9 @@
     },
     {
       "code": "CUPONTROME99",
-      "discount": "s/ 30",
+      "discount": "S/ 30",
       "reason": "dscto. por compras desde",
-      "limit": "s/ 99",
+      "limit": "S/ 99",
       "local": "en Canastas Navideñas",
       "restrictions": {
         "ususNumber": "1000",
@@ -24,9 +24,9 @@
     },
     {
       "code": "CUPONTROMEPANETON",
-      "discount": "s/ 30",
+      "discount": "S/ 30",
       "reason": "dscto. por compras desde",
-      "limit": "s/ 129",
+      "limit": "S/ 129",
       "local": "en Panetones",
       "restrictions": {
         "ususNumber": "1000",
