@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 
 import { premiosDepor } from './_dependencies/data-premios-depor'
-import { Attribute,Profile } from './_utils/types'
+import { Attribute, Profile } from './_utils/types'
 
 const classes = {
   content: 'content-premios-depor',
@@ -37,7 +37,7 @@ const ContentPremiosDepor = (props: Props) => {
   } = customFields || {}
 
   const [error, setError] = useState(false)
-  const [voted, setVoted] = useState(false)
+  const [voted, setVoted] = useState(true)
   const [result, setResult] = useState({})
   const [userProfile, setUserProfile] = useState({})
 
@@ -88,7 +88,7 @@ const ContentPremiosDepor = (props: Props) => {
         user_type_doc: getUserAttributes('type_doc', attributes),
         user_dni: getUserAttributes('dni', attributes),
         user_email: email || '',
-        user_birthday: `${birthDay  }-${  birthMonth  }-${  birthYear}` || '',
+        user_birthday: `${birthDay}-${birthMonth}-${birthYear}` || '',
         user_phone: contacts[0]?.phone || '',
         user_address: addresses || '',
       })
@@ -97,7 +97,7 @@ const ContentPremiosDepor = (props: Props) => {
       )
       const { results = [] } = await voteFetch.json()
       if (results.length > 0) {
-        setVoted(true)
+        setVoted(false)
       }
     } else {
       document.location.href =
@@ -211,7 +211,7 @@ const ContentPremiosDepor = (props: Props) => {
             )}
           </div>
 
-          {!voted && (
+          {voted && (
             <div className={classes.containerButton}>
               <button type="submit" className={classes.button}>
                 ENVIAR
