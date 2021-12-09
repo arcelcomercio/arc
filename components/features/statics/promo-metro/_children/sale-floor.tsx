@@ -51,6 +51,7 @@ interface CouponProps {
   image?: string
   defaultImage: string
   discount: string
+  additional?: boolean
   discountType: DiscountType
   title: string
   cencosud?: Cencosud | null
@@ -65,6 +66,7 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
   image = '',
   defaultImage = '',
   discount = '',
+  additional = false,
   discountType = '',
   title = '',
   cencosud = null,
@@ -106,6 +108,9 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
             <div className="flex flex-col" style={{ paddingLeft: '3px' }}>
               <p className={classes.percentage}>%</p>
               <p className={classes.couponDscto}>DSCTO</p>
+              {additional ? (
+                <p className={classes.couponDscto}>ADICIONAL</p>
+              ) : null}
             </div>
           </div>
         ) : null}
