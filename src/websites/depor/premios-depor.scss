@@ -48,6 +48,7 @@ $primary-font: "Roboto", sans-serif;
 $secondary-font: "Exo 2", sans-serif;
 $regular: 400;
 $medium: 500;
+$semi-bold: 600;
 $bold: 700;
 
 /** ----------------------------*
@@ -56,3 +57,4 @@ $bold: 700;
 @import "../../general-styles/framework/variables/declare-sizes";
 @import "../../general-styles/framework/variables/breakpoints";
 @import "./scss/lite-components/features/header/premios-depor/premios.scss";
+@import "./scss/components/features/statics/content-premios-depor";
