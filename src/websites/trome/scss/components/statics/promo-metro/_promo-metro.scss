@@ -11,13 +11,13 @@
   }
   100% {
     opacity: 1;
-    transform: translateY(-60px);
+    transform: translateY(-100px);
   }
 }
 @keyframes customShareOut {
   0% {
     opacity: 1;
-    transform: translateY(-60px);
+    transform: translateY(-100px);
   }
   99% {
     opacity: 0.01;
@@ -96,7 +96,12 @@ $font-color: #ee7325;
     );
 
     &-container {
-      padding: 20px;
+      z-index: 10;
+      padding: 20px 20px 10px;
+
+      @media (--tablet) {
+        padding: 20px;
+      }
 
       @media (--desktop) {
         padding: 40px;
@@ -120,27 +125,25 @@ $font-color: #ee7325;
     }
 
     &-second-container {
-      height: 80px;
+      margin-top: -10px;
+      min-height: 100px;
 
       @media (--tablet) {
-        height: 150px;
-      }
-    }
-    &-second-mini-container {
-      top: -10px;
-      justify-content: end;
-      @media (--tablet) {
-        top: -70px;
+        min-height: 120px;
       }
       @media (--desktop) {
-        justify-content: center;
+        min-height: 150px;
       }
     }
 
     &-family {
       width: 140px;
+      margin-left: 30px;
 
       @media (--tablet) {
+        width: 260px;
+      }
+      @media (--desktop) {
         width: 300px;
       }
     }
@@ -150,6 +153,9 @@ $font-color: #ee7325;
       width: auto;
       margin: auto 0;
       @media (--tablet) {
+        height: 120px;
+      }
+      @media (--desktop) {
         height: 150px;
       }
     }
