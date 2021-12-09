@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 
 import { premiosDepor } from './_dependencies/data-premios-depor'
-import { Profile } from './_utils/types'
+import { Attribute,Profile } from './_utils/types'
 
 const classes = {
   content: 'content-premios-depor',
@@ -23,10 +24,43 @@ const classes = {
 }
 
 const uri = 'https://cdna.depor.com/resources/dist/depor/premios-depor'
+interface Props {
+  customFields?: {
+    serviceEndPoint?: string
+  }
+}
 
-const ContentPremiosDepor = () => {
+const ContentPremiosDepor = (props: Props) => {
+  const { customFields } = props
+  const {
+    serviceEndPoint = 'http://pre.md.minoticia.pe/portal_apis/premios-depor/',
+  } = customFields || {}
+
   const [error, setError] = useState(false)
+  const [voted, setVoted] = useState(false)
   const [result, setResult] = useState({})
+  const [userProfile, setUserProfile] = useState({})
+
+  const getUserAttributes = (type: string, attributes: Attribute[]) => {
+    switch (type) {
+      case 'type_doc': {
+        const documentType = attributes.find(
+          ({ name }) => name === 'documentType'
+        )
+        return documentType?.value || ''
+      }
+
+      case 'dni': {
+        const documentNumber = attributes.find(
+          ({ name }) => name === 'documentNumber'
+        )
+        return documentNumber?.value || ''
+      }
+
+      default:
+        return ''
+    }
+  }
 
   const getData = async () => {
     const rawProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
@@ -35,9 +69,37 @@ const ContentPremiosDepor = () => {
       localProfile = JSON.parse(rawProfile)
     }
     if (localProfile?.uuid) {
-      setResult({ ...result, user_uuid: localProfile?.uuid })
+      const {
+        uuid,
+        firstName,
+        lastName,
+        attributes,
+        email,
+        birthDay,
+        birthMonth,
+        birthYear,
+        contacts,
+        addresses,
+      } = localProfile
+      setUserProfile({
+        user_uuid: uuid,
+        user_name: firstName || '',
+        user_lastn: lastName || '',
+        user_type_doc: getUserAttributes('type_doc', attributes),
+        user_dni: getUserAttributes('dni', attributes),
+        user_email: email || '',
+        user_birthday: `${birthDay  }-${  birthMonth  }-${  birthYear}` || '',
+        user_phone: contacts[0]?.phone || '',
+        user_address: addresses || '',
+      })
+      const voteFetch = await fetch(
+        `${serviceEndPoint}?format=json&user_uuid=${uuid}`
+      )
+      const { results = [] } = await voteFetch.json()
+      if (results.length > 0) {
+        setVoted(true)
+      }
     } else {
-      return
       document.location.href =
         '/signwall/?outputType=subscriptions&signwallOrganic=1'
     }
@@ -52,13 +114,26 @@ const ContentPremiosDepor = () => {
     setError(false)
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (Object.keys(result).length !== premiosDepor.length)
       return setError(true)
 
-    console.log(result)
-    return null
+    const newObject = Object.assign(result, userProfile)
+    console.log(newObject)
+
+    const voteFetch = await fetch(serviceEndPoint, {
+      method: 'POST',
+      body: JSON.stringify(newObject),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    const newVotefetch = await voteFetch.json()
+    console.log(newVotefetch)
+
+    return true
   }
 
   return (
@@ -136,16 +211,18 @@ const ContentPremiosDepor = () => {
             )}
           </div>
 
-          <div className={classes.containerButton}>
-            <button type="submit" className={classes.button}>
-              ENVIAR
-            </button>
-            {error && (
-              <p className={classes.error}>
-                * Debes elegir un ganador en cada categoría para continuar
-              </p>
-            )}
-          </div>
+          {!voted && (
+            <div className={classes.containerButton}>
+              <button type="submit" className={classes.button}>
+                ENVIAR
+              </button>
+              {error && (
+                <p className={classes.error}>
+                  * Debes elegir un ganador en cada categoría para continuar
+                </p>
+              )}
+            </div>
+          )}
         </form>
       </div>
     </div>
@@ -153,5 +230,15 @@ const ContentPremiosDepor = () => {
 }
 
 ContentPremiosDepor.label = 'Contenido premios depor'
+
+ContentPremiosDepor.propTypes = {
+  customFields: PropTypes.shape({
+    serviceEndPoint: PropTypes.string.tag({
+      name: 'URL del servicio',
+      description:
+        'Por defecto la URL es http://pre.md.minoticia.pe/portal_apis/premios-depor/',
+    }),
+  }),
+}
 
 export default ContentPremiosDepor
