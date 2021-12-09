@@ -18,9 +18,9 @@ const classes = {
   headerContainer: 'metro-header-container w-full',
   headerLogoMetro: 'metro-header-logometro',
   headerSecondContainer:
-    'metro-header-second-container  w-full position-relative',
+    'metro-header-second-container w-full justify-center flex',
   headerSecondMiniContainer:
-    'metro-header-second-mini-container  position-absolute justify-center flex w-full',
+    'metro-header-second-mini-container position-absolute justify-center flex w-full',
   headerLogoClubTrome: 'metro-header-logoclubt',
   headerMetroFamily: 'metro-header-family',
   headerExclusiveDescounts: 'metro-header-exclusive',
@@ -213,24 +213,22 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
           </div>
 
           <div className={classes.headerSecondContainer}>
-            <div className={classes.headerSecondMiniContainer}>
-              <img
-                className={classes.headerMetroFamily}
-                src={deployment(
-                  '/pf/resources/dist/trome/images/familia-trome.png'
-                )}
-                alt="familia Trome"
-                loading="eager"
-              />
-              <img
-                className={classes.headerExclusiveDescounts}
-                src={deployment(
-                  '/pf/resources/dist/trome/images/mejores-ofertas-metro.png'
-                )}
-                alt="mejores ofertas"
-                loading="eager"
-              />
-            </div>
+            <img
+              className={classes.headerMetroFamily}
+              src={deployment(
+                '/pf/resources/dist/trome/images/familia-trome.png'
+              )}
+              alt="familia Trome"
+              loading="eager"
+            />
+            <img
+              className={classes.headerExclusiveDescounts}
+              src={deployment(
+                '/pf/resources/dist/trome/images/mejores-ofertas-metro.png'
+              )}
+              alt="mejores ofertas"
+              loading="eager"
+            />
           </div>
         </div>
       </header>
