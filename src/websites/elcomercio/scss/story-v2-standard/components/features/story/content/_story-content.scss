@@ -150,19 +150,20 @@
         &-link {
           a {
             display: inline-block;
-            margin-top: -20px;
+            margin-top: -22px;
             margin-left: 20px;
-            color: #035A80;
+            color: #035a80;
             font: 500 18px/24px $secondary-font;
-            letter-spacing: 0px;
+            letter-spacing: 0;
             text-align: left;
+            text-decoration: none;
           }
           &::before {
             content: ">";
             display: inline-block;
-            color: #035A80;
-            font: 500 18px/16px $secondary-font;
-            letter-spacing: 0px;
+            color: #035a80;
+            font: 900 18px/16px $secondary-font;
+            letter-spacing: 0;
             text-align: left;
           }
         }
@@ -170,7 +171,7 @@
       &-item {
         margin-bottom: 20px;
       }
-      &-figure{
+      &-figure {
         height: 185px;
         margin-left: 20px;
         margin-top: 20px;
