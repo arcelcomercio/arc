@@ -189,7 +189,21 @@ $font-color: #ee7325;
 
   &__footer {
     padding-top: 20px;
-    position: relative;
+
+    &.sticky {
+      bottom: 40px;
+      right: 0;
+      position: fixed;
+      left: 0;
+      padding-left: 8%;
+      padding-right: 8%;
+      margin: auto;
+      @media (--tablet) {
+        padding-left: 3%;
+        padding-right: 3%;
+        max-width: 1420px;
+      }
+    }
 
     &__logo {
       width: 120px;

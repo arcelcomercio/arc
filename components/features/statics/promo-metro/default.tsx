@@ -32,7 +32,7 @@ const classes = {
   legal: 'metro__legal',
   legalTitle: 'metro__legal-title',
   grid: 'metro-grid',
-  footer: 'metro__footer flex items-center justify-between',
+  footer: 'metro__footer flex items-center justify-between w-full',
   logoTrome: 'metro__footer__logo',
   // download: 'metro-download',
   share: 'metro__footer__share flex items-center',
@@ -42,10 +42,12 @@ interface StaticsPromoMetroProps {
   customFields?: {
     couponsSaleFloorJson?: string
     couponsECommerceJson?: string
+    titleToLogin?: string
     titleToShare?: string
     textToShare?: string
     pathToShare?: string
     logo?: string
+    disableStickyFooter?: boolean
     disableDownload?: boolean
     disableShareByEmail?: boolean
     disableShareBySocialNetwork?: boolean
@@ -120,12 +122,14 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
   const {
     couponsSaleFloorJson,
     couponsECommerceJson,
+    titleToLogin = 'Para ver los cupones, debes estar registrado',
     titleToShare = '',
     textToShare = '',
     pathToShare = '/promo-metro',
     logo = 'logo-metro.png',
     // disableDownload = false,
     // disableShareByEmail = false,
+    disableStickyFooter = false,
     disableShareBySocialNetwork = false,
   } = customFields || {}
 
@@ -252,7 +256,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
         {userState === UserState.LoggedOut ? (
           <div className={classes.loginContainer}>
             <h1 className={classes.title}>
-              Para ver los cupones, debes estar registrado
+              {titleToLogin || 'Para ver los cupones, debes estar registrado'}
             </h1>
             <a
               className={classes.share}
@@ -321,18 +325,30 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
             <p className={classes.legal}>{legalEcommerce}</p>
           </>
         ) : null}
-        <div className={classes.footer}>
-          <img
-            className={classes.logoTrome}
-            src={`${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`}
-            alt="logo trome"
-            loading="lazy"
-          />
+        {disableStickyFooter ? null : (
+          <div className="w-full" style={{ height: '57px' }} />
+        )}
+        <div
+          className={`${classes.footer}  ${
+            disableStickyFooter ? 'position-relative' : 'sticky'
+          }`}>
+          <a href="/">
+            <img
+              className={classes.logoTrome}
+              src={`${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`}
+              alt="logo trome"
+              loading="lazy"
+            />
+          </a>
+
           {disableShareBySocialNetwork ? null : (
-            <div className="flex">
+            <div
+              className={`flex w-full justify-end ${
+                disableStickyFooter ? '' : 'position-relative'
+              }`}>
               <button
                 className={classes.share}
                 type="button"
@@ -388,10 +404,21 @@ StaticsPromoMetro.propTypes = {
       description: 'Ejemplo: /cuponera-trome',
       group: 'redes sociales',
     }),
+    titleToLogin: PropTypes.string.tag({
+      name: 'Título de bienvenida para usuario sin sesión activa',
+      description:
+        'Título de bienvenida para usuario no registrado o sin sesión activa',
+      group: 'configuración',
+    }),
     logo: PropTypes.string.tag({
       name: 'Logo de Metro',
       description:
         'Por defecto ya existe logo, esto es en caso de que quieran modificar el logo por alguna fecha particular',
+      group: 'configuración',
+    }),
+    disableStickyFooter: PropTypes.bool.tag({
+      name: 'Desactivar versión sticky del footer',
+      defaultValue: false,
       group: 'configuración',
     }),
     disableDownload: PropTypes.bool.tag({
