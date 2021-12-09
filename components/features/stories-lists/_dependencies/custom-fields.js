@@ -34,8 +34,21 @@ export const customFieldsAdsList = {
     group: 'Publicidad Movil',
   }),
   structuredData: PropTypes.bool.tag({
-    name: '¿Generar datos estructurados?', 
+    name: '¿Generar datos estructurados?',
     defaultValue: false,
+  }),
+  showTitle: PropTypes.bool.tag({
+    name: 'Mostrar título',
+    defaultValue: false,
+  }),
+  showMiddle: PropTypes.bool.tag({
+    name: 'Mostrar "middle"',
+    group: 'Publicidad Middle',
+    defaultValue: false,
+  }),
+  adsMiddlePosition: PropTypes.number.tag({
+    name: 'Posición en la lista',
+    group: 'Publicidad Middle',
   }),
 }
 

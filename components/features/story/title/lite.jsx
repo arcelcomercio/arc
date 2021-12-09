@@ -2,7 +2,7 @@ import { useFusionContext } from 'fusion:context'
 import React from 'react'
 
 import ShareButtons from '../../../global-components/lite/share'
-import { SITE_DEPOR } from '../../../utilities/constants/sitenames'
+import { SITE_DEPOR, SITE_TROME } from '../../../utilities/constants/sitenames'
 import StoryData from '../../../utilities/story-data'
 import PremiumTag from './_children/premium'
 
@@ -11,6 +11,7 @@ const classes = {
   listClasses: 'sht__list',
   title: 'sht__title',
   category: 'sht__category',
+  related: 'sht__related',
 }
 
 const StoryTitleLite = () => {
@@ -29,6 +30,7 @@ const StoryTitleLite = () => {
     primarySectionLink,
     primarySection,
     contentElementsListOne: { items = [], type = '' } = {},
+    contentElementsQuoteOne,
   } = new StoryData({
     data,
     arcSite,
@@ -46,7 +48,7 @@ const StoryTitleLite = () => {
   return (
     <>
       {arcSite === SITE_DEPOR &&
-      !(/^\/mexico\//.test(requestUri) || /^\/colombia\//.test(requestUri)) ? (
+        !(/^\/mexico\//.test(requestUri) || /^\/colombia\//.test(requestUri)) ? (
         <div id="spc_post_stories" />
       ) : null}
       {arcSite === SITE_DEPOR && (
@@ -58,9 +60,8 @@ const StoryTitleLite = () => {
         {title}
       </h1>
       {items &&
-      type === 'list' &&
-      !isStoryV2StandarStyle /* &&
-      !isStoryV2VideoStyle */ ? (
+        type === 'list' &&
+        !isStoryV2StandarStyle ? (
         <>
           <div style={styleList}>
             <ul className={classes.listClasses}>
@@ -83,7 +84,7 @@ const StoryTitleLite = () => {
           )}
           {items &&
             type === 'list' &&
-            isStoryV2StandarStyle /* || isStoryV2VideoStyle */ && (
+            isStoryV2StandarStyle && (
               <ul className={classes.listClasses}>
                 {items.map(({ content }) => (
                   <>
@@ -94,6 +95,12 @@ const StoryTitleLite = () => {
             )}
           {(isStoryV2StandarStyle || isStoryV2VideoStyle) && (
             <ShareButtons renderScripts />
+          )}
+          {arcSite === SITE_TROME && contentElementsQuoteOne && (
+            <div
+              className={classes.related}
+              dangerouslySetInnerHTML={{ __html: contentElementsQuoteOne }}
+            />
           )}
         </>
       )}
