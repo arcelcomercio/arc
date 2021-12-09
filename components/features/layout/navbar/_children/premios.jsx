@@ -10,14 +10,15 @@ const classes = {
   box: 'premios_depor__header__box',
   boxMob: 'premios_depor__header__boxMob',
   cont: 'premios_depor__header__cont',
+  opacity: 'premios_depor__header__opacity',
   contLeft: 'premios_depor__header__cont__contLeft',
   flecha: 'premios_depor__header__cont__contLeft__flecha',
   logo: 'premios_depor__header__cont__contLeft__logo',
   contRight: 'premios_depor__header__cont__contRight',
   terminos: 'premios_depor__header__cont__contRight__terminos',
-  buttonBef: 'premios_depor__header__cont__contRight__button--befor',
+  buttonBef: 'premios_depor__header__cont__contRight__button--before',
   buttonAft: 'premios_depor__header__cont__contRight__button--after',
-  menu: 'premios_depor__header__cont__menu',
+  menu: 'premios_depor__header__cont__contRight__menu',
 }
 
 let isMobile
@@ -25,6 +26,8 @@ if (typeof window !== 'undefined')
   isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
     window.navigator.userAgent
   )
+
+const isLogedIn = true
 
 class HeaderChildPremiosDepor extends React.PureComponent {
   constructor(props) {
@@ -70,17 +73,26 @@ class HeaderChildPremiosDepor extends React.PureComponent {
       }
     }
 
+    const haciaDeporHome = (e) => {
+      e.preventDefault()
+      window.location.href = `https://depor.com/`
+    }
     return (
       handleHide() && (
         <div className={` ${isMobile ? classes.boxMob : classes.box} `}>
-          <div className={classes.cont}>
+          <div
+            className={` ${classes.cont}
+          ${isMobile ? classes.opacity : ''} `}>
             <div className={classes.contLeft}>
-              <div className={classes.flecha}>
+              <image
+                type="submit"
+                className={classes.flecha}
+                onClick={haciaDeporHome}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
-                  width="16px"
-                  height="16px"
+                  width={24}
+                  height={24}
                   style={{
                     enableBackground: 'new 0 0 24 24',
                   }}
@@ -98,7 +110,7 @@ class HeaderChildPremiosDepor extends React.PureComponent {
                     }}
                   />
                 </svg>
-              </div>
+              </image>
               <div className={classes.logo}>
                 <svg
                   data-name="Capa 1"
@@ -151,7 +163,11 @@ class HeaderChildPremiosDepor extends React.PureComponent {
                   <div className={classes.terminos}>
                     <span>TÉRMINOS Y CONDICIONES</span>
                   </div>
-                  <div className={classes.buttonAft}>MENSAJE</div>
+                  {isLogedIn ? (
+                    <div className={classes.buttonAft}>MENSAJE</div>
+                  ) : (
+                    <div className={classes.buttonBef}>INGRESAR</div>
+                  )}
                 </div>
               </>
             )}
