@@ -6,7 +6,7 @@
     text-align: center;
     width: 360px;
 
-    @media (--tablet) {
+    @media (min-width: 730px) and (max-width: 1008px) {
       width: 688px;
     }
     @media (--desktop) {
@@ -24,7 +24,7 @@
     @media (--desktop) {
       width: 920px;
     }
-    @media (--only-mobile) {
+    @media (max-width: 700px) {
       width: 296px;
     }
 

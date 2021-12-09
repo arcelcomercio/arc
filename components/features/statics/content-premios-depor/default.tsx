@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { premiosDepor } from './_dependencies/data-premios-depor'
+import { Profile } from './_utils/types'
 
 const classes = {
   content: 'content-premios-depor',
@@ -27,17 +28,36 @@ const ContentPremiosDepor = () => {
   const [error, setError] = useState(false)
   const [result, setResult] = useState({})
 
+  const getData = async () => {
+    const rawProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
+    let localProfile: Profile | null | undefined = null
+    if (rawProfile) {
+      localProfile = JSON.parse(rawProfile)
+    }
+    if (localProfile?.uuid) {
+      setResult({ ...result, user_uuid: localProfile?.uuid })
+    } else {
+      return
+      document.location.href =
+        '/signwall/?outputType=subscriptions&signwallOrganic=1'
+    }
+  }
+
+  useEffect(() => {
+    getData()
+  }, [])
+
   const handleSelect = (name: string, value: string) => {
     setResult({ ...result, [name]: value })
     setError(false)
   }
 
-  const handleEnviar = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (Object.keys(result).length !== premiosDepor.length)
       return setError(true)
 
-    // console.log(result)
+    console.log(result)
     return null
   }
 
@@ -60,7 +80,7 @@ const ContentPremiosDepor = () => {
       </div>
 
       <div className={classes.wrapper}>
-        <form onSubmit={handleEnviar}>
+        <form onSubmit={handleSubmit}>
           <div className={classes.form}>
             {premiosDepor.map(
               ({ title, radio, persons, path_img, largeTitle }) => (
