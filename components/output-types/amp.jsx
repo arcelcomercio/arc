@@ -486,6 +486,26 @@ const AmpOutputType = ({
             />
           </>
         )}
+        {
+          arcSite === SITE_TROME && (
+            <>
+              <link
+                rel="preload"
+                href="https://cdna.trome.pe/resources/dist/trome/fonts/encode-sans-condensed-v5-latin-800.woff2"
+                as="font"
+                type="font/woff2"
+                crossOrigin="anonymous"
+              />
+              <link
+                rel="preload"
+                href="https://cdna.trome.pe/resources/dist/trome/fonts/EncodeSansCondensed-Regular.woff2"
+                as="font"
+                type="font/woff2"
+                crossOrigin="anonymous"
+              />
+            </>
+          )
+        }
       </head>
       <body className={subtype}>
         {!isTrivia && (
