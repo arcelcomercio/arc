@@ -3,18 +3,17 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 import { FC } from 'types/features'
 
-import ShareIcon from '../../../global-components/icons/share'
-import ShareButtons from '../../../global-components/lite/share/index'
 import Spinner from '../../../global-components/spinner'
-import { isProd, originByEnv } from '../../../utilities/arc/env'
+import { isProd } from '../../../utilities/arc/env'
 import { getAssetsPath } from '../../../utilities/assets'
 import { isMobile } from '../../../utilities/client/navigator'
 import { isLoggedIn } from '../../../utilities/subscriptions/identity'
 import ECommerceCard from './_children/e-commerce'
 import SaleFloorCard from './_children/sale-floor'
+import PromoMetroShareButton from './_children/share-button'
 
 const classes = {
-  base: 'metro w-full h-full',
+  base: 'metro w-full h-full mx-auto',
   header: 'items-center flex metro-header position-relative',
   headerContainer: 'metro-header-container w-full',
   headerLogoMetro: 'metro-header-logometro',
@@ -32,10 +31,11 @@ const classes = {
   legal: 'metro__legal',
   legalTitle: 'metro__legal-title',
   grid: 'metro-grid',
-  footer: 'metro__footer flex items-center justify-between w-full',
+  footer:
+    'metro__footer flex items-center w-full position-relative justify-between',
   logoTrome: 'metro__footer__logo',
+  share: 'metro-share__button flex items-center',
   // download: 'metro-download',
-  share: 'metro__footer__share flex items-center',
 }
 
 interface StaticsPromoMetroProps {
@@ -47,7 +47,7 @@ interface StaticsPromoMetroProps {
     textToShare?: string
     pathToShare?: string
     logo?: string
-    disableStickyFooter?: boolean
+    enableStickyShare?: boolean
     disableDownload?: boolean
     disableShareByEmail?: boolean
     disableShareBySocialNetwork?: boolean
@@ -129,15 +129,14 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
     logo = 'logo-metro.png',
     // disableDownload = false,
     // disableShareByEmail = false,
-    disableStickyFooter = false,
+    enableStickyShare = false,
     disableShareBySocialNetwork = false,
   } = customFields || {}
 
   const { arcSite, contextPath, deployment } = useAppContext()
 
-  const [socialTitle, setSocialTitle] = React.useState(titleToShare)
-  const [activeDefaultShare, setActiveDefaultShare] = React.useState(false)
   const [userState, setUserState] = React.useState(UserState.Loading)
+  const [canUseSticky, setCanUseSticky] = React.useState(false)
 
   // Esto es un ejemplo. Se debe usar couponsJson
   // const coupons = couponsJson && JSON.parse(couponsJson)
@@ -157,32 +156,15 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
     legal: legalEcommerce = '',
   } = productsECommerce
 
-  const origin = originByEnv(arcSite)
-  const urlToShare = `${origin}${pathToShare}`
-
-  const handleShare = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault()
-    if ('share' in navigator && isMobile()) {
-      navigator.share({
-        title: socialTitle,
-        text: textToShare,
-        url: urlToShare,
-      })
-    } else {
-      setActiveDefaultShare(!activeDefaultShare)
-    }
-  }
-
   React.useEffect(() => {
-    if (!socialTitle) setSocialTitle(window.document.title || '')
-
-    // verifica si hay un usuario sesionado
-    // en caso haya se muestra la landing, de lo contrario te redirecciona al organic
-
     if (isLoggedIn()) {
       setUserState(UserState.LoggedIn)
     } else {
       setUserState(UserState.LoggedOut)
+    }
+
+    if (enableStickyShare && 'share' in navigator && isMobile()) {
+      setCanUseSticky(true)
     }
   }, [])
 
@@ -255,9 +237,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
       <div className={classes.container}>
         {userState === UserState.LoggedOut ? (
           <div className={classes.loginContainer}>
-            <h1 className={classes.title}>
-              {titleToLogin || 'Para ver los cupones, debes estar registrado'}
-            </h1>
+            <h1 className={classes.title}>{titleToLogin}</h1>
             <a
               className={classes.share}
               href={
@@ -325,14 +305,8 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
             <p className={classes.legal}>{legalEcommerce}</p>
           </>
         ) : null}
-        {disableStickyFooter ? null : (
-          <div className="w-full" style={{ height: '57px' }} />
-        )}
-        <div
-          className={`${classes.footer}  ${
-            disableStickyFooter ? 'position-relative' : 'sticky'
-          }`}>
-          <a href="/">
+        <div className={classes.footer}>
+          <a href="/" aria-label="Ir a la portada">
             <img
               className={classes.logoTrome}
               src={`${getAssetsPath(
@@ -341,35 +315,29 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
               )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`}
               alt="logo trome"
               loading="lazy"
+              aria-hidden="true"
             />
           </a>
 
-          {disableShareBySocialNetwork ? null : (
-            <div
-              className={`flex w-full justify-end ${
-                disableStickyFooter ? '' : 'position-relative'
-              }`}>
-              <button
-                className={classes.share}
-                type="button"
-                onClick={handleShare}>
-                Compartir <ShareIcon fill="#EE7325" width={16} height={16} />
-              </button>
-              <div
-                className={`metro__footer__social flex position-absolute right-0 ${
-                  activeDefaultShare ? 'in' : 'out'
-                }`}>
-                <ShareButtons
-                  activeCopyLink
-                  activeLinkedin={false}
-                  path={pathToShare}
-                  title={socialTitle}
-                />
-              </div>
-            </div>
+          {canUseSticky || disableShareBySocialNetwork ? null : (
+            <PromoMetroShareButton
+              arcSite={arcSite}
+              pathToShare={pathToShare}
+              titleToShare={titleToShare}
+              textToShare={textToShare}
+            />
           )}
         </div>
       </div>
+      {!canUseSticky || disableShareBySocialNetwork ? null : (
+        <PromoMetroShareButton
+          arcSite={arcSite}
+          pathToShare={pathToShare}
+          titleToShare={titleToShare}
+          textToShare={textToShare}
+          sticky
+        />
+      )}
     </div>
   )
 }
@@ -416,8 +384,8 @@ StaticsPromoMetro.propTypes = {
         'Por defecto ya existe logo, esto es en caso de que quieran modificar el logo por alguna fecha particular',
       group: 'configuración',
     }),
-    disableStickyFooter: PropTypes.bool.tag({
-      name: 'Desactivar versión sticky del footer',
+    enableStickyShare: PropTypes.bool.tag({
+      name: 'Activar compartir flotante',
       defaultValue: false,
       group: 'configuración',
     }),

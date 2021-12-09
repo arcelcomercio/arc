@@ -1,4 +1,4 @@
-@keyframes shareIn {
+@keyframes customShareIn {
   0% {
     opacity: 0;
     transform: translateY(0);
@@ -14,7 +14,7 @@
     transform: translateY(-60px);
   }
 }
-@keyframes shareOut {
+@keyframes customShareOut {
   0% {
     opacity: 1;
     transform: translateY(-60px);
@@ -30,6 +30,32 @@
     transform: scale(0);
   }
 }
+@keyframes stickyShareIn {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  1% {
+    opacity: 0.01;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes stickyShareOut {
+  0% {
+    opacity: 1;
+  }
+  99% {
+    opacity: 0.01;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
 
 $border-color: #ee7325;
 $font-color: #ee7325;
@@ -40,7 +66,6 @@ $font-color: #ee7325;
   padding: 10px;
   width: 100%;
   max-width: 1440px;
-  margin: 0 auto;
 
   &__container {
     background: linear-gradient(
@@ -80,7 +105,7 @@ $font-color: #ee7325;
 
     &-logometro {
       width: 60px;
-      filter: drop-shadow(5px 5px 10px #444);
+      filter: drop-shadow(3px 3px 3px #555);
       @media (--tablet) {
         width: 120px;
       }
@@ -88,7 +113,7 @@ $font-color: #ee7325;
 
     &-logoclubt {
       height: 38px;
-      filter: drop-shadow(5px 10px 10px #444);
+      filter: drop-shadow(3px 3px 3px #555);
       @media (--tablet) {
         height: 80px;
       }
@@ -190,97 +215,10 @@ $font-color: #ee7325;
   &__footer {
     padding-top: 20px;
 
-    &.sticky {
-      bottom: 40px;
-      right: 0;
-      position: fixed;
-      left: 0;
-      padding-left: 8%;
-      padding-right: 8%;
-      margin: auto;
-      @media (--tablet) {
-        padding-left: 3%;
-        padding-right: 3%;
-        max-width: 1420px;
-      }
-    }
-
     &__logo {
       width: 120px;
       @media (--tablet) {
         width: 140px;
-      }
-    }
-    &__share {
-      background-color: #fff;
-      border-radius: 6px;
-      font-weight: 600;
-      color: $font-color;
-      padding: 8px 10px;
-      gap: 5px;
-      border: 1px solid $border-color;
-
-      @media (--tablet) {
-        font-size: 16px;
-      }
-    }
-    &__social {
-      padding: 10px;
-      border-radius: 8px;
-      background-color: #fff;
-      border: 1px solid $border-color;
-
-      &.in {
-        animation: shareIn 200ms ease-in-out forwards;
-      }
-      &.out {
-        animation: shareOut 200ms ease-in-out forwards;
-      }
-
-      // padding: 30px 0 0 0;
-      // display: flex;
-      .share-btn {
-        border: 1px solid #11b119;
-        border-radius: 50%;
-        height: 30px;
-        width: 30px;
-        margin-right: 15px;
-        padding: 0;
-        line-height: 0;
-        fill: #fff;
-        &--stroke {
-          fill: #11b119;
-          stroke: #11b119;
-        }
-        &--ws {
-          display: flex;
-        }
-      }
-
-      .f {
-        display: flex;
-      }
-
-      .f-center {
-        justify-content: center;
-        align-items: center;
-      }
-      .s-fb {
-        background-color: #21589b;
-        border: none;
-        svg {
-          fill: #fff;
-        }
-      }
-      .s-tw {
-        background-color: #00aef0;
-        border: none;
-        svg {
-          fill: #fff;
-        }
-      }
-      .s-lk {
-        display: flex;
       }
     }
   }
@@ -291,7 +229,7 @@ $font-color: #ee7325;
   background-color: #ffffff;
   border: 1px solid $border-color;
   border-radius: 15px;
-  box-shadow: 0 2px 1rem #555;
+  box-shadow: 0 3px 10px #555;
   min-height: min-content;
   padding: 10px;
   width: 100%;
@@ -623,6 +561,97 @@ $font-color: #ee7325;
     padding-bottom: 10px;
     @media (--tablet) {
       width: 100px;
+    }
+  }
+}
+
+.metro-share {
+  &--sticky {
+    position: sticky;
+    bottom: 20px;
+    right: 20px;
+    float: right;
+    filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.5));
+
+    &.in {
+      animation: stickyShareIn 200ms ease-in-out forwards;
+    }
+    &.out {
+      animation: stickyShareOut 200ms ease-in-out forwards;
+    }
+  }
+
+  &__button {
+    background-color: #fff;
+    border-radius: 6px;
+    font-weight: 600;
+    color: $font-color;
+    padding: 8px 10px;
+    gap: 5px;
+    border: 1px solid $border-color;
+
+    @media (--tablet) {
+      font-size: 16px;
+    }
+  }
+
+  &__social {
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fff;
+    border: 1px solid $border-color;
+
+    &.in {
+      animation: customShareIn 200ms ease-in-out forwards;
+    }
+    &.out {
+      animation: customShareOut 200ms ease-in-out forwards;
+    }
+
+    // padding: 30px 0 0 0;
+    // display: flex;
+    .share-btn {
+      border: 1px solid #11b119;
+      border-radius: 50%;
+      height: 30px;
+      width: 30px;
+      margin-right: 15px;
+      padding: 0;
+      line-height: 0;
+      fill: #fff;
+      &--stroke {
+        fill: #11b119;
+        stroke: #11b119;
+      }
+      &--ws {
+        display: flex;
+      }
+    }
+
+    .f {
+      display: flex;
+    }
+
+    .f-center {
+      justify-content: center;
+      align-items: center;
+    }
+    .s-fb {
+      background-color: #21589b;
+      border: none;
+      svg {
+        fill: #fff;
+      }
+    }
+    .s-tw {
+      background-color: #00aef0;
+      border: none;
+      svg {
+        fill: #fff;
+      }
+    }
+    .s-lk {
+      display: flex;
     }
   }
 }
