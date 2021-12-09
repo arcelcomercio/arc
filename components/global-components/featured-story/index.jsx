@@ -1,10 +1,9 @@
-import * as React from 'react'
 import { useEditableContent } from 'fusion:content'
+import * as React from 'react'
 
 import { SITE_TROME } from '../../utilities/constants/sitenames'
-
-import Icon from '../multimedia-icon'
 import Image from '../image'
+import Icon from '../multimedia-icon'
 
 const SIZE_ONE_COL = 'oneCol'
 const SIZE_TWO_COL = 'twoCol'
@@ -14,14 +13,18 @@ const IMAGE_COMPLETE = 'complete'
 
 const classes = {
   featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-0`,
+  featuredStoryInvertedColor: `featured-story--inverted`,
   detail: `featured-story__detail flex flex-col position relative md:p-20`,
+  detailInverted: `featured-story__detail__inverted`,
 
   category:
     'featured-story__category pb-15 hidden md:inline-block position-relative',
   categoryLink: 'featured-story__category-link text-md',
-
+  titleHeader: 'featured-story__header',
   title: 'featured-story__title overflow-hidden mb-10 line-h-xs',
+  titleInvertedColor: 'featured-story__title__inverted-color',
   titleLink: 'featured-story__title-link title-xs line-h-sm ',
+  titleClamp: 'featured-story__title--clamp',
 
   author: 'featured-story__author uppercase',
   authorLink: 'featured-story__author-link text-gray-200 text-xs',
@@ -31,6 +34,7 @@ const classes = {
   image: 'featured-story__img w-full h-full object-cover',
 
   imgComplete: 'img-complete justify-end',
+  imgCompleteInvertedTitle: 'img-complete top-text',
   parcialTop: 'featured-story--reverse',
 
   [SIZE_TWO_COL]: 'col-2',
@@ -44,7 +48,7 @@ const classes = {
   icon: `featured-story__icon`,
 }
 
-const FeaturedStory = props => {
+const FeaturedStory = (props) => {
   const {
     primarySection,
     primarySectionLink,
@@ -64,6 +68,10 @@ const FeaturedStory = props => {
     arcSite,
     siteName,
     isLazyLoadActivate = true,
+    titleHeader = '',
+    invertedTitle = false,
+    invertedColor = false,
+    hideAuthor = false,
   } = props
   const { editableField } = useEditableContent()
 
@@ -93,7 +101,7 @@ const FeaturedStory = props => {
     return ''
   }
 
-  const getEditableField = element =>
+  const getEditableField = (element) =>
     editableField ? editableField(element) : null
 
   let headbandText = ''
@@ -146,8 +154,12 @@ const FeaturedStory = props => {
         classes.featuredStory
       } ${getImageSizeClass()} ${getHeadBandClass()} ${
         size === SIZE_TWO_COL ? classes.twoCol : ''
-      } ${hightlightOnMobile ? 'expand' : ''} ${noExpandedClass}`}>
-      <div className={`${classes.detail}${author ? ' justify-between' : ''}`}>
+      } ${hightlightOnMobile ? 'expand' : ''} ${noExpandedClass} ${
+        invertedColor && classes.featuredStoryInvertedColor
+      } ${invertedTitle && classes.imgCompleteInvertedTitle}`}>
+      <div
+        className={`${classes.detail} 
+                      ${author ? ' justify-between' : ''}`}>
         {headband === 'normal' || !headband ? (
           <h3
             itemProp="name"
@@ -171,27 +183,36 @@ const FeaturedStory = props => {
             </a>
           </div>
         )}
-        <h2 itemProp="name" className={classes.title}>
+        <h2
+          itemProp="name"
+          className={`${classes.title} ${
+            titleHeader.length > 0 && classes.titleClamp
+          }`}>
           <a
             itemProp="url"
             className={classes.titleLink}
             href={websiteLink}
             {...getEditableField('titleField')}
             suppressContentEditableWarning>
+            {titleHeader.length > 0 && (
+              <span className={classes.titleHeader}>{titleHeader}</span>
+            )}
             {titleField || title}
           </a>
         </h2>
 
-        {author ? (
-          <address className={classes.author}>
-            <a
-              itemProp="url"
-              className={classes.authorLink}
-              href={authorLink || '/autores/'}>
-              {author}
-            </a>
-          </address>
-        ) : null}
+        {author
+          ? !hideAuthor && (
+              <address className={classes.author}>
+                <a
+                  itemProp="url"
+                  className={classes.authorLink}
+                  href={authorLink || '/autores/'}>
+                  {author}
+                </a>
+              </address>
+            )
+          : null}
       </div>
       <a itemProp="url" className={classes.imageLink} href={websiteLink}>
         <Image

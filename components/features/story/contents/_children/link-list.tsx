@@ -10,7 +10,9 @@ interface FeatureProps {
 const LinkList: React.FC<FeatureProps> = ({ items, isAmp = false }) => {
   const classAmp = isAmp ? 'amp-' : ''
   const classes = {
-    container: `${classAmp}story-content__link-list position-relative p-20 mb-20 mt-20 mr-20`,
+    container: `${classAmp}story-content__link-list position-relative p-20 mb-20 mt-20 mr-20 ${
+      items.length <= 1 && 'story-content__link-list-single'
+    }`,
     title: `${classAmp}story-content__link-list-title uppercase mb-20`,
   }
 
