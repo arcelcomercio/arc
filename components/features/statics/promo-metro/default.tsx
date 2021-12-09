@@ -71,6 +71,7 @@ interface CouponSale {
   code: string
   image?: string
   discount: string
+  additional?: boolean
   discountType: DiscountType
   title: string
   cencosud?: Cencosud
@@ -259,6 +260,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
                     image={coupon.image}
                     defaultImage={logoMetro}
                     discount={coupon.discount}
+                    additional={coupon.additional}
                     discountType={coupon.discountType}
                     title={coupon.title}
                     cencosud={coupon.cencosud || undefined}
