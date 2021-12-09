@@ -1,5 +1,4 @@
 import { useFusionContext } from 'fusion:context'
-import getProperties from 'fusion:properties'
 import React from 'react'
 
 import { getAssetsPath } from '../../../utilities/assets'
@@ -9,15 +8,11 @@ import {
   SITE_ELCOMERCIOMAG,
   SITE_TROME,
 } from '../../../utilities/constants/sitenames'
-import { GALLERY_VERTICAL, MINUTO_MINUTO } from '../../../utilities/constants/subtypes'
-import {
-  publicidadAmp,
-  publicidadAmpCaja1,
-} from '../../../utilities/story/helpers-amp'
 import StoryData from '../../../utilities/story-data'
 import { storyTagsBbc } from '../../../utilities/tags'
 import StorySocialChildAmpSocial from '../social/_children/amp-social'
 import AmpStoriesChild from './_children/amp-stories'
+import customFields from './_dependencies/custom-fields'
 
 const classes = {
   stories: 'amp-sh bg-white pr-20 pl-20 m-5 mx-auto',
@@ -32,22 +27,21 @@ const classes = {
   bbcHead: 'bbc-head',
   listClasses: 'amp-story-content mt-20',
 }
-const StoryTitleAmp = () => {
+const StoryTitleAmp = (props) => {
   const {
     arcSite,
     contextPath,
     globalContent: data,
     requestUri = '',
   } = useFusionContext()
-
-  const { adsAmp } = getProperties(arcSite)
-
+  const {
+    customFields: { ampAdjson = '', ampAdName = '', ampAdDimensions = '' },
+  } = props
   const {
     title,
     subTitle,
     primarySection,
     tags,
-    subtype,
     primarySectionLink,
     promoItems: { basic_gallery: { content_elements: galleryItems } = {} } = {},
     contentElementsListOne: { items = [], type = '' } = {},
@@ -56,28 +50,6 @@ const StoryTitleAmp = () => {
     arcSite,
     contextPath,
   })
-  const namePublicidad = arcSite !== 'peru21g21' ? arcSite : 'peru21'
-  const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja1`
-  const width = '320'
-
-
-
-  const parameters = {
-    dataSlot,
-    prebidSlot: `19186-${namePublicidad}-amp-caja1`,
-    width,
-    height: (arcSite === SITE_TROME) ? '50' : '100',
-    movil1: false,
-    primarySectionLink,
-    arcSite,
-    size: '320x100',
-  }
-
-  const parametersCaja1 = {
-    dataSlot,
-    arcSite,
-    prebidSlot: `19186-${namePublicidad}-amp-caja1`,
-  }
 
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
   const imgBbc =
@@ -85,6 +57,12 @@ const StoryTitleAmp = () => {
       arcSite,
       contextPath
     )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
+
+  const medida = (ampAdDimensions && ampAdDimensions.split('x')) || []
+  const widthx = medida[0]
+  const heightx = medida[1]
+  const getDiv = () =>
+    `<amp-ad data-loading-strategy="prefer-viewability-over-views" type="doubleclick"  data-slot=${ampAdName} width="${widthx}"  height="${heightx}" json="${ampAdjson}" />`
 
   return (
     <>
@@ -151,16 +129,10 @@ const StoryTitleAmp = () => {
             </div>
           ) : null}
         </header>
-        {arcSite !== SITE_ELCOMERCIOMAG && subtype !== GALLERY_VERTICAL && (
+        {ampAdName && (
           <div
-            className={classes.adsAmp}
-            dangerouslySetInnerHTML={publicidadAmp(parameters)}
-          />
-        )}
-        {arcSite === SITE_ELCOMERCIOMAG && (
-          <div
-            className={classes.adsAmp}
-            dangerouslySetInnerHTML={publicidadAmpCaja1(parametersCaja1)}
+            className="text-center ad-amp-movil"
+            dangerouslySetInnerHTML={{ __html: getDiv() }}
           />
         )}
 
@@ -171,6 +143,10 @@ const StoryTitleAmp = () => {
       </div>
     </>
   )
+}
+
+StoryTitleAmp.propTypes = {
+  customFields,
 }
 
 StoryTitleAmp.static = true
