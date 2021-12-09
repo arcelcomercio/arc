@@ -1,5 +1,6 @@
 import { defaultImage, getAssetsPath } from './assets'
 import {
+  ELEMENT_BLOCKQUOTE,
   ELEMENT_CORRECTION,
   ELEMENT_CUSTOM_EMBED,
   ELEMENT_HEADER,
@@ -92,7 +93,7 @@ class StoryData {
 
   constructor({
     data = {},
-    deployment = () => {},
+    deployment = (resource) => '',
     contextPath = '',
     arcSite = '',
     siteUrl = '',
@@ -127,6 +128,12 @@ class StoryData {
   get title() {
     return (
       (this._data && this._data.headlines && this._data.headlines.basic) || ''
+    )
+  }
+
+  get titleHeader() {
+    return (
+      (this._data && this._data.headlines && this._data.headlines.mobile) || ''
     )
   }
 
@@ -834,6 +841,15 @@ class StoryData {
         this._data.content_elements[0]) ||
       {}
     return result && result.type === ELEMENT_LIST ? result : []
+  }
+
+  get contentElementsQuoteOne() {
+    const result =
+      (this._data &&
+        this._data.content_elements &&
+        this._data.content_elements[0]) ||
+      {}
+    return result && result.type === ELEMENT_BLOCKQUOTE ? result.content : null
   }
 
   get contentElementsHtml() {

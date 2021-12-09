@@ -252,6 +252,17 @@ interface EmbedConfigData {
   stories: EmbedConfigDataStories[]
 }
 
+export interface EmbedConfigDataStories {
+  date?: string
+  description?: string
+  title?: string
+  image?: {
+    caption?: string
+    url?: string
+  }
+  url?: string
+}
+
 export interface EmbedConfig {
   date: number
   duration: string
@@ -452,15 +463,17 @@ export interface Stories extends ANSBase {
   siteName: string
   tag_name: string
   page_number: number
+  section_name?: string
+  section_id?: string
 }
 
 export interface ListDataStories {
   [x: string]: string
-  date?: string
-  description?: string
-  url?: string
-  imageUrl?: string
-  websiteUrl?: string
-  title?: string
-  storyType?: string
+  // date?: string
+  // description?: string
+  // url?: string
+  // imageUrl?: string
+  // websiteUrl?: string
+  // title?: string
+  // storyType?: string
 }

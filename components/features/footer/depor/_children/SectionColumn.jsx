@@ -6,6 +6,7 @@ const classes = {
   sectionColumn:
     'footer-secction__content-column footer-secction__item-border flex flex-col',
   item: 'footer-secction__item',
+  itemTitle: 'footer-secction__item__title',
 }
 
 const ItemLinkSubSection = ({ url, subsectionName, isBold }) => (
@@ -17,6 +18,12 @@ const ItemLinkSubSection = ({ url, subsectionName, isBold }) => (
 )
 
 const SectionColumn = ({
+  isBook,
+  bookUrl,
+  bookLogo,
+  isAdmin,
+  isLastElement,
+  isTrome,
   section: {
     name: title = '',
     _id: urlSec = '',
@@ -24,11 +31,8 @@ const SectionColumn = ({
   } = {},
 }) => (
   <ul className={classes.sectionColumn}>
-    <li className={classes.item}>
-      <a
-        itemProp="url"
-        href={addSlashToEnd(urlSec)}
-        className={classes.itemTop}>
+    <li className={`${classes.item} ${classes.itemTitle}`}>
+      <a itemProp="url" href={addSlashToEnd(urlSec)} className={classes.itemTop}>
         {title}
       </a>
     </li>
@@ -52,6 +56,19 @@ const SectionColumn = ({
           />
         )
       }
+    )}
+    {isTrome && isLastElement && isBook && (
+      <div className="foot-book__column">
+        <a className={classes.book} href={bookUrl}>
+          <img
+            className={`${isAdmin ? '' : 'lazy'} `}
+            src={isAdmin ? bookLogo : ''}
+            data-src={bookLogo}
+            alt="Libro de reclamaciones"
+            style={{ width: 145 }}
+          />
+        </a>
+      </div>
     )}
   </ul>
 )
