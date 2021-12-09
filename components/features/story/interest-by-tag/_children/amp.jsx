@@ -23,7 +23,7 @@ const classes = {
   figure: 'amp-story-interest__figure hidden md:block',
 }
 
-const StorySeparatorChildItemAmp = ({ data }) => {
+const StorySeparatorChildItemAmp = ({ data, height, width }) => {
   const {
     title,
     subtitle,
@@ -49,9 +49,9 @@ const StorySeparatorChildItemAmp = ({ data }) => {
             } `}
             src={multimediaLandscapeMD}
             alt={title}
-            width={118}
+            width={width}
             layout="responsive"
-            height={66}
+            height={height}
             loading="lazy"
           />
         </a>

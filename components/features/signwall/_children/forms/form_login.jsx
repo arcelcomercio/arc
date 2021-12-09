@@ -56,7 +56,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
   const isTromeOrganic =
     arcSite === SITE_TROME &&
-    (typeDialog === 'organico' || typeDialog === 'verify')
+    (typeDialog === 'organico' ||
+      typeDialog === 'verify' ||
+      typeDialog === 'banner')
 
   const { changeTemplate } = useModalContext()
   const [showLoginEmail, setShowLoginEmail] = React.useState(
