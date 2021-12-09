@@ -294,10 +294,19 @@ const StoryContentsLite = (props) => {
                           account = 'gec',
                           title = '',
                           thumbnail_url: image = '',
-                          description: descriptionTxt,
+                          description: descriptionVideo,
+                          author: authorVideo = '',
                         } = {},
                       } = {},
                     } = element
+                    const descriptionTxt =
+                      isStoryV2StandarStyle && authorVideo
+                        ? `
+                          ${descriptionVideo}
+                          <span class="s-multimedia__author-name"> / ${authorVideo}</span>
+                          `
+                        : descriptionVideo
+
                     const playerId = jwplayers[account] || jwplayers.gec
                     const jwplayerId = hasAds
                       ? playerId.playerAds
@@ -323,7 +332,7 @@ const StoryContentsLite = (props) => {
                           />
                         </div>
                         <figcaption
-                          className="s-multimedia__caption"
+                          className="s-multimedia__caption 1"
                           dangerouslySetInnerHTML={{
                             __html: descriptionTxt,
                           }}

@@ -347,7 +347,7 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
                           />
                         </div>
                         <figcaption
-                          className="s-multimedia__caption"
+                          className="s-multimedia__caption 2"
                           dangerouslySetInnerHTML={{
                             __html: descriptionTxt,
                           }}
