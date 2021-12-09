@@ -1,6 +1,5 @@
 /******* Base *******/
 @import "../../general-styles/framework/variables/index";
-@import "../../general-styles/components/features/ads/ads-noticia";
 
 @import "./scss/variables/index";
 @import "./scss/variables/lite/fonts";
@@ -8,6 +7,7 @@
 @import "../../general-styles/framework/core/reset";
 @import "./scss/lite-components/framework/core/lite";
 @import "../../general-styles/framework/core/ads";
+@import "../../general-styles/components/features/ads/ads-noticia";
 
 /******* Components *******/
 
