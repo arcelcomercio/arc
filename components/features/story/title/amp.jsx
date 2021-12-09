@@ -7,8 +7,9 @@ import {
   SITE_DEPOR,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
+  SITE_TROME,
 } from '../../../utilities/constants/sitenames'
-import { GALLERY_VERTICAL } from '../../../utilities/constants/subtypes'
+import { GALLERY_VERTICAL, MINUTO_MINUTO } from '../../../utilities/constants/subtypes'
 import {
   publicidadAmp,
   publicidadAmpCaja1,
@@ -20,6 +21,7 @@ import AmpStoriesChild from './_children/amp-stories'
 
 const classes = {
   stories: 'amp-sh bg-white pr-20 pl-20 m-5 mx-auto',
+  sectionAmp: 'amp-sh__section font-bold secondary-font',
   titleAmp:
     'amp-sh__title font-bold secondary-font title-md text-gray-300 line-h-xs mt-20',
   datetime: 'amp-sh__datetime mt-15 mb-15 block secondary-font text-lg',
@@ -43,6 +45,7 @@ const StoryTitleAmp = () => {
   const {
     title,
     subTitle,
+    primarySection,
     tags,
     subtype,
     primarySectionLink,
@@ -57,11 +60,13 @@ const StoryTitleAmp = () => {
   const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja1`
   const width = '320'
 
+
+
   const parameters = {
     dataSlot,
     prebidSlot: `19186-${namePublicidad}-amp-caja1`,
     width,
-    height: '100',
+    height: (arcSite === SITE_TROME) ? '50' : '100',
     movil1: false,
     primarySectionLink,
     arcSite,
@@ -118,10 +123,17 @@ const StoryTitleAmp = () => {
           ) : null}
 
           {arcSite === SITE_ELCOMERCIO ||
-          (arcSite === SITE_DEPOR &&
-            (/^\/mexico\//.test(requestUri) ||
-              /^\/colombia\//.test(requestUri))) ? null : (
+            (arcSite === SITE_DEPOR &&
+              (/^\/mexico\//.test(requestUri) ||
+                /^\/colombia\//.test(requestUri))) ? null : (
             <AmpStoriesChild arcSite={arcSite} />
+          )}
+
+          {/* Condition for Trome */}
+          {primarySection && arcSite === SITE_TROME && (
+            <h2 itemProp="name" className={classes.sectionAmp}>
+              {primarySection}
+            </h2>
           )}
 
           {title && <h1 className={classes.titleAmp}>{title}</h1>}
@@ -139,7 +151,6 @@ const StoryTitleAmp = () => {
             </div>
           ) : null}
         </header>
-
         {arcSite !== SITE_ELCOMERCIOMAG && subtype !== GALLERY_VERTICAL && (
           <div
             className={classes.adsAmp}
@@ -152,8 +163,11 @@ const StoryTitleAmp = () => {
             dangerouslySetInnerHTML={publicidadAmpCaja1(parametersCaja1)}
           />
         )}
+
         {subTitle && <div className={classes.description}> {subTitle}</div>}
-        {arcSite !== SITE_ELCOMERCIOMAG && <StorySocialChildAmpSocial />}
+        {arcSite !== SITE_ELCOMERCIOMAG && arcSite !== SITE_TROME && (
+          <StorySocialChildAmpSocial />
+        )}
       </div>
     </>
   )

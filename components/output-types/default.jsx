@@ -7,8 +7,8 @@ import { PREMIUM } from '../utilities/constants/content-tiers'
 import { META_HOME } from '../utilities/constants/meta'
 import {
   SITE_DEPOR,
-  SITE_ELBOCON,
   SITE_DIARIOCORREO,
+  SITE_ELBOCON,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_GESTION,
@@ -160,6 +160,7 @@ export default ({
   const scriptAdpushup = getScriptAdPushup(arcSite)
   
   const isElcomercioHome = arcSite === SITE_ELCOMERCIO && isHome
+  const isTromeHome = arcSite === SITE_TROME && isHome
   const isPreview = /^\/preview\//.test(requestUri)
   const { uuid_match: idMatch = '' } = promoItems
 
@@ -332,6 +333,7 @@ export default ({
   else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
     style = 'story'
   else if (isElcomercioHome) style = 'dbasic'
+  else if (isTromeHome) style = 'home-v2'
   else if (arcSite === SITE_TROME && /^\/pollon-eliminatorias/.test(requestUri))
     style = 'polla'
 
@@ -630,6 +632,12 @@ export default ({
               />
             )}
             <Dfp />
+            {indPrebid && arcSite === SITE_TROME && (
+              <script
+                async
+                src="https://boot.pbstck.com/v1/tag/6e13d7a6-e4f7-4063-8d09-248ed9b1f70b"
+              />
+            )}
           </>
         )}
         {/* Scripts de AdManager - Fin */}
@@ -792,7 +800,7 @@ export default ({
             .toISOString()
             .slice(0, 10)}`}
         />
-        {enabledPushup ? (
+        {enabledPushup && !requestUri.includes('/publirreportaje/') && !requestUri.includes('/publireportaje/') ? (
           <>
             <script
               type="text/javascript"

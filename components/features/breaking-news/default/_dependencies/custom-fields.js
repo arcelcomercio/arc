@@ -18,6 +18,9 @@ const customFields = PropTypes.shape({
     name: 'Título',
     description: 'Dejar vacío para tomar el valor original de la historia.',
   }),
+  hint: PropTypes.string.tag({
+    name: 'Hint',
+  }),
   tags: PropTypes.string.tag({
     name: 'Etiqueta',
   }),

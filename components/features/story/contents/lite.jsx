@@ -31,6 +31,7 @@ import {
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_PERU21,
+  SITE_TROME,
 } from '../../../utilities/constants/sitenames'
 import {
   GALLERY_VERTICAL,
@@ -86,6 +87,7 @@ const StoryContentsLite = (props) => {
   const {
     customFields: {
       shareAlign = 'right',
+      shareLinks = false,
       copyLink = false,
       liteAdsEvery = 2,
     } = {},
@@ -205,19 +207,18 @@ const StoryContentsLite = (props) => {
           </>
         )}
         <div
-          className={`${classes.content} ${
-            isPremium && !isPreview
-              ? 'story-content__nota-premium paywall no_copy'
-              : ''
-          }`}
+          className={`${classes.content} ${isPremium && !isPreview
+            ? 'story-content__nota-premium paywall no_copy'
+            : ''
+            }`}
           style={
             isPremium && !isPreview
               ? {
-                  display: 'none',
-                  opacity: '0',
-                  userSelect: 'none',
-                  visibility: 'hidden',
-                }
+                display: 'none',
+                opacity: '0',
+                userSelect: 'none',
+                visibility: 'hidden',
+              }
               : {}
           }
           id="contenedor">
@@ -247,7 +248,17 @@ const StoryContentsLite = (props) => {
                   url = '',
                   items = [],
                   list_type: listType = 'unordered',
+                  title,
                 } = element
+
+                if (
+                  arcSite === SITE_TROME &&
+                  type === ELEMENT_BLOCKQUOTE &&
+                  content.toLowerCase().includes('puedes leer')
+                ) {
+                  return null
+                }
+
                 if (type === ELEMENT_IMAGE) {
                   return (
                     <StoryContentsChildImage
@@ -342,6 +353,11 @@ const StoryContentsLite = (props) => {
                     )
                   }
                 }
+                // // Condicion para trome sin blockquoute - components/features/story/title/lite.jsx
+                // if (type === ELEMENT_BLOCKQUOTE && arcSite === SITE_TROME) {
+                //   return null
+                // }
+
                 if (type === ELEMENT_GALLERY) {
                   return (
                     <StoryHeaderChildGallery
@@ -414,7 +430,7 @@ const StoryContentsLite = (props) => {
                         (arcSite === 'depor' &&
                           (/^\/mexico\//.test(requestUri) ||
                             /^\/colombia\//.test(requestUri)))) &&
-                      nameAds === 'caja3' ? (
+                        nameAds === 'caja3' ? (
                         <div id="spc_post_stories" />
                       ) : null}
                     </>
@@ -436,9 +452,9 @@ const StoryContentsLite = (props) => {
                             dangerouslySetInnerHTML={{
                               __html: item.content
                                 ? item.content.replace(
-                                    /<a/g,
-                                    '<a itemprop="url"'
-                                  )
+                                  /<a/g,
+                                  '<a itemprop="url"'
+                                )
                                 : '',
                             }}
                           />
@@ -483,6 +499,7 @@ const StoryContentsLite = (props) => {
                     />
                   )
                 }
+
                 if (type === ELEMENT_BLOCKQUOTE) {
                   return (
                     <blockquote
@@ -494,7 +511,11 @@ const StoryContentsLite = (props) => {
                   )
                 }
 
-                if (type === ELEMENT_CUSTOM_EMBED && sub === STORY_CORRECTION) {
+                if (
+                  !isStoryV2StandarStyle &&
+                  type === ELEMENT_CUSTOM_EMBED &&
+                  sub === STORY_CORRECTION
+                ) {
                   const {
                     config: {
                       content: contentCorrectionConfig = '',
@@ -510,7 +531,11 @@ const StoryContentsLite = (props) => {
                   )
                 }
 
-                if (type === ELEMENT_CUSTOM_EMBED && sub === STAMP_TRUST) {
+                if (
+                  !isStoryV2StandarStyle &&
+                  type === ELEMENT_CUSTOM_EMBED &&
+                  sub === STAMP_TRUST
+                ) {
                   const {
                     config: {
                       url: urlConfig = '',
@@ -528,6 +553,10 @@ const StoryContentsLite = (props) => {
                 }
 
                 if (type === ELEMENT_LINK_LIST) {
+                  if (arcSite === SITE_TROME)
+                    return (
+                      <StoryContentsChildLinkList items={items} title={title} />
+                    )
                   return <StoryContentsChildLinkList items={items} />
                 }
 
@@ -694,8 +723,9 @@ const StoryContentsLite = (props) => {
             <ShareButtons
               activeCopyLink={copyLink}
               activeLinkedin={
-                arcSite === 'elcomercio' || arcSite === 'elcomerciomag'
+                arcSite === 'elcomercio' || arcSite === 'elcomerciomag' || arcSite === 'trome'
               }
+              hideShareLinks={shareLinks}
             />
           </div>
         </div>
@@ -716,6 +746,39 @@ const StoryContentsLite = (props) => {
             </a>
           </div>
         )}
+        {(() => {
+          if (!isStoryV2StandarStyle) return null
+
+          const trustElement = storyContent.filter(
+            ({ type, subtype: sub }) =>
+              type === ELEMENT_CUSTOM_EMBED && sub === STAMP_TRUST
+          )[0]
+          return trustElement ? (
+            <StoryContentsChildStampTrust
+              url={trustElement?.embed?.config?.url}
+              urlImg={trustElement?.embed?.config?.url_img}
+              isAmp={false}
+              siteUrl={siteUrl}
+            />
+          ) : null
+        })()}
+        {(() => {
+          if (!isStoryV2StandarStyle) return null
+
+          const correctionElement = storyContent.filter(
+            ({ type, subtype: sub }) =>
+              type === ELEMENT_CUSTOM_EMBED && sub === STORY_CORRECTION
+          )[0]
+          return correctionElement ? (
+            <StoryContentsChildCorrection
+              content={correctionElement?.embed?.config?.content}
+              isAmp={false}
+              type={
+                correctionElement?.embed?.config?.type_event || 'correction'
+              }
+            />
+          ) : null
+        })()}
       </div>
       <div id="bottom-content-observed" />
       {arcSite === SITE_ELCOMERCIO && contentElementsHtml.includes('mxm') && (

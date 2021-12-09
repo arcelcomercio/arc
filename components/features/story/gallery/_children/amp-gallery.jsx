@@ -2,7 +2,7 @@ import React from 'react'
 import { useAppContext } from 'fusion:context'
 import { createResizedParams } from '../../../../utilities/resizer/resizer'
 import { publicidadAmp, ampHtml } from '../../../../utilities/story/helpers-amp'
-import { SITE_PERU21 } from '../../../../utilities/constants/sitenames'
+import { SITE_PERU21, SITE_TROME } from '../../../../utilities/constants/sitenames'
 
 const classes = {
   gallery: 'story-gallery pt-10 pr-20 pl-20 md:pr-0 md:pl-0',
@@ -129,6 +129,86 @@ const StoryHeaderChildAmpGallery = props => {
                     className={classes.adsAmp}
                     dangerouslySetInnerHTML={publicidadAmp(
                       publicidadAmpAd('caja5', '320x100,320x50')
+                    )}
+                  />
+                )}
+                {arcSite === SITE_TROME && i === 8 && (
+                  <div
+                    className={classes.adsAmp}
+                    dangerouslySetInnerHTML={publicidadAmp(
+                      publicidadAmpAd('caja6', '320x100,320x50')
+                    )}
+                  />
+                )}
+                {arcSite === SITE_TROME && i === 10 && (
+                  <div
+                    className={classes.adsAmp}
+                    dangerouslySetInnerHTML={publicidadAmp(
+                      publicidadAmpAd('caja7', '320x100,320x50')
+                    )}
+                  />
+                )}
+                {arcSite === SITE_TROME && i === 12 && (
+                  <div
+                    className={classes.adsAmp}
+                    dangerouslySetInnerHTML={publicidadAmp(
+                      publicidadAmpAd('caja8', '320x100,320x50')
+                    )}
+                  />
+                )}
+                {arcSite === SITE_TROME && i === 14 && (
+                  <div
+                    className={classes.adsAmp}
+                    dangerouslySetInnerHTML={publicidadAmp(
+                      publicidadAmpAd('caja9', '320x100,320x50')
+                    )}
+                  />
+                )}
+                {arcSite === SITE_TROME && i === 16 && (
+                  <div
+                    className={classes.adsAmp}
+                    dangerouslySetInnerHTML={publicidadAmp(
+                      publicidadAmpAd('caja10', '320x100,320x50')
+                    )}
+                  />
+                )}
+                {arcSite === SITE_TROME && i === 18 && (
+                  <div
+                    className={classes.adsAmp}
+                    dangerouslySetInnerHTML={publicidadAmp(
+                      publicidadAmpAd('caja11', '320x100,320x50')
+                    )}
+                  />
+                )}
+                {arcSite === SITE_TROME && i === 20 && (
+                  <div
+                    className={classes.adsAmp}
+                    dangerouslySetInnerHTML={publicidadAmp(
+                      publicidadAmpAd('caja12', '320x100,320x50')
+                    )}
+                  />
+                )}
+                {arcSite === SITE_TROME && i === 22 && (
+                  <div
+                    className={classes.adsAmp}
+                    dangerouslySetInnerHTML={publicidadAmp(
+                      publicidadAmpAd('caja13', '320x100,320x50')
+                    )}
+                  />
+                )}
+                {arcSite === SITE_TROME && i === 24 && (
+                  <div
+                    className={classes.adsAmp}
+                    dangerouslySetInnerHTML={publicidadAmp(
+                      publicidadAmpAd('caja14', '320x100,320x50')
+                    )}
+                  />
+                )}
+                {arcSite === SITE_TROME && i === 26 && (
+                  <div
+                    className={classes.adsAmp}
+                    dangerouslySetInnerHTML={publicidadAmp(
+                      publicidadAmpAd('caja15', '320x100,320x50')
                     )}
                   />
                 )}

@@ -3,6 +3,7 @@
   flex-direction: column;
   @media (--desktop) {
     flex-direction: row;
+    column-gap: 15px;
   }
   &__main {
     @media (--desktop) {
@@ -12,6 +13,16 @@
   &__side {
     @media (--desktop) {
       width: calc(100% - 640px);
+    }
+  }
+}
+
+.story.videos {
+  .f.just-center {
+    background: transparent linear-gradient(201deg, #f5f5f5 0%, #fff 100%) 0%
+      0% no-repeat padding-box;
+    .st-sidebar__container {
+      background-color: transparent;
     }
   }
 }

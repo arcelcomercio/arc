@@ -16,6 +16,7 @@ import {
   SITE_PERU21,
   SITE_TROME,
 } from '../utilities/constants/sitenames'
+import { GALLERY_VERTICAL, MINUTO_MINUTO } from '../utilities/constants/subtypes'
 import { addSlashToEnd } from '../utilities/parse/strings'
 import RedirectError from '../utilities/redirect-error'
 import { publicidadAmpMovil0 } from '../utilities/story/helpers-amp'
@@ -242,8 +243,8 @@ const AmpOutputType = ({
 
   const hasPowaVideo =
     content.includes('id="powa-') ||
-    videoSeo[0] ||
-    rawHtmlContent.includes('.mp4')
+      videoSeo[0] ||
+      rawHtmlContent.includes('.mp4')
       ? 1
       : false
 
@@ -289,9 +290,8 @@ const AmpOutputType = ({
         {/* add additional head elements here */}
 
         <Resource
-          path={`resources/dist/${arcSite}/css/${
-            isTrivia ? 'amp-trivias' : 'amp'
-          }.css`}>
+          path={`resources/dist/${arcSite}/css/${isTrivia ? 'amp-trivias' : 'amp'
+            }.css`}>
           {({ data }) =>
             data ? (
               <style
