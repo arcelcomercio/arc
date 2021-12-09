@@ -8,7 +8,6 @@
 @import "./scss/partials/import-fonts";
 @import "../../general-styles/framework/generators/index";
 @import "./scss/partials/base";
-@import "../../general-styles/components/features/ads/ads-noticia";
 
 /* --- STORY VARIABLES --------------------------------------------------
   Modificacion de variables SCSS del core y de marca
@@ -35,6 +34,7 @@
 @import "../../general-styles/components/features/video/section/play-list";
 @import "../../general-styles/components/features/video/list/video-list";
 @import "../../general-styles/components/features/layout/footer/footer-secction"; // footer/depor
+@import "../../general-styles/components/features/ads/ads-noticia";
 
 /* --- MODIFICADORES ----------------------------------------------------
   Estilos de features modificados por marca
