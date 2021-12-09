@@ -7,6 +7,7 @@ const classes = {
   image: '__image w-full o-cover',
   imageBig: '__image--big',
   caption: '__caption',
+  authorName: '__author-name',
 }
 
 /**
@@ -19,6 +20,7 @@ const StoryContentChildImage = ({
   url,
   multimedia,
   caption,
+  authorName,
   showCaption = true,
   primaryImage = false,
   completeImage = false,
@@ -67,6 +69,14 @@ const StoryContentChildImage = ({
       {showCaption ? (
         <figcaption className={`${classImage}${classes.caption}`}>
           {caption}{' '}
+          {metaValue('section_style') === 'story-v2-standard' && (
+            <>
+              <span>{'/ '}</span>
+              <span className={`${classImage}${classes.authorName}`}>
+                {authorName}
+              </span>
+            </>
+          )}
         </figcaption>
       ) : null}
     </figure>
