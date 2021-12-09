@@ -2,7 +2,7 @@ import * as React from 'react'
 
 // import Button from '../../../../global-components/button'
 import searchQuery from '../../../../utilities/client/search'
-// import SignwallComponent from '../../../signwall/main/default'
+import SignwallComponent from '../../../signwall/main/default'
 // import { slugify } from '../../../utilities/parse/slugify'
 
 // const rutaArchivos = "https://cdna.depor.com/resources/dist/depor/premios-depor/"
@@ -27,7 +27,7 @@ if (typeof window !== 'undefined')
     window.navigator.userAgent
   )
 
-const isLogedIn = true
+// const isLogedIn = true
 
 class HeaderChildPremiosDepor extends React.PureComponent {
   constructor(props) {
@@ -55,7 +55,8 @@ class HeaderChildPremiosDepor extends React.PureComponent {
   }
 
   render() {
-    const { device, deviceList } = this.props
+    const { device, deviceList, requestUri } = this.props
+    const isPreview = /^\/preview\//.test(requestUri)
 
     const handleHide = () => {
       switch (device) {
@@ -163,11 +164,9 @@ class HeaderChildPremiosDepor extends React.PureComponent {
                   <div className={classes.terminos}>
                     <span>TÉRMINOS Y CONDICIONES</span>
                   </div>
-                  {isLogedIn ? (
-                    <div className={classes.buttonAft}>MENSAJE</div>
-                  ) : (
-                    <div className={classes.buttonBef}>INGRESAR</div>
-                  )}
+                  {!isPreview && typeof window !== 'undefined' ? (
+                    <SignwallComponent classButton={classes.buttonAft} />
+                  ) : null}
                 </div>
               </>
             )}
