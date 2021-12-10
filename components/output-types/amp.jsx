@@ -16,7 +16,6 @@ import {
   SITE_PERU21,
   SITE_TROME,
 } from '../utilities/constants/sitenames'
-import { GALLERY_VERTICAL, MINUTO_MINUTO } from '../utilities/constants/subtypes'
 import { addSlashToEnd } from '../utilities/parse/strings'
 import RedirectError from '../utilities/redirect-error'
 import StoryData from '../utilities/story-data'
@@ -472,6 +471,24 @@ const AmpOutputType = ({
               async
               custom-element="amp-story-auto-ads"
               src="https://cdn.ampproject.org/v0/amp-story-auto-ads-0.1.js"
+            />
+          </>
+        )}
+        {arcSite === SITE_TROME && (
+          <>
+            <link
+              rel="preload"
+              href="https://cdna.trome.pe/resources/dist/trome/fonts/encode-sans-condensed-v5-latin-800.woff2"
+              as="font"
+              type="font/woff2"
+              crossOrigin="anonymous"
+            />
+            <link
+              rel="preload"
+              href="https://cdna.trome.pe/resources/dist/trome/fonts/EncodeSansCondensed-Regular.woff2"
+              as="font"
+              type="font/woff2"
+              crossOrigin="anonymous"
             />
           </>
         )}

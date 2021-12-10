@@ -1,11 +1,10 @@
 /******* Fonts *******/
-@import "./scss/partials/lite/import-fonts";
+@import "./scss/partials/lite/import-fonts-online";
 
 /******* Base *******/
 @import "../../general-styles/framework/variables/index";
 @import "../../general-styles/framework/generators/index";
 @import "./scss/lite-components/framework/core/lite";
-@import "../../general-styles/components/features/ads/ads-noticia";
 
 /******* Variables Lite *******/
 @import "./scss/variables/index";
@@ -77,3 +76,5 @@ $tertiary-font: $secondary-font;
 @import "./scss/components/header/inverted-featured";
 
 @import "../../general-styles/framework/generators/generate-icons";
+
+@import "../../general-styles/components/features/ads/ads-noticia";

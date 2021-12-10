@@ -132,7 +132,6 @@ class StoryContentAmp extends React.PureComponent {
     const encodedStoryUrl = encodeURIComponent(`${envOrigin}${canonicalUrl}`)
     const isComercio = arcSite === SITE_ELCOMERCIO
     const isMag = arcSite === SITE_ELCOMERCIOMAG
-
     const isLegacy =
       source.source_id &&
       (arcSite === SITE_ELBOCON || arcSite === SITE_DIARIOCORREO)
