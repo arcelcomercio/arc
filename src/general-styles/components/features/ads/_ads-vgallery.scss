@@ -1,0 +1,94 @@
+.content_gpt {
+  &_top_ads {
+    width: 340px;
+    background-color: #f7f8f9;
+    margin: auto;
+    height: 80px;
+    &::before {
+      content: "PUBLICIDAD";
+      font-size: 10px;
+      justify-content: center;
+      margin: auto;
+      display: flex;
+      padding-top: 6px;
+      padding-bottom: 4px;
+    }
+    @media (--desktop) {
+      overflow: hidden;
+      width: 970px;
+      align-items: center;
+      justify-content: center;
+      background-color: #f7f8f9;
+      margin: auto;
+      top: 6px;
+      height: 120px;
+    }
+  }
+  @media (--only-mobile) {
+    &_inline,
+    &_caja3,
+    &_caja4,
+    &_caja5 {
+      width: 320px;
+      height: 290px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background-color: #f7f8f9;
+      padding-top: 15px;
+      margin: auto;
+      &::before {
+        content: "PUBLICIDAD";
+        position: absolute;
+        font-size: 10px;
+        top: 10px;
+      }
+    }
+  }
+  #gpt_zocalo {
+    width: 320px;
+    height: 50px;
+  }
+
+  #gpt_zocalo {
+    width: 728px;
+    height: 90px;
+  }
+  &_caja1_ads {
+    top: 0;
+    position: sticky !important;
+  }
+
+  &_caja2,
+  &_caja3,
+  &_caja4,
+  &_caja5,
+  &_caja6,
+  &_caja7,
+  &_caja8,
+  &_caja9,
+  &_caja10,
+  &_caja11,
+  &_caja12,
+  &_caja13,
+  &_caja14,
+  &_caja15 {
+    width: 320px;
+    height: 290px;
+    background-color: #f7f8f9;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f7f8f9;
+    padding-top: 25px;
+    margin: auto;
+    &::before {
+      content: "PUBLICIDAD";
+      position: absolute;
+      font-size: 10px;
+      top: 10px;
+    }
+  }
+}

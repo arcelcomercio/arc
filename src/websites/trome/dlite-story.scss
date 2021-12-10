@@ -1,5 +1,5 @@
 /******* Fonts *******/
-@import "./scss/partials/lite/import-fonts";
+@import "./scss/partials/lite/import-fonts-online";
 
 /******* Base *******/
 @import "../../general-styles/framework/variables/index";
@@ -76,3 +76,5 @@ $tertiary-font: $secondary-font;
 @import "./scss/components/header/inverted-featured";
 
 @import "../../general-styles/framework/generators/generate-icons";
+
+@import "../../general-styles/components/features/ads/ads-noticia";
