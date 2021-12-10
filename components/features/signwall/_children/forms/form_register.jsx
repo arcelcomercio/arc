@@ -66,7 +66,8 @@ const FormRegister = ({
     arcSite === 'trome' &&
     (typeDialog === 'organico' ||
       typeDialog === 'verify' ||
-      typeDialog === 'banner')
+      typeDialog === 'banner' ||
+      typeDialog === 'promoMetro')
 
   const { changeTemplate } = useModalContext()
   const [showError, setShowError] = React.useState(false)
@@ -182,7 +183,7 @@ const FormRegister = ({
 
   const originAction = () => {
     switch (typeDialog) {
-      case 'organico' || 'banner':
+      case 'organico' || 'banner' || 'promoMetro':
         return '0'
       case 'hard':
         return '1'
@@ -415,22 +416,29 @@ const FormRegister = ({
                       Accede fácilmente con:
                     </p>
 
-                    {authProviders.map((item) => (
-                      <ButtonSocial
-                        key={item}
-                        brand={item}
-                        size={sizeBtnSocial}
-                        onLogged={onLogged}
-                        onClose={onClose}
-                        typeDialog={typeDialog}
-                        onStudents={() => setShowStudents(!showStudents)}
-                        arcSite={arcSite}
-                        typeForm="registro"
-                        activeNewsletter={activeNewsletter}
-                        checkUserSubs={checkUserSubs}
-                        dataTreatment={checkedPolits ? '1' : '0'}
-                      />
-                    ))}
+                    {authProviders.map((item) =>
+                      item === 'google' &&
+                      arcSite === 'trome' &&
+                      typeof window !== 'undefined' &&
+                      /iPhone|iPad|iPod/i.test(
+                        window.navigator.userAgent
+                      ) ? null : (
+                        <ButtonSocial
+                          key={item}
+                          brand={item}
+                          size={sizeBtnSocial}
+                          onLogged={onLogged}
+                          onClose={onClose}
+                          typeDialog={typeDialog}
+                          onStudents={() => setShowStudents(!showStudents)}
+                          arcSite={arcSite}
+                          typeForm="registro"
+                          activeNewsletter={activeNewsletter}
+                          checkUserSubs={checkUserSubs}
+                          dataTreatment={checkedPolits ? '1' : '0'}
+                        />
+                      )
+                    )}
 
                     <AuthURL
                       arcSite={arcSite}

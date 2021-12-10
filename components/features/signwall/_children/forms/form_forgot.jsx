@@ -25,7 +25,7 @@ const FormForgot = ({ typeDialog }) => {
   const textBtnSend = arcSite === SITE_TROME ? 'CAMBIAR CONTRASEÑA' : 'ENVIAR'
   const isTromeOrganic =
     arcSite === SITE_TROME &&
-    (typeDialog === 'organico' || typeDialog === 'verify')
+    (typeDialog === 'organico' || typeDialog === 'verify' || typeDialog === 'banner' || typeDialog === 'promoMetro')
 
   const { changeTemplate } = useModalContext()
   const [showError, setShowError] = React.useState(false)
@@ -124,9 +124,8 @@ const FormForgot = ({ typeDialog }) => {
 
   return (
     <form
-      className={`signwall-inside_forms-form ${
-        arcSite === SITE_TROME ? 'form-trome' : ''
-      } ${typeDialog}`}
+      className={`signwall-inside_forms-form ${arcSite === SITE_TROME ? 'form-trome' : ''
+        } ${typeDialog}`}
       onSubmit={(e) => {
         handleOnSubmit(e)
       }}>
@@ -176,9 +175,8 @@ const FormForgot = ({ typeDialog }) => {
 
           {showError && (
             <div
-              className={`signwall-inside_forms-error ${
-                showVerify ? 'warning' : ''
-              }`}>
+              className={`signwall-inside_forms-error ${showVerify ? 'warning' : ''
+                }`}>
               {` ${showError} `}
               {showVerify && (
                 <>
