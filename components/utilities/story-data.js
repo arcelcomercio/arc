@@ -93,8 +93,7 @@ class StoryData {
 
   constructor({
     data = {},
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    deployment = (resource) => '',
+    deployment = () => '',
     contextPath = '',
     arcSite = '',
     siteUrl = '',

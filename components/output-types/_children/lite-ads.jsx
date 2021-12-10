@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React from 'react'
 
-import { SITE_ELBOCON, SITE_PERUCOM } from '../../utilities/constants/sitenames'
+import {
+  SITE_ELBOCON,
+  SITE_ELCOMERCIOMAG,
+  SITE_PERUCOM,
+} from '../../utilities/constants/sitenames'
 
 const LiteAds = ({
   requestUri,
@@ -101,7 +105,6 @@ const LiteAds = ({
 
   const typeContent = contentCode === '' ? 'standar' : contentCode
   const targetingTags = tags.map(({ slug = '' }) => slug.split('-').join(''))
-
   /* 
     window.addEventListener("load", function() {
       requestIdle(function() {
@@ -138,7 +141,6 @@ const LiteAds = ({
       })
     });
  */
-
   /* publicidad para lite (menos mag) */
   /* 
     document.addEventListener('DOMContentLoaded', () => {
@@ -311,52 +313,56 @@ const LiteAds = ({
     window.adsContinua = window.adsContinua || [];
     window.adsCollection = window.adsCollection || [];
   */
-
   /* 
-    window.addEventListener('load', function liteAds() {
-      requestIdle(function initLiteAds() {
+  window.addEventListener('load', function liteAds() {
+    requestIdle(function initLiteAds() {
         const {
             isMobiles,
             existAds,
             adsCollection
         } = window
-        if (existAds) {
-          // Solo ejecuta si existen ads
-          window.googletag = window.googletag || {
-              cmd: []
-          }
-          googletag.cmd.push(function() {
-            googletag.pubads().collapseEmptyDivs();
-            googletag.enableServices();
-          });
-          if (window.adsCollection.length > 0) requestIdle(function() {
-            firstRequest()
-          })
-          const firstRequest = () => {
-            let arcAds = new ArcAds({
-                dfp: {
-                    id: "28253241"
-                }
-            });
-            let adsBloque1 = window.adsCollection.filter(
-                function(input) {
-                    if (input.bloque == '1') {
-                        return input;
-                    };
-                }
-            );
-            window.adsBloque1 = adsBloque1
-            arcAds.registerAdCollection(adsBloque1)
-          }
-        }
-      })
-    })
-  */
 
+        if (existAds) {
+            // Solo ejecuta si existen ads
+            window.googletag = window.googletag || {
+                cmd: []
+            }
+            googletag.cmd.push(function() {
+                googletag.pubads().collapseEmptyDivs();
+                googletag.enableServices();
+            });
+
+            if (window.adsCollection.length > 0) requestIdle(function() {
+                firstRequest()
+            })
+
+            const firstRequest = () => {
+                let arcAds = new ArcAds({
+                    dfp: {
+                        id: "28253241"
+                    }
+                });
+                let adsBloque1 = window.adsCollection.filter(
+                    function(input) {
+                        if (input.bloque == '1') {
+                            return input;
+                        };
+                    }
+                );
+
+                window.adsBloque1 = adsBloque1
+                arcAds.registerAdCollection(adsBloque1)
+            }
+        }
+    })
+  })
+  */
   const typeNote = subtype === 'gallery_vertical' ? 'galeria_v' : 'post'
   return (
     <>
-      {arcSite !== SITE_ELBOCON && arcSite !== SITE_PERUCOM ? (
+      {arcSite !== SITE_ELCOMERCIOMAG &&
+      arcSite !== SITE_ELBOCON &&
+      arcSite !== SITE_PERUCOM ? (
         <script
           async
           src={`https://d2dvq461rdwooi.cloudfront.net/output/assets/js/prebid.js?v1${new Date()
