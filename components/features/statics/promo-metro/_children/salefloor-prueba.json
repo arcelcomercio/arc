@@ -75,7 +75,7 @@
       "discount": "10",
       "additional": false,
       "discountType": "%",
-      "title": "En colchones, cama y Dormitorios",
+      "title": "En colchones, camas y dormitorios",
       "cencosud": null,
       "bonus": null,
       "restrictions": []
@@ -86,7 +86,7 @@
       "discount": "10",
       "additional": true,
       "discountType": "%",
-      "title": "En todo URB temporada 2022",
+      "title": "En todo URB temporada verano 2022",
       "cencosud": null,
       "bonus": null,
       "restrictions": []
@@ -97,7 +97,7 @@
       "discount": "20",
       "additional": true,
       "discountType": "%",
-      "title": "En toda la Jugueteria",
+      "title": "En toda La Juguetería Metro",
       "cencosud": null,
       "bonus": null,
       "restrictions": [
