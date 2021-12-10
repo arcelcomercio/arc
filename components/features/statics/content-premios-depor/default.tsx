@@ -119,8 +119,10 @@ const ContentPremiosDepor = (props: Props) => {
     if (Object.keys(result).length !== premiosDepor.length)
       return setError(true)
 
-    const newObject = Object.assign(result, userProfile)
-    console.log(newObject)
+    const newObject = {
+      ...result,
+      ...userProfile,
+    }
 
     const voteFetch = await fetch(serviceEndPoint, {
       method: 'POST',
@@ -130,8 +132,13 @@ const ContentPremiosDepor = (props: Props) => {
       },
     })
 
-    const newVotefetch = await voteFetch.json()
-    console.log(newVotefetch)
+    const newVoteFetch = await voteFetch.json()
+
+    if (newVoteFetch?.id >= 0) {
+      console.log(newVoteFetch)
+    } else {
+      console.log(newVoteFetch)
+    }
 
     return true
   }
