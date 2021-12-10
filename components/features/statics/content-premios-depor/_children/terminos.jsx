@@ -8,7 +8,14 @@ const classes = {
   title: 'premios_depor__terminos__box__black__text__titulo',
   content: 'premios_depor__terminos__box__black__text__contenido',
   lines: 'premios_depor__terminos__box__black__lines',
+  linesMob: 'premios_depor__terminos__box__black__linesMob',
 }
+
+let isMobile
+if (typeof window !== 'undefined')
+  isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
+    window.navigator.userAgent
+  )
 
 const Terms = () => (
   <div className={classes.box}>
@@ -41,11 +48,15 @@ const Terms = () => (
           serán publicados en el Print del diario Depor el 01 de enero de 2022.
         </div>
       </div>
-      <img
-        src="https://cdna.depor.com/resources/dist/depor/premios-depor/green_lines.svg"
-        className={classes.lines}
-        alt="green lines"
-      />
+      {isMobile ? (
+        <div className={classes.linesMob} />
+      ) : (
+        <img
+          src="https://cdna.depor.com/resources/dist/depor/premios-depor/green_lines.svg"
+          className={classes.lines}
+          alt="green lines"
+        />
+      )}
     </div>
   </div>
 )
