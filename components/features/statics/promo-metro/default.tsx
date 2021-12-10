@@ -123,7 +123,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
   const {
     couponsSaleFloorJson,
     couponsECommerceJson,
-    titleToLogin = 'Para ver los cupones, debes estar registrado',
+    titleToLogin = 'Para disfrutar de este beneficio, debes registrarte',
     titleToShare = '',
     textToShare = '',
     pathToShare = '/promo-metro',
