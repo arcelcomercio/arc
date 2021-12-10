@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { premiosDepor } from './_dependencies/data-premios-depor'
+// import { TerminosPremiosDepor } from './children/terminos'
 
 const classes = {
   content: 'content-premios-depor',

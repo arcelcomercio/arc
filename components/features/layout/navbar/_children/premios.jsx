@@ -74,10 +74,10 @@ class HeaderChildPremiosDepor extends React.PureComponent {
       }
     }
 
-    const haciaDeporHome = (e) => {
-      e.preventDefault()
-      window.location.href = `https://depor.com/`
-    }
+    // const haciaDeporHome = (e) => {
+    //   e.preventDefault()
+    //   window.location.href = `https://depor.com/`
+    // }
     return (
       handleHide() && (
         <div className={` ${isMobile ? classes.boxMob : classes.box} `}>
@@ -85,33 +85,12 @@ class HeaderChildPremiosDepor extends React.PureComponent {
             className={` ${classes.cont}
           ${isMobile ? classes.opacity : ''} `}>
             <div className={classes.contLeft}>
-              <image
-                type="submit"
+              <img
+                src="https://cdna.depor.com/resources/dist/depor/premios-depor/arrow_back-24px.svg"
                 className={classes.flecha}
-                onClick={haciaDeporHome}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  width={24}
-                  height={24}
-                  style={{
-                    enableBackground: 'new 0 0 24 24',
-                  }}
-                  xmlSpace="preserve">
-                  <path
-                    d="M0 0h24v24H0V0z"
-                    style={{
-                      fill: 'none',
-                    }}
-                  />
-                  <path
-                    d="M20 11H7.8l5.6-5.6L12 4l-8 8 8 8 1.4-1.4L7.8 13H20v-2z"
-                    style={{
-                      fill: '#fff',
-                    }}
-                  />
-                </svg>
-              </image>
+                alt="flecha"
+                href="/"
+              />
               <div className={classes.logo}>
                 <svg
                   data-name="Capa 1"
