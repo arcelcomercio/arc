@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 
+import Terms from './_children/terminos'
 import { premiosDepor } from './_dependencies/data-premios-depor'
 import { Attribute, Profile } from './_utils/types'
 
@@ -137,95 +138,98 @@ const ContentPremiosDepor = (props: Props) => {
   }
 
   return (
-    <div className={classes.content}>
-      <div className={classes.container}>
-        <h1 className={classes.title}>
-          ¡Premiamos a los mejores talentos Depor del año!
-        </h1>
-        <p>
-          A continuación te presentamos once categorías en donde elegirás al
-          deportista más destacado del 2021.
-        </p>
-        <div className={classes.instructions}>
-          1. Debes elegir un deportista por CADA UNA de las categorías. (solo
-          puedes votar una vez) <br />
-          2. Debes completar tu DNI y Nro. de Teléfono de contacto de manera
-          obligatoria.
-        </div>
-      </div>
-
-      <div className={classes.wrapper}>
-        <form onSubmit={handleSubmit}>
-          <div className={classes.form}>
-            {premiosDepor.map(
-              ({ title, radio, persons, path_img, largeTitle }) => (
-                <div className={classes.card} key={title}>
-                  <div className={classes.cardHead}>
-                    <img
-                      src={uri + path_img}
-                      alt={title}
-                      className={classes.image}
-                    />
-                    <h3 style={{ marginLeft: largeTitle ? '45px' : '0' }}>
-                      {title}
-                    </h3>
-                  </div>
-                  <div className={classes.cardBody}>
-                    <ul className={classes.list}>
-                      {persons.map((person) => {
-                        let name
-                        let profesion
-                        if (person.indexOf('(') > 0) {
-                          const index = person.indexOf('(')
-                          name = person.slice(0, index)
-                          profesion = person.slice(index)
-                        }
-                        return (
-                          <div
-                            key={person}
-                            role="button"
-                            tabIndex={0}
-                            onClick={() => handleSelect(radio, person)}
-                            onKeyPress={() => handleSelect(radio, person)}>
-                            <label>
-                              <input
-                                className={classes.itemArrow}
-                                type="radio"
-                                name={radio}
-                              />
-                              {!name ? (
-                                <span className={classes.item}>{person}</span>
-                              ) : (
-                                <p className={classes.item}>
-                                  {name} <span>{profesion}</span>{' '}
-                                </p>
-                              )}
-                            </label>
-                          </div>
-                        )
-                      })}
-                    </ul>
-                  </div>
-                </div>
-              )
-            )}
+    <>
+      <div className={classes.content}>
+        <div className={classes.container}>
+          <h1 className={classes.title}>
+            ¡Premiamos a los mejores talentos Depor del año!
+          </h1>
+          <p>
+            A continuación te presentamos once categorías en donde elegirás al
+            deportista más destacado del 2021.
+          </p>
+          <div className={classes.instructions}>
+            1. Debes elegir un deportista por CADA UNA de las categorías. (solo
+            puedes votar una vez) <br />
+            2. Debes completar tu DNI y Nro. de Teléfono de contacto de manera
+            obligatoria.
           </div>
+        </div>
 
-          {voted && (
-            <div className={classes.containerButton}>
-              <button type="submit" className={classes.button}>
-                ENVIAR
-              </button>
-              {error && (
-                <p className={classes.error}>
-                  * Debes elegir un ganador en cada categoría para continuar
-                </p>
+        <div className={classes.wrapper}>
+          <form onSubmit={handleSubmit}>
+            <div className={classes.form}>
+              {premiosDepor.map(
+                ({ title, radio, persons, path_img, largeTitle }) => (
+                  <div className={classes.card} key={title}>
+                    <div className={classes.cardHead}>
+                      <img
+                        src={uri + path_img}
+                        alt={title}
+                        className={classes.image}
+                      />
+                      <h3 style={{ marginLeft: largeTitle ? '45px' : '0' }}>
+                        {title}
+                      </h3>
+                    </div>
+                    <div className={classes.cardBody}>
+                      <ul className={classes.list}>
+                        {persons.map((person) => {
+                          let name
+                          let profesion
+                          if (person.indexOf('(') > 0) {
+                            const index = person.indexOf('(')
+                            name = person.slice(0, index)
+                            profesion = person.slice(index)
+                          }
+                          return (
+                            <div
+                              key={person}
+                              role="button"
+                              tabIndex={0}
+                              onClick={() => handleSelect(radio, person)}
+                              onKeyPress={() => handleSelect(radio, person)}>
+                              <label>
+                                <input
+                                  className={classes.itemArrow}
+                                  type="radio"
+                                  name={radio}
+                                />
+                                {!name ? (
+                                  <span className={classes.item}>{person}</span>
+                                ) : (
+                                  <p className={classes.item}>
+                                    {name} <span>{profesion}</span>{' '}
+                                  </p>
+                                )}
+                              </label>
+                            </div>
+                          )
+                        })}
+                      </ul>
+                    </div>
+                  </div>
+                )
               )}
             </div>
-          )}
-        </form>
+
+            {voted && (
+              <div className={classes.containerButton}>
+                <button type="submit" className={classes.button}>
+                  ENVIAR
+                </button>
+                {error && (
+                  <p className={classes.error}>
+                    * Debes elegir un ganador en cada categoría para continuar
+                  </p>
+                )}
+              </div>
+            )}
+          </form>
+        </div>
       </div>
-    </div>
+      <Terms />
+    </>
   )
 }
 
