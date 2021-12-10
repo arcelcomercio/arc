@@ -21,7 +21,7 @@ const Terms = () => (
   <div className={classes.box}>
     <div className={classes.green} />
     <div className={classes.black}>
-      <div className={classes.text}>
+      <div className={classes.text} id="termsid">
         <div className={classes.title}>Términos y Condiciones</div>
         <div className={classes.content}>
           <p>

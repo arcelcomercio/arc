@@ -141,7 +141,9 @@ class HeaderChildPremiosDepor extends React.PureComponent {
               <>
                 <div className={classes.contRight}>
                   <div className={classes.terminos}>
-                    <span>TÉRMINOS Y CONDICIONES</span>
+                    <a href="#termsid">
+                      <span>TÉRMINOS Y CONDICIONES</span>
+                    </a>
                   </div>
                   {!isPreview && typeof window !== 'undefined' ? (
                     <SignwallComponent classButton={classes.buttonAft} />
