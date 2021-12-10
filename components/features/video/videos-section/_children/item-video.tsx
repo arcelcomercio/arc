@@ -2,13 +2,13 @@ import React from 'react'
 import { FC } from 'types/features'
 import { AppContext, ArcSite } from 'types/fusion'
 
-import Image from '../../../../global-components/image'
+import { defaultImage } from '../../../../utilities/assets'
 import StoryData from '../../../../utilities/story-data'
 
 interface Props {
+  arcSite: ArcSite
   story?: any
   index?: number
-  arcSite?: ArcSite
   contextPath?: AppContext['contextPath']
   deployment?: AppContext['deployment']
 }
@@ -23,15 +23,16 @@ const classes = {
   icon: 'video-categories-list__section__item__icon-play',
 }
 
-const ItemVideo: FC<Props> = ({ story, arcSite, contextPath, deployment }) => {
+const ItemVideo: FC<Props> = ({ story, arcSite, contextPath = '' }) => {
   const Story = new StoryData({
     data: {},
     arcSite,
     contextPath,
-    deployment,
   })
 
   Story.__data = story
+
+  const lazyImg = defaultImage({ contextPath, arcSite })
 
   return (
     <div className={classes.wrapper}>
@@ -40,14 +41,10 @@ const ItemVideo: FC<Props> = ({ story, arcSite, contextPath, deployment }) => {
         className={classes.imageWrapper}
         href={Story.websiteLink}>
         <img
-          src={Story.multimediaLandscapeMD}
-          // width={276}
-          // height={155}
+          data-src={Story.multimediaLandscapeMD}
+          src={lazyImg}
           alt={Story.title}
-          className={classes.image}
-          // loading="lazy"
-          // sizes="(max-width: 276px) 276px"
-          // clientResize
+          className={`${classes.image} lazy`}
         />
 
         {!(
