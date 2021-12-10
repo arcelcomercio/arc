@@ -21,6 +21,14 @@ const classes = {
   containerButton: 'content-premios-depor__container-button',
   button: 'content-premios-depor__button',
   error: 'content-premios-depor__error',
+
+  modal: 'content-premios-depor__modal',
+  logoModal: 'content-premios-depor__logo',
+  wrapperModal: 'content-premios-depor__wrapper-modal',
+  titleModal: 'content-premios-depor__modal-title',
+  play: 'content-premios-depor__play',
+  buttonModal: 'content-premios-depor__modal-button',
+  wrapperImage: 'content-premios-depor__wrapper-img',
 }
 
 const uri = 'https://cdna.depor.com/resources/dist/depor/premios-depor'
@@ -38,6 +46,7 @@ const ContentPremiosDepor = (props: Props) => {
 
   const [error, setError] = useState(false)
   const [voted, setVoted] = useState(true)
+  const [modal, setModal] = useState(true)
   const [result, setResult] = useState({})
   const [userProfile, setUserProfile] = useState({})
 
@@ -135,7 +144,7 @@ const ContentPremiosDepor = (props: Props) => {
     const newVoteFetch = await voteFetch.json()
 
     if (newVoteFetch?.id >= 0) {
-      console.log(newVoteFetch)
+      setModal(true)
     } else {
       console.log(newVoteFetch)
     }
@@ -232,6 +241,30 @@ const ContentPremiosDepor = (props: Props) => {
           )}
         </form>
       </div>
+
+      {modal && (
+        <div className={classes.modal}>
+          <div className={classes.wrapperModal}>
+            <img
+              src="https://cdna.depor.com/resources/dist/depor/premios-depor/Logo_Depor_green.svg"
+              alt="voto"
+              className={classes.logoModal}
+            />
+            <h1 className={classes.titleModal}>¡Gracias por tu voto!</h1>
+            <p> Tu participación ha sido registrada para el sorteo de un </p>
+            <h1 className={classes.play}> PlayStation 5 </h1>
+            <div className={classes.wrapperImage}>
+              <img
+                src="https://cdna.depor.com/resources/dist/depor/premios-depor/ps5_controller.svg"
+                alt="play"
+              />
+              <a href="/" className={classes.buttonModal}>
+                Ir a Depor.com
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
