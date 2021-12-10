@@ -51,8 +51,50 @@ $medium: 500;
 $semi-bold: 600;
 $bold: 700;
 
+html,
+body,
+button,
+div,
+span,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+address,
+img,
+small,
+strong,
+b,
+u,
+i,
+ol,
+ul,
+li,
+form,
+label,
+article,
+aside,
+figure,
+figcaption,
+footer,
+menu,
+nav,
+section,
+summary,
+time,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+
 body {
-  margin-top: 0;
   background-color: #f2f2f2;
 }
 
@@ -61,6 +103,7 @@ body {
 * ----------------------------- */
 @import "../../general-styles/framework/variables/declare-sizes";
 @import "../../general-styles/framework/variables/breakpoints";
-@import "./scss/lite-components/features/header/premios-depor/premios.scss";
-@import "./scss/lite-components/features/header/premios-depor/terminos.scss";
-@import "./scss/components/features/statics/content-premios-depor";
+@import "./scss/components/features/statics/premios-depor/terminos";
+@import "./scss/components/features/statics/premios-depor/content-premios-depor";
+@import "./scss/components/features/statics/premios-depor/footer";
+@import "./scss/components/features/statics/premios-depor/premios";
