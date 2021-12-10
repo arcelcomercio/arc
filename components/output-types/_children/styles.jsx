@@ -46,6 +46,8 @@ const Styles = ({
     style = 'elecciones-2021'
   else if (metaValue('section_style') === 'agenda_presidencial')
     style = 'agenda-presidencial'
+  else if (metaValue('section_style') === 'premios_depor')
+    style = 'premios-depor'
   else if (!isStory && metaValue('section_style') === 'provecho')
     style = 'provecho'
   // else if (requestUri.includes('/covid-19/')) style = 'covid'
