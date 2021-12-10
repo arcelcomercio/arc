@@ -8,15 +8,14 @@
   }
 
   &__logo {
-    height: 121px;
-    left: 13px;
     position: absolute;
-    width: 105px;
+    top: 33px;
+    left: 13px;
+    height: 90px;
   }
 
   &__nav {
     display: none;
-    background-color: #a8a89b;
     @media (--desktop) {
       display: flex;
       justify-content: flex-end;
@@ -29,24 +28,30 @@
     padding-right: 20px;
     flex-wrap: wrap;
     max-width: 826px;
+
+    @media (--desktop) {
+      margin-left: 155px;
+    }
   }
   &__item {
     white-space: nowrap;
-    &::after {
-      background-color: #fff;
-      content: "";
-      display: block;
-      height: 10px;
-      width: 1px;
-    }
   }
+
+  // ? Links
   &__link {
-    font: 700 10px/1 $tertiary-font;
+    font-family: $fifth-font;
+    font-weight: 700;
     color: #444;
-    padding: 10px;
+    padding: 20px 15px;
     text-transform: uppercase;
     letter-spacing: 0.02rem;
+
+    @media (--desktop) {
+      font-size: 14px;
+      line-height: 37px;
+    }
   }
+
   &__date {
     display: none;
   }
