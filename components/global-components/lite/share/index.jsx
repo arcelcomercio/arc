@@ -25,6 +25,7 @@ const ShareButtons = ({
   title: customTitle = '',
   googleNewsText = true,
   hideShareLinks = false,
+  appVersion = true,
 }) => {
   if (hideShareLinks) return null
 
@@ -41,7 +42,7 @@ const ShareButtons = ({
     headlines: { basic: postTitle = '' } = {},
   } = globalContent || {}
   const {
-    social: { twitter: { user: siteNameRedSocial = '' } = {} } = {},
+    social: { twitter: { user: twitterUser = '' } = {} } = {},
     siteUrl,
     googleNewsUrl,
   } = getProperties(arcSite)
@@ -53,7 +54,8 @@ const ShareButtons = ({
     siteUrl,
     path,
     title,
-    siteNameRedSocial
+    twitterUser,
+    appVersion
   )
 
   if (

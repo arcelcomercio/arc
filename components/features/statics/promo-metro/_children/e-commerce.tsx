@@ -15,7 +15,8 @@ const classes = {
   couponCodeEco: 'coupon-codeEco',
   titleRestriction: 'coupon-restriction-title',
   textRestriction: 'coupon-restriction-text',
-  logoMetroPe: 'coupon-logo-metrope',
+  metroLogo: 'coupon-logo',
+  metroLink: 'coupon-logo-link',
 }
 interface CouponProps {
   code: string
@@ -42,15 +43,23 @@ const ECommerceCard: React.FunctionComponent<CouponProps> = ({
 }) => (
   <li className={classes.coupon}>
     <div className={classes.couponFirstColumn}>
-      <img
-        src={`${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/logo-metro-pe.png?d=1`}
-        alt="metro.pe"
-        className={classes.logoMetroPe}
-        loading="lazy"
-      />
+      <a
+        className={classes.metroLink}
+        href="https://www.metro.pe/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Ir a metro.pe">
+        <img
+          aria-hidden="true"
+          className={classes.metroLogo}
+          src={`${getAssetsPath(
+            arcSite,
+            contextPath
+          )}/resources/dist/${arcSite}/images/logo-metro-pe.png?d=1`}
+          alt="metro.pe"
+          loading="lazy"
+        />
+      </a>
       {restrictions ? (
         <div className="flex flex-col">
           <div className="flex flex-col">
