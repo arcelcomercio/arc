@@ -56,10 +56,10 @@
         background-position: center;
         background-repeat: no-repeat;
         width: 344px;
-        height: 300px;
+        height: 250px;
         @media (--tablet) {
-          width: 625px;
-          height: 500px;
+          width: 624px;
+          height: 350px;
         }
       }
       &__text {
@@ -73,7 +73,7 @@
         border-color: 2px solid #444;
         border-radius: 10px;
         width: 328px;
-        height: 1400px;
+        height: 1430px;
         @media (--tablet) {
           border-color: 3px solid #444;
           margin-top: -100px;
@@ -85,13 +85,13 @@
           border-color: 4px solid #444;
           width: 640px;
           height: 915px;
-          margin-top: -70px;
+          margin-top: -110px;
           margin-bottom: -250px;
         }
         &__titulo {
           color: #222;
-          margin-top: 32px;
-          margin-bottom: 16px;
+          margin-top: 20px;
+          margin-bottom: 0;
           font-weight: $semi-bold;
           text-align: center;
           font-family: $secondary-font;
@@ -99,9 +99,12 @@
           letter-spacing: 0.45px;
           line-height: 40px;
 
+          @media (--tablet) {
+            margin-top: 15px;
+          }
           @media (--desktop) {
             margin-top: 32px;
-            margin-bottom: 33px;
+            margin-bottom: 15px;
             font-size: 36px;
             letter-spacing: 0.58px;
             line-height: 40px;
@@ -125,6 +128,9 @@
             margin-left: 60px;
             margin-right: 60px;
           }
+          // p {
+          //   margin-bottom: 20px;
+          // }
         }
       }
     }
