@@ -385,14 +385,13 @@ class StoryContents extends React.PureComponent {
                           !(
                             subtype === GALLERY_VERTICAL && nameAds === 'caja3'
                           ) && (
-                            <div className={`content_gpt_${nameAds}`}>
-                              <Ads
-                                adElement={nameAds}
-                                isDesktop={false}
-                                isMobile
-                                isDfp={isDfp}
-                              />
-                            </div>
+                            <Ads
+                              adElement={nameAds}
+                              isDesktop={false}
+                              isMobile
+                              isLite={false}
+                              isDfp={isDfp}
+                            />
                           )}
 
                         {(arcSite === 'elcomercio' ||
