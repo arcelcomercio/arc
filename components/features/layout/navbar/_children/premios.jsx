@@ -18,7 +18,23 @@ const classes = {
   terminos: 'premios_depor__header__cont__contRight__terminos',
   buttonBef: 'premios_depor__header__cont__contRight__button--before',
   buttonAft: 'premios_depor__header__cont__contRight__button--after',
-  menu: 'premios_depor__header__cont__contRight__menu',
+  menuContainer: 'premios_depor__header__cont__contRight__menuContainer',
+
+  boxBtnMenu: 'premios_depor__header__box-btnmenu ',
+  btnMenu: 'premios_depor__header__btn-menu  ',
+  iconMenu: 'premios_depor__header__icon-menu ',
+  wrapperMenu: 'premios_depor__header__wrapper-menu ',
+  topMenu: 'premios_depor__header__top-menu ',
+  topLeft: 'premios_depor__header__top-left  ',
+  btnClose: 'premios_depor__header__btn-close ',
+  iconClose: 'premios_depor__header__icon-close ',
+  imgMenu: 'premios_depor__header__img-menu',
+  headerList: 'premios_depor__header__submenu-list ',
+  headerItem: 'premios_depor__header__submenu-item ',
+  headerLink: 'premios_depor__header__link ',
+  boxLogoPlay: 'premios_depor__header__box-logo-play',
+  linkLogoFooterDPlay: 'premios_depor__header__link-logo-play ',
+  logo2: 'premios_depor__header__logo2',
 }
 
 let isMobile
@@ -74,10 +90,6 @@ class HeaderChildPremiosDepor extends React.PureComponent {
       }
     }
 
-    // const haciaDeporHome = (e) => {
-    //   e.preventDefault()
-    //   window.location.href = `https://depor.com/`
-    // }
     return (
       handleHide() && (
         <div className={` ${isMobile ? classes.boxMob : classes.box} `}>
@@ -113,29 +125,66 @@ class HeaderChildPremiosDepor extends React.PureComponent {
               </div>
             </div>
             {isMobile ? (
-              <div className={classes.menu}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  width="24px"
-                  height="24px"
-                  style={{
-                    enableBackground: 'new 0 0 24 24',
-                  }}
-                  xmlSpace="preserve">
-                  <path
-                    d="M0 0h24v24H0V0z"
-                    style={{
-                      fill: 'none',
-                    }}
-                  />
-                  <path
-                    d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
-                    style={{
-                      fill: '#fff',
-                    }}
-                  />
-                </svg>
+              <div className={classes.menuContainer}>
+                <div className={classes.boxBtnMenu}>
+                  <button
+                    type="button"
+                    className={classes.btnMenu}
+                    id="btn-menu">
+                    <i aria-label="menú" className={classes.iconMenu} />
+                  </button>
+                </div>
+                <div className={classes.wrapperMenu}>
+                  <div className={classes.topMenu}>
+                    <div className={classes.topLeft}>
+                      <button
+                        type="button"
+                        className={classes.btnClose}
+                        id="btn-close-menu">
+                        <i className={classes.iconClose} />
+                      </button>
+                    </div>
+                  </div>
+                  <ul className={classes.headerList}>
+                    <li className={classes.headerItem}>
+                      <a
+                        itemProp="url"
+                        href="https://depor.com/depor-play/"
+                        className={classes.headerLink}>
+                        Terminos y Condiciones
+                      </a>
+                    </li>
+                    <li className={classes.headerItem}>
+                      <a
+                        itemProp="url"
+                        href="https://depor.com/depor-play/"
+                        className={classes.headerLink}>
+                        Premios
+                      </a>
+                    </li>
+                  </ul>
+                  <div className={classes.boxLogoPlay}>
+                    <a
+                      itemProp="url"
+                      className={classes.linkLogoFooterDPlay}
+                      href="/"
+                      title="depor.com">
+                      <svg
+                        width="74"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 492 492"
+                        xmlSpace="preserve">
+                        <path d="M198.608 246.104 382.664 62.04c5.068-5.056 7.856-11.816 7.856-19.024 0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12C361.476 2.792 354.712 0 347.504 0s-13.964 2.792-19.028 7.864L109.328 227.008c-5.084 5.08-7.868 11.868-7.848 19.084-.02 7.248 2.76 14.028 7.848 19.112l218.944 218.932c5.064 5.072 11.82 7.864 19.032 7.864 7.208 0 13.964-2.792 19.032-7.864l16.124-16.12c10.492-10.492 10.492-27.572 0-38.06L198.608 246.104z" />
+                      </svg>
+                      <img
+                        src="https://d1r08wok4169a5.cloudfront.net/iframes/depor_logo.svg"
+                        className={classes.logo2}
+                        alt="logo-depor"
+                        title="depor.com"
+                      />
+                    </a>
+                  </div>
+                </div>
               </div>
             ) : (
               <>
