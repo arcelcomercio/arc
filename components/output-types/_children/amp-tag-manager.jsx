@@ -65,37 +65,19 @@ export default ({
     `
   })
 
-  const ampAnalyticsOjo = `
-  {
-    "vars": {
-        "account": "${siteProperties.ampGoogleTagManagerId}"
-    },
-    "triggers": {
-        ${videoSeoItems[0] ? ` ${videoSeoItems}` : ''}
-    }
-  }`
+  const ampAnalyticsOjo = `{"vars": {"account": "${
+    siteProperties.ampGoogleTagManagerId
+  }" },"triggers": {${videoSeoItems[0] ? ` ${videoSeoItems}` : ''}}}`
 
-  const chartbeat = ` {
-    "vars": {
-        "uid" : ${siteProperties.charbeatAccountNumber},
-        "domain" : "${siteProperties.siteDomain}",
-        "sections" : "${sections && sections.map(({ name }) => `'${name}'`)}",
-        "author" : "'Redacción ${
-          autors && autors.map(({ name }) => `'${name}'`)
-        }'",
-        "contentType" : "${ELEMENT_TYPE_CHARBEAT}"
+  const chartbeat = `{"vars": {"uid" : ${
+    siteProperties.charbeatAccountNumber
+  },"domain" : "${siteProperties.siteDomain}","sections" : "${
+    sections && sections.map(({ name }) => `'${name}'`)
+  }", "author" : "'Redacción ${
+    autors && autors.map(({ name }) => `'${name}'`)
+  }'","contentType" : "${ELEMENT_TYPE_CHARBEAT}" }  }`
 
-    }
-  }`
-
-  const comscore = ` {
-    "vars": {
-      "c2": "${COMSCORE_ID}"
-    },
-    "extraUrlParams": {
-      "comscorekw": "amp"
-    }
-  }`
+  const comscore = `{"vars": { "c2": "${COMSCORE_ID}" },"extraUrlParams": {"comscorekw": "amp" }}`
 
   const urlStory = `${siteProperties.siteUrl}${requestUri}`
   const urlPixel = `https://www.google-analytics.com/r/collect?v=1&_v=a1&ds=AMP&sr=SCREEN_WIDTHxSCREEN_HEIGHT&sd=SCREEN_COLOR_DEPTH&ul=BROWSER_LANGUAGE&de=DOCUMENT_CHARSET&dr=DOCUMENT_REFERRER&t=pageview&tid=${
