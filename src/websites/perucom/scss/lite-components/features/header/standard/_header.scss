@@ -19,6 +19,7 @@
     @media (--desktop) {
       display: flex;
       justify-content: flex-end;
+      border-bottom: 1px solid #dadada;
     }
   }
   &__tags {

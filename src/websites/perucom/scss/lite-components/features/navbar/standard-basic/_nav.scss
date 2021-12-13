@@ -52,7 +52,7 @@
     width: 0;
   }
   &__i-search {
-    background-color: #000;
+    background-color: transparent;
     color: #fff;
     height: 30px;
     outline: none;
@@ -64,6 +64,7 @@
     will-change: width;
     width: 0;
     &.active {
+      background-color: #000;
       border: 1px solid #fff;
       padding-left: 8px;
       width: 200px;
@@ -105,12 +106,11 @@
   &__logo {
     height: 46px;
   }
-
-  // ? Menu Button
   &__btn--section {
     border-right: 1px solid #fff;
     padding-right: 10px;
     position: relative;
+    order: -1;
 
     @media (--desktop) {
       border-right: none;
@@ -140,6 +140,7 @@
   &__container-right {
     right: 15px;
     top: 5px;
+    display: none;
   }
   &__btn-sign {
     font-family: $fourth-font;
@@ -183,6 +184,9 @@
         display: block;
       }
     }
+  }
+  &__menu-open {
+    z-index: 26;
   }
   &.active {
     max-width: $max-width;
