@@ -4,13 +4,11 @@ import * as React from 'react'
 
 import { originByEnv } from '../utilities/arc/env'
 import { METERED, PREMIUM } from '../utilities/constants/content-tiers'
-import { GALLERY_VERTICAL, MINUTO_MINUTO } from '../utilities/constants/subtypes'
 import {
   SITE_DEPOR,
   SITE_DIARIOCORREO,
   SITE_ELBOCON,
   SITE_ELCOMERCIO,
-  SITE_ELCOMERCIOMAG,
   SITE_GESTION,
   SITE_OJO,
   SITE_PERU21,
@@ -18,7 +16,6 @@ import {
 } from '../utilities/constants/sitenames'
 import { addSlashToEnd } from '../utilities/parse/strings'
 import RedirectError from '../utilities/redirect-error'
-import { publicidadAmpMovil0 } from '../utilities/story/helpers-amp'
 import StoryData from '../utilities/story-data'
 import AmpTagManager from './_children/amp-tag-manager'
 import MetaSite from './_children/meta-site'
@@ -93,7 +90,7 @@ const AmpOutputType = ({
   //   storyTitleRe ? storyTitleRe.substring(0, 70) : ''
   // } | ${siteProperties.siteTitle.toUpperCase()}`
   const siteTitleSuffix = siteProperties.siteTitle.toUpperCase()
-  const sectionName = requestUri.split('/')[1].toUpperCase()
+  const sectionName = requestUri && requestUri.split('/')[1].toUpperCase()
   const siteTitleSuffixR = siteTitleSuffix.replace('NOTICIAS ', '')
   const title = `${storyTitleRe} | ${sectionName} | ${siteTitleSuffixR}`
 
@@ -255,13 +252,7 @@ const AmpOutputType = ({
   if (arcSite === SITE_DEPOR) {
     if (requestUri.match('^/usa')) lang = 'es-us'
   }
-  const namePublicidad = arcSite !== 'peru21g21' ? arcSite : 'peru21'
-  const dataSlot = `/28253241/${namePublicidad}/amp/post/default/zocalo`
-  const parameters = {
-    arcSite,
-    dataSlot,
-    prebidSlot: `19186-${namePublicidad}-amp-zocalo`,
-  }
+
   const isTrivia = /^\/trivias\//.test(requestUri)
   return (
     <Html lang={lang}>
@@ -308,8 +299,7 @@ const AmpOutputType = ({
           hasJwVideo={hasJwVideo}
         />
         <Resource
-          path={`resources/dist/${arcSite}/css/${isTrivia ? 'amp-trivias' : 'amp'
-            }.css`}>
+          path={`resources/dist/${arcSite}/css/${isTrivia ? 'amp-trivias' : 'amp'}.css`}>
           {({ data }) =>
             data ? (
               <style
@@ -329,14 +319,9 @@ const AmpOutputType = ({
         }
       </head>
       <body className={subtype}>
-        {!isTrivia || !(arcSite === SITE_TROME && (subtype === GALLERY_VERTICAL || subtype === MINUTO_MINUTO)) && (
+        {!isTrivia && (
           <>
             <AmpTagManager {...parametros} />
-            <amp-sticky-ad
-              layout="nodisplay"
-              class="ad-amp-movil"
-              dangerouslySetInnerHTML={publicidadAmpMovil0(parameters)}
-            />
           </>
         )}
         {children}

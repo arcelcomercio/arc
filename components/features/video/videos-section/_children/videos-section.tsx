@@ -2,6 +2,7 @@ import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import React from 'react'
 import { FC } from 'types/features'
+import { ArcSite } from 'types/fusion'
 
 import {
   includeCredits,
@@ -13,6 +14,7 @@ import { SchemaMultiStory } from '../_dependencies/schema-filter'
 import ItemVideo from './item-video'
 
 interface Props {
+  arcSite: ArcSite
   name?: string
   url?: string
 }
@@ -32,7 +34,7 @@ const VideosSection: FC<Props> = (props) => {
   const { url = '', name = '' } = props
   const { arcSite, contextPath, deployment } = useAppContext()
 
-  const presets = 'landscape_md:314x0'
+  const presets = 'landscape_md:276x155'
 
   const videosSection =
     useContent({
@@ -82,7 +84,7 @@ const VideosSection: FC<Props> = (props) => {
       </div>
       <div className={classes.wrapperList}>
         {videosSection.content_elements &&
-          videosSection.content_elements.map((video) => (
+          videosSection.content_elements.map((video: any) => (
             <ItemVideo
               story={video}
               arcSite={arcSite}

@@ -1,16 +1,16 @@
-import React from 'react'
-import { useFusionContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
-import schemaFilter from './_dependencies/schema-filter'
-import customFields from './_dependencies/custom-fields'
+import { useFusionContext } from 'fusion:context'
+import React from 'react'
 
 import LinksBand from './_children/links-band'
+import customFields from './_dependencies/custom-fields'
+import schemaFilter from './_dependencies/schema-filter'
 // import getProperties from 'fusion:properties'
 
 const BAND_HIERARCHY = 'header-default'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
 
-const HeaderLinksBand = props => {
+const HeaderLinksBand = (props) => {
   const {
     customFields: { hierarchyConfig, tag },
   } = props
@@ -33,19 +33,16 @@ const HeaderLinksBand = props => {
     source: bandSource,
     query: sourceQuery,
     filter: schemaFilter,
-    transform: data => {
+    transform: (data) => {
       const { children = [] } = data || {}
       const LINK = 'link'
-      return children.map(child => {
+      return children.map((child) => {
         let name = child.node_type === LINK ? child.display_name : child.name
         const rawMatch = name.match(/\[#.*\]/g)
         const match =
           rawMatch === null
             ? ''
-            : rawMatch[0]
-                .replace('[', '')
-                .replace(']', '')
-                .split(',')
+            : rawMatch[0].replace('[', '').replace(']', '').split(',')
         if (match) {
           name = name.replace(/\[#.*\]/g, '')
         }

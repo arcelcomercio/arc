@@ -5,6 +5,7 @@ import ShareButtons from '../../../global-components/lite/share'
 import { SITE_DEPOR, SITE_TROME } from '../../../utilities/constants/sitenames'
 import StoryData from '../../../utilities/story-data'
 import PremiumTag from './_children/premium'
+import customFields from './_dependencies/custom-fields'
 
 const classes = {
   description: 'sht__summary',
@@ -41,6 +42,9 @@ const StoryTitleLite = () => {
     metaValue('section_style') === 'story-v2-standard'
 
   const isStoryV2VideoStyle = metaValue('section_style') === 'story-v2-video'
+  const styleList = isStoryV2VideoStyle
+    ? null
+    : { marginRight: '20px', marginLeft: '20px' }
 
   return (
     <>
@@ -58,17 +62,19 @@ const StoryTitleLite = () => {
       </h1>
       {items &&
         type === 'list' &&
-        !isStoryV2StandarStyle &&
-        !isStoryV2VideoStyle ? (
-        <div style={{ marginRight: '20px', marginLeft: '20px' }}>
-          <ul className={classes.listClasses}>
-            {items.map(({ content }) => (
-              <>
-                <li dangerouslySetInnerHTML={{ __html: content }} />
-              </>
-            ))}
-          </ul>
-        </div>
+        !isStoryV2StandarStyle ? (
+        <>
+          <div style={styleList}>
+            <ul className={classes.listClasses}>
+              {items.map(({ content }) => (
+                <>
+                  <li dangerouslySetInnerHTML={{ __html: content }} />
+                </>
+              ))}
+            </ul>
+          </div>
+          {isStoryV2VideoStyle && <ShareButtons renderScripts />}
+        </>
       ) : (
         <>
           <h2 itemProp="name" className={classes.description}>
@@ -79,7 +85,7 @@ const StoryTitleLite = () => {
           )}
           {items &&
             type === 'list' &&
-            (isStoryV2StandarStyle || isStoryV2VideoStyle) && (
+            isStoryV2StandarStyle && (
               <ul className={classes.listClasses}>
                 {items.map(({ content }) => (
                   <>
@@ -102,8 +108,11 @@ const StoryTitleLite = () => {
     </>
   )
 }
-
-StoryTitleLite.label = 'Artículo - Título'
+StoryTitleLite.propTypes = {
+  // eslint-disable-next-line react/no-unused-prop-types
+  customFields,
+}
+StoryTitleLite.label = 'Artículo - Título '
 StoryTitleLite.static = true
 
 export default StoryTitleLite
