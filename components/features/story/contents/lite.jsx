@@ -42,6 +42,7 @@ import {
   STORY_CUSTOMBLOCK,
   VIDEO_JWPLAYER,
   VIDEO_JWPLAYER_MATCHING,
+  CUSTOM_EC_BLOCKS,
 } from '../../../utilities/constants/subtypes'
 import { getDateSeo } from '../../../utilities/date-time/dates'
 import { contentWithAds } from '../../../utilities/story/content'
@@ -56,6 +57,8 @@ import StoryContentsChildAuthorLite from './_children/author-lite'
 import StoryContentChildAuthorLiteV2 from './_children/author-lite-v2'
 import StoryContentsChildAuthorTrustLite from './_children/author-trust-lite'
 import StoryContentsChildBlockQuote from './_children/blockquote'
+import StoryContentsChildHighlightedQuotes from './_children/highlighted-quotes'
+import StoryContentsChildIntertitle from './_children/intertitle'
 import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildCustomBlock from './_children/custom-block'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
@@ -363,6 +366,14 @@ const StoryContentsLite = (props) => {
                         playerId={playerId}
                       />
                     )
+                  }
+                  if (sub === CUSTOM_EC_BLOCKS) {
+                    if (customEmbed.config.block === 'highlighted-quotes') {
+                      return (<StoryContentsChildHighlightedQuotes data={element} />)
+                    }
+                    if (customEmbed.config.block === 'intertitle') {
+                      return (<StoryContentsChildIntertitle data={element} />)
+                    }
                   }
                 }
                 // // Condicion para trome sin blockquoute - components/features/story/title/lite.jsx
