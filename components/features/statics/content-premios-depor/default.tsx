@@ -38,6 +38,17 @@ interface Props {
     serviceEndPoint?: string
   }
 }
+interface UserProfile {
+  user_uuid: string
+  user_name: string
+  user_lastn: string
+  user_type_doc: string
+  user_dni: string
+  user_email: string
+  user_birthday: string
+  user_phone: string
+  user_address: string
+}
 
 const ContentPremiosDepor = (props: Props) => {
   const { customFields } = props
@@ -45,11 +56,12 @@ const ContentPremiosDepor = (props: Props) => {
     serviceEndPoint = 'http://pre.md.minoticia.pe/portal_apis/premios-depor/',
   } = customFields || {}
 
-  const [error, setError] = useState(false)
-  const [voted, setVoted] = useState(true)
-  const [modal, setModal] = useState(false)
+  const [isError, setIsError] = useState(false)
+  const [isVoted, setIsVoted] = useState(true)
+  const [isModal, setIsModal] = useState(false)
+  const [message, setMessage] = useState('')
   const [result, setResult] = useState({})
-  const [userProfile, setUserProfile] = useState({})
+  const [userProfile, setUserProfile] = useState<UserProfile>()
 
   const getUserAttributes = (type: string, attributes: Attribute[]) => {
     switch (type) {
@@ -80,36 +92,37 @@ const ContentPremiosDepor = (props: Props) => {
     }
     if (localProfile?.uuid) {
       const {
-        uuid,
-        firstName,
-        lastName,
-        attributes,
-        email,
-        birthDay,
-        birthMonth,
-        birthYear,
-        contacts,
-        addresses,
+        uuid = '',
+        firstName = '',
+        lastName = '',
+        attributes = [],
+        email = '',
+        birthDay = '',
+        birthMonth = '',
+        birthYear = '',
+        contacts = [],
+        addresses = '',
       } = localProfile
       setUserProfile({
         user_uuid: uuid,
-        user_name: firstName || '',
-        user_lastn: lastName || '',
+        user_name: firstName,
+        user_lastn: lastName,
         user_type_doc: getUserAttributes('type_doc', attributes),
         user_dni: getUserAttributes('dni', attributes),
-        user_email: email || '',
-        user_birthday: `${birthDay}-${birthMonth}-${birthYear}` || '',
+        user_email: email,
+        user_birthday: `${birthDay}-${birthMonth}-${birthYear}`,
         user_phone: contacts[0]?.phone || '',
-        user_address: addresses || '',
+        user_address: addresses,
       })
       const voteFetch = await fetch(
         `${serviceEndPoint}?format=json&user_uuid=${uuid}`
       )
       const { results = [] } = await voteFetch.json()
       if (results.length > 0) {
-        setVoted(false)
+        setIsVoted(false)
       }
     } else {
+      return
       document.location.href =
         '/signwall/?outputType=subscriptions&signwallOrganic=1'
     }
@@ -121,13 +134,47 @@ const ContentPremiosDepor = (props: Props) => {
 
   const handleSelect = (name: string, value: string) => {
     setResult({ ...result, [name]: value })
-    setError(false)
+    setIsError(false)
+  }
+
+  const validUserProfile = () => {
+    let valid = false
+    let messageProfile = ''
+
+    if (userProfile?.user_dni.length === 0) {
+      messageProfile += ', DNI'
+      valid = true
+    }
+    if (userProfile?.user_email.length === 0) {
+      messageProfile += ', Email'
+      valid = true
+    }
+    if (userProfile?.user_name.length === 0) {
+      messageProfile += ', Nombre'
+      valid = true
+    }
+    if (userProfile?.user_phone.length === 0) {
+      messageProfile += ', Teléfono'
+      valid = true
+    }
+    if (userProfile?.user_address.length === 0) {
+      messageProfile += ', Dirección'
+      valid = true
+    }
+
+    setMessage(`Debe de completar su:${messageProfile.slice(1)}.`)
+    return valid
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (Object.keys(result).length !== premiosDepor.length)
-      return setError(true)
+
+    if (validUserProfile()) return setIsError(true)
+
+    if (Object.keys(result).length !== premiosDepor.length) {
+      setMessage('* Debes elegir un ganador en cada categoría para continuar')
+      return setIsError(true)
+    }
 
     const newObject = {
       ...result,
@@ -145,7 +192,7 @@ const ContentPremiosDepor = (props: Props) => {
     const newVoteFetch = await voteFetch.json()
 
     if (newVoteFetch?.id >= 0) {
-      setModal(true)
+      setIsModal(true)
     } else {
       console.log(newVoteFetch)
     }
@@ -229,23 +276,19 @@ const ContentPremiosDepor = (props: Props) => {
               )}
             </div>
 
-            {voted && (
+            {isVoted && (
               <div className={classes.containerButton}>
                 <button type="submit" className={classes.button}>
                   ENVIAR
                 </button>
-                {error && (
-                  <p className={classes.error}>
-                    * Debes elegir un ganador en cada categoría para continuar
-                  </p>
-                )}
+                {isError && <p className={classes.error}>{message}</p>}
               </div>
             )}
           </form>
         </div>
       </div>
 
-      {modal && (
+      {isModal && (
         <div className={classes.modal}>
           <div className={classes.wrapperModal}>
             <img
