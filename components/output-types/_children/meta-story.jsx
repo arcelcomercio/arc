@@ -90,8 +90,8 @@ export default ({
   const resultStoryRecent = StoriesRecent(parameters)
   let publishDateZone =
     arcSite === SITE_ELCOMERCIOMAG ||
-      arcSite === SITE_DEPOR ||
-      arcSite === SITE_ELBOCON
+    arcSite === SITE_DEPOR ||
+    arcSite === SITE_ELBOCON
       ? getDateSeo(displayDate)
       : displayDate
 
@@ -100,38 +100,19 @@ export default ({
 
   const logoAuthor = `${contextPath}/resources/dist/${arcSite}/images/author.png`
   const structuredAuthors = authorsList.map(
-    (author) => `
-  {
-    "@context": "http://schema.org/",
-    "@type": "Person",
-    "name": "${author.nameAuthor || arcSite}",
-    "image": "${author.imageAuthor || logoAuthor}",
-    "contactPoint"     : {
-      "@type"        : "ContactPoint",
-      "contactType"  : "Journalist",
-      "email"        : "${author.mailAuthor}"
-    },
-    "email": "${author.mailAuthor}",
-    "jobTitle"	: "${author.role}"
-  }`
+    (author) =>
+      `{"@context": "http://schema.org/","@type":"Person","name":"${
+        author.nameAuthor || arcSite
+      }","image":"${
+        author.imageAuthor || logoAuthor
+      }","contactPoint":{"@type":"ContactPoint","contactType":"Journalist","email":"${
+        author.mailAuthor
+      }"},"email":"${author.mailAuthor}","jobTitle":"${author.role}"}`
   )
   const structuredAutor =
     structuredAuthors.length > 0
       ? structuredAuthors
-      : `
-  {
-    "@context": "http://schema.org/",
-    "@type": "Person",
-    "name": "${arcSite}",
-    "image": "${logoAuthor}",
-    "contactPoint"     : {
-      "@type"        : "ContactPoint",
-      "contactType"  : "Journalist",
-      "email"        : ""
-    },
-    "email": "",
-    "jobTitle"	: ""
-  }`
+      : `{"@context":"http://schema.org/","@type":"Person","name":"${arcSite}","image":"${logoAuthor}","contactPoint":{"@type":"ContactPoint","contactType":"Journalist","email":""},"email":"","jobTitle":""}`
 
   const finalStructuredDataAuthor =
     structuredAuthors.length > 1
@@ -161,13 +142,15 @@ export default ({
         facebook && `https://www.facebook.com${user}/videos/${facebook}`
 
       return thumbnailUrlYoutube || thumbnailUrlTwitter || thumbnailUrlFacebook
-        ? `{ "@context": "http://schema.org", "@type": "VideoObject", "name": "${formatHtmlToText(
-          title || arcSite
-        )}",   "description": "${formatHtmlToText(
-          subTitle || arcSite
-        )}",  "thumbnailUrl": "${thumbnailUrlYoutube || thumbnailUrlTwitter || thumbnailUrlFacebook
-        }", "uploadDate": "${publishDateZone}",  "embedUrl": "${embedUrlYoutube || embedUrlTwitter || embedUrlFacebook
-        }" }`
+        ? `{"@context":"http://schema.org","@type":"VideoObject","name":"${formatHtmlToText(
+            title || arcSite
+          )}","description":"${formatHtmlToText(
+            subTitle || arcSite
+          )}","thumbnailUrl":"${
+            thumbnailUrlYoutube || thumbnailUrlTwitter || thumbnailUrlFacebook
+          }","uploadDate":"${publishDateZone}","embedUrl":"${
+            embedUrlYoutube || embedUrlTwitter || embedUrlFacebook
+          }"}`
         : ''
     })
     .filter((video) => video !== '')
@@ -184,20 +167,12 @@ export default ({
     })
   }
 
-  const publishedVideoOrganization = ` 
-  "publisher" : {
-    "@type": "Organization",
-    "name": "${siteName}",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "${`${getAssetsPath(
+  const publishedVideoOrganization = `"publisher":{"@type":"Organization","name":"${siteName}","logo":{"@type":"ImageObject","url":"${`${getAssetsPath(
     arcSite,
     contextPath
-  )}/resources/dist/${arcSite}/images/${seo.logoAmp}?d=1`}",
-      "width": ${seo.width},
-      "height": ${seo.height}
-    }
-  },`
+  )}/resources/dist/${arcSite}/images/${seo.logoAmp}?d=1`}","width":${
+    seo.width
+  },"height":${seo.height}}},`
 
   const jwplayerSeoItems =
     jwplayerSeo[0] &&
@@ -237,16 +212,15 @@ export default ({
             ? `"${large || urlImage}"`
             : `["${ampVideo1x1}", "${ampVideo4x3}", "${ampVideo16x9}"]`
 
-        return `{ "@type":"VideoObject",  "name":"${formatHtmlToText(
+        return `{ "@type":"VideoObject","name":"${formatHtmlToText(
           titleVideo.trim() || title
-        )}", ${isAmp === true ? publishedVideoOrganization : ''
-          }  "thumbnailUrl": ${image},  "description":"${formatHtmlToText(
-            titleVideo.trim() || subTitle
-          )}", "contentUrl": "${getResultJwplayer(
-            conversions
-          )}",  "uploadDate": "${date}", "duration": "${msToTimeJplayer(
-            duration
-          )}" }`
+        )}", ${
+          isAmp === true ? publishedVideoOrganization : ''
+        }"thumbnailUrl":${image},"description":"${formatHtmlToText(
+          titleVideo.trim() || subTitle
+        )}","contentUrl":"${getResultJwplayer(
+          conversions
+        )}","uploadDate":"${date}","duration":"${msToTimeJplayer(duration)}"}`
       }
     )
 
@@ -267,20 +241,18 @@ export default ({
       const image =
         isAmp === true
           ? `"${large || urlImage}"`
-          : `["${ampVideo1x1}", "${ampVideo4x3}", "${ampVideo16x9}"]`
+          : `["${ampVideo1x1}","${ampVideo4x3}","${ampVideo16x9}"]`
 
-      return `{ "@type":"VideoObject",  "name":"${formatHtmlToText(
+      return `{ "@type":"VideoObject","name":"${formatHtmlToText(
         caption.trim() || title
-      )}", ${isAmp === true ? publishedVideoOrganization : ''
-        }  "thumbnailUrl": ${image},  "description":"${formatHtmlToText(
-          description.trim() || caption.trim() || subTitle
-        )}", "contentUrl": "${getAssetsPathVideo(
-          arcSite,
-          url
-        )}",  "uploadDate": "${date}", "duration": "${msToTime(
-          duration,
-          false
-        )}" } `
+      )}",${
+        isAmp === true ? publishedVideoOrganization : ''
+      }"thumbnailUrl":${image},"description":"${formatHtmlToText(
+        description.trim() || caption.trim() || subTitle
+      )}","contentUrl":"${getAssetsPathVideo(
+        arcSite,
+        url
+      )}","uploadDate":"${date}","duration":"${msToTime(duration, false)}"}`
     }
   )
 
@@ -297,8 +269,9 @@ export default ({
         arcSite,
       }) || {}
 
-    return `["${ampImage16x9 || url}","${ampImage1x1 || url}","${ampImage4x3 || url
-      }"]`
+    return `["${ampImage16x9 || url}","${ampImage1x1 || url}","${
+      ampImage4x3 || url
+    }"]`
   })
 
   const imagesSeoItems = imagePrimarySeo.map((image) => {
@@ -326,11 +299,13 @@ export default ({
       ? `"description":"${formatHtmlToText(subtitle)}",`
       : ''
     if (SITE_ELCOMERCIOMAG === arcSite)
-      img = `["${ampImage16x9 || url}","${ampImage1x1 || url}","${ampImage4x3 || url
-        }"]`
+      img = `["${ampImage16x9 || url}","${ampImage1x1 || url}","${
+        ampImage4x3 || url
+      }"]`
     else img = `"${large}"`
-    return `{  "@type":"ImageObject", "url": ${img || url
-      }, ${description} "height":800, "width":1200 }`
+    return `{"@type":"ImageObject","url":${
+      img || url
+    },${description}"height":800,"width":1200 }`
   })
 
   const listItems = tags.map(({ description }) => `${description}`)
@@ -347,12 +322,13 @@ export default ({
   const relatedContentItem = resultRelated.map((content, i) => {
     const { canonical_url: urlItem = '' } = content || {}
     const pathUrl = ENVIRONMENT === 'elcomercio' ? siteUrl : ''
-    return `{  "@type":"ListItem",  "position":${i + 1
-      }, "url":"${pathUrl}${urlItem}" }`
+    return `{"@type":"ListItem","position":${
+      i + 1
+    },"url":"${pathUrl}${urlItem}" }`
   })
 
   const relatedContentData = relatedContentItem[0]
-    ? `{  "@context":"https://schema.org", "@type":"ItemList", "itemListElement":[${relatedContentItem}]  }`
+    ? `{"@context":"https://schema.org","@type":"ItemList","itemListElement":[${relatedContentItem}]}`
     : ''
 
   /**
@@ -374,9 +350,9 @@ export default ({
 
   const accessibleForFree =
     arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION
-      ? `"isAccessibleForFree": ${getContentType() === FREE ? 'true' : 'false'
-      }, 
-        "isPartOf": { "@type": ["CreativeWork", "Product"],  "name" : "${siteName}",   "productID": "${arcSite}:${getContentType()}" },`
+      ? `"isAccessibleForFree": ${
+          getContentType() === FREE ? 'true' : 'false'
+        },"isPartOf":{"@type":["CreativeWork","Product"],"name":"${siteName}","productID":"${arcSite}:${getContentType()}"},`
       : ''
 
   const arrayImage = isAmp ? imagesSeoItemsAmp : imagesSeoItems
@@ -396,9 +372,9 @@ export default ({
     return key
       ? large
       : `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/logo-story-default.jpg?d=1`
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/logo-story-default.jpg?d=1`
   }
 
   const imageYoutube = idYoutube
@@ -407,9 +383,9 @@ export default ({
 
   const imagenDefoult = imagesSeoItems[0]
     ? imagenData
-    : `"image": {  "@type": "ImageObject", "url": "${imageYoutube}",  "description": "${formatHtmlToText(
-      siteName
-    )}", "height": 800, "width": 1200 },`
+    : `"image":{"@type":"ImageObject","url":"${imageYoutube}","description":"${formatHtmlToText(
+        siteName
+      )}","height":800,"width":1200 },`
 
   const dataVideoJplayer =
     jwplayerSeo[0] && jwplayerSeo[0].conversions
@@ -422,39 +398,35 @@ export default ({
   let citationStructuredItems = ''
   if (arcSite === SITE_ELCOMERCIO) {
     contentElementsLinks.forEach((url) => {
-      citationStructuredItems += `{
-        "@type": "CreativeWork",
-        "url": "${url}"
-      },`
+      citationStructuredItems += `{"@type":"CreativeWork","url":"${url}" },`
     })
   }
 
   const citationStructured =
     arcSite === SITE_ELCOMERCIO && contentElementsLinks.length > 0
       ? `"citation":[${citationStructuredItems.substring(
-        0,
-        citationStructuredItems.length - 1
-      )}],`
+          0,
+          citationStructuredItems.length - 1
+        )}],`
       : ''
 
   const bodyStructured =
     isAmp !== true
       ? `"articleBody":"${formatHtmlToText(
-        dataElement.replace(/\(function\(d, s, id\).*\)\);/g, '')
-      )}",`
+          dataElement.replace(/\(function\(d, s, id\).*\)\);/g, '')
+        )}",`
       : ''
 
-  const backStoryStructured = `
-  "backstory":"${contentElementCustomBlock
-      .map((element) =>
-        element.embed.config.customBlockType === 'backstory'
-          ? element.embed.config.customBlockContent
-          : ''
-      )
-      .join(' ')
-      .trim()
-      .replace(/"/g, '\\"')
-      .replace(/\r?\n|\r/g, '')}", `
+  const backStoryStructured = ` "backstory":"${contentElementCustomBlock
+    .map((element) =>
+      element.embed.config.customBlockType === 'backstory'
+        ? element.embed.config.customBlockContent
+        : ''
+    )
+    .join(' ')
+    .trim()
+    .replace(/"/g, '\\"')
+    .replace(/\r?\n|\r/g, '')}", `
 
   let correctionStructuredItems = ''
   contentElementsCorrectionList.forEach((ele) => {
@@ -463,19 +435,17 @@ export default ({
         config: { content: contentCorrection = '', date: dateCorrection = '' },
       } = {},
     } = ele || {}
-    correctionStructuredItems += `{
-      "@type": "CorrectionComment",
-      "text": "${formatHtmlToText(contentCorrection.trim())}",
-      "datePublished": "${dateCorrection}"
-    },`
+    correctionStructuredItems += `{"@type":"CorrectionComment","text":"${formatHtmlToText(
+      contentCorrection.trim()
+    )}","datePublished":"${dateCorrection}"},`
   })
 
   const correctionStructured =
     contentElementsCorrectionList.length > 0
       ? `"correction":[${correctionStructuredItems.substring(
-        0,
-        correctionStructuredItems.length - 1
-      )}],`
+          0,
+          correctionStructuredItems.length - 1
+        )}],`
       : ''
 
   const { label: { trustproject = {} } = {} } = data || {}
@@ -497,47 +467,38 @@ export default ({
       : ''
   const typeStory = primarySection !== 'Trivias' ? trustType : '"Quiz"'
 
-  const structuredData = `{  "@context":"http://schema.org", "@type":${typeStory}, ${revisionWorkType} "datePublished":"${publishDateZone}",
-    "dateModified":"${arcSite === SITE_DEPOR || arcSite === SITE_ELBOCON
+  const structuredData = `{"@context":"http://schema.org","@type":${typeStory},${revisionWorkType}"datePublished":"${publishDateZone}", "dateModified":"${
+    arcSite === SITE_DEPOR || arcSite === SITE_ELBOCON
       ? publishDateZone
       : lastPublishDate
-    }",
-    ${backStoryStructured}
-    ${locality && `"locationCreated": {"@type":"Place", "name":"${locality}"},`}
-    ${dateline}
-    "headline":"${formatHtmlToText(title)}",
-    "alternativeHeadline":"${formatHtmlToText(metaTitle)}",
-    "description":"${formatHtmlToText(data?.description?.basic) || formatHtmlToText(subTitle)
-    }",
-    ${publishingPrinciples}
-  ${bodyStructured}
-  ${correctionStructured}
-  ${citationStructured}
-    "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${videoSeoItems[0] || redSocialVideo[0] || jwplayerSeo[0] ? dataVideo : ''
-    }
-    "author": ${finalStructuredDataAuthor},
-    "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${`${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/dist/${arcSite}/images/${seo.logoAmp}?d=1`}",   "height":${seo.height
-    }, "width":${seo.width}
-      }
-    },    
-    ${accessibleForFree} 
-    "keywords":[${seoKeyWordsStructurada[0]
+  }", ${backStoryStructured} ${
+    locality && `"locationCreated":{"@type":"Place","name":"${locality}"},`
+  } ${dateline} "headline":"${formatHtmlToText(
+    title
+  )}","alternativeHeadline":"${formatHtmlToText(metaTitle)}","description":"${
+    formatHtmlToText(data?.description?.basic) || formatHtmlToText(subTitle)
+  }",${publishingPrinciples} ${bodyStructured} ${correctionStructured} ${citationStructured}"mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${
+    videoSeoItems[0] || redSocialVideo[0] || jwplayerSeo[0] ? dataVideo : ''
+  } "author": ${finalStructuredDataAuthor},"publisher":{"@type":"Organization","name":"${siteName}","logo":{"@type":"ImageObject","url":"${`${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/dist/${arcSite}/images/${seo.logoAmp}?d=1`}","height":${
+    seo.height
+  }, "width":${seo.width} } }, ${accessibleForFree} "keywords":[${
+    seoKeyWordsStructurada[0]
       ? seoKeyWordsStructurada.map((item) => item)
       : listItemsTagsKeywords.map((item) => item)
-    }]
- }`
+  }] }`
 
   const breadcrumbResult = breadcrumbList.map(
     ({ url, name }, i) =>
       url &&
-      `{"@type":"ListItem", "position":${i + 1
-      }, "name":"${name}", "item":"${url}" }`
+      `{"@type":"ListItem","position":${
+        i + 1
+      },"name":"${name}","item":"${url}" }`
   )
 
-  const structuredBreadcrumb = `{ "@context":"https://schema.org", "@type":"BreadcrumbList", "itemListElement":[${breadcrumbResult}] }`
+  const structuredBreadcrumb = `{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[${breadcrumbResult}] }`
 
   const taboolaScript =
     arcSite === SITE_ELCOMERCIOMAG ? SITE_ELCOMERCIO : arcSite
@@ -670,8 +631,9 @@ export default ({
       <meta property="article:published_time" content={publishDateZone} />
       <meta
         property="article:modified_time"
-        content={`${arcSite === SITE_ELCOMERCIOMAG ? publishDateZone : lastPublishDate
-          }`}
+        content={`${
+          arcSite === SITE_ELCOMERCIOMAG ? publishDateZone : lastPublishDate
+        }`}
       />
       <meta property="article:author" content={`Redacción ${siteName}`} />
       <meta property="article:section" content={primarySection} />
