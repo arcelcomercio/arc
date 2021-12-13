@@ -118,176 +118,113 @@
         color: #222;
         display: inline-block;
       }
-      &__menuContainer {
-        margin-right: 19px;
+    }
+    // estilos de la hamburguesa
+    &__menuContainer {
+      background-color: chocolate;
+      // margin-right: 19px;
+      // max-width: 1080px;
+      width: 100%;
+      height: 300px;
+
+      &__buttonMenu {
         width: 24px;
         height: 24px;
         svg {
-          width: 24px;
-          height: 24px;
+          width: 18px;
+          height: 12px;
+        }
+      }
+
+      // de aca abajo no se usan los estilos
+      &__menuBlack {
+        width: 28px;
+        height: 12px;
+      }
+      &__menu {
+        position: relative;
+        margin: 15em auto 0 auto;
+        background-color: #ddb91f;
+        width: 70px;
+        border-radius: 25px;
+        transition: 0.3s border-radius ease-in-out, 0.3s height ease-in-out;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      &__menuClosed {
+        height: 30px;
+      }
+      &__menuOpen {
+        height: 200px;
+        // button {
+        //   transform-origin: center;
+        //   transform: rotate(90deg);
+        // }
+      }
+      &__button {
+        transition: 0.3s transform ease-in-out, 0.3s opacity ease-in-out;
+        cursor: pointer;
+        position: absolute;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        width: 2em;
+        height: 2em;
+        left: 27%;
+        top: 20px;
+        opacity: 1;
+
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+
+      &__tools {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+        height: 60%;
+        justify-content: space-between;
+        transition: 0.3s margin ease-in-out;
+      }
+      &__toolsHidden {
+        z-index: -100;
+      }
+      &__toolsVisible {
+        z-index: 100;
+      }
+      &__icon {
+        transition: 0.2s transform ease-in-out;
+
+        &:hover {
+          transform: scale(0.8);
         }
       }
     }
   }
-  &__box-btnmenu {
-    width: 40px;
-
-    @media (--tablet) {
-      width: 55px;
-    }
-  }
-  &__btn-menu {
-    border: 1px solid #ada8f0;
-    border-radius: 50%;
-    display: block;
-    height: 33px;
-    padding: 8px;
-    width: 36px;
-
-    // @media (--tablet) {
-    //   background-color: black;
-    // }
-
-    // button {
-    //   background-color: transparent;
-    //   border-style: none;
-    //   color: #333;
-    //   font-family: inherit;
-    // }
-  }
-  &__icon-menu {
-    // font-size: inherit; (OJO)
-    font-size: 24px;
-    color: white;
-
-    @media (--tablet) {
-      font-size: 28px;
-
-      &.active {
-        color: blue;
-      }
-    }
-  }
-  &__wrapper-menu {
-    position: fixed;
-    z-index: 100;
-    width: 90%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-color: #1d1a57;
-    display: none;
-
-    &.active {
-      @media screen and(max-width: 1023px) {
-        display: block;
-      }
-    }
-  }
-  &__top-menu {
-    height: 70px;
-  }
-  &__top-left {
-    width: 70px;
-  }
-
-  &__btn-close {
-    background-color: transparent;
-    border-style: none;
-    color: #333;
-    font-family: inherit;
-  }
-  &__icon-close {
-    color: #fff;
-    cursor: pointer;
-  }
-  &__img-menu {
-    max-width: 100px;
-  }
-
-  &__submenu-list {
-    flex: 100%;
-    flex-grow: 0;
-    flex-shrink: 0;
-    display: none;
-    border-top: solid 1px black;
-
-    &.active {
-      display: block;
-    }
-  }
-
-  &__submenu-item {
-    border-bottom: solid 1px black;
-
-    // &:nth-last-child(1) {
-    //   border-bottom: 0;
-    // }
-  }
-  &__link {
-    text-transform: uppercase;
-    flex: auto;
-    color: #eee;
-    font: normal normal 700 13px/17px Roboto, sans-serif;
-    letter-spacing: 0.21px;
-    text-align: left;
-  }
-
-  &__logo2 {
-    transform: skew(13deg);
-    max-width: 100px;
-    width: 80px;
-    height: 70px;
-
-    @media (--tablet) {
-      max-width: 150px;
-    }
-  }
-
-  &__box-logo-play {
+  //estilos lunes
+  &__hamburger {
+    width: 2rem;
+    height: 2rem;
     display: flex;
-    padding: 15px 25px;
+    justify-content: space-around;
+    flex-flow: column nowrap;
+    z-index: 10;
   }
-  // no hay estos estilos
-  &__link-logo-play {
-    display: flex;
-    flex-direction: row;
-    width: 110px;
-    height: 70px;
-    cursor: pointer;
-    a {
-      color: #333;
-      text-decoration: none;
-      svg {
-        filter: invert(1);
-        margin-right: 15px;
-        transform: skewX(355deg);
-        width: 15px;
-      }
-      img {
-        height: 70px;
-        width: 80px;
-        transform: skew(355deg);
-      }
-    }
+  &__burger {
+    width: 2rem;
+    height: 0.25rem;
+    border-radius: 10px;
+    background-color: black;
+    transition: all 0.3s linear;
   }
-
-  // &.active {
-  //   background-color: white;
-
-  //   .header-full__box-logo {
-  //     background-color: white;
-  //   }
-
-  //   .header-full__icon-menu {
-  //     color: black;
-  //   }
-
-  //   .nav__loader-bar {
-  //     left: 0;
-  //     top: 46px;
-  //     height: 5px;
-  //     background-color: $color-primary;
-  //   }
-  // }
+  &__contOpen {
+    width: 100%;
+    height: 300px;
+    background-color: black;
+  }
 }
