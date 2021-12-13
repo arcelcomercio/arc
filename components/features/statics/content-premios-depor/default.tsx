@@ -122,6 +122,7 @@ const ContentPremiosDepor = (props: Props) => {
         setIsVoted(false)
       }
     } else {
+      return
       document.location.href =
         '/signwall/?outputType=subscriptions&signwallOrganic=1'
     }

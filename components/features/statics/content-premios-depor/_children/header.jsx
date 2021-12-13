@@ -60,14 +60,13 @@ if (typeof window !== 'undefined')
   isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
     window.navigator.userAgent
   )
-const { requestUri } = this.props
-const isPreview = /^\/preview\//.test(requestUri)
 
-const [mopen, setmopen] = useState(true)
-console.log('mopen', mopen)
+const HeaderPremiosDepor = ({ requestUri }) => {
+  const isPreview = /^\/preview\//.test(requestUri)
 
-const HeaderPremiosDepor = () =>
-  isMobile ? (
+  const [mopen, setmopen] = useState(true)
+
+  return isMobile ? (
     mopen ? (
       <div className={classes.contOpen}>
         <button
@@ -171,4 +170,5 @@ const HeaderPremiosDepor = () =>
       </div>
     </div>
   )
+}
 export default HeaderPremiosDepor
