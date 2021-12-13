@@ -25,7 +25,6 @@ const StoryContentChildHighlightedQuotes: React.FC<{
       {(author || authorText) && (<p>
         <span className={classes.author}>{author} </span><span className={classes.authorText}>{authorText}</span>
       </p>)}
-      {author}
       {img && 
       <Image
         src={img}
