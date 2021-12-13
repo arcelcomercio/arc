@@ -42,7 +42,10 @@ import iframeScript from './_dependencies/iframe-script'
 import jwplayerScript from './_dependencies/jwplayer-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-script'
 import { getEnablePushud, getPushud } from './_dependencies/pushud'
-import { getEnabledServerside, getScriptAdPushup } from './_dependencies/serverside'
+import {
+  getEnabledServerside,
+  getScriptAdPushup,
+} from './_dependencies/serverside'
 import {
   getDescription,
   getIsStory,
@@ -158,7 +161,7 @@ export default ({
   const enabledPushud = getEnablePushud(arcSite)
   const enabledPushup = getEnabledServerside(arcSite)
   const scriptAdpushup = getScriptAdPushup(arcSite)
-  
+
   const isElcomercioHome = arcSite === SITE_ELCOMERCIO && isHome
   const isTromeHome = arcSite === SITE_TROME && isHome
   const isPreview = /^\/preview\//.test(requestUri)
@@ -183,7 +186,6 @@ export default ({
     let prebid = true
     if (
       arcSite === SITE_ELCOMERCIO ||
-      arcSite === SITE_ELCOMERCIOMAG ||
       arcSite === SITE_ELBOCON ||
       arcSite === SITE_DIARIOCORREO ||
       (arcSite === 'peru21' && requestUri.match(`^/cheka`))
@@ -800,7 +802,9 @@ export default ({
             .toISOString()
             .slice(0, 10)}`}
         />
-        {enabledPushup && !requestUri.includes('/publirreportaje/') && !requestUri.includes('/publireportaje/') ? (
+        {enabledPushup &&
+        !requestUri.includes('/publirreportaje/') &&
+        !requestUri.includes('/publireportaje/') ? (
           <>
             <script
               type="text/javascript"
