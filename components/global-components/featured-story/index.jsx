@@ -194,7 +194,7 @@ const FeaturedStory = (props) => {
           <Image
             src="https://cdna.trome.pe/resources/dist/trome/images/logo-club-trome.png?d=1"
             alt="Logo de Club Trome"
-            className={`${classes.featuredStoryPremium}`}
+            className={classes.featuredStoryPremium}
             loading="eager"
             importance="high"
           />
