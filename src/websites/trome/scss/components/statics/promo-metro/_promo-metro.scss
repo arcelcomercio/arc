@@ -563,12 +563,16 @@ $font-color: #ee7325;
     list-style-type: disc;
   }
 
-  &-logo-metrope {
-    width: 70%;
-    height: auto;
-    padding-bottom: 10px;
-    @media (--tablet) {
-      width: 100px;
+  &-logo {
+    width: 100%;
+
+    &-link {
+      width: 70%;
+      height: auto;
+      padding-bottom: 10px;
+      @media (--tablet) {
+        width: 100px;
+      }
     }
   }
 }
