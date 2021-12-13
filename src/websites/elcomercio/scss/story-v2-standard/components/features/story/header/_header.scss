@@ -66,3 +66,115 @@
     }
   }
 }
+
+.especialb {
+  .story-header {
+    &__box {
+      margin-left: 10px;
+      margin-right: 10px;
+      @media (--desktop) {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+    }
+    &-multimedia {
+      margin-bottom: 10px;
+      &__caption {
+        display: none;
+      }
+      &__credit {
+        display: none;
+      }
+      &__image {
+        display: block;
+        width: 100%;
+        max-height: 375px;
+        @media (--desktop) {
+          max-height: 768px;
+        }
+      }
+    }
+    &-title {
+      font: 900 26px/32px $primary-font;
+      letter-spacing: -0.52px;
+      color: #000;
+      opacity: 1;
+      text-align: center;
+      margin-bottom: 15px;
+      @media (--desktop) {
+        font-size: 36px;
+        line-height: 40px;
+        letter-spacing: -0.72px;
+      }
+    }
+    &-headband {
+      font: 500 12px/29px $secondary-font;
+      display: flex;
+      justify-content: center;
+      letter-spacing: 2.4px;
+      color: #000;
+      opacity: 1;
+      margin-bottom: 5px;
+      @media (--desktop) {
+        font-weight: 16px;
+        letter-spacing: 3.2px;
+        margin-bottom: 6px;
+      }
+      &__tag {
+        margin-right: 5px;
+        text-transform: uppercase;
+      }
+      &__text {
+        /* text-transform: uppercase;
+        color: #000; */
+      }
+    }
+    &-description {
+      text-align: center;
+      font: 500 18px/24px $primary-font;
+      letter-spacing: -0.36px;
+      color: #000000;
+      opacity: 1;
+      @media (--desktop) {
+        font-size: 19px;
+        letter-spacing: -0.38px;
+      }
+      &__link {
+        font: 500 18px/24px $secondary-font;
+        letter-spacing: -0.36px;
+        color: #035a80;
+        opacity: 1;
+        margin-top: 15px;
+        display: block;
+        &:hover {
+          text-decoration: underline;
+        }
+        &::before {
+          content: "> ";
+        }
+      }
+    }
+    &-headsubscription {
+      text-align: center;
+      &__text {
+        font: 500 10px/29px $secondary-font;
+        letter-spacing: 2px;
+        color: #ad9130;
+        text-transform: uppercase;
+        opacity: 1;
+        border-bottom: 1px solid #f7cd46;
+        // text-align: center;
+        margin-bottom: 5px;
+      }
+      &__icon {
+        margin-bottom: 10px;
+      }
+    }
+  }
+  .s-buttons {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: unset;
+    justify-content: center;
+  }
+}
