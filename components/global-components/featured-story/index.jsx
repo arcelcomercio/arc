@@ -72,12 +72,14 @@ const FeaturedStory = (props) => {
     invertedTitle = false,
     invertedColor = false,
     hideAuthor = false,
+    isPremium = false,
   } = props
   const { editableField } = useEditableContent()
 
-  const noExpandedClass = !hightlightOnMobile
-    ? 'featured-story--no-expanded'
-    : ''
+  // Cuando la nota es premium queremos que siempre sea Destacada en mobile
+  // porque así se comporta el `Destaque Premium` de EC y Gestion actualmente
+  const noExpandedClass =
+    hightlightOnMobile || isPremium ? '' : 'featured-story--no-expanded'
 
   const getImageSizeClass = () => {
     switch (imageSize) {
@@ -147,6 +149,8 @@ const FeaturedStory = (props) => {
       return primarySectionLink.slice(1, -1)
     return primarySectionLink
   }
+
+  // const showPremiumTag = isPremium && arcSite === SITE_TROME
 
   return (
     <article

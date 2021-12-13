@@ -44,7 +44,7 @@ const CardFeaturedStoryAdvanced = (props) => {
   const { siteName } = getProperties(arcSite)
   const includedFields = `websites.${arcSite}.website_url,headlines.basic,headlines.mobile,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection(
     { arcSite }
-  )},${includeSections},publish_date,display_date`
+  )},${includeSections},publish_date,display_date,content_restrictions.content_code`
 
   const data =
     useContent({
@@ -67,6 +67,7 @@ const CardFeaturedStoryAdvanced = (props) => {
     multimediaType,
     multimediaCaption,
     multimedia,
+    isPremium,
   } = new StoryData({
     data,
     deployment,
@@ -155,6 +156,7 @@ const CardFeaturedStoryAdvanced = (props) => {
             invertedTitle={invertedTitle}
             invertedColor={invertedColor}
             hideAuthor={hideAuthor}
+            isPremium={isPremium}
           />
         )
       })()}
