@@ -25,15 +25,10 @@
     }
   }
   &__author {
-    border-bottom: 1px dotted #999;
-    border-top: 1px dotted #999;
-    font-family: $primary-font;
     display: flex;
     justify-content: flex-end;
-    flex-direction: row-reverse;
-    @media (--only-mobile) {
-      flex-direction: column-reverse;
-    }
+    flex-direction: column-reverse;
+    margin: 10px 0;
   }
   &__author-info {
     align-items: center;
@@ -43,40 +38,35 @@
     }
   }
   &__author-link {
-    display: flex;
-    align-items: center;
-    font: 700 10px/16px $tertiary-font;
+    font-family: $fifth-font;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16px;
     letter-spacing: 0.02rem;
     color: #444;
     text-transform: uppercase;
+    display: flex;
+    align-items: center;
     margin-right: 6px;
-  }
-  &__author-image {
-    width: 57px;
-    height: 57px;
-    margin-right: 10px;
-    border-radius: 50%;
+    @media (--desktop) {
+      font-size: 14px;
+    }
   }
   &__link {
     color: #747a84;
   }
-  &__author-role {
-    font-family: $secondary-font;
-    font-size: 12px;
-    margin-bottom: 6px;
-    color: #444;
-  }
   &__author-email {
     a {
-      font: 400 0.9rem/1.33 $primary-font;
+      font: 400 0.9rem/1.33 $fifth-font;
       color: #8a8a8a;
       display: block;
     }
   }
   &__author-date {
-    font: 700 14px/1.33 $primary-font;
+    font: 700 14px/1.33 $fourth-font;
     color: #333;
     margin-right: 8px;
+    padding: 20px 0 10px;
   }
 
   &__author-top {
@@ -84,7 +74,7 @@
   }
 
   &__font-paragraph {
-    color: #343434;
+    color: #333;
     & a {
       text-decoration: underline;
       color: #294bcc;
@@ -124,10 +114,12 @@
     background: none;
 
     &__text {
+      font-family: $fourth-font;
       font-style: italic;
-      color: #469bc6;
+      color: #de2326;
       padding: 15px;
       font-size: 1.3rem;
+      line-height: 1.3333333333;
     }
 
     &::first-letter {
