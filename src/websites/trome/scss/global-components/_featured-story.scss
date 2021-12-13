@@ -3,6 +3,16 @@
 // --------------------------------------
 // Featured Story for 1 col
 .featured-story {
+
+  &.premium{
+
+  }
+
+  &__tag-premium{
+    width: auto;
+    height: 45px;
+  }
+
   position: relative;
   height: auto;
 

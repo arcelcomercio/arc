@@ -1,6 +1,7 @@
 import { useAppContext } from 'fusion:context'
 import React from 'react'
 
+import image from '../../../global-components/image/image'
 import ShareButtons from '../../../global-components/lite/share'
 import TProLbl from '../../../global-components/trustprojectlabel'
 import { addSlashToEnd } from '../../../utilities/parse/strings'

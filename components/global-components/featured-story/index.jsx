@@ -13,6 +13,7 @@ const IMAGE_COMPLETE = 'complete'
 
 const classes = {
   featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-0`,
+  featuredStoryPremium:`featured-story__tag-premium`,
   featuredStoryInvertedColor: `featured-story--inverted`,
   detail: `featured-story__detail flex flex-col position relative md:p-20`,
   detailInverted: `featured-story__detail__inverted`,
@@ -150,17 +151,15 @@ const FeaturedStory = (props) => {
     return primarySectionLink
   }
 
-  // const showPremiumTag = isPremium && arcSite === SITE_TROME
+  const showPremiumTag = isPremium && arcSite === SITE_TROME
 
   return (
     <article
-      className={`${
-        classes.featuredStory
-      } ${getImageSizeClass()} ${getHeadBandClass()} ${
-        size === SIZE_TWO_COL ? classes.twoCol : ''
-      } ${hightlightOnMobile ? 'expand' : ''} ${noExpandedClass} ${
-        invertedColor && classes.featuredStoryInvertedColor
-      } ${invertedTitle && classes.imgCompleteInvertedTitle}`}>
+      className={`${classes.featuredStory
+        } ${getImageSizeClass()} ${getHeadBandClass()} ${size === SIZE_TWO_COL ? classes.twoCol : ''
+        } ${hightlightOnMobile ? 'expand' : ''} ${noExpandedClass} ${invertedColor && classes.featuredStoryInvertedColor
+        } ${invertedTitle && classes.imgCompleteInvertedTitle}
+      ${isPremium && 'premium'}`}>
       <div
         className={`${classes.detail} 
                       ${author ? ' justify-between' : ''}`}>
@@ -187,11 +186,18 @@ const FeaturedStory = (props) => {
             </a>
           </div>
         )}
+        {showPremiumTag && 
+        <Image
+          src="https://cdna.trome.pe/resources/dist/trome/images/logo-club-trome.png?d=1"
+          alt='Logo de Club Trome'
+          className={`${classes.featuredStoryPremium}`}
+          loading='eager'
+          importance='high'
+        />}
         <h2
           itemProp="name"
-          className={`${classes.title} ${
-            titleHeader.length > 0 && classes.titleClamp
-          }`}>
+          className={`${classes.title} ${titleHeader.length > 0 && classes.titleClamp
+            }`}>
           <a
             itemProp="url"
             className={classes.titleLink}
@@ -207,15 +213,15 @@ const FeaturedStory = (props) => {
 
         {author
           ? !hideAuthor && (
-              <address className={classes.author}>
-                <a
-                  itemProp="url"
-                  className={classes.authorLink}
-                  href={authorLink || '/autores/'}>
-                  {author}
-                </a>
-              </address>
-            )
+            <address className={classes.author}>
+              <a
+                itemProp="url"
+                className={classes.authorLink}
+                href={authorLink || '/autores/'}>
+                {author}
+              </a>
+            </address>
+          )
           : null}
       </div>
       <a itemProp="url" className={classes.imageLink} href={websiteLink}>
