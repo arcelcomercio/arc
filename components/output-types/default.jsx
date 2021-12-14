@@ -295,6 +295,7 @@ export default ({
   const isCovid = /^\/covid-19\//.test(requestUri)
   const isElecciones = metaValue('section_style') === 'resultados_elecciones'
   const isAgendaPre = metaValue('section_style') === 'agenda_presidencial'
+  const isPremiosDep = metaValue('section_style') === 'premios_depor'
   // const isSaltarIntro = /^\/saltar-intro\//.test(requestUri)
   const isPremium = contentCode === PREMIUM || false
   const htmlAmpIs = isPremium ? '' : true
@@ -483,7 +484,8 @@ export default ({
           !isTrivia &&
           !isCovid &&
           !isElecciones &&
-          !isAgendaPre && (
+          !isAgendaPre &&
+          !isPremiosDep && (
             <>
               <link
                 rel="preload"
