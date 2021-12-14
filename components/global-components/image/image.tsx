@@ -137,7 +137,9 @@ const CustomImage: React.FC<CustomImageProps> = ({
       data-src={lazy ? mainImage : null}
       alt={alt}
       decoding={lazy ? 'async' : 'auto'}
+      /* descomentar mas adelante */
       // width={width}
+      /* descomentar mas adelante */
       // height={height}
       id={id}
       className={`${lazy ? 'lazy' : ''} ${className}`}
