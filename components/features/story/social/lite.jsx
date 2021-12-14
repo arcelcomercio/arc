@@ -1,9 +1,10 @@
 import { useAppContext } from 'fusion:context'
 import React from 'react'
 
-import Image from '../../../global-components/image/index'
+import Image from '../../../global-components/image'
 import ShareButtons from '../../../global-components/lite/share'
 import TProLbl from '../../../global-components/trustprojectlabel'
+import { getAssetsPath } from '../../../utilities/assets'
 import { SITE_TROME } from '../../../utilities/constants/sitenames'
 import { addSlashToEnd } from '../../../utilities/parse/strings'
 import StoryData from '../../../utilities/story-data'
@@ -17,7 +18,7 @@ const classes = {
   buttons: 'st-social__share',
   special: 'st-social__special f',
   center: 'f f-center',
-  tagPremium:'st-social__tag'
+  tagPremium: 'st-social__tag',
 }
 
 const StorySocialLite = () => {
@@ -52,7 +53,16 @@ const StorySocialLite = () => {
     contextPath,
   })
 
-  const tromePremiumTag = isPremium && arcSite === SITE_TROME
+  /** Si se agrega un sitio en la validación de `showPremiumTag`,
+   * se deben agregar los valores correspondientes en `premiumTags`
+   */
+  const showPremiumTag = isPremium && arcSite === SITE_TROME
+  const premiumTags = {
+    [SITE_TROME]: {
+      image: 'logo-club-trome.png',
+      alt: 'Logo de Club Trome',
+    },
+  }
 
   return metaValue('section_style') !== 'story-v2-standard' &&
     isArchivoElcomercio ? (
@@ -63,10 +73,11 @@ const StorySocialLite = () => {
     </div>
   ) : (
     <div
-      className={`${classes.container} ${metaValue('section_style') === 'story-v2-standard' && storyTagsBbc(tags)
-        ? 'st-social--bbc'
-        : ''
-        }`}>
+      className={`${classes.container} ${
+        metaValue('section_style') === 'story-v2-standard' && storyTagsBbc(tags)
+          ? 'st-social--bbc'
+          : ''
+      }`}>
       <div className={classes.upsection}>
         {metaValue('section_style') === 'story-v2-standard' && isPremium && (
           <svg
@@ -104,30 +115,38 @@ const StorySocialLite = () => {
           )}
         <h2
           itemProp="name"
-          className={`${classes.section}${isPremium ? ' st-social__premium' : ''
-            }`}
-        >
+          className={`${classes.section}${
+            isPremium ? ' st-social__premium' : ''
+          }`}>
           {(editorNote && (
             <p
               itemProp="description"
               dangerouslySetInnerHTML={{ __html: editorNote }}
             />
           )) || (
-              <a
-                itemProp="url"
-                className={classes.sectionLink}
-                href={primarySectionLink}>
-                {primarySection}
-              </a>
-            )}
-          {tromePremiumTag && <Image
-            src="https://cdna.trome.pe/resources/dist/trome/images/logo-club-trome.png?d=1"
-            alt="Logo de Club Trome"
-            className={classes.tagPremium}
-            loading="eager"
-            importance="high"
-          />}
-
+            <a
+              itemProp="url"
+              className={classes.sectionLink}
+              href={primarySectionLink}>
+              {primarySection}
+            </a>
+          )}
+          {showPremiumTag ? (
+            <Image
+              src={`${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/${arcSite}/images/${
+                premiumTags[arcSite].image
+              }?d=1`}
+              width={90}
+              height={35}
+              alt={premiumTags[arcSite].alt}
+              className={classes.tagPremium}
+              loading="eager"
+              importance="high"
+            />
+          ) : null}
         </h2>
         {trustproject && (
           <TProLbl

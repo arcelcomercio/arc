@@ -148,6 +148,7 @@ const CardFeaturedStoryAdvanced = (props) => {
             titleField={titleField}
             categoryField={categoryField}
             arcSite={arcSite}
+            contextPath={contextPath}
             siteName={siteName}
             isLazyLoadActivate={isLazyLoadActivate}
             titleHeader={

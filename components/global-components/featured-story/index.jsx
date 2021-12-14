@@ -1,6 +1,7 @@
 import { useEditableContent } from 'fusion:content'
 import * as React from 'react'
 
+import { getAssetsPath } from '../../utilities/assets'
 import { SITE_TROME } from '../../utilities/constants/sitenames'
 import Image from '../image'
 import Icon from '../multimedia-icon'
@@ -67,6 +68,7 @@ const FeaturedStory = (props) => {
     titleField, // OPCIONAL, o pasar el customField de los props
     categoryField, // OPCIONAL, o pasar el customField de los props
     arcSite,
+    contextPath,
     siteName,
     isLazyLoadActivate = true,
     titleHeader = '',
@@ -152,7 +154,16 @@ const FeaturedStory = (props) => {
     return primarySectionLink
   }
 
+  /** Si se agrega un sitio en la validación de `showPremiumTag`,
+   * se deben agregar los valores correspondientes en `premiumTags`
+   */
   const showPremiumTag = isPremium && arcSite === SITE_TROME
+  const premiumTags = {
+    [SITE_TROME]: {
+      image: 'logo-club-trome.png',
+      alt: 'Logo de Club Trome',
+    },
+  }
 
   return (
     <article
@@ -192,11 +203,17 @@ const FeaturedStory = (props) => {
         )}
         {showPremiumTag && (
           <Image
-            src="https://cdna.trome.pe/resources/dist/trome/images/logo-club-trome.png?d=1"
-            alt="Logo de Club Trome"
+            src={`${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/dist/${arcSite}/images/${
+              premiumTags[arcSite].image
+            }?d=1`}
+            width={54}
+            height={20}
+            alt={premiumTags[arcSite].alt}
             className={classes.featuredStoryPremium}
-            loading="eager"
-            importance="high"
+            loading="lazy"
           />
         )}
         <h2
