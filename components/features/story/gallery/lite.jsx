@@ -12,6 +12,7 @@ import StoryContentsChildMultimedia from '../multimedia/_children/multimedia'
 import PremiumTag from '../title/_children/premium'
 import StoryGalleryChildGallery from './_children/gallery-lite'
 import StoryGalleryChildGallerySlider from './_children/gallery-slider-lite'
+import customFields from './_dependencies/custom-fields'
 
 const classes = {
   gallery: 'w-full',
@@ -108,7 +109,10 @@ const StoryGalleryLite = () => {
     </>
   )
 }
-
+StoryGalleryLite.propTypes = {
+  // eslint-disable-next-line react/no-unused-prop-types
+  customFields,
+}
 StoryGalleryLite.label = 'Artículo - galería'
 StoryGalleryLite.static = true
 

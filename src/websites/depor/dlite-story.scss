@@ -6,7 +6,7 @@
 @import "./scss/variables/index";
 
 $primary-font: "Roboto", sans-serif;
-$secondary-font: Arial, Helvetica, sans-serif;
+$secondary-font: arial, helvetica, sans-serif;
 $tertiary-font: $secondary-font;
 @import "../../general-styles/framework/core/reset";
 
@@ -33,6 +33,7 @@ $tertiary-font: $secondary-font;
 @import "./scss/lite-components/global-components/share/share";
 
 // TODO
+@import "../../general-styles/components/features/ads/ads-noticia";
 
 @import "./scss/lite-components/global-components/ads/ad-lateral";
 @import "./scss/lite-components/features/header/continuous/h-continuous";

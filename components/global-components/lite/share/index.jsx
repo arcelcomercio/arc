@@ -21,9 +21,14 @@ const ShareButtons = ({
   activeCopyLink = false,
   activeLinkedin = true,
   renderScripts = false,
+  path: customPath = '',
+  title: customTitle = '',
   googleNewsText = true,
   hideShareLinks = false,
+  appVersion = true,
 }) => {
+  if (hideShareLinks) return null
+
   const { globalContent, arcSite, metaValue } = useAppContext()
 
   // const urlRoot = () => {
@@ -37,16 +42,20 @@ const ShareButtons = ({
     headlines: { basic: postTitle = '' } = {},
   } = globalContent || {}
   const {
-    social: { twitter: { user: siteNameRedSocial = '' } = {} } = {},
+    social: { twitter: { user: twitterUser = '' } = {} } = {},
     siteUrl,
     googleNewsUrl,
   } = getProperties(arcSite)
 
+  const path = postPermaLink || customPath
+  const title = postTitle || customTitle
+
   const urlsShareList = socialMediaUrlShareList(
     siteUrl,
-    postPermaLink,
-    postTitle,
-    siteNameRedSocial
+    path,
+    title,
+    twitterUser,
+    appVersion
   )
 
   if (
@@ -88,7 +97,7 @@ const ShareButtons = ({
     )
   }
 
-  const getShareLinks = () => (
+  return (
     <>
       {activeGoogleNews ? (
         <a
@@ -171,12 +180,6 @@ const ShareButtons = ({
           Copiar enlace
         </button>
       ) : null}
-    </>
-  )
-
-  return (
-    <>
-      {hideShareLinks ? null : getShareLinks()}
       <script
         dangerouslySetInnerHTML={{
           __html: `${popup}${activeCopyLink ? copyLink : ''}`,

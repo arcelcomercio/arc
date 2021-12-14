@@ -121,21 +121,17 @@ export default ({ arcSite, sectionStyle }) => {
         <>
           <link
             rel="preload"
-            href="https://cdna.trome.pe/resources/dist/trome/fonts/Roboto-Regular.woff2"
+            href="https://cdna.trome.pe/resources/dist/trome/fonts/encode-sans-condensed-v5-latin-800.woff2"
             as="font"
             type="font/woff2"
+            crossOrigin="anonymous"
           />
           <link
             rel="preload"
-            href="https://cdna.trome.pe/resources/dist/trome/fonts/Roboto-Bold.woff2"
+            href="https://cdna.trome.pe/resources/dist/trome/fonts/EncodeSansCondensed-Regular.woff2"
             as="font"
             type="font/woff2"
-          />
-          <link
-            rel="preload"
-            href="https://cdna.trome.pe/resources/dist/trome/fonts/roboto-v20-latin-500.woff2"
-            as="font"
-            type="font/woff2"
+            crossOrigin="anonymous"
           />
         </>
       )}

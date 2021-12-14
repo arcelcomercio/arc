@@ -56,7 +56,10 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
   const isTromeOrganic =
     arcSite === SITE_TROME &&
-    (typeDialog === 'organico' || typeDialog === 'verify')
+    (typeDialog === 'organico' ||
+      typeDialog === 'verify' ||
+      typeDialog === 'banner' ||
+      typeDialog === 'promoMetro')
 
   const { changeTemplate } = useModalContext()
   const [showLoginEmail, setShowLoginEmail] = React.useState(
@@ -321,22 +324,27 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   : ' Ingresa con'}
               </p>
 
-              {authProviders.map((item) => (
-                <ButtonSocial
-                  key={item}
-                  brand={item}
-                  size="middle"
-                  onClose={onClose}
-                  typeDialog={typeDialog}
-                  arcSite={arcSite}
-                  typeForm="login"
-                  activeNewsletter={activeNewsletter}
-                  checkUserSubs={checkUserSubs}
-                  onLogged={onLogged}
-                  showMsgVerify={() => triggerShowVerify()}
-                  dataTreatment={checkedPolits ? '1' : '0'}
-                />
-              ))}
+              {authProviders.map((item) =>
+                item === 'google' &&
+                arcSite === 'trome' &&
+                typeof window !== 'undefined' &&
+                /iPhone|iPad|iPod/i.test(window.navigator.userAgent) ? null : (
+                  <ButtonSocial
+                    key={item}
+                    brand={item}
+                    size="middle"
+                    onClose={onClose}
+                    typeDialog={typeDialog}
+                    arcSite={arcSite}
+                    typeForm="login"
+                    activeNewsletter={activeNewsletter}
+                    checkUserSubs={checkUserSubs}
+                    onLogged={onLogged}
+                    showMsgVerify={() => triggerShowVerify()}
+                    dataTreatment={checkedPolits ? '1' : '0'}
+                  />
+                )
+              )}
 
               <AuthURL
                 arcSite={arcSite}

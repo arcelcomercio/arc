@@ -6,13 +6,15 @@ import { GALLERY_VERTICAL } from '../../../utilities/constants/subtypes'
 import StoryData from '../../../utilities/story-data'
 import StoryHeaderChildAmpGallery from './_children/amp-gallery'
 import StoryHeaderChildAmpGallerySlider from './_children/amp-gallery-slider'
+import customFields from './_dependencies/custom-fields'
 
 const classes = {
   stories: 'amp-sh bg-white pr-20 pl-20 m-5 mx-auto',
   gallery: 'amp-sh bg-white w-full pr-20 pl-20 m-5 mx-auto',
 }
-const StoryGalleryAmp = () => {
+const StoryGalleryAmp = (props) => {
   const { arcSite, contextPath, globalContent: data } = useFusionContext()
+  const { customFields: dataCustomFields } = props
 
   const { siteUrl, adsAmp } = getProperties(arcSite)
 
@@ -37,6 +39,7 @@ const StoryGalleryAmp = () => {
               data={galleryItems}
               primarySectionLink={primarySectionLink}
               adsAmp={adsAmp}
+              dataCustomFields={dataCustomFields}
             />
           ) : (
             <StoryHeaderChildAmpGallerySlider
@@ -52,5 +55,8 @@ const StoryGalleryAmp = () => {
 }
 
 StoryGalleryAmp.static = true
+StoryGalleryAmp.propTypes = {
+  customFields,
+}
 
 export default StoryGalleryAmp
