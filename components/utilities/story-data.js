@@ -1,5 +1,6 @@
 import { defaultImage, getAssetsPath } from './assets'
 import {
+  ELEMENT_BLOCKQUOTE,
   ELEMENT_CORRECTION,
   ELEMENT_CUSTOM_EMBED,
   ELEMENT_HEADER,
@@ -92,16 +93,18 @@ class StoryData {
 
   constructor({
     data = {},
-    deployment = () => {},
+    deployment = () => '',
     contextPath = '',
     arcSite = '',
     siteUrl = '',
+    customFields = '',
   }) {
     this._data = data
     this._deployment = deployment
     this._contextPath = contextPath
     this._website = arcSite
     this._siteUrl = siteUrl
+    this._customFields = customFields
   }
 
   get __data() {
@@ -127,6 +130,12 @@ class StoryData {
   get title() {
     return (
       (this._data && this._data.headlines && this._data.headlines.basic) || ''
+    )
+  }
+
+  get titleHeader() {
+    return (
+      (this._data && this._data.headlines && this._data.headlines.mobile) || ''
     )
   }
 
@@ -836,6 +845,15 @@ class StoryData {
     return result && result.type === ELEMENT_LIST ? result : []
   }
 
+  get contentElementsQuoteOne() {
+    const result =
+      (this._data &&
+        this._data.content_elements &&
+        this._data.content_elements[0]) ||
+      {}
+    return result && result.type === ELEMENT_BLOCKQUOTE ? result.content : null
+  }
+
   get contentElementsHtml() {
     return (
       (this._data &&
@@ -967,35 +985,21 @@ class StoryData {
         } else {
           dataElements = dataContent
         } */
-        if (this._website === 'elcomerciomag') {
-          /**
-           * Si, para Mag, primero registra el parrafo
-           * y luego valida la publicidad
-           */
-          if (typeElement === ELEMENT_TEXT) {
-            i += 1
+        const activeAds = Object.keys(this._customFields).filter((prop) =>
+          prop.match(/ampAdLoadBlock(\d)/)
+        )
+
+        activeAds.forEach((el) => {
+          if (i === this._customFields[el]) {
+            const matches = el.match(/([0-9])+/)
+            dataElements.publicidad = this._customFields[
+              `freeHtml${matches[0]}`
+            ]
           }
-          if (i === 1) {
-            dataElements.publicidadCaja2 = true
-          }
-          if (i === 3) {
-            dataElements.publicidadCaja3 = true
-          }
-          if (i === 5) {
-            dataElements.publicidadCaja4 = true
-          }
-        } else {
-          if (i === 1) {
-            dataElements.publicidadInline = true
-            i += 1
-          }
-          if (i === 4 && contentElements.length > 4) {
-            dataElements.publicidadCaja3 = true
-            i += 1
-          }
-          if (typeElement === ELEMENT_TEXT) {
-            i += 1
-          }
+        })
+
+        if (typeElement === ELEMENT_TEXT) {
+          i += 1
         }
 
         if (i === 1) {

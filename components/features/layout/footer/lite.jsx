@@ -7,8 +7,10 @@ import { getAssetsPath } from '../../../utilities/assets'
 import getFooterProperties from '../../footer/_dependencies/properties'
 import StoryFooter from './_lite/_children/story'
 
-const LayoutFooter = () => {
+const LayoutFooter = (props) => {
   const { arcSite, contextPath } = useAppContext()
+
+  const { customFields: { isBook, bookUrl } = {} } = props
 
   const { assets: { footer: { logo } = {} } = {} } = getProperties(arcSite)
 
@@ -20,7 +22,15 @@ const LayoutFooter = () => {
 
   const { footer: { story } = {} } = getFooterProperties(arcSite)
 
-  return <StoryFooter story={story} logoUrl={logoUrl} arcSite={arcSite} />
+  return (
+    <StoryFooter
+      story={story}
+      logoUrl={logoUrl}
+      arcSite={arcSite}
+      isBook={isBook}
+      bookUrl={bookUrl}
+    />
+  )
 }
 
 LayoutFooter.label = 'Pie de Página'
@@ -40,6 +50,14 @@ LayoutFooter.propTypes = {
     sectionsHierarchyConfig: PropTypes.contentConfig('navigation').tag({
       name: 'Editar navegación de "secciones"',
       group: 'Configuración del contenido',
+    }),
+    isBook: PropTypes.bool.tag({
+      name: 'Activar Libro de Reclamaciones Lite',
+      group: 'Extras',
+    }),
+    bookUrl: PropTypes.string.tag({
+      name: 'URL Libro de Reclamaciones Lite',
+      group: 'Extras',
     }),
   }),
 }

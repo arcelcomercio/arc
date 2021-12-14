@@ -1,0 +1,36 @@
+.story-gallery {
+  &__caption {
+    display: flex;
+    padding: 7px 16px 26px;
+    align-items: flex-start;
+    @media (--desktop) {
+      padding: 7px 0 29px;
+    }
+  }
+  &__number {
+    color: #ad9130;
+    font: 700 14px/24px $secondary-font;
+    letter-spacing: -0.28px;
+    display: flex;
+    align-items: flex-end;
+    margin-right: 11px;
+  }
+  &__number-l {
+    width: 16px;
+    height: 0;
+    border: 1px solid #ad9130;
+    margin: 0 7px 5px 0;
+  }
+  &__title {
+    font: 700 14px/16px $secondary-font;
+    letter-spacing: -0.14px;
+    color: #454545;
+    display: block;
+    margin-bottom: 5px;
+  }
+  &__caption-image {
+    font: 400 12px/16px $secondary-font;
+    letter-spacing: -0.12px;
+    color: #454545;
+  }
+}

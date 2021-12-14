@@ -3,10 +3,9 @@ import * as React from 'react'
 
 import LiteYoutube from '../../../../global-components/lite-youtube'
 import VideoJwplayer from '../../../../global-components/video-jwplayer'
-
-import Video from './video'
-import Imagen from './image'
 import Html from './html'
+import Imagen from './image'
+import Video from './video'
 import VideoNativo from './video-nativo'
 
 const classes = {
@@ -38,13 +37,16 @@ const StoryContentChildMultimedia = ({ data } = []) => {
     lite = false,
   } = data
 
-  const { type: typeImage, caption = '' } = basic || {}
+  const { type: typeImage, caption = '', credits: { by = [] } = {} } =
+    basic || {}
+
+  const { name: authorName = '' } = by[0] || {}
 
   return (
     <>
       {promoItemJwplayer.key ? (
         <>
-          <VideoJwplayer data={promoItemJwplayer} lite={lite}></VideoJwplayer>
+          <VideoJwplayer data={promoItemJwplayer} lite={lite} />
         </>
       ) : (
         <>
@@ -56,6 +58,7 @@ const StoryContentChildMultimedia = ({ data } = []) => {
             <Imagen
               multimedia={multimedia}
               caption={caption}
+              authorName={authorName}
               showCaption={showCaption}
               primaryImage={primaryImage}
               completeImage={completeImage}

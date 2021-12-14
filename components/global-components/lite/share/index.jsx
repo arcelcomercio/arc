@@ -21,7 +21,14 @@ const ShareButtons = ({
   activeCopyLink = false,
   activeLinkedin = true,
   renderScripts = false,
+  path: customPath = '',
+  title: customTitle = '',
+  googleNewsText = true,
+  hideShareLinks = false,
+  appVersion = true,
 }) => {
+  if (hideShareLinks) return null
+
   const { globalContent, arcSite, metaValue } = useAppContext()
 
   // const urlRoot = () => {
@@ -35,19 +42,26 @@ const ShareButtons = ({
     headlines: { basic: postTitle = '' } = {},
   } = globalContent || {}
   const {
-    social: { twitter: { user: siteNameRedSocial = '' } = {} } = {},
+    social: { twitter: { user: twitterUser = '' } = {} } = {},
     siteUrl,
     googleNewsUrl,
   } = getProperties(arcSite)
 
+  const path = postPermaLink || customPath
+  const title = postTitle || customTitle
+
   const urlsShareList = socialMediaUrlShareList(
     siteUrl,
-    postPermaLink,
-    postTitle,
-    siteNameRedSocial
+    path,
+    title,
+    twitterUser,
+    appVersion
   )
 
-  if (metaValue('section_style') === 'story-v2-standard') {
+  if (
+    metaValue('section_style') === 'story-v2-standard' ||
+    metaValue('section_style') === 'story-v2-video'
+  ) {
     return (
       <>
         <ShareButtonsV2
@@ -92,7 +106,9 @@ const ShareButtons = ({
           className={`${classes.btn} ${classes.gnews}`}
           rel="noreferrer"
           target="_blank">
-          <span className={classes.gnewsTxt}>Síguenos en Google News</span>
+          {googleNewsText && (
+            <span className={classes.gnewsTxt}>Síguenos en Google News</span>
+          )}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="25"

@@ -59,10 +59,10 @@ const customFields = PropTypes.shape({
     group: 'Editar campos',
     description: 'Dejar vacío para tomar el valor original de la historia.',
   }),
-  dateInfo: PropTypes.bool.tag({
-    name: 'Mostrar ayuda visual para las fechas',
-    group: 'Programar Notas',
-  }),
+  // dateInfo: PropTypes.bool.tag({
+  //   name: 'Mostrar ayuda visual para las fechas',
+  //   group: 'Programar Notas',
+  // }),
   note1: PropTypes.string.tag({
     name: 'Nota 1',
     group: 'Programar Notas',

@@ -1,6 +1,7 @@
-import React from 'react'
 import AmpImage from '@arc-core-components/element_image'
 import { useAppContext } from 'fusion:context'
+import React from 'react'
+
 import { createResizedParams } from '../../../../utilities/resizer/resizer'
 
 const classes = {
@@ -15,14 +16,14 @@ const classes = {
   count: 'story-gallery__count font-bold text-center mx-auto',
 }
 
-const StoryHeaderChildAmpGallery = props => {
+const StoryHeaderChildAmpGallery = (props) => {
   const { data = [], link, siteUrl } = props
   const slider = '[slide]="selectedSlide"'
   const imgTag = 'amp-img'
   const numeroFoto = ' [text]="+selectedSlide + 1"'
 
   const { arcSite } = useAppContext()
-  const extractImage = urlImg => {
+  const extractImage = (urlImg) => {
     if (typeof window === 'undefined') {
       const imageObject =
         createResizedParams({
@@ -77,7 +78,7 @@ const StoryHeaderChildAmpGallery = props => {
           ))}
         </amp-carousel>
         <amp-carousel width="600" height="480" layout="nodisplay" type="slides">
-          {data.map(item => (
+          {data.map((item) => (
             <>
               <div className="slide">
                 <AmpImage

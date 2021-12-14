@@ -4,7 +4,7 @@ import Image from '../../../../global-components/image'
 import { locale } from '../../../../utilities/date-time/constants'
 
 interface FeatureProps {
-  authorsList: {
+  authorsList?: {
     nameAuthor: string
     urlAuthor: string
     slugAuthor: string
@@ -54,31 +54,29 @@ const StoryContentChildAuthorLiteV2: React.FC<FeatureProps> = ({
   authorsList,
   displayDate,
   publishDate,
-}) => {
-  console.log('|||||||||||||||||||')
-
-  return (
-    <div className="s-aut">
-      <div>
-        {authorsList?.map(({ imageAuthor, urlAuthor, nameAuthor }) => (
-          <a href={urlAuthor} className="s-aut__img-l">
-            <Image
-              itemProp="image"
-              src={imageAuthor}
-              width={40}
-              height={40}
-              title={nameAuthor}
-              alt={nameAuthor}
-              placeholder={DEFAULT_AUTHOR_IMG}
-              className="s-aut__img"
-              uid={urlAuthor}
-            />
-          </a>
-        ))}
-      </div>
-      <div className="s-aut__n-cont f">
-        {authorsList?.map(({ urlAuthor, nameAuthor, mailAuthor }) => (
-          <div className="s-aut__n-item">
+}) => (
+  <div className="s-aut">
+    <div>
+      {authorsList?.map(({ imageAuthor, urlAuthor, nameAuthor }) => (
+        <a href={urlAuthor} className="s-aut__img-l">
+          <Image
+            itemProp="image"
+            src={imageAuthor}
+            width={40}
+            height={40}
+            title={nameAuthor}
+            alt={nameAuthor}
+            placeholder={DEFAULT_AUTHOR_IMG}
+            className="s-aut__img"
+            uid={urlAuthor}
+          />
+        </a>
+      ))}
+    </div>
+    <div className="s-aut__n-cont f">
+      {authorsList?.map(({ urlAuthor, nameAuthor, mailAuthor }) => (
+        <div className="s-aut__n-item">
+          {mailAuthor && (
             <a href={`mailto:${mailAuthor}`}>
               <svg
                 width="20"
@@ -104,20 +102,21 @@ const StoryContentChildAuthorLiteV2: React.FC<FeatureProps> = ({
                 </defs>
               </svg>
             </a>
-            <a href={urlAuthor} className="s-aut__n">
-              {nameAuthor}
-            </a>
-          </div>
-        ))}
-      </div>
-      <div className="s-aut__time">
-        <time dateTime={displayDate}>{formatDate(displayDate) || ''}</time>
-        <time dateTime={publishDate}>
-          {publishDate ? ` - ACTUALIZADO A ${formatDate(publishDate)}` : ''}
-        </time>
-      </div>
+          )}
+          <a href={urlAuthor} className="s-aut__n">
+            {nameAuthor}
+          </a>
+        </div>
+      ))}
     </div>
-  )
-}
+    <div className="s-aut__time">
+      <time dateTime={displayDate}>{formatDate(displayDate) || ''}</time>
+      <time dateTime={publishDate}>
+        {publishDate ? ` - ACTUALIZADO A ${formatDate(publishDate)}` : ''}
+      </time>
+    </div>
+    <span />
+  </div>
+)
 
 export default StoryContentChildAuthorLiteV2

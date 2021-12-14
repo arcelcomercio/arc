@@ -109,7 +109,12 @@ class VideoList extends PureComponent {
       dataList: { content_elements: contentElements = [], next = 0 } = {},
       isLoading,
     } = this.state
-    const { arcSite, contextPath, deployment } = this.props
+    const {
+      arcSite,
+      contextPath,
+      deployment,
+      customFields: { quantyStory = 16 } = {},
+    } = this.props
     const Story = new StoryData({
       data: {},
       arcSite,
@@ -140,7 +145,7 @@ class VideoList extends PureComponent {
               videoDuration,
               index: i,
             }
-            return <VideoListItem {...params} />
+            return <VideoListItem {...params} isLazy={i < quantyStory} />
           })}
           <div className="video-list__btn-container">
             {next > 0 && contentElements.length <= 160 ? (

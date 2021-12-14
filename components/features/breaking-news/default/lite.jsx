@@ -12,6 +12,7 @@ const classes = {
   icon: 'b-news__icon',
   link: 'b-news__link',
   tag: 'b-news__tag',
+  hint: 'b-news__tag b-news__hint',
   title: 'b-news__title',
   envivo: 'b-news__envivo',
   envivoborder: 'b-news__envivo-border',
@@ -32,10 +33,11 @@ const BreakingNewsFeat = (props) => {
       tags = 'Lo último:',
       backgroundColor = 'color-1',
       showIcon = '',
+      hint = '',
     },
   } = props
 
-  const { arcSite } = useAppContext()
+  const { arcSite, metaValue } = useAppContext()
 
   const isStory = /^\/.*\/.*-noticia/.test(storyLink)
 
@@ -90,6 +92,10 @@ const BreakingNewsFeat = (props) => {
                   </>
                 ) : null}
                 <span className={classes.tag}>{tags}</span>
+                {(metaValue('section_style') === 'story-v2-standard' ||
+                  metaValue('section_style') === 'story-v2-video') && (
+                  <span className={classes.hint}>{hint}</span>
+                )}
                 <span className={classes.title}>{objContent.title}</span>
               </a>
             </h2>
