@@ -138,13 +138,16 @@ $font-color: #ee7325;
 
     &-family {
       width: 140px;
+      height: 110px;
       margin-left: 30px;
 
       @media (--tablet) {
         width: 260px;
+        height: 204px;
       }
       @media (--desktop) {
         width: 300px;
+        height: 236px;
       }
     }
 
