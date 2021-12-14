@@ -76,7 +76,7 @@ export const NavbarDefaultChildrenMenu = () => {
                 {siteDomain}
               </a>
             </li>
-            {legalLinks.map((link) => (
+            {legalLinks?.map((link) => (
               <li>
                 <a
                   itemProp="url"
