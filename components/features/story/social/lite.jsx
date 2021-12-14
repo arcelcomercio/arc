@@ -1,9 +1,10 @@
 import { useAppContext } from 'fusion:context'
 import React from 'react'
 
-import image from '../../../global-components/image/image'
+import Image from '../../../global-components/image/index'
 import ShareButtons from '../../../global-components/lite/share'
 import TProLbl from '../../../global-components/trustprojectlabel'
+import { SITE_TROME } from '../../../utilities/constants/sitenames'
 import { addSlashToEnd } from '../../../utilities/parse/strings'
 import StoryData from '../../../utilities/story-data'
 import { storyTagsBbc } from '../../../utilities/tags'
@@ -16,6 +17,7 @@ const classes = {
   buttons: 'st-social__share',
   special: 'st-social__special f',
   center: 'f f-center',
+  tagPremium:'st-social__tag'
 }
 
 const StorySocialLite = () => {
@@ -50,6 +52,8 @@ const StorySocialLite = () => {
     contextPath,
   })
 
+  const tromePremiumTag = isPremium && arcSite === SITE_TROME
+
   return metaValue('section_style') !== 'story-v2-standard' &&
     isArchivoElcomercio ? (
     <div className={classes.center}>
@@ -60,8 +64,8 @@ const StorySocialLite = () => {
   ) : (
     <div
       className={`${classes.container} ${metaValue('section_style') === 'story-v2-standard' && storyTagsBbc(tags)
-          ? 'st-social--bbc'
-          : ''
+        ? 'st-social--bbc'
+        : ''
         }`}>
       <div className={classes.upsection}>
         {metaValue('section_style') === 'story-v2-standard' && isPremium && (
@@ -101,7 +105,8 @@ const StorySocialLite = () => {
         <h2
           itemProp="name"
           className={`${classes.section}${isPremium ? ' st-social__premium' : ''
-            }`}>
+            }`}
+        >
           {(editorNote && (
             <p
               itemProp="description"
@@ -115,6 +120,14 @@ const StorySocialLite = () => {
                 {primarySection}
               </a>
             )}
+          {tromePremiumTag && <Image
+            src="https://cdna.trome.pe/resources/dist/trome/images/logo-club-trome.png?d=1"
+            alt="Logo de Club Trome"
+            className={classes.tagPremium}
+            loading="eager"
+            importance="high"
+          />}
+
         </h2>
         {trustproject && (
           <TProLbl

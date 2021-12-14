@@ -20,10 +20,18 @@
     border-top: 1px solid #aaa;
   }
 
+  &__tag{
+    height: auto;
+    width: 90px;
+    margin-left:10px;
+  }
+
   &__txt {
     font: 700 15px/1 $primary-font;
     font-size: 22px;
     text-transform: capitalize;
+    display:flex;
+    align-items:center;
 
     @media (--tablet) {
       font: 700 16px/1 $primary-font;
