@@ -1,6 +1,7 @@
 import { useEditableContent } from 'fusion:content'
 import * as React from 'react'
 
+import { getAssetsPath } from '../../utilities/assets'
 import { SITE_TROME } from '../../utilities/constants/sitenames'
 import Image from '../image'
 import Icon from '../multimedia-icon'
@@ -13,6 +14,7 @@ const IMAGE_COMPLETE = 'complete'
 
 const classes = {
   featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-0`,
+  featuredStoryPremium: `featured-story__tag-premium`,
   featuredStoryInvertedColor: `featured-story--inverted`,
   detail: `featured-story__detail flex flex-col position relative md:p-20`,
   detailInverted: `featured-story__detail__inverted`,
@@ -66,18 +68,22 @@ const FeaturedStory = (props) => {
     titleField, // OPCIONAL, o pasar el customField de los props
     categoryField, // OPCIONAL, o pasar el customField de los props
     arcSite,
+    contextPath,
     siteName,
     isLazyLoadActivate = true,
     titleHeader = '',
     invertedTitle = false,
     invertedColor = false,
     hideAuthor = false,
+    isPremium = false,
   } = props
   const { editableField } = useEditableContent()
 
-  const noExpandedClass = !hightlightOnMobile
-    ? 'featured-story--no-expanded'
-    : ''
+  // Cuando la nota es premium queremos que siempre sea Destacada en mobile
+  // porque así se comporta el `Destaque Premium` de EC y Gestion actualmente
+  const noExpandedClass = hightlightOnMobile
+    ? ''
+    : 'featured-story--no-expanded'
 
   const getImageSizeClass = () => {
     switch (imageSize) {
@@ -148,15 +154,27 @@ const FeaturedStory = (props) => {
     return primarySectionLink
   }
 
+  /** Si se agrega un sitio en la validación de `showPremiumTag`,
+   * se deben agregar los valores correspondientes en `premiumTags`
+   */
+  const showPremiumTag = isPremium && arcSite === SITE_TROME
+  const premiumTags = {
+    [SITE_TROME]: {
+      image: 'logo-club-trome.png',
+      alt: 'Logo de Club Trome',
+    },
+  }
+
   return (
     <article
       className={`${
         classes.featuredStory
       } ${getImageSizeClass()} ${getHeadBandClass()} ${
         size === SIZE_TWO_COL ? classes.twoCol : ''
-      } ${hightlightOnMobile ? 'expand' : ''} ${noExpandedClass} ${
+      } ${hightlightOnMobile || isPremium ? 'expand' : ''} ${noExpandedClass} ${
         invertedColor && classes.featuredStoryInvertedColor
-      } ${invertedTitle && classes.imgCompleteInvertedTitle}`}>
+      } ${invertedTitle && classes.imgCompleteInvertedTitle}
+      ${isPremium && 'premium'}`}>
       <div
         className={`${classes.detail} 
                       ${author ? ' justify-between' : ''}`}>
@@ -182,6 +200,21 @@ const FeaturedStory = (props) => {
               {headbandText}
             </a>
           </div>
+        )}
+        {showPremiumTag && (
+          <Image
+            src={`${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/dist/${arcSite}/images/${
+              premiumTags[arcSite].image
+            }?d=1`}
+            width={54}
+            height={20}
+            alt={premiumTags[arcSite].alt}
+            className={classes.featuredStoryPremium}
+            loading="lazy"
+          />
         )}
         <h2
           itemProp="name"
