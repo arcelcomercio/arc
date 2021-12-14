@@ -41,7 +41,6 @@ const classes = {
   contLista: 'premios_depor__header__contLista',
   contOpen: 'premios_depor__header__contOpen',
   raya: 'premios_depor__header__raya',
-  // rotate: 'premios_depor__header__rotate',
 }
 
 let isMobile
@@ -54,12 +53,6 @@ const HeaderPremiosDepor = ({ requestUri }) => {
   const isPreview = /^\/preview\//.test(requestUri)
 
   const [mopen, setmopen] = useState(false)
-  console.log('isMobile', isMobile)
-  console.log('mopen', mopen)
-
-  // const clickOH () => {
-
-  // }
 
   return isMobile ? (
     mopen ? (
@@ -71,9 +64,12 @@ const HeaderPremiosDepor = ({ requestUri }) => {
                 type="button"
                 className={classes.buttonMenuClosed}
                 onClick={() => setmopen(!mopen)}>
-                <div className={classes.raya}>-</div>
-                <div className={classes.raya}>-</div>
-                <div className={classes.raya}>-</div>
+                <svg xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    fill="white"
+                    d="M7 4a.995.995 0 0 0-.707.293l-2 2a.999.999 0 0 0 0 1.414L11.586 15l-7.293 7.293a.999.999 0 0 0 0 1.414l2 2a.999.999 0 0 0 1.414 0L15 18.414l7.293 7.293a.999.999 0 0 0 1.414 0l2-2a.999.999 0 0 0 0-1.414L18.414 15l7.293-7.293a.999.999 0 0 0 0-1.414l-2-2a.999.999 0 0 0-1.414 0L15 11.586 7.707 4.293A.996.996 0 0 0 7 4z"
+                  />
+                </svg>
               </button>
             </li>
             <li className={classes.lista}>
@@ -130,9 +126,9 @@ const HeaderPremiosDepor = ({ requestUri }) => {
             type="button"
             className={classes.buttonMenu}
             onClick={() => setmopen(!mopen)}>
-            <div className={classes.raya}>-</div>
-            <div className={classes.raya}>-</div>
-            <div className={classes.raya}>-</div>
+            <div className={classes.raya} />
+            <div className={classes.raya} />
+            <div className={classes.raya} />
           </button>
         </div>
       </div>
