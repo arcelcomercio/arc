@@ -100,38 +100,19 @@ export default ({
 
   const logoAuthor = `${contextPath}/resources/dist/${arcSite}/images/author.png`
   const structuredAuthors = authorsList.map(
-    (author) => `
-  {
-    "@context": "http://schema.org/",
-    "@type": "Person",
-    "name": "${author.nameAuthor || arcSite}",
-    "image": "${author.imageAuthor || logoAuthor}",
-    "contactPoint"     : {
-      "@type"        : "ContactPoint",
-      "contactType"  : "Journalist",
-      "email"        : "${author.mailAuthor}"
-    },
-    "email": "${author.mailAuthor}",
-    "jobTitle"	: "${author.role}"
-  }`
+    (author) =>
+      `{"@context": "http://schema.org/","@type":"Person","name":"${
+        author.nameAuthor || arcSite
+      }","image":"${
+        author.imageAuthor || logoAuthor
+      }","contactPoint":{"@type":"ContactPoint","contactType":"Journalist","email":"${
+        author.mailAuthor
+      }"},"email":"${author.mailAuthor}","jobTitle":"${author.role}"}`
   )
   const structuredAutor =
     structuredAuthors.length > 0
       ? structuredAuthors
-      : `
-  {
-    "@context": "http://schema.org/",
-    "@type": "Person",
-    "name": "${arcSite}",
-    "image": "${logoAuthor}",
-    "contactPoint"     : {
-      "@type"        : "ContactPoint",
-      "contactType"  : "Journalist",
-      "email"        : ""
-    },
-    "email": "",
-    "jobTitle"	: ""
-  }`
+      : `{"@context":"http://schema.org/","@type":"Person","name":"${arcSite}","image":"${logoAuthor}","contactPoint":{"@type":"ContactPoint","contactType":"Journalist","email":""},"email":"","jobTitle":""}`
 
   const finalStructuredDataAuthor =
     structuredAuthors.length > 1
@@ -161,15 +142,15 @@ export default ({
         facebook && `https://www.facebook.com${user}/videos/${facebook}`
 
       return thumbnailUrlYoutube || thumbnailUrlTwitter || thumbnailUrlFacebook
-        ? `{ "@context": "http://schema.org", "@type": "VideoObject", "name": "${formatHtmlToText(
+        ? `{"@context":"http://schema.org","@type":"VideoObject","name":"${formatHtmlToText(
             title || arcSite
-          )}",   "description": "${formatHtmlToText(
+          )}","description":"${formatHtmlToText(
             subTitle || arcSite
-          )}",  "thumbnailUrl": "${
+          )}","thumbnailUrl":"${
             thumbnailUrlYoutube || thumbnailUrlTwitter || thumbnailUrlFacebook
-          }", "uploadDate": "${publishDateZone}",  "embedUrl": "${
+          }","uploadDate":"${publishDateZone}","embedUrl":"${
             embedUrlYoutube || embedUrlTwitter || embedUrlFacebook
-          }" }`
+          }"}`
         : ''
     })
     .filter((video) => video !== '')
@@ -186,20 +167,12 @@ export default ({
     })
   }
 
-  const publishedVideoOrganization = ` 
-  "publisher" : {
-    "@type": "Organization",
-    "name": "${siteName}",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "${`${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/${seo.logoAmp}?d=1`}",
-      "width": ${seo.width},
-      "height": ${seo.height}
-    }
-  },`
+  const publishedVideoOrganization = `"publisher":{"@type":"Organization","name":"${siteName}","logo":{"@type":"ImageObject","url":"${`${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/dist/${arcSite}/images/${seo.logoAmp}?d=1`}","width":${
+    seo.width
+  },"height":${seo.height}}},`
 
   const jwplayerSeoItems =
     jwplayerSeo[0] &&
@@ -213,9 +186,11 @@ export default ({
         duration,
       } = {}) => {
         if (!date || date < 946702800000) {
+          // eslint-disable-next-line no-param-reassign
           date = getDateSeo(updateDate)
         } else {
           const dateObj = new Date(date)
+          // eslint-disable-next-line no-param-reassign
           date = getDateSeo(dateObj)
         }
 
@@ -237,17 +212,15 @@ export default ({
             ? `"${large || urlImage}"`
             : `["${ampVideo1x1}", "${ampVideo4x3}", "${ampVideo16x9}"]`
 
-        return `{ "@type":"VideoObject",  "name":"${formatHtmlToText(
+        return `{ "@type":"VideoObject","name":"${formatHtmlToText(
           titleVideo.trim() || title
         )}", ${
           isAmp === true ? publishedVideoOrganization : ''
-        }  "thumbnailUrl": ${image},  "description":"${formatHtmlToText(
+        }"thumbnailUrl":${image},"description":"${formatHtmlToText(
           titleVideo.trim() || subTitle
-        )}", "contentUrl": "${getResultJwplayer(
+        )}","contentUrl":"${getResultJwplayer(
           conversions
-        )}",  "uploadDate": "${date}", "duration": "${msToTimeJplayer(
-          duration
-        )}" }`
+        )}","uploadDate":"${date}","duration":"${msToTimeJplayer(duration)}"}`
       }
     )
 
@@ -268,21 +241,18 @@ export default ({
       const image =
         isAmp === true
           ? `"${large || urlImage}"`
-          : `["${ampVideo1x1}", "${ampVideo4x3}", "${ampVideo16x9}"]`
+          : `["${ampVideo1x1}","${ampVideo4x3}","${ampVideo16x9}"]`
 
-      return `{ "@type":"VideoObject",  "name":"${formatHtmlToText(
+      return `{ "@type":"VideoObject","name":"${formatHtmlToText(
         caption.trim() || title
-      )}", ${
+      )}",${
         isAmp === true ? publishedVideoOrganization : ''
-      }  "thumbnailUrl": ${image},  "description":"${formatHtmlToText(
+      }"thumbnailUrl":${image},"description":"${formatHtmlToText(
         description.trim() || caption.trim() || subTitle
-      )}", "contentUrl": "${getAssetsPathVideo(
+      )}","contentUrl":"${getAssetsPathVideo(
         arcSite,
         url
-      )}",  "uploadDate": "${date}", "duration": "${msToTime(
-        duration,
-        false
-      )}" } `
+      )}","uploadDate":"${date}","duration":"${msToTime(duration, false)}"}`
     }
   )
 
@@ -333,9 +303,9 @@ export default ({
         ampImage4x3 || url
       }"]`
     else img = `"${large}"`
-    return `{  "@type":"ImageObject", "url": ${
+    return `{"@type":"ImageObject","url":${
       img || url
-    }, ${description} "height":800, "width":1200 }`
+    },${description}"height":800,"width":1200 }`
   })
 
   const listItems = tags.map(({ description }) => `${description}`)
@@ -352,13 +322,13 @@ export default ({
   const relatedContentItem = resultRelated.map((content, i) => {
     const { canonical_url: urlItem = '' } = content || {}
     const pathUrl = ENVIRONMENT === 'elcomercio' ? siteUrl : ''
-    return `{  "@type":"ListItem",  "position":${
+    return `{"@type":"ListItem","position":${
       i + 1
-    }, "url":"${pathUrl}${urlItem}" }`
+    },"url":"${pathUrl}${urlItem}" }`
   })
 
   const relatedContentData = relatedContentItem[0]
-    ? `{  "@context":"https://schema.org", "@type":"ItemList", "itemListElement":[${relatedContentItem}]  }`
+    ? `{"@context":"https://schema.org","@type":"ItemList","itemListElement":[${relatedContentItem}]}`
     : ''
 
   /**
@@ -382,8 +352,7 @@ export default ({
     arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION
       ? `"isAccessibleForFree": ${
           getContentType() === FREE ? 'true' : 'false'
-        }, 
-        "isPartOf": { "@type": ["CreativeWork", "Product"],  "name" : "${siteName}",   "productID": "${arcSite}:${getContentType()}" },`
+        },"isPartOf":{"@type":["CreativeWork","Product"],"name":"${siteName}","productID":"${arcSite}:${getContentType()}"},`
       : ''
 
   const arrayImage = isAmp ? imagesSeoItemsAmp : imagesSeoItems
@@ -414,9 +383,9 @@ export default ({
 
   const imagenDefoult = imagesSeoItems[0]
     ? imagenData
-    : `"image": {  "@type": "ImageObject", "url": "${imageYoutube}",  "description": "${formatHtmlToText(
+    : `"image":{"@type":"ImageObject","url":"${imageYoutube}","description":"${formatHtmlToText(
         siteName
-      )}", "height": 800, "width": 1200 },`
+      )}","height":800,"width":1200 },`
 
   const dataVideoJplayer =
     jwplayerSeo[0] && jwplayerSeo[0].conversions
@@ -429,10 +398,7 @@ export default ({
   let citationStructuredItems = ''
   if (arcSite === SITE_ELCOMERCIO) {
     contentElementsLinks.forEach((url) => {
-      citationStructuredItems += `{
-        "@type": "CreativeWork",
-        "url": "${url}"
-      },`
+      citationStructuredItems += `{"@type":"CreativeWork","url":"${url}" },`
     })
   }
 
@@ -451,8 +417,7 @@ export default ({
         )}",`
       : ''
 
-  const backStoryStructured = `
-  "backstory":"${contentElementCustomBlock
+  const backStoryStructured = ` "backstory":"${contentElementCustomBlock
     .map((element) =>
       element.embed.config.customBlockType === 'backstory'
         ? element.embed.config.customBlockContent
@@ -470,11 +435,9 @@ export default ({
         config: { content: contentCorrection = '', date: dateCorrection = '' },
       } = {},
     } = ele || {}
-    correctionStructuredItems += `{
-      "@type": "CorrectionComment",
-      "text": "${formatHtmlToText(contentCorrection.trim())}",
-      "datePublished": "${dateCorrection}"
-    },`
+    correctionStructuredItems += `{"@type":"CorrectionComment","text":"${formatHtmlToText(
+      contentCorrection.trim()
+    )}","datePublished":"${dateCorrection}"},`
   })
 
   const correctionStructured =
@@ -504,53 +467,38 @@ export default ({
       : ''
   const typeStory = primarySection !== 'Trivias' ? trustType : '"Quiz"'
 
-  const structuredData = `{  "@context":"http://schema.org", "@type":${typeStory}, ${revisionWorkType} "datePublished":"${publishDateZone}",
-    "dateModified":"${
-      arcSite === SITE_DEPOR || arcSite === SITE_ELBOCON
-        ? publishDateZone
-        : lastPublishDate
-    }",
-    ${backStoryStructured}
-    ${locality && `"locationCreated": {"@type":"Place", "name":"${locality}"},`}
-    ${dateline}
-    "headline":"${formatHtmlToText(title)}",
-    "alternativeHeadline":"${formatHtmlToText(metaTitle)}",
-    "description":"${
-      formatHtmlToText(data?.description?.basic) || formatHtmlToText(subTitle)
-    }",
-    ${publishingPrinciples}
-  ${bodyStructured}
-  ${correctionStructured}
-  ${citationStructured}
-    "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${
+  const structuredData = `{"@context":"http://schema.org","@type":${typeStory},${revisionWorkType}"datePublished":"${publishDateZone}", "dateModified":"${
+    arcSite === SITE_DEPOR || arcSite === SITE_ELBOCON
+      ? publishDateZone
+      : lastPublishDate
+  }", ${backStoryStructured} ${
+    locality && `"locationCreated":{"@type":"Place","name":"${locality}"},`
+  } ${dateline} "headline":"${formatHtmlToText(
+    title
+  )}","alternativeHeadline":"${formatHtmlToText(metaTitle)}","description":"${
+    formatHtmlToText(data?.description?.basic) || formatHtmlToText(subTitle)
+  }",${publishingPrinciples} ${bodyStructured} ${correctionStructured} ${citationStructured}"mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${
     videoSeoItems[0] || redSocialVideo[0] || jwplayerSeo[0] ? dataVideo : ''
-  }
-    "author": ${finalStructuredDataAuthor},
-    "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${`${getAssetsPath(
+  } "author": ${finalStructuredDataAuthor},"publisher":{"@type":"Organization","name":"${siteName}","logo":{"@type":"ImageObject","url":"${`${getAssetsPath(
     arcSite,
     contextPath
-  )}/resources/dist/${arcSite}/images/${seo.logoAmp}?d=1`}",   "height":${
+  )}/resources/dist/${arcSite}/images/${seo.logoAmp}?d=1`}","height":${
     seo.height
-  }, "width":${seo.width}
-      }
-    },    
-    ${accessibleForFree} 
-    "keywords":[${
-      seoKeyWordsStructurada[0]
-        ? seoKeyWordsStructurada.map((item) => item)
-        : listItemsTagsKeywords.map((item) => item)
-    }]
- }`
+  }, "width":${seo.width} } }, ${accessibleForFree} "keywords":[${
+    seoKeyWordsStructurada[0]
+      ? seoKeyWordsStructurada.map((item) => item)
+      : listItemsTagsKeywords.map((item) => item)
+  }] }`
 
   const breadcrumbResult = breadcrumbList.map(
     ({ url, name }, i) =>
       url &&
-      `{"@type":"ListItem", "position":${
+      `{"@type":"ListItem","position":${
         i + 1
-      }, "name":"${name}", "item":"${url}" }`
+      },"name":"${name}","item":"${url}" }`
   )
 
-  const structuredBreadcrumb = `{ "@context":"https://schema.org", "@type":"BreadcrumbList", "itemListElement":[${breadcrumbResult}] }`
+  const structuredBreadcrumb = `{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[${breadcrumbResult}] }`
 
   const taboolaScript =
     arcSite === SITE_ELCOMERCIOMAG ? SITE_ELCOMERCIO : arcSite

@@ -42,6 +42,7 @@ import {
   STORY_CUSTOMBLOCK,
   VIDEO_JWPLAYER,
   VIDEO_JWPLAYER_MATCHING,
+  CUSTOM_EC_BLOCKS,
 } from '../../../utilities/constants/subtypes'
 import { getDateSeo } from '../../../utilities/date-time/dates'
 import { contentWithAds } from '../../../utilities/story/content'
@@ -56,6 +57,8 @@ import StoryContentsChildAuthorLite from './_children/author-lite'
 import StoryContentChildAuthorLiteV2 from './_children/author-lite-v2'
 import StoryContentsChildAuthorTrustLite from './_children/author-trust-lite'
 import StoryContentsChildBlockQuote from './_children/blockquote'
+import StoryContentsChildHighlightedQuotes from './_children/highlighted-quotes'
+import StoryContentsChildIntertitle from './_children/intertitle'
 import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildCustomBlock from './_children/custom-block'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
@@ -198,6 +201,7 @@ const StoryContentsLite = (props) => {
                     authorsList={authorsList}
                     displayDate={getDateSeo(displayDate || createdDate)}
                     publishDate={getDateSeo(updateDate)}
+                    metaValue={metaValue}
                   />
                 )
               if (SITE_ELCOMERCIO === arcSite)
@@ -207,18 +211,19 @@ const StoryContentsLite = (props) => {
           </>
         )}
         <div
-          className={`${classes.content} ${isPremium && !isPreview
-            ? 'story-content__nota-premium paywall no_copy'
-            : ''
-            }`}
+          className={`${classes.content} ${
+            isPremium && !isPreview
+              ? 'story-content__nota-premium paywall no_copy'
+              : ''
+          }`}
           style={
             isPremium && !isPreview
               ? {
-                display: 'none',
-                opacity: '0',
-                userSelect: 'none',
-                visibility: 'hidden',
-              }
+                  display: 'none',
+                  opacity: '0',
+                  userSelect: 'none',
+                  visibility: 'hidden',
+                }
               : {}
           }
           id="contenedor">
@@ -303,12 +308,22 @@ const StoryContentsLite = (props) => {
                           key: mediaId = '',
                           has_ads: hasAds = 0,
                           account = 'gec',
+                          // eslint-disable-next-line @typescript-eslint/no-shadow
                           title = '',
                           thumbnail_url: image = '',
-                          description: descriptionTxt,
+                          description: descriptionVideo,
+                          author: authorVideo = '',
                         } = {},
                       } = {},
                     } = element
+                    const descriptionTxt =
+                      isStoryV2StandarStyle && authorVideo
+                        ? `
+                          ${descriptionVideo}
+                          <span class="s-multimedia__author-name"> / ${authorVideo}</span>
+                          `
+                        : descriptionVideo
+
                     const playerId = jwplayers[account] || jwplayers.gec
                     const jwplayerId = hasAds
                       ? playerId.playerAds
@@ -334,7 +349,7 @@ const StoryContentsLite = (props) => {
                           />
                         </div>
                         <figcaption
-                          className="s-multimedia__caption"
+                          className="s-multimedia__caption 1"
                           dangerouslySetInnerHTML={{
                             __html: descriptionTxt,
                           }}
@@ -351,6 +366,14 @@ const StoryContentsLite = (props) => {
                         playerId={playerId}
                       />
                     )
+                  }
+                  if (sub === CUSTOM_EC_BLOCKS) {
+                    if (customEmbed.config.block === 'highlighted-quotes') {
+                      return (<StoryContentsChildHighlightedQuotes data={element} />)
+                    }
+                    if (customEmbed.config.block === 'intertitle') {
+                      return (<StoryContentsChildIntertitle data={element} />)
+                    }
                   }
                 }
                 // // Condicion para trome sin blockquoute - components/features/story/title/lite.jsx
@@ -452,9 +475,9 @@ const StoryContentsLite = (props) => {
                             dangerouslySetInnerHTML={{
                               __html: item.content
                                 ? item.content.replace(
-                                  /<a/g,
-                                  '<a itemprop="url"'
-                                )
+                                    /<a/g,
+                                    '<a itemprop="url"'
+                                  )
                                 : '',
                             }}
                           />
@@ -556,6 +579,10 @@ const StoryContentsLite = (props) => {
                   if (arcSite === SITE_TROME)
                     return (
                       <StoryContentsChildLinkList items={items} title={title} />
+                    )
+                  if (isStoryV2StandarStyle)
+                    return (
+                      <StoryContentsChildLinkList items={items} title={title} v2={isStoryV2StandarStyle} />
                     )
                   return <StoryContentsChildLinkList items={items} />
                 }
@@ -723,7 +750,9 @@ const StoryContentsLite = (props) => {
             <ShareButtons
               activeCopyLink={copyLink}
               activeLinkedin={
-                arcSite === 'elcomercio' || arcSite === 'elcomerciomag' || arcSite === 'trome'
+                arcSite === 'elcomercio' ||
+                arcSite === 'elcomerciomag' ||
+                arcSite === 'trome'
               }
               hideShareLinks={shareLinks}
             />

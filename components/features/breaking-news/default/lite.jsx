@@ -106,7 +106,6 @@ const BreakingNewsFeat = (props) => {
               tabIndex={0}>
               <svg
                 className={classes.icon}
-                xmlns="http://www.w3.org/2000/svg"
                 width="46"
                 height="46"
                 viewBox="0 0 46 46">

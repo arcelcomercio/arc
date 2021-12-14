@@ -19,12 +19,7 @@ export default function HospitalDetail({
           <span>{telefono}</span>
         </div>
         <a className="uci-home__close-link" href={backLink}>
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 14 14"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <g clipPath="url(#clip0)">
               <path d="M0.353027 0.353027L13.625 13.625" stroke="#707070" />
               <path d="M13.625 0.353027L0.353027 13.625" stroke="#707070" />

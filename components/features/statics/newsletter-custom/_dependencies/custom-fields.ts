@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 
+// TODO: eliminar los customFields que ya no se usan
 const customFields = PropTypes.shape({
   imageBanner: PropTypes.string.tag({
     name: 'Imagen de cabecera',

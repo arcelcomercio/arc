@@ -342,7 +342,7 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
   )
 }
 
-StaticsPromoMetro.label = 'Promo Metro  '
+StaticsPromoMetro.label = 'Promo Metro'
 StaticsPromoMetro.lazy = true
 
 StaticsPromoMetro.propTypes = {

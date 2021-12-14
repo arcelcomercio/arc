@@ -88,11 +88,7 @@ const CardMostReadChildList = (props) => {
           <button type="button" className="most-read__sm f f-center">
             <span id="mr-sm-txt">Ver más</span>
 
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="12"
-              height="7.42"
-              viewBox="0 0 12 7.42">
+            <svg width="12" height="7.42" viewBox="0 0 12 7.42">
               <path
                 d="M1.41.58,6,5.17,10.59.58,12,2,6,8,0,2Z"
                 transform="translate(0 -0.58)"

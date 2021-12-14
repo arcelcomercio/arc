@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { BaseMarkup, Html } from '@arc-core-components/amp-document-boilerplate'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
@@ -10,7 +9,6 @@ import {
   SITE_DIARIOCORREO,
   SITE_ELBOCON,
   SITE_ELCOMERCIO,
-  SITE_ELCOMERCIOMAG,
   SITE_GESTION,
   SITE_OJO,
   SITE_PERU21,
@@ -25,6 +23,7 @@ import MetaStory from './_children/meta-story'
 import OpenGraph from './_children/open-graph'
 import Styles from './_children/styles'
 import TwitterCards from './_children/twitter-cards'
+import { BaseMarkup, Html, ScriptAmp } from './_dependencies/baseAMP'
 
 const AmpOutputType = ({
   children,
@@ -241,8 +240,8 @@ const AmpOutputType = ({
 
   const hasPowaVideo =
     content.includes('id="powa-') ||
-      videoSeo[0] ||
-      rawHtmlContent.includes('.mp4')
+    videoSeo[0] ||
+    rawHtmlContent.includes('.mp4')
       ? 1
       : false
 
@@ -262,12 +261,6 @@ const AmpOutputType = ({
           canonicalUrl={`${envOrigin}${addSlashToEnd(canonicalUrl)}`}
         />
         <title>{title}</title>
-        {arcSite === SITE_DEPOR && (
-          <>
-            <link rel="preconnect" href="//cdn.ampproject.org" />
-            <link rel="preconnect" href="//cdna.depor.com" />
-          </>
-        )}
         <Styles {...metaSiteData} />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
@@ -280,10 +273,29 @@ const AmpOutputType = ({
         {/* add additional head elements here */}
 
         {/* add additional head elements here */}
-
+        <ScriptAmp
+          mp3Path={mp3Path}
+          hasPowaVideoDate={hasPowaVideoDate}
+          hasGallery={hasGallery}
+          metaValue={metaValue}
+          hasEmbedCard={hasEmbedCard}
+          hasIframe={hasIframe}
+          hasYoutube={hasYoutube}
+          arcSite={arcSite}
+          promoItemJwplayer={promoItemJwplayer}
+          jwplayerSeo={jwplayerSeo}
+          haveJwplayerMatching={haveJwplayerMatching}
+          hasInstagram={hasInstagram}
+          hasTwitter={hasTwitter}
+          hasFacebook={hasFacebook}
+          isTrivia={isTrivia}
+          hasSoundcloud={hasSoundcloud}
+          hasJwVideo={hasJwVideo}
+        />
         <Resource
-          path={`resources/dist/${arcSite}/css/${isTrivia ? 'amp-trivias' : 'amp'
-            }.css`}>
+          path={`resources/dist/${arcSite}/css/${
+            isTrivia ? 'amp-trivias' : 'amp'
+          }.css`}>
           {({ data }) =>
             data ? (
               <style
@@ -300,204 +312,6 @@ const AmpOutputType = ({
         {
           //* TODO habilitar subscriptions en AMP
           // isPremium && ( <script async custom-element="amp-subscriptions" src="https://cdn.ampproject.org/v0/amp-subscriptions-0.1.js"  /> )*/
-        }
-        <script
-          async
-          custom-element="amp-analytics"
-          src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"
-        />
-        {mp3Path && (
-          <script
-            async
-            custom-element="amp-audio"
-            src="https://cdn.ampproject.org/v0/amp-audio-0.1.js"
-          />
-        )}
-        {hasGallery && (
-          <script
-            async
-            custom-element="amp-carousel"
-            src="https://cdn.ampproject.org/v0/amp-carousel-0.2.js"
-          />
-        )}
-        {hasPowaVideoDate && (
-          <>
-            <script
-              async
-              custom-element="amp-ima-video"
-              src="https://cdn.ampproject.org/v0/amp-ima-video-0.1.js"
-            />
-          </>
-        )}
-        <script
-          async
-          custom-element="amp-social-share"
-          src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"
-        />
-        {metaValue('exclude_ads_amp') !== 'true' && (
-          <>
-            <script
-              async
-              custom-element="amp-sticky-ad"
-              src="https://cdn.ampproject.org/v0/amp-sticky-ad-1.0.js"
-            />
-            <script
-              async
-              custom-element="amp-ad"
-              src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
-            />
-          </>
-        )}
-
-        {hasIframe && (
-          <script
-            async
-            custom-element="amp-iframe"
-            src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"
-          />
-        )}
-        {hasEmbedCard && (
-          <script
-            async
-            custom-element="amp-embedly-card"
-            src="https://cdn.ampproject.org/v0/amp-embedly-card-0.1.js"
-          />
-        )}
-        {hasYoutube && (
-          <script
-            async
-            custom-element="amp-youtube"
-            src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"
-          />
-        )}
-
-        {arcSite !== SITE_ELCOMERCIO &&
-          arcSite !== SITE_DEPOR &&
-          arcSite !== SITE_ELCOMERCIOMAG && (
-            <script
-              async
-              custom-element="amp-sidebar"
-              src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"
-            />
-          )}
-
-        {(arcSite === SITE_DEPOR || arcSite === SITE_ELBOCON) && hasJwVideo && (
-          <script
-            async
-            custom-element="amp-jwplayer"
-            src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
-          />
-        )}
-        {(promoItemJwplayer.key || jwplayerSeo[0] || hasPowaVideoDate) && (
-          <script
-            async
-            custom-element="amp-video-docking"
-            src="https://cdn.ampproject.org/v0/amp-video-docking-0.1.js"
-          />
-        )}
-        {(promoItemJwplayer.key || jwplayerSeo[0] || haveJwplayerMatching) && (
-          <>
-            <script
-              async
-              custom-element="amp-jwplayer"
-              src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
-            />
-          </>
-        )}
-
-        {hasTwitter && (
-          <script
-            async
-            custom-element="amp-twitter"
-            src="https://cdn.ampproject.org/v0/amp-twitter-0.1.js"
-          />
-        )}
-        {hasInstagram && (
-          <script
-            async
-            custom-element="amp-instagram"
-            src="https://cdn.ampproject.org/v0/amp-instagram-0.1.js"
-          />
-        )}
-        {hasFacebook && (
-          <script
-            async
-            custom-element="amp-facebook"
-            src="https://cdn.ampproject.org/v0/amp-facebook-0.1.js"
-          />
-        )}
-        {arcSite === SITE_DEPOR && hasSoundcloud && (
-          <script
-            async
-            custom-element="amp-soundcloud"
-            src="https://cdn.ampproject.org/v0/amp-soundcloud-0.1.js"
-          />
-        )}
-        {arcSite === SITE_TROME && (
-          <script
-            async
-            custom-element="amp-bind"
-            src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"
-          />
-        )}
-        {arcSite === SITE_ELCOMERCIOMAG && (
-          <script
-            async
-            custom-element="amp-fit-text"
-            src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"
-          />
-        )}
-        {arcSite === SITE_GESTION && (
-          <script
-            async
-            custom-element="amp-next-page"
-            src="https://cdn.ampproject.org/v0/amp-next-page-0.1.js"
-          />
-        )}
-
-        {isTrivia && (
-          <>
-            <link
-              rel="preload"
-              as="script"
-              href="https://cdn.ampproject.org/v0/amp-story-1.0.js"
-            />
-            <script
-              async
-              custom-element="amp-story"
-              src="https://cdn.ampproject.org/v0/amp-story-1.0.js"
-            />
-            <script
-              async
-              custom-element="amp-story-interactive"
-              src="https://cdn.ampproject.org/v0/amp-story-interactive-0.1.js"
-            />
-            <script
-              async
-              custom-element="amp-story-auto-ads"
-              src="https://cdn.ampproject.org/v0/amp-story-auto-ads-0.1.js"
-            />
-          </>
-        )}
-        {
-          arcSite === SITE_TROME && (
-            <>
-              <link
-                rel="preload"
-                href="https://cdna.trome.pe/resources/dist/trome/fonts/encode-sans-condensed-v5-latin-800.woff2"
-                as="font"
-                type="font/woff2"
-                crossOrigin="anonymous"
-              />
-              <link
-                rel="preload"
-                href="https://cdna.trome.pe/resources/dist/trome/fonts/EncodeSansCondensed-Regular.woff2"
-                as="font"
-                type="font/woff2"
-                crossOrigin="anonymous"
-              />
-            </>
-          )
         }
       </head>
       <body className={subtype}>

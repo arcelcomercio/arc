@@ -57,4 +57,7 @@ export default (arcSite) => `{
   }
   publish_date
   display_date
+  content_restrictions { 
+    content_code
+  }
 }`

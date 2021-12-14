@@ -112,7 +112,7 @@ export default ({
     storyImages.mobile = multimediaLandscapeL
   }
 
-  const { editableField } = useEditableContent()
+  const { editableField, searchableField } = useEditableContent()
   const getEditableField = (element) =>
     editableField ? editableField(element) : null
 
@@ -132,6 +132,9 @@ export default ({
             data-src={storyImages.desktop}
             src={isAdmin ? storyImages.desktop : multimediaLazyDefault}
             alt={multimediaCaption || title}
+            {...searchableField({
+              imgField: 'url',
+            })}
           />
           <Icon type={multimediaType} iconClass={classes.icon} />
         </picture>
