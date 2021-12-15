@@ -23,11 +23,12 @@
     h2 {
       font: 700 20px/24px $primary-font;
       color: #6732b8;
-      margin-left: -10px;
+      margin-left: 0px;
       @media (--desktop) {
         font-size: 22px;
         line-height: 25px;
         letter-spacing: 0.7px;
+        margin-left: 0px;
       }
     }
     // span {
@@ -46,19 +47,26 @@
       position: absolute;
       width: 96px;
       bottom: -1px;
-      left: 10px;
+      left: 20px;
       height: 4px;
       background-color: #002c6b;
+      @media (--desktop) {
+        left: 20px;
+      }
     }
     &::after {
       content: "";
       position: absolute;
-      width: calc(100% - 20px);
+      width: calc(100% - 45px);
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
       height: 1px;
       background-color: #002c6b;
+      @media (--desktop) {
+        width: calc(100% - 80px);
+        left: 52%;
+      }
     }
   }
   &__results {
@@ -80,8 +88,10 @@
     }
     &.with_social {
       background-color: transparent;
-      padding: 0 20px 14px;
-      // max-width: 128px;
+      padding: 0 0px 14px;
+      @media (--desktop) {
+        padding: 0 20px 14px;
+      }
     }
   }
   &__results-b {
