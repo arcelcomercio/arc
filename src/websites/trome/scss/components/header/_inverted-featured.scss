@@ -22,13 +22,6 @@ $min-with-header: 961px;
   font-size: 0.8rem;
   z-index: 72;
   height: $nav-height-active;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 1) 45%,
-    rgb(255, 130, 5) 45%,
-    rgb(255, 130, 5) 100%
-  );
 
   &__socials {
     display: none;
@@ -36,6 +29,22 @@ $min-with-header: 961px;
 
   @media (--tablet) {
     height: $header-inverted-height;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 1) 45%,
+      rgb(255, 130, 5) 45%,
+      rgb(255, 130, 5) 100%
+    );
+  }
+  @media (--desktop) {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 1) 50%,
+      rgb(255, 130, 5) 50%,
+      rgb(255, 130, 5) 100%
+    );
   }
   @media (--only-mobile) {
     background: linear-gradient(
@@ -443,7 +452,7 @@ $min-with-header: 961px;
     position: absolute;
     top: 70px;
 
-    @media (--only-mobile) {
+    @media (max-width: 1023px) {
       display: none;
     }
   }
@@ -783,7 +792,7 @@ $min-with-header: 961px;
       @media (min-width: 960px) {
         display: none;
       }
-      @media (max-width: 960px) {
+      @media (max-width: 1023px) {
         margin-bottom: 113px;
         padding: 0;
         padding-left: 10px;
@@ -815,13 +824,15 @@ $min-with-header: 961px;
 
   &__header-sticky {
     @media (--tablet) {
-      height: 55px;
+      padding-top: 15px;
+      top: -15px;
     }
     .header-inverted-featured__logo {
-      height: 55px;
+      height: 59px;
     }
     .header-inverted-featured__call-img {
       height: 55px;
+      top: 15px;
     }
     .header-inverted-featured__btn-search {
       border-right: 2px solid #fff;
@@ -853,24 +864,19 @@ $min-with-header: 961px;
       }
     }
     .header-inverted-featured__logo-container {
-      height: 55px;
+      height: 64px;
     }
     .header-inverted-featured__btn-search-close {
       height: 55px;
     }
     .nav-sidebar {
       @media (--tablet) {
-        top: 55px !important;
         height: calc(100vh - 55px) !important;
       }
       @media (--only-mobile) {
         top: 55px;
       }
     }
-    .header-inverted-featured__buscador-container {
-      top: 55px;
-    }
-    //
     .header-inverted-featured__btn-menu {
       @media (--only-mobile) {
         height: 53px;

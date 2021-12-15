@@ -38,38 +38,7 @@ window.addEventListener('load', () => {requestIdle(() => {
   })
 })})
 */
-
-export const toggleMenu = `window.addEventListener("load",function(){requestIdle(function(){
-  var e=document.getElementById("btn-menu"),
-  a=document.getElementById("btn-close-menu"),
-  c=document.body.querySelector(".header-inverted-featured"),
-  b=c.querySelector(".header-inverted-featured__btn-menu"),
-  s=document.body.querySelector(".header-inverted-featured__icon-menu"),
-  i=c.querySelector(".svg-inline-close"),
-  n=document.body.querySelector(".nav-sidebar"),
-  h=document.body.querySelector('.header-inverted-featured__btn-search'),
-  u=document.body.querySelector('.header-inverted-featured__buscador-container'),
-  f=c.querySelector('.header-inverted-featured__form'),
-  v=document.body.querySelector('.header-inverted-featured__band')
-  t=document.body.querySelector('.search-button-close')
-  ;[e,a].forEach(function(e){e.addEventListener("click",function(){
-    (h.className.baseVal.indexOf("active")>0) && 
-    (f.className=f.className.replace(" header-inverted-featured__btn-search-close", ""),
-    h.className.baseVal=h.className.baseVal.replace(" active", ""),
-    u.className=u.className.replace(" flex", " hidden"),
-    v.className=v.className.replace(" mt-70", ""),
-    t.className.baseVal=t.className.baseVal.concat(" hidden")
-    );
-    s.className.baseVal.indexOf("icon-hamburguer")>0
-    ?(n.className=n.className.replace(" hidden", ""),
-    s.className.baseVal=s.className.baseVal.replace("icon-hamburguer","icon-close hidden"),
-    i.className.baseVal=i.className.baseVal.replace(" hidden",""),
-    b.className=b.className.concat(" header-inverted-featured__btn-menu-close"))
-    :(n.className=n.className.concat(" hidden"),
-      s.className.baseVal=s.className.baseVal.replace("icon-close hidden","icon-hamburguer"),
-      i.className.baseVal=i.className.baseVal.concat(" hidden"),
-      b.className=b.className.replace(" header-inverted-featured__btn-menu-close", "")          
-    )})})})});`
+export const toggleMenu = `window.addEventListener("load",function(){requestIdle(function(){var e=document.getElementById("btn-menu"),a=document.getElementById("btn-close-menu"),c=document.body.querySelector(".header-inverted-featured"),b=c.querySelector(".header-inverted-featured__btn-menu"),s=document.body.querySelector(".header-inverted-featured__icon-menu"),i=c.querySelector(".svg-inline-close"),n=document.body.querySelector(".nav-sidebar"),h=document.body.querySelector('.header-inverted-featured__btn-search'),u=document.body.querySelector('.header-inverted-featured__buscador-container'),f=c.querySelector('.header-inverted-featured__form'),v=document.body.querySelector('.header-inverted-featured__band');t=document.body.querySelector('.search-button-close');[e,a].forEach(function(e){e.addEventListener("click",function(){(h.className.baseVal.indexOf("active")>0) && (f.className=f.className.replace(" header-inverted-featured__btn-search-close", ""),h.className.baseVal=h.className.baseVal.replace(" active", ""),u.className=u.className.replace(" flex", " hidden"),v.className=v.className.replace(" mt-70", ""),t.className.baseVal=t.className.baseVal.concat(" hidden"));s.className.baseVal.indexOf("icon-hamburguer")>0 ?(n.className=n.className.replace(" hidden", ""),s.className.baseVal=s.className.baseVal.replace("icon-hamburguer","icon-close hidden"),i.className.baseVal=i.className.baseVal.replace(" hidden",""),b.className=b.className.concat(" header-inverted-featured__btn-menu-close")):(n.className=n.className.concat(" hidden"),s.className.baseVal=s.className.baseVal.replace("icon-close hidden","icon-hamburguer"),i.className.baseVal=i.className.baseVal.concat(" hidden"),b.className=b.className.replace(" header-inverted-featured__btn-menu-close", ""))})})})});`
 
 /* 
 window.addEventListener('load', () => {requestIdle(() => {
@@ -118,64 +87,30 @@ if(headerButtonSearch.className.indexOf('active') > 0) {
 })
 })})
 */
+export const toggleSearch = `window.addEventListener("load",function(){requestIdle(function(){var f=document.getElementById("header-search-form"),d=document.getElementById("header-search-input"),e=document.getElementById("header-search-button"),s=document.body.querySelector('.header-inverted-featured__buscador-container'),b=document.body.querySelector('.header-inverted-featured__btn-search'),f=document.body.querySelector('.header-inverted-featured__form'),c=document.body.querySelector('.search-button-close'),i=document.body.querySelector('.header-inverted-featured__band'),o=document.body.querySelector(".header-inverted-featured__icon-menu"),n=document.body.querySelector(".nav-sidebar"),v=document.body.querySelector(".svg-inline-close"),m=document.body.querySelector('.header-inverted-featured__btn-menu');f.addEventListener("click",function(){(o.className.baseVal.indexOf("icon-hamburguer")<=0) && (n.className=n.className.concat(" hidden"), o.className.baseVal=o.className.baseVal.replace("icon-close hidden","icon-hamburguer"),v.className.baseVal=v.className.baseVal.concat(" hidden"),m.className=m.className.replace(" header-inverted-featured__btn-menu-close", ""));(b.className.baseVal.indexOf("active")>0)?(f.className=f.className.replace(" header-inverted-featured__btn-search-close", ""),b.className.baseVal=b.className.baseVal.replace(" active", ""),c.className.baseVal=c.className.baseVal.concat(" hidden"),s.className=s.className.replace(" flex", " hidden"),i.className=i.className.replace(" mt-70", " mt-0")):(f.className=f.className.concat(" header-inverted-featured__btn-search-close"),b.className.baseVal=b.className.baseVal.concat(" active"),c.className.baseVal=c.className.baseVal.replace(" hidden", ""),s.className=s.className.replace(" hidden", " flex"),d.focus(),i.className=i.className.replace(" mt-0", " mt-70"))})})})`
 
-export const toggleSearch = `window.addEventListener("load",function(){requestIdle(function(){
-var f=document.getElementById("header-search-form"),
-d=document.getElementById("header-search-input"),
-e=document.getElementById("header-search-button"),
-s=document.body.querySelector('.header-inverted-featured__buscador-container'),
-b=document.body.querySelector('.header-inverted-featured__btn-search'),
-f=document.body.querySelector('.header-inverted-featured__form'),
-c=document.body.querySelector('.search-button-close'),
-i=document.body.querySelector('.header-inverted-featured__band'),
-o=document.body.querySelector(".header-inverted-featured__icon-menu"),
-n=document.body.querySelector(".nav-sidebar"),
-v=document.body.querySelector(".svg-inline-close"),
-m=document.body.querySelector('.header-inverted-featured__btn-menu')
-;f.addEventListener("click",function(){
-(o.className.baseVal.indexOf("icon-hamburguer")<=0) && (
-  n.className=n.className.concat(" hidden"),
-  o.className.baseVal=o.className.baseVal.replace("icon-close hidden","icon-hamburguer"),
-  v.className.baseVal=v.className.baseVal.concat(" hidden"),
-  m.className=m.className.replace(" header-inverted-featured__btn-menu-close", "") 
-);
-(b.className.baseVal.indexOf("active")>0)
-?(f.className=f.className.replace(" header-inverted-featured__btn-search-close", ""),
-  b.className.baseVal=b.className.baseVal.replace(" active", ""),
-  c.className.baseVal=c.className.baseVal.concat(" hidden"),
-  s.className=s.className.replace(" flex", " hidden"),
-  i.className=i.className.replace(" mt-70", " mt-0")
-)
-:(f.className=f.className.concat(" header-inverted-featured__btn-search-close"),
-  b.className.baseVal=b.className.baseVal.concat(" active"),
-  c.className.baseVal=c.className.baseVal.replace(" hidden", ""),
-  s.className=s.className.replace(" hidden", " flex"),
-  d.focus(),
-  i.className=i.className.replace(" mt-0", " mt-70")
-)
-})
-})})`
-
-/* */
-export const initSearch = `window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){ 
-var s=document.body.querySelector('.header-inverted-featured__buscador-container'),
-f=document.getElementById("header-search-form"),
-b=document.body.querySelector('.header-inverted-featured__btn-search'),
-c=document.body.querySelector('.search-button-close'),
-i=document.body.querySelector('.header-inverted-featured__band');
+/*
+window.addEventListener('load', () => {requestIdle(() => {
+const $formSearch = document.getElementById('header-search-form')
+const $searchContainer = document.body.querySelector('.header-inverted-featured__buscador-container')
+const $btnSearch = $header.querySelector('.header-inverted-featured__btn-search')
+const $btnClose = document.body.querySelector(.search-button-close'),
+const $band=document.body.querySelector('.header-inverted-featured__band');
 if (location.pathname.split('/').filter(l => l !== '')[0] === 'buscar') {
-  f.className=f.className.concat(" header-inverted-featured__btn-search-close");
-  b.className.baseVal=b.className.baseVal.concat(" active");
-  c.className.baseVal=c.className.baseVal.replace(" hidden", "");
-  s.className=s.className.replace(" hidden", " flex");
-  i.className=i.className.replace(" mt-0", " mt-70")
+  formSearch.className=formSearch.className.concat(" header-inverted-featured__btn-search-close");
+  btnSearch.className.baseVal=btnSearch.className.baseVal.concat(" active");
+  btnClose.className.baseVal=btnClose.className.baseVal.replace(" hidden", "");
+  searchContainer.className=searchContainer.className.replace(" hidden", " flex");
+  band.className=band.className.replace(" mt-0", " mt-70")
 }
-})})`
+})})
+*/
+export const initSearch = `window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var s=document.body.querySelector('.header-inverted-featured__buscador-container'),f=document.getElementById("header-search-form"),b=document.body.querySelector('.header-inverted-featured__btn-search'),c=document.body.querySelector('.search-button-close'),i=document.body.querySelector('.header-inverted-featured__band');if (location.pathname.split('/').filter(l => l !== '')[0] === 'buscar'){f.className=f.className.concat(" header-inverted-featured__btn-search-close");b.className.baseVal=b.className.baseVal.concat(" active");c.className.baseVal=c.className.baseVal.replace(" hidden", "");s.className=s.className.replace(" hidden", " flex");i.className=i.className.replace(" mt-0", " mt-70")}})})`
 
-/** */
-export const sections = `window.addEventListener("load",function(){requestIdle(function(){ 
-var f=document.body.querySelectorAll('.header-inverted-featured__features-link__inverted');
-f.forEach((e) => {
+/* 
+window.addEventListener('load', () => {requestIdle(() => {
+const $feauresLink = document.body.querySelectorAll('.header-inverted-featured__features-link__inverted')
+feauresLink.forEach((e) => {
   let h=e.getAttribute("href");
   if (e.getAttribute("href").split('/').pop() !== '') {h=h+'/';}
   if (location.pathname === h) {
@@ -183,6 +118,8 @@ f.forEach((e) => {
   }
 })    
 })})`
+*/
+export const sections = `window.addEventListener("load",function(){requestIdle(function(){var f=document.body.querySelectorAll('.header-inverted-featured__features-link__inverted');f.forEach((e) => {let h=e.getAttribute("href");if(e.getAttribute("href").split('/').pop() !== '') {h=h+'/'};if(location.pathname === h){e.className=e.className.concat(" active");}})})})`
 
 /*
 window.addEventListener('load', () => {requestIdle(() => {
@@ -198,23 +135,7 @@ if(value){
 })
 })})
 */
-export const btnSearch = `window.addEventListener("load",function(){requestIdle(function(){
-var e=document.getElementById("btn-search"),
-a=document.getElementById("header-search-input")
-;e.addEventListener("click",function(){
-var t=a.value;
-if(t){
-  var n=encodeURIComponent(t).replace(/%20/g,"+");
-  window.location.href="/buscar/".concat(n,"/todas/descendiente/?query=").concat(n);
-}})
-;a.addEventListener("keydown", function(e){
-if( e.keyCode === 13 ) {
-  var t=a.value;
-  var n=encodeURIComponent(t).replace(/%20/g,"+");
-  window.location.href="/buscar/".concat(n,"/todas/descendiente/?query=").concat(n);
-}
-})
-})})`
+export const btnSearch = `window.addEventListener("load",function(){requestIdle(function(){var e=document.getElementById("btn-search"),a=document.getElementById("header-search-input");e.addEventListener("click",function(){var t=a.value;if(t){var n=encodeURIComponent(t).replace(/%20/g,"+");window.location.href="/buscar/".concat(n,"/todas/descendiente/?query=").concat(n);}});a.addEventListener("keydown",function(e){if( e.keyCode === 13 ){var t=a.value;var n=encodeURIComponent(t).replace(/%20/g,"+");window.location.href="/buscar/".concat(n,"/todas/descendiente/?query=").concat(n);}})})})`
 
 /*
 window.addEventListener('load', () => {requestIdle(() => {
@@ -246,48 +167,41 @@ if(value){
 */
 export const btnSearchMobile = `window.addEventListener("load",function(){requestIdle(function(){var e=document.getElementById("header-search-icon-mobile"),a=document.getElementById("header-search-input-mobile");e.addEventListener("click",function(){var t=a.value;if(t){var n=encodeURIComponent(t).replace(/%20/g,"+");window.location.href="/buscar/".concat(n,"/todas/descendiente/?query=").concat(n);}})})})`
 
-// FALTA
+/* 
+const $header = document.querySelector(".header-inverted-featured"),
+var o = new IntersectionObserver(
+([e]) => e.target.classList.toggle("header-inverted-featured__header-sticky", e.intersectionRatio < 1),
+{ threshold: [1] }
+);
+o.observe(header);
+*/
+export const sticky = `var a = document.querySelector(".header-inverted-featured");var o = new IntersectionObserver(([e]) => e.target.classList.toggle("header-inverted-featured__header-sticky", e.intersectionRatio < 1),{ threshold: [1] });o.observe(a);`
+
 /* 
 window.addEventListener('load', () => {requestIdle(() => {
-const $header = document.querySelector(".header-inverted-featured")
-const $inputMobile = document.getElementById('header-search-input-mobile')
-$iconMobile.addEventListener('submit', e => {
-e.preventDefault()
-const value = inputMobile.value
-if(value){
-  const newQuery = encodeURIComponent(value).replace(/%20/g, '+')
-  window.location.href = `/buscar/${newQuery}/todas/descendiente/?query=${newQuery}`
-}
-})
+const $header = document.querySelector(".header-inverted-featured"),
+var o = new IntersectionObserver(
+([e]) => e.target.classList.toggle("header-inverted-featured__header-sticky", e.intersectionRatio < 1),
+{ threshold: [1] }
+);
+o.observe(header);
+})});
+*/
+export const stickyLoaded = `window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var a = document.querySelector(".header-inverted-featured");var o = new IntersectionObserver(([e]) => e.target.classList.toggle("header-inverted-featured__header-sticky", e.intersectionRatio < 1),{ threshold: [1] });o.observe(a);})});`
+
+/* 
+window.addEventListener('load', () => {requestIdle(() => {
+const $btnSearch = document.querySelector(".header-inverted-featured__btn-buscar"")
+const $iconSearch = document.querySelector('header-inverted-featured__icon-search-buscador)
+btnSearch.addEventListener("mouseover", () => {
+iconSearch.style.color = '#000';
+}, false)
+btnSearch.addEventListener("mouseout", () => {
+iconSearch.style.color = "#888888";
+}, false)
 })})
 */
-export const sticky = `
-var a = document.querySelector(".header-inverted-featured")
-var o = new IntersectionObserver(
-([e]) => e.target.classList.toggle("header-inverted-featured__header-sticky", e.intersectionRatio < 1),
-{ threshold: [1] }
-);
-o.observe(a);`
-export const stickyLoaded = `window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){ 
-var a = document.querySelector(".header-inverted-featured")
-var o = new IntersectionObserver(
-([e]) => e.target.classList.toggle("header-inverted-featured__header-sticky", e.intersectionRatio < 1),
-{ threshold: [1] }
-);
-o.observe(a);
-})});`
-
-/* */
-export const hoverSearch = `window.addEventListener("load",function(){requestIdle(function(){ 
-var a=document.querySelector(".header-inverted-featured__btn-buscar"),
-b=document.querySelector(".header-inverted-featured__icon-search-buscador");
-a.addEventListener("mouseover", () => {
-b.style.color = '#000';
-}, false)
-a.addEventListener("mouseout", () => {
-b.style.color = "#888888";
-}, false)
-})})`
+export const hoverSearch = `window.addEventListener("load",function(){requestIdle(function(){var a=document.querySelector(".header-inverted-featured__btn-buscar"),b=document.querySelector(".header-inverted-featured__icon-search-buscador"); a.addEventListener("mouseover", () => { b.style.color = '#000' }, false); a.addEventListener("mouseout", () => { b.style.color = "#888888" }, false) })})`
 
 /* TODO: Agregar la lógica sin minificar de este script, no son iguales */
 /* 
