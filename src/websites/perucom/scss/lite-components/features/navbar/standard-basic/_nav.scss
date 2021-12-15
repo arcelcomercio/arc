@@ -1,9 +1,10 @@
 .nav {
   z-index: 25;
-  background-color: #000;
+  background-color: #212121;
   height: 46px;
-  padding: 0 15px;
+  padding: 0 10px;
   max-width: $max-width;
+  font-family: $fourth-font;
 
   &__p-logo {
     display: block;
@@ -51,7 +52,7 @@
     width: 0;
   }
   &__i-search {
-    background-color: #000;
+    background-color: transparent;
     color: #fff;
     height: 30px;
     outline: none;
@@ -63,6 +64,7 @@
     will-change: width;
     width: 0;
     &.active {
+      background-color: #000;
       border: 1px solid #fff;
       padding-left: 8px;
       width: 200px;
@@ -83,11 +85,12 @@
     width: 1000px;
   }
   &__list-container {
-    margin-left: 120px;
     height: 46px;
     max-width: 780px;
     overflow: hidden;
     display: none;
+    padding-left: 15px;
+
     @media (--desktop) {
       display: block;
     }
@@ -107,74 +110,83 @@
     border-right: 1px solid #fff;
     padding-right: 10px;
     position: relative;
+    order: -1;
+
     @media (--desktop) {
-      display: none;
+      border-right: none;
+      padding-left: 10px;
     }
-    &::after {
-      content: "";
-      width: 1px;
-      height: 20px;
-      background-color: #8a8a8a;
-      right: 0;
-      position: absolute;
-    }
+
     svg {
       fill: #fff;
       @media (--desktop) {
         fill: #fff;
       }
     }
+
     span {
-      display: none;
+      font-family: $fifth-font;
+      font-weight: 700;
       color: #fff;
+      display: none;
+
       @media (--tablet) {
         display: block;
         margin-left: 8px;
-        font-size: 0.8rem;
-      }
-      @media (--desktop) {
-        color: #fff;
+        font-size: 0.75rem;
       }
     }
   }
   &__container-right {
     right: 15px;
     top: 5px;
+    display: none;
   }
   &__btn-sign {
+    font-family: $fourth-font;
+    font-weight: 700;
     height: 34px;
     width: 34px;
     margin: 0 4px;
     display: flex;
     justify-content: center;
     border-radius: 50%;
-    color: #fff;
-    font: 700 14px/16px $primary-font;
+    color: #444;
     background-color: #fff;
+
     @media (--desktop) {
+      font-size: 12px;
+      line-height: 16px;
       min-width: 80px;
       border-radius: 4px;
       padding: 8px 12px;
       width: auto;
       height: auto;
       border: 1px solid #fff;
+      width: 120px;
     }
+
     i {
       font-style: normal;
       @media (--desktop) {
         display: none;
       }
     }
+
     svg {
-      fill: #fff;
-      height: 18px;
+      fill: #de2326;
+      height: 16px;
     }
+
     span {
       display: none;
       @media (--desktop) {
         display: block;
       }
     }
+  }
+  &__menu-open {
+    z-index: 26;
   }
   &.active {
     max-width: $max-width;
