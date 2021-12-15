@@ -57,8 +57,6 @@ import StoryContentsChildAuthorLite from './_children/author-lite'
 import StoryContentChildAuthorLiteV2 from './_children/author-lite-v2'
 import StoryContentsChildAuthorTrustLite from './_children/author-trust-lite'
 import StoryContentsChildBlockQuote from './_children/blockquote'
-import StoryContentsChildHighlightedQuotes from './_children/highlighted-quotes'
-import StoryContentsChildIntertitle from './_children/intertitle'
 import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildCustomBlock from './_children/custom-block'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
@@ -68,6 +66,7 @@ import StoryContentsChildLinkedImage from './_children/linked-image'
 import StoryContentsChildParallaxElements from './_children/parallax-elements'
 import StoryContentChildRawHTML from './_children/rawHtml'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
+import StoryContentsChildCustomEcBlocks from './_children/custom-ec-blocks'
 import iframeScriptCounter from './_dependencies/counter-mag'
 import customFields from './_dependencies/custom-fields'
 
@@ -368,12 +367,7 @@ const StoryContentsLite = (props) => {
                     )
                   }
                   if (sub === CUSTOM_EC_BLOCKS) {
-                    if (customEmbed.config.block === 'highlighted-quotes') {
-                      return (<StoryContentsChildHighlightedQuotes data={element} />)
-                    }
-                    if (customEmbed.config.block === 'intertitle') {
-                      return (<StoryContentsChildIntertitle data={element} />)
-                    }
+                    return (<StoryContentsChildCustomEcBlocks data={element} />)
                   }
                 }
                 // // Condicion para trome sin blockquoute - components/features/story/title/lite.jsx
