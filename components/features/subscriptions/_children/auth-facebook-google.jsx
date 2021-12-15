@@ -36,7 +36,6 @@ const AuthFacebookGoogle = ({
   arcSite,
   arcType,
   activeNewsletter,
-  // showMsgVerify,
 }) => {
   const [showFormFacebook, setShowFormFacebook] = React.useState()
   const [loading, setLoading] = React.useState()

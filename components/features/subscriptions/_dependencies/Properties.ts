@@ -645,7 +645,7 @@ const PropertiesCommon = {
     callCenter:   'tel:+5113115100',
     howItWork:    'https://cip.pagoefectivo.pe/CNT/QueEsPagoEfectivo.aspx',
     facebookKey:   isProd ? '258201114673936' : '861476194483517',
-    googleKey:     isProd ? '595814524616-8iqsq2qh5nqamr8r0f8stp4bsanurh0l' : '519633312892-3kpve55sqi0k1nq2n4f9suag9sji41jh'
+    googleKey:     isProd ? '595814524616-8iqsq2qh5nqamr8r0f8stp4bsanurh0l' : '1091574505245-hd5ma7kv3tnrbeic39sqaglpps83bt1o' // CONFIRMAR CON FRANZ KEY PROD
   },
 
   // prettier-ignore
