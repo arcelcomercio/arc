@@ -99,6 +99,7 @@ const PromoMetroShareButton: React.FC<PromoMetroShareButtonProps> = ({
           activeLinkedin={false}
           path={pathToShare}
           title={socialTitle}
+          appVersion={false}
         />
       </div>
     </div>
