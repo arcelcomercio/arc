@@ -104,15 +104,15 @@ const ContentPremiosDepor = (props: Props) => {
         addresses = '',
       } = localProfile
       setUserProfile({
-        user_uuid: uuid,
-        user_name: firstName,
-        user_lastn: lastName,
+        user_uuid: uuid || '',
+        user_name: firstName || '',
+        user_lastn: lastName || '',
         user_type_doc: getUserAttributes('type_doc', attributes),
         user_dni: getUserAttributes('dni', attributes),
-        user_email: email,
-        user_birthday: `${birthDay}-${birthMonth}-${birthYear}`,
+        user_email: email || '',
+        user_birthday: `${birthDay}-${birthMonth}-${birthYear}` || '',
         user_phone: contacts[0]?.phone || '',
-        user_address: addresses,
+        user_address: addresses || '',
       })
       const voteFetch = await fetch(
         `${serviceEndPoint}?format=json&user_uuid=${uuid}`
