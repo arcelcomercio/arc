@@ -47,7 +47,6 @@ interface UserProfile {
   user_email: string
   user_birthday: string
   user_phone: string
-  user_address: string
 }
 
 const ContentPremiosDepor = (props: Props) => {
@@ -101,18 +100,16 @@ const ContentPremiosDepor = (props: Props) => {
         birthMonth = '',
         birthYear = '',
         contacts = [],
-        addresses = '',
       } = localProfile
       setUserProfile({
-        user_uuid: uuid,
-        user_name: firstName,
-        user_lastn: lastName,
+        user_uuid: uuid || '',
+        user_name: firstName || '',
+        user_lastn: lastName || '',
         user_type_doc: getUserAttributes('type_doc', attributes),
         user_dni: getUserAttributes('dni', attributes),
-        user_email: email,
-        user_birthday: `${birthDay}-${birthMonth}-${birthYear}`,
+        user_email: email || '',
+        user_birthday: `${birthDay}-${birthMonth}-${birthYear}` || '',
         user_phone: contacts[0]?.phone || '',
-        user_address: addresses,
       })
       const voteFetch = await fetch(
         `${serviceEndPoint}?format=json&user_uuid=${uuid}`
@@ -154,10 +151,6 @@ const ContentPremiosDepor = (props: Props) => {
     }
     if (userProfile?.user_phone.length === 0) {
       messageProfile += ', Teléfono'
-      valid = true
-    }
-    if (userProfile?.user_address.length === 0) {
-      messageProfile += ', Dirección'
       valid = true
     }
 
