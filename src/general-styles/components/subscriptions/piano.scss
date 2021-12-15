@@ -1,0 +1,12 @@
+@import "../../../general-styles/framework/variables/breakpoints";
+@import "./base/_normalize";
+@import "./base/_mixins";
+@import "./base/_ie";
+@import "./base/_fonts";
+@import "./base/_base";
+@import "../features/signwall/loading";
+
+// Estilos para landing de compra
+@import "./modules/profile/header";
+
+@import "./modules/_footer";

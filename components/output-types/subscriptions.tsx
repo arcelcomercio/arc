@@ -14,6 +14,13 @@ import TagManager from './_children/tag-manager'
 import listenCounterMag from './_dependencies/counter-mag'
 import { getMetaValue } from './_dependencies/utils'
 
+enum Stylesheets {
+  Signwall = 'subs-signwall',
+  Landing = 'subs-landing',
+  Piano = 'subs-piano',
+  Payment = 'subs-payment',
+}
+
 const Subscriptions: OT<OutputProps> = ({
   children,
   arcSite,
@@ -51,16 +58,24 @@ const Subscriptions: OT<OutputProps> = ({
   const isFaqsPage = /^\/[a-z-]+\/faqs\//.test(requestUri)
   const isSubscriptionPage = /^\/suscripciones\//.test(requestUri)
   const isSignwallPage = /^\/signwall\/|\/mi-perfil\//.test(requestUri)
+  const isPianoPage = /^\/(mi-cuenta|registro|ingreso|restaurar|verificacion|nueva-contrasena)\//.test(
+    requestUri
+  )
 
   const title = getMetaValue('title') || defaultTitle
   const description = getMetaValue('description') || defaultDescription
   const canonicalUrl = canonical || siteUrl + requestUri
-  // eslint-disable-next-line no-nested-ternary
-  const stylesheet = isSignwallPage
-    ? 'subs-signwall'
-    : isEmpresaPage || isFaqsPage || isSubscriptionPage
-    ? 'subs-landing'
-    : 'subs-payment'
+
+  let stylesheet: Stylesheets
+  if (isSignwallPage) {
+    stylesheet = Stylesheets.Signwall
+  } else if (isEmpresaPage || isFaqsPage || isSubscriptionPage) {
+    stylesheet = Stylesheets.Landing
+  } else if (isPianoPage) {
+    stylesheet = Stylesheets.Piano
+  } else {
+    stylesheet = Stylesheets.Payment
+  }
 
   return (
     <>
