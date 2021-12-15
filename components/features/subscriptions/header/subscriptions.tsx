@@ -4,6 +4,7 @@ import * as React from 'react'
 
 import { getAssetsPath } from '../../../utilities/assets'
 import { SITE_TROME } from '../../../utilities/constants/sitenames'
+import { Back } from '../../signwall/_children/icons'
 
 const classes = {
   wrapper: 'profile-header__wrapper',
@@ -40,6 +41,16 @@ const SubscriptionsHeader = ({
         color: mainColorTxt,
       }}>
       <div className={classes.content}>
+        <button
+          className={classes.back}
+          style={{ color: mainColorTxt }}
+          type="button"
+          onClick={() => {
+            window.location.href = document.referrer ? document.referrer : '/'
+          }}>
+          <Back color={mainColorTxt} />
+          <span className="text">Volver</span>
+        </button>
         <div className={classes.logo}>
           <div
             className={`cont cont_${arcSite} ${
