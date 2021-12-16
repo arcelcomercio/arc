@@ -7,27 +7,24 @@
   }
 
   &__title {
-    font: 400 15px/1 $primary-font;
-    background-color: $color-gray-300;
+    font: 400 15px/1 $fourth-font;
+    background-color: #de2326;
     text-transform: capitalize;
     height: 35px;
     align-items: center;
     padding: 0 20px;
     justify-content: space-between;
     font-weight: 700;
+    text-transform: uppercase;
   }
   &__link {
     color: $color-white;
   }
   &__icon {
-    background-image: url($assets_url+"/resources/dist/diariocorreo/images/logo.png");
-    height: 20px;
-    width: 20px;
-    background-size: cover;
-    background-repeat: no-repeat;
+    display: none;
   }
   &__item {
-    border-bottom: 1px solid #4ca675;
+    border-bottom: 1px solid #dadada;
     margin: 0 20px;
     padding: 15px 0;
     &:last-child {
@@ -39,12 +36,12 @@
     margin-right: 15px;
   }
   &__img {
-    width: 110px;
+    width: 118px;
     -o-object-fit: cover;
     object-fit: cover;
   }
   &__txt {
-    font: 400 13px/1.3333 $primary-font;
+    font: 400 13px/1.3333 $fourth-font;
     opacity: 1;
     color: #333;
     max-height: 69px;

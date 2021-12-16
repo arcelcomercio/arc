@@ -58,7 +58,10 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
   const isTromeOrganic =
     arcSite === SITE_TROME &&
-    (typeDialog === 'organico' || typeDialog === 'verify')
+    (typeDialog === 'organico' ||
+      typeDialog === 'verify' ||
+      typeDialog === 'banner' ||
+      typeDialog === 'promoMetro')
 
   const { changeTemplate } = useModalContext()
   const [showLoginEmail, setShowLoginEmail] = React.useState(
@@ -191,9 +194,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
     } else {
       const btnSignwall = document.getElementById('signwall-nav-btn')
       if (typeDialog === 'newsletter' && btnSignwall) {
-        btnSignwall.textContent = `${profile.firstName || 'Bienvenido'} ${
-          profile.lastName || ''
-        }`
+        btnSignwall.textContent = `${profile.firstName || 'Bienvenido'} ${profile.lastName || ''
+          }`
       }
       onClose()
     }
@@ -310,9 +312,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
       {!showCheckPremium ? (
         <>
           <form
-            className={`signwall-inside_forms-form ${
-              arcSite === SITE_TROME ? 'form-trome' : ''
-            } ${typeDialog}`}
+            className={`signwall-inside_forms-form ${arcSite === SITE_TROME ? 'form-trome' : ''
+              } ${typeDialog}`}
             onSubmit={handleOnSubmit}>
             <div className={isTromeOrganic ? 'group-float-trome' : ''}>
               {isTromeOrganic && (
@@ -348,22 +349,27 @@ const FormLogin = ({ valTemplate, attributes }) => {
                 />
               ) : (
                 <>
-                  {authProviders.map((item) => (
-                    <ButtonSocial
-                      key={item}
-                      brand={item}
-                      size="middle"
-                      onClose={onClose}
-                      typeDialog={typeDialog}
-                      arcSite={arcSite}
-                      typeForm="login"
-                      activeNewsletter={activeNewsletter}
-                      checkUserSubs={checkUserSubs}
-                      onLogged={onLogged}
-                      showMsgVerify={() => triggerShowVerify()}
-                      dataTreatment={checkedPolits ? '1' : '0'}
-                    />
-                  ))}
+                  {authProviders.map((item) =>
+                    item === 'google' &&
+                      arcSite === 'trome' &&
+                      typeof window !== 'undefined' &&
+                      /iPhone|iPad|iPod/i.test(window.navigator.userAgent) ? null : (
+                      <ButtonSocial
+                        key={item}
+                        brand={item}
+                        size="middle"
+                        onClose={onClose}
+                        typeDialog={typeDialog}
+                        arcSite={arcSite}
+                        typeForm="login"
+                        activeNewsletter={activeNewsletter}
+                        checkUserSubs={checkUserSubs}
+                        onLogged={onLogged}
+                        showMsgVerify={() => triggerShowVerify()}
+                        dataTreatment={checkedPolits ? '1' : '0'}
+                      />
+                    )
+                  )}
 
                   <AuthURL
                     arcSite={arcSite}
@@ -406,9 +412,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   <>
                     {showError && (
                       <div
-                        className={`signwall-inside_forms-error ${
-                          showVerify ? 'warning' : ''
-                        }`}>
+                        className={`signwall-inside_forms-error ${showVerify ? 'warning' : ''
+                          }`}>
                         {` ${showError} `}
                         {showVerify && (
                           <>
@@ -604,9 +609,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
               <h4
                 style={{ fontSize: '22px' }}
                 className="signwall-inside_forms-title center mb-10">
-                {`Bienvenido(a) ${
-                  Identity.userProfile.firstName || 'Usuario'
-                } `}
+                {`Bienvenido(a) ${Identity.userProfile.firstName || 'Usuario'
+                  } `}
               </h4>
               <p
                 style={{
@@ -627,10 +631,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   onClick={() => {
                     // modificado para el taggeo de diario correo por valla
                     Taggeo(
-                      `Web_${typeDialog}_${
-                        activeRegisterwall && typeDialog === 'premium'
-                          ? 'Registro'
-                          : 'Hard'
+                      `Web_${typeDialog}_${activeRegisterwall && typeDialog === 'premium'
+                        ? 'Registro'
+                        : 'Hard'
                       }`,
                       `web_${typeDialog}_boton_sigue_navegando`
                     )

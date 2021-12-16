@@ -120,7 +120,9 @@ class VideoList extends PureComponent {
       defaultImgSize: 'sm',
     })
 
-    const { customFields: { showTitle = false } = {} } = this.props
+    const {
+      customFields: { showTitle = false, quantyStory = 16 } = {},
+    } = this.props
 
     return (
       <>
@@ -159,7 +161,7 @@ class VideoList extends PureComponent {
               index: i,
               arcSite,
             }
-            return <VideoListItem {...params} />
+            return <VideoListItem {...params} isLazy={i < quantyStory} />
           })}
           <div
             className={`video-list__btn-container ${

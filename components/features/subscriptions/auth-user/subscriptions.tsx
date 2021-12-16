@@ -31,6 +31,7 @@ enum Modals {
   ResetPassword = 'resetpass',
   Organic = 'organico',
   Banner = 'banner',
+  PromoMetro = 'promoMetro',
 }
 
 const AuthUser = () => {
@@ -60,6 +61,8 @@ const AuthUser = () => {
       setActiveModal(Modals.ResetPassword)
     } else if (getQuery('banner')) {
       setActiveModal(Modals.Banner)
+    } else if (getQuery('promoMetro')) {
+      setActiveModal(Modals.PromoMetro)
     } else {
       setActiveModal(Modals.Organic)
     }
@@ -81,6 +84,7 @@ const AuthUser = () => {
 
   const isOrganic = activeModal === Modals.Organic
   const isBanner = activeModal === Modals.Banner
+  const isPromoMetro = activeModal === Modals.PromoMetro
   const isHard = activeModal === Modals.Hard
   const isReloginEmail = activeModal === Modals.ReloginEmail
   const isReloginHash = activeModal === Modals.ReloginHash
@@ -97,7 +101,8 @@ const AuthUser = () => {
             isHard ||
             isReloginEmail ||
             isReloginHash ||
-            isBanner) && (
+            isBanner ||
+            isPromoMetro) && (
             <>
               {!isLoggedIn() ? (
                 <SignOrganic
