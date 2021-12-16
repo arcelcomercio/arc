@@ -113,6 +113,20 @@ $nav-height: 48px;
         display: block;
       }
     }
+
+    &.signed {
+      .nav-d__sign-t {
+        color: #b39004;
+      }
+      .nav-d__sign-p1 {
+        stroke: #b39004;
+        fill: #000;
+      }
+      .nav-d__sign-p2 {
+        stroke: #b39004;
+        fill: white;
+      }
+    }
   }
 
   &__menu {

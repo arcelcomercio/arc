@@ -15,6 +15,7 @@ export const HeaderDefaultChildrenStandard: React.FC = () => {
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
+    websites = {},
   } = globalContent || {}
 
   const logoUrl = `${getAssetsPath(
@@ -34,6 +35,10 @@ export const HeaderDefaultChildrenStandard: React.FC = () => {
   } | ${siteTitle.toUpperCase()}`
   // --
 
+  const { website_section: { path: sectionPath = '' } = {} } =
+    websites[arcSite] || {}
+  const locUrl = (sectionPath.split('/')[1] || '').replace('-', '')
+
   return (
     <header className="header-d">
       <div className="header-d__wrap">
@@ -47,7 +52,7 @@ export const HeaderDefaultChildrenStandard: React.FC = () => {
         </a>
         <a
           className="header-d__sub"
-          href="/suscripciones/?ref=btn-suscribete-elcomercio&loc=lima">
+          href={`/suscripciones/?ref=btn-suscribete-elcomercio&loc=${locUrl}`}>
           Suscríbete
         </a>
       </div>
