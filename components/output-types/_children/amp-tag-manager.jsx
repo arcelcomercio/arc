@@ -31,38 +31,7 @@ export default ({
 
   const videoSeoItems = videoSeo.map(({ idVideo = '' } = {}, index) => {
     const totalIndex = index !== 0 ? `_${index}` : ''
-    return `    
-      "trackVideoPlay${totalIndex}": {
-        "on": "video-play",
-        "request": "event",
-        "selector": ".id-${idVideo}",
-        "vars": {
-          "eventCategory": "PowaAMP",
-          "eventAction": "playbackPlay",
-          "eventLabel": "${idVideo} | ${link}"
-        }
-      },
-      "trackVideoPause${totalIndex}": {
-        "on": "video-pause",
-        "request": "event",
-        "selector": ".id-${idVideo}",
-        "vars": {
-          "eventCategory": "PowaAMP",
-          "eventAction": "playbackPaused",
-          "eventLabel": "${idVideo} | ${link}"
-        }
-      },
-      "trackVideoComplete${totalIndex}": {
-        "on": "video-ended",
-        "request": "event",
-        "selector": ".id-${idVideo}",
-        "vars": {
-          "eventCategory": "PowaAMP",
-          "eventAction": "playbackFinished",
-          "eventLabel": "${idVideo} | ${link}"
-        }
-      }
-    `
+    return `"trackVideoPlay${totalIndex}": {"on": "video-play","request": "event","selector": ".id-${idVideo}","vars": {"eventCategory": "PowaAMP","eventAction": "playbackPlay","eventLabel": "${idVideo} | ${link}"}},"trackVideoPause${totalIndex}": {"on": "video-pause","request": "event","selector": ".id-${idVideo}","vars": {"eventCategory": "PowaAMP","eventAction": "playbackPaused","eventLabel": "${idVideo} | ${link}"}},"trackVideoComplete${totalIndex}": {"on": "video-ended","request": "event","selector": ".id-${idVideo}","vars": {"eventCategory": "PowaAMP","eventAction": "playbackFinished","eventLabel": "${idVideo} | ${link}"}}`
   })
 
   const ampAnalyticsOjo = `{"vars": {"account": "${
