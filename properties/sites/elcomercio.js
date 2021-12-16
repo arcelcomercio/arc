@@ -170,7 +170,7 @@ export default {
   activeVerifyEmail: true,
   activeDataTreatment: true,
   activePhoneRegister: true,
-  activeAuthSocialNative: true,
+  activeAuthSocialNative: false,
   activePiano: true,
   signwall: {
     mainColorBg: '#f7c600',

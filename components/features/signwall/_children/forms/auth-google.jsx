@@ -5,13 +5,27 @@ import getProperties from 'fusion:properties'
 import * as React from 'react'
 
 import { setCookie } from '../../../../utilities/client/cookies'
-import addScriptAsync from "../../../../utilities/script-async"
+import addScriptAsync from '../../../../utilities/script-async'
 import getDevice from '../../../subscriptions/_dependencies/GetDevice'
+import { PropertiesCommon } from '../../../subscriptions/_dependencies/Properties'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import { getOriginAPI } from '../../_dependencies/domains'
 import { loginFBeco, sendNewsLettersUser } from '../../_dependencies/services'
+import Loading from '../loading'
 
-const AuthGoogle = ({ arcSite, onClose, typeDialog, typeForm, activeNewsletter, checkUserSubs, onLogged = (i) => i, dataTreatment, onStudents }) => {
+const AuthGoogle = ({
+  arcSite,
+  onClose,
+  typeDialog,
+  typeForm,
+  activeNewsletter,
+  checkUserSubs,
+  onLogged = (i) => i,
+  dataTreatment,
+  onStudents,
+}) => {
+  const [loadingSocial, setLoadingSocial] = React.useState(false)
+  const { links } = PropertiesCommon
 
   const originAction = (dialogModal) => {
     switch (dialogModal) {
@@ -28,12 +42,7 @@ const AuthGoogle = ({ arcSite, onClose, typeDialog, typeForm, activeNewsletter, 
     }
   }
 
-  const AfterLoginRegister = (
-    emailUser,
-    provider,
-    siteDomain,
-    resProfile,
-  ) => {
+  const AfterLoginRegister = (emailUser, provider, siteDomain, resProfile) => {
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_${typeForm}_success_${provider}`,
@@ -57,21 +66,20 @@ const AuthGoogle = ({ arcSite, onClose, typeDialog, typeForm, activeNewsletter, 
         break
       case 'newsletter':
         if (btnSignwall) {
-          btnSignwall.textContent = `${resProfile.firstName || 'Bienvenido'}  ${resProfile.lastName || ''
-            }`
+          btnSignwall.textContent = `${resProfile.firstName || 'Bienvenido'}  ${
+            resProfile.lastName || ''
+          }`
         }
         onClose()
+        setLoadingSocial(false)
         break
       default:
         onClose()
+        setLoadingSocial(false)
     }
   }
 
-
-  const setupUserProfile = (
-    resAccessToken,
-    provider,
-  ) => {
+  const setupUserProfile = (resAccessToken, provider) => {
     const { siteDomain } = getProperties(arcSite) || {}
 
     Identity.getUserProfile()
@@ -124,13 +132,13 @@ const AuthGoogle = ({ arcSite, onClose, typeDialog, typeForm, activeNewsletter, 
                 name: 'dataTreatment',
                 value:
                   dataTreatment &&
-                    (arcSite === 'elcomercio' ||
-                      arcSite === 'gestion' ||
-                      arcSite === 'trome' ||
-                      arcSite === 'ojo' ||
-                      arcSite === 'diariocorreo' ||
-                      arcSite === 'peru21' ||
-                      arcSite === 'peru21g21')
+                  (arcSite === 'elcomercio' ||
+                    arcSite === 'gestion' ||
+                    arcSite === 'trome' ||
+                    arcSite === 'ojo' ||
+                    arcSite === 'diariocorreo' ||
+                    arcSite === 'peru21' ||
+                    arcSite === 'peru21g21')
                     ? dataTreatment
                     : 'NULL',
                 type: 'String',
@@ -153,76 +161,72 @@ const AuthGoogle = ({ arcSite, onClose, typeDialog, typeForm, activeNewsletter, 
                       EMAIL_USER,
                       provider,
                       siteDomain,
-                      resProfile,
+                      resProfile
                     )
                   })
                   .catch(() => {
+                    setLoadingSocial(false)
                     onClose()
                   })
               } else {
-                AfterLoginRegister(
-                  EMAIL_USER,
-                  provider,
-                  siteDomain,
-                  resProfile,
-                )
+                AfterLoginRegister(EMAIL_USER, provider, siteDomain, resProfile)
               }
             })
             .catch(() => {
+              setLoadingSocial(false)
               onClose()
             })
         } else {
-          AfterLoginRegister(
-            EMAIL_USER,
-            provider,
-            siteDomain,
-            resProfile,
-          )
+          AfterLoginRegister(EMAIL_USER, provider, siteDomain, resProfile)
         }
       })
       .catch(() => {
+        setLoadingSocial(false)
         onClose()
       })
   }
 
   const handleCredentialResponse = (response) => {
-    loginFBeco(getOriginAPI(arcSite), '', response.credential, "google").then((resArc) => {
-      if (resArc.accessToken) {
-        window.localStorage.setItem(
-          'ArcId.USER_INFO',
-          JSON.stringify(resArc)
-        )
-        Identity.userIdentity = resArc
+    setLoadingSocial(true)
+    loginFBeco(getOriginAPI(arcSite), '', response.credential, 'google')
+      .then((resArc) => {
+        if (resArc.accessToken) {
+          window.localStorage.setItem('ArcId.USER_INFO', JSON.stringify(resArc))
+          Identity.userIdentity = resArc
 
-        setupUserProfile(
-          resArc.accessToken,
-          "google",
-        )
-
-      } else {
-        onClose()
-      }
-    }).catch(errArc => window.console.error('error', errArc))
-
+          setupUserProfile(resArc.accessToken, 'google')
+        } else {
+          setLoadingSocial(false)
+          onClose()
+        }
+      })
+      .catch((errArc) => {
+        setLoadingSocial(false)
+        window.console.error('error', errArc)
+      })
   }
 
   React.useEffect(() => {
     addScriptAsync({
       name: 'GoogleSDK',
-      url: "https://accounts.google.com/gsi/client",
+      url: 'https://accounts.google.com/gsi/client',
       includeNoScript: false,
     })
       .then(() => {
         window.google.accounts.id.initialize({
-          client_id:
-            "1091574505245-hd5ma7kv3tnrbeic39sqaglpps83bt1o.apps.googleusercontent.com",
+          client_id: `${links.googleKey}.apps.googleusercontent.com`,
           callback: handleCredentialResponse,
-        });
+        })
 
         window.google.accounts.id.renderButton(
-          document.getElementById("buttonDiv"),
-          { theme: "filled_blue", size: "large", text: "continue_with", width: 240 } // customization attributes
-        );
+          document.getElementById('buttonDiv'),
+          {
+            theme: 'filled_blue',
+            size: 'large',
+            text: 'continue_with',
+            width: 240,
+          } // customization attributes
+        )
 
         // window.google.accounts.id.prompt();// also display the One Tap dialog
       })
@@ -232,10 +236,16 @@ const AuthGoogle = ({ arcSite, onClose, typeDialog, typeForm, activeNewsletter, 
   }, [])
 
   return (
-    <div id="buttonDiv" style={{
-      margin: "0 auto 10px auto",
-      width: "240px"
-    }} />
+    <>
+      {loadingSocial && <Loading typeBg="full-transparent" />}
+      <div
+        id="buttonDiv"
+        style={{
+          margin: '0 auto 10px auto',
+          width: '240px',
+        }}
+      />
+    </>
   )
 }
 
