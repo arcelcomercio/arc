@@ -24,6 +24,7 @@ import {
 import { getEntitlement } from '../../_dependencies/services'
 import { MsgRegister } from '../icons'
 import Loading from '../loading'
+import AuthGoogle from './auth-google'
 import { CheckBox } from './control_checkbox'
 import { Input } from './control_input_select'
 import { AuthURL, ButtonEmail, ButtonSocial } from './control_social'
@@ -37,7 +38,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
         mainColorBtn,
         primaryFont,
         mainColorBr,
-        authProviders,
+        // authProviders,
       },
       activeMagicLink,
       activeRegisterwall,
@@ -203,9 +204,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
     } else {
       const btnSignwall = document.getElementById('signwall-nav-btn')
       if (typeDialog === 'newsletter' && btnSignwall) {
-        btnSignwall.textContent = `${profile.firstName || 'Bienvenido'} ${
-          profile.lastName || ''
-        }`
+        btnSignwall.textContent = `${profile.firstName || 'Bienvenido'} ${profile.lastName || ''
+          }`
       }
       onClose()
     }
@@ -328,9 +328,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
       {!showCheckPremium ? (
         <>
           <form
-            className={`signwall-inside_forms-form ${
-              arcSite === SITE_TROME ? 'form-trome' : ''
-            } ${typeDialog}`}
+            className={`signwall-inside_forms-form ${arcSite === SITE_TROME ? 'form-trome' : ''
+              } ${typeDialog}`}
             onSubmit={handleOnSubmit}>
             <div className={isTromeOrganic ? 'group-float-trome' : ''}>
               {isTromeOrganic && (
@@ -366,29 +365,31 @@ const FormLogin = ({ valTemplate, attributes }) => {
                 />
               ) : (
                 <>
-                  {authProviders.map((item) =>
-                    item === 'google' &&
-                    arcSite === 'trome' &&
-                    typeof window !== 'undefined' &&
-                    /iPhone|iPad|iPod/i.test(
-                      window.navigator.userAgent
-                    ) ? null : (
-                      <ButtonSocial
-                        key={item}
-                        brand={item}
-                        size="middle"
-                        onClose={onClose}
-                        typeDialog={typeDialog}
-                        arcSite={arcSite}
-                        typeForm="login"
-                        activeNewsletter={activeNewsletter}
-                        checkUserSubs={checkUserSubs}
-                        onLogged={onLogged}
-                        showMsgVerify={() => triggerShowVerify()}
-                        dataTreatment={checkedPolits ? '1' : '0'}
-                      />
-                    )
-                  )}
+                  <AuthGoogle
+                    arcSite={arcSite}
+                    onClose={onClose}
+                    typeDialog={typeDialog}
+                    typeForm="login"
+                    activeNewsletter={activeNewsletter}
+                    checkUserSubs={checkUserSubs}
+                    onLogged={onLogged}
+                    showMsgVerify={() => triggerShowVerify()}
+                    dataTreatment={checkedPolits ? '1' : '0'}
+                  />
+
+                  <ButtonSocial
+                    brand="facebook"
+                    size="full"
+                    onClose={onClose}
+                    typeDialog={typeDialog}
+                    arcSite={arcSite}
+                    typeForm="login"
+                    activeNewsletter={activeNewsletter}
+                    checkUserSubs={checkUserSubs}
+                    onLogged={onLogged}
+                    showMsgVerify={() => triggerShowVerify()}
+                    dataTreatment={checkedPolits ? '1' : '0'}
+                  />
 
                   <AuthURL
                     arcSite={arcSite}
@@ -402,6 +403,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                 </>
               )}
 
+
               {arcSite === SITE_TROME && (
                 <p className="signwall-inside_forms-text mt-15 center">
                   o completa tus datos para acceder
@@ -413,119 +415,122 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
             {!hideFormLogin && (
               <>
-                {!showLoginEmail && (
-                  <ButtonEmail
-                    size="full"
-                    onClick={() => {
-                      Taggeo(
-                        `Web_Sign_Wall_${typeDialog}`,
-                        `web_sw${typeDialog[0]}_open_login_boton_ingresar`,
-                        arcSite
-                      )
-                      setShowLoginEmail(!showLoginEmail)
-                    }}
-                  />
-                )}
-
-                {showLoginEmail && (
-                  <>
-                    {showError && (
-                      <div
-                        className={`signwall-inside_forms-error ${
-                          showVerify ? 'warning' : ''
-                        }`}>
-                        {` ${showError} `}
-                        {showVerify && (
-                          <>
-                            {!showSendEmail ? (
-                              <button
-                                type="button"
-                                className="link"
-                                onClick={sendVerifyEmail}>
-                                Reenviar correo de activación
-                              </button>
-                            ) : (
-                              <span>
-                                Podrás reenviar nuevamente dentro de
-                                <strong id="countdown"> 10 </strong> segundos
-                              </span>
-                            )}
-                          </>
-                        )}
-                      </div>
-                    )}
-
-                    <Input
-                      type="email"
-                      inputMode="email"
-                      autoComplete="email"
-                      name="lemail"
-                      placeholder="Correo electrónico"
-                      required
-                      value={lemail}
-                      onChange={(e) => {
-                        handleOnChange(e)
-                        setShowError(false)
-                      }}
-                      error={lemailError}
-                    />
-
-                    <Input
-                      type="password"
-                      autoComplete="current-password"
-                      name="lpass"
-                      placeholder="Contraseña"
-                      required
-                      value={lpass}
-                      onChange={(e) => {
-                        handleOnChange(e)
-                        setShowError(false)
-                        checkFormat(e)
-                      }}
-                      error={lpassError || showFormatInvalid}
-                    />
-
-                    <a
-                      href="#"
-                      style={{
-                        color: 'gray',
-                      }}
-                      className="signwall-inside_forms-link mt-10 mb-20 inline f-right text-sm"
-                      onClick={(e) => {
-                        e.preventDefault()
-                        Taggeo(
-                          `Web_Sign_Wall_${typeDialog}`,
-                          `web_sw${typeDialog[0]}_contrasena_link_olvide`,
-                          arcSite
-                        )
-                        changeTemplate('forgot')
-                      }}>
-                      Olvidé mi contraseña
-                    </a>
-
-                    <button
-                      type="submit"
-                      className="signwall-inside_forms-btn"
-                      style={{ color: mainColorBtn, background: mainColorLink }}
-                      disabled={disable || showLoading || showFormatInvalid}
+                {
+                  !showLoginEmail && (
+                    <ButtonEmail
+                      size="full"
                       onClick={() => {
                         Taggeo(
                           `Web_Sign_Wall_${typeDialog}`,
-                          `web_sw${typeDialog[0]}_login_boton_ingresar`,
+                          `web_sw${typeDialog[0]}_open_login_boton_ingresar`,
                           arcSite
                         )
-                        // agregado para el taggeo de diario correo por valla
-                        if (typeDialog === 'premium' && activeRegisterwall) {
+                        setShowLoginEmail(!showLoginEmail)
+                      }}
+                    />
+                  )
+                }
+
+                {
+                  showLoginEmail && (
+                    <>
+                      {showError && (
+                        <div
+                          className={`signwall-inside_forms-error ${showVerify ? 'warning' : ''
+                            }`}>
+                          {` ${showError} `}
+                          {showVerify && (
+                            <>
+                              {!showSendEmail ? (
+                                <button
+                                  type="button"
+                                  className="link"
+                                  onClick={sendVerifyEmail}>
+                                  Reenviar correo de activación
+                                </button>
+                              ) : (
+                                <span>
+                                  Podrás reenviar nuevamente dentro de
+                                  <strong id="countdown"> 10 </strong> segundos
+                                </span>
+                              )}
+                            </>
+                          )}
+                        </div>
+                      )}
+
+                      <Input
+                        type="email"
+                        inputMode="email"
+                        autoComplete="email"
+                        name="lemail"
+                        placeholder="Correo electrónico"
+                        required
+                        value={lemail}
+                        onChange={(e) => {
+                          handleOnChange(e)
+                          setShowError(false)
+                        }}
+                        error={lemailError}
+                      />
+
+                      <Input
+                        type="password"
+                        autoComplete="current-password"
+                        name="lpass"
+                        placeholder="Contraseña"
+                        required
+                        value={lpass}
+                        onChange={(e) => {
+                          handleOnChange(e)
+                          setShowError(false)
+                          checkFormat(e)
+                        }}
+                        error={lpassError || showFormatInvalid}
+                      />
+
+                      <a
+                        href="#"
+                        style={{
+                          color: 'gray',
+                        }}
+                        className="signwall-inside_forms-link mt-10 mb-20 inline f-right text-sm"
+                        onClick={(e) => {
+                          e.preventDefault()
                           Taggeo(
-                            `Web_${typeDialog}_Registro`,
-                            `web_${typeDialog}_boton_iniciar_sesion`
+                            `Web_Sign_Wall_${typeDialog}`,
+                            `web_sw${typeDialog[0]}_contrasena_link_olvide`,
+                            arcSite
                           )
-                        }
-                      }}>
-                      {showLoading ? 'CARGANDO...' : 'INICIA SESIÓN'}
-                    </button>
-                  </>
-                )}
+                          changeTemplate('forgot')
+                        }}>
+                        Olvidé mi contraseña
+                      </a>
+
+                      <button
+                        type="submit"
+                        className="signwall-inside_forms-btn"
+                        style={{ color: mainColorBtn, background: mainColorLink }}
+                        disabled={disable || showLoading || showFormatInvalid}
+                        onClick={() => {
+                          Taggeo(
+                            `Web_Sign_Wall_${typeDialog}`,
+                            `web_sw${typeDialog[0]}_login_boton_ingresar`,
+                            arcSite
+                          )
+                          // agregado para el taggeo de diario correo por valla
+                          if (typeDialog === 'premium' && activeRegisterwall) {
+                            Taggeo(
+                              `Web_${typeDialog}_Registro`,
+                              `web_${typeDialog}_boton_iniciar_sesion`
+                            )
+                          }
+                        }}>
+                        {showLoading ? 'CARGANDO...' : 'INICIA SESIÓN'}
+                      </button>
+                    </>
+                  )
+                }
 
                 <p
                   style={{
@@ -552,69 +557,71 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   </a>
                 </p>
 
-                {activeDataTreatment ? (
-                  <>
-                    <CheckBox
-                      checked={checkedPolits}
-                      value={checkedPolits ? '1' : '0'}
-                      name="rpolit"
-                      arcSite={arcSite}
-                      onChange={() => {
-                        setCheckedPolits(!checkedPolits)
-                      }}>
+                {
+                  activeDataTreatment ? (
+                    <>
+                      <CheckBox
+                        checked={checkedPolits}
+                        value={checkedPolits ? '1' : '0'}
+                        name="rpolit"
+                        arcSite={arcSite}
+                        onChange={() => {
+                          setCheckedPolits(!checkedPolits)
+                        }}>
+                        <p
+                          style={{
+                            fontSize: '12px',
+                          }}
+                          className="signwall-inside_forms-text mt-10">
+                          Al ingresar por redes sociales autorizo el uso de mis
+                          datos para
+                          <a
+                            href={dataTreatment}
+                            target="_blank"
+                            rel="noreferrer"
+                            style={{ color: mainColorLink, fontWeight: 'bold' }}
+                            className="signwall-inside_forms-link ml-5 inline">
+                            fines adicionales
+                          </a>
+                        </p>
+                      </CheckBox>
+
                       <p
                         style={{
-                          fontSize: '12px',
+                          textAlign: 'justify',
+                          color: '#818181',
+                          fontSize: '11px',
                         }}
-                        className="signwall-inside_forms-text mt-10">
-                        Al ingresar por redes sociales autorizo el uso de mis
-                        datos para
+                        className="signwall-inside_forms-text mt-10 mb-10">
+                        En caso hayas autorizado los fines de uso adicionales
+                        anteriormente, no es necesario que lo vuelvas a marcar. Si
+                        deseas retirar dicho consentimiento, revisa el
+                        procedimiento en nuestras
                         <a
-                          href={dataTreatment}
+                          href={PolicyPrivacy(arcSite)}
                           target="_blank"
                           rel="noreferrer"
                           style={{ color: mainColorLink, fontWeight: 'bold' }}
                           className="signwall-inside_forms-link ml-5 inline">
-                          fines adicionales
+                          Políticas de Privacidad.
                         </a>
                       </p>
-                    </CheckBox>
-
+                    </>
+                  ) : (
                     <p
                       style={{
-                        textAlign: 'justify',
-                        color: '#818181',
-                        fontSize: '11px',
+                        color: '#81818',
+                        fontSize: '10px',
                       }}
-                      className="signwall-inside_forms-text mt-10 mb-10">
-                      En caso hayas autorizado los fines de uso adicionales
-                      anteriormente, no es necesario que lo vuelvas a marcar. Si
-                      deseas retirar dicho consentimiento, revisa el
-                      procedimiento en nuestras
-                      <a
-                        href={PolicyPrivacy(arcSite)}
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{ color: mainColorLink, fontWeight: 'bold' }}
-                        className="signwall-inside_forms-link ml-5 inline">
-                        Políticas de Privacidad.
-                      </a>
+                      className="signwall-inside_forms-text mt-10 mb-10 center">
+                      CON TUS DATOS, MEJORAREMOS TU EXPERIENCIA DE <br />{' '}
+                      NAVEGACIÓN Y NUNCA PUBLICAREMOS SIN TU PERMISO
                     </p>
-                  </>
-                ) : (
-                  <p
-                    style={{
-                      color: '#81818',
-                      fontSize: '10px',
-                    }}
-                    className="signwall-inside_forms-text mt-10 mb-10 center">
-                    CON TUS DATOS, MEJORAREMOS TU EXPERIENCIA DE <br />{' '}
-                    NAVEGACIÓN Y NUNCA PUBLICAREMOS SIN TU PERMISO
-                  </p>
-                )}
+                  )
+                }
               </>
             )}
-          </form>
+          </form >
         </>
       ) : (
         <>
@@ -629,9 +636,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
               <h4
                 style={{ fontSize: '22px' }}
                 className="signwall-inside_forms-title center mb-10">
-                {`Bienvenido(a) ${
-                  Identity.userProfile.firstName || 'Usuario'
-                } `}
+                {`Bienvenido(a) ${Identity.userProfile.firstName || 'Usuario'
+                  } `}
               </h4>
               <p
                 style={{
@@ -651,10 +657,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   style={{ color: mainColorBtn, background: mainColorLink }}
                   onClick={() => {
                     Taggeo(
-                      `Web_${typeDialog}_${
-                        activeRegisterwall && typeDialog === 'premium'
-                          ? 'Registro'
-                          : 'Hard'
+                      `Web_${typeDialog}_${activeRegisterwall && typeDialog === 'premium'
+                        ? 'Registro'
+                        : 'Hard'
                       }`,
                       `web_${typeDialog}_boton_sigue_navegando`
                     )
