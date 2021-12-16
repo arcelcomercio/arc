@@ -66,6 +66,7 @@ interface Bonus {
 interface Cencosud {
   code: string
   price: string
+  discountType: DiscountType
 }
 interface CouponSale {
   code: string

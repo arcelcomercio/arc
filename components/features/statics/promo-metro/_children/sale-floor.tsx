@@ -17,6 +17,8 @@ const classes = {
   codeCencosud: 'coupon-cencosud-code',
   imageCencosud: 'coupon-cencosud-image',
   priceCencosud: 'coupon-cencosud-price',
+  priceAmountCencosud: 'coupon-cencosud-price-amount',
+  pricePercentageCencosud: 'coupon-cencosud-price-percentage',
   percentageCencosud: 'coupon-cencosud-percentage',
   couponDsctoCencosud: 'coupon-cencosud-discount',
   textCencosud: 'coupon-cencosud-text',
@@ -41,6 +43,7 @@ enum DiscountType {
 interface Cencosud {
   code: string
   price: string
+  discountType: DiscountType
 }
 interface Bonus {
   price: string
@@ -133,11 +136,22 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
           {cencosud && (
             <div className="flex flex-col">
               <div className="flex items-end">
-                <p className={classes.priceCencosud}>{cencosud.price}</p>
-                <div className="flex flex-col">
-                  <p className={classes.percentageCencosud}>%</p>
-                  <p className={classes.couponDsctoCencosud}>DSCTO</p>
-                </div>
+                {cencosud.discountType === 'S/' ? (
+                  <p className={classes.priceAmountCencosud}>
+                    S/{cencosud.price}
+                  </p>
+                ) : null}
+                {cencosud.discountType === '%' ? (
+                  <>
+                    <p className={classes.pricePercentageCencosud}>
+                      {cencosud.price}
+                    </p>
+                    <div className="flex flex-col">
+                      <p className={classes.percentageCencosud}>%</p>
+                      <p className={classes.couponDsctoCencosud}>DSCTO</p>
+                    </div>
+                  </>
+                ) : null}
                 <img
                   className={classes.imageCencosud}
                   src={`${getAssetsPath(
