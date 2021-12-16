@@ -4,6 +4,7 @@ import sha256 from 'crypto-js/sha256'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
+import { getAssetsPath } from '../../../../utilities/assets'
 import { setCookie } from '../../../../utilities/client/cookies'
 import { isStorageAvailable } from '../../../../utilities/client/storage'
 import {
@@ -47,6 +48,8 @@ const FormRegister = ({
 }) => {
   const {
     arcSite,
+    deployment,
+    contextPath,
     siteProperties: {
       signwall: { mainColorLink, mainColorBtn, mainColorBr, authProviders },
       activeMagicLink,
@@ -61,7 +64,10 @@ const FormRegister = ({
 
   const isTromeOrganic =
     arcSite === 'trome' &&
-    (typeDialog === 'organico' || typeDialog === 'verify')
+    (typeDialog === 'organico' ||
+      typeDialog === 'verify' ||
+      typeDialog === 'banner' ||
+      typeDialog === 'promoMetro')
 
   const { changeTemplate } = useModalContext()
   const [showError, setShowError] = React.useState(false)
@@ -177,7 +183,7 @@ const FormRegister = ({
 
   const originAction = () => {
     switch (typeDialog) {
-      case 'organico' || 'banner':
+      case 'organico' || 'banner' || 'promoMetro':
         return '0'
       case 'hard':
         return '1'
@@ -384,31 +390,55 @@ const FormRegister = ({
                 <>
                   <div className={isTromeOrganic ? 'group-float-trome' : ''}>
                     {isTromeOrganic && (
-                      <h1 className="group-float-trome__title">
-                        ¡Regístrate gratis!
-                      </h1>
+                      <>
+                        <div className="group-float-trome__head">
+                          <h1 className="group-float-trome__title">
+                            ¡Regístrate gratis!
+                          </h1>
+                          <img
+                            src={deployment(
+                              `${getAssetsPath(
+                                arcSite,
+                                contextPath
+                              )}/resources/dist/${arcSite}/images/logo-club-trome.png?d=1`
+                            )}
+                            style={{ width: '86px', height: '33px' }}
+                            alt="Logo de Club Trome"
+                          />
+                        </div>
+                        <h2 style={{ marginBottom: '20px' }}>
+                          Y disfruta de beneficios exclusivos
+                        </h2>
+                      </>
                     )}
 
                     <p className="signwall-inside_forms-text mt-10 mb-10 center">
                       Accede fácilmente con:
                     </p>
 
-                    {authProviders.map((item) => (
-                      <ButtonSocial
-                        key={item}
-                        brand={item}
-                        size={sizeBtnSocial}
-                        onLogged={onLogged}
-                        onClose={onClose}
-                        typeDialog={typeDialog}
-                        onStudents={() => setShowStudents(!showStudents)}
-                        arcSite={arcSite}
-                        typeForm="registro"
-                        activeNewsletter={activeNewsletter}
-                        checkUserSubs={checkUserSubs}
-                        dataTreatment={checkedPolits ? '1' : '0'}
-                      />
-                    ))}
+                    {authProviders.map((item) =>
+                      item === 'google' &&
+                      arcSite === 'trome' &&
+                      typeof window !== 'undefined' &&
+                      /iPhone|iPad|iPod/i.test(
+                        window.navigator.userAgent
+                      ) ? null : (
+                        <ButtonSocial
+                          key={item}
+                          brand={item}
+                          size={sizeBtnSocial}
+                          onLogged={onLogged}
+                          onClose={onClose}
+                          typeDialog={typeDialog}
+                          onStudents={() => setShowStudents(!showStudents)}
+                          arcSite={arcSite}
+                          typeForm="registro"
+                          activeNewsletter={activeNewsletter}
+                          checkUserSubs={checkUserSubs}
+                          dataTreatment={checkedPolits ? '1' : '0'}
+                        />
+                      )
+                    )}
 
                     <AuthURL
                       arcSite={arcSite}

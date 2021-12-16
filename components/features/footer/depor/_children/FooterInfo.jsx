@@ -36,6 +36,10 @@ const FooterInfo = ({
   corporateInfo,
   draftingContact = [],
   copyrightText,
+  isBook,
+  bookUrl,
+  bookLogo,
+  isAdmin,
   newDesign
 }) => {
   let listContacs = ''
@@ -66,13 +70,13 @@ const FooterInfo = ({
       {(!newDesign) && (
         <>
           <a itemProp="url" href={legalLinks[0].url} className={classes.footerLink}>
-            {legalLinks[0].name} {"|"}
+            {legalLinks[0].name} |
           </a>
           <a itemProp="url" href={legalLinks[1].url} className={classes.footerLink}>
-            {legalLinks[1].name} {"|"}
+            {legalLinks[1].name} |
           </a>
           <a itemProp="url" href={legalLinks[2].url} className={classes.footerLink}>
-            {legalLinks[2].name} {""}
+            {legalLinks[2].name}
           </a>
         </>
       )}
@@ -90,6 +94,19 @@ const FooterInfo = ({
           </a>
         </>
       )}
+      {isBook && (
+        <div className="foot-book__info">
+          <a className={classes.book} href={bookUrl}>
+            <img
+              className={`${isAdmin ? '' : 'lazy'} `}
+              src={isAdmin ? bookLogo : ''}
+              data-src={bookLogo}
+              alt="Libro de reclamaciones"
+              style={{ width: 145 }}
+            />
+          </a>
+        </div>
+      )}
       <p itemProp="description">
         <h5 itemProp="name" className={`${(newDesign) ? classes.titleListNewDesign : classes.titleList}`}>
           {SITE_TITLE}
@@ -104,7 +121,7 @@ const FooterInfo = ({
             return result
           })}
       </p>
-    </div>
+    </div >
   )
 }
 

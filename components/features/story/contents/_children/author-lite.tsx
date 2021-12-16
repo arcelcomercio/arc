@@ -8,6 +8,7 @@ import {
   SITE_GESTION,
   SITE_OJO,
   SITE_PERU21,
+  SITE_PERUCOM,
   SITE_TROME,
 } from '../../../../utilities/constants/sitenames'
 import { formatDateTime } from '../../../../utilities/date-time/dates'
@@ -86,7 +87,8 @@ window.addEventListener("load", function () {
       {arcSite === SITE_PERU21 ||
       arcSite === SITE_ELBOCON ||
       arcSite === SITE_OJO ||
-      arcSite === SITE_GESTION ? (
+      arcSite === SITE_GESTION ||
+      arcSite === SITE_PERUCOM ? (
         <div className={classes.author}>
           <div>
             {author && (

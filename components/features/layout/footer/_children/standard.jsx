@@ -52,6 +52,10 @@ const StandardFooter = (props) => {
     logoUrl,
     sections,
     arcSite,
+    isBook,
+    bookUrl,
+    bookLogo,
+    isAdmin,
   } = props
 
   return (
@@ -83,6 +87,19 @@ const StandardFooter = (props) => {
             ))}
           </li>
         </ul>
+        {isBook && (
+          <div className="mt-20">
+            <a className={classes.book} href={bookUrl}>
+              <img
+                className={`${isAdmin ? '' : 'lazy'} `}
+                src={isAdmin ? bookLogo : ''}
+                data-src={bookLogo}
+                alt="Libro de reclamaciones"
+                style={{ width: 145 }}
+              />
+            </a>
+          </div>
+        )}
       </div>
 
       <div className={classes.sections}>

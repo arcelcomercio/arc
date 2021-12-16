@@ -68,6 +68,7 @@ export const SchemaMultiStory = (arcSite) => `{
                 landscape_xs
                 landscape_s
                 lazy_default 
+                landscape_md
               }
             }
           }

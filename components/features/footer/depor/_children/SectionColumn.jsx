@@ -18,6 +18,12 @@ const ItemLinkSubSection = ({ url, subsectionName, isBold }) => (
 )
 
 const SectionColumn = ({
+  isBook,
+  bookUrl,
+  bookLogo,
+  isAdmin,
+  isLastElement,
+  isTrome,
   section: {
     name: title = '',
     _id: urlSec = '',
@@ -26,7 +32,7 @@ const SectionColumn = ({
 }) => (
   <ul className={classes.sectionColumn}>
     <li className={`${classes.item} ${classes.itemTitle}`}>
-      <a itemProp="url" href={urlSec} className={classes.itemTop}>
+      <a itemProp="url" href={addSlashToEnd(urlSec)} className={classes.itemTop}>
         {title}
       </a>
     </li>
@@ -50,6 +56,19 @@ const SectionColumn = ({
           />
         )
       }
+    )}
+    {isTrome && isLastElement && isBook && (
+      <div className="foot-book__column">
+        <a className={classes.book} href={bookUrl}>
+          <img
+            className={`${isAdmin ? '' : 'lazy'} `}
+            src={isAdmin ? bookLogo : ''}
+            data-src={bookLogo}
+            alt="Libro de reclamaciones"
+            style={{ width: 145 }}
+          />
+        </a>
+      </div>
     )}
   </ul>
 )

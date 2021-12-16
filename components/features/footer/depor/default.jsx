@@ -32,11 +32,9 @@ const classes = {
 }
 
 const FooterDepor = (props) => {
-  const {
-    customFields: { newDesign },
-  } = props
+  const { arcSite, contextPath, isAdmin } = useFusionContext()
 
-  const { arcSite, contextPath } = useFusionContext()
+  const { customFields: { isBook, bookUrl, newDesign } = {} } = props
 
   const {
     gecSites,
@@ -59,6 +57,12 @@ const FooterDepor = (props) => {
     contextPath
   )}/resources/dist/${arcSite}/images/logo.png?d=1`
 
+  const bookLogo =
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/assets/footer/libro-reclamacion.jpg?d=1` || ''
+
   const sections = useContent({
     source: CONTENT_SOURCE,
     query: {
@@ -74,6 +78,10 @@ const FooterDepor = (props) => {
     sections: children,
     socialNetworks,
     arcSite,
+    isBook,
+    bookUrl,
+    bookLogo,
+    isAdmin,
   }
   const footerInfoProp = {
     siteUrl,
@@ -85,6 +93,10 @@ const FooterDepor = (props) => {
     corporateInfo,
     draftingContact,
     copyrightText,
+    isBook,
+    bookUrl,
+    bookLogo,
+    isAdmin,
     newDesign,
   }
   const keyString = 'key0'
@@ -103,6 +115,6 @@ FooterDepor.propTypes = {
 }
 
 FooterDepor.label = 'Pié de página - Depor'
-FooterDepor.static = true
+// FooterDepor.static = true
 
 export default FooterDepor

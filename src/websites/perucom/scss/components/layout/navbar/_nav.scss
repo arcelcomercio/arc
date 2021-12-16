@@ -11,6 +11,7 @@
     }
   }
   &__btn-sign {
+    display: none;
     @media (--desktop) {
       font-size: 12px;
     }
@@ -26,7 +27,7 @@
   &__search-box {
     border-right: 0;
     order: 1;
-    right: 145px;
+    right: 20px;
     position: absolute;
     z-index: 10;
   }
