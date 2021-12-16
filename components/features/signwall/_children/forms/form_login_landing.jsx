@@ -15,6 +15,7 @@ import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import { isFbBrowser } from '../../../subscriptions/_dependencies/Utils'
 import useForm from '../../../subscriptions/_hooks/useForm'
 import { dataTreatment, PolicyPrivacy } from '../../_dependencies/domains'
+import AuthGoogle from './auth-google'
 import { CheckBox } from './control_checkbox'
 import { Input } from './control_input_select'
 import { AuthURL, ButtonSocial } from './control_social'
@@ -24,7 +25,10 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
   const {
     arcSite,
     siteProperties: {
-      signwall: { mainColorLink, authProviders },
+      signwall: {
+        mainColorLink,
+        // authProviders 
+      },
       activeMagicLink,
       activeNewsletter,
       activeDataTreatment,
@@ -166,7 +170,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
     setShowVerify(false)
   }
 
-  const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
+  // const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
 
   const loginSuccessFabebook = () => {
     Identity.getUserProfile().then((resProfile) => {
@@ -228,22 +232,31 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                   />
                 ) : (
                   <>
-                    {authProviders.map((item) => (
-                      <ButtonSocial
-                        key={item}
-                        brand={item}
-                        size={sizeBtnSocial}
-                        onLogged={onLogged}
-                        onClose={onClose}
-                        typeDialog={typeDialog}
-                        onStudents={() => setShowStudents(!showStudents)}
-                        arcSite={arcSite}
-                        typeForm="login"
-                        activeNewsletter={activeNewsletter}
-                        showMsgVerify={() => triggerShowVerify()}
-                        dataTreatment={checkedPolits ? '1' : '0'}
-                      />
-                    ))}
+                    <AuthGoogle
+                      onLogged={onLogged}
+                      onClose={onClose}
+                      typeDialog={typeDialog}
+                      onStudents={() => setShowStudents(!showStudents)}
+                      arcSite={arcSite}
+                      typeForm="login"
+                      activeNewsletter={activeNewsletter}
+                      showMsgVerify={() => triggerShowVerify()}
+                      dataTreatment={checkedPolits ? '1' : '0'} />
+
+                    <ButtonSocial
+                      brand="facebook"
+                      size="full"
+                      onLogged={onLogged}
+                      onClose={onClose}
+                      typeDialog={typeDialog}
+                      onStudents={() => setShowStudents(!showStudents)}
+                      arcSite={arcSite}
+                      typeForm="login"
+                      activeNewsletter={activeNewsletter}
+                      showMsgVerify={() => triggerShowVerify()}
+                      dataTreatment={checkedPolits ? '1' : '0'}
+                    />
+
                   </>
                 )}
 
@@ -255,6 +268,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                   typeForm="login"
                   onLogged={onLogged}
                 />
+
               </>
             )}
 
@@ -264,9 +278,8 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
 
             {showError && (
               <div
-                className={`signwall-inside_forms-error ${
-                  showVerify ? 'warning' : ''
-                }`}>
+                className={`signwall-inside_forms-error ${showVerify ? 'warning' : ''
+                  }`}>
                 {` ${showError} `}
                 {showVerify && (
                   <>

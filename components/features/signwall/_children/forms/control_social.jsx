@@ -410,9 +410,11 @@ export const ButtonSocial = ({
 
   return (
     <button
+      // className={`signwall-inside_forms-btn-social ${brand} ${size}
+      // ${defaultSize || `${brand}-${size}`} 
+      // ${arcSite === 'trome' ? `trome-${brand}` : ''}`}
       className={`signwall-inside_forms-btn-social ${brand} ${size}
-      ${defaultSize || `${brand}-${size}`} 
-      ${arcSite === 'trome' ? `trome-${brand}` : ''}`}
+      ${`${brand}-${size}`}`}
       type="button"
       id={`btn-sign-${brand}`}
       disabled={showTextLoad}
@@ -424,11 +426,13 @@ export const ButtonSocial = ({
         )
         clickLoginSocialEcoID(brand)
       }}>
-      {arcSite !== 'trome' && (
-        <>{brand === 'facebook' ? <Facebook /> : <Google />}</>
-      )}
 
-      {arcSite !== 'trome' ? showTextLoad || brand : ''}
+      {/* {arcSite !== 'trome' && ( */}
+      <>{brand === 'facebook' ? <Facebook /> : <Google />}</>
+      {/* )} */}
+
+      {/* {arcSite !== 'trome' ? showTextLoad || "Continuar con Facebook" : ''} */}
+      {showTextLoad || "Continuar con Facebook"}
     </button>
   )
 }
