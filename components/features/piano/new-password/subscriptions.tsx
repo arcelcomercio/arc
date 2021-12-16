@@ -5,11 +5,17 @@ import { FC } from 'types/features'
 interface PianoNewPasswordProps {
   customFields?: {
     containerId?: string
+    minHeight?: string
+    maxWidth?: string
   }
 }
 
 const PianoNewPassword: FC<PianoNewPasswordProps> = ({
-  customFields: { containerId = 'piano-container' } = {},
+  customFields: {
+    containerId = 'piano-container',
+    minHeight = '50vh',
+    maxWidth = '480px',
+  } = {},
 }) => {
   React.useEffect(() => {
     window.tp.push([
@@ -71,7 +77,9 @@ const PianoNewPassword: FC<PianoNewPasswordProps> = ({
         id={containerId}
         style={{
           width: '100%',
-          maxWidth: '480px',
+          height: '100%',
+          minHeight,
+          maxWidth,
         }}
       />
     </div>
@@ -85,6 +93,14 @@ PianoNewPassword.propTypes = {
     containerId: PropTypes.string.tag({
       name: 'ID del contenedor',
       description: 'Contenedor donde se insertará la plantilla de piano',
+    }),
+    minHeight: PropTypes.string.tag({
+      name: 'Altura mínima',
+      description: 'Altura mínima del contenedor. Ejemplo: "70vh" o "600px".',
+    }),
+    maxWidth: PropTypes.string.tag({
+      name: 'Ancho máximo',
+      description: 'Ancho máximo del contenedor. Ejemplo: "50wh" o "480px".',
     }),
   }),
 }

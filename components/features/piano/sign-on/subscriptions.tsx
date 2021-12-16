@@ -13,6 +13,8 @@ interface PianoRegisterProps {
     pianoScreen?: PianoScreen
     containerId?: string
     disableSignUp?: boolean
+    minHeight?: string
+    maxWidth?: string
   }
 }
 
@@ -24,6 +26,8 @@ const PianoRegister: FC<PianoRegisterProps> = ({
     pianoScreen = PianoScreen.Register,
     containerId = 'piano-container',
     disableSignUp = false,
+    minHeight = '50vh',
+    maxWidth = '480px',
   } = {},
 }) => {
   React.useEffect(() => {
@@ -91,7 +95,9 @@ const PianoRegister: FC<PianoRegisterProps> = ({
         id={containerId}
         style={{
           width: '100%',
-          maxWidth: '480px',
+          height: '100%',
+          minHeight,
+          maxWidth,
         }}
       />
     </div>
@@ -118,6 +124,14 @@ PianoRegister.propTypes = {
       name: 'Deshabilitar registro',
       description: 'Deshabilitar el registro de usuarios',
       defaultValue: false,
+    }),
+    minHeight: PropTypes.string.tag({
+      name: 'Altura mínima',
+      description: 'Altura mínima del contenedor. Ejemplo: "70vh" o "600px".',
+    }),
+    maxWidth: PropTypes.string.tag({
+      name: 'Ancho máximo',
+      description: 'Ancho máximo del contenedor. Ejemplo: "50wh" o "480px".',
     }),
   }),
 }

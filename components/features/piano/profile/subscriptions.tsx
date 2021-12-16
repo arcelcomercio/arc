@@ -8,11 +8,17 @@ import { isProd } from '../../../utilities/arc/env'
 interface PianoProfileProps {
   customFields?: {
     containerId?: string
+    minHeight?: string
+    maxWidth?: string
   }
 }
 
 const PianoProfile: FC<PianoProfileProps> = ({
-  customFields: { containerId = 'piano-container' } = {},
+  customFields: {
+    containerId = 'piano-container',
+    minHeight = '70vh',
+    maxWidth = '1440px',
+  } = {},
 }) => {
   const { arcSite } = useAppContext()
 
@@ -52,8 +58,8 @@ const PianoProfile: FC<PianoProfileProps> = ({
         style={{
           width: '100%',
           height: '100%',
-          minHeight: '70vh',
-          maxWidth: '1440px',
+          minHeight,
+          maxWidth,
         }}
       />
     </div>
@@ -67,6 +73,14 @@ PianoProfile.propTypes = {
     containerId: PropTypes.string.tag({
       name: 'ID del contenedor',
       description: 'Contenedor donde se insertará la plantilla de piano',
+    }),
+    minHeight: PropTypes.string.tag({
+      name: 'Altura mínima',
+      description: 'Altura mínima del contenedor. Ejemplo: "70vh" o "600px".',
+    }),
+    maxWidth: PropTypes.string.tag({
+      name: 'Ancho máximo',
+      description: 'Ancho máximo del contenedor. Ejemplo: "50wh" o "480px".',
     }),
   }),
 }
