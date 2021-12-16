@@ -278,7 +278,7 @@ export const ScriptAmp = ({
         <script
           async
           noModule
-          src="https://cdn.ampproject.org/v0/amp-video-docking-0.1.js"
+          src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
           crossOrigin="anonymous"
           custom-element="amp-jwplayer"
         />
