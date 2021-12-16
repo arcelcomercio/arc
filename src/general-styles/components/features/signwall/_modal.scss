@@ -670,9 +670,12 @@
       cursor: pointer;
 
       &.full {
-        font-size: 18px !important;
-        padding: 0 45px 0 45px !important;
-        width: calc(100% - 0px) !important;
+        font-size: 13px !important;
+        padding: 0 25px 0 45px !important;
+        width: 240px !important;
+        font-weight: bold;
+        margin: 0 auto;
+        display: block;
       }
 
       &.default-size {

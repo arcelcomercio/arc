@@ -33,6 +33,7 @@ import {
 } from '../../../_dependencies/services'
 import { MsgRegister } from '../../icons'
 import Loading from '../../loading'
+import AuthGoogle from '../auth-google'
 import { CheckBox } from '../control_checkbox'
 import { Input } from '../control_input_select'
 import { AuthURL, ButtonSocial } from '../control_social'
@@ -48,7 +49,9 @@ const FormRegister = ({
   const {
     arcSite,
     siteProperties: {
-      signwall: { mainColorLink, mainColorBtn, mainColorBr, authProviders },
+      signwall: { mainColorLink, mainColorBtn, mainColorBr,
+        // authProviders 
+      },
       activeMagicLink,
       activeRegisterwall,
       activeNewsletter,
@@ -372,7 +375,7 @@ const FormRegister = ({
     }, 1000)
   }
 
-  const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
+  // const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
 
   return (
     <>
@@ -392,30 +395,34 @@ const FormRegister = ({
                     <p className="signwall-inside_forms-text mb-20 center bold">
                       Accede fácilmente con:
                     </p>
-                    {authProviders.map((item) =>
-                      item === 'google' &&
-                      arcSite === 'trome' &&
-                      typeof window !== 'undefined' &&
-                      /iPhone|iPad|iPod/i.test(
-                        window.navigator.userAgent
-                      ) ? null : (
-                        <ButtonSocial
-                          key={item}
-                          brand={item}
-                          size={sizeBtnSocial}
-                          defaultSize=""
-                          onLogged={onLogged}
-                          onClose={onClose}
-                          typeDialog={typeDialog}
-                          onStudents={() => setShowStudents(!showStudents)}
-                          arcSite={arcSite}
-                          typeForm="registro"
-                          activeNewsletter={activeNewsletter}
-                          checkUserSubs={checkUserSubs}
-                          dataTreatment={checkedPolits ? '1' : '0'}
-                        />
-                      )
-                    )}
+
+                    <AuthGoogle
+                      arcSite={arcSite}
+                      onLogged={onLogged}
+                      onClose={onClose}
+                      typeDialog={typeDialog}
+                      onStudents={() => setShowStudents(!showStudents)}
+                      typeForm="registro"
+                      activeNewsletter={activeNewsletter}
+                      checkUserSubs={checkUserSubs}
+                      dataTreatment={checkedPolits ? '1' : '0'}
+                    />
+
+                    <ButtonSocial
+                      brand="facebook"
+                      size="full"
+                      defaultSize=""
+                      onLogged={onLogged}
+                      onClose={onClose}
+                      typeDialog={typeDialog}
+                      onStudents={() => setShowStudents(!showStudents)}
+                      arcSite={arcSite}
+                      typeForm="registro"
+                      activeNewsletter={activeNewsletter}
+                      checkUserSubs={checkUserSubs}
+                      dataTreatment={checkedPolits ? '1' : '0'}
+                    />
+
                     <AuthURL
                       arcSite={arcSite}
                       onClose={onClose}
@@ -657,11 +664,10 @@ const FormRegister = ({
                               onClick={() => {
                                 // modificado para el taggeo de diario correo por valla
                                 Taggeo(
-                                  `Web_${typeDialog}_${
-                                    activeRegisterwall &&
+                                  `Web_${typeDialog}_${activeRegisterwall &&
                                     typeDialog === 'premium'
-                                      ? 'Registro'
-                                      : 'Hard'
+                                    ? 'Registro'
+                                    : 'Hard'
                                   }`,
                                   `web_${typeDialog}_boton_sigue_navegando`
                                 )
@@ -764,7 +770,7 @@ const FormRegister = ({
                             if (typeDialog === 'newsletter' && btnSignwall) {
                               btnSignwall.textContent =
                                 arcSite === SITE_ELCOMERCIO ||
-                                arcSite === SITE_GESTION
+                                  arcSite === SITE_GESTION
                                   ? 'Bienvenido'
                                   : 'Mi Perfil'
                             }
