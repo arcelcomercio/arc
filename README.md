@@ -4,7 +4,7 @@
 ![pipeline](https://gitlab.ec.pe/contenidos/arc/badges/master/pipeline.svg)
 ![coverage](https://gitlab.ec.pe/contenidos/arc/badges/master/coverage.svg?job=coverage)
 
-[![Quality Gate Status](https://sq.ec.pe/api/project_badges/measure?project=app-arc&metric=alert_status)](https://sq.ec.pe/dashboard?id=app-arc)
+[![Quality Status](https://sq.ec.pe/api/project_badges/measure?project=app-arc&metric=alert_status)](https://sq.ec.pe/dashboard?id=app-arc)
 
 ## Tabla de contenido
 
