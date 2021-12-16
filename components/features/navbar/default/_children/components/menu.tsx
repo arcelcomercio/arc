@@ -5,7 +5,8 @@ import getProperties from 'fusion:properties'
 import * as React from 'react'
 import { NavigationItem } from 'types/navigation'
 
-import schemaFilter from '../../_dependencies/schema-filter'
+import { schemaFilter } from '../../_dependencies/schema-filter'
+import { menuSearchScript } from '../../_dependencies/scripts'
 
 export const NavbarDefaultChildrenMenu = () => {
   const { arcSite } = useAppContext()
@@ -17,19 +18,6 @@ export const NavbarDefaultChildrenMenu = () => {
       query: { hierarchy: 'menu-default' },
       filter: schemaFilter,
     }) || []
-
-  /* requestIdle(() => {
-	const formNode = document.querySelector(".nav-d__menu-f")
-	const inputNode = document.querySelector(".nav-d__menu-i")
-
-	formNode.addEventListener("submit", (event) => {
-		const newQuery = encodeURIComponent(inputNode.value).replace(/%20/g, '+')
-    window.location.href = `/buscar/${newQuery}/todas/descendiente/?query=${newQuery}`
-		event.preventDefault()
-	});
-}) */
-  const searchScript =
-    '"use strict";requestIdle(()=>{const e=document.querySelector(".nav-d__menu-f"),n=document.querySelector(".nav-d__menu-i");e.addEventListener("submit",e=>{const t=encodeURIComponent(n.value).replace(/%20/g,"+");window.location.href=`/buscar/${t}/todas/descendiente/?query=${t}`,e.preventDefault()})});'
 
   return (
     <div className="nav-d__menu">
@@ -55,7 +43,7 @@ export const NavbarDefaultChildrenMenu = () => {
               </svg>
             </button>
           </form>
-          <script dangerouslySetInnerHTML={{ __html: searchScript }} />
+          <script dangerouslySetInnerHTML={{ __html: menuSearchScript }} />
           <ul>
             {manuData?.children?.map((item) => (
               <li key={item.node_type === 'link' ? item.url : item._id}>
