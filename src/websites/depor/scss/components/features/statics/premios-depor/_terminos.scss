@@ -89,6 +89,9 @@
           margin-top: -110px;
           margin-bottom: -250px;
         }
+        @media (--only-mobile) {
+          height: 1363px;
+        }
         &__titulo {
           color: #222;
           margin-top: 20px;
