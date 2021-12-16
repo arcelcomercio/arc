@@ -27,11 +27,10 @@ const HeaderContinuous = (props) => {
   const mainImage = isSomos
     ? 'https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/HJJOUB5ZYJDCZLCVEKSSBBWXPE.png'
     : `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/${
-        arcSite === SITE_GESTION && 'white-'
-      }${header.logo}?d=1`
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/${arcSite === SITE_GESTION ? 'white-' : ''
+    }${header.logo}?d=1`
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
@@ -44,9 +43,8 @@ const HeaderContinuous = (props) => {
     !metaValue('title').match(/content/) &&
     metaValue('title')
 
-  const title = `${seoTitle}: ${
-    storyTitleRe ? storyTitleRe.substring(0, 70) : ''
-  } | ${siteTitle.toUpperCase()}`
+  const title = `${seoTitle}: ${storyTitleRe ? storyTitleRe.substring(0, 70) : ''
+    } | ${siteTitle.toUpperCase()}`
 
   return (
     <HeaderContinuousChild
