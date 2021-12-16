@@ -16,7 +16,8 @@ export default {
   urlPrerollAmp:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomercio/amp/post/default/preroll&description_url=https%3A%2F%2Felcomercio.pe%2F&tfcd=0&npa=0&sz=640x480|400x300|640x360&cust_params=fuente%3Damp%26publisher%3Delcomercio%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '1667917060088448',
-  googleTagManagerId: 'GTM-PFFL5R9',
+  googleTagManagerId: 'GTM-PFFL5R9', // Google Tag Manager Prod
+  googleTagManagerIdSandbox: 'GTM-WMKQ2BN', // Google Tag Manager Sandbox
   ampGoogleTagManagerId: 'UA-3055636-11',
   ampGoogleTagManagerName: 'elcomercio',
   charbeatAccountNumber: 57773,

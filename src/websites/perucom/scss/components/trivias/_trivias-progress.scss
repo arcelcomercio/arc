@@ -1,0 +1,17 @@
+.trivias-progress {
+  background-color: $color-white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  &__title {
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 900;
+    text-align: center;
+
+    @media (--tablet) {
+      font-size: 16px;
+    }
+  }
+}

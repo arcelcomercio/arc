@@ -98,25 +98,6 @@ export const subDniToken = (URL, jwt) => {
   return response
 }
 
-export const pushCallOut = (name, phone) => {
-  const response = new Promise((resolve) => {
-    fetch('https://servicios.scc.pe/web_api_comercio/insertar_cliente/', {
-      method: 'POST',
-      body: JSON.stringify({
-        nombre: name,
-        telefono: phone,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization:
-          'Basic dXN1YXJpb19jb21lcmNpb19jMmM6YzBtM3JjMTAuQzJDLnczYi5AcGk=',
-      },
-    }).then((res) => resolve(res.json()))
-  })
-
-  return response
-}
-
 export const sendEmailCompany = (
   URL,
   arcSite,

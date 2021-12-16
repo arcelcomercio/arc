@@ -1,0 +1,83 @@
+.saltar-intro-search-calendario {
+  &__container {
+    font-family: $primary-font;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    @media (--only-mobile) {
+      justify-content: center;
+      padding: 0 30px;
+      flex-direction: column;
+    }
+  }
+  &__form-search {
+    @media (--only-mobile) {
+      width: 100%;
+    }
+  }
+  &__input-search {
+    border-left: 2px solid #7360bc !important;
+    border-right: 2px solid #7360bc !important;
+    width: 250px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 40px;
+    font-family: $primary-font;
+    letter-spacing: 0;
+    text-align: left;
+    padding: 0 calc(50% - 115px);
+    &::placeholder {
+      color: #717171;
+    }
+    &:focus {
+      outline-color: #7360bc;
+    }
+    @media (--only-mobile) {
+      width: 100%;
+      border: 1px solid #707070 !important;
+    }
+  }
+  &__btn-search {
+    position: absolute;
+    left: calc(50% + 95px);
+    top: calc(50% - 10px);
+  }
+  &__icon-search {
+    color: #7360bc;
+    font-size: 20px;
+  }
+  &__box-item {
+    display: inline-flex;
+    flex-wrap: wrap;
+    @media (--only-mobile) {
+      justify-content: space-evenly;
+      margin-bottom: 15px;
+    }
+  }
+  &__item {
+    margin-right: 5px;
+  }
+  &__month {
+    // font: normal normal bold 16px/24px Bitter;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 24px;
+    letter-spacing: 0;
+    color: #000;
+    text-transform: uppercase;
+    &--current {
+      // font: normal normal 900 16px/24px Bitter;
+      font-weight: 900;
+      font-size: 14px;
+      box-shadow: 2px 3px 0 0 #c9c9c9;
+      padding-right: 2px;
+    }
+    &:hover {
+      font-weight: 900;
+      font-size: 14px;
+      box-shadow: 2px 3px 0 0 #c9c9c9;
+      padding-right: 2px;
+      text-decoration: none;
+    }
+  }
+}

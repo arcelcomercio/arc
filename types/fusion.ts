@@ -38,6 +38,7 @@ export type ArcSite =
   | 'peru21'
   | 'peru21g21'
   | 'trome'
+  | 'perucom'
   | 'cms-transversal'
 
 export interface ComponentContext<

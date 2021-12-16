@@ -9,6 +9,7 @@ interface AdsGlobalProps {
   isDfp?: boolean
   isDesktop?: boolean
   isMobile?: boolean
+  isLite?: boolean
 }
 
 const AdsGlobal: React.FC<AdsGlobalProps> = ({
@@ -17,9 +18,19 @@ const AdsGlobal: React.FC<AdsGlobalProps> = ({
   isDfp = false,
   isDesktop = true,
   isMobile = true,
+  isLite = true,
 }) =>
   isDfp === true ? (
-    <div id={`gpt_${adElement}`} className="flex justify-center" />
+    <>
+      {isLite && (
+        <div className={`content_gpt_${adElement}`}>
+          <div id={`gpt_${adElement}`} className="flex justify-center" />
+        </div>
+      )}
+      {!isLite && (
+        <div id={`gpt_${adElement}`} className="flex justify-center" />
+      )}
+    </>
   ) : (
     <>
       {adElement && isMobile && (

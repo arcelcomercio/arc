@@ -1,0 +1,33 @@
+.st-tags {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  border-top: solid 1px #888;
+  border-bottom: solid 1px #888;
+  flex-wrap: wrap;
+  &__title {
+    font-family: $primary-font;
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+    width: auto;
+    text-align: center;
+    margin-right: 23px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 6px 0px 6px;
+  }
+
+  &__link {
+    font-size: 14px;
+    font-family: $primary-font;
+    color: $color-gray-300;
+    font-weight: 400;
+    background-color: transparent;
+  }
+}

@@ -151,7 +151,7 @@
     display: flex;
     justify-content: center;
     border-radius: 50%;
-    color: #fff;
+    color: #444;
     font: 700 14px/16px $primary-font;
     background-color: #fff;
     @media (--desktop) {
@@ -169,7 +169,7 @@
       }
     }
     svg {
-      fill: #fff;
+      fill: red;
       height: 18px;
     }
     span {

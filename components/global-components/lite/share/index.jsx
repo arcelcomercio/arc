@@ -3,7 +3,8 @@ import getProperties from 'fusion:properties'
 import * as React from 'react'
 
 import { socialMediaUrlShareList } from '../../../utilities/social-media'
-import { copyLink,popup } from './utils'
+import { ShareButtonsV2 } from '../share-buttons-v2'
+import { copyLink, popup } from './utils'
 
 const classes = {
   share: '',
@@ -19,8 +20,16 @@ const ShareButtons = ({
   activeGoogleNews = false,
   activeCopyLink = false,
   activeLinkedin = true,
+  renderScripts = false,
+  path: customPath = '',
+  title: customTitle = '',
+  googleNewsText = true,
+  hideShareLinks = false,
+  appVersion = true,
 }) => {
-  const { globalContent, arcSite } = useAppContext()
+  if (hideShareLinks) return null
+
+  const { globalContent, arcSite, metaValue } = useAppContext()
 
   // const urlRoot = () => {
   //   const { websites = {} } = globalContent || {}
@@ -33,17 +42,60 @@ const ShareButtons = ({
     headlines: { basic: postTitle = '' } = {},
   } = globalContent || {}
   const {
-    social: { twitter: { user: siteNameRedSocial = '' } = {} } = {},
+    social: { twitter: { user: twitterUser = '' } = {} } = {},
     siteUrl,
     googleNewsUrl,
   } = getProperties(arcSite)
 
+  const path = postPermaLink || customPath
+  const title = postTitle || customTitle
+
   const urlsShareList = socialMediaUrlShareList(
     siteUrl,
-    postPermaLink,
-    postTitle,
-    siteNameRedSocial
+    path,
+    title,
+    twitterUser,
+    appVersion
   )
+
+  if (
+    metaValue('section_style') === 'story-v2-standard' ||
+    metaValue('section_style') === 'story-v2-video'
+  ) {
+    return (
+      <>
+        <ShareButtonsV2
+          urlsShareList={urlsShareList}
+          googleNewsUrl={googleNewsUrl}
+        />
+        {renderScripts && (
+          <>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `${popup}${activeCopyLink ? copyLink : ''}`,
+              }}
+            />
+            {/*
+                document.addEventListener("DOMContentLoaded", () => {
+                  window.requestIdle(() => {
+                    const printButton = document.getElementById("s-print-button");
+                    printButton.addEventListener("click", () => {
+                      window.print();
+                    });
+                  })
+                })
+              */}
+            <script
+              dangerouslySetInnerHTML={{
+                __html:
+                  '"use strict";document.addEventListener("DOMContentLoaded",function(){window.requestIdle(function(){document.getElementById("s-print-button").addEventListener("click",function(){window.print()})})});',
+              }}
+            />
+          </>
+        )}
+      </>
+    )
+  }
 
   return (
     <>
@@ -54,7 +106,9 @@ const ShareButtons = ({
           className={`${classes.btn} ${classes.gnews}`}
           rel="noreferrer"
           target="_blank">
-          <span className={classes.gnewsTxt}>Síguenos en Google News</span>
+          {googleNewsText && (
+            <span className={classes.gnewsTxt}>Síguenos en Google News</span>
+          )}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="25"
@@ -129,7 +183,8 @@ const ShareButtons = ({
       <script
         dangerouslySetInnerHTML={{
           __html: `${popup}${activeCopyLink ? copyLink : ''}`,
-        }} />
+        }}
+      />
     </>
   )
 }

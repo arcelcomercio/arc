@@ -1,0 +1,11 @@
+.st-special-t {
+  padding: 20px 20px 0;
+  text-align: center;
+}
+.st-special-t__note {
+  font-family: $primary-font;
+  padding: 20px 0;
+  @media (--only-mobile) {
+    font-size: 18px;
+  }
+}

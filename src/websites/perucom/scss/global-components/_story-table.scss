@@ -1,0 +1,17 @@
+.story-table {
+  border-color: $color-gray-300;
+  thead {
+    background-color: $color-primary;
+    color: $color-white;
+  }
+  tbody {
+    tr {
+      &:nth-child(2n) {
+        background-color: #ebebeb;
+      }
+    }
+  }
+  &__cell {
+    font-family: $primary-font;
+  }
+}

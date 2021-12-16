@@ -14,7 +14,8 @@ export default {
   urlPrerollAmp:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/depor/amp/post/default/preroll&description_url=https%3A%2F%2Fdepor.com%2F&tfcd=0&npa=0&sz=640x480|400x300|640x360&cust_params=fuente%3Damp%26publisher%3Ddepor%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: 'fbappidDEEEEEPOR',
-  googleTagManagerId: 'GTM-PFPMXLF',
+  googleTagManagerId: 'GTM-PFPMXLF', // Google Tag Manager Prod
+  googleTagManagerIdSandbox: 'GTM-PFPMXLF', // Google Tag Manager Sandbox
   ampGoogleTagManagerId: 'UA-3055636-8',
   ampGoogleTagManagerName: 'depor',
   charbeatAccountNumber: 99999,
@@ -28,7 +29,7 @@ export default {
     'https://news.google.com/publications/CAAqBwgKMOju9wow0fjXAg?oc=3&ceid=PE:es-419',
   googleNewsImage: 'https://depor.com/f/i/pub_40.png',
   infoPagesDev: {
-    termsAndConditions: '',
+    termsAndConditions: '7TRNBRDN7BAANLXPITU2F3QNI4',
     guidingPrinciples: '',
     privacyPolicies: '',
     integratedManagementPolicy: '',
@@ -36,6 +37,7 @@ export default {
     cookiesPolicy: '',
     aboutUs: '',
     frequentQuestions: '',
+    dataTreatment: 'SE6T5VHSRVDT3I55I3PXZFESUA',
   },
   infoPagesProd: {
     termsAndConditions: 'GKC4YH3FBZGGJNFEPGO7KMPN7U',
@@ -46,8 +48,11 @@ export default {
     cookiesPolicy: '5ORUCK2RHBCH5CUYD4XIAVLQ2E',
     aboutUs: '',
     frequentQuestions: '',
+    dataTreatment: 'N3B4R5BZ5BH7TPPOF3JAYWY6UI',
   },
-
+  paywall: {
+    title: 'Ingresar | Depor',
+  },
   assets: {
     seo: {
       logoAmp: 'logo-amp.png',
@@ -123,6 +128,7 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-depor/ads-fia-28253241-dep_ia_interna5-300x250-div-gpt-ad-8599377-15.html',
   ],
   activeSignwall: true,
+  activeDataTreatment: true,
   signwall: {
     mainColorBg: '#007c31',
     mainColorTxt: '#ffffff',

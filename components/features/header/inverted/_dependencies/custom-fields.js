@@ -17,6 +17,10 @@ const customFields = PropTypes.shape({
     name: 'Activar sticky a Ads laterales',
     defaultValue: false,
   }),
+  isTopNavVisible: PropTypes.bool.tag({
+    name: 'Mostrar barra de navegación superior',
+    defaultValue: false,
+  }),
   tags: PropTypes.string.tag({
     name: 'Etiqueta',
     defaultValue: 'Hoy interesa',

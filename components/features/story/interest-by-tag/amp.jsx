@@ -1,16 +1,15 @@
-import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
-import StoryData from '../../../utilities/story-data'
-import UtilListKey from '../../../utilities/list-keys'
 import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
 import { separatorBasicFields } from '../../../utilities/included-fields'
-
-import schemaFilter from './_dependencies/schema-filter'
-import customFields from './_dependencies/custom-fields'
+import UtilListKey from '../../../utilities/list-keys'
+import StoryData from '../../../utilities/story-data'
 import StorySeparatorChildItemAmp from './_children/amp'
 import StorySeparatorChildItemSliderAmp from './_children/amp-item-slider'
+import customFields from './_dependencies/custom-fields'
+import schemaFilter from './_dependencies/schema-filter'
 
 const classes = {
   storyInterest:
@@ -23,7 +22,7 @@ const classes = {
 
 const CONTENT_SOURCE = 'story-feed-by-tag'
 
-const InterestByTagAmp = props => {
+const InterestByTagAmp = (props) => {
   const {
     customFields: {
       tagToFetch = '',
@@ -51,6 +50,11 @@ const InterestByTagAmp = props => {
   })
 
   const urlTag = `/${tagToFetch || slug}/`
+  const presetsDefault =
+    isFullImage || isSlider ? 'landscape_md:360x202' : 'landscape_md:118x66'
+  const presetsMag = !isSlider ? '' : presetsDefault
+  const width = isFullImage || isSlider ? 360 : 118
+  const height = isFullImage || isSlider ? 202 : 66
   const { content_elements: storyData = [] } =
     useContent({
       source: CONTENT_SOURCE,
@@ -58,10 +62,7 @@ const InterestByTagAmp = props => {
         website: arcSite,
         name: urlTag,
         size: storiesQtyAMP,
-        presets:
-          isFullImage || isSlider
-            ? 'landscape_md:360x202'
-            : 'landscape_md:118x66',
+        presets: presetsMag,
         includedFields: separatorBasicFields,
       },
       filter: schemaFilter(arcSite),
@@ -79,16 +80,14 @@ const InterestByTagAmp = props => {
   let key = 0
 
   const dataInterest = storyData
-    .map(story => {
-      return story && story._id !== excluir ? story : ''
-    })
+    .map((story) => (story && story._id !== excluir ? story : ''))
     .filter(String)
 
   const isMag = arcSite === SITE_ELCOMERCIOMAG
   const linkSource = `&source=${isMag ? 'notepierdas' : 'tepuedeinteresar'}`
   const linkOutput = isMag ? '' : `&outputType=${outputType}`
 
-  const getSize = cant => {
+  const getSize = (cant) => {
     const dataStories = dataInterest.map((story, i) => {
       if (key === cant) return false
       instance.__data = story
@@ -125,6 +124,8 @@ const InterestByTagAmp = props => {
               data={data}
               key={UtilListKey(i)}
               arcSite={arcSite}
+              width={width}
+              height={height}
             />
           )}
         </>

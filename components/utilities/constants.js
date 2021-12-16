@@ -32,7 +32,8 @@ export const getAssetsPath = (arcSite, contextPath) => {
 
   let site = `${arcSite}.pe`
   if (arcSite === 'depor') site = `${arcSite}.com`
-  if (arcSite === 'elcomerciomag') site = 'elcomercio.pe'
+  if (arcSite === 'elcomerciomag' || arcSite === 'perucom')
+    site = 'elcomercio.pe'
   if (arcSite === 'peru21g21') site = 'peru21.pe'
 
   return `https://cdna.${site}`

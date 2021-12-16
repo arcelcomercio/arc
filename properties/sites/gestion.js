@@ -19,7 +19,8 @@ export default {
   urlPrerollAmp:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/gestion/amp/post/default/preroll&description_url=https%3A%2F%2Fgestion.pe%2F&tfcd=0&npa=0&sz=640x480|400x300|640x360&cust_params=fuente%3Damp%26publisher%3Dgestion%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '1667917060088448',
-  googleTagManagerId: 'GTM-KFQK83S',
+  googleTagManagerId: 'GTM-KFQK83S', // Google Tag Manager Prod
+  googleTagManagerIdSandbox: 'GTM-KFQK83S', // Google Tag Manager Sandbox
   ampGoogleTagManagerId: 'UA-3055636-3',
   ampGoogleTagManagerName: 'gestion',
   charbeatAccountNumber: 57773,

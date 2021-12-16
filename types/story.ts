@@ -173,6 +173,7 @@ interface Planning {
     line_count_actual: number
     inch_count_actual: number
   }
+  budget_line: string
 }
 export interface SocialLink {
   site: string
@@ -249,6 +250,17 @@ interface EmbedConfigData {
     url?: string
   }
   stories: EmbedConfigDataStories[]
+}
+
+export interface EmbedConfigDataStories {
+  date?: string
+  description?: string
+  title?: string
+  image?: {
+    caption?: string
+    url?: string
+  }
+  url?: string
 }
 
 export interface EmbedConfig {
@@ -451,15 +463,17 @@ export interface Stories extends ANSBase {
   siteName: string
   tag_name: string
   page_number: number
+  section_name?: string
+  section_id?: string
 }
 
 export interface ListDataStories {
   [x: string]: string
-  date?: string
-  description?: string
-  url?: string
-  imageUrl?: string
-  websiteUrl?: string
-  title?: string
-  storyType?: string
+  // date?: string
+  // description?: string
+  // url?: string
+  // imageUrl?: string
+  // websiteUrl?: string
+  // title?: string
+  // storyType?: string
 }

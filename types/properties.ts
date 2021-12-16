@@ -98,6 +98,7 @@ export interface Signwall {
   mainColorBr: string
   mainColorLink: string
   mainColorTitle: string
+  mainColorBtn: string
   authProviders: any[]
   primaryFont: string
 }
@@ -153,8 +154,10 @@ export interface SiteProperties {
   paywall: Paywall
   social: Social
   linkTabloide: string
+  activeMagicLink: boolean
   activeSignwall: boolean
   activePaywall: boolean
+  activeRegisterwall: boolean
   activeRulesCounter: boolean
   activeNewsletter: boolean
   activeVerifyEmail: boolean

@@ -1,16 +1,18 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import Consumer from 'fusion:consumer'
-import { ENVIRONMENT } from 'fusion:environment'
 import * as React from 'react'
 
 import Button from '../../../../global-components/button'
+import { env } from '../../../../utilities/arc/env'
+import { ContentTiers } from '../../../../utilities/constants/content-tiers'
 import { ELEMENT_STORY } from '../../../../utilities/constants/element-types'
 import {
   SITE_DIARIOCORREO,
   SITE_OJO,
   SITE_PERU21,
 } from '../../../../utilities/constants/sitenames'
+import importRetry from '../../../../utilities/core/import-retry'
 import getResponsiveClasses from '../../../../utilities/responsive-classes'
 import { socialMediaUrlShareList } from '../../../../utilities/social-media'
 import {
@@ -23,6 +25,15 @@ import {
 } from '../_dependencies/scripts'
 import Menu from './menu'
 
+const SignwallComponent = React.lazy(() =>
+  importRetry(() =>
+    import(
+      /* webpackChunkName: 'navbar-signwall' */ '../../../signwall/main/default'
+    )
+  )
+)
+
+// se quitó el estilo hidden en searchContainer
 const classes = {
   nav: `nav text-white text-sm w-full flex items-center top-0 secondary-font`,
   wrapper: `nav__wrapper flex items-center bg-primary w-full top-0 h-inherit justify-between lg:justify-start pl-10 pr-10`,
@@ -136,7 +147,6 @@ class NavBarDefault extends React.PureComponent {
   // this.isStory = !!window.document.querySelector('meta[name="section-id"]') // TODO: temporal
 
   render() {
-    const arcEnv = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
     const {
       logo,
       logoLeft,
@@ -147,7 +157,10 @@ class NavBarDefault extends React.PureComponent {
       requestUri,
       siteProperties = {},
       globalContentConfig: { query = {} } = {},
-      globalContent: { type = {} } = {},
+      globalContent: {
+        content_restrictions: { content_code: contentCode = '' } = {},
+        type = {},
+      } = {},
       data: { children: sections = [] } = {},
       navbarData: { children: navbarSections = [] } = {},
       headerNewsletter,
@@ -155,6 +168,7 @@ class NavBarDefault extends React.PureComponent {
 
     const { activePaywall, activeSignwall, urlSubsOnline } = siteProperties
 
+    const isPremium = contentCode === ContentTiers.Premium
     const isPreview = /^\/preview\//.test(requestUri)
     const search = decodeURIComponent(query.query || '').replace(/\+/g, ' ')
     const responsiveClass = getResponsiveClasses(deviceList)
@@ -295,19 +309,21 @@ class NavBarDefault extends React.PureComponent {
                   window.addEventListener("DOMContentLoaded", () => {requestIdle(() => {
                     const btnRegion = document.getElementById("btn-region")
                     const Nav = document.getElementsByTagName("nav")
-                    btnRegion.addEventListener("click", (event) => {
-                      for (var i = 0; i < Nav.length; i++) {
-                        if(Nav[i].classList.contains('nav__wrapper')){
-                          Nav[i].classList.toggle("hidden")
+                    if(btnRegion) {
+                      btnRegion.addEventListener("click", (event) => {
+                        for (var i = 0; i < Nav.length; i++) {
+                          if(Nav[i].classList.contains('nav__wrapper')){
+                            Nav[i].classList.toggle("hidden")
+                          }
                         }
-                      }
-                    })
+                      })
+                    }
                   })})
                 */}
                 <script
                   type="text/javascript"
                   dangerouslySetInnerHTML={{
-                    __html: `"use strict";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.getElementById("btn-region"),n=document.getElementsByTagName("nav");e.addEventListener("click",function(e){for(var t=0;t<n.length;t++)n[t].classList.contains("nav__wrapper")&&n[t].classList.toggle("hidden")})})});`,
+                    __html: `"use strict";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.getElementById("btn-region"),n=document.getElementsByTagName("nav");if(e){e.addEventListener("click",function(e){for(var t=0;t<n.length;t++)n[t].classList.contains("nav__wrapper")&&n[t].classList.toggle("hidden")})}})});`,
                   }}
                 />
               </>
@@ -428,26 +444,35 @@ class NavBarDefault extends React.PureComponent {
                     btnClass={`${classes.btnSubscribe}`}
                   />
                 )}
-
-                {activeSignwall && (
-                  <button
-                    aria-label="Iniciar"
-                    id="signwall-nav-btn"
-                    site="elcomercio"
-                    className="flex items-center btn capitalize text-md nav__btn-sign"
-                    type="button">
-                    <i
-                      id="signwall-nav-icon"
-                      className="nav__icon icon-user title-sm text-primary-color"
-                    />
-                    <span
-                      id="signwall-nav-user"
-                      className="capitalize"
-                      aria-hidden="true">
-                      Iniciar
-                    </span>
-                  </button>
-                )}
+                {activeSignwall &&
+                  (isPremium && typeof window !== 'undefined' ? (
+                    <React.Suspense
+                      fallback={
+                        <div style={{ padding: '30px' }}>Cargando...</div>
+                      }>
+                      <SignwallComponent classButton="flex items-center btn capitalize text-md nav__btn-sign" />
+                    </React.Suspense>
+                  ) : (
+                    <button
+                      aria-label="Ingresar / Mi perfil"
+                      id="signwall-nav-btn"
+                      site="elcomercio"
+                      className="flex items-center btn capitalize text-md nav__btn-sign"
+                      type="button">
+                      <i
+                        id="signwall-nav-icon"
+                        className="nav__icon icon-user title-sm text-primary-color"
+                      />
+                      <span
+                        id="signwall-nav-user"
+                        className="capitalize"
+                        aria-hidden="true">
+                        {arcSite === SITE_DIARIOCORREO
+                          ? 'Regístrate'
+                          : 'Iniciar'}
+                      </span>
+                    </button>
+                  ))}
               </div>
             </div>
           </div>
@@ -473,14 +498,14 @@ class NavBarDefault extends React.PureComponent {
           type="text/javascript"
           dangerouslySetInnerHTML={{
             __html: `${
-              activeSignwall && !isPreview ? singwallScript : ''
+              activeSignwall && !isPreview ? singwallScript(arcSite) : ''
             }${stickyScript}${searchScript}${
               activePaywall && !isPreview
-                ? getBtnSubsScript(arcEnv, arcSite, urlSubsOnline)
+                ? getBtnSubsScript(env, arcSite, urlSubsOnline)
                 : ''
             }${
-              activeSignwall && !isPreview
-                ? getBtnSignScript(arcEnv, arcSite)
+              activeSignwall && !isPreview && !isPremium
+                ? getBtnSignScript(env, arcSite)
                 : ''
             }${hideMenu ? '' : navBarLoaderScript}`,
           }}

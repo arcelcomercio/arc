@@ -82,12 +82,21 @@
     </footer>
 
     <template id='template_video'>
-      <div class="card mb-2" style="max-width: 200px;min-width: 200px;">
-        <img src="%thumbnail_url%" class="card-img-top" alt="%title%">
+      <div class="card mb-2" style="max-width: 230px;min-width: 200px;">
+        <img src="%thumbnail_url%" class="card-img-top" id='iamge_id_%key%' alt="%title%">
         <div class="card-body">
           <h5 class="card-title">%title% </h5>
           <p class="card-text">%description% <a target="_blank" href="%link%">%link%</a></p>
           <p class="card-text"><small class="text-muted">Duración: %duration% seg.</small></p>
+          <p class="lead text-muted input-group">
+            Ingresa el <b>ID</b> de la imagen que deseas usar desde Photo Center.
+          </p>
+            <label class="form-inline input-group" for="image-id">
+            <input type="textfield"  id="image-id-%key%" name="image-id-%key%" />
+            </label>
+<p class="card-text">
+            <input type="button" name="Search" value="Cambiar Imagen" onclick="selectImage('%key%')" />
+            </p>
           <a href="javascript:;" data-brand='%brand%' data-data='%data%' onclick="selectVideo('%key%')" class="btn btn-primary">Seleccionar</a>
         </div>
       </div>
@@ -116,7 +125,7 @@
         </div>
       </div>
     </template>
-
+  <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
     <script type="module" src="js/main.js"></script>
   </body>
 </html>

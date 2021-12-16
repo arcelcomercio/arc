@@ -19,7 +19,6 @@ export const publicidadAmp = ({
   height,
   primarySectionLink = '/peru',
   arcSite = '',
-  prebidSlot = '',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
@@ -27,17 +26,19 @@ export const publicidadAmp = ({
     (SITE_PERU21 === arcSite &&
       `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
     ''
-  const prebidAmp =
-    (SITE_PERU21 === arcSite &&
-      prebidSlot &&
-      `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) ||
-    ''
 
-  const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
+  let adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
+  if (arcSite === SITE_DEPOR) {
+    if (!dataSlot.includes('caja1') && !dataSlot.includes('zocalo')) {
+      adsLoadAmp = `data-lazy-fetch="true" data-loading-strategy="1"`
+    } else {
+      adsLoadAmp = ``
+    }
+  }
 
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `<amp-ad width="${width}" height="${height}" ${adsLoadAmp} type="doubleclick"
-    data-slot="${dataSlot}" ${json} ${prebidAmp}></amp-ad>`
+    data-slot="${dataSlot}" ${json}></amp-ad>`
   }
   return createMarkup(resultData)
 }
@@ -47,7 +48,6 @@ export const publicidadAmpAd = ({
   height,
   primarySectionLink = '/peru',
   arcSite = '',
-  prebidSlot = '',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
@@ -55,36 +55,39 @@ export const publicidadAmpAd = ({
     (SITE_PERU21 === arcSite &&
       `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
     ''
-  const prebidAmp =
-    (SITE_PERU21 === arcSite &&
-      prebidSlot &&
-      `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) ||
-    ''
 
-  const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
-
+  let adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
+  if (arcSite === SITE_DEPOR) {
+    if (!dataSlot.includes('caja1') && !dataSlot.includes('zocalo')) {
+      adsLoadAmp = `data-lazy-fetch="true" data-loading-strategy="1"`
+    } else {
+      adsLoadAmp = ``
+    }
+  }
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `<amp-ad width="${width}" height="${height}" ${adsLoadAmp} type="doubleclick"
-  data-slot="${dataSlot}" ${json} ${prebidAmp}></amp-ad>`
+  data-slot="${dataSlot}" ${json}></amp-ad>`
   }
   return createMarkup(resultData)
 }
 export const publicidadAmpMovil0 = ({
   dataSlot,
   arcSite = '',
-  prebidSlot = '',
 }) => {
   let resultData = ''
   const json =
     (SITE_PERU21 === arcSite &&
       `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
     ''
-  const prebidAmp =
-    (SITE_PERU21 === arcSite &&
-      prebidSlot &&
-      `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) ||
-    ''
-  const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
+
+  let adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
+  if (arcSite === SITE_DEPOR) {
+    if (!dataSlot.includes('caja1') && !dataSlot.includes('zocalo')) {
+      adsLoadAmp = `data-lazy-fetch="true" data-loading-strategy="1"`
+    } else {
+      adsLoadAmp = ``
+    }
+  }
   resultData = `<amp-ad
     width="320"
     height="50"
@@ -92,7 +95,6 @@ export const publicidadAmpMovil0 = ({
     type="doubleclick"
     data-slot="${dataSlot}"
     ${json}
-    ${prebidAmp}
   />`
   return createMarkup(resultData)
 }
@@ -100,23 +102,23 @@ export const publicidadAmpMovil0 = ({
 export const publicidadAmpCaja1 = ({
   dataSlot,
   arcSite = '',
-  prebidSlot = '',
 }) => {
   let resultData = ''
-  const prebidAmp =
-    (SITE_PERU21 === arcSite &&
-      prebidSlot &&
-      `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) ||
-    ''
-  const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
 
+  let adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
+  if (arcSite === SITE_DEPOR) {
+    if (!dataSlot.includes('caja1') && !dataSlot.includes('zocalo')) {
+      adsLoadAmp = `data-lazy-fetch="true" data-loading-strategy="1"`
+    } else {
+      adsLoadAmp = ``
+    }
+  }
   resultData = `<amp-ad
     width="320"
     height="100"
     ${adsLoadAmp}
     type="doubleclick"
     data-slot="${dataSlot}"
-    ${prebidAmp}
   />`
   return createMarkup(resultData)
 }

@@ -1,3 +1,8 @@
+import {
+  SITE_ELCOMERCIO,
+  SITE_GESTION,
+} from '../../../utilities/constants/sitenames'
+
 const skipValues = ['null', 'undefined']
 const fieldsWhite = [
   'firstName',
@@ -8,13 +13,19 @@ const fieldsWhite = [
   'attributes',
   'identities',
   'contacts',
+  'birthYear',
+  'birthMonth',
+  'birthDay',
+  'gender',
 ]
 
 class GetProfile {
-  constructor() {
+  constructor(arcSite = '') {
     this.profile = null
+    this.arcSite = arcSite
     if (typeof window !== 'undefined') {
       const localProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
+
       this.profile = JSON.parse(localProfile || '{}') || {}
     }
     this.publicProfile = this._getComplete()
@@ -60,7 +71,9 @@ class GetProfile {
 
   _getUserName = () => {
     const { profile } = this
-    let userName = 'Bienvenido Usuario'
+    const exclusiveSites =
+      this.arcSite === SITE_ELCOMERCIO || this.arcSite === SITE_GESTION
+    let userName = exclusiveSites ? 'Bienvenido Usuario' : 'Mi Perfil'
     let inituser = false
 
     if (
@@ -72,7 +85,7 @@ class GetProfile {
           profile.firstName !== null) &&
           (profile.lastName === 'undefined' || profile.lastName === null):
           if (profile.firstName === 'undefined' || profile.firstName === null) {
-            userName = 'Bienvenido Usuario'
+            userName = exclusiveSites ? 'Bienvenido Usuario' : 'Mi Perfil'
           } else {
             userName =
               profile && profile.firstName.length >= 15

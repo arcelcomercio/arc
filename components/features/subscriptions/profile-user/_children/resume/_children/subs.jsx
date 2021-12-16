@@ -1,12 +1,12 @@
-import Identity from '@arc-publishing/sdk-identity'
 import Sales from '@arc-publishing/sdk-sales'
 import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
+import * as React from 'react'
 
 import {
   SITE_ELCOMERCIO,
   SITE_GESTION,
 } from '../../../../../../utilities/constants/sitenames'
+import { extendSession } from '../../../../../../utilities/subscriptions/identity'
 import Loading from '../../../../../signwall/_children/loading'
 import {
   getListBundle,
@@ -16,7 +16,7 @@ import {
 import { Taggeo } from '../../../../_dependencies/Taggeo'
 
 @Consumer
-class Subs extends Component {
+class Subs extends React.Component {
   _isMounted = false
 
   constructor(props) {
@@ -38,27 +38,10 @@ class Subs extends Component {
 
   componentDidMount() {
     this._isMounted = true
-    if (typeof window !== 'undefined') {
-      Identity.extendSession().then(() => {
-        this.getListSubs().then((p) => {
-          setTimeout(() => {
-            if (p.length && this._isMounted) {
-              this.setState({
-                userSubsDetail: p,
-                isSubs: true,
-                isLoad: false,
-              })
-            } else if (this._isMounted) {
-              this.setState({
-                isSubs: false,
-                isLoad: false,
-              })
-            }
-          }, 2000)
-        })
-        this.getCampain()
-      })
-    }
+    extendSession().then(() => {
+      this.checkSubscriptions()
+      this.getCampain()
+    })
   }
 
   componentWillUnmount() {
@@ -126,6 +109,44 @@ class Subs extends Component {
       window.sessionStorage.setItem('paywall_type_modal', 'organico')
       window.sessionStorage.setItem('paywall_last_url', '/')
     }
+  }
+
+  namePeriod = (dataPeriod) => {
+    if (dataPeriod) {
+      const daysPeriod =
+        (new Date(dataPeriod.periodTo) - new Date(dataPeriod.periodFrom)) /
+        (1000 * 60 * 60 * 24)
+      switch (true) {
+        case daysPeriod >= 88 && daysPeriod <= 93:
+          return 'TRIMESTRAL'
+        case daysPeriod >= 178 && daysPeriod <= 186:
+          return 'SEMESTRAL'
+        case daysPeriod >= 358 && daysPeriod <= 372:
+          return 'ANUAL'
+        default:
+          return 'MENSUAL'
+      }
+    }
+    return '-'
+  }
+
+  checkSubscriptions() {
+    this.getListSubs().then((p) => {
+      setTimeout(() => {
+        if (p?.length && this._isMounted) {
+          this.setState({
+            userSubsDetail: p,
+            isSubs: true,
+            isLoad: false,
+          })
+        } else if (this._isMounted) {
+          this.setState({
+            isSubs: false,
+            isLoad: false,
+          })
+        }
+      }, 2000)
+    })
   }
 
   render() {
@@ -206,20 +227,9 @@ class Subs extends Component {
                             <>
                               <p>
                                 <strong>Plan de pago: </strong>{' '}
-                                {reSubs.paymentHistory[0] && (
-                                  <span>
-                                    {(new Date(
-                                      reSubs.paymentHistory[0].periodTo
-                                    ) -
-                                      new Date(
-                                        reSubs.paymentHistory[0].periodFrom
-                                      )) /
-                                      (1000 * 60 * 60 * 24) <=
-                                    31
-                                      ? 'MENSUAL'
-                                      : 'ANUAL'}
-                                  </span>
-                                )}
+                                <span>
+                                  {this.namePeriod(reSubs.paymentHistory[0])}
+                                </span>
                               </p>
                               <p>
                                 <strong>Precio: </strong>{' '}

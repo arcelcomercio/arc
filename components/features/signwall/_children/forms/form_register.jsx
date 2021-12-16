@@ -4,7 +4,14 @@ import sha256 from 'crypto-js/sha256'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
+import { getAssetsPath } from '../../../../utilities/assets'
 import { setCookie } from '../../../../utilities/client/cookies'
+import { isStorageAvailable } from '../../../../utilities/client/storage'
+import {
+  SITE_ELCOMERCIO,
+  SITE_GESTION,
+} from '../../../../utilities/constants/sitenames'
+import { extendSession } from '../../../../utilities/subscriptions/identity'
 import { useModalContext } from '../../../subscriptions/_context/modal'
 import getCodeError, {
   acceptCheckTerms,
@@ -41,8 +48,12 @@ const FormRegister = ({
 }) => {
   const {
     arcSite,
+    deployment,
+    contextPath,
     siteProperties: {
       signwall: { mainColorLink, mainColorBtn, mainColorBr, authProviders },
+      activeMagicLink,
+      activeRegisterwall,
       activeNewsletter,
       activeVerifyEmail,
       activeDataTreatment,
@@ -53,7 +64,10 @@ const FormRegister = ({
 
   const isTromeOrganic =
     arcSite === 'trome' &&
-    (typeDialog === 'organico' || typeDialog === 'verify')
+    (typeDialog === 'organico' ||
+      typeDialog === 'verify' ||
+      typeDialog === 'banner' ||
+      typeDialog === 'promoMetro')
 
   const { changeTemplate } = useModalContext()
   const [showError, setShowError] = React.useState(false)
@@ -133,6 +147,10 @@ const FormRegister = ({
     if (activeNewsletter && profile.accessToken) {
       handleNewsleters(profile)
     }
+    if (activeMagicLink) {
+      // requestVerifyEmail se ejecuta automáticamente con el SignUp
+      Identity.requestOTALink(profile.profile.email)
+    }
     setShowConfirm(true)
     setShowContinueVerify(true)
     window.localStorage.removeItem('ArcId.USER_INFO')
@@ -157,14 +175,15 @@ const FormRegister = ({
       .catch(() => {
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_registro_error_registrarme`
+          `web_sw${typeDialog[0]}_registro_error_registrarme`,
+          arcSite
         )
       })
   }
 
   const originAction = () => {
     switch (typeDialog) {
-      case 'organico':
+      case 'organico' || 'banner' || 'promoMetro':
         return '0'
       case 'hard':
         return '1'
@@ -232,9 +251,7 @@ const FormRegister = ({
             type: 'String',
           },
         ],
-      },
-      { doLogin: true },
-      { rememberMe: true }
+      }
     )
       .then((resSignUp) => {
         if (activeVerifyEmail) {
@@ -244,7 +261,8 @@ const FormRegister = ({
         }
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_registro_success_registrarme`
+          `web_sw${typeDialog[0]}_registro_success_registrarme`,
+          arcSite
         )
       })
       .catch((errLogin) => {
@@ -253,14 +271,15 @@ const FormRegister = ({
         setShowLoading(false)
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_registro_error_registrarme`
+          `web_sw${typeDialog[0]}_registro_error_registrarme`,
+          arcSite
         )
         setCookie('lostEmail', remail, 1)
       })
   }
 
   const getListSubs = () =>
-    Identity.extendSession().then((resExt) => {
+    extendSession().then((resExt) => {
       const checkEntitlement = getEntitlement(resExt.accessToken, arcSite)
         .then((res) => {
           if (res.skus) {
@@ -274,21 +293,29 @@ const FormRegister = ({
       return checkEntitlement
     })
 
+  // agregado despues de pasar test por default/form_login
+  // es un codigo diferente al de login
+  const unblockContent = () => {
+    setShowUserWithSubs(true) // tengo subs
+    const divPremium = document.getElementById('contenedor')
+    if (divPremium) {
+      divPremium.classList.remove('story-content__nota-premium')
+      divPremium.removeAttribute('style')
+    }
+  }
+
   const checkUserSubs = () => {
     if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true)
 
       getListSubs()
         .then((p) => {
-          if (p && p.length === 0) {
+          if (activeRegisterwall) {
+            unblockContent()
+          } else if (p && p.length === 0) {
             setShowUserWithSubs(false) // no tengo subs
           } else {
-            setShowUserWithSubs(true) // tengo subs
-            const divPremium = document.getElementById('contenedor')
-            if (divPremium) {
-              divPremium.classList.remove('story-content__nota-premium')
-              divPremium.removeAttribute('style')
-            }
+            unblockContent()
           }
         })
         .finally(() => {
@@ -322,10 +349,15 @@ const FormRegister = ({
   const sendVerifyEmail = (e) => {
     e.preventDefault()
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(remail)
+    if (activeMagicLink) {
+      Identity.requestOTALink(remail)
+    } else {
+      Identity.requestVerifyEmail(remail)
+    }
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
-      `web_sw${typeDialog[0]}_registro_reenviar_correo`
+      `web_sw${typeDialog[0]}_registro_reenviar_correo`,
+      arcSite
     )
     let timeleft = 9
     const downloadTimer = setInterval(() => {
@@ -358,31 +390,55 @@ const FormRegister = ({
                 <>
                   <div className={isTromeOrganic ? 'group-float-trome' : ''}>
                     {isTromeOrganic && (
-                      <h1 className="group-float-trome__title">
-                        ¡Regístrate gratis!
-                      </h1>
+                      <>
+                        <div className="group-float-trome__head">
+                          <h1 className="group-float-trome__title">
+                            ¡Regístrate gratis!
+                          </h1>
+                          <img
+                            src={deployment(
+                              `${getAssetsPath(
+                                arcSite,
+                                contextPath
+                              )}/resources/dist/${arcSite}/images/logo-club-trome.png?d=1`
+                            )}
+                            style={{ width: '86px', height: '33px' }}
+                            alt="Logo de Club Trome"
+                          />
+                        </div>
+                        <h2 style={{ marginBottom: '20px' }}>
+                          Y disfruta de beneficios exclusivos
+                        </h2>
+                      </>
                     )}
 
                     <p className="signwall-inside_forms-text mt-10 mb-10 center">
                       Accede fácilmente con:
                     </p>
 
-                    {authProviders.map((item) => (
-                      <ButtonSocial
-                        key={item}
-                        brand={item}
-                        size={sizeBtnSocial}
-                        onLogged={onLogged}
-                        onClose={onClose}
-                        typeDialog={typeDialog}
-                        onStudents={() => setShowStudents(!showStudents)}
-                        arcSite={arcSite}
-                        typeForm="registro"
-                        activeNewsletter={activeNewsletter}
-                        checkUserSubs={checkUserSubs}
-                        dataTreatment={checkedPolits ? '1' : '0'}
-                      />
-                    ))}
+                    {authProviders.map((item) =>
+                      item === 'google' &&
+                      arcSite === 'trome' &&
+                      typeof window !== 'undefined' &&
+                      /iPhone|iPad|iPod/i.test(
+                        window.navigator.userAgent
+                      ) ? null : (
+                        <ButtonSocial
+                          key={item}
+                          brand={item}
+                          size={sizeBtnSocial}
+                          onLogged={onLogged}
+                          onClose={onClose}
+                          typeDialog={typeDialog}
+                          onStudents={() => setShowStudents(!showStudents)}
+                          arcSite={arcSite}
+                          typeForm="registro"
+                          activeNewsletter={activeNewsletter}
+                          checkUserSubs={checkUserSubs}
+                          dataTreatment={checkedPolits ? '1' : '0'}
+                        />
+                      )
+                    )}
 
                     <AuthURL
                       arcSite={arcSite}
@@ -545,10 +601,11 @@ const FormRegister = ({
                     onClick={() => {
                       Taggeo(
                         `Web_Sign_Wall_${typeDialog}`,
-                        `web_sw${typeDialog[0]}_registro_boton_registrarme`
+                        `web_sw${typeDialog[0]}_registro_boton_registrarme`,
+                        arcSite
                       )
                     }}>
-                    {showLoading ? 'REGISTRANDO...' : 'REGISTRARME'}
+                    {showLoading ? 'REGISTRANDO...' : 'Registrarme'}
                   </button>
 
                   <p
@@ -567,7 +624,8 @@ const FormRegister = ({
                         e.preventDefault()
                         Taggeo(
                           `Web_Sign_Wall_${typeDialog}`,
-                          `web_sw${typeDialog[0]}_registro_link_volver`
+                          `web_sw${typeDialog[0]}_registro_link_volver`,
+                          arcSite
                         )
                         switch (typeDialog) {
                           case 'relogemail':
@@ -651,21 +709,25 @@ const FormRegister = ({
                                 background: mainColorLink,
                               }}
                               onClick={() => {
+                                // modificado para el taggeo de diario correo por valla
                                 Taggeo(
-                                  `Web_${typeDialog}_Hard`,
+                                  `Web_${typeDialog}_${
+                                    activeRegisterwall &&
+                                    typeDialog === 'premium'
+                                      ? 'Registro'
+                                      : 'Hard'
+                                  }`,
                                   `web_${typeDialog}_boton_sigue_navegando`
                                 )
-                                if (
-                                  window.sessionStorage.getItem(
-                                    'paywall_last_url'
-                                  ) &&
-                                  window.sessionStorage.getItem(
-                                    'paywall_last_url'
-                                  ) !== ''
-                                ) {
-                                  window.location.href = window.sessionStorage.getItem(
+                                if (isStorageAvailable('sessionStorage')) {
+                                  const paywallLastUrl = window.sessionStorage.getItem(
                                     'paywall_last_url'
                                   )
+                                  if (paywallLastUrl && paywallLastUrl !== '') {
+                                    window.location.href = paywallLastUrl
+                                  } else {
+                                    onClose()
+                                  }
                                 } else {
                                   onClose()
                                 }
@@ -684,7 +746,8 @@ const FormRegister = ({
                             onClick={() => {
                               Taggeo(
                                 `Web_Sign_Wall_${typeDialog}`,
-                                `web_sw${typeDialog[0]}_boton_ver_planes`
+                                `web_sw${typeDialog[0]}_boton_ver_planes`,
+                                arcSite
                               )
                               handleSuscription()
                             }}>
@@ -719,7 +782,8 @@ const FormRegister = ({
                         onClick={() => {
                           Taggeo(
                             `Web_Sign_Wall_${typeDialog}`,
-                            `web_sw${typeDialog[0]}_registro_continuar_navegando`
+                            `web_sw${typeDialog[0]}_registro_continuar_navegando`,
+                            arcSite
                           )
                           if (typeDialog === 'students') {
                             if (showContinueVerify) {
@@ -732,7 +796,11 @@ const FormRegister = ({
                               'signwall-nav-btn'
                             )
                             if (typeDialog === 'newsletter' && btnSignwall) {
-                              btnSignwall.textContent = 'Bienvenido'
+                              btnSignwall.textContent =
+                                arcSite === SITE_ELCOMERCIO ||
+                                arcSite === SITE_GESTION
+                                  ? 'Bienvenido'
+                                  : 'Mi Perfil'
                             }
                             if (showContinueVerify) {
                               changeTemplate('login', '', remail)

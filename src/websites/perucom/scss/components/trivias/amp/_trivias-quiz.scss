@@ -1,0 +1,23 @@
+.trivias-quiz {
+  &__body {
+    padding: 20px 15px 15px;
+
+    @media (--desktop) {
+      padding: 0;
+      padding-top: 20px;
+    }
+  }
+
+  &__next {
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 800;
+    height: 36px;
+    background-color: $color-white;
+    border: 1px solid $color-black;
+    width: 132px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 5px;
+  }
+}

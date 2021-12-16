@@ -10,15 +10,14 @@ import {
   SITE_DIARIOCORREO,
   SITE_ELBOCON,
   SITE_ELCOMERCIO,
+  SITE_ELCOMERCIOMAG,
   SITE_GESTION,
   SITE_OJO,
   SITE_PERU21,
   SITE_TROME,
 } from '../utilities/constants/sitenames'
-import { getMultimedia } from '../utilities/multimedia'
 import { addSlashToEnd } from '../utilities/parse/strings'
 import RedirectError from '../utilities/redirect-error'
-import { publicidadAmpMovil0 } from '../utilities/story/helpers-amp'
 import StoryData from '../utilities/story-data'
 import AmpTagManager from './_children/amp-tag-manager'
 import MetaSite from './_children/meta-site'
@@ -92,7 +91,7 @@ const AmpOutputType = ({
   //   storyTitleRe ? storyTitleRe.substring(0, 70) : ''
   // } | ${siteProperties.siteTitle.toUpperCase()}`
   const siteTitleSuffix = siteProperties.siteTitle.toUpperCase()
-  const sectionName = requestUri.split('/')[1].toUpperCase()
+  const sectionName = requestUri && requestUri.split('/')[1].toUpperCase()
   const siteTitleSuffixR = siteTitleSuffix.replace('NOTICIAS ', '')
   const title = `${storyTitleRe} | ${sectionName} | ${siteTitleSuffixR}`
 
@@ -136,6 +135,7 @@ const AmpOutputType = ({
     story: isStory, // check data origin - Boolean
     deployment,
     globalContent,
+    isAmp: true,
   }
   const parametros = {
     sections,
@@ -159,8 +159,6 @@ const AmpOutputType = ({
     jwplayerSeo = [],
     haveJwplayerMatching = false,
     publishDate,
-    multimediaType,
-    primarySectionLink,
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -221,7 +219,6 @@ const AmpOutputType = ({
     arcSite === SITE_PERU21 ||
     arcSite === SITE_ELBOCON ||
     arcSite === SITE_DIARIOCORREO ||
-    arcSite === SITE_DEPOR ||
     arcSite === SITE_GESTION ||
     arcSite === SITE_ELCOMERCIO ||
     /<iframe|<amp-iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
@@ -244,8 +241,8 @@ const AmpOutputType = ({
 
   const hasPowaVideo =
     content.includes('id="powa-') ||
-    videoSeo[0] ||
-    rawHtmlContent.includes('.mp4')
+      videoSeo[0] ||
+      rawHtmlContent.includes('.mp4')
       ? 1
       : false
 
@@ -256,15 +253,8 @@ const AmpOutputType = ({
   if (arcSite === SITE_DEPOR) {
     if (requestUri.match('^/usa')) lang = 'es-us'
   }
-  const namePublicidad = arcSite !== 'peru21g21' ? arcSite : 'peru21'
-  const dataSlot = `/28253241/${namePublicidad}/amp/post/default/zocalo`
-  const parameters = {
-    arcSite,
-    dataSlot,
-    prebidSlot: `19186-${namePublicidad}-amp-zocalo`,
-  }
-  const isTrivia = /^\/trivias\//.test(requestUri)
 
+  const isTrivia = /^\/trivias\//.test(requestUri)
   return (
     <Html lang={lang}>
       <head>
@@ -272,6 +262,12 @@ const AmpOutputType = ({
           canonicalUrl={`${envOrigin}${addSlashToEnd(canonicalUrl)}`}
         />
         <title>{title}</title>
+        {arcSite === SITE_DEPOR && (
+          <>
+            <link rel="preconnect" href="//cdn.ampproject.org" />
+            <link rel="preconnect" href="//cdna.depor.com" />
+          </>
+        )}
         <Styles {...metaSiteData} />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
@@ -286,9 +282,8 @@ const AmpOutputType = ({
         {/* add additional head elements here */}
 
         <Resource
-          path={`resources/dist/${arcSite}/css/${
-            isTrivia ? 'amp-trivias' : 'amp'
-          }.css`}>
+          path={`resources/dist/${arcSite}/css/${isTrivia ? 'amp-trivias' : 'amp'
+            }.css`}>
           {({ data }) =>
             data ? (
               <style
@@ -339,16 +334,21 @@ const AmpOutputType = ({
           custom-element="amp-social-share"
           src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"
         />
-        <script
-          async
-          custom-element="amp-sticky-ad"
-          src="https://cdn.ampproject.org/v0/amp-sticky-ad-1.0.js"
-        />
-        <script
-          async
-          custom-element="amp-ad"
-          src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
-        />
+        {metaValue('exclude_ads_amp') !== 'true' && (
+          <>
+            <script
+              async
+              custom-element="amp-sticky-ad"
+              src="https://cdn.ampproject.org/v0/amp-sticky-ad-1.0.js"
+            />
+            <script
+              async
+              custom-element="amp-ad"
+              src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
+            />
+          </>
+        )}
+
         {hasIframe && (
           <script
             async
@@ -370,11 +370,16 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"
           />
         )}
-        <script
-          async
-          custom-element="amp-sidebar"
-          src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"
-        />
+
+        {arcSite !== SITE_ELCOMERCIO &&
+          arcSite !== SITE_DEPOR &&
+          arcSite !== SITE_ELCOMERCIOMAG && (
+            <script
+              async
+              custom-element="amp-sidebar"
+              src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"
+            />
+          )}
 
         {(arcSite === SITE_DEPOR || arcSite === SITE_ELBOCON) && hasJwVideo && (
           <script
@@ -428,16 +433,20 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-soundcloud-0.1.js"
           />
         )}
-        <script
-          async
-          custom-element="amp-bind"
-          src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"
-        />
-        <script
-          async
-          custom-element="amp-fit-text"
-          src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"
-        />
+        {arcSite === SITE_TROME && (
+          <script
+            async
+            custom-element="amp-bind"
+            src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"
+          />
+        )}
+        {arcSite === SITE_ELCOMERCIOMAG && (
+          <script
+            async
+            custom-element="amp-fit-text"
+            src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"
+          />
+        )}
         {arcSite === SITE_GESTION && (
           <script
             async
@@ -445,7 +454,7 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-next-page-0.1.js"
           />
         )}
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+
         {isTrivia && (
           <>
             <link
@@ -470,31 +479,31 @@ const AmpOutputType = ({
             />
           </>
         )}
+        {
+          arcSite === SITE_TROME && (
+            <>
+              <link
+                rel="preload"
+                href="https://cdna.trome.pe/resources/dist/trome/fonts/encode-sans-condensed-v5-latin-800.woff2"
+                as="font"
+                type="font/woff2"
+                crossOrigin="anonymous"
+              />
+              <link
+                rel="preload"
+                href="https://cdna.trome.pe/resources/dist/trome/fonts/EncodeSansCondensed-Regular.woff2"
+                as="font"
+                type="font/woff2"
+                crossOrigin="anonymous"
+              />
+            </>
+          )
+        }
       </head>
       <body className={subtype}>
-        {arcSite === SITE_PERU21 && (
-          <amp-iframe
-            width="1"
-            title="User Sync"
-            height="1"
-            sandbox="allow-scripts"
-            frameborder="0"
-            src="https://ads.rubiconproject.com/prebid/load-cookie.html?endpoint=rubicon&max_sync_count=5&args=account:19186">
-            <amp-img
-              layout="fill"
-              src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-              placeholder
-            />
-          </amp-iframe>
-        )}
         {!isTrivia && (
           <>
             <AmpTagManager {...parametros} />
-            <amp-sticky-ad
-              layout="nodisplay"
-              class="ad-amp-movil"
-              dangerouslySetInnerHTML={publicidadAmpMovil0(parameters)}
-            />
           </>
         )}
         {children}

@@ -1,0 +1,35 @@
+.separator {
+  border: 2px solid #333;
+  background-color: #f5f5f5;
+  padding-bottom: 25px;
+  &__title {
+    font-size: 13px;
+    font-weight: 700;
+  }
+  &__item {
+    @media (--tablet) {
+      flex-basis: 24.5%;
+    }
+    &::before {
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.1) 30%,
+        rgba(0, 0, 0, 0.5) 80%,
+        #000
+      );
+    }
+  }
+  &__header-title {
+    padding: 25px 0;
+  }
+  &__header-link {
+    font-size: 2rem;
+    font-weight: 800;
+  }
+  &__threeline {
+    -webkit-line-clamp: 4;
+    @media (--desktop) {
+      max-height: 67px;
+    }
+  }
+}

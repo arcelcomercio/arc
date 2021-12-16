@@ -271,14 +271,11 @@ const rederStory: React.FC<{
     videos.forEach((entry) => {
       const { id = '' } = entry
       if (id) {
-        const nameId = id.split('_')
-        if (nameId[1]) {
-          const linkElem = `https://cdn.jwplayer.com/players/${nameId[1]}-${nameId[2]}.js`
-          const node = document.createElement('script')
-          node.type = 'text/javascript'
-          node.src = linkElem
-          document.head.append(node)
-        }
+        const linkElem = `https://cdn.jwplayer.com/libraries/${id}.js`
+        const node = document.createElement('script')
+        node.type = 'text/javascript'
+        node.src = linkElem
+        document.head.append(node)
       }
     })
   }

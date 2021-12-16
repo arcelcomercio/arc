@@ -1,0 +1,20 @@
+// TODO: Esto debe eliminarlo el equipo de signwall y agregar todos los estilos que necesitan en la carpeta correcta
+#signwall-app {
+  display: none;
+}
+
+@import "./layouts/story-sidebar";
+
+@import "./features/story/content/story-content";
+@import "./features/header/inverted";
+@import "./features/story/title";
+@import "./features/story/social";
+@import "./global-components/lite/share-buttons-v2";
+@import "./features/story/author";
+@import "./features/story/multimedia";
+@import "./features/story/gallery";
+@import "./features/breaking-news/breaking-news";
+@import "./features/cards/most-read/most-read";
+@import "./features/story/tags/st-tags";
+@import "./features/statics/info-pages";
+@import "./features/story/header/header";

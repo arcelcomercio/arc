@@ -18,9 +18,13 @@ import schemaFilter from './_dependencies/schema-filter'
 const classes = {
   container: 'saltar-intro-destaque-entrevista',
   containerCard: 'saltar-intro-destaque-entrevista--card',
+  containerTrailer: 'saltar-intro-destaque-entrevista--trailer',
+  category: 'saltar-intro-destaque-entrevista__category',
+  categoryLink: 'saltar-intro-destaque-entrevista__category-link',
   image: 'saltar-intro-destaque-entrevista__image',
   imageBox: 'saltar-intro-destaque-entrevista__image-box',
   title: 'saltar-intro-destaque-entrevista__title',
+  subtitle: 'saltar-intro-destaque-entrevista__subtitle',
   author: 'saltar-intro-destaque-entrevista__author',
   interviewed: 'saltar-intro-destaque-entrevista__interviewed',
   rol: 'saltar-intro-destaque-entrevista__rol',
@@ -31,13 +35,14 @@ const SaltarIntroDestaqueEntrevista: React.FC = (props) => {
     customFields: {
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
       isCard = false,
+      isTrailer = false,
     } = {},
   } = props
 
   const { arcSite, contextPath, deployment, isAdmin } = useAppContext()
 
   // const { siteName } = getProperties(arcSite)
-  const includedFields = `${featuredStoryFields},${includeContentBasic},content_elements.subtype,content_elements.embed,content_elements.embed.config`
+  const includedFields = `${featuredStoryFields},${includeContentBasic},content_elements.subtype,content_elements.embed,content_elements.embed.config,subheadlines`
 
   const data =
     useContent({
@@ -50,7 +55,10 @@ const SaltarIntroDestaqueEntrevista: React.FC = (props) => {
     }) || {}
 
   const {
+    primarySection,
+    primarySectionLink,
     title,
+    subTitle,
     websiteLink,
     author,
     authorLink,
@@ -63,6 +71,7 @@ const SaltarIntroDestaqueEntrevista: React.FC = (props) => {
         config: {
           interviewed = '-',
           career_interviewed: careerInterviewed = '-',
+          plataform = '-',
         } = {},
       } = {},
     },
@@ -74,15 +83,41 @@ const SaltarIntroDestaqueEntrevista: React.FC = (props) => {
   })
 
   const classCard = isCard ? classes.containerCard : ''
+  const classTrailer = isTrailer ? classes.containerTrailer : ''
 
   return (
-    <div className={`${classes.container} ${classCard}`}>
+    <div className={`${classes.container} ${classCard} ${classTrailer}`}>
       <div className={classes.info}>
-        <div className={classes.interviewed}>{interviewed}</div>
-        <div className={classes.rol}>{careerInterviewed}</div>
+        {isTrailer ? (
+          <>
+            <h3 itemProp="name" className={classes.category}>
+              <a
+                itemProp="url"
+                className={classes.categoryLink}
+                href={primarySectionLink}>
+                {plataform || primarySection}
+              </a>
+            </h3>
+          </>
+        ) : (
+          <>
+            <div className={classes.interviewed}>{interviewed}</div>
+            <div className={classes.rol}>{careerInterviewed}</div>
+          </>
+        )}
+
         <a href={websiteLink} className={classes.title}>
           {title}
         </a>
+        {isTrailer ? (
+          <>
+            <a className={classes.subtitle} href={websiteLink}>
+              {subTitle}
+            </a>
+          </>
+        ) : (
+          <></>
+        )}
         <a itemProp="url" href={authorLink} className={classes.author}>
           {author}
         </a>

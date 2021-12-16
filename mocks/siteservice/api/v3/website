@@ -48,5 +48,10 @@
     "_id": "elcomerciomag",
     "display_name": "El Comercio Mag",
     "is_default_website": false
+  },
+  {
+    "_id": "perucom",
+    "display_name": "Perucom",
+    "is_default_website": false
   }
 ]

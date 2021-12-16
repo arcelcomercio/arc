@@ -1,12 +1,5 @@
 import Identity from '@arc-publishing/sdk-identity'
-import {
-  isUserIdentity,
-  UserIdentity,
-} from '@arc-publishing/sdk-identity/lib/sdk/userIdentity'
-import {
-  isUserProfile,
-  UserProfile,
-} from '@arc-publishing/sdk-identity/lib/sdk/userProfile'
+import { isAPIErrorResponse } from '@arc-publishing/sdk-identity/lib/serviceHelpers/APIErrorResponse'
 import * as Sentry from '@sentry/browser'
 
 import { isStorageAvailable } from '../client/storage'
@@ -16,8 +9,8 @@ const isClientSide = typeof window !== 'undefined'
 const USER_INFO_KEY = 'ArcId.USER_INFO'
 // const USER_PROFILE_KEY = 'ArcId.USER_PROFILE'
 
-async function getUserProfile(): Promise<UserProfile | undefined> {
-  let userProfile: UserProfile | undefined
+async function getUserProfile(): Promise<typeof Identity.userProfile> {
+  let userProfile: typeof Identity.userProfile = null
 
   try {
     const { userProfile: localProfile } = Identity
@@ -26,9 +19,16 @@ async function getUserProfile(): Promise<UserProfile | undefined> {
       userProfile = localProfile
     } else if (await Identity.isLoggedIn()) {
       const userProfileResponse = await Identity.getUserProfile()
-      userProfile = isUserProfile(userProfileResponse)
-        ? userProfileResponse
-        : undefined
+
+      if (isAPIErrorResponse(userProfileResponse)) {
+        Sentry.captureEvent({
+          message: 'Error obtener perfil del usuario - getUserProfile()',
+          level: Sentry.Severity.Error,
+          extra: userProfileResponse || {},
+        })
+      } else {
+        userProfile = userProfileResponse
+      }
     }
   } catch (error) {
     Sentry.captureEvent({
@@ -40,8 +40,8 @@ async function getUserProfile(): Promise<UserProfile | undefined> {
   return userProfile
 }
 
-async function getUserIdentity(): Promise<UserIdentity | undefined> {
-  let userIdentity: UserIdentity | undefined
+async function getUserIdentity(): Promise<typeof Identity.userIdentity | null> {
+  let userIdentity: typeof Identity.userIdentity | null = null
 
   try {
     const { userIdentity: localIdentity } = Identity
@@ -50,7 +50,16 @@ async function getUserIdentity(): Promise<UserIdentity | undefined> {
       userIdentity = localIdentity
     } else if (await Identity.isLoggedIn()) {
       const heartbeat = await Identity.heartbeat()
-      userIdentity = isUserIdentity(heartbeat) ? heartbeat : undefined
+
+      if (isAPIErrorResponse(heartbeat)) {
+        Sentry.captureEvent({
+          message: 'Error obtener identidad del usuario - getUserIdentity()',
+          level: Sentry.Severity.Error,
+          extra: heartbeat || {},
+        })
+      } else {
+        userIdentity = heartbeat
+      }
     }
   } catch (error) {
     Sentry.captureEvent({
@@ -85,15 +94,27 @@ function isLoggedIn(): boolean {
   return false
 }
 
+// @deprecated Usar `isLoggedIn()` en su lugar
+// function checkSession(): boolean {
+//   if (isClientSide) {
+//     const userProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
+//     const userInfo = window.localStorage.getItem('ArcId.USER_INFO')
+//     if (userProfile) {
+//       return !(userProfile === 'null' || userInfo === '{}') || false
+//     }
+//   }
+//   return false
+// }
+
 /**
  * @param username Nombre del usuario completo
  * @param length Cantidad de caracteres máxima (80 por defecto)
  * @returns Nombre del usuario completo, sin `null|undefined` o espacios de más
  * @example ```
  * formatUsername(`Carlos undefined Fernández`, 10)
- * // Carlos Fer...
+ * // "Carlos Fer..."
  * formatUsername(`null Carlos Fernández`)
- * // Carlos Fernández
+ * // "Carlos Fernández"
  * ```
  */
 function formatUsername(username: string, length = 80): string {
@@ -109,10 +130,10 @@ function formatUsername(username: string, length = 80): string {
  * sin `null|undefined` o espacios de más, con un máximo de 20 catacteres
  * @example ```
  * await getUsername(`Carlos undefined`)
- * // Carlos
+ * // "Carlos"
  *
  * await getUsername(`William Esternocleidomastoideo`)
- * // William Esternocl...
+ * // "William Esternocl..."
  * ```
  */
 async function getUsername(): Promise<string> {
@@ -126,10 +147,67 @@ async function getUsername(): Promise<string> {
   return username
 }
 
+/**
+ * @param username Nombre del usuario completo
+ * @returns La letra inicial de las primeras dos palabras
+ * del parámetro `username`
+ * @example ```
+ * getUsernameInitials(`José Huamaní Salazar`)
+ * // "JH"
+ * getUsernameInitials(`José`)
+ * // "J"
+ * ```
+ */
+function getUsernameInitials(username: string): string {
+  const names = username.split(' ')
+  const initials = names.map((name) => name.charAt(0))
+  return initials.slice(0, 2).join('').toUpperCase()
+}
+
+function extendSession(): Promise<typeof Identity.userIdentity> {
+  const notifyError = (error: any) => {
+    Sentry.captureEvent({
+      message: 'Error al extender la sesión - Identity.extendSession()',
+      level: Sentry.Severity.Error,
+      extra: error || {},
+    })
+  }
+
+  return new Promise((resolve, reject) => {
+    if (Identity.userIdentity?.refreshToken) {
+      Identity.extendSession()
+        .then((response) => {
+          if (isAPIErrorResponse(response)) {
+            notifyError(response)
+            reject(response)
+          } else {
+            resolve(response)
+          }
+        })
+        .catch((error) => {
+          notifyError(error)
+          reject(error)
+        })
+    } else if (!Identity.isLoggedIn()) {
+      window.location.href = '/signwall/?outputType=subscriptions&reloginHash=1'
+      const message = 'Usuario sin sesión activa. Redirigiendo a /signwall'
+      Sentry.captureEvent({
+        message,
+        level: Sentry.Severity.Info,
+      })
+      reject(new Error(message))
+    } else {
+      resolve(Identity.userIdentity)
+    }
+  })
+}
+
 export {
+  extendSession,
   formatUsername,
   getUserIdentity,
   getUsername,
+  getUsernameInitials,
   getUserProfile,
   isLoggedIn,
 }

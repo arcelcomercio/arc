@@ -7,29 +7,41 @@
     margin-bottom: 10px;
     padding: 0 20px 20px 20px;
   }
+
   &__title {
-    font: 700 26px/30px $primary-font;
-    letter-spacing: -0.26px;
-    margin: 0 20px 20px 20px;
-    @media (--tablet) {
-      font: 700 38px/42px $primary-font;
-    }
+    font-family: $encode-c;
+    font-weight: 800;
+    font-size: 30px;
+    letter-spacing: -0.3px;
+    line-height: 32px;
+    text-align: center;
+    margin: 0 16px 16px 16px;
+
     @media (--desktop) {
-      font: 700 42px/48px $primary-font;
-      letter-spacing: -0.42px;
+      font-size: 52px;
+      line-height: 56px;
+      letter-spacing: -0.52px;
+      margin: 0 57px 24px 57px;
     }
   }
 
   &__summary {
-    font: 400 17px/24px $primary-font;
-    letter-spacing: -0.17px;
-    color: $color-black;
-    border-bottom: 1px solid #ddd;
-    margin: 0 20px 10px 20px;
-    padding-bottom: 20px;
-    @media (--tablet) {
-      font: 400 20px/24px $primary-font;
-      letter-spacing: -0.2px;
+    font-family: $encode-c;
+    font-weight: 400;
+    font-size: 22px;
+    letter-spacing: -0.22px;
+    line-height: 22px;
+    text-align: center;
+    color: #333;
+    padding-bottom: 16px;
+    margin: 0 16px;
+
+    @media (--desktop) {
+      font-size: 28px;
+      line-height: 28px;
+      letter-spacing: -0.28px;
+      padding: 0 37px 24px 37px;
+      margin: 0 20px;
     }
   }
 
@@ -37,6 +49,7 @@
   &__list {
     list-style-type: disc;
     padding: 0 40px 30px 20px;
+
     & li {
       font-size: 19px;
       line-height: 26px;
@@ -54,7 +67,46 @@
       }
     }
   }
+
   &__link:hover {
     text-decoration: none;
+  }
+
+  &__related {
+    margin: 0 16px;
+    padding-bottom: 8px;
+    text-align: center;
+
+    @media (--desktop) {
+      margin: 0 20px;
+      padding: 0 37px 50px 37px;
+    }
+
+    mark {
+      background: #000;
+      color: #fff;
+      padding: 3px 6px;
+      font-family: $encode-c;
+      font-weight: 800;
+      font-size: 14px;
+
+      @media (--desktop) {
+        font-size: 22px;
+      }
+    }
+
+    a {
+      color: #d35b2c;
+      font-weight: 800;
+      text-decoration: none;
+      font-family: $encode-c;
+      font-size: 20px;
+      line-height: 24px;
+
+      @media (--desktop) {
+        font-size: 24px;
+        line-height: 32px;
+      }
+    }
   }
 }

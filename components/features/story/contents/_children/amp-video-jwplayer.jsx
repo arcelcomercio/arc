@@ -1,5 +1,5 @@
-import React from 'react'
 import { useFusionContext } from 'fusion:context'
+import React from 'react'
 
 const StoryContentChildVideoAmp = ({ data = {} }) => {
   const { siteProperties: { jwplayers = '' } = {} } = useFusionContext()
@@ -21,10 +21,11 @@ const StoryContentChildVideoAmp = ({ data = {} }) => {
             layout="responsive"
             width="16"
             dock="#my-dock-slot"
-            height="9"></amp-jwplayer>
+            height="9"
+          />
           {title && (
             <>
-              <div className="pt-10"> {title}</div>
+              <div className="amp-story-content__multimedia-caption pt-10"> {title}</div>
             </>
           )}
         </>

@@ -12,212 +12,251 @@ import {
   SITE_TROME,
 } from '../../utilities/constants/sitenames'
 
-export default ({ arcSite }) => (
-  <>
-    {arcSite === SITE_ELCOMERCIO && (
+export default ({ arcSite, sectionStyle }) => {
+  if (sectionStyle === 'story-v2-standard') {
+    return (
       <>
         <link
           rel="preload"
-          href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/georgia-latin-regular.woff2"
+          href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-serif-kr-v13-latin-500.woff2"
           as="font"
           type="font/woff2"
+          crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-700.woff2"
+          href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-serif-kr-v13-latin-900.woff2"
           as="font"
           type="font/woff2"
+          crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-regular.woff2"
+          href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-sans-kr-v21-latin-regular.woff2"
           as="font"
           type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-sans-kr-v21-latin-500.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-sans-kr-v21-latin-900.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
         />
       </>
-    )}
-    {arcSite === SITE_DEPOR && (
-      <>
-        <link
-          rel="preload"
-          href="https://cdna.depor.com/resources/dist/depor/fonts/roboto-v20-latin-700.woff2"
-          as="font"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
-          href="https://cdna.depor.com/resources/dist/depor/fonts/roboto-v20-latin-regular.woff2"
-          as="font"
-          type="font/woff2"
-        />
-      </>
-    )}
-    {arcSite === SITE_PERU21 && (
-      <>
-        <link
-          rel="preload"
-          href="https://cdna.peru21.pe/resources/dist/peru21/fonts/Roboto-Bold.woff2"
-          as="font"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
-          href="https://cdna.peru21.pe/resources/dist/peru21/fonts/Exo.woff2"
-          as="font"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
-          href="https://cdna.peru21.pe/resources/dist/peru21/fonts/Roboto-Regular.woff2"
-          as="font"
-          type="font/woff2"
-        />
-      </>
-    )}
+    )
+  }
+  return (
+    <>
+      {arcSite === SITE_ELCOMERCIO && (
+        <>
+          <link
+            rel="preload"
+            href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/georgia-latin-regular.woff2"
+            as="font"
+            type="font/woff2"
+          />
+          <link
+            rel="preload"
+            href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-700.woff2"
+            as="font"
+            type="font/woff2"
+          />
+          <link
+            rel="preload"
+            href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-regular.woff2"
+            as="font"
+            type="font/woff2"
+          />
+        </>
+      )}
+      {arcSite === SITE_DEPOR && (
+        <>
+          <link
+            rel="preload"
+            href="https://cdna.depor.com/resources/dist/depor/fonts/roboto-v20-latin-700.woff2"
+            as="font"
+            type="font/woff2"
+          />
+          <link
+            rel="preload"
+            href="https://cdna.depor.com/resources/dist/depor/fonts/roboto-v20-latin-regular.woff2"
+            as="font"
+            type="font/woff2"
+          />
+        </>
+      )}
+      {arcSite === SITE_PERU21 && (
+        <>
+          <link
+            rel="preload"
+            href="https://cdna.peru21.pe/resources/dist/peru21/fonts/Roboto-Bold.woff2"
+            as="font"
+            type="font/woff2"
+          />
+          <link
+            rel="preload"
+            href="https://cdna.peru21.pe/resources/dist/peru21/fonts/Exo.woff2"
+            as="font"
+            type="font/woff2"
+          />
+          <link
+            rel="preload"
+            href="https://cdna.peru21.pe/resources/dist/peru21/fonts/Roboto-Regular.woff2"
+            as="font"
+            type="font/woff2"
+          />
+        </>
+      )}
 
-    {arcSite === SITE_TROME && (
-      <>
-        <link
-          rel="preload"
-          href="https://cdna.trome.pe/resources/dist/trome/fonts/Roboto-Regular.woff2"
-          as="font"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
-          href="https://cdna.trome.pe/resources/dist/trome/fonts/Roboto-Bold.woff2"
-          as="font"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
-          href="https://cdna.trome.pe/resources/dist/trome/fonts/roboto-v20-latin-500.woff2"
-          as="font"
-          type="font/woff2"
-        />
-      </>
-    )}
-    {arcSite === SITE_ELBOCON && (
-      <>
-        <link
-          rel="preload"
-          href="https://cdna.elbocon.pe/resources/dist/elbocon/fonts/TitilliumWeb-Bold.woff2"
-          as="font"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
-          href="https://cdna.elbocon.pe/resources/dist/elbocon/fonts/Roboto-Slab.woff2"
-          as="font"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
-          href="https://cdna.elbocon.pe/resources/dist/elbocon/fonts/TitilliumWeb-Regular.woff2"
-          as="font"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
-          href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/Lato-Regular.woff2"
-          as="font"
-          type="font/woff2"
-        />
-      </>
-    )}
-    {arcSite === SITE_ELCOMERCIOMAG && (
-      <>
-        <link
-          rel="preload"
-          href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-700.woff2"
-          as="font"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
-          href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-regular.woff2"
-          as="font"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
-          href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/Lato-Regular.woff2"
-          as="font"
-          type="font/woff2"
-        />
-      </>
-    )}
-    {arcSite === SITE_OJO && (
-      <>
-        <link
-          rel="preload"
-          href="https://cdna.ojo.pe/resources/dist/ojo/fonts/Roboto-Regular.woff2"
-          as="font"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
-          href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/Lato-Regular.woff2"
-          as="font"
-          type="font/woff2"
-        />
-      </>
-    )}
-    {arcSite === SITE_DIARIOCORREO && (
-      <>
-        <link
-          rel="preload"
-          href="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/Bitter-Regular.woff2"
-          as="font"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
-          href="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/Bitter-Bold.woff2"
-          as="font"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
-          href="https://cdna.diariocorreo.pe/resources/dist/elbocon/fonts/TitilliumWeb-Regular.woff2"
-          as="font"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
-          href="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/TitilliumWeb-Bold.woff2"
-          as="font"
-          type="font/woff2"
-        />
-      </>
-    )}
-    {arcSite === SITE_GESTION && (
-      <>
-        <link
-          rel="preload"
-          href="https://cdna.gestion.pe/resources/dist/gestion/fonts/Judson-Regular.woff2"
-          as="font"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
-          href="https://cdna.gestion.pe/resources/dist/gestion/fonts/Judson-Bold.woff2"
-          as="font"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
-          href="https://cdna.gestion.pe/resources/dist/gestion/fonts/LibreFranklin-Medium.woff2"
-          as="font"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
-          href="https://cdna.gestion.pe/resources/dist/gestion/fonts/LibreFranklin-Bold.woff2"
-          as="font"
-          type="font/woff2"
-        />
-      </>
-    )}
-  </>
-)
+      {arcSite === SITE_TROME && (
+        <>
+          <link
+            rel="preload"
+            href="https://cdna.trome.pe/resources/dist/trome/fonts/encode-sans-condensed-v5-latin-800.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="https://cdna.trome.pe/resources/dist/trome/fonts/EncodeSansCondensed-Regular.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+        </>
+      )}
+      {arcSite === SITE_ELBOCON && (
+        <>
+          <link
+            rel="preload"
+            href="https://cdna.elbocon.pe/resources/dist/elbocon/fonts/TitilliumWeb-Bold.woff2"
+            as="font"
+            type="font/woff2"
+          />
+          <link
+            rel="preload"
+            href="https://cdna.elbocon.pe/resources/dist/elbocon/fonts/Roboto-Slab.woff2"
+            as="font"
+            type="font/woff2"
+          />
+          <link
+            rel="preload"
+            href="https://cdna.elbocon.pe/resources/dist/elbocon/fonts/TitilliumWeb-Regular.woff2"
+            as="font"
+            type="font/woff2"
+          />
+          <link
+            rel="preload"
+            href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/Lato-Regular.woff2"
+            as="font"
+            type="font/woff2"
+          />
+        </>
+      )}
+      {arcSite === SITE_ELCOMERCIOMAG && (
+        <>
+          <link
+            rel="preload"
+            href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-700.woff2"
+            as="font"
+            type="font/woff2"
+          />
+          <link
+            rel="preload"
+            href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-regular.woff2"
+            as="font"
+            type="font/woff2"
+          />
+          <link
+            rel="preload"
+            href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/Lato-Regular.woff2"
+            as="font"
+            type="font/woff2"
+          />
+        </>
+      )}
+      {arcSite === SITE_OJO && (
+        <>
+          <link
+            rel="preload"
+            href="https://cdna.ojo.pe/resources/dist/ojo/fonts/Roboto-Regular.woff2"
+            as="font"
+            type="font/woff2"
+          />
+          <link
+            rel="preload"
+            href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/Lato-Regular.woff2"
+            as="font"
+            type="font/woff2"
+          />
+        </>
+      )}
+      {arcSite === SITE_DIARIOCORREO && (
+        <>
+          <link
+            rel="preload"
+            href="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/Bitter-Regular.woff2"
+            as="font"
+            type="font/woff2"
+          />
+          <link
+            rel="preload"
+            href="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/Bitter-Bold.woff2"
+            as="font"
+            type="font/woff2"
+          />
+          <link
+            rel="preload"
+            href="https://cdna.diariocorreo.pe/resources/dist/elbocon/fonts/TitilliumWeb-Regular.woff2"
+            as="font"
+            type="font/woff2"
+          />
+          <link
+            rel="preload"
+            href="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/TitilliumWeb-Bold.woff2"
+            as="font"
+            type="font/woff2"
+          />
+        </>
+      )}
+      {arcSite === SITE_GESTION && (
+        <>
+          <link
+            rel="preload"
+            href="https://cdna.gestion.pe/resources/dist/gestion/fonts/Judson-Regular.woff2"
+            as="font"
+            type="font/woff2"
+          />
+          <link
+            rel="preload"
+            href="https://cdna.gestion.pe/resources/dist/gestion/fonts/Judson-Bold.woff2"
+            as="font"
+            type="font/woff2"
+          />
+          <link
+            rel="preload"
+            href="https://cdna.gestion.pe/resources/dist/gestion/fonts/LibreFranklin-Medium.woff2"
+            as="font"
+            type="font/woff2"
+          />
+          <link
+            rel="preload"
+            href="https://cdna.gestion.pe/resources/dist/gestion/fonts/LibreFranklin-Bold.woff2"
+            as="font"
+            type="font/woff2"
+          />
+        </>
+      )}
+    </>
+  )
+}

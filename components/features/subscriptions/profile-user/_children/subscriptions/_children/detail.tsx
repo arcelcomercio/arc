@@ -13,6 +13,7 @@ import { CardsProviders } from 'types/subscriptions'
 
 import { SITE_ELCOMERCIO } from '../../../../../../utilities/constants/sitenames'
 import addScriptAsync from '../../../../../../utilities/script-async'
+import { extendSession } from '../../../../../../utilities/subscriptions/identity'
 import { Close, Notice } from '../../../../../signwall/_children/icons'
 import Loading from '../../../../../signwall/_children/loading'
 import { Modal } from '../../../../../signwall/_children/modal/index'
@@ -93,7 +94,7 @@ const SubsDetail = ({ IdSubscription }: SubsDatailProps): JSX.Element => {
   }
 
   React.useEffect(() => {
-    Identity.extendSession()
+    extendSession()
       .then(() => {
         Sales.getSubscriptionDetails(IdSubscription)
           .then((resDetail) => {
@@ -128,13 +129,6 @@ const SubsDetail = ({ IdSubscription }: SubsDatailProps): JSX.Element => {
               extra: error || {},
             })
           })
-      })
-      .catch((error) => {
-        Sentry.captureEvent({
-          message: 'Error al extender la sesión - Identity.extendSession()',
-          level: Sentry.Severity.Error,
-          extra: error || {},
-        })
       })
       .finally(() => {
         setShowLoading(false)
@@ -205,7 +199,7 @@ const SubsDetail = ({ IdSubscription }: SubsDatailProps): JSX.Element => {
 
   const recoverySubscription = (idSubsRecovery: number) => {
     setShowLoadRescue('Recuperando...')
-    Identity.extendSession().then(() => {
+    extendSession().then(() => {
       Sales.rescueSubscription(idSubsRecovery)
         .then(() => {
           Taggeo(`Web_Sign_Wall_General`, `web_swg_success_recuperacion`)
@@ -225,7 +219,7 @@ const SubsDetail = ({ IdSubscription }: SubsDatailProps): JSX.Element => {
       setShowLoadCancel('Finalizando...')
 
       const valMotivo = option === 'Otro motivo' ? txtMotivo.trim() : option
-      Identity.extendSession().then(() => {
+      extendSession().then(() => {
         Sales.cancelSubscription(idSubsDelete, valMotivo || undefined)
           .then(() => {
             Taggeo(`Web_Sign_Wall_General`, `web_swg_success_anulacion`)
@@ -267,7 +261,17 @@ const SubsDetail = ({ IdSubscription }: SubsDatailProps): JSX.Element => {
 
   const periodFormat = (to: number, from: number) => {
     if (to && from) {
-      return (to - from) / (1000 * 60 * 60 * 24) <= 31 ? 'Mensual' : 'Anual'
+      const daysPeriod = (to - from) / (1000 * 60 * 60 * 24)
+      switch (true) {
+        case daysPeriod >= 88 && daysPeriod <= 93:
+          return 'TRIMESTRAL'
+        case daysPeriod >= 178 && daysPeriod <= 186:
+          return 'SEMESTRAL'
+        case daysPeriod >= 358 && daysPeriod <= 372:
+          return 'ANUAL'
+        default:
+          return 'MENSUAL'
+      }
     }
     return '-'
   }
@@ -306,7 +310,7 @@ const SubsDetail = ({ IdSubscription }: SubsDatailProps): JSX.Element => {
               <small>DETALLE DE LA SUSCRIPCIÓN</small>
               <h2>{showResDetail?.productName}</h2>
               <p>
-                Plan Pago:
+                Plan Pago:{' '}
                 <strong>
                   {periodFormat(
                     showResDetail?.paymentHistory?.[0].periodTo || 0,

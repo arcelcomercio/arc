@@ -1,0 +1,55 @@
+.share-btn {
+  border: 1px solid #333;
+  border-radius: 50%;
+  height: 29px;
+  width: 29px;
+  margin-right: 10px;
+  padding: 0;
+  line-height: 0;
+  @media (--tablet) {
+    margin-right: 15px;
+  }
+  @media (--desktop) {
+    height: 35px;
+    width: 35px;
+  }
+  svg {
+    fill: #333;
+    height: 15px;
+    @media (--desktop) {
+      height: 17px;
+    }
+  }
+  &--stroke {
+    fill: transparent;
+  }
+  &--ws {
+    @media (--tablet) {
+      display: none;
+    }
+    svg {
+      height: 35px;
+    }
+  }
+  &--copy {
+    height: 30px;
+    line-height: 0;
+    fill: #333;
+    color: #333;
+    font-family: $primary-font;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 0 5px 0 0;
+    svg {
+      margin-right: 5px;
+    }
+  }
+  &.s-lk {
+    svg {
+      height: 18px;
+      @media (--desktop) {
+        height: 22px;
+      }
+    }
+  }
+}

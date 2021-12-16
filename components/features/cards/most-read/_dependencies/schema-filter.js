@@ -5,6 +5,7 @@ export default `
         website_url
         display_date
         _id
+        content_restrictions { content_code }
         headlines {
           basic
         }

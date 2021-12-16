@@ -17,7 +17,6 @@ import {
   PropertiesSite,
 } from '../../../_dependencies/Properties'
 import { Taggeo } from '../../../_dependencies/Taggeo'
-import MobileSummary from './mobile'
 
 const styles = {
   boxResume: 'step__right-box-resume',
@@ -40,12 +39,12 @@ const nameTagCategory = 'Web_Paywall_Landing'
 const Summary = (): JSX.Element => {
   const {
     arcSite,
-    globalContent: { plans = [], freeAccess = false, name = '' } = {},
+    globalContent: { plans = [], name = '' } = {},
   } = useAppContext<PaywallCampaign>()
 
   const {
     loadPage,
-    userDataPlan,
+    // userDataPlan,
     userStep,
     userProfile,
     userMethodPay,
@@ -309,14 +308,6 @@ const Summary = (): JSX.Element => {
       )}
       <br />
       <br />
-      {!freeAccess ? (
-        <MobileSummary
-          userStep={userStep}
-          planName={name}
-          billingFrequency={userDataPlan?.billingFrequency}
-          billingAmount={userDataPlan?.amount}
-        />
-      ) : null}
     </>
   )
 }

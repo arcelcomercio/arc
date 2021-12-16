@@ -23,6 +23,7 @@ type GetVerboseDateProps = {
   showWeekday?: boolean
   showYear?: boolean
   defaultTimeZone?: boolean
+  longMonth?: boolean
 }
 /**
  * @returns jueves, 19 de noviembre de 2020 09:30 a.m.
@@ -33,9 +34,10 @@ export const getVerboseDate = ({
   showWeekday = true,
   showYear = true,
   defaultTimeZone = true,
+  longMonth = true,
 }: GetVerboseDateProps): string => {
   const options: Intl.DateTimeFormatOptions = {
-    month: 'long',
+    month: longMonth ? 'long' : 'short',
     day: 'numeric',
     hour12: true,
   }
@@ -67,8 +69,19 @@ export const getVerboseDate = ({
 export const formatDayMonthYear = (
   currentDate: Date,
   showTime = true,
-  showWeekday = true
-): string => getVerboseDate({ date: currentDate, showTime, showWeekday })
+  showWeekday = true,
+  showYear = true,
+  defaultTimeZone = true,
+  longMonth = true
+): string =>
+  getVerboseDate({
+    date: currentDate,
+    showTime,
+    showWeekday,
+    showYear,
+    defaultTimeZone,
+    longMonth,
+  })
 
 /**
  * @deprecated usar `getVerboseDate`
@@ -100,7 +113,8 @@ export const getDateSeo = (date: Date): string => localISODate(date)
  */
 export const formatDateTime = (
   date: Date,
-  cb?: (dateString: string) => string
+  cb?: (dateString: string) => string,
+  inHours: boolean = true
 ): string => {
   const newDate = date ? new Date(date) : new Date()
   const dateTime = new Intl.DateTimeFormat(locale, {
@@ -112,16 +126,28 @@ export const formatDateTime = (
     timeZone: 'America/Lima',
     hour12: true,
   })
+  const inDate = new Intl.DateTimeFormat(locale, {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    timeZone: 'America/Lima',
+  })
 
-  const formattedDateTime = dateTime.format(newDate)
+  const formattedDateTime = inHours
+    ? dateTime.format(newDate)
+    : inDate.format(newDate)
   return cb ? cb(formattedDateTime) : formattedDateTime
 }
 
 /**
- * @returns Actualizado el 19/11/2020, 09:30 a.m.
+ * @returns Actualizado el 19/11/2020, 09:30 a.m. || Actualizado el 19/11/2020
  */
-export const formatDateStory = (date: Date): string =>
-  formatDateTime(date, (formattedDate) => `Actualizado el ${formattedDate}`)
+export const formatDateStory = (date: Date, inHours: boolean): string =>
+  formatDateTime(
+    date,
+    (formattedDate) => `Actualizado el ${formattedDate}`,
+    inHours
+  )
 
 /**
  * @returns 09:30
@@ -175,6 +201,15 @@ export const loadDateFromYYYYMMDD = (date: string): Date | null => {
   return new Date(year, month, day)
 }
 
+export const loadDateFromDDMMYYYY = (date: string): Date | null => {
+  if (!/\d{2}\/\d{2}\/\d{4}/.test(date)) return null
+  const day = parseInt(date.slice(0, 2), 10)
+  const month = parseInt(date.slice(3, 5), 10) - 1
+  const year = parseInt(date.slice(6, 10), 10)
+
+  return new Date(year, month, day)
+}
+
 export const dateDayAndMouthNOYEAR = (): string => {
   const d = new Date()
   d.setHours(d.getHours() - 5)
@@ -186,4 +221,15 @@ export const dateDayAndMouthNOYEAR = (): string => {
   /*
     Martes 31 de Agosto
   */
+}
+
+/**
+ * @returns 31 de Agosto
+ */
+export const dateDayAndMonth = (date: string): string | null => {
+  const d = loadDateFromYYYYMMDD(date)
+  if (d === null) return null
+  const mes = new Intl.DateTimeFormat(locale, { month: 'long' }).format(d)
+  const num = new Intl.DateTimeFormat(locale, { day: '2-digit' }).format(d)
+  return `${num} de ${mes}`
 }

@@ -11,7 +11,8 @@ const classes = {
   content: 'react-calendar__content-calendar p-10',
 }
 
-const AgendaCalendario = () => {
+const AgendaCalendario = (props) => {
+  const { isYesterday = false, grayLaterDays = false } = props
   const {
     globalContentConfig: { query },
   } = useAppContext()
@@ -22,6 +23,14 @@ const AgendaCalendario = () => {
     const [year, month, day] = date.split('-')
     const newDate = [year, Number(month - 1), Number(day)]
     return new Date(...newDate)
+  }
+
+  // if que reduce 1 dia si el isYesterday esta habilitado
+  let retro = 0
+  let ant = 0
+  if (isYesterday === true) {
+    ant = 1
+    retro = ant * 24 * 60 * 60 * 1000
   }
 
   const renderNewURL = (date) => {
@@ -36,17 +45,6 @@ const AgendaCalendario = () => {
     return `/agenda-presidencial/${newDateFormat}/`
   }
 
-  const day = () => {
-    const d = new Date()
-    d.setHours(d.getHours() - 5)
-    return d.setDate(d.getDate() - 1)
-  }
-
-  // const mes = (date) => {
-  //   const d = new Date(date)
-  //   return new Intl.DateTimeFormat('es-419', { month: 'long' }).format(d)
-  // }
-
   const setNewDate = (data) => {
     window.location.href = renderNewURL(data)
   }
@@ -58,6 +56,36 @@ const AgendaCalendario = () => {
     )
   )
 
+  /*
+    window.addEventListener('DOMContentLoaded', () => {requestIdle(() => {
+    let jp = '${ant}';
+    let num=0;
+    const d = new Date();
+    const day = d.getDate();
+    var allbbr = document.getElementsByTagName("abbr");
+
+    for (var i = 0; i < allbbr.length; i+=1) {
+    
+      if(allbbr[i].innerHTML == day ){
+    
+  
+        for (var j = 0; j < allbbr.length; j+=1){
+        if(j > (i-jp)){
+          allbbr[j].style.color = "rgb(211 221 231)";
+        }  
+       
+      }
+      
+      }
+    }
+
+    })})
+     
+    */
+
+  let customJs = ''
+  customJs = `"use strict";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){for(var e=(new Date).getDate(),t=document.getElementsByTagName("abbr"),n=0;n<t.length;n+=1)if(t[n].innerHTML==e)for(var r=0;r<t.length;r+=1)r>n-"${ant}"&&(t[r].style.color="rgb(211 221 231)")})});`
+
   return (
     <>
       <div className={classes.box}>
@@ -66,10 +94,12 @@ const AgendaCalendario = () => {
             <React.Suspense fallback="Cargando...">
               <Calendar
                 activeStartDate={getCalendarDate(urlDate)}
-                maxDate={new Date(day())}
+                maxDate={new Date(Date.now() - retro)}
+                // new Date(day(isLastDayClick))
                 minDate={new Date(2021, 6, 28)}
                 onChange={(newDate) => setNewDate(newDate)}
-                value={new Date()}
+                //  value={getCalendarDate2(urlDate, isYesterday)}
+                value={new Date(Date.now() - retro)}
                 locale="es-419"
                 // navigationLabel={({ date, locale }) =>
                 //   `${mes(date.toLocaleDateString(locale))}`
@@ -83,6 +113,14 @@ const AgendaCalendario = () => {
             </React.Suspense>
           )}
         </div>
+        {grayLaterDays && (
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: customJs,
+            }}
+          />
+        )}
       </div>
     </>
   )

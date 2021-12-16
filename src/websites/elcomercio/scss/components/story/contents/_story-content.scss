@@ -126,3 +126,12 @@ li.story-content__item a.story-content__link {
   -o-user-select: none;
   user-select: none;
 }
+
+.banner-bbc-footer {
+  display: block;
+  overflow: hidden;
+  img {
+    width: auto;
+    height: 42px;
+  }
+}

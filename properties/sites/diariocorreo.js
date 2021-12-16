@@ -16,7 +16,8 @@ export default {
   urlPrerollAmp:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/diariocorreo/amp/post/default/preroll&description_url=https%3A%2F%2Fdiariocorreo.pe%2F&tfcd=0&npa=0&sz=640x480|400x300|640x360&cust_params=fuente%3Damp%26publisher%3Ddiariocorreo%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '1390081201315241',
-  googleTagManagerId: 'GTM-TD2GS9Q',
+  googleTagManagerId: 'GTM-TD2GS9Q', // Google Tag Manager Prod
+  googleTagManagerIdSandbox: 'GTM-TD2GS9Q', // Google Tag Manager Sandbox
   ampGoogleTagManagerId: 'UA-22221683-1',
   ampGoogleTagManagerName: 'correo',
   charbeatAccountNumber: 57773,
@@ -39,6 +40,7 @@ export default {
     cookiesPolicy: 'LNDHYOVT3FBTLCKME4EKQQMNLM',
     aboutUs: 'AH524OO2XFEE3CZBDR3VZTXN6A',
     frequentQuestions: 'TAKBHA5E4JBONGF5UAWFDAU2GM',
+    dataTreatment: 'JCUSOICWBNDKLG4OGQJWXCG77Q',
   },
   infoPagesProd: {
     termsAndConditions: '2NBNX77YV5CG3PQOMD4RPZSYJE',
@@ -49,6 +51,10 @@ export default {
     cookiesPolicy: 'FAZESR2JTBBTZLBSEKCUR42DRA',
     aboutUs: '',
     frequentQuestions: '',
+    dataTreatment: 'UWK3Q7DYTRFERAL3NGTIXEMWLI',
+  },
+  paywall: {
+    title: 'Comunidad Digital | Diario Correo',
   },
   assets: {
     nav: {
@@ -120,9 +126,12 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-diariocorreo/ads-fia-28253241-cor_ia_interna4-300x250-div-gpt-ad-8599377-9.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-diariocorreo/ads-fia-28253241-cor_ia_interna5-300x250-div-gpt-ad-8599377-10.html',
   ],
+  activeMagicLink: true,
   activeSignwall: true,
   activeVerifyEmail: true,
+  activeRegisterwall: true,
   activeDataTreatment: true,
+  activeNewsletter: true,
   activePhoneRegister: true,
   signwall: {
     mainColorBg: '#000000',
