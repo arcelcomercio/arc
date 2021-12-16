@@ -58,7 +58,7 @@ const Subscriptions: OT<OutputProps> = ({
   const isFaqsPage = /^\/[a-z-]+\/faqs\//.test(requestUri)
   const isSubscriptionPage = /^\/suscripciones\//.test(requestUri)
   const isSignwallPage = /^\/signwall\/|\/mi-perfil\//.test(requestUri)
-  const isPianoPage = /^\/(mi-cuenta|registro|ingreso|restaurar|verificacion|nueva-contrasena)\//.test(
+  const isPianoPage = /^\/(mi-cuenta|registro|registrar|ingreso|restaurar|verificacion|nueva-contrasena)\//.test(
     requestUri
   )
 
