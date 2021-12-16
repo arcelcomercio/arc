@@ -90,22 +90,18 @@ export default {
   ],
   socialNetworks: [
     {
-      name: 'linkedin',
-      url: 'https://www.linkedin.com/',
-    },
-    {
       name: 'facebook',
-      url: 'https://www.facebook.com/CorreoPeru/',
+      url: 'https://www.facebook.com/peru.com.und',
     },
     {
       name: 'twitter',
-      url: 'https://twitter.com/diariocorreo',
+      url: 'https://twitter.com/perucomweb',
     },
   ],
   social: {
     facebook: {
       user: '@CorreoPeru',
-      url: 'https://www.facebook.com/CorreoPeru/',
+      url: 'https://www.facebook.com/peru.com.und',
     },
     twitter: {
       user: 'diariocorreo',
