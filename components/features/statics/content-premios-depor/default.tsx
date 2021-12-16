@@ -129,10 +129,10 @@ const ContentPremiosDepor = (props: Props) => {
       if (results.length === 0) {
         setIsVoted(true)
       } else {
+        resetRadio()
         setMessage('Usted ya votó.')
         setIsError(true)
       }
-      resetRadio()
     } else {
       document.location.href =
         '/signwall/?outputType=subscriptions&signwallOrganic=1'
