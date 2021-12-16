@@ -180,7 +180,7 @@
     text-align: center;
     height: 116px;
     @media (--only-mobile) {
-      height: 123px;
+      height: 160px;
     }
   }
   &__button {
@@ -304,6 +304,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 0 0 10px 10px;
 
     img {
       top: 0;
@@ -312,6 +313,8 @@
     }
     @media (--only-mobile) {
       width: 328px;
+      height: 156px;
+      margin-top: 44px;
     }
   }
   &__modal-button {

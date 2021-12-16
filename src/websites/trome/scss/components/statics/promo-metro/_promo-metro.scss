@@ -366,12 +366,27 @@ $font-color: #ee7325;
 
     &-image {
       width: 30px;
-      padding-left: 5px;
+      height: 19.7px;
+      margin-left: 5px;
       @media (--tablet) {
-        width: 40px;
+        width: 37px;
+        height: 24.3px;
       }
     }
-    &-price {
+    &-price-amount {
+      font-size: 16.5px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      color: $font-color;
+      @media (--tablet) {
+        font-size: 18px;
+      }
+      @media (--desktop) {
+        font-size: 17px;
+      }
+    }
+
+    &-price-percentage {
       font-size: 26px;
       font-weight: 550;
       color: $font-color;
@@ -379,6 +394,7 @@ $font-color: #ee7325;
         font-size: 28px;
       }
     }
+
     &-text {
       font-size: 6px;
       color: #2d2d2d;
