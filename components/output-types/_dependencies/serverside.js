@@ -13,8 +13,6 @@ export const getScriptAdPushup = arcSite => {
     idPushup = '42612'
   } else if (arcSite === 'gestion') {
     idPushup = '43082'
-  } else if (arcSite === 'diariocorreo') {
-    idPushup = '43066'
   } else if (arcSite === 'depor') {
     idPushup = '43081'
   }
@@ -31,7 +29,6 @@ export const getEnabledServerside = arcSite => {
     arcSite === 'elcomercio' || 
     arcSite === 'peru21' || 
     arcSite === 'gestion' || 
-    arcSite === 'diariocorreo' ||
     arcSite === 'depor'
   ) {
     epushud = true
