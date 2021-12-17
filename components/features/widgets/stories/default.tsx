@@ -1,9 +1,14 @@
 import { useContent } from 'fusion:content'
+import { useAppContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 import * as React from 'react'
 import { FC } from 'types/features'
 
 import StoryWidget from './_children/stories'
-import { stylesStoryWidget } from './_dependencies/styles'
+import {
+  stylesStoryWidget,
+  stylesStoryWidgetMobile,
+} from './_dependencies/styles'
 
 interface SPCStories {
   anchorTitle: string
@@ -29,14 +34,19 @@ interface SPCStories {
 }
 
 const WidgetStories: FC = () => {
+  const { arcSite } = useAppContext()
+
   const dataStories: SPCStories[] =
     useContent({
       source: 'get-spc-stories',
       query: {},
     }) || {}
 
+  const { siteName } = getProperties(arcSite)
+
   return (
     <div id="SPC_Anchor_Content">
+      <h1 className="stories-title">Stories {siteName}</h1>
       <div className="stories">
         {dataStories.map((story, index) => (
           <StoryWidget
@@ -53,6 +63,11 @@ const WidgetStories: FC = () => {
       <style
         dangerouslySetInnerHTML={{
           __html: stylesStoryWidget,
+        }}
+      />
+      <style
+        dangerouslySetInnerHTML={{
+          __html: stylesStoryWidgetMobile,
         }}
       />
     </div>
