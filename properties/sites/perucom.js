@@ -18,10 +18,10 @@ export default {
   fbAppId: '1390081201315241',
   googleTagManagerId: 'GTM-M9N5X45', // Google Tag Manager Prod
   googleTagManagerIdSandbox: 'GTM-M9N5X45', // Google Tag Manager Sandbox
-  ampGoogleTagManagerId: 'UA-22221683-1',
+  ampGoogleTagManagerId: 'UA-30255849-1',
   ampGoogleTagManagerName: 'correo',
   charbeatAccountNumber: 57773,
-  idGoogleAnalitics: 'UA-22221683-1',
+  idGoogleAnalitics: 'UA-30255849-1',
   fbArticleStyle: 'default',
   nameStoryRelated: 'VEA TAMBIÉN',
 
