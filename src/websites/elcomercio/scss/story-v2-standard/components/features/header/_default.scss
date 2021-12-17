@@ -39,12 +39,20 @@
     box-shadow: 0 2px 8px #00000029;
     border-radius: 8px;
     background-color: #fcec4f;
-    padding: 4px 8px 5px 9px;
-    font: 900 11px/1 $secondary-font;
-    color: #4b4b4b;
     text-transform: uppercase;
-    height: 25px;
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 87px;
+    height: 25px;
+    font: 900 11px/1 $secondary-font;
+    color: #4b4b4b;
+    @media (--desktop) {
+      box-shadow: 0 2px 8px #0000001f;
+      color: #665202;
+      font-size: 12px;
+      width: 104px;
+      height: 32px;
+    }
   }
 }
