@@ -20,7 +20,6 @@ const StoryTitleLite = () => {
     contextPath,
     globalContent: data,
     arcSite,
-    requestUri,
     metaValue,
   } = useFusionContext()
 
@@ -48,10 +47,6 @@ const StoryTitleLite = () => {
 
   return (
     <>
-      {arcSite === SITE_DEPOR &&
-      !(/^\/mexico\//.test(requestUri) || /^\/colombia\//.test(requestUri)) ? (
-        <div id="spc_post_stories" />
-      ) : null}
       {arcSite === SITE_DEPOR && (
         <h2 className={classes.category}>
           <a href={primarySectionLink}>{primarySection}</a>
