@@ -43,9 +43,7 @@ export const shareUrls = ({
   twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(
     title
   )}&url=${url}&via=${twitterUsername}`,
-  linkedin: `http://www.linkedin.com/shareArticle?url=${url}&title=${encodeURIComponent(
-    title
-  )}`,
+  linkedin: `http://www.linkedin.com/shareArticle?url=${url}`,
   pinterest: `https://pinterest.com/pin/create/button/?url=${url}`,
   whatsapp: `${
     appVersion ? 'whatsapp://' : 'https://web.whatsapp.com/'
