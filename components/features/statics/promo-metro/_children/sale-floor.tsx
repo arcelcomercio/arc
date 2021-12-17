@@ -79,8 +79,8 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
   arcSite,
   deployment,
 }) => {
-  const discountSplitX = discount.split('x')
-  const discountSplitDecimal = discountSplitX[0].split('.')
+  const [amount, itemsQuantity] = discount.split('x')
+  const [units, cents] = amount.split('.')
   return (
     <li className={classes.coupon}>
       <div className={`${classes.couponFirstColumn} ${image ? '' : 'fade'}`}>
@@ -95,13 +95,11 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
         {discountType === 'S/' ? (
           <div className={classes.couponAmountContainer}>
             <p className={classes.couponAmount}>
-              {discountSplitDecimal[0]}
-              <span>
-                {discountSplitDecimal[1] && `.${discountSplitDecimal[1]}`}
-              </span>
+              {units}
+              {cents ? <span>{`.${cents}`}</span> : null}
             </p>
-            {discountSplitX[1] && (
-              <p className={classes.quantity}>x{discountSplitX[1]}</p>
+            {itemsQuantity && (
+              <p className={classes.quantity}>x{itemsQuantity}</p>
             )}
           </div>
         ) : null}
