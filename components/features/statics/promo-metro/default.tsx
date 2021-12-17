@@ -9,21 +9,12 @@ import { getAssetsPath } from '../../../utilities/assets'
 import { isMobile } from '../../../utilities/client/navigator'
 import { isLoggedIn } from '../../../utilities/subscriptions/identity'
 import ECommerceCard from './_children/e-commerce'
+import Header from './_children/header'
 import SaleFloorCard from './_children/sale-floor'
 import PromoMetroShareButton from './_children/share-button'
 
 const classes = {
   base: 'metro w-full h-full mx-auto',
-  header: 'items-center flex metro-header position-relative',
-  headerContainer: 'metro-header-container w-full',
-  headerLogoMetro: 'metro-header-logometro',
-  headerSecondContainer:
-    'metro-header-second-container w-full justify-center flex',
-  headerSecondMiniContainer:
-    'metro-header-second-mini-container position-absolute justify-center flex w-full',
-  headerLogoClubTrome: 'metro-header-logoclubt',
-  headerMetroFamily: 'metro-header-family',
-  headerExclusiveDescounts: 'metro-header-exclusive',
   container: 'metro__container flex flex-col justify-center',
   loginContainer:
     'metro__login-container flex flex-col items-center text-center w-full mx-auto',
@@ -101,6 +92,12 @@ interface ProductsECommerce {
   legal: string
 }
 
+enum UserState {
+  Loading = 'loading',
+  LoggedIn = 'loggedIn',
+  LoggedOut = 'loggedOut',
+}
+
 /**
  * Componente pensado, por ahora, únicamente para Trome,
  * en el marco del acuerdo anual con Metro, desde diciembre del 2021.
@@ -113,13 +110,6 @@ interface ProductsECommerce {
  * en cierta marca. Por ahora se ha creado sólo esta hoja de estilos para Trome:
  * `src/websites/trome/scss/components/statics/promo-metro/promo-metro.scss
  */
-
-enum UserState {
-  Loading = 'loading',
-  LoggedIn = 'loggedIn',
-  LoggedOut = 'loggedOut',
-}
-
 const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
   const {
     couponsSaleFloorJson,
@@ -177,63 +167,12 @@ const StaticsPromoMetro: FC<StaticsPromoMetroProps> = ({ customFields }) => {
 
   return (
     <div className={classes.base}>
-      <header className={classes.header}>
-        <img
-          className="w-full position-absolute"
-          src={deployment(
-            '/pf/resources/dist/trome/images/productos-fondo.svg'
-          )}
-          alt="fondo productos"
-          loading="eager"
-        />
-        <img
-          className="w-full position-absolute"
-          src={deployment(
-            '/pf/resources/dist/trome/images/header-background-cuponera.png'
-          )}
-          alt="fondo puntitos"
-          loading="eager"
-        />
-        <div className={classes.headerContainer}>
-          <div className="items-start flex justify-between w-full position-relative">
-            <img
-              className={classes.headerLogoMetro}
-              src={logoMetro}
-              alt="logo metro"
-              loading="eager"
-            />
-
-            <img
-              className={classes.headerLogoClubTrome}
-              src={`${getAssetsPath(
-                arcSite,
-                contextPath
-              )}/resources/dist/${arcSite}/images/logo-club-trome.png?d=1`}
-              alt="logo club trome"
-              loading="eager"
-            />
-          </div>
-
-          <div className={classes.headerSecondContainer}>
-            <img
-              className={classes.headerMetroFamily}
-              src={deployment(
-                '/pf/resources/dist/trome/images/familia-trome.png'
-              )}
-              alt="familia Trome"
-              loading="eager"
-            />
-            <img
-              className={classes.headerExclusiveDescounts}
-              src={deployment(
-                '/pf/resources/dist/trome/images/mejores-ofertas-metro.png'
-              )}
-              alt="mejores ofertas"
-              loading="eager"
-            />
-          </div>
-        </div>
-      </header>
+      <Header
+        arcSite={arcSite}
+        contextPath={contextPath}
+        deployment={deployment}
+        logoMetro={logoMetro}
+      />
       <div className={classes.container}>
         {userState === UserState.LoggedOut ? (
           <div className={classes.loginContainer}>
