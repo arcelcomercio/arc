@@ -41,7 +41,7 @@ export const Google = (): JSX.Element => (
 )
 
 export const Facebook = (): JSX.Element => (
-  <svg width="28" height="28" style={styles.svg}>
+  <svg width="34" height="34" viewBox="0 0 28 28" style={styles.svg}>
     <path
       d="M24.23 0H3.77A3.77 3.77 0 0 0 0 3.77v20.46A3.77 3.77 0 0 0 3.77 28h10.1V18h-2.6a.61.61 0 0 1-.6-.62l-.02-3.22a.61.61 0 0 1 .62-.62h2.6v-3.11c0-3.62 2.2-5.59 5.43-5.59h2.64a.61.61 0 0 1 .62.61v2.72a.61.61 0 0 1-.62.62h-1.62c-1.76 0-2.1.83-2.1 2.05v2.7h3.86a.61.61 0 0 1 .6.69l-.37 3.22a.61.61 0 0 1-.61.55h-3.46l-.02 10h6A3.77 3.77 0 0 0 28 24.23V3.77A3.77 3.77 0 0 0 24.23 0z"
       fill="#fff"
