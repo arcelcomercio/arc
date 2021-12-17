@@ -113,7 +113,15 @@ content_elements {
       }
       block
       data { 
-        bg_color color html type title url url_logo url_mobile author_type text_type text name list gallery_id author img listTitle
+        bg_color color html type title url url_logo url_mobile author_type text_type text name list gallery_id author img listTitle topText
+        item {
+          author
+          img
+          number
+          text
+          title
+          topText
+        }
         stories {
           date description title url image {caption url}
         }
