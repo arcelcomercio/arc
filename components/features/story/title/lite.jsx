@@ -20,7 +20,6 @@ const StoryTitleLite = () => {
     contextPath,
     globalContent: data,
     arcSite,
-    requestUri,
     metaValue,
   } = useFusionContext()
 
@@ -48,10 +47,6 @@ const StoryTitleLite = () => {
 
   return (
     <>
-      {arcSite === SITE_DEPOR &&
-        !(/^\/mexico\//.test(requestUri) || /^\/colombia\//.test(requestUri)) ? (
-        <div id="spc_post_stories" />
-      ) : null}
       {arcSite === SITE_DEPOR && (
         <h2 className={classes.category}>
           <a href={primarySectionLink}>{primarySection}</a>
@@ -60,9 +55,7 @@ const StoryTitleLite = () => {
       <h1 itemProp="name" className={classes.title}>
         {title}
       </h1>
-      {items &&
-        type === 'list' &&
-        !isStoryV2StandarStyle ? (
+      {items && type === 'list' && !isStoryV2StandarStyle ? (
         <>
           <div style={styleList}>
             <ul className={classes.listClasses}>
@@ -83,17 +76,15 @@ const StoryTitleLite = () => {
           {!isStoryV2StandarStyle && (
             <PremiumTag isPremium={isPremium} arcSite={arcSite} />
           )}
-          {items &&
-            type === 'list' &&
-            isStoryV2StandarStyle && (
-              <ul className={classes.listClasses}>
-                {items.map(({ content }) => (
-                  <>
-                    <li dangerouslySetInnerHTML={{ __html: content }} />
-                  </>
-                ))}
-              </ul>
-            )}
+          {items && type === 'list' && isStoryV2StandarStyle && (
+            <ul className={classes.listClasses}>
+              {items.map(({ content }) => (
+                <>
+                  <li dangerouslySetInnerHTML={{ __html: content }} />
+                </>
+              ))}
+            </ul>
+          )}
           {(isStoryV2StandarStyle || isStoryV2VideoStyle) && (
             <ShareButtons renderScripts />
           )}
