@@ -66,9 +66,8 @@ const AuthGoogle = ({
         break
       case 'newsletter':
         if (btnSignwall) {
-          btnSignwall.textContent = `${resProfile.firstName || 'Bienvenido'}  ${
-            resProfile.lastName || ''
-          }`
+          btnSignwall.textContent = `${resProfile.firstName || 'Bienvenido'}  ${resProfile.lastName || ''
+            }`
         }
         onClose()
         setLoadingSocial(false)
@@ -132,13 +131,13 @@ const AuthGoogle = ({
                 name: 'dataTreatment',
                 value:
                   dataTreatment &&
-                  (arcSite === 'elcomercio' ||
-                    arcSite === 'gestion' ||
-                    arcSite === 'trome' ||
-                    arcSite === 'ojo' ||
-                    arcSite === 'diariocorreo' ||
-                    arcSite === 'peru21' ||
-                    arcSite === 'peru21g21')
+                    (arcSite === 'elcomercio' ||
+                      arcSite === 'gestion' ||
+                      arcSite === 'trome' ||
+                      arcSite === 'ojo' ||
+                      arcSite === 'diariocorreo' ||
+                      arcSite === 'peru21' ||
+                      arcSite === 'peru21g21')
                     ? dataTreatment
                     : 'NULL',
                 type: 'String',
@@ -240,10 +239,7 @@ const AuthGoogle = ({
       {loadingSocial && <Loading typeBg="full-transparent" />}
       <div
         id="buttonDiv"
-        style={{
-          margin: '0 auto 10px auto',
-          width: '240px',
-        }}
+        className={`signwall-inside_forms-btn-google${arcSite === 'trome' ? '-trome' : ''}`}
       />
     </>
   )
