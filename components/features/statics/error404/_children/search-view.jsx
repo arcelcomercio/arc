@@ -1,6 +1,7 @@
 import { useFusionContext } from 'fusion:context'
 import React, { useEffect, useState } from 'react'
 
+import { SITE_TROME } from '../../../../utilities/constants/sitenames'
 import CardMostRead from '../../../cards/most-read/default'
 import StoriesListPaginatedList from '../../../stories-lists/paginated-list/default'
 import SearchFilterChildSearchFilter from '../../../widgets/search-filter/_children/search-filter'
@@ -43,6 +44,45 @@ const SearchView = ({ customFields }) => {
     fetchQuery.from = from
   }
 
+  const renderResults = () => (
+    <>
+      {isSearchListLoading ? (
+        <SpinnerComponent />
+      ) : (
+        <div
+          role="main"
+          className={
+            arcSite !== SITE_TROME ? 'content-sidebar__left' : 'mt-20 mb-20'
+          }>
+          <StoriesListPaginatedList
+            isComponent
+            customGlobalContentConfig={{
+              query: fetchQuery,
+            }}
+            customGlobalContent={searchResponse}
+          />
+        </div>
+      )}
+      {arcSite !== SITE_TROME && (
+        <aside className="content-sidebar__right">
+          <div className="flex items-center flex-col justify-center w-full no-mobile no-row-2-mobile">
+            <div id="gpt_caja1" className="flex justify-center" />
+          </div>
+          <CardMostRead />
+          <div className="flex items-center flex-col justify-center w-full no-desktop no-row-2-mobile">
+            <div id="gpt_caja4" className="flex justify-center" />
+          </div>
+          <div className="flex items-center flex-col no-desktop pb-20">
+            <div id="gpt_caja2" className="flex justify-center" />
+          </div>
+          <div className="flex items-center flex-col justify-center w-full no-row-2-mobile">
+            <div id="gpt_vslider" className="flex justify-center" />
+          </div>
+        </aside>
+      )}
+    </>
+  )
+
   useEffect(() => {
     if (/^\/buscar\//.test(requestUri)) {
       setIsSearchPath(true)
@@ -71,6 +111,12 @@ const SearchView = ({ customFields }) => {
   if (isLoading) {
     return <SpinnerComponent />
   }
+
+  const titleAlign =
+    arcSite !== SITE_TROME
+      ? 'text-left'
+      : 'text-center custom-title__page-search'
+
   return isSearchPath ? (
     <div>
       <SearchFilterChildSearchFilter
@@ -84,43 +130,20 @@ const SearchView = ({ customFields }) => {
       {isSearchListLoading ? null : (
         <h1
           itemProp="name"
-          className="w-full pt-10 mt-20 custom-title text-left medium pb-10">
+          className={`w-full pt-10 mt-20 custom-title ${titleAlign} medium pb-10`}>
           SE ENCONTRARON {searchResponse?.count || 0} RESULTADOS PARA:{' '}
           {decodeURIComponent(query || '')
             .replace(/\+/g, ' ')
             .toUpperCase()}
         </h1>
       )}
-      <div className="content-sidebar flex mt-20 mb-20">
-        {isSearchListLoading ? (
-          <SpinnerComponent />
-        ) : (
-          <div role="main" className="content-sidebar__left">
-            <StoriesListPaginatedList
-              isComponent
-              customGlobalContentConfig={{
-                query: fetchQuery,
-              }}
-              customGlobalContent={searchResponse}
-            />
-          </div>
-        )}
-        <aside className="content-sidebar__right">
-          <div className="flex items-center flex-col justify-center w-full no-mobile no-row-2-mobile">
-            <div id="gpt_caja1" className="flex justify-center" />
-          </div>
-          <CardMostRead />
-          <div className="flex items-center flex-col justify-center w-full no-desktop no-row-2-mobile">
-            <div id="gpt_caja4" className="flex justify-center" />
-          </div>
-          <div className="flex items-center flex-col no-desktop pb-20">
-            <div id="gpt_caja2" className="flex justify-center" />
-          </div>
-          <div className="flex items-center flex-col justify-center w-full no-row-2-mobile">
-            <div id="gpt_vslider" className="flex justify-center" />
-          </div>
-        </aside>
-      </div>
+      {arcSite !== SITE_TROME ? (
+        <div className="content-sidebar flex mt-20 mb-20">
+          {renderResults()}
+        </div>
+      ) : (
+        renderResults()
+      )}
     </div>
   ) : (
     <ErrorView customFields={customFields} />

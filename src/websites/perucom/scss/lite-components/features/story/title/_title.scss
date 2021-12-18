@@ -1,6 +1,6 @@
 .sht {
   &__title {
-    font: 700 24px/1.166 $primary-font;
+    font: 700 24px/1.166 $fourth-font;
     padding: 0 20px 20px 20px;
     color: #333;
     @media (--tablet) {
@@ -10,10 +10,9 @@
   }
 
   &__summary {
-    font: 400 16px/1.33 $primary-font;
+    font: 400 16px/1.33 $fifth-font;
     padding: 0 20px 20px 20px;
     color: $color-black;
-    font-family: $secondary-font;
   }
 
   &__list {
