@@ -317,7 +317,11 @@
     }
   }
   .ranking {
-    margin: 20px 0;
+    margin: 20px auto;
+    max-width: 344px;
+    @media (--desktop) {
+      max-width: 543px;
+    }
     &__top-text {
       color: #B39004;
       font: 900 18px/24px $secondary-font;
@@ -335,6 +339,9 @@
         background-color: #ffcb05;
         border-radius: 50%;
         margin-right: 16px;
+        @media (--desktop) {
+          background-color: #F7CD46;
+        }
       }
     }
     &__title {
@@ -359,7 +366,7 @@
     &__number {
       width: 62px;
       height: 62px;
-      font: 700 20px/18px $primary-font;
+      font: 700 20px/18px "Libre Franklin", sans-serif;
       letter-spacing: -0.4px;
       color: #333;
       background-color: #FFCB05;
@@ -387,6 +394,9 @@
     }
     .mrg {
       margin-bottom: 20px;
+    }
+    .pquote__author, .pquote__author-text {
+      color: #B39004;
     }
   }
   &__social {
