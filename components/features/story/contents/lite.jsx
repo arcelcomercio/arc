@@ -557,6 +557,10 @@ const StoryContentsLite = (props) => {
                     return (
                       <StoryContentsChildLinkList items={items} title={title} />
                     )
+                  if (isStoryV2StandarStyle)
+                    return (
+                      <StoryContentsChildLinkList items={items} title={title} v2={isStoryV2StandarStyle} />
+                    )
                   return <StoryContentsChildLinkList items={items} />
                 }
 
