@@ -6,7 +6,7 @@
       "discount": "S/ 69.90 x2",
       "additional": false,
       "discountType": "S/",
-      "title": "En Vinos Casillero Del Diablo, Trivento Reserva Y/O Santa Julia Varietal",
+      "title": "En Vinos Casillero Del Diablo, Trivento Reserva y/o Santa Julia Varietal",
       "cencosud": null,
       "bonus": null,
       "restrictions": []
@@ -19,7 +19,7 @@
       "discountType": "S/",
       "title": "Panetón Caja X900 Gr Cuisine & Co",
       "cencosud": {
-        "code": "2400029562448",
+        "code": "2400029563148",
         "price": "18.90",
         "discountType": "S/"
       },
@@ -29,10 +29,10 @@
     {
       "code": "2400029562431",
       "image": "/pf/resources/dist/trome/images/detergente-leche.jpg",
-      "discount": "S/ 39 + S/6.90",
+      "discount": "S/ 6.90",
       "additional": false,
       "discountType": "S/",
-      "title": "Por la compra de S/.39 en Ariel, Ace o Magia Blanca + S/6.90 lleva sixpack de Leche Gloria",
+      "title": "Por la compra de S/.39 en Ariel, Ace o Magia Blanca llévate un sixpack de Leche Gloria",
       "cencosud": null,
       "bonus": null,
       "restrictions": []
@@ -43,7 +43,7 @@
       "discount": "S/ 4.90",
       "additional": false,
       "discountType": "S/",
-      "title": "Champiñones Enteros X 200 Gr Metro",
+      "title": "Champiñones Enteros X200 Gr Metro",
       "cencosud": null,
       "bonus": null,
       "restrictions": []
@@ -76,7 +76,7 @@
       "discount": "10",
       "additional": false,
       "discountType": "%",
-      "title": "En Colchones, Camas Y Dormitorios",
+      "title": "En Colchones, Camas y Dormitorios",
       "cencosud": null,
       "bonus": null,
       "restrictions": []
