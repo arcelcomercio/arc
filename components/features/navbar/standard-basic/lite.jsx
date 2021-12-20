@@ -33,12 +33,12 @@ const LayoutNavbar = (props) => {
       hideMenu
         ? {}
         : {
-            source: 'navigation-by-hierarchy',
-            query: {
-              hierarchy: 'menu-default',
-            },
-            filter: schemaFilter,
-          }
+          source: 'navigation-by-hierarchy',
+          query: {
+            hierarchy: 'menu-default',
+          },
+          filter: schemaFilter,
+        }
     ) || []
 
   const getReourceImgPath = (img) =>
@@ -53,6 +53,7 @@ const LayoutNavbar = (props) => {
     elbocon: getReourceImgPath('logo.png'),
     ojo: getReourceImgPath('logo.png'),
     diariocorreo: getReourceImgPath('logo.png'),
+    perucom: getReourceImgPath('logo.png')
   }
 
   const secondaryLogos = {

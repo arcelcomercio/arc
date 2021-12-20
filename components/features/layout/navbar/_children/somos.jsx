@@ -1,8 +1,8 @@
 import * as React from 'react'
 
+import Button from '../../../../global-components/button'
 import searchQuery from '../../../../utilities/client/search'
 import SignwallComponent from '../../../signwall/main/default'
-import Button from '../../../../global-components/button'
 
 class HeaderChildSomos extends React.PureComponent {
   constructor(props) {
@@ -93,7 +93,7 @@ class HeaderChildSomos extends React.PureComponent {
       </>
     )
 
-    const _handleHide = () => {
+    const handleHide1 = () => {
       switch (device) {
         case 'desktop':
           return deviceList.showInDesktop
@@ -109,7 +109,7 @@ class HeaderChildSomos extends React.PureComponent {
       }
     }
     return (
-      _handleHide() && (
+      handleHide1() && (
         <header className="navbar-somos bg-black flex items-center justify-between pt-0 pb-0 pr-10 pl-10">
           <a itemProp="url" href={link} className="h-full flex items-center">
             <i className="icon-back navbar-somos__icon font-bold text-white" />
