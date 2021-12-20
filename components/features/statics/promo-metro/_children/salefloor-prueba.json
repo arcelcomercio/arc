@@ -2,7 +2,7 @@
   "products": [
     {
       "code": "2400029562424",
-      "image": "/pf/resources/dist/trome/images/canasta.jpg",
+      "image": "/pf/resources/dist/trome/images/vino.jpg",
       "discount": "S/ 69.90 x2",
       "additional": false,
       "discountType": "S/",
@@ -13,7 +13,7 @@
     },
     {
       "code": "2400029562448",
-      "image": "/pf/resources/dist/trome/images/espumante.jpg",
+      "image": "/pf/resources/dist/trome/images/paneton.jpg",
       "discount": "S/ 19.50",
       "additional": false,
       "discountType": "S/",
@@ -28,7 +28,7 @@
     },
     {
       "code": "2400029562431",
-      "image": "/pf/resources/dist/trome/images/galletas.jpg",
+      "image": "/pf/resources/dist/trome/images/detergente-leche.jpg",
       "discount": "S/ 39 + S/6.90",
       "additional": false,
       "discountType": "S/",
@@ -39,7 +39,7 @@
     },
     {
       "code": "2400029562455",
-      "image": "/pf/resources/dist/trome/images/pescado.jpg",
+      "image": "/pf/resources/dist/trome/images/champinones.jpg",
       "discount": "S/ 4.90",
       "additional": false,
       "discountType": "S/",
@@ -61,7 +61,7 @@
     },
     {
       "code": "2400029562479",
-      "image": "/pf/resources/dist/trome/images/nuggets.jpg",
+      "image": "/pf/resources/dist/trome/images/pizza.jpg",
       "discount": "30",
       "additional": false,
       "discountType": "%",
@@ -94,7 +94,7 @@
     },
     {
       "code": "2400029562509",
-      "image": "/pf/resources/dist/trome/images/juguetes.jpg",
+      "image": "/pf/resources/dist/trome/images/munecas.jpg",
       "discount": "20",
       "additional": false,
       "discountType": "%",
