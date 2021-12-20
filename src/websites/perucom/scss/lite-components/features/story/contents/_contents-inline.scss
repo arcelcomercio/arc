@@ -2,7 +2,7 @@
   padding: 10px 20px 20px 20px;
   margin-bottom: 25px;
   &__blockquote {
-    font: 400 18px/1.33 $tertiary-font;
+    font: 400 18px/1.33 $fifth-font;
     padding: 20px 20px 20px 36px;
     margin: 40px 0 40px 15px;
   }
@@ -11,10 +11,10 @@
     padding: 8px 0 7px 0;
   }
   &__font-paragraph {
-    font: 400 16px/26px $secondary-font;
+    font: 400 16px/26px $fifth-font;
     padding: 10px 0;
     @media (--desktop) {
-      font: 400 18px/28px $secondary-font;
+      font: 400 18px/28px $fifth-font;
     }
   }
   & li {
@@ -23,7 +23,7 @@
     font-size: 16.9px;
   }
   &__caption {
-    font-family: $fourth-font;
+    font-family: $fifth-font;
     padding: 10px 0;
     margin-bottom: 10px;
     font-size: 12px;

@@ -5,24 +5,42 @@ document.addEventListener('DOMContentLoaded', () => {
       window.localStorage.getItem('ArcId.USER_PROFILE')
     )
     const { firstName = '', uuid = '' } = localProfile || {}
-    const anonymusSuscribe = document.getElementById('anonymus-suscribe')
-    const registerSuscribe = document.getElementById('register-suscribe')
-    const helloRegisterSuscribe = document.getElementById('suscriber-user')
+    const registerBtn = document.getElementById('btn-register-id')
+    const anonymusSuscribe = document.getElementById('<<anonymusId>>')
+    const registerSuscribe = document.getElementById('<<registerId>>')
+    const welcomeMsgSuscribe = document.getElementById('<<welcomeMsgId>>')
     if (uuid) {
-      anonymusSuscribe.style.display = 'none'
-      registerSuscribe.style.display = 'block'
+      anonymusSuscribe.classList.remove('block')
+      anonymusSuscribe.classList.add('hidden')
+      registerSuscribe.classList.remove('hidden')
+      registerSuscribe.classList.add('block')
 
-      if (!firstName) {
-        helloRegisterSuscribe.innerHTML = '¡Hola!'
+      if (!firstName || /undefined|null/.test(firstName)) {
+        welcomeMsgSuscribe.innerHTML = '¡Hola!'
       } else {
-        helloRegisterSuscribe.innerHTML = `¡Hola ${firstName}! `
+        const separador = firstName.split(' ')
+        const firstNameSplit = separador[0]
+        if (firstNameSplit.length > 15) {
+          const shortName = firstNameSplit.substring(0, 15)
+          welcomeMsgSuscribe.innerHTML = `¡Hola ${shortName}!`
+        } else {
+          welcomeMsgSuscribe.innerHTML = `¡Hola ${firstNameSplit}!`
+        }
       }
     } else {
-      anonymusSuscribe.style.display = 'block'
-      registerSuscribe.style.display = 'none'
+      registerBtn?.addEventListener('click', () => {
+        window.location.href = '/signwall/?outputType=subscriptions&banner=1'
+      })
     }
   })
 })
 */
-export const handleUserStatus = (): string =>
-  `"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},t=e.firstName,n=void 0===t?"":t,s=e.uuid,d=void 0===s?"":s,o=document.getElementById("anonymus-suscribe"),i=document.getElementById("register-suscribe"),l=document.getElementById("suscriber-user");d?(o.style.display="none",i.style.display="block",l.innerHTML=n?"¡Hola ".concat(n,"! "):"¡Hola!"):(o.style.display="block",i.style.display="none")})});`
+export const handleUserStatus = (
+  contAnonymus: string,
+  contRegister: string,
+  welcomeMsg: string
+): string =>
+  `"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},n=e.firstName,t=void 0===n?"":n,d=e.uuid,i=void 0===d?"":d,o=document.getElementById("btn-register-id"),n=document.getElementById("<<anonymusId>>"),e=document.getElementById("<<registerId>>"),d=document.getElementById("<<welcomeMsgId>>");i?(n.classList.remove("block"),n.classList.add("hidden"),e.classList.remove("hidden"),e.classList.add("block"),!t||/undefined|null/.test(t)?d.innerHTML="¡Hola!":15<(e=t.split(" ")[0]).length?(t=e.substring(0,15),d.innerHTML="¡Hola ".concat(t,"!")):d.innerHTML="¡Hola ".concat(e,"!")):null!=o&&o.addEventListener("click",function(){window.location.href="/signwall/?outputType=subscriptions&banner=1"})})});`
+    .replace('<<anonymusId>>', contAnonymus)
+    .replace('<<registerId>>', contRegister)
+    .replace('<<welcomeMsgId>>', welcomeMsg)

@@ -1,3 +1,4 @@
+import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { nlToBrTag } from '../../../../utilities/helpers'
@@ -20,10 +21,17 @@ const Correction: React.FC<{
     }`,
   }
 
+  const { metaValue } = useAppContext()
+  const isStoryV2StandarStyle =
+    metaValue('section_style') === 'story-v2-standard'
+
+  const correctionText = isStoryV2StandarStyle ? 'CORRECCIONES' : 'Corrección: '
+  const defaultText = isStoryV2StandarStyle ? 'ACLARACIONES' : 'Aclaración: '
+
   return (
     <div className={classes.correction}>
       <span className={classes.title}>
-        {type === CORRECTION_TYPE_CORRECTION ? 'Corrección: ' : 'Aclaración: '}
+        {type === CORRECTION_TYPE_CORRECTION ? correctionText : defaultText}
       </span>
       {nlToBrTag(content)}
     </div>

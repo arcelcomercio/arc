@@ -1,0 +1,338 @@
+.content-premios-depor {
+  background-color: #f2f2f2;
+
+  &__form {
+    display: block;
+    text-align: center;
+    width: 360px;
+
+    @media (min-width: 730px) and (max-width: 1008px) {
+      width: 688px;
+    }
+    @media (--desktop) {
+      width: 1032px;
+    }
+  }
+  &__container-title {
+    text-align: center;
+    margin: auto;
+    width: 920px;
+
+    @media (--tablet) {
+      width: 640px;
+    }
+    @media (--desktop) {
+      width: 920px;
+    }
+    @media (max-width: 700px) {
+      width: 296px;
+    }
+
+    p {
+      color: #666;
+      font-family: $primary-font;
+      font-size: 24px;
+      font-weight: $regular;
+      letter-spacing: -0.38px;
+      margin: 0;
+
+      @media (--desktop) {
+        width: 640px;
+        margin: auto;
+      }
+      @media (--only-mobile) {
+        font-size: 18px;
+      }
+    }
+  }
+  &__title {
+    color: #222;
+    font-family: $secondary-font;
+    font-size: 32px;
+    font-weight: $semi-bold;
+    padding: 48px 0 16px;
+    letter-spacing: -0.58px;
+    margin: 0;
+
+    @media (--only-mobile) {
+      padding-top: 32px;
+      font-size: 30px;
+    }
+  }
+  &__instructions {
+    background: #9a40d6a3;
+    border: 1px solid #42c64c;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: $bold;
+    font-family: $primary-font;
+    text-align: left;
+    padding: 23px 32px 18px;
+    margin-top: 24px;
+    margin-bottom: 32px;
+
+    @media (--desktop) {
+      width: 706px;
+      margin: auto;
+      margin-top: 24px;
+      margin-bottom: 32px;
+    }
+    @media (--only-mobile) {
+      font-size: 14px;
+    }
+  }
+  &__wrapper-cards {
+    display: flex;
+    justify-content: center;
+  }
+  &__card {
+    width: 320px;
+    height: 334px;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px #00000029;
+    display: inline-block;
+
+    @media (--tablet) {
+      margin: 26px 12px;
+    }
+    @media (--only-mobile) {
+      margin: 26px 12px;
+
+      &:last-child {
+        margin: 0;
+        margin-top: 26px;
+      }
+    }
+  }
+  &__card-head {
+    background-color: #252525;
+    padding: 13px;
+    border-radius: 10px 10px 0 0;
+    position: relative;
+
+    h3 {
+      color: #fee58e;
+      text-align: center;
+      font-size: 15px;
+      font-weight: $bold;
+      font-family: $primary-font;
+      margin: 0;
+    }
+  }
+  &__image {
+    position: absolute;
+    height: 72px;
+    width: 72px;
+    left: 0;
+    top: -28px;
+  }
+  &__card-body {
+    background-color: #fff;
+    border-radius: 0 0 10px 10px;
+  }
+  &__list {
+    list-style: none;
+    margin: 0;
+    display: grid;
+    gap: 12px;
+    padding: 16px;
+
+    label {
+      cursor: pointer;
+    }
+  }
+  &__item {
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: flex;
+    color: #999;
+    font-family: $primary-font;
+    font-size: 17px;
+    font-weight: $bold;
+    margin: 0;
+    height: 40px;
+    justify-content: center;
+    letter-spacing: 0.17px;
+    text-align: center;
+    width: 288px;
+
+    span {
+      font-weight: $medium;
+      font-size: 15px;
+      padding-left: 5px;
+      letter-spacing: 0.15px;
+    }
+  }
+  &__item-arrow {
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
+  &__item-arrow:checked {
+    ~ .content-premios-depor__item {
+      background: #42c64c;
+      color: #fff;
+    }
+  }
+  &__container-button {
+    width: 100%;
+    text-align: center;
+    height: 116px;
+    @media (--only-mobile) {
+      height: 123px;
+    }
+  }
+  &__button {
+    background-color: #63298a;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 19px;
+    font-family: $primary-font;
+    font-weight: 700;
+    height: 52px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    width: 360px;
+
+    @media (--only-mobile) {
+      width: 320px;
+      margin-top: 32px;
+    }
+  }
+  &__error {
+    font-family: $primary-font;
+    color: #ff3b30;
+    font-size: 14px;
+    letter-spacing: 0.14px;
+    margin: auto;
+    width: 386px;
+
+    @media (--only-mobile) {
+      width: 180px;
+      font-size: 13px;
+      font-weight: $regular;
+    }
+  }
+
+  &__modal {
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    overflow: auto;
+    width: 100%;
+  }
+  &__logo {
+    width: 64px;
+    margin-top: 20px;
+    margin-left: 20px;
+
+    @media (--only-mobile) {
+      margin: 24px 132px 0;
+    }
+  }
+  &__wrapper-modal {
+    height: 511px;
+    width: 480px;
+    background: transparent linear-gradient(137deg, #000 0%, #63298a 100%) 0% 0%
+      no-repeat padding-box;
+    box-shadow: 0 3px 6px #00000029;
+    border: 1px solid #bfd02c;
+    border-radius: 10px;
+    p {
+      text-align: center;
+      font-family: $primary-font;
+      font-weight: $regular;
+      letter-spacing: 0;
+      color: #ccc;
+      opacity: 1;
+      font-size: 22px;
+      margin: 32px 79px 40px;
+
+      @media (--only-mobile) {
+        font-size: 20px;
+        margin: 24px 20px;
+      }
+    }
+    @media (--only-mobile) {
+      height: 459px;
+      width: 328px;
+    }
+  }
+  &__modal-title {
+    padding-top: 11px;
+    text-align: center;
+    font-family: $secondary-font;
+    font-weight: $semi-bold;
+    letter-spacing: -0.51px;
+    color: #fff;
+    opacity: 1;
+    margin: 0;
+    font-size: 32px;
+    @media (--only-mobile) {
+      font-size: 28px;
+      padding-top: 15px;
+    }
+  }
+  &__play {
+    text-align: center;
+    font-family: $secondary-font;
+    font-weight: $bold;
+    letter-spacing: -1.02px;
+    color: #bfd02c;
+    opacity: 1;
+    font-size: 64px;
+    margin: 0;
+    @media (--only-mobile) {
+      font-size: 48px;
+    }
+  }
+  &__wrapper-img {
+    width: 480px;
+    height: 160px;
+    margin-top: 51px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 0 10px 10px;
+
+    img {
+      top: 0;
+      position: absolute;
+      width: 530px;
+    }
+    @media (--only-mobile) {
+      width: 328px;
+      height: 156px;
+      margin-top: 44px;
+    }
+  }
+  &__modal-button {
+    border: 1px solid #333;
+    border-radius: 6px;
+    opacity: 1;
+    text-align: center;
+    font-family: $primary-font;
+    font-weight: $bold;
+    letter-spacing: 0.32px;
+    color: #333;
+    width: 140px;
+    height: 42px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -50px;
+    text-decoration: none;
+  }
+}
