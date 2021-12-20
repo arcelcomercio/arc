@@ -36,6 +36,7 @@ const uri = 'https://cdna.depor.com/resources/dist/depor/premios-depor'
 interface Props {
   customFields?: {
     serviceEndPoint?: string
+    isRankingTrome?: boolean
   }
 }
 interface UserProfile {
@@ -346,6 +347,9 @@ ContentPremiosDepor.propTypes = {
       name: 'URL del servicio',
       description:
         'Por defecto la URL es http://pre.md.minoticia.pe/portal_apis/premios-depor/',
+    }),
+    isRankingTrome: PropTypes.bool.tag({
+      name: 'Activar tipo Ranking trome',
     }),
   }),
 }

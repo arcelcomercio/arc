@@ -17,6 +17,10 @@ if (typeof window !== 'undefined')
     window.navigator.userAgent
   )
 
+const pathD = "https://cdna.depor.com/resources/dist/depor/premios-depor/green_lines.svg"
+// const pathT = "https://cdna.depor.com/resources/dist/depor/premios-depor/Lines_Orange.svg"
+
+
 const Terms = () => (
   <div className={classes.box}>
     <div className={classes.green} />
@@ -77,7 +81,7 @@ const Terms = () => (
         <div className={classes.linesMob} />
       ) : (
         <img
-          src="https://cdna.depor.com/resources/dist/depor/premios-depor/green_lines.svg"
+          src={pathD}
           className={classes.lines}
           alt="green lines"
         />
