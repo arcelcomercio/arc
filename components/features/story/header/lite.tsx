@@ -10,10 +10,13 @@ import Headband from './_children/headband'
 import Headsubscription from './_children/headsubscription'
 import Multimedia from './_children/multimedia'
 import Title from './_children/title'
+import Videoband from './_children/videoband'
 
 const classes = {
   container: 'story-header',
   box: 'story-header__box',
+  boxMultimedia: 'story-header__box-multimedia',
+  shadown: 'story-header__shadown',
 }
 const StoryHeader: FC = (props) => {
   const {
@@ -59,6 +62,29 @@ const StoryHeader: FC = (props) => {
     </>
   )
 
+  const EspecialA = () => (
+    <>
+      <div className={classes.boxMultimedia}>
+        <div className={classes.shadown} />
+        <div className={classes.box}>
+          <Headsubscription />
+          <Headband tag={headbandTag} text={headband || section} />
+          <Title text={title} />
+          <Videoband />
+        </div>
+        <Multimedia
+          width="1366"
+          heigth="768"
+          caption={multimediaCaption}
+          // credit="creditos"
+          src={multimedia}
+        />
+      </div>
+      <Description text={subTitle} linktext={linktext} link={link} />
+      <ShareButtons />
+    </>
+  )
+
   const EspecialB = () => (
     <>
       <Headsubscription />
@@ -82,6 +108,9 @@ const StoryHeader: FC = (props) => {
     if (type === 'liveblognews') {
       return <LiveblogNews />
     }
+    if (type === 'especiala') {
+      return <EspecialA />
+    }
     if (type === 'especialb') {
       return <EspecialB />
     }
@@ -97,14 +126,17 @@ const StoryHeader: FC = (props) => {
 
 StoryHeader.propTypes = {
   customFields: PropTypes.shape({
-    headerType: PropTypes.oneOf(['liveblognews', 'especialb']).tag({
-      name: 'Tipo de header',
-      labels: {
-        liveblognews: 'Liveblog News',
-        especialb: 'Especial B',
-      },
-      defaultValue: 'liveblognews',
-    }),
+    headerType: PropTypes.oneOf(['liveblognews', 'especiala', 'especialb']).tag(
+      {
+        name: 'Tipo de header',
+        labels: {
+          liveblognews: 'Liveblog News',
+          especiala: 'Especial A',
+          especialb: 'Especial B',
+        },
+        defaultValue: 'liveblognews',
+      }
+    ),
     headbandTag: PropTypes.string.tag({
       name: 'Tag de cintillo',
     }),
