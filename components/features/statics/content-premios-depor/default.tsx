@@ -133,9 +133,6 @@ const ContentPremiosDepor = (props: Props) => {
         setMessage('Usted ya votó.')
         setIsError(true)
       }
-    } else {
-      document.location.href =
-        '/signwall/?outputType=subscriptions&signwallOrganic=1'
     }
   }
 
