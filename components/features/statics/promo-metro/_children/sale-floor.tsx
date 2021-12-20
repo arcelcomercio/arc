@@ -17,6 +17,8 @@ const classes = {
   codeCencosud: 'coupon-cencosud-code',
   imageCencosud: 'coupon-cencosud-image',
   priceCencosud: 'coupon-cencosud-price',
+  priceAmountCencosud: 'coupon-cencosud-price-amount',
+  pricePercentageCencosud: 'coupon-cencosud-price-percentage',
   percentageCencosud: 'coupon-cencosud-percentage',
   couponDsctoCencosud: 'coupon-cencosud-discount',
   textCencosud: 'coupon-cencosud-text',
@@ -41,6 +43,7 @@ enum DiscountType {
 interface Cencosud {
   code: string
   price: string
+  discountType: DiscountType
 }
 interface Bonus {
   price: string
@@ -76,8 +79,8 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
   arcSite,
   deployment,
 }) => {
-  const discountSplitX = discount.split('x')
-  const discountSplitDecimal = discountSplitX[0].split('.')
+  const [amount, itemsQuantity] = discount.split('x')
+  const [units, cents] = amount.split('.')
   return (
     <li className={classes.coupon}>
       <div className={`${classes.couponFirstColumn} ${image ? '' : 'fade'}`}>
@@ -92,13 +95,11 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
         {discountType === 'S/' ? (
           <div className={classes.couponAmountContainer}>
             <p className={classes.couponAmount}>
-              {discountSplitDecimal[0]}
-              <span>
-                {discountSplitDecimal[1] && `.${discountSplitDecimal[1]}`}
-              </span>
+              {units}
+              {cents ? <span>{`.${cents}`}</span> : null}
             </p>
-            {discountSplitX[1] && (
-              <p className={classes.quantity}>x{discountSplitX[1]}</p>
+            {itemsQuantity && (
+              <p className={classes.quantity}>x{itemsQuantity}</p>
             )}
           </div>
         ) : null}
@@ -133,11 +134,22 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
           {cencosud && (
             <div className="flex flex-col">
               <div className="flex items-end">
-                <p className={classes.priceCencosud}>{cencosud.price}</p>
-                <div className="flex flex-col">
-                  <p className={classes.percentageCencosud}>%</p>
-                  <p className={classes.couponDsctoCencosud}>DSCTO</p>
-                </div>
+                {cencosud.discountType === 'S/' ? (
+                  <p className={classes.priceAmountCencosud}>
+                    S/{cencosud.price}
+                  </p>
+                ) : null}
+                {cencosud.discountType === '%' ? (
+                  <>
+                    <p className={classes.pricePercentageCencosud}>
+                      {cencosud.price}
+                    </p>
+                    <div className="flex flex-col">
+                      <p className={classes.percentageCencosud}>%</p>
+                      <p className={classes.couponDsctoCencosud}>DSCTO</p>
+                    </div>
+                  </>
+                ) : null}
                 <img
                   className={classes.imageCencosud}
                   src={`${getAssetsPath(
