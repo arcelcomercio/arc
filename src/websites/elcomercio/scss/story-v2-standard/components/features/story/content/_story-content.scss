@@ -366,7 +366,8 @@
     &__number {
       width: 62px;
       height: 62px;
-      font: 700 20px/18px "Libre Franklin", sans-serif;
+      //font: 700 20px/18px "Libre Franklin", sans-serif;
+      font: 700 20px/18px $primary-font;
       letter-spacing: -0.4px;
       color: #333;
       background-color: #FFCB05;
