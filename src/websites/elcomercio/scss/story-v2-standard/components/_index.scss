@@ -6,7 +6,7 @@
 @import "./layouts/story-sidebar";
 
 @import "./features/story/content/story-content";
-@import "./features/header/inverted";
+// @import "./features/header/inverted";
 @import "./features/story/title";
 @import "./features/story/social";
 @import "./global-components/lite/share-buttons-v2";
@@ -17,4 +17,6 @@
 @import "./features/cards/most-read/most-read";
 @import "./features/story/tags/st-tags";
 @import "./features/statics/info-pages";
-@import "./features/story/header/header";
+@import "./features/story/header/header"; // TODO: Esta hoja de estilos a que componente pertenece?
+@import "./features/header/default";
+@import "./features/navbar/default";

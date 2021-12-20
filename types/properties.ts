@@ -176,4 +176,9 @@ export interface SiteProperties {
   archiveLimit: string
   jwplayers: Jwplayers
   jwplayersMatching: JwplayersMatching
+  legalLinks: {
+    name: string
+    url: string
+    external: boolean
+  }[]
 }
