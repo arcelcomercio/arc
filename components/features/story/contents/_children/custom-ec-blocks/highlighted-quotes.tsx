@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import Image from '../../../../global-components/image'
+import Image from '../../../../../global-components/image'
 
 const classes = {
   blockquote: 'pquote',
