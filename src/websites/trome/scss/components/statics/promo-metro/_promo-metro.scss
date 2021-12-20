@@ -80,6 +80,7 @@ $font-color: #ee7325;
     padding: 20px;
     @media (--desktop) {
       padding: 40px;
+      padding-top: 10px;
     }
   }
 
@@ -105,6 +106,7 @@ $font-color: #ee7325;
 
       @media (--desktop) {
         padding: 40px;
+        padding-bottom: 15px;
       }
     }
 
@@ -132,6 +134,7 @@ $font-color: #ee7325;
         min-height: 120px;
       }
       @media (--desktop) {
+        margin-top: -60px;
         min-height: 150px;
       }
     }
@@ -167,6 +170,7 @@ $font-color: #ee7325;
   &__login-container {
     max-width: 480px;
     padding: 10vh 30px 0;
+    z-index: 1;
 
     @media (--tablet) {
       max-width: 520px;
@@ -245,6 +249,7 @@ $font-color: #ee7325;
   min-height: min-content;
   padding: 10px;
   width: 100%;
+  z-index: 1;
 
   &-first-column-sf {
     width: 50%;
@@ -272,14 +277,6 @@ $font-color: #ee7325;
     border-left: 2px #fee6cd solid;
     padding: 10px 0 10px 3%;
   }
-
-  // &-separator {
-  //   width: 1%;
-  //   border-left: 1px #fee6cd solid;
-  //   margin: 10% 0 10%;
-  //   display: flex;
-  //   height: 100%;
-  // }
 
   &-image {
     width: 90%;
