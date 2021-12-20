@@ -8,6 +8,11 @@
   &__list-title {
     font-family: $tertiary-font;
   }
+  &__new-design-title{
+    background: red;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
   &__content-column {
     li {
       font-family: $tertiary-font;

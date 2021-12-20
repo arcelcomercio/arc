@@ -42,4 +42,27 @@ import './fonts/Roboto-Black.woff'
 import './fonts/Ultra.woff'
 import './fonts/MorganBig-Italic.woff'
 
+/** Promo Metro */
+import './images/metro/productos-fondo.svg'
+import './images/metro/header-background-cuponera.png'
+import './images/metro/mejores-ofertas-metro.png'
+import './images/metro/familia-trome.png'
+
+import './images/metro/colchones.jpg'
+import './images/metro/pollo.jpg'
+import './images/metro/ropa.jpg'
+import './images/metro/canasta.jpg'
+import './images/metro/pescado.jpg'
+import './images/metro/juguetes.jpg'
+import './images/metro/espumante.jpg'
+import './images/metro/nuggets.jpg'
+import './images/metro/galletas.jpg'
+
+import './fonts/Montserrat-SemiBold.woff'
+// import './fonts/Montserrat-SemiBold.woff2'
+import './fonts/Montserrat-Bold.woff'
+// import './fonts/Montserrat-Bold.woff2'
+import './fonts/Montserrat-Regular.woff'
+// import './fonts/Montserrat-Regular.woff2'
+
 /** Scripts */

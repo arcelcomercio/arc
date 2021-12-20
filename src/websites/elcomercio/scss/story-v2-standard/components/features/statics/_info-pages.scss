@@ -1,0 +1,114 @@
+.info-pages {
+  margin: 60px 210px 50px;
+  text-align: left;
+  letter-spacing: 0;
+  color: #000;
+  @media (--only-mobile) {
+    margin: 40px 15px 30px;
+  }
+  section {
+    h2 {
+      font: 900 16px/24px $secondary-font;
+    }
+    ul {
+      list-style: disc outside none;
+      font: 500 16px/24px $secondary-font;
+    }
+    li {
+      margin-bottom: 30px;
+      margin-left: 27px;
+      &::marker {
+        font-size: 26px;
+      }
+      @media (--only-mobile) {
+        margin-bottom: 20px;
+      }
+    }
+    table {
+      border-collapse: collapse;
+      border-spacing: 1px;
+      margin-bottom: 30px;
+      text-align: center;
+      table-layout: fixed;
+      width: 100%;
+      border-top: 1px solid #6f6f6f;
+      border-bottom: 1px solid #6f6f6f;
+      a {
+        color: #4a00f7;
+        text-decoration: underline;
+      }
+    }
+    p {
+      font: 500 16px/24px $secondary-font;
+      margin-bottom: 30px;
+      @media (--only-mobile) {
+        margin-bottom: 20px;
+      }
+      u {
+        text-decoration: none;
+      }
+      &:last-child {
+        a:not([href^="mailto"]) {
+          color: #4a00f7;
+          text-decoration: underline;
+        }
+      }
+    }
+    th {
+      font: 900 16px/40px $secondary-font;
+      @media (--only-mobile) {
+        font: 900 14px/24px $secondary-font;
+      }
+    }
+    td {
+      word-wrap: break-word;
+      border-top: 1px solid #6f6f6f;
+      font: 500 16px/40px $secondary-font;
+      @media (--only-mobile) {
+        font: 500 14px/24px $secondary-font;
+      }
+    }
+  }
+  &__title {
+    font: 900 28px/32px $secondary-font;
+    color: #000;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    @media (--only-mobile) {
+      font: 900 22px/24px $secondary-font;
+    }
+  }
+  &__left {
+    section table {
+      text-align: left !important;
+      table-layout: unset !important;
+      border-top: none !important;
+      tr td {
+        &:first-child {
+          width: 160px;
+        }
+      }
+    }
+    @media (--only-mobile) {
+      section table {
+        table-layout: fixed !important;
+        border-bottom: none;
+        border-top: 1px solid #6f6f6f !important;
+        tr td {
+          display: block;
+          border-bottom: 1px solid #6f6f6f;
+          font: 500 14px/20px $secondary-font;
+          border-top: none;
+          width: calc(100vw - 30px);
+          &:first-child {
+            border: none;
+            padding-top: 10px;
+          }
+          &:last-child {
+            padding-bottom: 10px;
+          }
+        }
+      }
+    }
+  }
+}

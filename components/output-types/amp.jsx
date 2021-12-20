@@ -18,7 +18,6 @@ import {
 } from '../utilities/constants/sitenames'
 import { addSlashToEnd } from '../utilities/parse/strings'
 import RedirectError from '../utilities/redirect-error'
-import { publicidadAmpMovil0 } from '../utilities/story/helpers-amp'
 import StoryData from '../utilities/story-data'
 import AmpTagManager from './_children/amp-tag-manager'
 import MetaSite from './_children/meta-site'
@@ -92,7 +91,7 @@ const AmpOutputType = ({
   //   storyTitleRe ? storyTitleRe.substring(0, 70) : ''
   // } | ${siteProperties.siteTitle.toUpperCase()}`
   const siteTitleSuffix = siteProperties.siteTitle.toUpperCase()
-  const sectionName = requestUri.split('/')[1].toUpperCase()
+  const sectionName = requestUri && requestUri.split('/')[1].toUpperCase()
   const siteTitleSuffixR = siteTitleSuffix.replace('NOTICIAS ', '')
   const title = `${storyTitleRe} | ${sectionName} | ${siteTitleSuffixR}`
 
@@ -242,8 +241,8 @@ const AmpOutputType = ({
 
   const hasPowaVideo =
     content.includes('id="powa-') ||
-    videoSeo[0] ||
-    rawHtmlContent.includes('.mp4')
+      videoSeo[0] ||
+      rawHtmlContent.includes('.mp4')
       ? 1
       : false
 
@@ -254,13 +253,7 @@ const AmpOutputType = ({
   if (arcSite === SITE_DEPOR) {
     if (requestUri.match('^/usa')) lang = 'es-us'
   }
-  const namePublicidad = arcSite !== 'peru21g21' ? arcSite : 'peru21'
-  const dataSlot = `/28253241/${namePublicidad}/amp/post/default/zocalo`
-  const parameters = {
-    arcSite,
-    dataSlot,
-    prebidSlot: `19186-${namePublicidad}-amp-zocalo`,
-  }
+
   const isTrivia = /^\/trivias\//.test(requestUri)
   return (
     <Html lang={lang}>
@@ -289,9 +282,8 @@ const AmpOutputType = ({
         {/* add additional head elements here */}
 
         <Resource
-          path={`resources/dist/${arcSite}/css/${
-            isTrivia ? 'amp-trivias' : 'amp'
-          }.css`}>
+          path={`resources/dist/${arcSite}/css/${isTrivia ? 'amp-trivias' : 'amp'
+            }.css`}>
           {({ data }) =>
             data ? (
               <style
@@ -349,13 +341,14 @@ const AmpOutputType = ({
               custom-element="amp-sticky-ad"
               src="https://cdn.ampproject.org/v0/amp-sticky-ad-1.0.js"
             />
+            <script
+              async
+              custom-element="amp-ad"
+              src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
+            />
           </>
         )}
-        <script
-          async
-          custom-element="amp-ad"
-          src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
-        />
+
         {hasIframe && (
           <script
             async
@@ -486,16 +479,31 @@ const AmpOutputType = ({
             />
           </>
         )}
+        {
+          arcSite === SITE_TROME && (
+            <>
+              <link
+                rel="preload"
+                href="https://cdna.trome.pe/resources/dist/trome/fonts/encode-sans-condensed-v5-latin-800.woff2"
+                as="font"
+                type="font/woff2"
+                crossOrigin="anonymous"
+              />
+              <link
+                rel="preload"
+                href="https://cdna.trome.pe/resources/dist/trome/fonts/EncodeSansCondensed-Regular.woff2"
+                as="font"
+                type="font/woff2"
+                crossOrigin="anonymous"
+              />
+            </>
+          )
+        }
       </head>
       <body className={subtype}>
         {!isTrivia && (
           <>
             <AmpTagManager {...parametros} />
-            <amp-sticky-ad
-              layout="nodisplay"
-              class="ad-amp-movil"
-              dangerouslySetInnerHTML={publicidadAmpMovil0(parameters)}
-            />
           </>
         )}
         {children}
