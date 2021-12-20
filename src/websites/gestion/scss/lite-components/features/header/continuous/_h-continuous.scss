@@ -18,6 +18,9 @@
     transform: rotateZ(-90deg);
     padding-bottom: 20px;
   }
+  &__svg {
+    fill: $color-white;
+  }
 
   // ----- MODIFICADOR SOMOS LITE -----
 
