@@ -1,8 +1,8 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import * as React from 'react'
 
 const classes = {
-  container: 'flex flex-col w-full',
+  container: 'l-widenavgrid flex flex-col w-full',
   layout: 'flex justify-center',
   contentContainer:
     'flex flex-col content-layout-container w-full position-relative',
@@ -21,33 +21,33 @@ const classes = {
  * 
   ----------------------------------------------------------------------*/
 
-const WideNavGridLayout = ({ children = [] }) => {
-  return (
-    <div className={classes.container}>
-      {children[1] /* Publicidad Top */}
-      {children[2] /* Barra de navegación */}
-      {children[3] /* Cabecera de página */}
-      <div className={classes.layout}>
-        <div className={`${classes.zocalo} ${classes.zocaloL}`}>
-          {children[0] /* Zocalo izquierda */}
-        </div>
-        <div className={classes.contentContainer}>
-          {children[4] /* Encabezado */}
-          <div role="main" className={classes.content}>
-            {children[5] /* Contenido */}
-          </div>
-          {children[6] && (
-            <section className={classes.aditional}>{children[6]}</section>
-          ) /* Contenido adicional */}
-        </div>
-        <div className={`${classes.zocalo} ${classes.zocaloR}`}>
-          {children[8] /* Zocalo derecha */}
-        </div>
+const WideNavGridLayout = ({ children = [] }) => (
+  <div className={classes.container}>
+    {children[1] /* Publicidad Top */}
+    {children[2] /* Barra de navegación */}
+    {children[3] /* Cabecera de página */}
+    <div className={classes.layout}>
+      <div className={`${classes.zocalo} ${classes.zocaloL}`}>
+        {children[0] /* Zocalo izquierda */}
       </div>
-      {children[7] /* Pie de página */}
+      <div className={classes.contentContainer}>
+        {children[4] /* Encabezado */}
+        <div role="main" className={classes.content}>
+          {children[5] /* Contenido */}
+        </div>
+        {
+          children[6] && (
+            <section className={classes.aditional}>{children[6]}</section>
+          ) /* Contenido adicional */
+        }
+      </div>
+      <div className={`${classes.zocalo} ${classes.zocaloR}`}>
+        {children[8] /* Zocalo derecha */}
+      </div>
     </div>
-  )
-}
+    {children[7] /* Pie de página */}
+  </div>
+)
 
 WideNavGridLayout.propTypes = {
   children: PropTypes.node,

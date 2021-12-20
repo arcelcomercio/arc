@@ -1,0 +1,90 @@
+$row-height: 344px;
+
+.grid {
+  display: grid;
+  &--content {
+    row-gap: 24px;
+  }
+
+  &--col-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  &--col-2 {
+    @media (--tablet) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  &--col-3 {
+    @media (--desktop) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}
+
+// /*-------------- Process to create the 1 col classes */
+
+@for $i from 1 through 4 {
+  .row-#{$i} {
+    //grid-row: span $row-parts*$i;
+    grid-row: span $i;
+    height: ($row-height * $i)+ (20px * ($i - 1));
+  }
+}
+
+.col-1,
+.col-2,
+.col-3 {
+  grid-column: span 1;
+}
+
+/*-------------- Process to create the 2 col classes */
+
+@media (--tablet) {
+  .col-1 {
+    grid-column: span 1;
+  }
+
+  .col-2,
+  .col-3 {
+    grid-column: span 2;
+  }
+}
+
+/*-------------- Process to create the 3 col classes */
+
+@media (--desktop) {
+  @for $i from 1 through 3 {
+    .col-#{$i} {
+      grid-column: span $i;
+    }
+  }
+}
+
+/****************************************************/
+
+.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.ads__zocalo {
+  flex: 1;
+  overflow: hidden;
+  display: none;
+  @media (--tablet) {
+    display: block;
+  }
+}
+.content-layout-container {
+  flex: 1;
+  @media (--tablet) {
+    margin: 0 26px 0 27px;
+    min-width: 620px;
+  }
+  @media (--desktop) {
+    min-width: 948px;
+  }
+}
