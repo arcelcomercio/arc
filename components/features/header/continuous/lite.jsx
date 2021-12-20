@@ -24,13 +24,13 @@ const HeaderContinuous = (props) => {
 
   const isSomos = requestUri.includes('/somos/')
   const isDeporPlay = /^\/depor-play\//.test(requestUri)
-  const isNoticias = arcSite === SITE_GESTION ? 'white-' : ''
+  const isGestion = arcSite === SITE_GESTION ? 'white-' : ''
   const mainImage = isSomos
     ? 'https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/HJJOUB5ZYJDCZLCVEKSSBBWXPE.png'
     : `${getAssetsPath(
         arcSite,
         contextPath
-      )}/resources/dist/${arcSite}/images/${isNoticias}${header.logo}?d=1`
+      )}/resources/dist/${arcSite}/images/${isGestion}${header.logo}?d=1`
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
