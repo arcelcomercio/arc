@@ -3,6 +3,7 @@ import getProperties from 'fusion:properties'
 import * as React from 'react'
 
 import { getAssetsPath } from '../../../utilities/assets'
+import { SITE_GESTION } from '../../../utilities/constants/sitenames'
 import customFields from './_dependencies/custom-fields'
 import HeaderContinuousChild from './_lite/_children/header'
 
@@ -28,7 +29,9 @@ const HeaderContinuous = (props) => {
     : `${getAssetsPath(
         arcSite,
         contextPath
-      )}/resources/dist/${arcSite}/images/${header.logo}?d=1`
+      )}/resources/dist/${arcSite}/images/${
+        arcSite === SITE_GESTION && 'white-'
+      }${header.logo}?d=1`
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
