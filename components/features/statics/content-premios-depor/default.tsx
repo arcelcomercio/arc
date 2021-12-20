@@ -95,6 +95,12 @@ const ContentPremiosDepor = (props: Props) => {
   }
 
   const getData = async () => {
+    await new Promise((resolve) => {
+      // se ejecuta un tiempo de espera por el localstorage
+      setTimeout(() => {
+        resolve(true)
+      }, 100)
+    })
     const rawProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
     let localProfile: Profile | null | undefined = null
     if (rawProfile) {
@@ -203,8 +209,8 @@ const ContentPremiosDepor = (props: Props) => {
     const newVoteFetch = await voteFetch.json()
 
     if (newVoteFetch?.id >= 0) {
-      setIsModal(true)
       setIsVoted(false)
+      setIsModal(true)
     } else {
       console.log(newVoteFetch)
     }
