@@ -25,7 +25,7 @@ import Styles from './_children/styles'
 import TwitterCards from './_children/twitter-cards'
 import { BaseMarkup, Html, ScriptAmp } from './_dependencies/baseAMP'
 
-const AmpOutputType = ({
+const AmpOutputTypeBeta = ({
   children,
   contextPath,
   deployment,
@@ -333,12 +333,12 @@ const AmpOutputType = ({
 }
 
 // If no amp.jsx file exists, this feature will not render.
-AmpOutputType.fallback = false
+AmpOutputTypeBeta.fallback = false
 
-AmpOutputType.propTypes = {
+AmpOutputTypeBeta.propTypes = {
   children: PropTypes.node,
   arcSite: PropTypes.string,
   isAmp: PropTypes.bool,
 }
 
-export default AmpOutputType
+export default AmpOutputTypeBeta
