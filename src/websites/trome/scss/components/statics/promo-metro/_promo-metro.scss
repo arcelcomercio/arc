@@ -433,10 +433,11 @@ $font-color: #ee7325;
 
   &-bonus {
     padding-top: 10px;
+    margin: 0 auto;
 
     &-points {
       font-size: 20px;
-      color: #e06437;
+      color: $font-color;
       font-weight: 600;
       @media (--tablet) {
         font-size: 25px;
@@ -445,7 +446,8 @@ $font-color: #ee7325;
 
     &-text {
       font-size: 7px;
-      color: #e06437;
+      color: $font-color;
+      font-weight: 800;
       @media (--tablet) {
         font-size: 9px;
       }
@@ -458,11 +460,38 @@ $font-color: #ee7325;
       }
     }
 
-    &-price {
+    &-price-amount {
       font-size: 13px;
-      color: #e06437;
+      color: $font-color;
+      font-weight: 600;
       @media (--tablet) {
         font-size: 17px;
+      }
+    }
+    &-price-percentage {
+      font-size: 18px;
+      color: $font-color;
+      font-weight: 600;
+      @media (--tablet) {
+        font-size: 20px;
+      }
+    }
+
+    &-percentage {
+      color: $font-color;
+      font-size: 16px;
+      font-weight: 600;
+      @media (--tablet) {
+        font-size: 16px;
+      }
+    }
+    &-discount {
+      color: $font-color;
+      font-size: 5px;
+      font-weight: 600;
+      @media (--tablet) {
+        font-size: 6px;
+        font-weight: 700;
       }
     }
   }

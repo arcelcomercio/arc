@@ -25,9 +25,12 @@ const classes = {
   discountTitleCencosud: 'coupon-cencosud-discount-title',
   bonus: 'coupon-bonus flex items-end',
   pointsBonus: 'coupon-bonus-points  flex items-end',
-  textPointsBonus: 'coupon-bonus-text flex items-end font-bold',
+  textPointsBonus: 'coupon-bonus-text flex items-end',
   imageBonus: 'coupon-bonus-image',
-  priceBonus: 'coupon-bonus-price font-bold',
+  priceAmountBonus: 'coupon-bonus-price-amount m-0 mx-auto',
+  pricePercentageBonus: 'coupon-bonus-price-percentage',
+  percentageBonus: 'coupon-bonus-percentage',
+  couponDsctoBonus: 'coupon-bonus-discount',
   couponDscto: 'coupon-discount',
   couponTitle: 'coupon-title',
   couponDiscountTitle: 'coupon-discount-title',
@@ -48,6 +51,7 @@ interface Cencosud {
 interface Bonus {
   price: string
   points: string
+  discountType: DiscountType
 }
 interface CouponProps {
   code: string
@@ -130,8 +134,9 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
               </p>
             ))
           : null}
-        <div className={classes.cencosud}>
-          {cencosud && (
+
+        {cencosud && (
+          <div className={classes.cencosud}>
             <div className="flex flex-col">
               <div className="flex items-end">
                 {cencosud.discountType === 'S/' ? (
@@ -169,30 +174,42 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
                 Código con Tarjeta
               </p>
             </div>
-          )}
-          {bonus && (
-            <div className={classes.bonus}>
-              <div className="flex flex-col">
-                <p className={classes.pointsBonus}>{bonus.points}</p>
-                <p className={classes.textPointsBonus}>puntos</p>
-              </div>
-              <div className="flex flex-col" style={{ paddingLeft: '10px' }}>
-                <p className={classes.priceBonus}>S/{bonus.price}</p>
-                <img
-                  className={`${classes.imageBonus}`}
-                  src={`${getAssetsPath(
-                    arcSite,
-                    contextPath
-                  )}/resources/dist/${arcSite}/images/puntos-bonus-color.png?d=1`}
-                  alt="tarjeta bonus"
-                  loading="lazy"
-                />
-              </div>
+          </div>
+        )}
+        {bonus && (
+          <div className={classes.bonus}>
+            <div className="flex flex-col">
+              <p className={classes.pointsBonus}>{bonus.points}</p>
+              <p className={classes.textPointsBonus}>puntos</p>
             </div>
-          )}
-          <p className={classes.couponCode}>{code}</p>
-          <p className={classes.couponDiscountTitle}>Código de promoción</p>
-        </div>
+            <div className="flex flex-col" style={{ marginLeft: '10px' }}>
+              {bonus.discountType === 'S/' && (
+                <p className={classes.priceAmountBonus}>S/{bonus.price}</p>
+              )}
+              {bonus.discountType === '%' && (
+                <div className="flex items-center m-0 mx-auto">
+                  <p className={classes.pricePercentageBonus}>{bonus.price}</p>
+                  <div className="flex flex-col" style={{ marginLeft: '1px' }}>
+                    <p className={classes.percentageBonus}>%</p>
+                    <p className={classes.couponDsctoBonus}>DSCTO</p>
+                  </div>
+                </div>
+              )}
+
+              <img
+                className={`${classes.imageBonus}`}
+                src={`${getAssetsPath(
+                  arcSite,
+                  contextPath
+                )}/resources/dist/${arcSite}/images/puntos-bonus-color.png?d=1`}
+                alt="tarjeta bonus"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        )}
+        <p className={classes.couponCode}>{code}</p>
+        <p className={classes.couponDiscountTitle}>Código de promoción</p>
       </div>
     </li>
   )

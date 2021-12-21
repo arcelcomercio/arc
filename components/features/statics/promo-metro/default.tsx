@@ -53,6 +53,7 @@ enum DiscountType {
 interface Bonus {
   price: string
   points: string
+  discountType: DiscountType
 }
 interface Cencosud {
   code: string
