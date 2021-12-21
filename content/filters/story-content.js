@@ -24,6 +24,7 @@ content_elements {
     config{
       key
       chapter
+      author
       score
       plataform
       interviewed
