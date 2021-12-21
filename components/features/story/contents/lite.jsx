@@ -381,6 +381,7 @@ const StoryContentsLite = (props) => {
                       />
                       {nameAds === 'caja3' &&
                         subtype !== MINUTO_MINUTO &&
+                        secc !== 'impresa' &&
                         subtype !== GALLERY_VERTICAL && (
                           <div className="content_gpt_caja3">
                             <div
