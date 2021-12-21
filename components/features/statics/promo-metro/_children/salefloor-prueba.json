@@ -1,60 +1,13 @@
 {
   "products": [
     {
-      "code": "2400029562424",
-      "image": "/pf/resources/dist/trome/images/vino.jpg",
-      "discount": "S/ 69.90 x2",
-      "additional": false,
-      "discountType": "S/",
-      "title": "En Vinos Casillero Del Diablo, Trivento Reserva y/o Santa Julia Varietal",
-      "cencosud": null,
-      "bonus": null,
-      "restrictions": []
-    },
-    {
-      "code": "2400029562448",
-      "image": "/pf/resources/dist/trome/images/paneton.jpg",
-      "discount": "S/ 19.50",
-      "additional": false,
-      "discountType": "S/",
-      "title": "Panetón Caja X900 Gr Cuisine & Co",
-      "cencosud": {
-        "code": "2400029563148",
-        "price": "18.90",
-        "discountType": "S/"
-      },
-      "bonus": null,
-      "restrictions": []
-    },
-    {
-      "code": "2400029562431",
-      "image": "/pf/resources/dist/trome/images/detergente-leche.jpg",
-      "discount": "S/ 6.90",
-      "additional": false,
-      "discountType": "S/",
-      "title": "Por la compra de S/.39 en Ariel, Ace o Magia Blanca llévate un sixpack de Leche Gloria",
-      "cencosud": null,
-      "bonus": null,
-      "restrictions": []
-    },
-    {
       "code": "2400029562455",
       "image": "/pf/resources/dist/trome/images/champinones.jpg",
-      "discount": "S/ 4.90",
+      "discountTitle": "S/ 4.90",
+      "discountSubtitle": "",
       "additional": false,
       "discountType": "S/",
-      "title": "Champiñones Enteros X200 Gr Metro",
-      "cencosud": null,
-      "bonus": null,
-      "restrictions": []
-    },
-    {
-      "code": "2400029562462",
-      "image": "/pf/resources/dist/trome/images/pollo.jpg",
-      "discount": "15",
-      "discountType": "%",
-      "additional": false,
-      "title": "En Pollo Con Papas",
+      "description": "Champiñones enteros Metro x200 g",
       "cencosud": null,
       "bonus": null,
       "restrictions": []
@@ -62,10 +15,63 @@
     {
       "code": "2400029562479",
       "image": "/pf/resources/dist/trome/images/pizza.jpg",
-      "discount": "30",
+      "discountTitle": "30",
+      "discountSubtitle": "",
       "additional": false,
       "discountType": "%",
-      "title": "En Pizza Familiar Americana O Hawaiana",
+      "description": "En Pizza familiar Metro Americana o Hawaiana x und",
+      "cencosud": null,
+      "bonus": null,
+      "restrictions": []
+    },
+    {
+      "code": "2400029562462",
+      "image": "/pf/resources/dist/trome/images/pollo.jpg",
+      "discountTitle": "15",
+      "discountSubtitle": "",
+      "additional": false,
+      "discountType": "%",
+      "description": "En Pollo rostizado + papas fritas",
+      "cencosud": null,
+      "bonus": null,
+      "restrictions": []
+    },
+    {
+      "code": "2400029562448",
+      "image": "/pf/resources/dist/trome/images/paneton.jpg",
+      "discountTitle": "S/ 16.90",
+      "discountSubtitle": "",
+      "additional": false,
+      "discountType": "S/",
+      "description": "Panetón Cuisine & Co caja x900 g",
+      "cencosud": {
+        "code": "2400029563148",
+        "price": "15.90",
+        "discountType": "S/"
+      },
+      "bonus": null,
+      "restrictions": []
+    },
+    {
+      "code": "2400029562424",
+      "image": "/pf/resources/dist/trome/images/vino.jpg",
+      "discountTitle": "2x",
+      "discountSubtitle": "S/69.90",
+      "additional": false,
+      "discountType": "S/",
+      "description": "En Vinos Casillero del Diablo, Trivento Reserva y/o Santa Julia Varietal bot x750 ml c/u",
+      "cencosud": null,
+      "bonus": null,
+      "restrictions": []
+    },
+    {
+      "code": "2400029562431",
+      "image": "/pf/resources/dist/trome/images/detergente-leche.jpg",
+      "discountTitle": "S/ 6.90",
+      "discountSubtitle": "",
+      "additional": false,
+      "discountType": "S/",
+      "description": "Sixpack de Leche Gloria por la compra de S/.39 en Ariel, Ace o Magia Blanca",
       "cencosud": null,
       "bonus": null,
       "restrictions": []
@@ -73,36 +79,44 @@
     {
       "code": "2400029562486",
       "image": "/pf/resources/dist/trome/images/colchones.jpg",
-      "discount": "10",
+      "discountTitle": "10",
+      "discountSubtitle": "",
       "additional": false,
       "discountType": "%",
-      "title": "En Colchones, Camas y Dormitorios",
-      "cencosud": null,
-      "bonus": null,
-      "restrictions": []
-    },
-    {
-      "code": "2400029562493",
-      "image": "/pf/resources/dist/trome/images/ropa.jpg",
-      "discount": "10",
-      "additional": false,
-      "discountType": "%",
-      "title": "En Vestuario Urb",
+      "description": "En colchones, camas y dormitorios",
       "cencosud": null,
       "bonus": null,
       "restrictions": []
     },
     {
       "code": "2400029562509",
-      "image": "/pf/resources/dist/trome/images/munecas.jpg",
-      "discount": "20",
+      "image": "/pf/resources/dist/trome/images/juguetes.jpg",
+      "discountTitle": "20",
+      "discountSubtitle": "",
+      "additional": true,
+      "discountType": "%",
+      "description": "En toda la Juguetería Metro",
+      "cencosud": null,
+      "bonus": null,
+      "restrictions": [
+        "Máximo 06 productos por cliente en total.",
+        "No incluye bicicletas, rodados.",
+        "No incluye burbujas ni juegos de exterior/verano.",
+        "No acumulable con descuentos con la tarjeta Cencosud."
+      ]
+    },
+    {
+      "code": "2400029562493",
+      "image": "/pf/resources/dist/trome/images/ropa.jpg",
+      "discountTitle": "10",
+      "discountSubtitle": "",
       "additional": false,
       "discountType": "%",
-      "title": "En Muñeca Moda 11.5''",
+      "description": "En vestuario Urb",
       "cencosud": null,
       "bonus": null,
       "restrictions": []
     }
   ],
-  "legal": "Descuentos válidos con tarjeta Bonus en Tiendas Metro a nivel nacional del 23 de diciembre 2021 al 05 de enero de 2022 y/o hasta agotar stock. Stock mínimo 01 ud./pack/kg por producto. Stock y surtido sujeto a disponibilidad de Tienda. Promociones exclusivas para consumo familiar. No acumulable con otras promociones. Máximo para abarrotes y perecibles 03 uds./packs/kg por cliente durante la vigencia de la promoción. Máximo para non food 3 uds./packs por cliente durante la vigencia de la promoción. Fotos referenciales. Promoción válida sobre precio normal. Ofertas no disponibles en Tiendas Metro: México, Manco Cápac – La Victoria, Óvalo Balta – Barranco, Bellavista, Los Héroes – San Juan de Miraflores, Perricholi – Rímac, Martinto – Breña, Plaza Castilla, Paseo Chorrillos, Chosica, Alameda Sur, Huaylas – Chorrillos, Ventanilla, El Agustino, Santa Clara y en Provincias: Chincha, Santa Victoria, La Victoria – Trujillo, Castilla – Lambayeque, San Eduardo – Piura, Amazonas, Hunter, Arequipa Norte, Cutervo – Ica, Chimbote, Barranca, Penta – Trujillo y Grau – Chiclayo."
+  "legal": "Descuentos válidos a nivel nacional del 23 de diciembre de 2021 al 05 de enero de 2022 y/o hasta agotar stock. Stock mínimo 01 unid/packs/kg por producto. Stock y surtido sujeto a disponibilidad de Tienda. Promociones exclusivas para consumo familiar. No acumulable con otras promociones. Máximo para abarrotes y perecibles 3 unid/pack/kg por cliente durante la vigencia de la promoción. Máximo para non food 3 unid/pack/ por cliente durante la vigencia de la promoción. Fotos referenciales. Promoción válida sobre precio normal. Ofertas no disponibles en tiendas Metro: México, Manco Cápac – La Victoria, Óvalo Balta – Barranco, Bellavista, Los Heroes – San Juan de Miraflores, Perricholi – Rimac, Martinto – Breña, Plaza Castilla, Chosica, Alameda Sur, Huaylas – Chorrillos, Ventanilla, El Agustino, Santa Clara y en Provincias: Chincha, Santa Victoria, La Victoria – Trujillo, Castilla – Lambayeque, San Eduardo – Piura, Amazonas, Hunter, Arequipa Norte, Cutervo – Ica, Chimbote, Barranca, Penta – Trujillo y Grau – Chiclayo."
 }
