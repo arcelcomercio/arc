@@ -21,6 +21,8 @@ const NavbarDefault: FC<Props> = ({ customFields }) => {
   return <NavbarDefaultChildrenWithMenu />
 }
 
+NavbarDefault.static = true
+
 NavbarDefault.propTypes = {
   customFields: PropTypes.shape({
     type: PropTypes.oneOf(['with-menu', 'simple']).tag({
