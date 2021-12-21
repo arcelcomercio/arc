@@ -14,7 +14,7 @@ import {
 const DEFAULT_ENDPOINT =
   'https://4dtmic7lj2.execute-api.us-east-1.amazonaws.com/dev'
 
-const ID_CONCURSO = 1
+const ID_CONCURSO = 2
 
 const COUNTRIES_ASSETS_PATH =
   'https://cdna.depor.com/resources/dist/depor/images-polla/paises/'
