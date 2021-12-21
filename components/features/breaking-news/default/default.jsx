@@ -4,6 +4,7 @@ import * as React from 'react'
 
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
+import BreakingNewsFeatLite from './lite'
 
 const classes = {
   breakingnews: `breaking-news secondary-font flex justify-between mt-20 md:mt-0 pt-15 pb-15 pl-20 pr-20 text-white`,
@@ -36,7 +37,7 @@ const BreakingNewsFeat = (props) => {
     },
   } = props
 
-  const { arcSite } = useAppContext()
+  const { arcSite, metaValue } = useAppContext()
   const { editableField } = useEditableContent()
 
   const isStory = /^\/.*\/.*-noticia/.test(storyLink)
@@ -62,6 +63,10 @@ const BreakingNewsFeat = (props) => {
       subTitle ||
       (article && article.subheadlines && article.subheadlines.basic),
     link: storyLink,
+  }
+
+  if (metaValue('section_style') === 'landing-v2-home') {
+    return <BreakingNewsFeatLite customFields={props.customFields} />
   }
 
   return (
