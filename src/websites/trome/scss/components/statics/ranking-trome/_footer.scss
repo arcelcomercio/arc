@@ -21,6 +21,18 @@
       height: 30px;
       display: inline-block;
     }
+    &__linkTrome {
+      width: 112px;
+      height: 32px;
+      display: inline-block;
+      margin-right: 0px;
+      @media (--desktop) {
+        margin-right: 0px;
+      }
+      @media (--desktop) {
+        margin-right: -45px;
+      }
+    }
   }
   &__directores {
     color: #777;

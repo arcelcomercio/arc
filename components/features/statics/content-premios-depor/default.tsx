@@ -51,7 +51,10 @@ interface UserProfile {
 }
 
 const ContentPremiosDepor = (props: Props) => {
+  const { customFields: { isRankingTrome } = {} } = props
+
   const { customFields } = props
+
   const {
     serviceEndPoint = 'http://pre.md.minoticia.pe/portal_apis/premios-depor/',
   } = customFields || {}
@@ -334,7 +337,7 @@ const ContentPremiosDepor = (props: Props) => {
           </div>
         </div>
       )}
-      <Terms />
+      <Terms isRankingTrome={isRankingTrome} />
     </>
   )
 }

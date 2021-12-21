@@ -169,13 +169,13 @@ const FooterChildElComercio = ({
               <a
                 itemProp="url"
                 href="/"
-                className={`${classes.logoBox} footerplay__logo__link`}
+                className={`${classes.logoBox} footerplay__logo__linkTrome`}
                 title="Ir a la portada">
                 <img
                   className={`${isAdmin ? '' : 'lazy'} ${classes.logo
                     } footerplay__logo__img`}
-                  src="https://cdna.depor.com/resources/dist/depor/depor-play/LogoDepor_Footer.svg"
-                  data-src="https://cdna.depor.com/resources/dist/depor/depor-play/LogoDepor_Footer.svg"
+                  src="https://cdna.trome.pe/resources/dist/trome/ranking-trome/svg/Logo_trome_1.svg"
+                  data-src="https://cdna.trome.pe/resources/dist/trome/ranking-trome/svg/Logo_trome_1.svg"
                   alt={`Logo de ${arcSite}`}
                 />
               </a>
