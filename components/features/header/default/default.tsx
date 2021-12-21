@@ -8,4 +8,6 @@ const HeaderDefault: FC = () => {
   return <HeaderDefaultChildrenStandard />
 }
 
+HeaderDefault.static = true
+
 export default HeaderDefault
