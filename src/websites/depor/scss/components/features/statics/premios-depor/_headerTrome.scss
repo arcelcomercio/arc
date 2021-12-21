@@ -1,25 +1,25 @@
-.premios_depor__header {
+.ranking_trome__header {
   &__box {
-    width: 1366px;
+    width: 920px;
     height: 320px;
     margin: auto;
     background-position: inherit;
     background-repeat: no-repeat;
     background-size: contain;
-    background-image: url("https://cdna.depor.com/resources/dist/depor/premios-depor/bg_desktop.jpg");
+    background-image: url("https://cdna.trome.pe/resources/dist/trome/ranking-trome/head_desktop.jpeg");
   }
 
   &__boxMob {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: url("https://cdna.depor.com/resources/dist/depor/premios-depor/bg_Mobile.jpg");
+    background-image: url("https://cdna.trome.pe/resources/dist/trome/ranking-trome/head_mobile.jpeg");
     @media (--tablet) {
-      height: 850px;
+      height: 250px;
     }
 
     width: auto;
-    height: 520px;
+    height: 230px;
   }
 
   &__opacity {
@@ -49,26 +49,34 @@
         min-width: 80px;
       }
       @media (--desktop) {
-        margin-left: 24px;
+        margin-left: 20px;
         min-width: 100px;
       }
       &__flecha {
         margin-right: 14px;
-        width: 16px;
-        height: 16px;
+        width: 20px;
+        height: 20px;
         cursor: pointer;
+        @media (--tablet) {
+          width: 20px;
+          height: 20px;
+        }
+        @media (--desktop) {
+          width: 26px;
+          height: 26px;
+        }
       }
       &__logo {
         svg {
-          width: 55.35px;
+          width: 83.5px;
           height: 24px;
           @media (--tablet) {
-            width: 55.35px;
+            width: 84px;
             height: 24px;
           }
           @media (--desktop) {
-            width: 64px;
-            height: 27.75px;
+            width: 112px;
+            height: 32px;
           }
         }
       }
@@ -119,6 +127,21 @@
         color: #222;
         display: inline-block;
       }
+    }
+  }
+
+  &__centralLogo {
+    width: 240px;
+    height: 234px;
+    @media (--tablet) {
+      width: 250px;
+      height: 244px;
+    }
+    @media (--desktop) {
+      width: 350px;
+      height: 342px;
+      margin-top: 70px;
+      margin-left: 300px;
     }
   }
 

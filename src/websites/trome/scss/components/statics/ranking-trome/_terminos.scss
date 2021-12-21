@@ -57,8 +57,20 @@
         //   height: 450px;
         // }
       }
-      &__linesMob {
+      &__linesMobDepor {
         background-image: url("https://cdna.depor.com/resources/dist/depor/premios-depor/green_lines.svg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: auto;
+        height: 285px;
+        @media (--tablet) {
+          width: auto;
+          height: 350px;
+        }
+      }
+      &__linesMobTrome {
+        background-image: url("https://cdna.trome.pe/resources/dist/trome/ranking-trome/svg/Lines_orange.svg");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;

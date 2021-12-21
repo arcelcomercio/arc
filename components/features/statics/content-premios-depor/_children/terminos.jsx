@@ -10,7 +10,8 @@ const classes = {
   title: 'premios_depor__terminos__box__black__text__titulo',
   content: 'premios_depor__terminos__box__black__text__contenido',
   lines: 'premios_depor__terminos__box__black__lines',
-  linesMob: 'premios_depor__terminos__box__black__linesMob',
+  linesMobDepor: 'premios_depor__terminos__box__black__linesMobDepor',
+  linesMobTrome: 'premios_depor__terminos__box__black__linesMobTrome',
 }
 
 let isMobile
@@ -127,7 +128,7 @@ const Terms = (props) => {
           )}
         </div>
         {isMobile ? (
-          <div className={classes.linesMob} />
+          <div className={isRankingTrome ? classes.linesMobTrome : classes.linesMobDepor} />
         ) : (
           <img
             src={isRankingTrome ? pathT : pathD}
