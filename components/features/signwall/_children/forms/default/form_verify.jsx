@@ -128,15 +128,11 @@ const FormVerify = ({ onClose, tokenVerify, tokenMagicLink, typeDialog }) => {
                   const premiumLastUrl = window.localStorage.getItem(
                     'premium_last_url'
                   )
-                  if (
-                    premiumLastUrl &&
-                    premiumLastUrl !== '' &&
-                    activeMagicLink &&
-                    activeRegisterwall
-                  ) {
-                    window.location.href = premiumLastUrl
+                  if (premiumLastUrl && activeMagicLink && activeRegisterwall) {
                     // removiendo del local la nota premium
                     window.localStorage.removeItem('premium_last_url')
+                    // redireccionando
+                    window.location.href = premiumLastUrl
                   } else {
                     onClose()
                   }
