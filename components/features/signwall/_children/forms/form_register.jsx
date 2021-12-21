@@ -34,6 +34,7 @@ import {
 } from '../../_dependencies/services'
 import { MsgRegister } from '../icons'
 import Loading from '../loading'
+import AuthGoogle from './auth-google'
 import { CheckBox } from './control_checkbox'
 import { Input } from './control_input_select'
 import { AuthURL, ButtonSocial } from './control_social'
@@ -379,7 +380,7 @@ const FormRegister = ({
     }, 1000)
   }
 
-  const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
+  // const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
 
   return (
     <>
@@ -389,9 +390,8 @@ const FormRegister = ({
             <Loading typeBg="block" />
           ) : (
             <form
-              className={`signwall-inside_forms-form ${
-                arcSite === 'trome' ? 'form-trome' : ''
-              } ${typeDialog}`}
+              className={`signwall-inside_forms-form ${arcSite === 'trome' ? 'form-trome' : ''
+                } ${typeDialog}`}
               onSubmit={handleOnSubmit}>
               {!showConfirm && (
                 <>
@@ -423,29 +423,31 @@ const FormRegister = ({
                       Accede fácilmente con:
                     </p>
 
-                    {authProviders.map((item) =>
-                      item === 'google' &&
-                      arcSite === 'trome' &&
-                      typeof window !== 'undefined' &&
-                      /iPhone|iPad|iPod/i.test(
-                        window.navigator.userAgent
-                      ) ? null : (
-                        <ButtonSocial
-                          key={item}
-                          brand={item}
-                          size={sizeBtnSocial}
-                          onLogged={onLogged}
-                          onClose={onClose}
-                          typeDialog={typeDialog}
-                          onStudents={() => setShowStudents(!showStudents)}
-                          arcSite={arcSite}
-                          typeForm="registro"
-                          activeNewsletter={activeNewsletter}
-                          checkUserSubs={checkUserSubs}
-                          dataTreatment={checkedPolits ? '1' : '0'}
-                        />
-                      )
-                    )}
+                    <AuthGoogle
+                      arcSite={arcSite}
+                      onLogged={onLogged}
+                      onClose={onClose}
+                      typeDialog={typeDialog}
+                      onStudents={() => setShowStudents(!showStudents)}
+                      typeForm="registro"
+                      activeNewsletter={activeNewsletter}
+                      checkUserSubs={checkUserSubs}
+                      dataTreatment={checkedPolits ? '1' : '0'}
+                    />
+
+                    <ButtonSocial
+                      brand="facebook"
+                      size="full"
+                      onLogged={onLogged}
+                      onClose={onClose}
+                      typeDialog={typeDialog}
+                      onStudents={() => setShowStudents(!showStudents)}
+                      arcSite={arcSite}
+                      typeForm="registro"
+                      activeNewsletter={activeNewsletter}
+                      checkUserSubs={checkUserSubs}
+                      dataTreatment={checkedPolits ? '1' : '0'}
+                    />
 
                     <AuthURL
                       arcSite={arcSite}
@@ -677,9 +679,8 @@ const FormRegister = ({
                         style={{ fontSize: '22px' }}
                         className="signwall-inside_forms-title center mb-10">
                         {showUserWithSubs
-                          ? `Bienvenido(a) ${
-                              Identity.userProfile.firstName || 'Usuario'
-                            }`
+                          ? `Bienvenido(a) ${Identity.userProfile.firstName || 'Usuario'
+                          }`
                           : 'Tu cuenta ha sido creada correctamente'}
                       </h4>
                     </>
@@ -718,11 +719,10 @@ const FormRegister = ({
                               onClick={() => {
                                 // modificado para el taggeo de diario correo por valla
                                 Taggeo(
-                                  `Web_${typeDialog}_${
-                                    activeRegisterwall &&
+                                  `Web_${typeDialog}_${activeRegisterwall &&
                                     typeDialog === 'premium'
-                                      ? 'Registro'
-                                      : 'Hard'
+                                    ? 'Registro'
+                                    : 'Hard'
                                   }`,
                                   `web_${typeDialog}_boton_sigue_navegando`
                                 )
@@ -825,7 +825,7 @@ const FormRegister = ({
                             if (typeDialog === 'newsletter' && btnSignwall) {
                               btnSignwall.textContent =
                                 arcSite === SITE_ELCOMERCIO ||
-                                arcSite === SITE_GESTION
+                                  arcSite === SITE_GESTION
                                   ? 'Bienvenido'
                                   : 'Mi Perfil'
                             }

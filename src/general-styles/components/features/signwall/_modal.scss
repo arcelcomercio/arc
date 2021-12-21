@@ -657,22 +657,34 @@
     &-btn-social {
       font-size: 16px !important;
       position: relative;
-      height: 45px !important;
+      height: 40px !important;
       display: inline-block;
       vertical-align: top;
       padding: 0 10px 0 45px !important;
       width: calc(50% - 10px) !important;
-      text-transform: capitalize;
+      // text-transform: capitalize;
       font-weight: normal;
       margin-right: 0;
       margin-left: 0;
       color: #fff;
       cursor: pointer;
+      &:hover {
+        opacity: 0.8;
+      }
 
       &.full {
-        font-size: 18px !important;
-        padding: 0 45px 0 45px !important;
-        width: calc(100% - 0px) !important;
+        font-size: 13px !important;
+        padding: 0 20px 0 55px !important;
+        width: 240px !important;
+        font-weight: bold;
+        margin: 0 auto;
+        display: block;
+      }
+      &.full-trome {
+        display: inline;
+        @media (--subs-desktop) {
+          display: block;
+        }
       }
 
       &.default-size {
@@ -695,8 +707,8 @@
         background: #4267b2;
         border: 1px solid #4267b2;
         & svg {
-          left: 10px;
-          top: 8px;
+          left: 2px;
+          top: 2px;
         }
       }
 
@@ -723,6 +735,17 @@
       }
       &.trome-google {
         background: url(https://signwall.e3.pe/images/trome/icon-google.png);
+      }
+    }
+    &-btn-google {
+      margin: 0 auto 10px auto;
+      width: 240px;
+    }
+    &-btn-google-trome {
+      margin: 0 0 10px 0;
+      width: 240px;
+      @media (--subs-desktop) {
+        margin: 0 auto 10px auto;
       }
     }
     &-button-call {
