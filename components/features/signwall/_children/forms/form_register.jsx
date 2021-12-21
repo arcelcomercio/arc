@@ -10,6 +10,7 @@ import { isStorageAvailable } from '../../../../utilities/client/storage'
 import {
   SITE_ELCOMERCIO,
   SITE_GESTION,
+  SITE_TROME,
 } from '../../../../utilities/constants/sitenames'
 import { extendSession } from '../../../../utilities/subscriptions/identity'
 import AuthFacebookGoogle from '../../../subscriptions/_children/auth-facebook-google'
@@ -53,8 +54,10 @@ const FormRegister = ({
     deployment,
     contextPath,
     siteProperties: {
-      signwall: { mainColorLink, mainColorBtn, mainColorBr,
-        // authProviders
+      signwall: {
+        mainColorLink,
+        mainColorBtn,
+        mainColorBr /* authProviders */,
       },
       activeMagicLink,
       activeRegisterwall,
@@ -285,10 +288,8 @@ const FormRegister = ({
       .finally(() => {
         // eliminamos la noticia premium del storage en caso
         // el typedialog no sea premium
-        if (typeDialog !== 'premium') {
-          if (isStorageAvailable('localStorage')) {
-            window.localStorage.removeItem('premium_last_url')
-          }
+        if (typeDialog !== 'premium' && isStorageAvailable('localStorage')) {
+          window.localStorage.removeItem('premium_last_url')
         }
       })
   }
@@ -410,8 +411,9 @@ const FormRegister = ({
             <Loading typeBg="block" />
           ) : (
             <form
-              className={`signwall-inside_forms-form ${arcSite === 'trome' ? 'form-trome' : ''
-                } ${typeDialog}`}
+              className={`signwall-inside_forms-form ${
+                arcSite === SITE_TROME ? 'form-trome' : ''
+              } ${typeDialog}`}
               onSubmit={handleOnSubmit}>
               {!showConfirm && (
                 <>
@@ -455,7 +457,7 @@ const FormRegister = ({
                         arcSite={arcSite}
                         arcType="login"
                         activeNewsletter={activeNewsletter}
-                        showMsgVerify={() => { }}
+                        showMsgVerify={() => {}}
                       />
                     ) : (
                       <>
@@ -497,7 +499,6 @@ const FormRegister = ({
                         />
                       </>
                     )}
-
 
                     <p className="signwall-inside_forms-text mt-15 center">
                       o completa tus datos para registrarte
@@ -728,8 +729,9 @@ const FormRegister = ({
                         style={{ fontSize: '22px' }}
                         className="signwall-inside_forms-title center mb-10">
                         {showUserWithSubs
-                          ? `Bienvenido(a) ${Identity.userProfile.firstName || 'Usuario'
-                          }`
+                          ? `Bienvenido(a) ${
+                              Identity.userProfile.firstName || 'Usuario'
+                            }`
                           : 'Tu cuenta ha sido creada correctamente'}
                       </h4>
                     </>
@@ -768,10 +770,11 @@ const FormRegister = ({
                               onClick={() => {
                                 // modificado para el taggeo de diario correo por valla
                                 Taggeo(
-                                  `Web_${typeDialog}_${activeRegisterwall &&
+                                  `Web_${typeDialog}_${
+                                    activeRegisterwall &&
                                     typeDialog === 'premium'
-                                    ? 'Registro'
-                                    : 'Hard'
+                                      ? 'Registro'
+                                      : 'Hard'
                                   }`,
                                   `web_${typeDialog}_boton_sigue_navegando`
                                 )
@@ -786,20 +789,14 @@ const FormRegister = ({
                                   const paywallLastUrl = window.sessionStorage.getItem(
                                     'paywall_last_url'
                                   )
-                                  if (
-                                    premiumLastUrl &&
-                                    premiumLastUrl !== '' &&
-                                    activeRegisterwall
-                                  ) {
-                                    window.location.href = premiumLastUrl
+                                  if (premiumLastUrl && activeRegisterwall) {
                                     // removiendo del local la nota premium
                                     window.localStorage.removeItem(
                                       'premium_last_url'
                                     )
-                                  } else if (
-                                    paywallLastUrl &&
-                                    paywallLastUrl !== ''
-                                  ) {
+                                    // redireccionando
+                                    window.location.href = premiumLastUrl
+                                  } else if (paywallLastUrl) {
                                     window.location.href = paywallLastUrl
                                   } else {
                                     onClose()
@@ -875,7 +872,7 @@ const FormRegister = ({
                             if (typeDialog === 'newsletter' && btnSignwall) {
                               btnSignwall.textContent =
                                 arcSite === SITE_ELCOMERCIO ||
-                                  arcSite === SITE_GESTION
+                                arcSite === SITE_GESTION
                                   ? 'Bienvenido'
                                   : 'Mi Perfil'
                             }
@@ -886,7 +883,9 @@ const FormRegister = ({
                             }
                           }
                         }}>
-                        {arcSite === 'trome' ? 'CONFIRMAR CORREO' : 'CONTINUAR'}
+                        {arcSite === SITE_TROME
+                          ? 'CONFIRMAR CORREO'
+                          : 'CONTINUAR'}
                       </button>
                     </>
                   )}

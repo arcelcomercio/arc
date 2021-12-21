@@ -48,8 +48,11 @@ const FormRegister = ({
   const {
     arcSite,
     siteProperties: {
-      signwall: { mainColorLink, mainColorBtn, mainColorBr,
-        // authProviders 
+      signwall: {
+        mainColorLink,
+        mainColorBtn,
+        mainColorBr,
+        // authProviders
       },
       activeMagicLink,
       activeRegisterwall,
@@ -270,10 +273,8 @@ const FormRegister = ({
       .finally(() => {
         // eliminamos la noticia premium del storage en caso
         // el typedialog no sea premium
-        if (typeDialog !== 'premium') {
-          if (isStorageAvailable('localStorage')) {
-            window.localStorage.removeItem('premium_last_url')
-          }
+        if (typeDialog !== 'premium' && isStorageAvailable('localStorage')) {
+          window.localStorage.removeItem('premium_last_url')
         }
       })
   }
@@ -652,10 +653,11 @@ const FormRegister = ({
                               onClick={() => {
                                 // modificado para el taggeo de diario correo por valla
                                 Taggeo(
-                                  `Web_${typeDialog}_${activeRegisterwall &&
+                                  `Web_${typeDialog}_${
+                                    activeRegisterwall &&
                                     typeDialog === 'premium'
-                                    ? 'Registro'
-                                    : 'Hard'
+                                      ? 'Registro'
+                                      : 'Hard'
                                   }`,
                                   `web_${typeDialog}_boton_sigue_navegando`
                                 )
@@ -671,20 +673,14 @@ const FormRegister = ({
                                   const paywallLastUrl = window.sessionStorage.getItem(
                                     'paywall_last_url'
                                   )
-                                  if (
-                                    premiumLastUrl &&
-                                    premiumLastUrl !== '' &&
-                                    activeRegisterwall
-                                  ) {
-                                    window.location.href = premiumLastUrl
+                                  if (premiumLastUrl && activeRegisterwall) {
                                     // removiendo del local la nota premium
                                     window.localStorage.removeItem(
                                       'premium_last_url'
                                     )
-                                  } else if (
-                                    paywallLastUrl &&
-                                    paywallLastUrl !== ''
-                                  ) {
+                                    // redireccionando
+                                    window.location.href = premiumLastUrl
+                                  } else if (paywallLastUrl) {
                                     window.location.href = paywallLastUrl
                                   } else {
                                     onClose()
@@ -746,7 +742,7 @@ const FormRegister = ({
                           if (typeDialog === 'newsletter' && btnSignwall) {
                             btnSignwall.textContent =
                               arcSite === SITE_ELCOMERCIO ||
-                                arcSite === SITE_GESTION
+                              arcSite === SITE_GESTION
                                 ? 'Bienvenido'
                                 : 'Mi Perfil'
                           }
@@ -756,7 +752,7 @@ const FormRegister = ({
                             if (typeDialog === 'newsletter' && btnSignwall) {
                               btnSignwall.textContent =
                                 arcSite === SITE_ELCOMERCIO ||
-                                  arcSite === SITE_GESTION
+                                arcSite === SITE_GESTION
                                   ? 'Bienvenido'
                                   : 'Mi Perfil'
                             }

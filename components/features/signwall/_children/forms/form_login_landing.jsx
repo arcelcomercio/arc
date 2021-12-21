@@ -25,10 +25,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
   const {
     arcSite,
     siteProperties: {
-      signwall: {
-        mainColorLink,
-        // authProviders 
-      },
+      signwall: { mainColorLink /* authProviders */ },
       activeMagicLink,
       activeNewsletter,
       activeDataTreatment,
@@ -241,7 +238,8 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                       typeForm="login"
                       activeNewsletter={activeNewsletter}
                       showMsgVerify={() => triggerShowVerify()}
-                      dataTreatment={checkedPolits ? '1' : '0'} />
+                      dataTreatment={checkedPolits ? '1' : '0'}
+                    />
 
                     <ButtonSocial
                       brand="facebook"
@@ -256,7 +254,6 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                       showMsgVerify={() => triggerShowVerify()}
                       dataTreatment={checkedPolits ? '1' : '0'}
                     />
-
                   </>
                 )}
 
@@ -268,7 +265,6 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                   typeForm="login"
                   onLogged={onLogged}
                 />
-
               </>
             )}
 
@@ -278,8 +274,9 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
 
             {showError && (
               <div
-                className={`signwall-inside_forms-error ${showVerify ? 'warning' : ''
-                  }`}>
+                className={`signwall-inside_forms-error ${
+                  showVerify ? 'warning' : ''
+                }`}>
                 {` ${showError} `}
                 {showVerify && (
                   <>
