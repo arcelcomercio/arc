@@ -3,7 +3,7 @@ import * as React from 'react'
 
 const classes = {
   container: 'l-widenavgrid flex flex-col w-full',
-  layout: 'flex justify-center',
+  layout: 'l-widenavgrid__l flex justify-center',
   contentContainer:
     'flex flex-col content-layout-container w-full position-relative',
   content:

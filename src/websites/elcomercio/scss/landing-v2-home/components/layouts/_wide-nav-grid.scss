@@ -88,3 +88,12 @@ $row-height: 344px;
     min-width: 948px;
   }
 }
+
+.l-widenavgrid {
+  &__l {
+    margin-top: 7px;
+    @media (--desktop) {
+      margin-top: 22px;
+    }
+  }
+}
