@@ -1,8 +1,6 @@
 .b-news {
-  margin-bottom: 5px;
-  // justify-content: center;
-  padding-right: 10px;
-  padding-left: 20px;
+  margin: 5px 0;
+  padding: 0 10px 0 20px;
   @media (--only-mobile) {
     white-space: nowrap;
     overflow-x: auto;
@@ -17,8 +15,6 @@
   }
   &--color-1 {
     background-color: #fff;
-    // box-shadow: 0 4px 8px #00000029;
-    // opacity: 0.7;
   }
   &__close {
     display: none;
@@ -26,7 +22,6 @@
   &__envivo {
     background-color: #ff0537;
     display: inline-block;
-    opacity: 1;
     width: 12px;
     height: 12px;
     margin-right: 10px;
@@ -37,7 +32,6 @@
   &__link {
     display: block;
     text-align: center;
-    //white-space: nowrap;
     @media (--desktop) {
       display: block;
       text-align: center;
@@ -50,13 +44,8 @@
     }
   }
   &__tag {
-    font-family: $secondary-font;
-    font-size: 14px;
-    line-height: 29px;
-    font-weight: 900;
-    letter-spacing: 0;
+    font: 900 14px/29px $secondary-font;
     color: #ea3440;
-    opacity: 1;
     margin-right: 5px;
     @media (--desktop) {
       font-size: 16px;
@@ -67,13 +56,8 @@
     color: #000;
   }
   &__title {
-    font-family: $secondary-font;
-    font-size: 14px;
-    line-height: 29px;
-    font-weight: normal;
-    letter-spacing: 0;
+    font: 400 14px/29px $secondary-font;
     color: #000;
-    opacity: 1;
     @media (--desktop) {
       font-size: 16px;
     }

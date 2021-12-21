@@ -75,6 +75,10 @@ const Styles = ({
   style = isHome && arcSite === SITE_ELCOMERCIO ? 'basic' : style
   style = isHome && arcSite === SITE_TROME ? 'home-v2' : style
 
+  if (metaValue('section_style') === 'landing-v2-home') {
+    style = 'landing-v2-home'
+  }
+
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
 
   if (arcSite === SITE_ELCOMERCIOMAG && CURRENT_ENVIRONMENT === 'prod') {

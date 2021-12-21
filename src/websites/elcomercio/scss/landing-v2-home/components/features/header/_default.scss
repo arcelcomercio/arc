@@ -1,0 +1,15 @@
+.header-d {
+  box-shadow: none;
+  @media (--desktop) {
+    box-shadow: none;
+    &__wrap {
+      height: 80px;
+    }
+    &__img {
+      max-height: 48px;
+    }
+  }
+  &__sub {
+    font-weight: 700;
+  }
+}
