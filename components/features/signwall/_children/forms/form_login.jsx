@@ -8,6 +8,7 @@ import { setCookie } from '../../../../utilities/client/cookies'
 import { isStorageAvailable } from '../../../../utilities/client/storage'
 import { SITE_TROME } from '../../../../utilities/constants/sitenames'
 import { extendSession } from '../../../../utilities/subscriptions/identity'
+import AuthFacebookGoogle from '../../../subscriptions/_children/auth-facebook-google'
 import { useModalContext } from '../../../subscriptions/_context/modal'
 import getCodeError, {
   formatEmail,
@@ -23,6 +24,7 @@ import {
 import { getEntitlement } from '../../_dependencies/services'
 import { MsgRegister } from '../icons'
 import Loading from '../loading'
+import AuthGoogle from './auth-google'
 import { CheckBox } from './control_checkbox'
 import { Input } from './control_input_select'
 import { AuthURL, ButtonEmail, ButtonSocial } from './control_social'
@@ -36,13 +38,14 @@ const FormLogin = ({ valTemplate, attributes }) => {
         mainColorBtn,
         primaryFont,
         mainColorBr,
-        authProviders,
+        // authProviders,
       },
       activeMagicLink,
       activeRegisterwall,
       activeNewsletter,
       activeVerifyEmail,
       activeDataTreatment,
+      activeAuthSocialNative,
       siteDomain,
     },
   } = useAppContext() || {}
@@ -74,6 +77,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
   const [showVerify, setShowVerify] = React.useState()
   const [showSendEmail, setShowSendEmail] = React.useState(false)
   const [checkedPolits, setCheckedPolits] = React.useState(true)
+  const [hideFormLogin, setHideFormLogin] = React.useState(false)
 
   const stateSchema = {
     lemail: { value: valTemplate || '', error: '' },
@@ -176,7 +180,16 @@ const FormLogin = ({ valTemplate, attributes }) => {
     const USER_IDENTITY = JSON.stringify(Identity.userIdentity || {})
     setCookie('ArcId.USER_INFO', USER_IDENTITY, 1, siteDomain)
 
-    if (typeDialog === 'premium' || typeDialog === 'paywall') {
+    // validacion para cargar la ultima noticia premium para Trome
+    if (isStorageAvailable('localStorage') && typeDialog === 'resetpass') {
+      const premiumLastUrl = window.localStorage.getItem('premium_last_url')
+      if (premiumLastUrl && premiumLastUrl !== '' && activeRegisterwall) {
+        window.location.href = premiumLastUrl
+        window.localStorage.removeItem('premium_last_url')
+      } else {
+        onClose()
+      }
+    } else if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true) // no tengo subs
       getListSubs().then((p) => {
         if (activeRegisterwall) {
@@ -246,6 +259,12 @@ const FormLogin = ({ valTemplate, attributes }) => {
           taggeoError()
         }
       })
+      .finally(() => {
+        // removiendo en localstorage en caso no sea ninguno de los 2 casos
+        if (typeDialog !== 'premium' && typeDialog !== 'resetpass') {
+          window.localStorage.removeItem('premium_last_url')
+        }
+      })
   }
 
   const checkFormat = (e) => {
@@ -295,6 +314,16 @@ const FormLogin = ({ valTemplate, attributes }) => {
     setShowVerify(false)
   }
 
+  const loginSuccessFabebook = () => {
+    Identity.getUserProfile().then((resProfile) => {
+      handleGetProfile(resProfile)
+      taggeoSuccess()
+      onLogged()
+    })
+  }
+
+  const loginFailedFacebook = () => setShowError(getCodeError())
+
   return (
     <>
       {!showCheckPremium ? (
@@ -324,15 +353,35 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   : ' Ingresa con'}
               </p>
 
-              {authProviders.map((item) =>
-                item === 'google' &&
-                arcSite === 'trome' &&
-                typeof window !== 'undefined' &&
-                /iPhone|iPad|iPod/i.test(window.navigator.userAgent) ? null : (
+              {activeAuthSocialNative ? (
+                <AuthFacebookGoogle
+                  hideFormParent={() => setHideFormLogin(!hideFormLogin)}
+                  onAuthSuccess={loginSuccessFabebook}
+                  onAuthFailed={loginFailedFacebook}
+                  typeDialog={typeDialog}
+                  dataTreatment={checkedPolits ? '1' : '0'}
+                  arcSite={arcSite}
+                  arcType="login"
+                  activeNewsletter={activeNewsletter}
+                  showMsgVerify={() => triggerShowVerify()}
+                />
+              ) : (
+                <>
+                  <AuthGoogle
+                    arcSite={arcSite}
+                    onClose={onClose}
+                    typeDialog={typeDialog}
+                    typeForm="login"
+                    activeNewsletter={activeNewsletter}
+                    checkUserSubs={checkUserSubs}
+                    onLogged={onLogged}
+                    showMsgVerify={() => triggerShowVerify()}
+                    dataTreatment={checkedPolits ? '1' : '0'}
+                  />
+
                   <ButtonSocial
-                    key={item}
-                    brand={item}
-                    size="middle"
+                    brand="facebook"
+                    size="full"
                     onClose={onClose}
                     typeDialog={typeDialog}
                     arcSite={arcSite}
@@ -343,18 +392,18 @@ const FormLogin = ({ valTemplate, attributes }) => {
                     showMsgVerify={() => triggerShowVerify()}
                     dataTreatment={checkedPolits ? '1' : '0'}
                   />
-                )
-              )}
 
-              <AuthURL
-                arcSite={arcSite}
-                onClose={onClose}
-                typeDialog={typeDialog}
-                activeNewsletter={activeNewsletter}
-                typeForm="login"
-                onLogged={onLogged}
-                checkUserSubs={checkUserSubs}
-              />
+                  <AuthURL
+                    arcSite={arcSite}
+                    onClose={onClose}
+                    typeDialog={typeDialog}
+                    activeNewsletter={activeNewsletter}
+                    typeForm="login"
+                    onLogged={onLogged}
+                    checkUserSubs={checkUserSubs}
+                  />
+                </>
+              )}
 
               {arcSite === SITE_TROME && (
                 <p className="signwall-inside_forms-text mt-15 center">
@@ -365,204 +414,208 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
             {isTromeOrganic && <div className="spacing-trome" />}
 
-            {!showLoginEmail && (
-              <ButtonEmail
-                size="full"
-                onClick={() => {
-                  Taggeo(
-                    `Web_Sign_Wall_${typeDialog}`,
-                    `web_sw${typeDialog[0]}_open_login_boton_ingresar`,
-                    arcSite
-                  )
-                  setShowLoginEmail(!showLoginEmail)
-                }}
-              />
-            )}
-
-            {showLoginEmail && (
+            {!hideFormLogin && (
               <>
-                {showError && (
-                  <div
-                    className={`signwall-inside_forms-error ${
-                      showVerify ? 'warning' : ''
-                    }`}>
-                    {` ${showError} `}
-                    {showVerify && (
-                      <>
-                        {!showSendEmail ? (
-                          <button
-                            type="button"
-                            className="link"
-                            onClick={sendVerifyEmail}>
-                            Reenviar correo de activación
-                          </button>
-                        ) : (
-                          <span>
-                            Podrás reenviar nuevamente dentro de
-                            <strong id="countdown"> 10 </strong> segundos
-                          </span>
-                        )}
-                      </>
-                    )}
-                  </div>
+                {!showLoginEmail && (
+                  <ButtonEmail
+                    size="full"
+                    onClick={() => {
+                      Taggeo(
+                        `Web_Sign_Wall_${typeDialog}`,
+                        `web_sw${typeDialog[0]}_open_login_boton_ingresar`,
+                        arcSite
+                      )
+                      setShowLoginEmail(!showLoginEmail)
+                    }}
+                  />
                 )}
 
-                <Input
-                  type="email"
-                  inputMode="email"
-                  autoComplete="email"
-                  name="lemail"
-                  placeholder="Correo electrónico"
-                  required
-                  value={lemail}
-                  onChange={(e) => {
-                    handleOnChange(e)
-                    setShowError(false)
-                  }}
-                  error={lemailError}
-                />
+                {showLoginEmail && (
+                  <>
+                    {showError && (
+                      <div
+                        className={`signwall-inside_forms-error ${
+                          showVerify ? 'warning' : ''
+                        }`}>
+                        {` ${showError} `}
+                        {showVerify && (
+                          <>
+                            {!showSendEmail ? (
+                              <button
+                                type="button"
+                                className="link"
+                                onClick={sendVerifyEmail}>
+                                Reenviar correo de activación
+                              </button>
+                            ) : (
+                              <span>
+                                Podrás reenviar nuevamente dentro de
+                                <strong id="countdown"> 10 </strong> segundos
+                              </span>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    )}
 
-                <Input
-                  type="password"
-                  autoComplete="current-password"
-                  name="lpass"
-                  placeholder="Contraseña"
-                  required
-                  value={lpass}
-                  onChange={(e) => {
-                    handleOnChange(e)
-                    setShowError(false)
-                    checkFormat(e)
-                  }}
-                  error={lpassError || showFormatInvalid}
-                />
+                    <Input
+                      type="email"
+                      inputMode="email"
+                      autoComplete="email"
+                      name="lemail"
+                      placeholder="Correo electrónico"
+                      required
+                      value={lemail}
+                      onChange={(e) => {
+                        handleOnChange(e)
+                        setShowError(false)
+                      }}
+                      error={lemailError}
+                    />
 
-                <a
-                  href="#"
-                  style={{
-                    color: 'gray',
-                  }}
-                  className="signwall-inside_forms-link mt-10 mb-20 inline f-right text-sm"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    Taggeo(
-                      `Web_Sign_Wall_${typeDialog}`,
-                      `web_sw${typeDialog[0]}_contrasena_link_olvide`,
-                      arcSite
-                    )
-                    changeTemplate('forgot')
-                  }}>
-                  Olvidé mi contraseña
-                </a>
+                    <Input
+                      type="password"
+                      autoComplete="current-password"
+                      name="lpass"
+                      placeholder="Contraseña"
+                      required
+                      value={lpass}
+                      onChange={(e) => {
+                        handleOnChange(e)
+                        setShowError(false)
+                        checkFormat(e)
+                      }}
+                      error={lpassError || showFormatInvalid}
+                    />
 
-                <button
-                  type="submit"
-                  className="signwall-inside_forms-btn"
-                  style={{ color: mainColorBtn, background: mainColorLink }}
-                  disabled={disable || showLoading || showFormatInvalid}
-                  onClick={() => {
-                    Taggeo(
-                      `Web_Sign_Wall_${typeDialog}`,
-                      `web_sw${typeDialog[0]}_login_boton_ingresar`,
-                      arcSite
-                    )
-                    // agregado para el taggeo de diario correo por valla
-                    if (typeDialog === 'premium' && activeRegisterwall) {
-                      Taggeo(
-                        `Web_${typeDialog}_Registro`,
-                        `web_${typeDialog}_boton_iniciar_sesion`
-                      )
-                    }
-                  }}>
-                  {showLoading ? 'CARGANDO...' : 'INICIA SESIÓN'}
-                </button>
-              </>
-            )}
-
-            <p
-              style={{
-                fontSize: '12px',
-                color: '#000000',
-                textAlign: 'center',
-              }}
-              className="signwall-inside_forms-text mt-10 mb-20">
-              ¿Aún no tienes una cuenta?
-              <a
-                href="#"
-                style={{ color: mainColorLink, fontWeight: 'bold' }}
-                className="signwall-inside_forms-link ml-5"
-                onClick={(e) => {
-                  e.preventDefault()
-                  Taggeo(
-                    `Web_Sign_Wall_${typeDialog}`,
-                    `web_sw${typeDialog[0]}_login_boton_registrate`,
-                    arcSite
-                  )
-                  changeTemplate('register')
-                }}>
-                Regístrate
-              </a>
-            </p>
-
-            {activeDataTreatment ? (
-              <>
-                <CheckBox
-                  checked={checkedPolits}
-                  value={checkedPolits ? '1' : '0'}
-                  name="rpolit"
-                  arcSite={arcSite}
-                  onChange={() => {
-                    setCheckedPolits(!checkedPolits)
-                  }}>
-                  <p
-                    style={{
-                      fontSize: '12px',
-                    }}
-                    className="signwall-inside_forms-text mt-10">
-                    Al ingresar por redes sociales autorizo el uso de mis datos
-                    para
                     <a
-                      href={dataTreatment}
-                      target="_blank"
-                      rel="noreferrer"
-                      style={{ color: mainColorLink, fontWeight: 'bold' }}
-                      className="signwall-inside_forms-link ml-5 inline">
-                      fines adicionales
+                      href="#"
+                      style={{
+                        color: 'gray',
+                      }}
+                      className="signwall-inside_forms-link mt-10 mb-20 inline f-right text-sm"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        Taggeo(
+                          `Web_Sign_Wall_${typeDialog}`,
+                          `web_sw${typeDialog[0]}_contrasena_link_olvide`,
+                          arcSite
+                        )
+                        changeTemplate('forgot')
+                      }}>
+                      Olvidé mi contraseña
                     </a>
-                  </p>
-                </CheckBox>
+
+                    <button
+                      type="submit"
+                      className="signwall-inside_forms-btn"
+                      style={{ color: mainColorBtn, background: mainColorLink }}
+                      disabled={disable || showLoading || showFormatInvalid}
+                      onClick={() => {
+                        Taggeo(
+                          `Web_Sign_Wall_${typeDialog}`,
+                          `web_sw${typeDialog[0]}_login_boton_ingresar`,
+                          arcSite
+                        )
+                        // agregado para el taggeo de diario correo por valla
+                        if (typeDialog === 'premium' && activeRegisterwall) {
+                          Taggeo(
+                            `Web_${typeDialog}_Registro`,
+                            `web_${typeDialog}_boton_iniciar_sesion`
+                          )
+                        }
+                      }}>
+                      {showLoading ? 'CARGANDO...' : 'INICIA SESIÓN'}
+                    </button>
+                  </>
+                )}
 
                 <p
                   style={{
-                    textAlign: 'justify',
-                    color: '#818181',
-                    fontSize: '11px',
+                    fontSize: '12px',
+                    color: '#000000',
+                    textAlign: 'center',
                   }}
-                  className="signwall-inside_forms-text mt-10 mb-10">
-                  En caso hayas autorizado los fines de uso adicionales
-                  anteriormente, no es necesario que lo vuelvas a marcar. Si
-                  deseas retirar dicho consentimiento, revisa el procedimiento
-                  en nuestras
+                  className="signwall-inside_forms-text mt-10 mb-20">
+                  ¿Aún no tienes una cuenta?
                   <a
-                    href={PolicyPrivacy(arcSite)}
-                    target="_blank"
-                    rel="noreferrer"
+                    href="#"
                     style={{ color: mainColorLink, fontWeight: 'bold' }}
-                    className="signwall-inside_forms-link ml-5 inline">
-                    Políticas de Privacidad.
+                    className="signwall-inside_forms-link ml-5"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      Taggeo(
+                        `Web_Sign_Wall_${typeDialog}`,
+                        `web_sw${typeDialog[0]}_login_boton_registrate`,
+                        arcSite
+                      )
+                      changeTemplate('register')
+                    }}>
+                    Regístrate
                   </a>
                 </p>
+
+                {activeDataTreatment ? (
+                  <>
+                    <CheckBox
+                      checked={checkedPolits}
+                      value={checkedPolits ? '1' : '0'}
+                      name="rpolit"
+                      arcSite={arcSite}
+                      onChange={() => {
+                        setCheckedPolits(!checkedPolits)
+                      }}>
+                      <p
+                        style={{
+                          fontSize: '12px',
+                        }}
+                        className="signwall-inside_forms-text mt-10">
+                        Al ingresar por redes sociales autorizo el uso de mis
+                        datos para
+                        <a
+                          href={dataTreatment}
+                          target="_blank"
+                          rel="noreferrer"
+                          style={{ color: mainColorLink, fontWeight: 'bold' }}
+                          className="signwall-inside_forms-link ml-5 inline">
+                          fines adicionales
+                        </a>
+                      </p>
+                    </CheckBox>
+
+                    <p
+                      style={{
+                        textAlign: 'justify',
+                        color: '#818181',
+                        fontSize: '11px',
+                      }}
+                      className="signwall-inside_forms-text mt-10 mb-10">
+                      En caso hayas autorizado los fines de uso adicionales
+                      anteriormente, no es necesario que lo vuelvas a marcar. Si
+                      deseas retirar dicho consentimiento, revisa el
+                      procedimiento en nuestras
+                      <a
+                        href={PolicyPrivacy(arcSite)}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{ color: mainColorLink, fontWeight: 'bold' }}
+                        className="signwall-inside_forms-link ml-5 inline">
+                        Políticas de Privacidad.
+                      </a>
+                    </p>
+                  </>
+                ) : (
+                  <p
+                    style={{
+                      color: '#81818',
+                      fontSize: '10px',
+                    }}
+                    className="signwall-inside_forms-text mt-10 mb-10 center">
+                    CON TUS DATOS, MEJORAREMOS TU EXPERIENCIA DE <br />{' '}
+                    NAVEGACIÓN Y NUNCA PUBLICAREMOS SIN TU PERMISO
+                  </p>
+                )}
               </>
-            ) : (
-              <p
-                style={{
-                  color: '#81818',
-                  fontSize: '10px',
-                }}
-                className="signwall-inside_forms-text mt-10 mb-10 center">
-                CON TUS DATOS, MEJORAREMOS TU EXPERIENCIA DE <br /> NAVEGACIÓN Y
-                NUNCA PUBLICAREMOS SIN TU PERMISO
-              </p>
             )}
           </form>
         </>
@@ -600,7 +653,6 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   type="button"
                   style={{ color: mainColorBtn, background: mainColorLink }}
                   onClick={() => {
-                    // modificado para el taggeo de diario correo por valla
                     Taggeo(
                       `Web_${typeDialog}_${
                         activeRegisterwall && typeDialog === 'premium'
@@ -609,11 +661,27 @@ const FormLogin = ({ valTemplate, attributes }) => {
                       }`,
                       `web_${typeDialog}_boton_sigue_navegando`
                     )
-                    if (isStorageAvailable('sessionStorage')) {
+
+                    // validamos para cuando sea una nota premium
+                    if (
+                      isStorageAvailable('localStorage') &&
+                      isStorageAvailable('sessionStorage')
+                    ) {
+                      const premiumLastUrl = window.localStorage.getItem(
+                        'premium_last_url'
+                      )
                       const paywallLastUrl = window.sessionStorage.getItem(
                         'paywall_last_url'
                       )
-                      if (paywallLastUrl && paywallLastUrl !== '') {
+                      if (
+                        premiumLastUrl &&
+                        premiumLastUrl !== '' &&
+                        activeRegisterwall
+                      ) {
+                        window.location.href = premiumLastUrl
+                        // removiendo del local la nota premium
+                        window.localStorage.removeItem('premium_last_url')
+                      } else if (paywallLastUrl && paywallLastUrl !== '') {
                         window.location.href = paywallLastUrl
                       } else {
                         onClose()

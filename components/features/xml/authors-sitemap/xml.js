@@ -1,5 +1,6 @@
 import Consumer from 'fusion:consumer'
-import { localISODate } from '../../../utilities/helpers'
+
+import { localISODate } from '../../../utilities/date-time/dates'
 
 /**
  * @description Sitemap para autores. Este feature obtiene los datos que necesita desde la content-source "authors-by-website-v1"

@@ -52,6 +52,7 @@ const Styles = ({
     style = 'provecho'
   // else if (requestUri.includes('/covid-19/')) style = 'covid'
   else if (/^\/covid-19\//.test(requestUri)) style = 'covid'
+  // else if (requestUri.includes('/covid-19/')) style = 'covid'
   else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
     style = 'story'
   else if (

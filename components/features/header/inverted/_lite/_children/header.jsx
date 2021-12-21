@@ -162,9 +162,8 @@ export default (props) => {
         </nav>
       )}
       <header
-        className={`h-basic pos-rel f f-center ${
-          isSomos ? 'h-basic--somos' : ''
-        }`}
+        className={`h-basic pos-rel f f-center ${isSomos ? 'h-basic--somos' : ''
+          }`}
         id="h-basic">
         {arcSite === SITE_GESTION && <div className="h-basic__loader" />}
         <div className="h-basic__wrapper f just-between alg-center">
@@ -185,7 +184,6 @@ export default (props) => {
               alt="abrir cuadro de búsqueda"
               className="h-basic__btn-search h-basic__btn">
               <svg
-                xmlns="http://www.w3.org/2000/svg"
                 className="h-basic__search"
                 width="22"
                 height="22"

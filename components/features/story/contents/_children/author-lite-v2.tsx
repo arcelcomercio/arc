@@ -54,6 +54,7 @@ const StoryContentChildAuthorLiteV2: React.FC<FeatureProps> = ({
   authorsList,
   displayDate,
   publishDate,
+  metaValue = () => {},
 }) => (
   <div className="s-aut">
     <div>

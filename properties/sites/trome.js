@@ -121,7 +121,7 @@ export default {
   adsAmp: {
     dataSlot: 28253241,
   },
-  listUrlAdvertisings: [
+  listUrlAdvertisings: [  
     'https://d1r08wok4169a5.cloudfront.net/ads-trome/ads-fia-28253241-trm_ia_interna1-300x250-div-gpt-ad-8599377-46.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-trome/ads-fia-28253241-trm_ia_interna2-300x250-div-gpt-ad-8599377-47.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-trome/ads-fia-28253241-trm_ia_interna3-300x250-div-gpt-ad-8599377-48.html',
@@ -156,5 +156,9 @@ export default {
   jwplayersMatching: {
     playerId: 'UQH16oLN',
     videoId: 'z0YAXqp2',
+  },
+  pianoID: {
+    sandbox: '6UafT9Fjsu',
+    prod: '',
   },
 }

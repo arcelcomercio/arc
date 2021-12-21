@@ -3,7 +3,10 @@ import getProperties from 'fusion:properties'
 import * as React from 'react'
 
 import { getAssetsPath } from '../../../utilities/assets'
-import { SITE_GESTION } from '../../../utilities/constants/sitenames'
+import {
+  SITE_GESTION,
+  SITE_TROME,
+} from '../../../utilities/constants/sitenames'
 import customFields from './_dependencies/custom-fields'
 import HeaderContinuousChild from './_lite/_children/header'
 
@@ -24,13 +27,21 @@ const HeaderContinuous = (props) => {
 
   const isSomos = requestUri.includes('/somos/')
   const isDeporPlay = /^\/depor-play\//.test(requestUri)
-  const isGestion = arcSite === SITE_GESTION ? 'white-' : ''
-  const mainImage = isSomos
-    ? 'https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/HJJOUB5ZYJDCZLCVEKSSBBWXPE.png'
-    : `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/${isGestion}${header.logo}?d=1`
+
+  const getMainImage = () => {
+    if (isSomos)
+      return 'https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/HJJOUB5ZYJDCZLCVEKSSBBWXPE.png'
+
+    let imageLogo = header.logo
+
+    if (arcSite === SITE_GESTION) imageLogo = `white-${header.logo}`
+    else if (arcSite === SITE_TROME) imageLogo = 'trome-logo_5.png'
+
+    return `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/${imageLogo}?d=1`
+  }
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
@@ -51,7 +62,7 @@ const HeaderContinuous = (props) => {
     <HeaderContinuousChild
       title={title}
       siteDomain={siteDomain}
-      mainImage={mainImage}
+      mainImage={getMainImage()}
       hideAnchor={hideAnchor}
       isSomos={isSomos}
       isDeporPlay={isDeporPlay}

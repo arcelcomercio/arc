@@ -98,7 +98,6 @@ class StoryContentAmp extends React.PureComponent {
         jwplayersMatching,
       },
       globalContent: data = {},
-      customFields: { shareLinksAMP } = {},
     } = this.props
 
     const activeAds = Object.keys(dataCustomFields).filter((prop) =>
@@ -153,9 +152,10 @@ class StoryContentAmp extends React.PureComponent {
           }
         })
 
-        entryHtml = `${entryHtml} ${divContent} ${entry}  ${publicidad &&
+        entryHtml = `${entryHtml} ${divContent} ${entry}  ${
+          publicidad &&
           `<div class='text-center ad-amp-movil'>${publicidad} </div>`
-          }`
+        }`
       })
 
       return entryHtml
@@ -165,10 +165,11 @@ class StoryContentAmp extends React.PureComponent {
       const formattedDisplayDate = formatDateTime(displayDate)
       const formattedUpdateDate = formatDateTime(updateDate)
 
-      return `${formattedDisplayDate} ${formattedDisplayDate !== formattedUpdateDate
-        ? `| Actualizado ${formattedUpdateDate}`
-        : ''
-        }`
+      return `${formattedDisplayDate} ${
+        formattedDisplayDate !== formattedUpdateDate
+          ? `| Actualizado ${formattedUpdateDate}`
+          : ''
+      }`
     }
     // separar principal y jwplayer
     return (
@@ -189,17 +190,17 @@ class StoryContentAmp extends React.PureComponent {
                   </a>
                 </p>
               ) : // Validamos si es EC
-                isComercio ? (
-                  authorsList.map((authorData) => (
-                    <p className={classes.author}>
-                      <a href={authorData.urlAuthor}>{authorData.nameAuthor}</a>
-                    </p>
-                  ))
-                ) : (
+              isComercio ? (
+                authorsList.map((authorData) => (
                   <p className={classes.author}>
-                    <a href={authorLink}>{author}</a>
+                    <a href={authorData.urlAuthor}>{authorData.nameAuthor}</a>
                   </p>
-                )}
+                ))
+              ) : (
+                <p className={classes.author}>
+                  <a href={authorLink}>{author}</a>
+                </p>
+              )}
               <time
                 dateTime={getDateSeo(displayDate)}
                 className={classes.datetime}>
@@ -210,9 +211,9 @@ class StoryContentAmp extends React.PureComponent {
             </div>
           )}
           {isMetered &&
-            activeRulesCounter &&
-            activePaywall &&
-            arcSite === SITE_GESTION ? (
+          activeRulesCounter &&
+          activePaywall &&
+          arcSite === SITE_GESTION ? (
             // Contador de paywall para AMP
             <amp-iframe
               width="1"
@@ -410,13 +411,13 @@ class StoryContentAmp extends React.PureComponent {
                         content={
                           isLegacy
                             ? formatHtmlToText(
-                              replaceTags(cleanLegacyAnchor(content))
-                            )
+                                replaceTags(cleanLegacyAnchor(content))
+                              )
                             : ampHtml(
-                              replaceTags(content),
-                              arcSite,
-                              !!source.source_id
-                            )
+                                replaceTags(content),
+                                arcSite,
+                                !!source.source_id
+                              )
                         }
                         className={classes.textClasses}
                       />
@@ -429,10 +430,10 @@ class StoryContentAmp extends React.PureComponent {
                         />
                       )}
                       {element?.activateStories &&
-                        (arcSite === SITE_ELCOMERCIO ||
-                          (arcSite === SITE_DEPOR &&
-                            (/^\/mexico\//.test(requestUri) ||
-                              /^\/colombia\//.test(requestUri)))) ? (
+                      (arcSite === SITE_ELCOMERCIO ||
+                        (arcSite === SITE_DEPOR &&
+                          (/^\/mexico\//.test(requestUri) ||
+                            /^\/colombia\//.test(requestUri)))) ? (
                         <AmpStoriesChild arcSite={arcSite} />
                       ) : null}
                     </>
@@ -494,7 +495,7 @@ class StoryContentAmp extends React.PureComponent {
             />
           )}
 
-          {shareLinksAMP && (
+          {dataCustomFields.shareLinksAMP && (
             <div className={classes.social}>
               <StorySocialChildAmpSocial isContent />
             </div>

@@ -60,7 +60,6 @@ const customFields = PropTypes.shape({
     name: 'categoria top video mobile',
     defaultValue: false,
   }),
-
   ampAdName1: PropTypes.string.tag({
     name: 'Nombre',
     group: 'AMP',

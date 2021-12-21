@@ -1,4 +1,4 @@
-export const getScriptAdPushup = arcSite => {
+export const getScriptAdPushup = (arcSite) => {
   let pushup = ''
   let idPushup = '42614'
   if (arcSite === 'elbocon') {
@@ -7,7 +7,7 @@ export const getScriptAdPushup = arcSite => {
     idPushup = '43065'
   } else if (arcSite === 'ojo') {
     idPushup = '42879'
-  }  else if (arcSite === 'elcomercio') {
+  } else if (arcSite === 'elcomercio') {
     idPushup = '43080'
   } else if (arcSite === 'peru21') {
     idPushup = '42612'
@@ -20,15 +20,15 @@ export const getScriptAdPushup = arcSite => {
   return pushup
 }
 
-export const getEnabledServerside = arcSite => {
+export const getEnabledServerside = (arcSite) => {
   let epushud = false
   if (
     arcSite === 'trome' ||
     arcSite === 'elbocon' ||
-    arcSite === 'ojo' || 
-    arcSite === 'elcomercio' || 
-    arcSite === 'peru21' || 
-    arcSite === 'gestion' || 
+    arcSite === 'ojo' ||
+    arcSite === 'elcomercio' ||
+    arcSite === 'peru21' ||
+    arcSite === 'gestion' ||
     arcSite === 'depor'
   ) {
     epushud = true

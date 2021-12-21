@@ -136,7 +136,7 @@ window.addEventListener('load', () => {requestIdle(() => {
         let storyToObserve = null
         if(storyIndex <= 0) {
           // Contenido de la primera nota
-          storyToObserve = document.getElementById("contenedor")
+          storyToObserve = document.getElementById('contenedor')
           storyToObserve.setAttribute("data-index", 0)
         } else if(storyIndex > 0){
           storyToObserve = document.getElementById("st-iframe-" + storyIndex)

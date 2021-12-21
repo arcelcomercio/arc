@@ -12,7 +12,11 @@ import {
   useNavigateContext,
 } from '../../../_context/navigate'
 import PWA from '../../../_dependencies/Pwa'
-import { PixelActions, sendAction } from '../../../_dependencies/Taggeo'
+import {
+  PixelActions,
+  sendAction,
+  TagsAdsMurai,
+} from '../../../_dependencies/Taggeo'
 import { getSessionStorage, isFbBrowser } from '../../../_dependencies/Utils'
 
 type NavigateTemplatesProps = {
@@ -81,6 +85,18 @@ const WrapperSingwall = ({
       suscriptorImpreso: printedSubscriber ? 'si' : 'no',
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
+
+    TagsAdsMurai(
+      {
+        event: 'adsmurai_pageview',
+        em: '',
+        fn: '',
+        ln: '',
+        ct: '',
+        ph: '',
+      },
+      window.location.pathname
+    )
 
     if (fromFia || isFbBrowser) {
       // TODO: cambiar surface de 'fia' a 'IA' segun documentacion

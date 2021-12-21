@@ -643,7 +643,9 @@ const PropertiesCommon = {
     landingFia:   `/suscripcionesdigitales/fia/${isProd ? '?ref=auth-fia' : '?outputType=subscriptions&ref=auth-fia'}`,
     clubComercio: 'https://clubelcomercio.pe/?home=suscripciones_digitales',
     callCenter:   'tel:+5113115100',
-    howItWork:    'https://cip.pagoefectivo.pe/CNT/QueEsPagoEfectivo.aspx'
+    howItWork:    'https://cip.pagoefectivo.pe/CNT/QueEsPagoEfectivo.aspx',
+    facebookKey:   isProd ? '258201114673936' : '861476194483517',
+    googleKey:     isProd ? '1038751133917-7sjce6fad67l0bi33niifa3tui26tkmd' : '1091574505245-hd5ma7kv3tnrbeic39sqaglpps83bt1o' // CONFIRMAR CON FRANZ KEY PROD
   },
 
   // prettier-ignore
@@ -696,14 +698,15 @@ const PropertiesCommon = {
     checkInbox:      'Revisa tu bandeja de correo para confirmar tu registro y sigue navegando',
     notReceiptEmail: '¿No recibiste el correo?',
     reSendEmail:     'Reenviar correo de activación',
+    titleContinue:   'Para continuar se requiere completar',
     youCanSendEmail: 'Podrás reenviar nuevamente dentro de',
     textWinback:     '¡Tenemos un precio especial para ti!',
+    howItWork:       '¿Cómo funciona?',
+    textBanca:       'Paga en BBVA, BCP, Interbank, Scotiabank, Banbif, Caja Arequipa Y Banco Pichincha, a travéz de la banca por internet o banca móvil en la opción pago de servicios.',
+    textAgentes:     'Depósitos en efectivo via pago efectivo - Paga en BBVA, BCP, Interbank, Scotiabank, Banbif, Wester Union, Tambo+, kasnet Full Carga, Red Digital, Comercio Niubiz Multiservicios, Money Gram, Caja Arequipa, Disashop, Banco de la Nación, Caja Sullana, Caja los Andes, Caja Trujillo, Banco Azteca, Caja del Santa, Caja Raiz.',
     titleCompany:    'Por favor envíanos tus datos para brindarte información sobre nuestras suscripciones corporativas.',
     successCompany:  'Tu mensaje ha sido enviado, nos pondremos en contacto contigo.',
     errorCompany:    'Ha ocurrido un error. Inténtelo más tarde',
-    howItWork:       '¿Cómo funciona?',
-    textBanca:       'Paga en BBVA, BCP, Interbank, Scotiabank, Banbif, Caja Arequipa Y Banco Pichincha, a travéz de la banca por internet o banca móvil en la opción pago de servicios.',
-    textAgentes:     'Depósitos en efectivo via pago efectivo - Paga en BBVA, BCP, Interbank, Scotiabank, Banbif, Wester Union, Tambo+, kasnet Full Carga, Red Digital, Comercio Niubiz Multiservicios, Money Gram, Caja Arequipa, Disashop, Banco de la Nación, Caja Sullana, Caja los Andes, Caja Trujillo, Banco Azteca, Caja del Santa, Caja Raiz.'
   },
 }
 

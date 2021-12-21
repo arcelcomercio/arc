@@ -12,7 +12,7 @@ import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import { seeMoreButtonScript } from './_dependencies/scripts'
 
-// Este feature se creo en version lite para la seccion de videos del rediseño de El Comercio
+// Este feature se creo en version lite para la seccion de videos del rediseño de El Comercio.
 const SeparatorStories: FeatureComponent<any> = (props) => {
   const {
     customFields: {

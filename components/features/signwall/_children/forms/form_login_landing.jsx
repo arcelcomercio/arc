@@ -5,6 +5,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { setCookie } from '../../../../utilities/client/cookies'
+import AuthFacebookGoogle from '../../../subscriptions/_children/auth-facebook-google'
 import { useModalContext } from '../../../subscriptions/_context/modal'
 import getCodeError, {
   formatEmail,
@@ -14,6 +15,7 @@ import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import { isFbBrowser } from '../../../subscriptions/_dependencies/Utils'
 import useForm from '../../../subscriptions/_hooks/useForm'
 import { dataTreatment, PolicyPrivacy } from '../../_dependencies/domains'
+import AuthGoogle from './auth-google'
 import { CheckBox } from './control_checkbox'
 import { Input } from './control_input_select'
 import { AuthURL, ButtonSocial } from './control_social'
@@ -23,10 +25,14 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
   const {
     arcSite,
     siteProperties: {
-      signwall: { mainColorLink, authProviders },
+      signwall: {
+        mainColorLink,
+        // authProviders 
+      },
       activeMagicLink,
       activeNewsletter,
       activeDataTreatment,
+      activeAuthSocialNative,
     },
   } = useAppContext() || {}
 
@@ -38,6 +44,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
   const [showVerify, setShowVerify] = React.useState()
   const [showSendEmail, setShowSendEmail] = React.useState(false)
   const [checkedPolits, setCheckedPolits] = React.useState(true)
+  const [hideFormLogin, setHideFormLogin] = React.useState(false)
 
   const stateSchema = {
     lemail: { value: valTemplate || '', error: '' },
@@ -163,7 +170,26 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
     setShowVerify(false)
   }
 
-  const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
+  // const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
+
+  const loginSuccessFabebook = () => {
+    Identity.getUserProfile().then((resProfile) => {
+      setCookie('arc_e_id', sha256(resProfile.email).toString(), 365)
+      onLogged(resProfile) // para hendrul
+      setShowVerify(false)
+      Taggeo(
+        `Web_Sign_Wall_${typeDialog}`,
+        `web_sw${typeDialog[0]}_login_success_ingresar`
+      )
+      if (typeDialog === 'students') {
+        setShowStudents(!showStudents)
+      } else {
+        onClose()
+      }
+    })
+  }
+
+  const loginFailedFacebook = () => setShowError(getCodeError())
 
   return (
     <>
@@ -176,27 +202,24 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
               Ingresa con tus redes sociales
             </p>
 
-            {isFbBrowser ? (
-              <ButtonSocial
-                brand="facebook"
-                size="full"
-                onLogged={onLogged}
-                onClose={onClose}
+            {activeAuthSocialNative ? (
+              <AuthFacebookGoogle
+                hideFormParent={() => setHideFormLogin(!hideFormLogin)}
+                onAuthSuccess={loginSuccessFabebook}
+                onAuthFailed={loginFailedFacebook}
                 typeDialog={typeDialog}
-                onStudents={() => setShowStudents(!showStudents)}
+                dataTreatment={checkedPolits ? '1' : '0'}
                 arcSite={arcSite}
-                typeForm="login"
+                arcType="login"
                 activeNewsletter={activeNewsletter}
                 showMsgVerify={() => triggerShowVerify()}
-                dataTreatment={checkedPolits ? '1' : '0'}
               />
             ) : (
               <>
-                {authProviders.map((item) => (
+                {isFbBrowser ? (
                   <ButtonSocial
-                    key={item}
-                    brand={item}
-                    size={sizeBtnSocial}
+                    brand="facebook"
+                    size="full"
                     onLogged={onLogged}
                     onClose={onClose}
                     typeDialog={typeDialog}
@@ -207,18 +230,47 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                     showMsgVerify={() => triggerShowVerify()}
                     dataTreatment={checkedPolits ? '1' : '0'}
                   />
-                ))}
+                ) : (
+                  <>
+                    <AuthGoogle
+                      onLogged={onLogged}
+                      onClose={onClose}
+                      typeDialog={typeDialog}
+                      onStudents={() => setShowStudents(!showStudents)}
+                      arcSite={arcSite}
+                      typeForm="login"
+                      activeNewsletter={activeNewsletter}
+                      showMsgVerify={() => triggerShowVerify()}
+                      dataTreatment={checkedPolits ? '1' : '0'} />
+
+                    <ButtonSocial
+                      brand="facebook"
+                      size="full"
+                      onLogged={onLogged}
+                      onClose={onClose}
+                      typeDialog={typeDialog}
+                      onStudents={() => setShowStudents(!showStudents)}
+                      arcSite={arcSite}
+                      typeForm="login"
+                      activeNewsletter={activeNewsletter}
+                      showMsgVerify={() => triggerShowVerify()}
+                      dataTreatment={checkedPolits ? '1' : '0'}
+                    />
+
+                  </>
+                )}
+
+                <AuthURL
+                  arcSite={arcSite}
+                  onClose={onClose}
+                  typeDialog={typeDialog}
+                  activeNewsletter={activeNewsletter}
+                  typeForm="login"
+                  onLogged={onLogged}
+                />
+
               </>
             )}
-
-            <AuthURL
-              arcSite={arcSite}
-              onClose={onClose}
-              typeDialog={typeDialog}
-              activeNewsletter={activeNewsletter}
-              typeForm="login"
-              onLogged={onLogged}
-            />
 
             <p className="signwall-inside_forms-text mt-20 center">
               Ingresa con tu usuario
@@ -226,9 +278,8 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
 
             {showError && (
               <div
-                className={`signwall-inside_forms-error ${
-                  showVerify ? 'warning' : ''
-                }`}>
+                className={`signwall-inside_forms-error ${showVerify ? 'warning' : ''
+                  }`}>
                 {` ${showError} `}
                 {showVerify && (
                   <>

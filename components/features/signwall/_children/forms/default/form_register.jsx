@@ -8,7 +8,6 @@ import { isStorageAvailable } from '../../../../../utilities/client/storage'
 import {
   SITE_ELCOMERCIO,
   SITE_GESTION,
-  SITE_TROME,
 } from '../../../../../utilities/constants/sitenames'
 import { extendSession } from '../../../../../utilities/subscriptions/identity'
 import { useModalContext } from '../../../../subscriptions/_context/modal'
@@ -33,6 +32,7 @@ import {
 } from '../../../_dependencies/services'
 import { MsgRegister } from '../../icons'
 import Loading from '../../loading'
+import AuthGoogle from '../auth-google'
 import { CheckBox } from '../control_checkbox'
 import { Input } from '../control_input_select'
 import { AuthURL, ButtonSocial } from '../control_social'
@@ -48,7 +48,9 @@ const FormRegister = ({
   const {
     arcSite,
     siteProperties: {
-      signwall: { mainColorLink, mainColorBtn, mainColorBr, authProviders },
+      signwall: { mainColorLink, mainColorBtn, mainColorBr,
+        // authProviders 
+      },
       activeMagicLink,
       activeRegisterwall,
       activeNewsletter,
@@ -57,13 +59,6 @@ const FormRegister = ({
       siteDomain,
     },
   } = useAppContext() || {}
-
-  const isTromeOrganic =
-    arcSite === 'trome' &&
-    (typeDialog === 'organico' ||
-      typeDialog === 'verify' ||
-      typeDialog === 'banner' ||
-      typeDialog === 'promoMetro')
 
   const { changeTemplate } = useModalContext()
   const [showError, setShowError] = React.useState(false)
@@ -298,8 +293,6 @@ const FormRegister = ({
       return checkEntitlement
     })
 
-  // agregado despues de pasar test por default/form_login
-  // es un codigo diferente al de login
   const unblockContent = () => {
     setShowUserWithSubs(true) // tengo subs
     const divPremium = document.getElementById('contenedor')
@@ -372,7 +365,7 @@ const FormRegister = ({
     }, 1000)
   }
 
-  const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
+  // const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
 
   return (
     <>
@@ -386,36 +379,38 @@ const FormRegister = ({
               onSubmit={handleOnSubmit}>
               {!showConfirm && (
                 <>
-                  {isTromeOrganic && <div className="spacing-trome" />}
-
                   <div className=" mt-10 center">
                     <p className="signwall-inside_forms-text mb-20 center bold">
                       Accede fácilmente con:
                     </p>
-                    {authProviders.map((item) =>
-                      item === 'google' &&
-                      arcSite === 'trome' &&
-                      typeof window !== 'undefined' &&
-                      /iPhone|iPad|iPod/i.test(
-                        window.navigator.userAgent
-                      ) ? null : (
-                        <ButtonSocial
-                          key={item}
-                          brand={item}
-                          size={sizeBtnSocial}
-                          defaultSize=""
-                          onLogged={onLogged}
-                          onClose={onClose}
-                          typeDialog={typeDialog}
-                          onStudents={() => setShowStudents(!showStudents)}
-                          arcSite={arcSite}
-                          typeForm="registro"
-                          activeNewsletter={activeNewsletter}
-                          checkUserSubs={checkUserSubs}
-                          dataTreatment={checkedPolits ? '1' : '0'}
-                        />
-                      )
-                    )}
+
+                    <AuthGoogle
+                      arcSite={arcSite}
+                      onLogged={onLogged}
+                      onClose={onClose}
+                      typeDialog={typeDialog}
+                      onStudents={() => setShowStudents(!showStudents)}
+                      typeForm="registro"
+                      activeNewsletter={activeNewsletter}
+                      checkUserSubs={checkUserSubs}
+                      dataTreatment={checkedPolits ? '1' : '0'}
+                    />
+
+                    <ButtonSocial
+                      brand="facebook"
+                      size="full"
+                      defaultSize=""
+                      onLogged={onLogged}
+                      onClose={onClose}
+                      typeDialog={typeDialog}
+                      onStudents={() => setShowStudents(!showStudents)}
+                      arcSite={arcSite}
+                      typeForm="registro"
+                      activeNewsletter={activeNewsletter}
+                      checkUserSubs={checkUserSubs}
+                      dataTreatment={checkedPolits ? '1' : '0'}
+                    />
+
                     <AuthURL
                       arcSite={arcSite}
                       onClose={onClose}
@@ -657,11 +652,10 @@ const FormRegister = ({
                               onClick={() => {
                                 // modificado para el taggeo de diario correo por valla
                                 Taggeo(
-                                  `Web_${typeDialog}_${
-                                    activeRegisterwall &&
+                                  `Web_${typeDialog}_${activeRegisterwall &&
                                     typeDialog === 'premium'
-                                      ? 'Registro'
-                                      : 'Hard'
+                                    ? 'Registro'
+                                    : 'Hard'
                                   }`,
                                   `web_${typeDialog}_boton_sigue_navegando`
                                 )
@@ -724,47 +718,45 @@ const FormRegister = ({
                       </>
                     )}
                   {(showContinueVerify || !activeVerifyEmail) && (
-                    <>
-                      {!isTromeOrganic && (
-                        <p
-                          style={{
-                            lineHeight: '22px',
-                          }}
-                          className="signwall-inside_forms-text mb-20 center">
-                          Revisa tu bandeja de correo para confirmar tu
-                          {showContinueVerify
-                            ? ` registro y sigue navegando`
-                            : ` solicitud de registro`}
-                        </p>
-                      )}
+                    <button
+                      type="button"
+                      className="signwall-inside_forms-btn signwall-inside_forms-btn-codp"
+                      style={{
+                        color: mainColorBtn,
+                        background: mainColorLink,
+                      }}
+                      onClick={() => {
+                        Taggeo(
+                          `Web_Sign_Wall_${typeDialog}`,
+                          `web_sw${typeDialog[0]}_registro_continuar_navegando`,
+                          arcSite
+                        )
 
-                      <button
-                        type="button"
-                        className="signwall-inside_forms-btn signwall-inside_forms-btn-codp"
-                        style={{
-                          color: mainColorBtn,
-                          background: mainColorLink,
-                        }}
-                        onClick={() => {
-                          Taggeo(
-                            `Web_Sign_Wall_${typeDialog}`,
-                            `web_sw${typeDialog[0]}_registro_continuar_navegando`,
-                            arcSite
-                          )
-                          if (typeDialog === 'students') {
-                            if (showContinueVerify) {
-                              changeTemplate('login', '', remail)
-                            } else {
-                              setShowStudents(!showStudents)
-                            }
+                        const btnSignwall = document.getElementById(
+                          'signwall-nav-btn'
+                        )
+
+                        if (typeDialog === 'students') {
+                          if (showContinueVerify) {
+                            changeTemplate('login', '', remail)
                           } else {
-                            const btnSignwall = document.getElementById(
-                              'signwall-nav-btn'
-                            )
+                            setShowStudents(!showStudents)
+                          }
+                        } else {
+                          if (typeDialog === 'newsletter' && btnSignwall) {
+                            btnSignwall.textContent =
+                              arcSite === SITE_ELCOMERCIO ||
+                                arcSite === SITE_GESTION
+                                ? 'Bienvenido'
+                                : 'Mi Perfil'
+                          }
+                          if (showContinueVerify) {
+                            changeTemplate('login', '', remail)
+                          } else {
                             if (typeDialog === 'newsletter' && btnSignwall) {
                               btnSignwall.textContent =
                                 arcSite === SITE_ELCOMERCIO ||
-                                arcSite === SITE_GESTION
+                                  arcSite === SITE_GESTION
                                   ? 'Bienvenido'
                                   : 'Mi Perfil'
                             }
@@ -774,12 +766,10 @@ const FormRegister = ({
                               onClose()
                             }
                           }
-                        }}>
-                        {arcSite === SITE_TROME
-                          ? 'Confirmar Correo'
-                          : 'Continuar'}
-                      </button>
-                    </>
+                        }
+                      }}>
+                      Continuar
+                    </button>
                   )}
                   {showContinueVerify && (
                     <p
@@ -812,12 +802,6 @@ const FormRegister = ({
                     </p>
                   )}
                 </>
-              )}
-              {showConfirm && isTromeOrganic && (
-                <p className="signwall-inside_forms-text-note">
-                  Al hacer click estarás aceptando los Términos y <br />{' '}
-                  condiciones y la Política de privacidad.
-                </p>
               )}
             </form>
           )}

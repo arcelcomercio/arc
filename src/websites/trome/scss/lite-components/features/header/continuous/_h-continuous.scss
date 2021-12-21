@@ -1,7 +1,13 @@
 .h-continuous {
   height: $header-height-m;
   // background-color: $color-primary;
-  background: linear-gradient(90deg, black 0%, black 50%, #e06437 50%, #e06437 100%);
+  background: linear-gradient(
+    90deg,
+    black 0%,
+    black 50%,
+    #ff8205 50%,
+    #ff8205 100%
+  );
 
   @media (--desktop) {
     height: $header-height;
@@ -9,6 +15,8 @@
 
   &__img {
     height: $header-height-m;
+    position: relative;
+    top: 1px;
 
     @media (--desktop) {
       height: $header-height;

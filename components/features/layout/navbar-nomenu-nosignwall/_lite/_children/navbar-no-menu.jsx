@@ -68,11 +68,7 @@ export default (props) => {
             )}
           </ul>
           <a href="/suscripcion-newsletter/" className={classes.news}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="16"
-              viewBox="0 0 20 16">
+            <svg width="20" height="16" viewBox="0 0 20 16">
               <path d="M20,2a2.006,2.006,0,0,0-2-2H2A2.006,2.006,0,0,0,0,2V14a2.006,2.006,0,0,0,2,2H18a2.006,2.006,0,0,0,2-2ZM18,2,10,6.99,2,2Zm0,12H2V4l8,5,8-5Z" />
             </svg>
             <span>Newsletter</span>
@@ -86,7 +82,6 @@ export default (props) => {
             alt="abrir cuadro de búsqueda"
             className={classes.iconSearch}>
             <svg
-              xmlns="http://www.w3.org/2000/svg"
               className="h-basic__search"
               width="19"
               height="19"

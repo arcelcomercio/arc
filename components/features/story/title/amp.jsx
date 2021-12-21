@@ -135,6 +135,12 @@ const StoryTitleAmp = (props) => {
             dangerouslySetInnerHTML={{ __html: getDiv() }}
           />
         )}
+        {arcSite === SITE_ELCOMERCIOMAG && (
+          <div
+            className={classes.adsAmp}
+            dangerouslySetInnerHTML={publicidadAmpCaja1(parametersCaja1)}
+          />
+        )}
 
         {subTitle && <div className={classes.description}> {subTitle}</div>}
         {arcSite !== SITE_ELCOMERCIOMAG && arcSite !== SITE_TROME && (

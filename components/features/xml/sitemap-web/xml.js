@@ -1,5 +1,6 @@
 import Consumer from 'fusion:consumer'
-import { localISODate } from '../../../utilities/helpers'
+
+import { localISODate } from '../../../utilities/date-time/dates'
 
 /**
  * @description Sitemap estándar para la web. Este feature obtiene los datos que necesita desde "globalContent" y
@@ -48,7 +49,7 @@ class XmlSitemapWeb {
 
     const stories = []
     if (this.state)
-      Object.keys(this.state).forEach(key => {
+      Object.keys(this.state).forEach((key) => {
         const { content_elements: contentElements = [] } =
           (key && this.state[key]) || {}
         stories.push(...contentElements)
@@ -59,7 +60,7 @@ class XmlSitemapWeb {
     }
 
     const sitemap = {
-      urlset: stories.map(story => {
+      urlset: stories.map((story) => {
         const {
           publish_date: date,
           display_date: displayDate,

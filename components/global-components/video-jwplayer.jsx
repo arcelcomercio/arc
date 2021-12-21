@@ -8,7 +8,10 @@ const StoryContentChildVideoJwplayerList = ({
   lite = false,
   showSection = false,
 }) => {
-  const { siteProperties: { jwplayers = {} } = {} } = useFusionContext()
+  const {
+    siteProperties: { jwplayers = {} } = {},
+    metaValue,
+  } = useFusionContext()
   const {
     key: mediaId = '',
     has_ads: hasAds = 0,
@@ -17,10 +20,20 @@ const StoryContentChildVideoJwplayerList = ({
     time = '',
     section,
     thumbnail_url: image = '',
+    author: authorVideo = '',
   } = data
+  const isStoryV2StandarStyle =
+    metaValue('section_style') === 'story-v2-standard'
   const playerId = jwplayers[account] || jwplayers.gec
   const jwplayerId = hasAds ? playerId.playerAds : playerId.player
-  const descriptionTxt = showSection ? section : title
+  const descriptionVideo =
+    isStoryV2StandarStyle && authorVideo
+      ? `
+        ${title}
+        <span class="s-multimedia__author-name"> / ${authorVideo}</span>
+        `
+      : title
+  const descriptionTxt = showSection ? section : descriptionVideo
   return (
     <>
       {mediaId && (
@@ -48,7 +61,7 @@ const StoryContentChildVideoJwplayerList = ({
             <figcaption
               className={`${
                 lite === true
-                  ? `s-multimedia__caption`
+                  ? `s-multimedia__caption 4`
                   : `story-content__caption`
               }`}
               dangerouslySetInnerHTML={{

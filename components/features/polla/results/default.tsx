@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 import { FC } from 'types/features'
 
-import { slugify } from '../../../utilities/parse/slugify'
+// import { slugify } from '../../../utilities/parse/slugify'
 import { Game } from './_types/types'
 
 interface Props {
@@ -13,8 +13,12 @@ interface Props {
   }
 }
 
-const COUNTRIES_ASSETS_PATH =
-  'https://cdna.depor.com/resources/dist/depor/images-polla/paises/'
+let isMobile: boolean
+
+if (typeof window !== 'undefined')
+  isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
+    window.navigator.userAgent
+  )
 
 interface GamesByDate {
   [x: string]: Game[]
@@ -62,8 +66,14 @@ const PollaGuide: FC<Props> = (props) => {
     day: '2-digit',
   })
 
+  // const COUNTRIES_ASSETS_PATH =
+  //   'https://cdna.depor.com/resources/dist/depor/images-polla/paises/'
+
+  const COUNTRIES_ASSETS_PATH = 'https://cdna-resultadosopta.minoticia.pe'
+
+  // rango de las fechas del torneo
   React.useEffect(() => {
-    setDatesArray(getDaysArray(new Date('06/11/2021'), new Date('07/15/2021')))
+    setDatesArray(getDaysArray(new Date('06/12/2021'), new Date('07/15/2021')))
     fetch(
       customFields?.serviceEndPoint || ''
       // 'https://cdna-resultadosopta.minoticia.pe/api-soccer/statistics/leagues/45db8orh1qttbsqq9hqapmbit/results/'
@@ -135,6 +145,42 @@ const PollaGuide: FC<Props> = (props) => {
         container.scrollLeft += 100
       }
     }
+  }
+
+  const diccionarioPaises = (name: string) => {
+    let abrev = ''
+    if (name === 'Colombia') {
+      abrev = 'COL'
+    }
+    if (name === 'Paraguay') {
+      abrev = 'PAR'
+    }
+    if (name === 'Argentina') {
+      abrev = 'ARG'
+    }
+    if (name === 'Uruguay') {
+      abrev = 'URU'
+    }
+    if (name === 'Venezuela') {
+      abrev = 'VEN'
+    }
+    if (name === 'Perú') {
+      abrev = 'PER'
+    }
+    if (name === 'Bolivia') {
+      abrev = 'BOL'
+    }
+    if (name === 'Chile') {
+      abrev = 'CHI'
+    }
+    if (name === 'Brasil') {
+      abrev = 'BRA'
+    }
+    if (name === 'Ecuador') {
+      abrev = 'ECU'
+    }
+
+    return abrev
   }
 
   return (
@@ -238,82 +284,128 @@ const PollaGuide: FC<Props> = (props) => {
               key={`${game.date}-${game.time}-${game.contestants.home_contestant}`}
               className={`polla-results__list ${game.status}`}>
               <div className="polla-results__list-item">
-                <div className="polla-results__list-stadium">
-                  <b>{game.stadium}</b>
+                <div className="polla-results__cont-est">
+                  <div className="polla-results__list-stadium">
+                    <b>{game.stadium}</b>
+                  </div>
+                  <div className="polla-results__list-ub">
+                    {parsedStadiumLocationPerName[game.stadium]}
+                  </div>
                 </div>
-                <div className="polla-results__list-ub">
-                  {parsedStadiumLocationPerName[game.stadium]}
-                </div>
+
                 <div className="polla-results__list-cont">
                   <div className="polla-results__score-cont">
                     <div className="polla-results__country">
-                      {game.contestants.home_contestant ? (
-                        <img
-                          src={`${COUNTRIES_ASSETS_PATH}${slugify(
-                            game.contestants.home_contestant
-                          )}.svg`}
-                          alt="Flag"
-                        />
-                      ) : null}
-                      <span>
-                        {game.contestants.home_contestant || 'Por definirse'}
-                      </span>
-                    </div>
-                    <div className="polla-results__score-item">
-                      {game.status === 'Played' || game.status === 'Playing' ? (
+                      {isMobile ? (
                         <>
-                          <div className="polla-results__score-numbers">
-                            <span>{game.home_goals}</span>
-                            <span>{game.away_goals}</span>
-                          </div>
-                          {game.status === 'Played' ? (
-                            <div className="polla-results__score-text">
-                              FINALIZADO
-                            </div>
-                          ) : (
-                            <div className="polla-results__score-live">
-                              <span className="polla-results__live-dot" />
-                              <span>En vivo</span>
-                            </div>
-                          )}
+                          {game.contestants.home_contestant ? (
+                            <img
+                              // src={`${COUNTRIES_ASSETS_PATH}${slugify(
+                              //   game.contestants.home_contestant
+                              // )}.svg`}
+                              src={`${COUNTRIES_ASSETS_PATH}${game.contestants.home_img}`}
+                              alt="Flag"
+                            />
+                          ) : null}
+                          <span>
+                            {diccionarioPaises(
+                              game.contestants.home_contestant
+                            ) || 'Por definirse'}
+                          </span>
                         </>
                       ) : (
-                        <div className="polla-results__score-date">
+                        <>
                           <span>
-                            {new Intl.DateTimeFormat('es-419-u-hc-h12', {
-                              month: '2-digit',
-                              day: '2-digit',
-                            }).format(new Date(game.date.replace(/-/g, '/')))}
+                            {game.contestants.home_contestant ||
+                              'Por definirse'}
                           </span>
-                          <span>
-                            {' '}
-                            {new Intl.DateTimeFormat('es-419-u-hc-h12', {
-                              hour: '2-digit',
-                              minute: '2-digit',
-                              timeZone: 'America/Lima',
-                              hour12: true,
-                            }).format(
-                              new Date(
-                                `${game.date.replace(/-/g, '/')} ${game.time}`
-                              )
-                            )}
-                          </span>
-                        </div>
+                          {game.contestants.home_contestant ? (
+                            <img
+                              // src={`${COUNTRIES_ASSETS_PATH}${slugify(
+                              //   game.contestants.home_contestant
+                              // )}.svg`}
+                              src={`${COUNTRIES_ASSETS_PATH}${game.contestants.home_img}`}
+                              alt="Flag"
+                            />
+                          ) : null}
+                        </>
                       )}
                     </div>
-                    <div className="polla-results__country">
+                    <div className="polla-results__container-mid">
+                      <div className="polla-results__score-item">
+                        {game.status === 'Played' ||
+                        game.status === 'Playing' ? (
+                          <>
+                            <div className="polla-results__score-numbers">
+                              <span>{game.home_goals}</span>
+                              <span>{game.away_goals}</span>
+                            </div>
+                            {game.status === 'Played' ? (
+                              <div className="polla-results__score-text">
+                                FINALIZADO
+                              </div>
+                            ) : (
+                              <div className="polla-results__score-live">
+                                <span className="polla-results__live-dot" />
+                                <span>En vivo</span>
+                              </div>
+                            )}
+                          </>
+                        ) : (
+                          <div className="polla-results__score-date">
+                            <span>
+                              {new Intl.DateTimeFormat('es-419-u-hc-h12', {
+                                month: '2-digit',
+                                day: '2-digit',
+                              }).format(new Date(game.date.replace(/-/g, '/')))}
+                            </span>
+                            <span>
+                              {' '}
+                              {new Intl.DateTimeFormat('es-419-u-hc-h12', {
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                timeZone: 'America/Lima',
+                                hour12: true,
+                              }).format(
+                                new Date(
+                                  `${game.date.replace(/-/g, '/')} ${game.time}`
+                                )
+                              )}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                      {isMobile ? (
+                        <div className="polla-results__button-resumen-mob">
+                          <a href="https://www.google.com/">Resumen</a>
+                        </div>
+                      ) : (
+                        ''
+                      )}
+                    </div>
+                    <div className="polla-results__country-right">
                       {game.contestants.away_contestant ? (
                         <img
-                          src={`${COUNTRIES_ASSETS_PATH}${slugify(
-                            game.contestants.away_contestant
-                          )}.svg`}
+                          // src={`${COUNTRIES_ASSETS_PATH}${slugify(
+                          //   game.contestants.away_contestant
+                          // )}.svg`}
+                          src={`${COUNTRIES_ASSETS_PATH}${game.contestants.away_img}`}
                           alt="Flag"
                         />
                       ) : null}
                       <span>
-                        {game.contestants.away_contestant || 'Por definirse'}
+                        {isMobile
+                          ? diccionarioPaises(game.contestants.away_contestant)
+                          : game.contestants.away_contestant || 'Por definirse'}
                       </span>
                     </div>
+                    {isMobile ? (
+                      ''
+                    ) : (
+                      <div className="polla-results__button-resumen">
+                        <a href="https://www.google.com/">Resumen</a>
+                      </div>
+                    )}
                   </div>
                   <a href="/" className="polla-results__score-link">
                     Resumen
@@ -343,6 +435,9 @@ PollaGuide.propTypes = {
     defaultDate: PropTypes.string.tag({
       name: 'Fecha por defecto cuando en la fecha actual no hay partidos',
     }),
+    // startDate: PropTypes.string.tag({
+    //   name: 'Ingrese fecha de inicio dia-mes-año',
+    // }),
   }),
 }
 

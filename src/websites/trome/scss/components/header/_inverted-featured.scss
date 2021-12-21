@@ -345,8 +345,7 @@ $min-with-header: 961px;
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    margin-left: 20px;
-    margin-right: 10px;
+    margin: 0 10px 0 0;
     display: none;
 
     @media (--tablet) {

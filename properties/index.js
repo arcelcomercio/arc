@@ -144,6 +144,8 @@ export default {
   activeVerifyEmail: false,
   activeDataTreatment: false,
   activePhoneRegister: false,
+  activeAuthSocialNative: false,
+  activePiano: false,
   signwall: {
     mainColorBg: '#f7c600',
     mainColorTxt: '#000000',
@@ -180,5 +182,9 @@ export default {
   jwplayersMatching: {
     playerId: '',
     videoId: '',
+  },
+  pianoID: {
+    sandbox: '',
+    prod: '',
   },
 }
