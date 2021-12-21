@@ -257,7 +257,11 @@ const FormLogin = ({ valTemplate, attributes }) => {
       })
       .finally(() => {
         // removiendo en localstorage en caso no sea ninguno de los 2 casos
-        if (typeDialog !== 'premium' && typeDialog !== 'resetpass') {
+        if (
+          typeDialog !== 'premium' &&
+          typeDialog !== 'resetpass' &&
+          isStorageAvailable('localStorage')
+        ) {
           window.localStorage.removeItem('premium_last_url')
         }
       })
@@ -341,7 +345,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
               {authProviders.map((item) =>
                 item === 'google' &&
-                arcSite === 'trome' &&
+                arcSite === SITE_TROME &&
                 typeof window !== 'undefined' &&
                 /iPhone|iPad|iPod/i.test(window.navigator.userAgent) ? null : (
                   <ButtonSocial
@@ -635,15 +639,12 @@ const FormLogin = ({ valTemplate, attributes }) => {
                       const paywallLastUrl = window.sessionStorage.getItem(
                         'paywall_last_url'
                       )
-                      if (
-                        premiumLastUrl &&
-                        premiumLastUrl !== '' &&
-                        activeRegisterwall
-                      ) {
-                        window.location.href = premiumLastUrl
+                      if (premiumLastUrl && activeRegisterwall) {
                         // removiendo del local la nota premium
                         window.localStorage.removeItem('premium_last_url')
-                      } else if (paywallLastUrl && paywallLastUrl !== '') {
+                        // redireccionando
+                        window.location.href = premiumLastUrl
+                      } else if (paywallLastUrl) {
                         window.location.href = paywallLastUrl
                       } else {
                         onClose()

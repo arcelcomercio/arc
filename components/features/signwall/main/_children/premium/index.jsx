@@ -198,7 +198,7 @@ export const PremiumInt = ({ properties }) => {
         )}
         <div
           className={`signwall-inside_body-right premium ${
-            activeRegisterwall && 'register'
+            activeRegisterwall ? 'register' : ''
           }`}
           style={{
             backgroundColor: bgRightSite,

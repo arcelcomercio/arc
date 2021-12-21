@@ -8,6 +8,7 @@ import { isStorageAvailable } from '../../../../../utilities/client/storage'
 import {
   SITE_ELCOMERCIO,
   SITE_GESTION,
+  SITE_TROME,
 } from '../../../../../utilities/constants/sitenames'
 import { extendSession } from '../../../../../utilities/subscriptions/identity'
 import { useModalContext } from '../../../../subscriptions/_context/modal'
@@ -267,10 +268,8 @@ const FormRegister = ({
       .finally(() => {
         // eliminamos la noticia premium del storage en caso
         // el typedialog no sea premium
-        if (typeDialog !== 'premium') {
-          if (isStorageAvailable('localStorage')) {
-            window.localStorage.removeItem('premium_last_url')
-          }
+        if (typeDialog !== 'premium' && isStorageAvailable('localStorage')) {
+          window.localStorage.removeItem('premium_last_url')
         }
       })
   }
@@ -382,7 +381,7 @@ const FormRegister = ({
                     </p>
                     {authProviders.map((item) =>
                       item === 'google' &&
-                      arcSite === 'trome' &&
+                      arcSite === SITE_TROME &&
                       typeof window !== 'undefined' &&
                       /iPhone|iPad|iPod/i.test(
                         window.navigator.userAgent
@@ -665,20 +664,14 @@ const FormRegister = ({
                                   const paywallLastUrl = window.sessionStorage.getItem(
                                     'paywall_last_url'
                                   )
-                                  if (
-                                    premiumLastUrl &&
-                                    premiumLastUrl !== '' &&
-                                    activeRegisterwall
-                                  ) {
-                                    window.location.href = premiumLastUrl
+                                  if (premiumLastUrl && activeRegisterwall) {
                                     // removiendo del local la nota premium
                                     window.localStorage.removeItem(
                                       'premium_last_url'
                                     )
-                                  } else if (
-                                    paywallLastUrl &&
-                                    paywallLastUrl !== ''
-                                  ) {
+                                    // redireccionando
+                                    window.location.href = premiumLastUrl
+                                  } else if (paywallLastUrl) {
                                     window.location.href = paywallLastUrl
                                   } else {
                                     onClose()

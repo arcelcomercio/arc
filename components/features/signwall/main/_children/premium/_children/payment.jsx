@@ -18,7 +18,7 @@ export const PremiumPayment = ({ name = '', feature = [] }) => {
     <div
       className="signwall-inside_body-left premium"
       style={{
-        background: `${arcSite === 'gestion' ? '#8f071f' : '#232323'}`,
+        background: `${arcSite === SITE_GESTION ? '#8f071f' : '#232323'}`,
       }}>
       <img
         src={`${getAssetsPath(
