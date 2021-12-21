@@ -18,10 +18,10 @@ export default {
   fbAppId: '1390081201315241',
   googleTagManagerId: 'GTM-M9N5X45', // Google Tag Manager Prod
   googleTagManagerIdSandbox: 'GTM-M9N5X45', // Google Tag Manager Sandbox
-  ampGoogleTagManagerId: 'UA-22221683-1',
+  ampGoogleTagManagerId: 'UA-30255849-1',
   ampGoogleTagManagerName: 'correo',
   charbeatAccountNumber: 57773,
-  idGoogleAnalitics: 'UA-22221683-1',
+  idGoogleAnalitics: 'UA-30255849-1',
   fbArticleStyle: 'default',
   nameStoryRelated: 'VEA TAMBIÉN',
 
@@ -90,22 +90,18 @@ export default {
   ],
   socialNetworks: [
     {
-      name: 'linkedin',
-      url: 'https://www.linkedin.com/',
-    },
-    {
       name: 'facebook',
-      url: 'https://www.facebook.com/CorreoPeru/',
+      url: 'https://www.facebook.com/peru.com.und',
     },
     {
       name: 'twitter',
-      url: 'https://twitter.com/diariocorreo',
+      url: 'https://twitter.com/perucomweb',
     },
   ],
   social: {
     facebook: {
       user: '@CorreoPeru',
-      url: 'https://www.facebook.com/CorreoPeru/',
+      url: 'https://www.facebook.com/peru.com.und',
     },
     twitter: {
       user: 'diariocorreo',

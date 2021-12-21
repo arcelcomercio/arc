@@ -3,6 +3,7 @@ import getProperties from 'fusion:properties'
 import * as React from 'react'
 
 import { getAssetsPath } from '../../../utilities/assets'
+import { SITE_GESTION } from '../../../utilities/constants/sitenames'
 import customFields from './_dependencies/custom-fields'
 import HeaderContinuousChild from './_lite/_children/header'
 
@@ -23,12 +24,13 @@ const HeaderContinuous = (props) => {
 
   const isSomos = requestUri.includes('/somos/')
   const isDeporPlay = /^\/depor-play\//.test(requestUri)
+  const isGestion = arcSite === SITE_GESTION ? 'white-' : ''
   const mainImage = isSomos
     ? 'https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/HJJOUB5ZYJDCZLCVEKSSBBWXPE.png'
     : `${getAssetsPath(
         arcSite,
         contextPath
-      )}/resources/dist/${arcSite}/images/${header.logo}?d=1`
+      )}/resources/dist/${arcSite}/images/${isGestion}${header.logo}?d=1`
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},

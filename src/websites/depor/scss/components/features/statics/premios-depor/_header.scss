@@ -164,21 +164,20 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    // svg {
-    //   width: 18px;
-    //   height: 12px;
-    // }
+    @media (--tablet) {
+      margin-right: 25px;
+    }
   }
   &__buttonMenuClosed {
     background-color: transparent;
     width: 27px;
     height: 27px;
-    margin-left: 330px;
+    margin-left: 320px;
     align-self: center;
     display: flex;
 
     @media (--tablet) {
-      margin-left: 760px;
+      margin-left: 590px;
     }
     svg {
       width: 27px;

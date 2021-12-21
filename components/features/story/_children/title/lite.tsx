@@ -2,6 +2,11 @@ import * as React from 'react'
 import { ArcSite } from 'types/fusion'
 import { ContentElement } from 'types/story'
 
+import {
+  SITE_DIARIOCORREO,
+  SITE_ELCOMERCIO,
+} from '../../../../utilities/constants/sitenames'
+
 const classes = {
   description: 'sht__summary',
   listClasses: 'sht__list',
@@ -60,7 +65,7 @@ const StoryChildrenTitle: React.FC<Props> = (props) => {
           <h2 itemProp="name" className={classes.description}>
             {subTitle}
           </h2>
-          {isPremium && arcSite === 'elcomercio' && (
+          {isPremium && arcSite === SITE_ELCOMERCIO && (
             <div className={classes.premiumWrapper}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -72,6 +77,16 @@ const StoryChildrenTitle: React.FC<Props> = (props) => {
               </svg>
               <p itemProp="description" className={classes.premiumText}>
                 Suscriptor Digital
+              </p>
+            </div>
+          )}
+          {isPremium && arcSite === SITE_DIARIOCORREO && (
+            <div className={classes.premiumWrapper}>
+              <p
+                itemProp="description"
+                className="premium__text flex justify-center items-center text-white">
+                <span style={{ color: '#FFD333' }}>★</span>&nbsp;&nbsp;COMUNIDAD
+                DIGITAL
               </p>
             </div>
           )}

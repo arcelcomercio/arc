@@ -47,7 +47,6 @@ interface UserProfile {
   user_email: string
   user_birthday: string
   user_phone: string
-  user_address: string
 }
 
 const ContentPremiosDepor = (props: Props) => {
@@ -57,8 +56,9 @@ const ContentPremiosDepor = (props: Props) => {
   } = customFields || {}
 
   const [isError, setIsError] = useState(false)
-  const [isVoted, setIsVoted] = useState(true)
+  const [isVoted, setIsVoted] = useState(false)
   const [isModal, setIsModal] = useState(false)
+  const [isRedirectLink, setIsRedirectLink] = useState(false)
   const [message, setMessage] = useState('')
   const [result, setResult] = useState({})
   const [userProfile, setUserProfile] = useState<UserProfile>()
@@ -83,6 +83,16 @@ const ContentPremiosDepor = (props: Props) => {
         return ''
     }
   }
+  const resetRadio = () => {
+    for (let n = 0; n < premiosDepor.length; n++) {
+      const { radio } = premiosDepor[n]
+
+      const ele = document.getElementsByName(radio) as any
+      for (let i = 0; i < ele.length; i++) {
+        ele[i].checked = false
+      }
+    }
+  }
 
   const getData = async () => {
     const rawProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
@@ -101,29 +111,28 @@ const ContentPremiosDepor = (props: Props) => {
         birthMonth = '',
         birthYear = '',
         contacts = [],
-        addresses = '',
       } = localProfile
       setUserProfile({
-        user_uuid: uuid,
-        user_name: firstName,
-        user_lastn: lastName,
+        user_uuid: uuid || '',
+        user_name: firstName || '',
+        user_lastn: lastName || '',
         user_type_doc: getUserAttributes('type_doc', attributes),
         user_dni: getUserAttributes('dni', attributes),
-        user_email: email,
-        user_birthday: `${birthDay}-${birthMonth}-${birthYear}`,
+        user_email: email || '',
+        user_birthday: `${birthDay}-${birthMonth}-${birthYear}` || '',
         user_phone: contacts[0]?.phone || '',
-        user_address: addresses,
       })
       const voteFetch = await fetch(
         `${serviceEndPoint}?format=json&user_uuid=${uuid}`
       )
       const { results = [] } = await voteFetch.json()
-      if (results.length > 0) {
-        setIsVoted(false)
+      if (results.length === 0) {
+        setIsVoted(true)
+      } else {
+        resetRadio()
+        setMessage('Usted ya votó.')
+        setIsError(true)
       }
-    } else {
-      document.location.href =
-        '/signwall/?outputType=subscriptions&signwallOrganic=1'
     }
   }
 
@@ -133,7 +142,9 @@ const ContentPremiosDepor = (props: Props) => {
 
   const handleSelect = (name: string, value: string) => {
     setResult({ ...result, [name]: value })
-    setIsError(false)
+    if (isVoted) {
+      setIsError(false)
+    }
   }
 
   const validUserProfile = () => {
@@ -156,12 +167,13 @@ const ContentPremiosDepor = (props: Props) => {
       messageProfile += ', Teléfono'
       valid = true
     }
-    if (userProfile?.user_address.length === 0) {
-      messageProfile += ', Dirección'
-      valid = true
-    }
 
-    setMessage(`Debe de completar su:${messageProfile.slice(1)}.`)
+    if (valid) {
+      setIsRedirectLink(true)
+      setMessage(`Debe de completar su:${messageProfile.slice(1)}.`)
+    } else {
+      setIsRedirectLink(false)
+    }
     return valid
   }
 
@@ -192,6 +204,7 @@ const ContentPremiosDepor = (props: Props) => {
 
     if (newVoteFetch?.id >= 0) {
       setIsModal(true)
+      setIsVoted(false)
     } else {
       console.log(newVoteFetch)
     }
@@ -256,12 +269,13 @@ const ContentPremiosDepor = (props: Props) => {
                                   className={classes.itemArrow}
                                   type="radio"
                                   name={radio}
+                                  disabled={!isVoted}
                                 />
                                 {!name ? (
                                   <span className={classes.item}>{person}</span>
                                 ) : (
                                   <p className={classes.item}>
-                                    {name} <span>{profesion}</span>{' '}
+                                    {name} <span>{profesion}</span>
                                   </p>
                                 )}
                               </label>
@@ -275,14 +289,23 @@ const ContentPremiosDepor = (props: Props) => {
               )}
             </div>
 
-            {isVoted && (
-              <div className={classes.containerButton}>
+            <div className={classes.containerButton}>
+              {isVoted && (
                 <button type="submit" className={classes.button}>
                   ENVIAR
                 </button>
-                {isError && <p className={classes.error}>{message}</p>}
-              </div>
-            )}
+              )}
+              {isError && (
+                <>
+                  <p className={classes.error}>{message}</p>{' '}
+                  {isRedirectLink && (
+                    <a href="https://depor.com/mi-perfil/?outputType=subscriptions">
+                      aquí.
+                    </a>
+                  )}
+                </>
+              )}
+            </div>
           </form>
         </div>
       </div>
