@@ -15,7 +15,9 @@ import {
   SITE_GESTION,
   SITE_OJO,
   SITE_PERU21,
+  SITE_PERUCOM,
   SITE_PERU21G21,
+  SITE_DIARIOCORREO,
   SITE_TROME,
 } from '../utilities/constants/sitenames'
 import {
@@ -859,6 +861,8 @@ const LiteOutput = ({
         arcSite === SITE_TROME ||
         arcSite === SITE_ELBOCON ||
         arcSite === SITE_DEPOR ||
+        arcSite === SITE_DIARIOCORREO ||
+        arcSite === SITE_PERUCOM ||
         arcSite === SITE_OJO ||
         arcSite === SITE_ELCOMERCIO ? (
           <script
