@@ -38,7 +38,7 @@
     },
     {
       "code": "2400029562448",
-      "image": "/pf/resources/dist/trome/images/paneton.jpg",
+      "image": "/pf/resources/dist/trome/images/paneton.png",
       "discountTitle": "S/ 16.90",
       "discountSubtitle": "",
       "additional": false,
@@ -71,7 +71,7 @@
       "discountSubtitle": "",
       "additional": false,
       "discountType": "S/",
-      "description": "Sixpack de Leche Gloria por la compra de S/.39 en Ariel, Ace o Magia Blanca",
+      "description": "Por la compra de S/39.9 en Detergentes Ariel, Ace o Magia Blanca, llévate un sixpack de Leche evaporada entera Gloria a S/.6.90",
       "cencosud": null,
       "bonus": null,
       "restrictions": []
@@ -112,7 +112,7 @@
       "discountSubtitle": "",
       "additional": false,
       "discountType": "%",
-      "description": "En vestuario Urb",
+      "description": "En todo URB Temporada 2022",
       "cencosud": null,
       "bonus": null,
       "restrictions": []
