@@ -99,6 +99,12 @@ const ContentPremiosDepor = (props: Props) => {
   }
 
   const getData = async () => {
+    await new Promise((resolve) => {
+      // se ejecuta un tiempo de espera por el localstorage
+      setTimeout(() => {
+        resolve(true)
+      }, 100)
+    })
     const rawProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
     let localProfile: Profile | null | undefined = null
     if (rawProfile) {
@@ -207,8 +213,8 @@ const ContentPremiosDepor = (props: Props) => {
     const newVoteFetch = await voteFetch.json()
 
     if (newVoteFetch?.id >= 0) {
-      setIsModal(true)
       setIsVoted(false)
+      setIsModal(true)
     } else {
       console.log(newVoteFetch)
     }
@@ -228,10 +234,27 @@ const ContentPremiosDepor = (props: Props) => {
             deportista más destacado del 2021.
           </p>
           <div className={classes.instructions}>
-            1. Debes elegir un deportista por CADA UNA de las categorías. (solo
-            puedes votar una vez) <br />
-            2. Debes completar tu DNI y Nro. de Teléfono de contacto de manera
-            obligatoria.
+            1. Dale clic al siguiente botón{' '}
+            <a
+              href="/signwall/?outputType=subscriptions&signwallOrganic=1"
+              className="premios_depor__header__cont__contRight__button--after"
+              style={{ padding: '6px 25px', textDecoration: 'none' }}>
+              Registrate
+            </a>{' '}
+            para poder participar.
+            <br />
+            2. Una vez registrado, es OBLIGATORIO completar tu DNI y tu Teléfono
+            de contacto{' '}
+            <a
+              href="/mi-perfil/?outputType=subscriptions"
+              className="premios_depor__header__cont__contRight__button--after"
+              style={{ padding: '6px 25px', textDecoration: 'none' }}>
+              AQUÍ
+            </a>
+            .
+            <br />
+            3. Vota eligiendo un nominado por CADA UNA de las categorías (solo
+            puedes votar una vez).
           </div>
         </div>
 
