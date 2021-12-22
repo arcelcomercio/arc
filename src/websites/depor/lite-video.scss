@@ -1,0 +1,15 @@
+/******* Fonts *******/
+@import "./scss/partials/lite/import-fonts";
+
+/******* Variables Lite *******/
+@import "../../general-styles/framework/variables/index";
+@import "./scss/variables/index";
+
+$primary-font: "Roboto", sans-serif;
+$secondary-font: "Arial", "Helvetica", sans-serif;
+$tertiary-font: $secondary-font;
+
+/******* Components *******/
+@import "./scss/lite-components/features/header/header-full/header-menu";
+
+@import "./scss/lite-components/features/footer/depor/footer-secction";
