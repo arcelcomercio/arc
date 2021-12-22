@@ -23,6 +23,7 @@ import {
 import { getEntitlement } from '../../../_dependencies/services'
 import { MsgRegister } from '../../icons'
 import Loading from '../../loading'
+import AuthGoogle from '../auth-google'
 import { CheckBox } from '../control_checkbox'
 import { Input } from '../control_input_select'
 import { AuthURL, ButtonEmail, ButtonSocial } from '../control_social'
@@ -36,7 +37,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
         mainColorBtn,
         primaryFont,
         mainColorBr,
-        authProviders,
+        // authProviders,
       },
       activeMagicLink,
       activeRegisterwall,
@@ -200,9 +201,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
     } else {
       const btnSignwall = document.getElementById('signwall-nav-btn')
       if (typeDialog === 'newsletter' && btnSignwall) {
-        btnSignwall.textContent = `${profile.firstName || 'Bienvenido'} ${
-          profile.lastName || ''
-        }`
+        btnSignwall.textContent = `${profile.firstName || 'Bienvenido'} ${profile.lastName || ''
+          }`
       }
       onClose()
     }
@@ -257,7 +257,11 @@ const FormLogin = ({ valTemplate, attributes }) => {
       })
       .finally(() => {
         // removiendo en localstorage en caso no sea ninguno de los 2 casos
-        if (typeDialog !== 'premium' && typeDialog !== 'resetpass') {
+        if (
+          typeDialog !== 'premium' &&
+          typeDialog !== 'resetpass' &&
+          isStorageAvailable('localStorage')
+        ) {
           window.localStorage.removeItem('premium_last_url')
         }
       })
@@ -332,23 +336,33 @@ const FormLogin = ({ valTemplate, attributes }) => {
               <p className="signwall-inside_forms-text mb-20 center bold">
                 Ingresa con
               </p>
-              {authProviders.map((item) => (
-                <ButtonSocial
-                  key={item}
-                  size="middle"
-                  brand={item}
-                  defaultSize=""
-                  onClose={onClose}
-                  typeDialog={typeDialog}
-                  arcSite={arcSite}
-                  typeForm="login"
-                  activeNewsletter={activeNewsletter}
-                  checkUserSubs={checkUserSubs}
-                  onLogged={onLogged}
-                  showMsgVerify={() => triggerShowVerify()}
-                  dataTreatment={checkedPolits ? '1' : '0'}
-                />
-              ))}
+
+              <AuthGoogle arcSite={arcSite}
+                onClose={onClose}
+                typeDialog={typeDialog}
+                typeForm="login"
+                activeNewsletter={activeNewsletter}
+                checkUserSubs={checkUserSubs}
+                onLogged={onLogged}
+                showMsgVerify={() => triggerShowVerify()}
+                dataTreatment={checkedPolits ? '1' : '0'}
+              />
+
+              <ButtonSocial
+                size="full"
+                brand="facebook"
+                defaultSize=""
+                onClose={onClose}
+                typeDialog={typeDialog}
+                arcSite={arcSite}
+                typeForm="login"
+                activeNewsletter={activeNewsletter}
+                checkUserSubs={checkUserSubs}
+                onLogged={onLogged}
+                showMsgVerify={() => triggerShowVerify()}
+                dataTreatment={checkedPolits ? '1' : '0'}
+              />
+
               <AuthURL
                 arcSite={arcSite}
                 onClose={onClose}
@@ -378,9 +392,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
               <>
                 {showError && (
                   <div
-                    className={`signwall-inside_forms-error ${
-                      showVerify ? 'warning' : ''
-                    }`}>
+                    className={`signwall-inside_forms-error ${showVerify ? 'warning' : ''
+                      }`}>
                     {` ${showError} `}
                     {showVerify && (
                       <>
@@ -599,10 +612,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   onClick={() => {
                     // modificado para el taggeo de diario correo por valla
                     Taggeo(
-                      `Web_${typeDialog}_${
-                        activeRegisterwall && typeDialog === 'premium'
-                          ? 'Registro'
-                          : 'Hard'
+                      `Web_${typeDialog}_${activeRegisterwall && typeDialog === 'premium'
+                        ? 'Registro'
+                        : 'Hard'
                       }`,
                       `web_${typeDialog}_boton_sigue_navegando`
                     )
@@ -617,15 +629,11 @@ const FormLogin = ({ valTemplate, attributes }) => {
                       const paywallLastUrl = window.sessionStorage.getItem(
                         'paywall_last_url'
                       )
-                      if (
-                        premiumLastUrl &&
-                        premiumLastUrl !== '' &&
-                        activeRegisterwall
-                      ) {
+                      if (premiumLastUrl && activeRegisterwall) {
                         window.location.href = premiumLastUrl
                         // removiendo del local la nota premium
                         window.localStorage.removeItem('premium_last_url')
-                      } else if (paywallLastUrl && paywallLastUrl !== '') {
+                      } else if (paywallLastUrl) {
                         window.location.href = paywallLastUrl
                       } else {
                         onClose()

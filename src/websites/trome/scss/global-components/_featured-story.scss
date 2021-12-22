@@ -3,6 +3,24 @@
 // --------------------------------------
 // Featured Story for 1 col
 .featured-story {
+  // estilos para cuando el destaque es premium
+  &.premium {
+    & .featured-story__title {
+      -webkit-line-clamp: 4;
+      max-height: 122px;
+    }
+    .featured-story__title--clamp {
+      -webkit-line-clamp: 4;
+      max-height: 122px;
+    }
+  }
+  &__tag-premium {
+    display: flex;
+    width: 54px;
+    height: 20px;
+    margin-bottom: 3px;
+  }
+
   position: relative;
   height: auto;
 
