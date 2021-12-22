@@ -74,7 +74,7 @@ const SeparatorStories: FeatureComponent<any> = (props) => {
                 getPromoItemRezisedUrl(story)?.mobile || defaultImage || ''
               }
             />
-            <MultimediaIcon type='basic_video' styles='separador' metaValue={metaValue('section_style')} />
+            {metaValue('section_style') === 'story-v2-video' && <MultimediaIcon type='basic_video' styles='separador' metaValue={metaValue('section_style')} />}
             <h4 className="sep-st__i-title">{story?.headlines?.basic}</h4>
           </a>
           </div>
