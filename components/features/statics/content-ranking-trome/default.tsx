@@ -53,7 +53,7 @@ interface UserProfile {
 const ContentRankingTrome = (props: Props) => {
   const { customFields } = props
   const {
-    serviceEndPoint = 'http://pre.md.minoticia.pe/portal_apis/premios-depor/',
+    serviceEndPoint = 'http://pre.md.minoticia.pe/portal_apis/ranking-trome/',
   } = customFields || {}
 
   const [isError, setIsError] = useState(false)
@@ -94,6 +94,12 @@ const ContentRankingTrome = (props: Props) => {
     }
   }
   const getData = async () => {
+    await new Promise((resolve) => {
+      // se ejecuta un tiempo de espera por el localstorage
+      setTimeout(() => {
+        resolve(true)
+      }, 100)
+    })
     const rawProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
     let localProfile: Profile | null | undefined = null
     if (rawProfile) {
@@ -333,7 +339,7 @@ ContentRankingTrome.propTypes = {
     serviceEndPoint: PropTypes.string.tag({
       name: 'URL del servicio',
       description:
-        'Por defecto la URL es http://pre.md.minoticia.pe/portal_apis/premios-depor/',
+        'Por defecto la URL es http://pre.md.minoticia.pe/portal_apis/ranking-trome/',
     }),
   }),
 }
