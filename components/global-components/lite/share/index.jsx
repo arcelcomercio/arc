@@ -2,7 +2,7 @@ import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 import * as React from 'react'
 
-import { socialMediaUrlShareList } from '../../../utilities/social-media'
+import { shareUrls } from '../../../utilities/social-media'
 import { ShareButtonsV2 } from '../share-buttons-v2'
 import { copyLink, popup } from './utils'
 
@@ -22,7 +22,7 @@ const ShareButtons = ({
   activeLinkedin = true,
   renderScripts = false,
   path: customPath = '',
-  title: customTitle = '',
+  text: customText = '',
   googleNewsText = true,
   hideShareLinks = false,
   appVersion = true,
@@ -42,21 +42,20 @@ const ShareButtons = ({
     headlines: { basic: postTitle = '' } = {},
   } = globalContent || {}
   const {
-    social: { twitter: { user: twitterUser = '' } = {} } = {},
+    social: { twitter: { user: twitterUsername = '' } = {} } = {},
     siteUrl,
     googleNewsUrl,
   } = getProperties(arcSite)
 
   const path = postPermaLink || customPath
-  const title = postTitle || customTitle
+  const title = postTitle || customText
 
-  const urlsShareList = socialMediaUrlShareList(
-    siteUrl,
-    path,
-    title,
-    twitterUser,
-    appVersion
-  )
+  const urlsShareList = shareUrls({
+    url: `${siteUrl}${path}`,
+    text: title,
+    twitterUsername,
+    appVersion,
+  })
 
   if (
     metaValue('section_style') === 'story-v2-standard' ||
