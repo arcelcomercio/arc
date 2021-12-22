@@ -1,8 +1,15 @@
 .ranking_trome__header {
   &__container {
-    height: 330px;
+    height: 340px;
+    width: 100%;
+    margin: auto;
     @media (--tablet) {
-      height: 370px;
+      height: 390px;
+      width: 100%;
+    }
+    @media (--desktop) {
+      height: 400px;
+      width: 920px;
     }
   }
 
@@ -24,17 +31,31 @@
     background-size: cover;
     background-image: url("https://cdna.trome.pe/resources/dist/trome/ranking-trome/head_mobile.jpeg");
     width: auto;
-    height: 170px;
+
     display: flex;
+    flex-direction: column;
+  }
+
+  &__heightNormal {
+    height: 170px;
 
     @media (--tablet) {
-      height: 250px;
+      height: 200px;
+    }
+  }
+  &__heightClose {
+    height: 220px;
+    @media (--tablet) {
+      height: 260px;
     }
   }
 
   &__opacity {
     background-color: #000000;
-    // filter: initial;
+    filter: initial;
+  }
+  &__color {
+    background-color: #000000;
   }
   &__cont {
     display: flex;
@@ -139,6 +160,15 @@
         color: #222;
         display: inline-block;
       }
+      &__button--after2 {
+        background-color: #bfd02c;
+        border-radius: 5px;
+        padding: 5px 30px;
+        font: 900 18px/14px $primary-font;
+        letter-spacing: 0.36px;
+        color: #222;
+        display: inline-block;
+      }
     }
   }
 
@@ -146,7 +176,6 @@
     width: 300px;
     height: 250px;
     margin: auto;
-    margin-top: 60px;
     @media (--tablet) {
       width: 330px;
       height: 280px;
@@ -155,6 +184,15 @@
       width: 380px;
       height: 330px;
     }
+  }
+  &__marginTopClose {
+    margin-top: -15px;
+    @media (--tablet) {
+      margin-top: -15px;
+    }
+  }
+  &__marginTopNormal {
+    margin-top: 60px;
   }
 
   &__ul {
