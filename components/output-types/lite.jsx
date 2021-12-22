@@ -115,9 +115,8 @@ const LiteOutput = ({
   const isPreview = /^\/preview\//.test(requestUri)
   const isStory = getIsStory({ metaValue, requestUri })
   const classBody = isStory
-    ? `story ${promoItems.basic_gallery && 'basic_gallery'} ${arcSite} ${
-        storySectionPath.split('/')[1]
-      } ${subtype} `
+    ? `story ${promoItems.basic_gallery && 'basic_gallery'} ${arcSite} ${storySectionPath.split('/')[1]
+    } ${subtype} `
     : ''
 
   const metaSiteData = {
@@ -270,6 +269,17 @@ const LiteOutput = ({
     inlineStyleUrl = `resources/dist/elcomercio/css/story-v2-video.css`
     styleUrl = ''
   }
+
+  if (metaValue('section_style') === 'video') {
+    inlineStyleUrl = `resources/dist/${arcSite}/css/dlite-video.css`
+    styleUrl = `${contextPath}/resources/dist/${arcSite}/css/lite-video.css`
+    inlineVgalleryStyles = ''
+
+    if (CURRENT_ENVIRONMENT === 'prod') {
+      styleUrl = `https://cdnc.${siteProperties.siteDomain}/dist/${arcSite}/css/lite-video.css`
+    }
+  }
+
   /** */
 
   let lang = 'es'
@@ -318,11 +328,10 @@ const LiteOutput = ({
             {(arcSite === 'trome' || arcSite === 'depor') && isStory ? (
               <meta
                 name="robots"
-                content={`${
-                  /-agnc-/.test(requestUri)
-                    ? 'noindex, follow'
-                    : 'index, follow,max-image-preview:large'
-                }`}
+                content={`${/-agnc-/.test(requestUri)
+                  ? 'noindex, follow'
+                  : 'index, follow,max-image-preview:large'
+                  }`}
               />
             ) : (
               <meta
@@ -623,8 +632,8 @@ const LiteOutput = ({
           <Libs />
         ) : null}
         {isPremium &&
-        (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
-        !isPreview ? (
+          (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
+          !isPreview ? (
           <script
             src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
               .toISOString()
@@ -735,14 +744,13 @@ const LiteOutput = ({
           <>
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.preroll='${
-                  getPreroll({
-                    section: storySectionPath,
-                    arcSite,
-                    siteDomain: siteProperties.siteDomain,
-                    metaValue,
-                  }) || siteProperties.urlPreroll
-                }'`,
+                __html: `window.preroll='${getPreroll({
+                  section: storySectionPath,
+                  arcSite,
+                  siteDomain: siteProperties.siteDomain,
+                  metaValue,
+                }) || siteProperties.urlPreroll
+                  }'`,
               }}
             />
             <script
@@ -772,7 +780,7 @@ const LiteOutput = ({
         )}
 
         {metaValue('section_style') !== 'story-v2-standard' &&
-        (subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL) ? (
+          (subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL) ? (
           <script
             dangerouslySetInnerHTML={{
               __html: minutoMinutoScript,
@@ -841,14 +849,14 @@ const LiteOutput = ({
           }
         />
         {arcSite === SITE_ELCOMERCIOMAG ||
-        arcSite === SITE_PERU21 ||
-        arcSite === SITE_TROME ||
-        arcSite === SITE_ELBOCON ||
-        arcSite === SITE_DEPOR ||
-        arcSite === SITE_DIARIOCORREO ||
-        arcSite === SITE_PERUCOM ||
-        arcSite === SITE_OJO ||
-        arcSite === SITE_ELCOMERCIO ? (
+          arcSite === SITE_PERU21 ||
+          arcSite === SITE_TROME ||
+          arcSite === SITE_ELBOCON ||
+          arcSite === SITE_DEPOR ||
+          arcSite === SITE_DIARIOCORREO ||
+          arcSite === SITE_PERUCOM ||
+          arcSite === SITE_OJO ||
+          arcSite === SITE_ELCOMERCIO ? (
           <script
             defer
             src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()
@@ -916,8 +924,8 @@ const LiteOutput = ({
           </>
         ) : null}
         {vallaSignwall === false &&
-        (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
-        !isPreview ? (
+          (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
+          !isPreview ? (
           <>
             <script
               dangerouslySetInnerHTML={{
