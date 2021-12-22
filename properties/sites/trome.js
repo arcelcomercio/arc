@@ -135,6 +135,7 @@ export default {
   activeDataTreatment: true,
   activeNewsletter: true,
   activePhoneRegister: true,
+  activePiano: false,
   signwall: {
     mainColorBg: '#000000',
     mainColorTxt: '#ffffff',
@@ -159,6 +160,6 @@ export default {
   },
   pianoID: {
     sandbox: '6UafT9Fjsu',
-    prod: '',
+    prod: 'TwXO2pHvpu',
   },
 }
