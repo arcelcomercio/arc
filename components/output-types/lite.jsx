@@ -2,22 +2,22 @@ import * as React from 'react'
 
 import PianoAdblock from '../piano/adblock'
 import PianoCore from '../piano/core'
-import PianoTags from '../piano/tags'
+import PianoData from '../piano/data'
 import { getPreroll } from '../utilities/ads/preroll'
 import { env } from '../utilities/arc/env'
 import { getAssetsPath } from '../utilities/assets'
 import { ContentTiers } from '../utilities/constants/content-tiers'
 import {
   SITE_DEPOR,
+  SITE_DIARIOCORREO,
   SITE_ELBOCON,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_GESTION,
   SITE_OJO,
   SITE_PERU21,
-  SITE_PERUCOM,
   SITE_PERU21G21,
-  SITE_DIARIOCORREO,
+  SITE_PERUCOM,
   SITE_TROME,
 } from '../utilities/constants/sitenames'
 import {
@@ -517,7 +517,7 @@ const LiteOutput = ({
               {...twitterCardsData}
             />
             <PianoAdblock disabled={!siteProperties.activePiano} />
-            <PianoTags
+            <PianoData
               tags={tags.map((tag) => tag.slug)}
               contentTier={contentCode}
               storyId={globalContent?._id}
@@ -923,7 +923,9 @@ const LiteOutput = ({
             )}
           </>
         )}
-        {enabledPushup && !requestUri.includes('/publirreportaje/') && !requestUri.includes('/publireportaje/') ? (
+        {enabledPushup &&
+        !requestUri.includes('/publirreportaje/') &&
+        !requestUri.includes('/publireportaje/') ? (
           <>
             <script
               type="text/javascript"
