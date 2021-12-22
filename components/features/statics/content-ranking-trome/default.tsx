@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
+
+import Terms from './_children/terminos'
 import { rankingTrome } from './_dependencies/data-ranking-trome'
 import { Attribute, Profile } from './_utils/types'
 
@@ -38,6 +40,7 @@ const uri = 'https://cdna.trome.pe/resources/dist/trome/ranking-trome'
 interface Props {
   customFields?: {
     serviceEndPoint?: string
+    isRankingTrome?: boolean
   }
 }
 interface UserProfile {
@@ -54,6 +57,7 @@ const ContentRankingTrome = (props: Props) => {
   const { customFields } = props
   const {
     serviceEndPoint = 'http://pre.md.minoticia.pe/portal_apis/premios-depor/',
+    isRankingTrome,
   } = customFields || {}
 
   const [isError, setIsError] = useState(false)
@@ -322,6 +326,7 @@ const ContentRankingTrome = (props: Props) => {
           </form>
         </div>
       </div>
+      <Terms isRankingTrome={isRankingTrome} />
     </>
   )
 }
@@ -334,6 +339,9 @@ ContentRankingTrome.propTypes = {
       name: 'URL del servicio',
       description:
         'Por defecto la URL es http://pre.md.minoticia.pe/portal_apis/premios-depor/',
+    }),
+    isRankingTrome: PropTypes.bool.tag({
+      name: 'Activar tipo Ranking trome',
     }),
   }),
 }
