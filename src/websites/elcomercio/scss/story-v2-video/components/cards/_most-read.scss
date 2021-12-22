@@ -66,16 +66,19 @@
     opacity: 1;
     color: #665202;
   }
-  &__box-time {
+  &__box-play {
     position: absolute;
     display: flex;
-    border: 1px solid #ffcb05;
+    border: 2px solid #ffcb05;
     padding: 4px 9px;
-    border-radius: 4px;
-    width: 80px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
     background: #070606 0% 0% no-repeat padding-box;
-    top: 56px;
+    top: 42px;
     left: 10px;
+    align-items: center;
+    justify-content: center;
   }
   &__time {
     color: #fff;
@@ -87,8 +90,14 @@
   &__icon-play {
     width: 0;
     height: 0;
-    border-left: 13px solid #ffcb05;
-    border-top: 8px solid transparent;
-    border-bottom: 8px solid transparent;
+    border-left: 16px solid #ffcb05;
+    border-top: 9.5px solid transparent;
+    border-bottom: 9.5px solid transparent;
+  }
+}
+.separador {
+  @media(--desktop){
+    top: 82px;
+    left: 10px;
   }
 }

@@ -57,4 +57,25 @@
     opacity: 1;
     color: #030303;
   }
+  &__box-play {
+    position: absolute;
+    display: flex;
+    border: 2px solid #ffcb05;
+    padding: 4px 9px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background: #070606 0% 0% no-repeat padding-box;
+    top: 42px;
+    left: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+  &__icon-play {
+    width: 0;
+    height: 0;
+    border-left: 16px solid #ffcb05;
+    border-top: 9.5px solid transparent;
+    border-bottom: 9.5px solid transparent;
+  }
 }
