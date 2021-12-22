@@ -120,4 +120,7 @@ body {
 * ----------------------------- */
 @import "../../general-styles/framework/variables/declare-sizes";
 @import "../../general-styles/framework/variables/breakpoints";
-@import "./scss//components//features//statics//ranking-trome/content";
+@import "./scss/components/features/statics/ranking-trome/content";
+@import "./scss/components/statics/ranking-trome/footer";
+@import "./scss/components/statics/ranking-trome/headerTrome";
+@import "./scss/components/statics/ranking-trome/terminos";
