@@ -80,6 +80,7 @@ $font-color: #ee7325;
     padding: 20px;
     @media (--desktop) {
       padding: 40px;
+      padding-top: 10px;
     }
   }
 
@@ -105,6 +106,7 @@ $font-color: #ee7325;
 
       @media (--desktop) {
         padding: 40px;
+        padding-bottom: 15px;
       }
     }
 
@@ -132,6 +134,7 @@ $font-color: #ee7325;
         min-height: 120px;
       }
       @media (--desktop) {
+        margin-top: -60px;
         min-height: 150px;
       }
     }
@@ -167,6 +170,7 @@ $font-color: #ee7325;
   &__login-container {
     max-width: 480px;
     padding: 10vh 30px 0;
+    z-index: 1;
 
     @media (--tablet) {
       max-width: 520px;
@@ -245,6 +249,7 @@ $font-color: #ee7325;
   min-height: min-content;
   padding: 10px;
   width: 100%;
+  z-index: 1;
 
   &-first-column-sf {
     width: 50%;
@@ -273,14 +278,6 @@ $font-color: #ee7325;
     padding: 10px 0 10px 3%;
   }
 
-  // &-separator {
-  //   width: 1%;
-  //   border-left: 1px #fee6cd solid;
-  //   margin: 10% 0 10%;
-  //   display: flex;
-  //   height: 100%;
-  // }
-
   &-image {
     width: 90%;
     margin: 0 auto;
@@ -292,11 +289,10 @@ $font-color: #ee7325;
     // padding-bottom: 10px;
   }
 
-  &-amount {
+  &-amount-title {
     color: $font-color;
     font-size: 30px;
     font-weight: bold;
-
     @media (--tablet) {
       font-size: 35px;
     }
@@ -304,6 +300,23 @@ $font-color: #ee7325;
       font-size: 25px;
       @media (--tablet) {
         font-size: 28px;
+      }
+    }
+  }
+
+  &-amount-subtitle {
+    // color: #575557;
+    color: #ee7325;
+    font-size: 25px;
+    font-weight: 650;
+    margin: auto 0 0 3px;
+    @media (--tablet) {
+      font-size: 27px;
+    }
+    & span {
+      font-size: 20px;
+      @media (--tablet) {
+        font-size: 22px;
       }
     }
   }
@@ -343,12 +356,6 @@ $font-color: #ee7325;
     }
   }
 
-  &-quantity {
-    color: #575557;
-    font-size: 26px;
-    font-weight: 600;
-  }
-
   &-cencosud {
     padding-top: 10px;
     &-code {
@@ -366,12 +373,27 @@ $font-color: #ee7325;
 
     &-image {
       width: 30px;
-      padding-left: 5px;
+      height: 19.7px;
+      margin-left: 5px;
       @media (--tablet) {
-        width: 40px;
+        width: 37px;
+        height: 24.3px;
       }
     }
-    &-price {
+    &-price-amount {
+      font-size: 16.5px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      color: $font-color;
+      @media (--tablet) {
+        font-size: 18px;
+      }
+      @media (--desktop) {
+        font-size: 17px;
+      }
+    }
+
+    &-price-percentage {
       font-size: 26px;
       font-weight: 550;
       color: $font-color;
@@ -379,6 +401,7 @@ $font-color: #ee7325;
         font-size: 28px;
       }
     }
+
     &-text {
       font-size: 6px;
       color: #2d2d2d;
@@ -420,10 +443,11 @@ $font-color: #ee7325;
 
   &-bonus {
     padding-top: 10px;
+    margin: 0 auto;
 
     &-points {
       font-size: 20px;
-      color: #e06437;
+      color: $font-color;
       font-weight: 600;
       @media (--tablet) {
         font-size: 25px;
@@ -432,7 +456,8 @@ $font-color: #ee7325;
 
     &-text {
       font-size: 7px;
-      color: #e06437;
+      color: $font-color;
+      font-weight: 800;
       @media (--tablet) {
         font-size: 9px;
       }
@@ -445,16 +470,43 @@ $font-color: #ee7325;
       }
     }
 
-    &-price {
+    &-price-amount {
       font-size: 13px;
-      color: #e06437;
+      color: $font-color;
+      font-weight: 600;
       @media (--tablet) {
         font-size: 17px;
       }
     }
+    &-price-percentage {
+      font-size: 18px;
+      color: $font-color;
+      font-weight: 600;
+      @media (--tablet) {
+        font-size: 20px;
+      }
+    }
+
+    &-percentage {
+      color: $font-color;
+      font-size: 16px;
+      font-weight: 600;
+      @media (--tablet) {
+        font-size: 16px;
+      }
+    }
+    &-discount {
+      color: $font-color;
+      font-size: 5px;
+      font-weight: 600;
+      @media (--tablet) {
+        font-size: 6px;
+        font-weight: 700;
+      }
+    }
   }
 
-  &-title {
+  &-description {
     padding-bottom: 5px;
     color: #2d2d2d;
     line-height: 1.2em;
@@ -525,7 +577,7 @@ $font-color: #ee7325;
     padding-top: 1px;
     text-align: center;
     @media (--tablet) {
-      font-size: 13px;
+      font-size: 12px;
     }
   }
   &-code {
