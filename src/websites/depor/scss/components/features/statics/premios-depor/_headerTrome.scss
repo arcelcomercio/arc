@@ -1,4 +1,11 @@
 .ranking_trome__header {
+  &__container {
+    height: 330px;
+    @media (--tablet) {
+      height: 370px;
+    }
+  }
+
   &__box {
     width: 920px;
     height: 320px;
@@ -7,6 +14,8 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-image: url("https://cdna.trome.pe/resources/dist/trome/ranking-trome/head_desktop.jpeg");
+    display: flex;
+    flex-direction: column;
   }
 
   &__boxMob {
@@ -14,28 +23,31 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-image: url("https://cdna.trome.pe/resources/dist/trome/ranking-trome/head_mobile.jpeg");
+    width: auto;
+    height: 170px;
+    display: flex;
+
     @media (--tablet) {
       height: 250px;
     }
-
-    width: auto;
-    height: 230px;
   }
 
   &__opacity {
-    background-color: rgba(0, 0, 0, 0.3);
-    filter: initial;
+    background-color: #000000;
+    // filter: initial;
   }
   &__cont {
     display: flex;
     justify-content: space-between;
     padding-top: 13px;
+    height: 37px;
 
     @media (--desktop) {
       padding-top: 18px;
     }
     @media (--tablet) {
       padding-top: 15px;
+      height: 45px;
     }
 
     &__contLeft {
@@ -131,23 +143,23 @@
   }
 
   &__centralLogo {
-    width: 240px;
-    height: 234px;
+    width: 300px;
+    height: 250px;
+    margin: auto;
+    margin-top: 60px;
     @media (--tablet) {
-      width: 250px;
-      height: 244px;
+      width: 330px;
+      height: 280px;
     }
     @media (--desktop) {
-      width: 350px;
-      height: 342px;
-      margin-top: 70px;
-      margin-left: 300px;
+      width: 380px;
+      height: 330px;
     }
   }
 
   &__ul {
     width: 100%;
-    height: 200px;
+    height: auto;
     display: flex;
     flex-direction: column;
   }
