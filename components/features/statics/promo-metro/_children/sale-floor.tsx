@@ -141,45 +141,45 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
           : null}
 
         {cencosud && (
-          <div className={classes.cencosud}>
-            <div className="flex flex-col">
-              <div className="flex items-end">
-                {cencosud.discountType === 'S/' ? (
-                  <p className={classes.priceAmountCencosud}>
-                    S/{cencosud.price}
+          <>
+            <div className="flex items-end">
+              {cencosud.discountType === 'S/' ? (
+                <p className={classes.priceAmountCencosud}>
+                  S/{cencosud.price}
+                </p>
+              ) : null}
+              {cencosud.discountType === '%' ? (
+                <>
+                  <p className={classes.pricePercentageCencosud}>
+                    {cencosud.price}
                   </p>
-                ) : null}
-                {cencosud.discountType === '%' ? (
-                  <>
-                    <p className={classes.pricePercentageCencosud}>
-                      {cencosud.price}
-                    </p>
-                    <div className="flex flex-col">
-                      <p className={classes.percentageCencosud}>%</p>
-                      <p className={classes.couponDsctoCencosud}>DSCTO</p>
-                    </div>
-                  </>
-                ) : null}
-                <img
-                  className={classes.imageCencosud}
-                  src={`${getAssetsPath(
-                    arcSite,
-                    contextPath
-                  )}/resources/dist/${arcSite}/images/tarjeta-cencosud.png?d=1`}
-                  alt="cencosud"
-                  loading="lazy"
-                />
-                <div style={{ padding: '2px' }}>
-                  <p className={classes.textCencosud}>Tarjeta</p>
-                  <p className={classes.textCencosud}>Cencosud</p>
-                </div>
+                  <div className="flex flex-col">
+                    <p className={classes.percentageCencosud}>%</p>
+                    <p className={classes.couponDsctoCencosud}>DSCTO</p>
+                  </div>
+                </>
+              ) : null}
+              <img
+                className={classes.imageCencosud}
+                src={`${getAssetsPath(
+                  arcSite,
+                  contextPath
+                )}/resources/dist/${arcSite}/images/tarjeta-cencosud.png?d=1`}
+                alt="cencosud"
+                loading="lazy"
+              />
+              <div style={{ padding: '2px' }}>
+                <p className={classes.textCencosud}>Tarjeta</p>
+                <p className={classes.textCencosud}>Cencosud</p>
               </div>
+            </div>
+            <div className={classes.cencosud}>
               <p className={classes.codeCencosud}>{cencosud.code}</p>
               <p className={classes.discountTitleCencosud}>
                 Código con Tarjeta
               </p>
             </div>
-          </div>
+          </>
         )}
         {bonus && (
           <div className={classes.bonus}>
