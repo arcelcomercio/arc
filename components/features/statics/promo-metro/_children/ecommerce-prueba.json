@@ -1,38 +1,38 @@
 {
   "products": [
     {
-      "code": "CUPONTROME129",
+      "code": "CUPONTROME129SM",
       "discount": "S/ 30",
       "reason": "dscto. por compras desde",
       "limit": "S/ 129",
-      "local": "en supermercados",
+      "local": "en Supermercados",
       "restrictions": {
         "ususNumber": "1000",
         "rules": "Exclusivo metro.pe o app metro y 1 uso por cliente"
       }
     },
     {
-      "code": "CUPONTROME99",
+      "code": "CUPONTROMECELEBRA",
       "discount": "S/ 30",
       "reason": "dscto. por compras desde",
-      "limit": "S/ 99",
-      "local": "en Canastas Navideñas",
+      "limit": "S/ 129",
+      "local": "solo en Espumantes",
       "restrictions": {
         "ususNumber": "1000",
         "rules": "Exclusivo metro.pe o app metro y 1 uso por cliente"
       }
     },
     {
-      "code": "CUPONTROMEPANETON",
+      "code": "CUPONTROMEPARRILLA",
       "discount": "S/ 30",
       "reason": "dscto. por compras desde",
-      "limit": "S/ 129",
-      "local": "en Panetones",
+      "limit": "S/ 149",
+      "local": "en Carnes y Embutidos",
       "restrictions": {
         "ususNumber": "1000",
         "rules": "Exclusivo metro.pe o app metro y 1 uso por cliente"
       }
     }
   ],
-  "legal": "Descuentos válidos con en Metro.pe o aplicación Metro del 09 al 23 de diciembre de 2021 y/o hasta agotar stock. Stock mínimo 01 ud./pack/kg por producto. Stock y surtido sujeto a disponibilidad. Promociones exclusivas para consumo familiar. No acumulable con otras promociones. "
+  "legal": "Descuentos válidos con en Metro.pe o aplicación Metro del 23 de diciembre 2021 al 05 de enero de 2022 y/o hasta agotar stock. Stock y surtido sujeto a disponibilidad. Promociones exclusivas para consumo familiar. No acumulable con otras promociones."
 }

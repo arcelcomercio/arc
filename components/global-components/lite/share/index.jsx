@@ -22,7 +22,7 @@ const ShareButtons = ({
   activeLinkedin = true,
   renderScripts = false,
   path: customPath = '',
-  title: customTitle = '',
+  text: customText = '',
   googleNewsText = true,
   hideShareLinks = false,
   appVersion = true,
@@ -48,11 +48,11 @@ const ShareButtons = ({
   } = getProperties(arcSite)
 
   const path = postPermaLink || customPath
-  const title = postTitle || customTitle
+  const title = postTitle || customText
 
   const urlsShareList = shareUrls({
     url: `${siteUrl}${path}`,
-    title,
+    text: title,
     twitterUsername,
     appVersion,
   })

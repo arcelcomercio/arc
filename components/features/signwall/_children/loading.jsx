@@ -65,7 +65,7 @@ const Loading = ({ typeBg }) => {
 
   return (
     <>
-      {typeBg === 'full' ? (
+      {typeBg === 'full' || typeBg === 'full-transparent' ? (
         <Portal id="sign-loading">
           <Inside
             mainColorBg={mainColorBg}

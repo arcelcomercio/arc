@@ -29,24 +29,24 @@ export const socialMediaUrlShareList = (
 type ShareUrlsProps = {
   twitterUsername: string
   url: string
-  title?: string
+  text?: string
   appVersion?: boolean
 }
 
 export const shareUrls = ({
   twitterUsername,
   url,
-  title = '',
+  text = '',
   appVersion = true,
 }: ShareUrlsProps): ShareList => ({
   facebook: `http://www.facebook.com/sharer.php?u=${url}`,
   twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-    title
+    text
   )}&url=${url}&via=${twitterUsername}`,
   linkedin: `http://www.linkedin.com/shareArticle?url=${url}`,
   pinterest: `https://pinterest.com/pin/create/button/?url=${url}`,
   whatsapp: `${
     appVersion ? 'whatsapp://' : 'https://web.whatsapp.com/'
-  }send?text=${encodeURIComponent(`${title} ${url}`)}`,
+  }send?text=${encodeURIComponent(`${text} ${url}`)}`,
   fbmsg: `fb-messenger://share/?link=${url}`,
 })

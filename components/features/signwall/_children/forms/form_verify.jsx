@@ -3,6 +3,7 @@ import { isAPIErrorResponse } from '@arc-publishing/sdk-identity/lib/serviceHelp
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
+import { isStorageAvailable } from '../../../../utilities/client/storage'
 import { useModalContext } from '../../../subscriptions/_context/modal'
 import getCodeError from '../../../subscriptions/_dependencies/Errors'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
@@ -15,6 +16,8 @@ const FormVerify = ({ onClose, tokenVerify, tokenMagicLink, typeDialog }) => {
     siteProperties: {
       signwall: { mainColorBr, mainColorBtn, primaryFont, mainColorLink },
       activePaywall,
+      activeMagicLink,
+      activeRegisterwall,
     },
   } = useAppContext() || {}
 
@@ -152,7 +155,22 @@ const FormVerify = ({ onClose, tokenVerify, tokenMagicLink, typeDialog }) => {
                   `Web_Sign_Wall_${typeDialog}`,
                   `web_sw${typeDialog[0]}_continuar_boton`
                 )
-                onClose()
+                // validacion para cargar la ultima noticia premium para diario correo
+                if (isStorageAvailable('localStorage')) {
+                  const premiumLastUrl = window.localStorage.getItem(
+                    'premium_last_url'
+                  )
+                  if (premiumLastUrl && activeMagicLink && activeRegisterwall) {
+                    // removiendo del local la nota premium
+                    window.localStorage.removeItem('premium_last_url')
+                    // redireccionando
+                    window.location.href = premiumLastUrl
+                  } else {
+                    onClose()
+                  }
+                } else {
+                  onClose()
+                }
               }}>
               CONTINUAR NAVEGANDO
             </button>
