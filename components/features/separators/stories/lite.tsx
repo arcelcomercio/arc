@@ -4,6 +4,7 @@ import * as React from 'react'
 import { FeatureComponent } from 'types/features'
 import { Stories } from 'types/story'
 
+import MultimediaIcon from '../../../global-components/lite/multimedia-icon'
 import Spinner from '../../../global-components/spinner'
 import { getAssetsPath } from '../../../utilities/assets'
 import { separatorStoriesFields } from '../../../utilities/included-fields'
@@ -30,6 +31,7 @@ const SeparatorStories: FeatureComponent<any> = (props) => {
     contextPath,
     // deployment,
     // requestUri,
+    metaValue
   } = useAppContext()
 
   const presets = 'mobile:231x132'
@@ -59,6 +61,7 @@ const SeparatorStories: FeatureComponent<any> = (props) => {
       </h3>
       <div className="sep-st__item-c">
         {stories?.content_elements?.map((story) => (
+          <div className='pos-rel'>
           <a
             id={story?.websites?.[arcSite]?.website_url}
             href={story?.websites?.[arcSite]?.website_url}
@@ -71,9 +74,10 @@ const SeparatorStories: FeatureComponent<any> = (props) => {
                 getPromoItemRezisedUrl(story)?.mobile || defaultImage || ''
               }
             />
-
+            {metaValue('section_style') === 'story-v2-video' && <MultimediaIcon type='basic_video' styles='separador' metaValue={metaValue('section_style')} />}
             <h4 className="sep-st__i-title">{story?.headlines?.basic}</h4>
           </a>
+          </div>
         ))}
       </div>
       {isSeeMoreVisible && (

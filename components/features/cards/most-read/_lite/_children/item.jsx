@@ -17,8 +17,7 @@ const CardMostReadChildItem = (props) => {
     title: `most-read__txt w-full `,
     numLines: 'three-lines',
     logoPremium: 'most-read__logo-premium',
-    boxTime: 'most-read__box-time',
-    time: 'most-read__time',
+    boxPlay: 'most-read__box-play',
     iconPlay: 'most-read__icon-play',
   }
 
@@ -51,14 +50,7 @@ const CardMostReadChildItem = (props) => {
               className={classes.img}
               loading="lazy"
             />
-            {metaValue('section_style') === 'story-v2-video' ? (
-              <div className={classes.boxTime}>
-                <div className={classes.iconPlay} />
-                <p className={classes.time}>1:30</p>
-              </div>
-            ) : (
-              <MultimediaIcon type={storyType} />
-            )}
+            <MultimediaIcon type={storyType} metaValue={metaValue('section_style')} />
           </figure>
         )}
         <h4 itemProp="name" className={`${classes.title} ${classes.numLines}`}>
