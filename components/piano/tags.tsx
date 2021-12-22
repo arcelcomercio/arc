@@ -54,6 +54,7 @@ const PianoTags: React.FC<PianoTagsProps> = ({
 }) => {
   if (disabled) return null
 
+  const enableGA = `tp.push(["init", function () { tp.enableGACrossDomainLinking(); }]);`
   const setPianoIdProvider = `tp.push(["setUsePianoIdUserProvider", true ]);`
   const setZone = `tp.push(["setZone", "${zone}"]);`
   const setSandbox = env !== PROD ? 'tp.push(["setSandbox", true]);' : ''
@@ -65,7 +66,7 @@ const PianoTags: React.FC<PianoTagsProps> = ({
   // Los `pianoBaseTags` se usan en todas la páginas
   const pianoBaseTags = `
   tp = window.tp || [];
-  ${setPianoIdProvider}${setZone}${setSandbox}${setDebug}
+  ${enableGA}${setPianoIdProvider}${setZone}${setSandbox}${setDebug}
   `
 
   const tagsArray = storyId
