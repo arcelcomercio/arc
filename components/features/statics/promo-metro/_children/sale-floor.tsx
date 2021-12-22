@@ -33,7 +33,7 @@ const classes = {
   couponDsctoBonus: 'coupon-bonus-discount',
   couponDscto: 'coupon-discount',
   couponDescription: 'coupon-description',
-  couponDiscountDescription: 'coupon-discount-description',
+  couponDiscountTitle: 'coupon-discount-title',
   couponCode: 'coupon-code',
   separator: 'coupon-separator',
 }
@@ -214,7 +214,7 @@ const SaleFloorCard: React.FunctionComponent<CouponProps> = ({
           </div>
         )}
         <p className={classes.couponCode}>{code}</p>
-        <p className={classes.couponDiscountDescription}>Código de promoción</p>
+        <p className={classes.couponDiscountTitle}>Código de promoción</p>
       </div>
     </li>
   )
