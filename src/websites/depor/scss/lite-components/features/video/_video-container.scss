@@ -8,4 +8,30 @@
   & .st-sidebar__content {
     background-color: #222;
   }
+
+  & .header-full.active {
+    background-color: #333;
+
+    .header-full__btn-menu svg {
+      fill: #fff;
+    }
+
+    .header-full__box-logo {
+      background-color: #fff;
+    }
+
+    .nav__story-title {
+      color: #fff;
+    }
+
+    .story-header__list .share-btn--gnews {
+      color: #fff;
+      border-color: #fff;
+    }
+
+    .story-header__list svg,
+    .story-header__list path {
+      fill: #fff;
+    }
+  }
 }
