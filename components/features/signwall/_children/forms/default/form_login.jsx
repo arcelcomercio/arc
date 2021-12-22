@@ -257,7 +257,11 @@ const FormLogin = ({ valTemplate, attributes }) => {
       })
       .finally(() => {
         // removiendo en localstorage en caso no sea ninguno de los 2 casos
-        if (typeDialog !== 'premium' && typeDialog !== 'resetpass') {
+        if (
+          typeDialog !== 'premium' &&
+          typeDialog !== 'resetpass' &&
+          isStorageAvailable('localStorage')
+        ) {
           window.localStorage.removeItem('premium_last_url')
         }
       })
@@ -625,15 +629,11 @@ const FormLogin = ({ valTemplate, attributes }) => {
                       const paywallLastUrl = window.sessionStorage.getItem(
                         'paywall_last_url'
                       )
-                      if (
-                        premiumLastUrl &&
-                        premiumLastUrl !== '' &&
-                        activeRegisterwall
-                      ) {
+                      if (premiumLastUrl && activeRegisterwall) {
                         window.location.href = premiumLastUrl
                         // removiendo del local la nota premium
                         window.localStorage.removeItem('premium_last_url')
-                      } else if (paywallLastUrl && paywallLastUrl !== '') {
+                      } else if (paywallLastUrl) {
                         window.location.href = paywallLastUrl
                       } else {
                         onClose()

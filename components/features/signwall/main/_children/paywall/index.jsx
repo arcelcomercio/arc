@@ -2,6 +2,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { getAssetsPath } from '../../../../../utilities/assets'
+import { SITE_GESTION } from '../../../../../utilities/constants/sitenames'
 import { deleteQuery, getQuery } from '../../../../../utilities/parse/queries'
 import {
   ModalProvider,
@@ -84,7 +85,7 @@ export const PaywallInt = ({ properties }) => {
         <div
           className="signwall-inside_body-left paywall"
           style={{
-            background: `${arcSite === 'gestion' ? '#8f071f' : '#232323'}`,
+            background: `${arcSite === SITE_GESTION ? '#8f071f' : '#232323'}`,
           }}>
           <img
             src={`${getAssetsPath(

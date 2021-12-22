@@ -7,8 +7,7 @@ import { setCookie } from '../../../../../utilities/client/cookies'
 import { isStorageAvailable } from '../../../../../utilities/client/storage'
 import {
   SITE_ELCOMERCIO,
-  SITE_GESTION,
-  SITE_TROME,
+  SITE_GESTION
 } from '../../../../../utilities/constants/sitenames'
 import { extendSession } from '../../../../../utilities/subscriptions/identity'
 import { useModalContext } from '../../../../subscriptions/_context/modal'
@@ -60,13 +59,6 @@ const FormRegister = ({
       siteDomain,
     },
   } = useAppContext() || {}
-
-  const isTromeOrganic =
-    arcSite === 'trome' &&
-    (typeDialog === 'organico' ||
-      typeDialog === 'verify' ||
-      typeDialog === 'banner' ||
-      typeDialog === 'promoMetro')
 
   const { changeTemplate } = useModalContext()
   const [showError, setShowError] = React.useState(false)
@@ -278,10 +270,8 @@ const FormRegister = ({
       .finally(() => {
         // eliminamos la noticia premium del storage en caso
         // el typedialog no sea premium
-        if (typeDialog !== 'premium') {
-          if (isStorageAvailable('localStorage')) {
-            window.localStorage.removeItem('premium_last_url')
-          }
+        if (typeDialog !== 'premium' && isStorageAvailable('localStorage')) {
+          window.localStorage.removeItem('premium_last_url')
         }
       })
   }
@@ -301,8 +291,6 @@ const FormRegister = ({
       return checkEntitlement
     })
 
-  // agregado despues de pasar test por default/form_login
-  // es un codigo diferente al de login
   const unblockContent = () => {
     setShowUserWithSubs(true) // tengo subs
     const divPremium = document.getElementById('contenedor')
@@ -389,8 +377,6 @@ const FormRegister = ({
               onSubmit={handleOnSubmit}>
               {!showConfirm && (
                 <>
-                  {isTromeOrganic && <div className="spacing-trome" />}
-
                   <div className=" mt-10 center">
                     <p className="signwall-inside_forms-text mb-20 center bold">
                       Accede fácilmente con:
@@ -683,20 +669,14 @@ const FormRegister = ({
                                   const paywallLastUrl = window.sessionStorage.getItem(
                                     'paywall_last_url'
                                   )
-                                  if (
-                                    premiumLastUrl &&
-                                    premiumLastUrl !== '' &&
-                                    activeRegisterwall
-                                  ) {
-                                    window.location.href = premiumLastUrl
+                                  if (premiumLastUrl && activeRegisterwall) {
                                     // removiendo del local la nota premium
                                     window.localStorage.removeItem(
                                       'premium_last_url'
                                     )
-                                  } else if (
-                                    paywallLastUrl &&
-                                    paywallLastUrl !== ''
-                                  ) {
+                                    // redireccionando
+                                    window.location.href = premiumLastUrl
+                                  } else if (paywallLastUrl) {
                                     window.location.href = paywallLastUrl
                                   } else {
                                     onClose()
@@ -730,43 +710,39 @@ const FormRegister = ({
                       </>
                     )}
                   {(showContinueVerify || !activeVerifyEmail) && (
-                    <>
-                      {!isTromeOrganic && (
-                        <p
-                          style={{
-                            lineHeight: '22px',
-                          }}
-                          className="signwall-inside_forms-text mb-20 center">
-                          Revisa tu bandeja de correo para confirmar tu
-                          {showContinueVerify
-                            ? ` registro y sigue navegando`
-                            : ` solicitud de registro`}
-                        </p>
-                      )}
-
-                      <button
-                        type="button"
-                        className="signwall-inside_forms-btn signwall-inside_forms-btn-codp"
-                        style={{
-                          color: mainColorBtn,
-                          background: mainColorLink,
-                        }}
-                        onClick={() => {
-                          Taggeo(
-                            `Web_Sign_Wall_${typeDialog}`,
-                            `web_sw${typeDialog[0]}_registro_continuar_navegando`,
-                            arcSite
-                          )
-                          if (typeDialog === 'students') {
-                            if (showContinueVerify) {
-                              changeTemplate('login', '', remail)
-                            } else {
-                              setShowStudents(!showStudents)
-                            }
+                    <button
+                      type="button"
+                      className="signwall-inside_forms-btn signwall-inside_forms-btn-codp"
+                      style={{
+                        color: mainColorBtn,
+                        background: mainColorLink,
+                      }}
+                      onClick={() => {
+                        Taggeo(
+                          `Web_Sign_Wall_${typeDialog}`,
+                          `web_sw${typeDialog[0]}_registro_continuar_navegando`,
+                          arcSite
+                        )
+                        if (typeDialog === 'students') {
+                          if (showContinueVerify) {
+                            changeTemplate('login', '', remail)
                           } else {
-                            const btnSignwall = document.getElementById(
-                              'signwall-nav-btn'
-                            )
+                            setShowStudents(!showStudents)
+                          }
+                        } else {
+                          const btnSignwall = document.getElementById(
+                            'signwall-nav-btn'
+                          )
+                          if (typeDialog === 'newsletter' && btnSignwall) {
+                            btnSignwall.textContent =
+                              arcSite === SITE_ELCOMERCIO ||
+                                arcSite === SITE_GESTION
+                                ? 'Bienvenido'
+                                : 'Mi Perfil'
+                          }
+                          if (showContinueVerify) {
+                            changeTemplate('login', '', remail)
+                          } else {
                             if (typeDialog === 'newsletter' && btnSignwall) {
                               btnSignwall.textContent =
                                 arcSite === SITE_ELCOMERCIO ||
@@ -780,12 +756,10 @@ const FormRegister = ({
                               onClose()
                             }
                           }
-                        }}>
-                        {arcSite === SITE_TROME
-                          ? 'Confirmar Correo'
-                          : 'Continuar'}
-                      </button>
-                    </>
+                        }
+                      }}>
+                      Continuar
+                    </button>
                   )}
                   {showContinueVerify && (
                     <p
@@ -818,12 +792,6 @@ const FormRegister = ({
                     </p>
                   )}
                 </>
-              )}
-              {showConfirm && isTromeOrganic && (
-                <p className="signwall-inside_forms-text-note">
-                  Al hacer click estarás aceptando los Términos y <br />{' '}
-                  condiciones y la Política de privacidad.
-                </p>
               )}
             </form>
           )}

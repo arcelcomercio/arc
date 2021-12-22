@@ -24,7 +24,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
   const {
     arcSite,
     siteProperties: {
-      signwall: { mainColorLink, authProviders },
+      signwall: { mainColorLink,/* authProviders */ },
       activeMagicLink,
       activeNewsletter,
       activeDataTreatment,
