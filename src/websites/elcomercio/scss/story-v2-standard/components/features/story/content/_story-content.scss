@@ -76,6 +76,58 @@
         display: none;
       }
     }
+    &__link-list {
+      &-title {
+        color: #070606;
+        text-transform: uppercase;
+        font: 900 14px/24px $secondary-font;
+        letter-spacing: 2.8px;
+        text-align: left;
+        margin-bottom: 10px;
+        &::before {
+          content: " ";
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          background-color: #ffcb05;
+          border-radius: 50%;
+          margin-right: 6px;
+          margin-bottom: -2px;
+        }
+        &-link {
+          a {
+            display: inline-block;
+            margin-top: -22px;
+            margin-left: 20px;
+            color: #035a80;
+            font: 500 18px/24px $secondary-font;
+            letter-spacing: 0;
+            text-align: left;
+            text-decoration: none;
+          }
+          &::before {
+            content: ">";
+            display: inline-block;
+            color: #035a80;
+            font: 900 18px/16px $secondary-font;
+            letter-spacing: 0;
+            text-align: left;
+          }
+        }
+      }
+      &-item {
+        margin-bottom: 20px;
+      }
+      &-figure {
+        height: 185px;
+        margin-left: 20px;
+        margin-top: 20px;
+        @media (--desktop) {
+          height: 300px;
+        }
+      }
+    }
+
     &__embed {
       .live-event-minute {
         font: 700 14px/24px $secondary-font;
@@ -126,57 +178,6 @@
         border-top: 1px solid #ccc;
         + .live-event2-comment {
           border-top: 1px solid #ccc;
-        }
-      }
-    }
-    &__link-list {
-      &-title {
-        color: #070606;
-        text-transform: uppercase;
-        font: 900 14px/24px $secondary-font;
-        letter-spacing: 2.8px;
-        text-align: left;
-        margin-bottom: 10px;
-        &::before {
-          content: " ";
-          display: inline-block;
-          width: 16px;
-          height: 16px;
-          background-color: #ffcb05;
-          border-radius: 50%;
-          margin-right: 6px;
-          margin-bottom: -2px;
-        }
-        &-link {
-          a {
-            display: inline-block;
-            margin-top: -22px;
-            margin-left: 20px;
-            color: #035a80;
-            font: 500 18px/24px $secondary-font;
-            letter-spacing: 0;
-            text-align: left;
-            text-decoration: none;
-          }
-          &::before {
-            content: ">";
-            display: inline-block;
-            color: #035a80;
-            font: 900 18px/16px $secondary-font;
-            letter-spacing: 0;
-            text-align: left;
-          }
-        }
-      }
-      &-item {
-        margin-bottom: 20px;
-      }
-      &-figure {
-        height: 185px;
-        margin-left: 20px;
-        margin-top: 20px;
-        @media (--desktop) {
-          height: 300px;
         }
       }
     }
@@ -263,14 +264,14 @@
     }
   }
   .despiece {
-    border: 1px solid #AD9130;
+    border: 1px solid #ad9130;
     padding: 30px 20px 40px 16px;
     margin: 20px 0;
     @media (--desktop) {
       padding-right: 25px;
     }
     &__list-title {
-      color: #B39004;
+      color: #b39004;
       font: 900 18px/24px $secondary-font;
       letter-spacing: -0.18px;
       text-align: left;
@@ -323,7 +324,7 @@
       max-width: 543px;
     }
     &__top-text {
-      color: #B39004;
+      color: #b39004;
       font: 900 18px/24px $secondary-font;
       letter-spacing: -0.18px;
       text-align: left;
@@ -340,7 +341,7 @@
         border-radius: 50%;
         margin-right: 16px;
         @media (--desktop) {
-          background-color: #F7CD46;
+          background-color: #f7cd46;
         }
       }
     }
@@ -370,7 +371,7 @@
       font: 700 20px/18px $primary-font;
       letter-spacing: -0.4px;
       color: #333;
-      background-color: #FFCB05;
+      background-color: #ffcb05;
       border-radius: 50px;
       display: flex;
       align-items: center;
@@ -396,8 +397,9 @@
     .mrg {
       margin-bottom: 20px;
     }
-    .pquote__author, .pquote__author-text {
-      color: #B39004;
+    .pquote__author,
+    .pquote__author-text {
+      color: #b39004;
     }
   }
   &__social {

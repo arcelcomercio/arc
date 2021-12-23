@@ -6,4 +6,6 @@ declare module 'fusion:content' {
   export function useContent<Query = AnyObject, Response = any>(
     config: UseContentConfig<Query>
   ): Response
+
+  export function useEditableContent(): any
 }

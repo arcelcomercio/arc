@@ -1,23 +1,11 @@
 .b-news {
   margin: 5px 0;
-  padding: 0 10px 0 20px;
-  @media (--only-mobile) {
-    white-space: nowrap;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-  @media (--desktop) {
-    justify-content: center;
-    padding: 0;
+  h2 {
+    margin: 0 auto;
+    overflow: hidden;
   }
   &--color-1 {
     background-color: #fff;
-  }
-  &__close {
-    display: none;
   }
   &__envivo {
     background-color: #ff0537;
@@ -32,6 +20,14 @@
   &__link {
     display: block;
     text-align: center;
+    padding: 0 10px 0 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+      display: none;
+    }
     @media (--desktop) {
       display: block;
       text-align: center;
