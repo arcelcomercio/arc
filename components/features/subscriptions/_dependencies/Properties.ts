@@ -643,7 +643,8 @@ const PropertiesCommon = {
     landingFia:   `/suscripcionesdigitales/fia/${isProd ? '?ref=auth-fia' : '?outputType=subscriptions&ref=auth-fia'}`,
     clubComercio: 'https://clubelcomercio.pe/?home=suscripciones_digitales',
     callCenter:   'tel:+5113115100',
-    howItWork:    'https://cip.pagoefectivo.pe/CNT/QueEsPagoEfectivo.aspx'
+    howItWork:    'https://cip.pagoefectivo.pe/CNT/QueEsPagoEfectivo.aspx',
+    googleKey:     isProd ? '1038751133917-7sjce6fad67l0bi33niifa3tui26tkmd' : '1091574505245-hd5ma7kv3tnrbeic39sqaglpps83bt1o' // CONFIRMAR CON FRANZ KEY PROD
   },
 
   // prettier-ignore

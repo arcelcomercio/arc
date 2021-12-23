@@ -6,13 +6,13 @@
     background-position: inherit;
     background-repeat: no-repeat;
     background-size: contain;
-    background-image: url("https://cdna.depor.com/resources/dist/depor/premios-depor/bg_desktop.jpg");
+    background-image: url("https://cdna.depor.com/resources/dist/depor/premios-depor/bg_desktop_v2.jpg");
   }
   &__boxMob {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: url("https://cdna.depor.com/resources/dist/depor/premios-depor/bg_Mobile.jpg");
+    background-image: url("https://cdna.depor.com/resources/dist/depor/premios-depor/bg_Mobile_v2.jpg");
     @media (--tablet) {
       height: 850px;
     }
