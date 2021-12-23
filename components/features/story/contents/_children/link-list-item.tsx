@@ -5,6 +5,7 @@ import Image from '../../../../global-components/image'
 interface FeatureProps {
   url?: string
   title?: string
+  v2?: boolean
   image?: string
   isAmp?: boolean
 }
@@ -12,6 +13,7 @@ interface FeatureProps {
 const LinkListItem: React.FC<FeatureProps> = ({
   url,
   title = '',
+  v2,
   image = '',
   isAmp,
 }) => {
@@ -23,22 +25,23 @@ const LinkListItem: React.FC<FeatureProps> = ({
     info: `${classAmp}story-content__link-list-information w-full md:pr-10 pl-20`,
     titleLink: `${classAmp}story-content__link-list-title-link underline font-bold overflow-hidden`,
   }
-  const width = 96
-  const height = 64
+  const width = v2 ? 637 : 96
+  const height = v2 ? 300 : 64
+  const Figura = () => <figure className={classes.multimedia}>
+    <a itemProp="url" href={url}>
+      <Image
+        src={image}
+        width={width}
+        height={height}
+        alt={title}
+        className={classes.image}
+        loading="lazy"
+      />
+    </a>
+  </figure>
   return (
     <div className={classes.item}>
-      <figure className={classes.multimedia}>
-        <a itemProp="url" href={url}>
-          <Image
-            src={image}
-            width={width}
-            height={height}
-            alt={title}
-            className={classes.image}
-            loading="lazy"
-          />
-        </a>
-      </figure>
+      {!v2 && <Figura />}
       <div className={classes.info}>
         <span className={classes.titleLink}>
           <a itemProp="url" href={url}>
@@ -46,6 +49,7 @@ const LinkListItem: React.FC<FeatureProps> = ({
           </a>
         </span>
       </div>
+      {v2 && image && <Figura />}
     </div>
   )
 }

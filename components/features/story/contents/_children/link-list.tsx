@@ -5,9 +5,11 @@ import LinkListItem from './link-list-item'
 
 interface FeatureProps {
   items?: TypeListItems[]
+  title?: string
+  v2?: boolean
   isAmp?: boolean
 }
-const LinkList: React.FC<FeatureProps> = ({ items, isAmp = false }) => {
+const LinkList: React.FC<FeatureProps> = ({ items, title, v2, isAmp = false }) => {
   const classAmp = isAmp ? 'amp-' : ''
   const classes = {
     container: `${classAmp}story-content__link-list position-relative p-20 mb-20 mt-20 mr-20 ${
@@ -18,7 +20,7 @@ const LinkList: React.FC<FeatureProps> = ({ items, isAmp = false }) => {
 
   return (
     <div className={classes.container}>
-      <div className={classes.title}>Mira también:</div>
+      <div className={classes.title}>{(v2 && title) || "Mira también:"}</div>
       {items?.map((data) => {
         const url = data?.url
         const content = data?.content
@@ -31,6 +33,7 @@ const LinkList: React.FC<FeatureProps> = ({ items, isAmp = false }) => {
             title={content}
             image={urlImg}
             isAmp={isAmp}
+            v2 = {v2}
           />
         )
       })}

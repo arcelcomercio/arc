@@ -42,6 +42,7 @@ import {
   STORY_CUSTOMBLOCK,
   VIDEO_JWPLAYER,
   VIDEO_JWPLAYER_MATCHING,
+  CUSTOM_EC_BLOCKS,
 } from '../../../utilities/constants/subtypes'
 import { getDateSeo } from '../../../utilities/date-time/dates'
 import { contentWithAds } from '../../../utilities/story/content'
@@ -65,6 +66,7 @@ import StoryContentsChildLinkedImage from './_children/linked-image'
 import StoryContentsChildParallaxElements from './_children/parallax-elements'
 import StoryContentChildRawHTML from './_children/rawHtml'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
+import StoryContentsChildCustomEcBlocks from './_children/custom-ec-blocks'
 import iframeScriptCounter from './_dependencies/counter-mag'
 import customFields from './_dependencies/custom-fields'
 
@@ -352,6 +354,9 @@ const StoryContentsLite = (props) => {
                       />
                     )
                   }
+                  if (sub === CUSTOM_EC_BLOCKS) {
+                    return (<StoryContentsChildCustomEcBlocks data={element} />)
+                  }
                 }
                 // // Condicion para trome sin blockquoute - components/features/story/title/lite.jsx
                 // if (type === ELEMENT_BLOCKQUOTE && arcSite === SITE_TROME) {
@@ -557,6 +562,10 @@ const StoryContentsLite = (props) => {
                   if (arcSite === SITE_TROME)
                     return (
                       <StoryContentsChildLinkList items={items} title={title} />
+                    )
+                  if (isStoryV2StandarStyle)
+                    return (
+                      <StoryContentsChildLinkList items={items} title={title} v2={isStoryV2StandarStyle} />
                     )
                   return <StoryContentsChildLinkList items={items} />
                 }
