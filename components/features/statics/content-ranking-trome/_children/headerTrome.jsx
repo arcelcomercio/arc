@@ -5,6 +5,8 @@ import * as React from 'react'
 
 const classes = {
   containerHeader: 'ranking_trome__header__containerHeader',
+  buttonAft1: 'ranking_trome__header__button--after1',
+
   box: 'ranking_trome__header__box',
   boxMob: 'ranking_trome__header__boxMob',
   heightClose: 'ranking_trome__header__heightClose',
@@ -21,8 +23,7 @@ const classes = {
   logo: 'ranking_trome__header__cont__contLeft__logo',
   contRight: 'ranking_trome__header__cont__contRight',
   terminos: 'ranking_trome__header__cont__contRight__terminos',
-  buttonBef: 'ranking_trome__header__cont__contRight__button--before',
-  buttonAft: 'ranking_trome__header__cont__contRight__button--after',
+
   buttonAft2: 'ranking_trome__header__cont__contRight__button--after2',
 
   buttonMenu: 'ranking_trome__header__buttonMenu',
@@ -82,7 +83,7 @@ const HeaderRankingTrome = () => {
 
   return isMobile ? (
     mopen ? (
-      <div className={classes.container}>
+      <div className={classes.containerHeader}>
         <div className={`${classes.boxMob} ${classes.heightClose}`}>
           <div className={`${classes.contOpen} ${classes.color}`}>
             <ul className={classes.ul}>
@@ -128,7 +129,7 @@ const HeaderRankingTrome = () => {
       </div>
     ) : (
       <>
-        <div className={classes.container}>
+        <div className={classes.containerHeader}>
           <div className={`${classes.cont} ${classes.color}`}>
             <div className={classes.contLeft}>
               <a href="https://trome.com/">
@@ -307,7 +308,7 @@ const HeaderRankingTrome = () => {
               </a>
             </div>
             <span
-              className="ranking_trome__header__cont__contRight__button--after"
+              className={classes.buttonAft1}
               id="signwall-nav-btn">
               {' '}
               Registrate{' '}
@@ -316,7 +317,7 @@ const HeaderRankingTrome = () => {
         </div>
         <img
           src="https://cdna.trome.pe/resources/dist/trome/ranking-trome/ranking_trome_logo.png"
-          className={`${classes.LogoTrome} ${classes.marginTopNormal}`}
+          className={`${classes.logoTrome} ${classes.marginTopNormal}`}
           alt="flecha"
         />
       </div>

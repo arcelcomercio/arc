@@ -66,8 +66,10 @@ const Terms = () => {
               empresas del Grupo El Comercio no pueden participar de la promoción.
               Al registrarse dentro de la web https://trome.pe/, usted manifiesta su
               conformidad a los términos y condiciones, así como la política de
-              privacidad que figuran en <span>https://trome.pe/terminosTrome-y-condiciones</span> y&nbsp;
-              <span>https://trome.pe/politica-de-privacidad/</span>.
+              privacidad que figuran en&nbsp;
+              <a href="https://trome.pe/terminosTrome-y-condiciones/">https://trome.pe/terminosTrome-y-condiciones</a>
+              &nbsp;y&nbsp;
+              <a href="https://trome.pe/politica-de-privacidad/">https://trome.pe/politica-de-privacidad/</a>.
             </p>
           </div>
         </div>
