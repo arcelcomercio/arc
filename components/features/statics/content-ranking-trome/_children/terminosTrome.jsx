@@ -41,7 +41,7 @@ const Terms = () => {
               el cumbiambero del año, la conductora del año y la salsera del año.
             </p>
             <p>
-              {' '}
+
               Serán 10 categorías en total y el lector deberá votar por aquel
               nominado que, a su criterio, mejor represente cada una de estas.
               Por persona registrada solo se permite votar una vez.
@@ -66,9 +66,9 @@ const Terms = () => {
               empresas del Grupo El Comercio no pueden participar de la promoción.
               Al registrarse dentro de la web https://trome.pe/, usted manifiesta su
               conformidad a los términos y condiciones, así como la política de
-              privacidad que figuran en&nbsp;
+              privacidad que figuran en{' '}
               <a href="https://trome.pe/terminosTrome-y-condiciones/">https://trome.pe/terminosTrome-y-condiciones</a>
-              &nbsp;y&nbsp;
+              &nbsp;y{' '}
               <a href="https://trome.pe/politica-de-privacidad/">https://trome.pe/politica-de-privacidad/</a>.
             </p>
           </div>
