@@ -268,109 +268,43 @@
     overflow: auto;
     width: 100%;
   }
-  &__logo {
-    width: 64px;
-    margin-top: 20px;
-    margin-left: 20px;
-
-    @media (--only-mobile) {
-      margin: 24px 132px 0;
-    }
-  }
   &__wrapper-modal {
-    height: 511px;
+    height: 480px;
     width: 480px;
-    background: transparent linear-gradient(137deg, #000 0%, #63298a 100%) 0% 0%
-      no-repeat padding-box;
-    box-shadow: 0 3px 6px #00000029;
-    border: 1px solid #bfd02c;
-    border-radius: 10px;
-    p {
-      text-align: center;
-      font-family: $secondary-font;
-      font-weight: $regular;
-      letter-spacing: 0;
-      color: #ccc;
-      opacity: 1;
-      font-size: 22px;
-      margin: 32px 79px 40px;
 
-      @media (--only-mobile) {
-        font-size: 20px;
-        margin: 24px 20px;
-      }
-    }
     @media (--only-mobile) {
-      height: 459px;
-      width: 328px;
-    }
-  }
-  &__modal-title {
-    padding-top: 11px;
-    text-align: center;
-    font-family: $secondary-font;
-    font-weight: $semi-bold;
-    letter-spacing: -0.51px;
-    color: #fff;
-    opacity: 1;
-    margin: 0;
-    font-size: 32px;
-    @media (--only-mobile) {
-      font-size: 28px;
-      padding-top: 15px;
-    }
-  }
-  &__play {
-    text-align: center;
-    font-family: $secondary-font;
-    font-weight: $bold;
-    letter-spacing: -1.02px;
-    color: #bfd02c;
-    opacity: 1;
-    font-size: 64px;
-    margin: 0;
-    @media (--only-mobile) {
-      font-size: 48px;
+      height: 320px;
+      width: 320px;
     }
   }
   &__wrapper-img {
     width: 480px;
-    height: 160px;
-    margin-top: 51px;
-    overflow: hidden;
-    position: relative;
+    height: 480px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    border-radius: 0 0 10px 10px;
+    position: relative;
 
-    img {
-      top: 0;
-      position: absolute;
-      width: 530px;
-    }
     @media (--only-mobile) {
-      width: 328px;
-      height: 156px;
-      margin-top: 44px;
+      width: 320px;
+      height: 320px;
     }
   }
   &__modal-button {
-    border: 1px solid #333;
     border-radius: 6px;
+    background: #ff8400;
     opacity: 1;
     text-align: center;
     font-family: $secondary-font;
     font-weight: $bold;
     letter-spacing: 0.32px;
-    color: #333;
+    color: #fff;
     width: 140px;
     height: 42px;
     position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: -50px;
     text-decoration: none;
+    bottom: 32px;
   }
 }
