@@ -4,7 +4,7 @@ import { OT, OutputProps } from 'types/output-types'
 
 import PianoAdblock from '../piano/adblock'
 import PianoCore from '../piano/core'
-import PianoTags from '../piano/tags'
+import PianoData from '../piano/data'
 import { env } from '../utilities/arc/env'
 import { ORGANIZATION, PROD } from '../utilities/constants/environment'
 import { SITE_ELCOMERCIO } from '../utilities/constants/sitenames'
@@ -189,7 +189,7 @@ const Subscriptions: OT<OutputProps> = ({
                 />
               </>
             ) : null}
-            <PianoTags disabled={!activePiano} />
+            <PianoData disabled={!activePiano} />
             <FinallyPolyfill />
           </head>
           <body>
