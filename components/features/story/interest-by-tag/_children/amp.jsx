@@ -23,18 +23,18 @@ const classes = {
   figure: 'amp-story-interest__figure hidden md:block',
 }
 
-const StorySeparatorChildItemAmp = ({ data, height, width }) => {
+const StorySeparatorChildItemAmp = ({ data, height = 66, width = 118 }) => {
   const {
     title,
     subtitle,
     link,
     multimediaLandscapeMD,
+    multimediaLandscapeL,
     multimediaType,
     storyAMP,
   } = data
 
   const isFullImage = storyAMP === 'amp_full_imagen'
-
   return (
     <article
       className={` ${isFullImage ? classes.item_full_imagen : classes.item} `}>
@@ -47,7 +47,7 @@ const StorySeparatorChildItemAmp = ({ data, height, width }) => {
             className={` ${
               isFullImage ? classes.itemImage_full_imagen : classes.itemImage
             } `}
-            src={multimediaLandscapeMD}
+            src={multimediaLandscapeL || multimediaLandscapeMD}
             alt={title}
             width={width}
             layout="responsive"
