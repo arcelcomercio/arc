@@ -1,5 +1,5 @@
-.premios_depor__terminos {
-  &__box {
+.ranking_trome__terminosTrome {
+  &__boxT {
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -11,7 +11,8 @@
     @media (--desktop) {
       width: 1366px;
     }
-    &__boxUno {
+
+    &__boxUnoT {
       border-top: 1px solid #444;
       // background-color: #bfd02c;
       width: 100%;
@@ -25,15 +26,12 @@
         height: 160px;
       }
     }
-    &__deporColor {
-      background-color: #bfd02c;
-    }
 
     &__tromeColor {
       background-color: #ffc00d;
     }
 
-    &__black {
+    &__blackT {
       background-color: #222;
       // display: flex;
       // flex-direction: column;
@@ -47,7 +45,7 @@
         width: 1366px;
         // height: 1120px;
       }
-      &__lines {
+      &__linesT {
         width: 1366px;
         height: 320px;
         // width: initial;
@@ -57,18 +55,7 @@
         //   height: 450px;
         // }
       }
-      &__linesMobDepor {
-        background-image: url("https://cdna.depor.com/resources/dist/depor/premios-depor/green_lines.svg");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        width: auto;
-        height: 285px;
-        @media (--tablet) {
-          width: auto;
-          height: 350px;
-        }
-      }
+
       &__linesMobTrome {
         background-image: url("https://cdna.trome.pe/resources/dist/trome/ranking-trome/svg/Lines_orange.svg");
         background-size: cover;
@@ -81,7 +68,7 @@
           height: 350px;
         }
       }
-      &__text {
+      &__textT {
         position: relative;
         margin: auto;
         margin-top: -130px;
@@ -110,7 +97,7 @@
         @media (--only-mobile) {
           height: auto;
         }
-        &__titulo {
+        &__tituloT {
           color: #222;
           margin-top: 20px;
           margin-bottom: 7px;
@@ -133,7 +120,7 @@
             line-height: 40px;
           }
         }
-        &__contenido {
+        &__contenidoT {
           color: #444;
           margin-left: 16px;
           margin-right: 16px;
