@@ -3,20 +3,16 @@
     margin: auto;
     display: flex;
     flex-direction: column;
-    width: 1366px;
+    width: 100%;
     height: auto;
 
-    @media (--only-mobile) {
-      width: 100%;
-    }
-    @media (--only-tablet) {
-      width: 100%;
+    @media (--desktop) {
+      width: 1366px;
     }
 
     &__boxUnoT {
       border-top: 1px solid #444;
 
-      width: 1366px;
       height: 160px;
       @media (--only-mobile) {
         width: 100%;
@@ -30,7 +26,6 @@
 
     &__blackT {
       background-color: #222;
-      width: 1366px;
 
       @media (--only-mobile) {
         width: auto;
@@ -59,47 +54,36 @@
         flex-direction: column;
         background-color: #fff;
         border-radius: 10px;
-
+        border: 2px solid #444;
         height: auto;
-        border: 4px solid #444;
-        width: 640px;
-        margin-top: -110px;
-        margin-bottom: -250px;
+        width: 328px;
+        margin-top: -130px;
+        margin-bottom: -150px;
 
-        // @media (--tablet) {
-        //   margin-top: -100px;
-        //   margin-bottom: -250px;
-        //   width: 400px;
-        // }
-
-        @media (--only-mobile) {
-          height: auto;
-          border: 2px solid #444;
-          margin-top: -130px;
-          margin-bottom: -150px;
-          width: 328px;
+        @media (--desktop) {
+          border: 4px solid #444;
+          margin-top: -110px;
+          margin-bottom: -250px;
+          width: 640px;
         }
+
         &__tituloT {
           color: #222;
           font-weight: $extra-bold;
           text-align: center;
           font-family: $primary-font;
 
-          margin-top: 32px;
-          margin-bottom: 15px;
+          margin-top: 20px;
+          margin-bottom: 7px;
           font-size: 36px;
-          letter-spacing: 0.58px;
+          letter-spacing: 0.45px;
           line-height: 40px;
 
-          // @media (--tablet) {
-          //   margin-top: 15px;
-          //   margin-bottom: 7px;
-          // }
-          @media (--only-mobile) {
-            margin-top: 20px;
-            margin-bottom: 7px;
+          @media (--desktop) {
+            margin-top: 32px;
+            margin-bottom: 15px;
             font-size: 36px;
-            letter-spacing: 0.45px;
+            letter-spacing: 0.58px;
             line-height: 40px;
           }
         }
@@ -112,16 +96,14 @@
           letter-spacing: 0.29px;
           line-height: 26px;
 
-          margin-left: 60px;
-          margin-right: 60px;
-          // @media (--tablet) {
-          //   margin-left: 20px;
-          //   margin-right: 20px;
-          // }
-          @media (--only-mobile) {
-            margin-left: 16px;
-            margin-right: 16px;
+          margin-left: 16px;
+          margin-right: 16px;
+
+          @media (--desktop) {
+            margin-left: 60px;
+            margin-right: 60px;
           }
+
           a {
             color: #fd7600;
             cursor: pointer;

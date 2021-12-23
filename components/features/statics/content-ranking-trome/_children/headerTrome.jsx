@@ -308,7 +308,16 @@ const HeaderRankingTrome = () => {
               </a>
             </div>
             <span
-              className={classes.buttonAft1}
+              // className="ranking_trome__header__button--after1"
+              style={{
+                padding: '8px 28px',
+                textDecoration: 'none',
+                display: 'inline-block',
+                background: '#FFF',
+                color: '#333',
+                borderRadius: '5px',
+                fontSize: '12px',
+              }}
               id="signwall-nav-btn">
               {' '}
               Registrate{' '}

@@ -2,7 +2,7 @@
 import * as React from 'react'
 
 import searchQuery from '../../../../utilities/client/search'
-import HeaderTrome from '../../../statics/content-premios-depor/_children/headerTrome'
+import HeaderTrome from '../../../statics/content-ranking-trome/_children/headerTrome'
 // import SignwallComponent from '../../../signwall/main/default'
 // import { slugify } from '../../../utilities/parse/slugify'
 // const rutaArchivos = "https://cdna.depor.com/resources/dist/depor/premios-depor/"

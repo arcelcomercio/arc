@@ -376,7 +376,7 @@ const ContentRankingTrome = (props: Props) => {
         <div className={classes.modal}>
           <div className={classes.wrapperModal}>
             <div className={classes.wrapperImage}>
-              <img src={uri + '/modal1.jpg'} alt="Gracias por su voto" />
+              <img src={`${uri}/modal1.jpg`} alt="Gracias por su voto" />
               <a href="/" className={classes.buttonModal}>
                 Ir a Trome.pe
               </a>

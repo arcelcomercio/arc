@@ -1,12 +1,11 @@
 .ranking_trome__header {
   &__containerHeader {
-    margin: auto;
-    height: 400px;
-    width: 920px;
-
-    @media (--only-mobile) {
-      width: 100%;
-      height: 340px;
+    width: 100%;
+    height: 340px;
+    @media (--desktop) {
+      margin: auto;
+      height: 400px;
+      width: 920px;
     }
   }
 
