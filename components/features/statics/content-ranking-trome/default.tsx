@@ -1,38 +1,39 @@
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 
-import Terms from './_children/terminos'
-import { premiosDepor } from './_dependencies/data-premios-depor'
+import Terms from './_children/terminosTrome'
+import { rankingTrome } from './_dependencies/data-ranking-trome'
 import { Attribute, Profile } from './_utils/types'
 
 const classes = {
-  content: 'content-premios-depor',
-  container: 'content-premios-depor__container-title',
-  title: 'content-premios-depor__title',
-  instructions: 'content-premios-depor__instructions',
-  wrapper: 'content-premios-depor__wrapper-cards',
-  form: 'content-premios-depor__form',
-  card: 'content-premios-depor__card',
-  cardHead: 'content-premios-depor__card-head',
-  image: 'content-premios-depor__image',
-  cardBody: 'content-premios-depor__card-body',
-  list: 'content-premios-depor__list',
-  item: 'content-premios-depor__item',
-  itemArrow: 'content-premios-depor__item-arrow',
-  containerButton: 'content-premios-depor__container-button',
-  button: 'content-premios-depor__button',
-  error: 'content-premios-depor__error',
+  content: 'content-ranking-trome',
+  container: 'content-ranking-trome__container-title',
+  title: 'content-ranking-trome__title',
+  instructions: 'content-ranking-trome__instructions',
+  wrapper: 'content-ranking-trome__wrapper-cards',
+  form: 'content-ranking-trome__form',
+  card: 'content-ranking-trome__card',
+  cardHead: 'content-ranking-trome__card-head',
+  image: 'content-ranking-trome__image',
+  cardBody: 'content-ranking-trome__card-body',
+  list: 'content-ranking-trome__list',
+  wrapperItem: 'content-ranking-trome__wrapper-item',
+  item: 'content-ranking-trome__item',
+  designAdjust: 'content-ranking-trome__item__adjust-p',
+  itemArrow: 'content-ranking-trome__item-arrow',
+  wrapperItemImg: 'content-ranking-trome__wrapper-item-img',
+  itemImg: 'content-ranking-trome__item-img',
+  containerButton: 'content-ranking-trome__container-button',
+  button: 'content-ranking-trome__button',
+  error: 'content-ranking-trome__error',
 
-  modal: 'content-premios-depor__modal',
-  logoModal: 'content-premios-depor__logo',
-  wrapperModal: 'content-premios-depor__wrapper-modal',
-  titleModal: 'content-premios-depor__modal-title',
-  play: 'content-premios-depor__play',
-  buttonModal: 'content-premios-depor__modal-button',
-  wrapperImage: 'content-premios-depor__wrapper-img',
+  modal: 'content-ranking-trome__modal',
+  wrapperModal: 'content-ranking-trome__wrapper-modal',
+  buttonModal: 'content-ranking-trome__modal-button',
+  wrapperImage: 'content-ranking-trome__wrapper-img',
 }
 
-const uri = 'https://cdna.depor.com/resources/dist/depor/premios-depor'
+const uri = 'https://cdna.trome.pe/resources/dist/trome/ranking-trome'
 interface Props {
   customFields?: {
     serviceEndPoint?: string
@@ -48,19 +49,17 @@ interface UserProfile {
   user_birthday: string
   user_phone: string
 }
-
-const ContentPremiosDepor = (props: Props) => {
+const ContentRankingTrome = (props: Props) => {
   const { customFields } = props
-
   const {
-    serviceEndPoint = 'http://pre.md.minoticia.pe/portal_apis/premios-depor/',
+    serviceEndPoint = 'http://pre.md.minoticia.pe/portal_apis/ranking-trome/',
   } = customFields || {}
 
   const [isError, setIsError] = useState(false)
-  const [isVoted, setIsVoted] = useState(false)
-  const [isModal, setIsModal] = useState(false)
+  const [isVoted, setIsVoted] = useState(false) // false
   const [isRedirectLink, setIsRedirectLink] = useState(false)
   const [message, setMessage] = useState('')
+  const [isModal, setIsModal] = useState(false) // false
   const [result, setResult] = useState({})
   const [userProfile, setUserProfile] = useState<UserProfile>()
 
@@ -85,8 +84,8 @@ const ContentPremiosDepor = (props: Props) => {
     }
   }
   const resetRadio = () => {
-    for (let n = 0; n < premiosDepor.length; n++) {
-      const { radio } = premiosDepor[n]
+    for (let n = 0; n < rankingTrome.length; n++) {
+      const { radio } = rankingTrome[n]
 
       const ele = document.getElementsByName(radio) as any
       for (let i = 0; i < ele.length; i++) {
@@ -94,7 +93,6 @@ const ContentPremiosDepor = (props: Props) => {
       }
     }
   }
-
   const getData = async () => {
     await new Promise((resolve) => {
       // se ejecuta un tiempo de espera por el localstorage
@@ -108,6 +106,9 @@ const ContentPremiosDepor = (props: Props) => {
       localProfile = JSON.parse(rawProfile)
     }
     if (localProfile?.uuid) {
+      setMessage('')
+      setIsError(false)
+
       const {
         uuid = '',
         firstName = '',
@@ -140,6 +141,11 @@ const ContentPremiosDepor = (props: Props) => {
         setMessage('Usted ya votó.')
         setIsError(true)
       }
+    } else {
+      setMessage(
+        '* Primero debe de registrarse o iniciar sesión antes de votar.'
+      )
+      setIsError(true)
     }
   }
 
@@ -153,11 +159,14 @@ const ContentPremiosDepor = (props: Props) => {
       setIsError(false)
     }
   }
-
   const validUserProfile = () => {
     let valid = false
     let messageProfile = ''
 
+    if (userProfile?.user_uuid.length === 0) {
+      messageProfile += ', Primero registrase para completar:'
+      valid = true
+    }
     if (userProfile?.user_dni.length === 0) {
       messageProfile += ', DNI'
       valid = true
@@ -177,7 +186,7 @@ const ContentPremiosDepor = (props: Props) => {
 
     if (valid) {
       setIsRedirectLink(true)
-      setMessage(`Debe de completar su:${messageProfile.slice(1)}.`)
+      setMessage(`* Debe de completar su:${messageProfile.slice(1)}.`)
     } else {
       setIsRedirectLink(false)
     }
@@ -189,7 +198,7 @@ const ContentPremiosDepor = (props: Props) => {
 
     if (validUserProfile()) return setIsError(true)
 
-    if (Object.keys(result).length !== premiosDepor.length) {
+    if (Object.keys(result).length !== rankingTrome.length) {
       setMessage('* Debes elegir un ganador en cada categoría para continuar')
       return setIsError(true)
     }
@@ -212,6 +221,8 @@ const ContentPremiosDepor = (props: Props) => {
     if (newVoteFetch?.id >= 0) {
       setIsVoted(false)
       setIsModal(true)
+      resetRadio()
+      setResult({})
     } else {
       console.log(newVoteFetch)
     }
@@ -224,18 +235,25 @@ const ContentPremiosDepor = (props: Props) => {
       <div className={classes.content}>
         <div className={classes.container}>
           <h1 className={classes.title}>
-            ¡Premiamos a los mejores talentos Depor del año!
+            ¡Elige a los mejores talentos Trome del año!
           </h1>
           <p>
-            A continuación te presentamos once categorías en donde elegirás al
-            deportista más destacado del 2021.
+            Elige a los que más destacaron, queriendo o sin querer, en el año
+            2021. Puedes ganarte uno de los tres televisores que sorteamos.
           </p>
           <div className={classes.instructions}>
             1. Dale clic al siguiente botón{' '}
             <a
               href="/signwall/?outputType=subscriptions&signwallOrganic=1"
-              className="premios_depor__header__cont__contRight__button--after"
-              style={{ padding: '6px 25px', textDecoration: 'none' }}>
+              style={{
+                padding: '6px 25px',
+                textDecoration: 'none',
+                display: 'inline-block',
+                background: '#FFF',
+                color: '#333',
+                borderRadius: '5px',
+                fontSize: '12px',
+              }}>
               Registrate
             </a>{' '}
             para poder participar.
@@ -245,7 +263,15 @@ const ContentPremiosDepor = (props: Props) => {
             <a
               href="/mi-perfil/?outputType=subscriptions"
               className="premios_depor__header__cont__contRight__button--after"
-              style={{ padding: '6px 25px', textDecoration: 'none' }}>
+              style={{
+                padding: '6px 25px',
+                textDecoration: 'none',
+                display: 'inline-block',
+                background: '#FFF',
+                color: '#333',
+                borderRadius: '5px',
+                fontSize: '12px',
+              }}>
               AQUÍ
             </a>
             .
@@ -258,8 +284,16 @@ const ContentPremiosDepor = (props: Props) => {
         <div className={classes.wrapper}>
           <form onSubmit={handleSubmit}>
             <div className={classes.form}>
-              {premiosDepor.map(
-                ({ title, radio, persons, path_img, largeTitle }) => (
+              {rankingTrome.map(
+                ({
+                  title,
+                  radio,
+                  persons,
+                  path_img,
+                  designAdjust,
+                  gapTitle,
+                  largeTitle,
+                }) => (
                   <div className={classes.card} key={title}>
                     <div className={classes.cardHead}>
                       <img
@@ -267,45 +301,52 @@ const ContentPremiosDepor = (props: Props) => {
                         alt={title}
                         className={classes.image}
                       />
-                      <h3 style={{ marginLeft: largeTitle ? '45px' : '0' }}>
+                      <h3
+                        style={{
+                          marginLeft: gapTitle ? '45px' : '0',
+                          ...(largeTitle && {
+                            fontSize: '14px',
+                            letterSpacing: '-0.42px',
+                            marginLeft: '63px',
+                          }),
+                        }}>
                         {title}
                       </h3>
                     </div>
                     <div className={classes.cardBody}>
                       <ul className={classes.list}>
-                        {persons.map((person) => {
-                          let name
-                          let profesion
-                          if (person.indexOf('(') > 0) {
-                            const index = person.indexOf('(')
-                            name = person.slice(0, index)
-                            profesion = person.slice(index)
-                          }
-                          return (
-                            <div
-                              key={person}
-                              role="button"
-                              tabIndex={0}
-                              onClick={() => handleSelect(radio, person)}
-                              onKeyPress={() => handleSelect(radio, person)}>
-                              <label>
-                                <input
-                                  className={classes.itemArrow}
-                                  type="radio"
-                                  name={radio}
-                                  disabled={!isVoted}
-                                />
-                                {!name ? (
-                                  <span className={classes.item}>{person}</span>
-                                ) : (
-                                  <p className={classes.item}>
-                                    {name} <span>{profesion}</span>
-                                  </p>
-                                )}
-                              </label>
-                            </div>
-                          )
-                        })}
+                        {persons.map(({ name, path_author }) => (
+                          <div
+                            key={name}
+                            role="button"
+                            tabIndex={0}
+                            onClick={() => handleSelect(radio, name)}
+                            onKeyPress={() => handleSelect(radio, name)}>
+                            <label>
+                              <input
+                                className={classes.itemArrow}
+                                type="radio"
+                                name={radio}
+                                disabled={!isVoted}
+                              />
+                              <div className={classes.wrapperItem}>
+                                <div
+                                  className={`${classes.item} ${
+                                    designAdjust ? classes.designAdjust : ''
+                                  }`}>
+                                  <p>{name}</p>
+                                </div>
+                                <div className={classes.wrapperItemImg}>
+                                  <img
+                                    src={uri + path_author}
+                                    alt="imagen"
+                                    className={classes.itemImg}
+                                  />
+                                </div>
+                              </div>
+                            </label>
+                          </div>
+                        ))}
                       </ul>
                     </div>
                   </div>
@@ -323,9 +364,7 @@ const ContentPremiosDepor = (props: Props) => {
                 <>
                   <p className={classes.error}>{message}</p>{' '}
                   {isRedirectLink && (
-                    <a href="https://depor.com/mi-perfil/?outputType=subscriptions">
-                      aquí.
-                    </a>
+                    <a href="/mi-perfil/?outputType=subscriptions">aquí.</a>
                   )}
                 </>
               )}
@@ -333,25 +372,13 @@ const ContentPremiosDepor = (props: Props) => {
           </form>
         </div>
       </div>
-
       {isModal && (
         <div className={classes.modal}>
           <div className={classes.wrapperModal}>
-            <img
-              src="https://cdna.depor.com/resources/dist/depor/premios-depor/Logo_Depor_green.svg"
-              alt="voto"
-              className={classes.logoModal}
-            />
-            <h1 className={classes.titleModal}>¡Gracias por tu voto!</h1>
-            <p> Tu participación ha sido registrada para el sorteo de un </p>
-            <h1 className={classes.play}> PlayStation 5 </h1>
             <div className={classes.wrapperImage}>
-              <img
-                src="https://cdna.depor.com/resources/dist/depor/premios-depor/ps5_controller.svg"
-                alt="play"
-              />
+              <img src={`${uri}/modal1.jpg`} alt="Gracias por su voto" />
               <a href="/" className={classes.buttonModal}>
-                Ir a Depor.com
+                Ir a Trome.pe
               </a>
             </div>
           </div>
@@ -362,16 +389,16 @@ const ContentPremiosDepor = (props: Props) => {
   )
 }
 
-ContentPremiosDepor.label = 'Contenido premios depor'
+ContentRankingTrome.label = 'Contenido ranking trome'
 
-ContentPremiosDepor.propTypes = {
+ContentRankingTrome.propTypes = {
   customFields: PropTypes.shape({
     serviceEndPoint: PropTypes.string.tag({
       name: 'URL del servicio',
       description:
-        'Por defecto la URL es http://pre.md.minoticia.pe/portal_apis/premios-depor/',
+        'Por defecto la URL es http://pre.md.minoticia.pe/portal_apis/ranking-trome/',
     }),
   }),
 }
 
-export default ContentPremiosDepor
+export default ContentRankingTrome
