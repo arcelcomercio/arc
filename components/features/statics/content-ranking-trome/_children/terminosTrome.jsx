@@ -1,15 +1,15 @@
 import React from 'react'
 
 const classes = {
-  boxT: 'ranking_trome__terminosTrome__boxT',
-  boxUnoT: 'ranking_trome__terminosTrome__boxT__boxUnoT',
-  tromeColor: 'ranking_trome__terminosTrome__boxT__tromeColor',
-  blackT: 'ranking_trome__terminosTrome__boxT__blackT',
-  textT: 'ranking_trome__terminosTrome__boxT__blackT__textT',
-  titleT: 'ranking_trome__terminosTrome__boxT__blackT__textT__tituloT',
-  contentT: 'ranking_trome__terminosTrome__boxT__blackT__textT__contenidoT',
-  linesT: 'ranking_trome__terminosTrome__boxT__blackT__linesT',
-  linesMobTrome: 'ranking_trome__terminosTrome__boxT__blackT__linesMobTrome',
+  box: 'ranking_trome__terminos__box',
+  boxUno: 'ranking_trome__terminos__box__boxUno',
+  tromeColor: 'ranking_trome__terminos__box__tromeColor',
+  black: 'ranking_trome__terminos__box__black',
+  text: 'ranking_trome__terminos__box__black__text',
+  title: 'ranking_trome__terminos__box__black__text__titulo',
+  content: 'ranking_trome__terminos__box__black__text__contenido',
+  lines: 'ranking_trome__terminos__box__black__lines',
+  linesMobTrome: 'ranking_trome__terminos__box__black__linesMobTrome',
 }
 
 let isMobile
@@ -25,12 +25,12 @@ const pathT = "https://cdna.trome.pe/resources/dist/trome/ranking-trome/svg/Line
 const Terms = () => {
 
   return (
-    <div className={classes.boxT}>
-      <div className={`${classes.boxUnoT} ${classes.tromeColor}`} />
-      <div className={classes.blackT}>
-        <div className={classes.textT} id="termsid">
-          <div className={classes.titleT}>Términos y Condiciones</div>
-          <div className={classes.contentT}>
+    <div className={classes.box}>
+      <div className={`${classes.boxUno} ${classes.tromeColor}`} />
+      <div className={classes.black}>
+        <div className={classes.text} id="termsid">
+          <div className={classes.title}>Términos y Condiciones</div>
+          <div className={classes.content}>
             <p>
               Para participar de la campaña <b>“RANKING TROME 2021”</b> a nivel
               nacional, el lector deberá ingresar a la página web https://trome.pe/
@@ -67,7 +67,7 @@ const Terms = () => {
               Al registrarse dentro de la web https://trome.pe/, usted manifiesta su
               conformidad a los términos y condiciones, así como la política de
               privacidad que figuran en{' '}
-              <a href="https://trome.pe/terminosTrome-y-condiciones/">https://trome.pe/terminosTrome-y-condiciones</a>
+              <a href="https://trome.pe/terminos-y-condiciones/">https://trome.pe/terminos-y-condiciones</a>
               &nbsp;y{' '}
               <a href="https://trome.pe/politica-de-privacidad/">https://trome.pe/politica-de-privacidad/</a>.
             </p>
@@ -78,7 +78,7 @@ const Terms = () => {
         ) : (
           <img
             src={pathT}
-            className={classes.linesT}
+            className={classes.lines}
             alt="orange lines"
           />
         )}
