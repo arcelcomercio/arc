@@ -40,26 +40,10 @@ const dataLayer = (
   const premium = getPremiumValue === 'premium' && true
   const type = getMultimediaAnalitycs(multimediaType, subtype, true)
 
-  return `
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ 
-    'seccion': '${section}',
-    'subseccion': '${subsection}',
-    'tipo_nota' : '${type}', 
-    'id_nota' : '${id}',
-    'tag1': '${tag1}',
-    'tag2': '${tag2}',
-    'premium' : '${premium}',
-    'autor' : '${author || `Redacción`}',
-    'nucleo_ID' : '${nucleoOrigen}',
-    'tipo_formato' : '${formatOrigen}',
-    'tipo_contenido' : '${contentOrigen}',
-    'genero' : '${genderOrigen}'
-  });`
+  return `window.dataLayer = window.dataLayer || [];window.dataLayer.push({ 'seccion': '${section}','subseccion': '${subsection}','tipo_nota' : '${type}', 'id_nota' : '${id}','tag1': '${tag1}','tag2': '${tag2}','premium' : '${premium}','autor' : '${author || `Redacción`}','nucleo_ID' : '${nucleoOrigen}',    'tipo_formato' : '${formatOrigen}','tipo_contenido' : '${contentOrigen}','genero' : '${genderOrigen}'});`
 }
 
 const userStatus = () => `var user_type = '';
-
   if (window.localStorage.hasOwnProperty('ArcId.USER_INFO') && window.localStorage.getItem('ArcId.USER_INFO') !== '{}') {
     user_type = 'lgdin';
     var UUID_USER = JSON.parse(window.localStorage.getItem('ArcId.USER_INFO') || "{}").uuid;
@@ -144,9 +128,9 @@ const getVars = (
         subsection = subSectionList[1]
           ? subSectionList[1].replace('-', '')
           : sectionList[1].replace(
-              '-',
-              ''
-            ) /** /sección/esta-es-la-sub-seccion */
+            '-',
+            ''
+          ) /** /sección/esta-es-la-sub-seccion */
         dataStory = ` var tipo_nota = '${getMultimediaAnalitycs(
           multimediaType,
           subtype,
@@ -185,22 +169,16 @@ const getVars = (
   // const scriptLayerType = arcSite === SITE_OJO ? scriptLayer : ''
   const scriptLayerType = scriptLayer // para todas las marcas
   const isSomos = requestUri.includes('/somos/')
-  return `
-    var type_space = '${typeSpace}'; var site = '${getSite(
+  return `var type_space = '${typeSpace}'; var site = '${getSite(
     site
-  )}'; var type_template = '${template}'; var section = '${section}'; var subsection = '${subsection}'; var path_name = '${path}';
-    ${dataStory} 
-    ${dataNucleoOrigen}; ${scriptLayerType} 
-    ${
-      isSomos
-        ? `${userStatus()} ${dataLayerSomos(
-            notaId,
-            titleSo,
-            isPreSo,
-            subsection,
-            userStat
-          )}`
-        : ''
+  )}'; var type_template = '${template}'; var section = '${section}'; var subsection = '${subsection}'; var path_name = '${path}'; ${dataStory} ${dataNucleoOrigen}; ${scriptLayerType} ${isSomos ? `${userStatus()} ${dataLayerSomos(
+    notaId,
+    titleSo,
+    isPreSo,
+    subsection,
+    userStat
+  )}`
+    : ''
     }
     `
 }

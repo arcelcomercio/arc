@@ -113,22 +113,19 @@ const ChartbeatBody = ({
   })(); */
   const chartbeatScript = `!function(){!function(){window._sf_endpt=(new Date).getTime();var t=document.createElement("script"),e=document.getElementsByTagName("script")[0];t.type="text/javascript",t.async=!0,t.src="//static.chartbeat.com/js/chartbeat.js",e.parentNode.insertBefore(t,e)}()}();`
 
-  const chartbeatConfig = `
-    var _sf_startpt = new Date().getTime()
-    var _sf_async_config = _sf_async_config || {};_sf_async_config.uid = ${charbeatAccountNumber};_sf_async_config.domain = "${siteDomain}";_sf_async_config.flickerControl = false;_sf_async_config.useCanonical = true;_sf_async_config.sections = "${renderSections}"; ${
-    story && author
-      ? `_sf_async_config.authors = '${author
-          ?.join(',')
-          ?.replace(
-            /'/g,
-            ''
-          )}'; _sf_async_config.type = '${type}'; _sf_async_config.contentType = "${stringType}";`
-      : ''
-  } ${
+  const chartbeatConfig = ` var _sf_startpt = new Date().getTime(); var _sf_async_config = _sf_async_config || {};_sf_async_config.uid = ${charbeatAccountNumber};_sf_async_config.domain = "${siteDomain}";_sf_async_config.flickerControl = false;_sf_async_config.useCanonical = true;_sf_async_config.sections = "${renderSections}"; ${story && author
+    ? `_sf_async_config.authors = '${author
+      ?.join(',')
+      ?.replace(
+        /'/g,
+        ''
+      )}'; _sf_async_config.type = '${type}'; _sf_async_config.contentType = "${stringType}";`
+    : ''
+    } ${
     // TODO: identificar que portadas y secciones normalmente tienen videos
     // hasVideo reconoce si es una noticia con videos Powa o Youtube
     hasVideo || page === META_SECTION ? chartbeatVideoScript : chartbeatScript
-  }`
+    }`
 
   return (
     <>
