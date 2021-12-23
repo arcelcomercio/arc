@@ -1,0 +1,8 @@
+.g-grouper {
+  &.c-1x1-double,
+  &.c-1x1-triple {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}

@@ -27,9 +27,10 @@ $row-height: 344px;
 
 @for $i from 1 through 4 {
   .row-#{$i} {
-    //grid-row: span $row-parts*$i;
-    grid-row: span $i;
-    height: ($row-height * $i)+ (20px * ($i - 1));
+    @media (--tablet) {
+      grid-row: span $i;
+      height: ($row-height * $i) + (20px * ($i - 1));
+    }
   }
 }
 
