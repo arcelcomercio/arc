@@ -1,0 +1,118 @@
+.ranking_trome__terminosTrome {
+  &__boxT {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+
+    @media (--desktop) {
+      width: 1366px;
+    }
+
+    &__boxUnoT {
+      border-top: 1px solid #444;
+
+      height: 160px;
+      @media (--only-mobile) {
+        width: 100%;
+        height: 160px;
+      }
+    }
+
+    &__tromeColor {
+      background-color: #ffc00d;
+    }
+
+    &__blackT {
+      background-color: #222;
+
+      @media (--only-mobile) {
+        width: auto;
+      }
+      &__linesT {
+        width: 1366px;
+        height: 320px;
+      }
+
+      &__linesMobTrome {
+        background-image: url("https://cdna.trome.pe/resources/dist/trome/ranking-trome/svg/Lines_orange.svg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: auto;
+        height: 285px;
+        @media (--tablet) {
+          width: auto;
+          height: 350px;
+        }
+      }
+      &__textT {
+        position: relative;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        background-color: #fff;
+        border-radius: 10px;
+        border: 2px solid #444;
+        height: auto;
+        width: 328px;
+        margin-top: -130px;
+        margin-bottom: -150px;
+
+        @media (--desktop) {
+          border: 4px solid #444;
+          margin-top: -110px;
+          margin-bottom: -250px;
+          width: 640px;
+        }
+
+        &__tituloT {
+          color: #222;
+          font-weight: $extra-bold;
+          text-align: center;
+          font-family: $primary-font;
+
+          margin-top: 20px;
+          margin-bottom: 7px;
+          font-size: 36px;
+          letter-spacing: 0.45px;
+          line-height: 40px;
+
+          @media (--desktop) {
+            margin-top: 32px;
+            margin-bottom: 15px;
+            font-size: 36px;
+            letter-spacing: 0.58px;
+            line-height: 40px;
+          }
+        }
+        &__contenidoT {
+          color: #444;
+          font-family: $secondary-font;
+          font-weight: 400;
+          text-align: left;
+          font-size: 18px;
+          letter-spacing: 0.29px;
+          line-height: 26px;
+
+          margin-left: 16px;
+          margin-right: 16px;
+
+          @media (--desktop) {
+            margin-left: 60px;
+            margin-right: 60px;
+          }
+
+          a {
+            color: #fd7600;
+            cursor: pointer;
+          }
+          p {
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+  }
+}
