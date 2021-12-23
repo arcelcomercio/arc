@@ -270,6 +270,7 @@ export interface EmbedConfig {
   size: string
   description: string
   thumbnail_url: string
+  author: string
   title: string
   updated: number
   account: string

@@ -261,12 +261,6 @@ const AmpOutputType = ({
           canonicalUrl={`${envOrigin}${addSlashToEnd(canonicalUrl)}`}
         />
         <title>{title}</title>
-        {arcSite === SITE_DEPOR && (
-          <>
-            <link rel="preconnect" href="//cdn.ampproject.org" />
-            <link rel="preconnect" href="//cdna.depor.com" />
-          </>
-        )}
         <Styles {...metaSiteData} />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />

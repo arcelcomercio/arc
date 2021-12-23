@@ -2,6 +2,9 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 import { OT, OutputProps } from 'types/output-types'
 
+import PianoAdblock from '../piano/adblock'
+import PianoCore from '../piano/core'
+import PianoData from '../piano/data'
 import { env } from '../utilities/arc/env'
 import { ORGANIZATION, PROD } from '../utilities/constants/environment'
 import { SITE_ELCOMERCIO } from '../utilities/constants/sitenames'
@@ -10,6 +13,13 @@ import FinallyPolyfill from './_children/finallyPolyfill'
 import TagManager from './_children/tag-manager'
 import listenCounterMag from './_dependencies/counter-mag'
 import { getMetaValue } from './_dependencies/utils'
+
+enum Stylesheets {
+  Signwall = 'subs-signwall',
+  Landing = 'subs-landing',
+  Piano = 'subs-piano',
+  Payment = 'subs-payment',
+}
 
 const Subscriptions: OT<OutputProps> = ({
   children,
@@ -30,6 +40,8 @@ const Subscriptions: OT<OutputProps> = ({
     googleTagManagerId,
     googleTagManagerIdSandbox,
     fbPixelId,
+    activePiano,
+    pianoID,
     paywall: {
       urls: { canonical, image } = {},
       title: defaultTitle = siteTitle,
@@ -46,16 +58,24 @@ const Subscriptions: OT<OutputProps> = ({
   const isFaqsPage = /^\/[a-z-]+\/faqs\//.test(requestUri)
   const isSubscriptionPage = /^\/suscripciones\//.test(requestUri)
   const isSignwallPage = /^\/signwall\/|\/mi-perfil\//.test(requestUri)
+  const isPianoPage = /^\/(mi-cuenta|registro|registrar|ingreso|restaurar|verificacion|nueva-contrasena)\//.test(
+    requestUri
+  )
 
   const title = getMetaValue('title') || defaultTitle
   const description = getMetaValue('description') || defaultDescription
   const canonicalUrl = canonical || siteUrl + requestUri
-  // eslint-disable-next-line no-nested-ternary
-  const stylesheet = isSignwallPage
-    ? 'subs-signwall'
-    : isEmpresaPage || isFaqsPage || isSubscriptionPage
-    ? 'subs-landing'
-    : 'subs-payment'
+
+  let stylesheet: Stylesheets
+  if (isSignwallPage) {
+    stylesheet = Stylesheets.Signwall
+  } else if (isEmpresaPage || isFaqsPage || isSubscriptionPage) {
+    stylesheet = Stylesheets.Landing
+  } else if (isPianoPage) {
+    stylesheet = Stylesheets.Piano
+  } else {
+    stylesheet = Stylesheets.Payment
+  }
 
   return (
     <>
@@ -87,6 +107,7 @@ const Subscriptions: OT<OutputProps> = ({
         <html lang="es">
           <head>
             <TagManager googleTagManagerId={GTMContainer} />
+            <PianoAdblock disabled={!activePiano} />
             <FbPixel fbPixelId={fbPixelId} />
             <meta charSet="utf-8" />
             <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -168,6 +189,7 @@ const Subscriptions: OT<OutputProps> = ({
                 />
               </>
             ) : null}
+            <PianoData disabled={!activePiano} />
             <FinallyPolyfill />
           </head>
           <body>
@@ -184,6 +206,7 @@ const Subscriptions: OT<OutputProps> = ({
               {children}
             </div>
             <Fusion hydrateOnly />
+            <PianoCore aid={pianoID?.[env]} disabled={!activePiano} />
           </body>
         </html>
       )}

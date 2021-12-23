@@ -395,11 +395,8 @@ class StoryContents extends React.PureComponent {
                           )}
 
                         {(arcSite === 'elcomercio' ||
-                          arcSite === 'gestion' ||
-                          (arcSite === 'depor' &&
-                            (/^\/mexico\//.test(requestUri) ||
-                              /^\/colombia\//.test(requestUri)))) &&
-                        nameAds === 'caja3' ? (
+                          arcSite === 'gestion') &&
+                          nameAds === 'caja3' ? (
                           <div id="spc_post_stories" />
                         ) : null}
                       </>

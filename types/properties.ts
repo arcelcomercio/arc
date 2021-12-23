@@ -126,6 +126,15 @@ export interface JwplayersMatching {
   videoId: string
 }
 
+interface SocialNetworks {
+  name: string
+  url: string
+}
+export interface PianoID {
+  sandbox: string
+  prod: string
+}
+
 export interface SiteProperties {
   siteName: string
   sitemapNewsName: string
@@ -161,6 +170,7 @@ export interface SiteProperties {
   activeRulesCounter: boolean
   activeNewsletter: boolean
   activeVerifyEmail: boolean
+  activePiano: boolean
   gda: boolean
   isDfp: boolean
   api: Api
@@ -181,4 +191,6 @@ export interface SiteProperties {
     url: string
     external: boolean
   }[]
+  socialNetworks: SocialNetworks[]
+  pianoID: PianoID
 }

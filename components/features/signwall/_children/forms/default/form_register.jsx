@@ -7,7 +7,7 @@ import { setCookie } from '../../../../../utilities/client/cookies'
 import { isStorageAvailable } from '../../../../../utilities/client/storage'
 import {
   SITE_ELCOMERCIO,
-  SITE_GESTION
+  SITE_GESTION,
 } from '../../../../../utilities/constants/sitenames'
 import { extendSession } from '../../../../../utilities/subscriptions/identity'
 import { useModalContext } from '../../../../subscriptions/_context/modal'
@@ -48,8 +48,11 @@ const FormRegister = ({
   const {
     arcSite,
     siteProperties: {
-      signwall: { mainColorLink, mainColorBtn, mainColorBr,
-        // authProviders 
+      signwall: {
+        mainColorLink,
+        mainColorBtn,
+        mainColorBr,
+        // authProviders
       },
       activeMagicLink,
       activeRegisterwall,
@@ -650,10 +653,11 @@ const FormRegister = ({
                               onClick={() => {
                                 // modificado para el taggeo de diario correo por valla
                                 Taggeo(
-                                  `Web_${typeDialog}_${activeRegisterwall &&
+                                  `Web_${typeDialog}_${
+                                    activeRegisterwall &&
                                     typeDialog === 'premium'
-                                    ? 'Registro'
-                                    : 'Hard'
+                                      ? 'Registro'
+                                      : 'Hard'
                                   }`,
                                   `web_${typeDialog}_boton_sigue_navegando`
                                 )
@@ -723,6 +727,11 @@ const FormRegister = ({
                           `web_sw${typeDialog[0]}_registro_continuar_navegando`,
                           arcSite
                         )
+
+                        const btnSignwall = document.getElementById(
+                          'signwall-nav-btn'
+                        )
+
                         if (typeDialog === 'students') {
                           if (showContinueVerify) {
                             changeTemplate('login', '', remail)
@@ -730,13 +739,10 @@ const FormRegister = ({
                             setShowStudents(!showStudents)
                           }
                         } else {
-                          const btnSignwall = document.getElementById(
-                            'signwall-nav-btn'
-                          )
                           if (typeDialog === 'newsletter' && btnSignwall) {
                             btnSignwall.textContent =
                               arcSite === SITE_ELCOMERCIO ||
-                                arcSite === SITE_GESTION
+                              arcSite === SITE_GESTION
                                 ? 'Bienvenido'
                                 : 'Mi Perfil'
                           }
@@ -746,7 +752,7 @@ const FormRegister = ({
                             if (typeDialog === 'newsletter' && btnSignwall) {
                               btnSignwall.textContent =
                                 arcSite === SITE_ELCOMERCIO ||
-                                  arcSite === SITE_GESTION
+                                arcSite === SITE_GESTION
                                   ? 'Bienvenido'
                                   : 'Mi Perfil'
                             }

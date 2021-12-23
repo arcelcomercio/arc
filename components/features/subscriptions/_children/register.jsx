@@ -1,5 +1,5 @@
 import Identity from '@arc-publishing/sdk-identity'
-import getProperties from 'fusion:properties'
+import { useFusionContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
@@ -25,6 +25,7 @@ import { sendNewsLettersUser } from '../_dependencies/Services'
 import { Taggeo } from '../_dependencies/Taggeo'
 import { isFbBrowser } from '../_dependencies/Utils'
 import useForm from '../_hooks/useForm'
+import AuthFacebookGoogle from './auth-facebook-google'
 import ButtonSocial from './social'
 
 const styles = {
@@ -54,8 +55,13 @@ const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
   const [showHidePass, setShowHidePass] = React.useState('password')
   const [showConfirm, setShowConfirm] = React.useState(false)
   const [showSendEmail, setShowSendEmail] = React.useState(false)
+  const [hideFormRegister, setHideFormRegister] = React.useState(false)
   const { texts, urls } = PropertiesCommon
-  const { activeMagicLink } = getProperties(arcSite)
+
+  const {
+    customFields: { disableAuthSocialArc = false } = {},
+    siteProperties: { activeNewsletter, activeMagicLink },
+  } = useFusionContext() || {}
 
   const stateSchema = {
     remail: { value: '', error: '' },
@@ -262,225 +268,259 @@ const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
     }
   }
 
+  const loginSuccessFabebook = () => {
+    Identity.getUserProfile().then((resProfile) => {
+      activateAuth(resProfile)
+      updateStep(2)
+    })
+  }
+
+  const loginFailedFacebook = () => setMsgError(getCodeError())
+
   return (
     <>
       {!showConfirm ? (
         <>
           <h2 className={styles.title}>{texts.register}</h2>
-          <div
-            className={`${styles.blockMiddle} ${
-              isFbBrowser ? styles.blockFull : ''
-            }`}>
-            <ButtonSocial
-              arcSocial="facebook"
+
+          {disableAuthSocialArc ? (
+            <AuthFacebookGoogle
+              hideFormParent={() => setHideFormRegister(!hideFormRegister)}
+              onAuthSuccess={loginSuccessFabebook}
+              onAuthFailed={loginFailedFacebook}
+              typeDialog={typeDialog}
+              dataTreatment={checkedPolits ? '1' : '0'}
               arcSite={arcSite}
               arcType="registro"
-              dataTreatment={checkedPolits ? '1' : '0'}
-              typeDialog={typeDialog}
+              activeNewsletter={activeNewsletter}
             />
-            {!isFbBrowser && (
+          ) : (
+            <div
+              className={`${styles.blockMiddle} ${isFbBrowser ? styles.blockFull : ''
+                }`}>
               <ButtonSocial
-                arcSocial="google"
+                arcSocial="facebook"
                 arcSite={arcSite}
                 arcType="registro"
                 dataTreatment={checkedPolits ? '1' : '0'}
                 typeDialog={typeDialog}
               />
-            )}
-
-            {isFbBrowser && (
-              <AuthURL
-                arcSite={arcSite}
-                onClose={() => {}}
-                typeDialog={typeDialog}
-                activeNewsletter
-                typeForm="registro"
-                onLogged={onLoggedFia}
-                checkUserSubs={() => {}}
-              />
-            )}
-          </div>
-
-          <div className={styles.titleLine}>
-            <p className="large">{texts.orEnterDates}</p>
-          </div>
-
-          {msgError && (
-            <div className={styles.block}>
-              <div className="msg-alert">
-                {` ${msgError} `}
-                {forgotLink && (
-                  <>
-                    <button
-                      className={styles.link}
-                      type="button"
-                      onClick={() => changeTemplate('forgot')}>
-                      Recuperar contraseña
-                    </button>
-                  </>
-                )}
-              </div>
+              {!isFbBrowser && (
+                <ButtonSocial
+                  arcSocial="google"
+                  arcSite={arcSite}
+                  arcType="registro"
+                  dataTreatment={checkedPolits ? '1' : '0'}
+                  typeDialog={typeDialog}
+                />
+              )}
+              {isFbBrowser && (
+                <AuthURL
+                  arcSite={arcSite}
+                  onClose={() => { }}
+                  typeDialog={typeDialog}
+                  activeNewsletter
+                  typeForm="registro"
+                  onLogged={onLoggedFia}
+                  checkUserSubs={() => { }}
+                />
+              )}
             </div>
           )}
 
-          <form onSubmit={handleOnSubmit} className="form-register">
-            <div className={styles.block}>
-              <label htmlFor="remail">
-                Correo electrónico*
-                <input
-                  className={remailError && 'input-error'}
-                  type="email"
-                  inputMode="email"
-                  autoComplete="email"
-                  name="remail"
-                  value={remail}
-                  required
-                  onChange={handleChangeInput}
-                  onBlur={handleOnChange}
-                  disabled={loading}
-                />
-                {remailError && (
-                  <span className="msn-error">{remailError}</span>
-                )}
-              </label>
-            </div>
-
-            <div className={styles.block}>
-              <label htmlFor="rpass">
-                Contraseña*
-                <input
-                  className={rpassError && 'input-error'}
-                  type={showHidePass}
-                  autoComplete="new-password"
-                  name="rpass"
-                  value={rpass}
-                  required
-                  onChange={handleChangeInput}
-                  onBlur={handleOnChange}
-                  disabled={loading}
-                />
-                <button
-                  name="lshowpass"
-                  aria-label="lshowpass"
-                  className={`${styles.btnShow}-${showHidePass}`}
-                  type="button"
-                  tabIndex={-1}
-                  onClick={toogleHidePass}
-                />
-                {rpassError && <span className="msn-error">{rpassError}</span>}
-              </label>
-            </div>
-
-            <div className={styles.block}>
-              <label htmlFor="rphone">
-                Teléfono
-                <input
-                  className={rphoneError && 'input-error'}
-                  type="text"
-                  inputMode="tel"
-                  autoComplete="tel"
-                  name="rphone"
-                  value={rphone}
-                  maxLength="12"
-                  onChange={handleChangeInput}
-                  onBlur={handleOnChange}
-                  disabled={loading}
-                />
-                {rphoneError && (
-                  <span className="msn-error">{rphoneError}</span>
-                )}
-              </label>
-            </div>
-
-            <div className={styles.block}>
-              <label htmlFor="rpolit" className="terms">
-                <input
-                  id="rpolit"
-                  type="checkbox"
-                  name="rpolit"
-                  value={checkedPolits ? '1' : '0'}
-                  checked={checkedPolits}
-                  disabled={loading}
-                  onChange={(e) => {
-                    handleOnChange(e)
-                    setCheckedPolits(!checkedPolits)
-                  }}
-                />
-                Al registrarme por redes sociales o por este formulario autorizo
-                el uso de mis datos para{' '}
-                <a
-                  href={dataTreatment}
-                  className={`${styles.link} link-color`}
-                  target="_blank"
-                  rel="noreferrer">
-                  fines adicionales
-                </a>
-                <span className="checkmark" />
-              </label>
-            </div>
-
-            <div className={styles.block}>
-              <label htmlFor="rterms" className="terms">
-                <input
-                  id="rterms"
-                  type="checkbox"
-                  name="rterms"
-                  value={checkedTerms ? '1' : '0'}
-                  checked={checkedTerms}
-                  disabled={loading}
-                  required
-                  onChange={(e) => {
-                    handleOnChange(e)
-                    setCheckedTerms(!checkedTerms)
-                  }}
-                />
-                {texts.accept}
-                <a
-                  href={TermsConditions(arcSite)}
-                  className={`${styles.link} link-color`}
-                  target="_blank"
-                  rel="noreferrer">
-                  {texts.terms}
-                </a>
-                {texts.and}
-                <a
-                  href={PolicyPrivacy(arcSite)}
-                  className={`${styles.link} link-color`}
-                  target="_blank"
-                  rel="noreferrer">
-                  {texts.policies}
-                </a>
-                <span className={`checkmark ${rtermsError && 'input-error'}`} />
-              </label>
-            </div>
-
-            {rtermsError && (
-              <div className={styles.block}>
-                <div className="msg-alert">{rtermsError}</div>
+          {!hideFormRegister && (
+            <>
+              <div className={styles.titleLine}>
+                <p className="large">{texts.orEnterDates}</p>
               </div>
-            )}
 
-            <div className={styles.block}>
-              <button
-                className={`${styles.btn} ${loading && 'btn-loading'}`}
-                type="submit"
-                disabled={disable || loading}>
-                {loading ? loadText : 'Registrarme'}
-              </button>
-            </div>
-          </form>
-          <p className={styles.backLogin}>
-            {texts.hasAccount}
-            <button
-              className={styles.link}
-              type="button"
-              onClick={() => {
-                changeTemplate('login')
-                Taggeo(nameTagCategory, `web_swl_registro_link_volver`, arcSite)
-              }}>
-              Iniciar Sesión
-            </button>
-          </p>
+              {msgError && (
+                <div className={styles.block}>
+                  <div className="msg-alert">
+                    {` ${msgError} `}
+                    {forgotLink && (
+                      <>
+                        <button
+                          className={styles.link}
+                          type="button"
+                          onClick={() => changeTemplate('forgot')}>
+                          Recuperar contraseña
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              <form onSubmit={handleOnSubmit} className="form-register">
+                <div className={styles.block}>
+                  <label htmlFor="remail">
+                    Correo electrónico*
+                    <input
+                      className={remailError && 'input-error'}
+                      type="email"
+                      inputMode="email"
+                      autoComplete="email"
+                      name="remail"
+                      value={remail}
+                      required
+                      onChange={handleChangeInput}
+                      onBlur={handleOnChange}
+                      disabled={loading}
+                    />
+                    {remailError && (
+                      <span className="msn-error">{remailError}</span>
+                    )}
+                  </label>
+                </div>
+
+                <div className={styles.block}>
+                  <label htmlFor="rpass">
+                    Contraseña*
+                    <input
+                      className={rpassError && 'input-error'}
+                      type={showHidePass}
+                      autoComplete="new-password"
+                      name="rpass"
+                      value={rpass}
+                      required
+                      onChange={handleChangeInput}
+                      onBlur={handleOnChange}
+                      disabled={loading}
+                    />
+                    <button
+                      name="lshowpass"
+                      aria-label="lshowpass"
+                      className={`${styles.btnShow}-${showHidePass}`}
+                      type="button"
+                      tabIndex={-1}
+                      onClick={toogleHidePass}
+                    />
+                    {rpassError && (
+                      <span className="msn-error">{rpassError}</span>
+                    )}
+                  </label>
+                </div>
+
+                <div className={styles.block}>
+                  <label htmlFor="rphone">
+                    Teléfono
+                    <input
+                      className={rphoneError && 'input-error'}
+                      type="text"
+                      inputMode="tel"
+                      autoComplete="tel"
+                      name="rphone"
+                      value={rphone}
+                      maxLength="12"
+                      onChange={handleChangeInput}
+                      onBlur={handleOnChange}
+                      disabled={loading}
+                    />
+                    {rphoneError && (
+                      <span className="msn-error">{rphoneError}</span>
+                    )}
+                  </label>
+                </div>
+
+                <div className={styles.block}>
+                  <label htmlFor="rpolit" className="terms">
+                    <input
+                      id="rpolit"
+                      type="checkbox"
+                      name="rpolit"
+                      value={checkedPolits ? '1' : '0'}
+                      checked={checkedPolits}
+                      disabled={loading}
+                      onChange={(e) => {
+                        handleOnChange(e)
+                        setCheckedPolits(!checkedPolits)
+                      }}
+                    />
+                    Al registrarme por redes sociales o por este formulario
+                    autorizo el uso de mis datos para{' '}
+                    <a
+                      href={dataTreatment}
+                      className={`${styles.link} link-color`}
+                      target="_blank"
+                      rel="noreferrer">
+                      fines adicionales
+                    </a>
+                    <span className="checkmark" />
+                  </label>
+                </div>
+
+                <div className={styles.block}>
+                  <label htmlFor="rterms" className="terms">
+                    <input
+                      id="rterms"
+                      type="checkbox"
+                      name="rterms"
+                      value={checkedTerms ? '1' : '0'}
+                      checked={checkedTerms}
+                      disabled={loading}
+                      required
+                      onChange={(e) => {
+                        handleOnChange(e)
+                        setCheckedTerms(!checkedTerms)
+                      }}
+                    />
+                    {texts.accept}
+                    <a
+                      href={TermsConditions(arcSite)}
+                      className={`${styles.link} link-color`}
+                      target="_blank"
+                      rel="noreferrer">
+                      {texts.terms}
+                    </a>
+                    {texts.and}
+                    <a
+                      href={PolicyPrivacy(arcSite)}
+                      className={`${styles.link} link-color`}
+                      target="_blank"
+                      rel="noreferrer">
+                      {texts.policies}
+                    </a>
+                    <span
+                      className={`checkmark ${rtermsError && 'input-error'}`}
+                    />
+                  </label>
+                </div>
+
+                {rtermsError && (
+                  <div className={styles.block}>
+                    <div className="msg-alert">{rtermsError}</div>
+                  </div>
+                )}
+
+                <div className={styles.block}>
+                  <button
+                    className={`${styles.btn} ${loading && 'btn-loading'}`}
+                    type="submit"
+                    disabled={disable || loading}>
+                    {loading ? loadText : 'Registrarme'}
+                  </button>
+                </div>
+              </form>
+
+              <p className={styles.backLogin}>
+                {texts.hasAccount}
+                <button
+                  className={styles.link}
+                  type="button"
+                  onClick={() => {
+                    changeTemplate('login')
+                    Taggeo(
+                      nameTagCategory,
+                      `web_swl_registro_link_volver`,
+                      arcSite
+                    )
+                  }}>
+                  Iniciar Sesión
+                </button>
+              </p>
+            </>
+          )}
         </>
       ) : (
         <div className={styles.center}>

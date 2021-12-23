@@ -201,8 +201,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
     } else {
       const btnSignwall = document.getElementById('signwall-nav-btn')
       if (typeDialog === 'newsletter' && btnSignwall) {
-        btnSignwall.textContent = `${profile.firstName || 'Bienvenido'} ${profile.lastName || ''
-          }`
+        btnSignwall.textContent = `${profile.firstName || 'Bienvenido'} ${
+          profile.lastName || ''
+        }`
       }
       onClose()
     }
@@ -337,7 +338,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
                 Ingresa con
               </p>
 
-              <AuthGoogle arcSite={arcSite}
+              <AuthGoogle
+                arcSite={arcSite}
                 onClose={onClose}
                 typeDialog={typeDialog}
                 typeForm="login"
@@ -392,8 +394,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
               <>
                 {showError && (
                   <div
-                    className={`signwall-inside_forms-error ${showVerify ? 'warning' : ''
-                      }`}>
+                    className={`signwall-inside_forms-error ${
+                      showVerify ? 'warning' : ''
+                    }`}>
                     {` ${showError} `}
                     {showVerify && (
                       <>
@@ -612,9 +615,10 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   onClick={() => {
                     // modificado para el taggeo de diario correo por valla
                     Taggeo(
-                      `Web_${typeDialog}_${activeRegisterwall && typeDialog === 'premium'
-                        ? 'Registro'
-                        : 'Hard'
+                      `Web_${typeDialog}_${
+                        activeRegisterwall && typeDialog === 'premium'
+                          ? 'Registro'
+                          : 'Hard'
                       }`,
                       `web_${typeDialog}_boton_sigue_navegando`
                     )

@@ -1,5 +1,6 @@
 import Consumer from 'fusion:consumer'
-import { localISODate } from '../../../utilities/helpers'
+
+import { localISODate } from '../../../utilities/date-time/dates'
 
 /**
  * @description Sitemap para Google News. Este feature obtiene los datos que necesita desde "globalContent" y
@@ -53,7 +54,11 @@ class XmlTagsSitemap {
   render() {
     const { siteProperties: { siteUrl = '' } = {} } = this.props
 
-    const tags = {}
+    // tracking de los tags que ya se han incluido para no tener duplicados
+    const tags = []
+    const sitemap = {
+      urlset: [],
+    }
 
     if (this.state)
       Object.keys(this.state).forEach((key) => {
@@ -62,29 +67,24 @@ class XmlTagsSitemap {
 
         contentElements.forEach((story) => {
           if (story.taxonomy.tags)
-            story.taxonomy.tags.forEach((tag) => {
-              if (!tags[tag.slug]) tags[tag.slug] = story.publish_date
+            story.taxonomy.tags.every((tag) => {
+              if (sitemap.urlset.length < 1000 && !tags.includes(tag.slug)) {
+                sitemap.urlset.push({
+                  url: {
+                    loc: `${siteUrl}/noticias/${tag.slug || ''}/`,
+                    lastmod: localISODate(story.publish_date),
+                  },
+                })
+                tags.push(tag.slug)
+                return true
+              }
+              return false
             })
         })
       })
 
-    if (!tags) {
+    if (tags.length === 0) {
       return null
-    }
-
-    const sitemap = {
-      urlset: [],
-    }
-
-    for (const [key, value] of Object.entries(tags)) {
-      if (sitemap.urlset.length < 1000)
-        sitemap.urlset.push({
-          url: {
-            loc: `${siteUrl}/noticias/${key || ''}/`,
-            lastmod: localISODate(value),
-          },
-        })
-      else break
     }
 
     // Attr

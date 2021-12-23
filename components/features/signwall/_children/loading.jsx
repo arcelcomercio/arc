@@ -48,7 +48,8 @@ const Inside = ({ arcSite, mainColorBg, urlLogo, typeBg }) => (
     })()}
   </div>
 )
-const Loading = ({ typeBg }) => {
+const FIXLOAD = 'fix-loading'
+const Loading = ({ typeBg, open = true }) => {
   const {
     siteProperties: {
       signwall: { mainColorBg = 'gray' },
@@ -57,6 +58,17 @@ const Loading = ({ typeBg }) => {
     contextPath,
     arcSite,
   } = useFusionContext() || {}
+
+  React.useEffect(() => {
+    if (open) {
+      window.document.body.classList.add(FIXLOAD)
+    } else {
+      window.document.body.classList.remove(FIXLOAD)
+    }
+    return () => {
+      window.document.body.classList.remove(FIXLOAD)
+    }
+  }, [open])
 
   const urlLogo = `${getAssetsPath(
     arcSite,

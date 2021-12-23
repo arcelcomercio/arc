@@ -171,7 +171,8 @@ const StorySocialLite = () => {
                 arcSite === 'peru21' ||
                 arcSite === 'elbocon' ||
                 arcSite === 'ojo' ||
-                arcSite === 'gestion'
+                arcSite === 'gestion' ||
+                arcSite === 'trome'
               }
             />
           </div>

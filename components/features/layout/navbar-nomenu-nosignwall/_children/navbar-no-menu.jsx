@@ -74,11 +74,7 @@ export default (props) => {
           {arcSite !== 'trome' && (
             <>
               <a href="/suscripcion-newsletter/" className={classes.news}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="16"
-                  viewBox="0 0 20 16">
+                <svg width="20" height="16" viewBox="0 0 20 16">
                   <path d="M20,2a2.006,2.006,0,0,0-2-2H2A2.006,2.006,0,0,0,0,2V14a2.006,2.006,0,0,0,2,2H18a2.006,2.006,0,0,0,2-2ZM18,2,10,6.99,2,2Zm0,12H2V4l8,5,8-5Z" />
                 </svg>
                 <span>Newsletter</span>
@@ -98,9 +94,10 @@ export default (props) => {
           <div className={classes.search}>
             <button
               type="button"
-              aria-label="Buscar"
               className={classes.iconSearch}
-            />
+              aria-label="Buscar">
+              <span hidden>Buscar</span>
+            </button>
             <div className={`${classes.boxSearch} hidden`}>
               <form className={classes.formSearch} action="">
                 <input

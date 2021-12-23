@@ -200,6 +200,7 @@ const StoryContentsLite = (props) => {
                     authorsList={authorsList}
                     displayDate={getDateSeo(displayDate || createdDate)}
                     publishDate={getDateSeo(updateDate)}
+                    metaValue={metaValue}
                   />
                 )
               if (SITE_ELCOMERCIO === arcSite)
@@ -209,18 +210,19 @@ const StoryContentsLite = (props) => {
           </>
         )}
         <div
-          className={`${classes.content} ${isPremium && !isPreview
-            ? 'story-content__nota-premium paywall no_copy'
-            : ''
-            }`}
+          className={`${classes.content} ${
+            isPremium && !isPreview
+              ? 'story-content__nota-premium paywall no_copy'
+              : ''
+          }`}
           style={
             isPremium && !isPreview
               ? {
-                display: 'none',
-                opacity: '0',
-                userSelect: 'none',
-                visibility: 'hidden',
-              }
+                  display: 'none',
+                  opacity: '0',
+                  userSelect: 'none',
+                  visibility: 'hidden',
+                }
               : {}
           }
           id="contenedor">
@@ -305,12 +307,22 @@ const StoryContentsLite = (props) => {
                           key: mediaId = '',
                           has_ads: hasAds = 0,
                           account = 'gec',
+                          // eslint-disable-next-line @typescript-eslint/no-shadow
                           title = '',
                           thumbnail_url: image = '',
-                          description: descriptionTxt,
+                          description: descriptionVideo,
+                          author: authorVideo = '',
                         } = {},
                       } = {},
                     } = element
+                    const descriptionTxt =
+                      isStoryV2StandarStyle && authorVideo
+                        ? `
+                          ${descriptionVideo}
+                          <span class="s-multimedia__author-name"> / ${authorVideo}</span>
+                          `
+                        : descriptionVideo
+
                     const playerId = jwplayers[account] || jwplayers.gec
                     const jwplayerId = hasAds
                       ? playerId.playerAds
@@ -336,7 +348,7 @@ const StoryContentsLite = (props) => {
                           />
                         </div>
                         <figcaption
-                          className="s-multimedia__caption"
+                          className="s-multimedia__caption 1"
                           dangerouslySetInnerHTML={{
                             __html: descriptionTxt,
                           }}
@@ -432,10 +444,7 @@ const StoryContentsLite = (props) => {
                         </div>
                       )}
                       {(arcSite === 'elcomercio' ||
-                        arcSite === 'gestion' ||
-                        (arcSite === 'depor' &&
-                          (/^\/mexico\//.test(requestUri) ||
-                            /^\/colombia\//.test(requestUri)))) &&
+                        arcSite === 'gestion') &&
                         nameAds === 'caja3' ? (
                         <div id="spc_post_stories" />
                       ) : null}
@@ -458,9 +467,9 @@ const StoryContentsLite = (props) => {
                             dangerouslySetInnerHTML={{
                               __html: item.content
                                 ? item.content.replace(
-                                  /<a/g,
-                                  '<a itemprop="url"'
-                                )
+                                    /<a/g,
+                                    '<a itemprop="url"'
+                                  )
                                 : '',
                             }}
                           />
@@ -733,7 +742,9 @@ const StoryContentsLite = (props) => {
             <ShareButtons
               activeCopyLink={copyLink}
               activeLinkedin={
-                arcSite === 'elcomercio' || arcSite === 'elcomerciomag' || arcSite === 'trome'
+                arcSite === 'elcomercio' ||
+                arcSite === 'elcomerciomag' ||
+                arcSite === 'trome'
               }
               hideShareLinks={shareLinks}
             />

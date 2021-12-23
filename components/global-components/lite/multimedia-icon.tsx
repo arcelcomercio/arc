@@ -5,15 +5,16 @@ const classes = {
 }
 
 interface FeatureProps {
-  type?: string
+  type?: string,
+  metaValue?: string,
+  styles?: string,
 }
-const MultimediaIcon: React.FC<FeatureProps> = ({ type = '' }) => {
+const MultimediaIcon: React.FC<FeatureProps> = ({ type = '' , metaValue = '', styles = ''}) => {
   switch (type) {
     case 'basic_gallery':
       return (
         <svg
           className={classes.icon}
-          xmlns="http://www.w3.org/2000/svg"
           width="46"
           height="46"
           viewBox="0 0 46 46">
@@ -23,10 +24,16 @@ const MultimediaIcon: React.FC<FeatureProps> = ({ type = '' }) => {
       )
 
     case 'basic_video':
+      if (metaValue === 'story-v2-video' || metaValue === 'story-v2-standard'){
+        return (
+          <div className={`most-read__box-play ${styles}`}>
+            <div className="most-read__icon-play" />
+          </div>
+        )
+      }
       return (
         <svg
           className={classes.icon}
-          xmlns="http://www.w3.org/2000/svg"
           width="46"
           height="46"
           viewBox="0 0 46 46">

@@ -1,4 +1,4 @@
-$hi-font-primary: "Encode Sans Condensed";
+$hi-font-primary: "Encode Sans Condensed", sans-serif;
 
 .authors-list {
   background-color: #f5f5f5;
@@ -34,8 +34,8 @@ $hi-font-primary: "Encode Sans Condensed";
 
   &__title {
     border-bottom: 1px dashed #a1a1a1;
-    color: #888888;
-    font-family: "Encode Sans Condensed";
+    color: #888;
+    font-family: $hi-font-primary;
     font-size: 13px;
     font-weight: 500;
     margin-bottom: 20px;
@@ -74,7 +74,7 @@ $hi-font-primary: "Encode Sans Condensed";
       height: 23px;
     }
     p {
-      color: #888888;
+      color: #888;
       font-family: $hi-font-primary;
       font-size: 13px;
       height: 16px;

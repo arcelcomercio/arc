@@ -1,8 +1,29 @@
-.s-multimedia__caption {
-  color: #454545;
-  font: 700 14px/16px $secondary-font;
-  letter-spacing: -0.14px;
-  margin-top: 7px;
+.s-multimedia {
+  &__caption {
+    color: #454545;
+    font: 700 14px/16px $secondary-font;
+    letter-spacing: -0.14px;
+    margin-top: 7px
+  }
+  .jw-icon.jw-icon-display {
+    background-color: #000;
+    border-radius: 50%;
+    border: 2px solid #ffcb05;
+    width: 52px !important;
+    height: 52px !important;
+    .jw-svg-icon {
+      width: 35px !important;
+      height: 35px !important;
+      color: #ffcb05;
+    }
+  }
+  .jw-display-container {
+    text-align: left;
+    margin-top: auto;
+    .jw-display-icon-container {
+      margin: 14.5px;
+    }
+  }
 }
 
 .s-multimedia__author-name {

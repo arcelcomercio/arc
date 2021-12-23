@@ -99,7 +99,6 @@ const StaticsResumen2020Header: React.FC<{
                   href={links.facebook}
                   data-share="">
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
                     width="26.447"
                     height="26.447"
                     viewBox="0 0 26.447 26.447">
@@ -116,7 +115,6 @@ const StaticsResumen2020Header: React.FC<{
                   href={links.twitter}
                   data-share="">
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
                     width="26.447"
                     height="26.447"
                     viewBox="0 0 26.447 26.447">

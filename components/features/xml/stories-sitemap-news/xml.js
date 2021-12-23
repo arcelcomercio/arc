@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
 
-import { localISODate } from '../../../utilities/helpers'
+import { localISODate } from '../../../utilities/date-time/dates'
 import StoryData from '../../../utilities/story-data'
 
 /**

@@ -55,7 +55,7 @@ const StoryContentChildVideoJwplayerList = ({
             <figcaption
               className={`${
                 lite === true
-                  ? `s-multimedia__caption `
+                  ? `s-multimedia__caption 3 `
                   : `story-content__caption `
               }`}
               dangerouslySetInnerHTML={{
