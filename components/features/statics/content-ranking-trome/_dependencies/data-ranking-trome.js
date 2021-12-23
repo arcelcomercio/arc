@@ -1,7 +1,7 @@
 export const rankingTrome = [
   {
     title: 'LA SERIE O NOVELA DEL AÑO',
-    radio: 'novela',
+    radio: 'serie',
     path_img: '/icons_cat/01.png',
     gapTitle: true,
     persons: [
@@ -105,7 +105,7 @@ export const rankingTrome = [
         name: 'Daniela Darcourt',
         path_author: '/fotos_2/daniela darcourt.jpg',
       },
-      { name: 'Paula Arias', path_author: '' },
+      { name: 'Paula Arias', path_author: '/paularias.png' },
       {
         name: 'María Grazia Polanco',
         path_author: '/fotos_2/maria grazia polanco.jpg',
@@ -163,7 +163,7 @@ export const rankingTrome = [
   },
   {
     title: 'LA PEDIDA DE MANO MÁS SONADA',
-    radio: 'p_mano',
+    radio: 'pedida',
     path_img: '/icons_cat/03.png',
     designAdjust: true,
     largeTitle: true,

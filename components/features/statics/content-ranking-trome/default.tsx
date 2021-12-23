@@ -28,10 +28,7 @@ const classes = {
   error: 'content-ranking-trome__error',
 
   modal: 'content-ranking-trome__modal',
-  logoModal: 'content-ranking-trome__logo',
   wrapperModal: 'content-ranking-trome__wrapper-modal',
-  titleModal: 'content-ranking-trome__modal-title',
-  play: 'content-ranking-trome__play',
   buttonModal: 'content-ranking-trome__modal-button',
   wrapperImage: 'content-ranking-trome__wrapper-img',
 }
@@ -59,9 +56,10 @@ const ContentRankingTrome = (props: Props) => {
   } = customFields || {}
 
   const [isError, setIsError] = useState(false)
-  const [isVoted, setIsVoted] = useState(true)
+  const [isVoted, setIsVoted] = useState(false) // false
   const [isRedirectLink, setIsRedirectLink] = useState(false)
   const [message, setMessage] = useState('')
+  const [isModal, setIsModal] = useState(false) // false
   const [result, setResult] = useState({})
   const [userProfile, setUserProfile] = useState<UserProfile>()
 
@@ -108,6 +106,9 @@ const ContentRankingTrome = (props: Props) => {
       localProfile = JSON.parse(rawProfile)
     }
     if (localProfile?.uuid) {
+      setMessage('')
+      setIsError(false)
+
       const {
         uuid = '',
         firstName = '',
@@ -140,6 +141,11 @@ const ContentRankingTrome = (props: Props) => {
         setMessage('Usted ya votó.')
         setIsError(true)
       }
+    } else {
+      setMessage(
+        '* Primero debe de registrarse o iniciar sesión antes de votar.'
+      )
+      setIsError(true)
     }
   }
 
@@ -157,6 +163,10 @@ const ContentRankingTrome = (props: Props) => {
     let valid = false
     let messageProfile = ''
 
+    if (userProfile?.user_uuid.length === 0) {
+      messageProfile += ', Primero registrase para completar:'
+      valid = true
+    }
     if (userProfile?.user_dni.length === 0) {
       messageProfile += ', DNI'
       valid = true
@@ -176,7 +186,7 @@ const ContentRankingTrome = (props: Props) => {
 
     if (valid) {
       setIsRedirectLink(true)
-      setMessage(`Debe de completar su:${messageProfile.slice(1)}.`)
+      setMessage(`* Debe de completar su:${messageProfile.slice(1)}.`)
     } else {
       setIsRedirectLink(false)
     }
@@ -209,8 +219,10 @@ const ContentRankingTrome = (props: Props) => {
     const newVoteFetch = await voteFetch.json()
 
     if (newVoteFetch?.id >= 0) {
-      // setIsModal(true)
       setIsVoted(false)
+      setIsModal(true)
+      resetRadio()
+      setResult({})
     } else {
       console.log(newVoteFetch)
     }
@@ -230,10 +242,42 @@ const ContentRankingTrome = (props: Props) => {
             2021. Puedes ganarte uno de los tres televisores que sorteamos.
           </p>
           <div className={classes.instructions}>
-            1. Debes elegir un deportista por CADA UNA de las categorías. (solo
-            puedes votar una vez) <br />
-            2. Debes completar tu DNI y Nro. de Teléfono de contacto de manera
-            obligatoria.
+            1. Dale clic al siguiente botón{' '}
+            <a
+              href="/signwall/?outputType=subscriptions&signwallOrganic=1"
+              style={{
+                padding: '6px 25px',
+                textDecoration: 'none',
+                display: 'inline-block',
+                background: '#FFF',
+                color: '#333',
+                borderRadius: '5px',
+                fontSize: '12px',
+              }}>
+              Registrate
+            </a>{' '}
+            para poder participar.
+            <br />
+            2. Una vez registrado, es OBLIGATORIO completar tu DNI y tu Teléfono
+            de contacto{' '}
+            <a
+              href="/mi-perfil/?outputType=subscriptions"
+              className="premios_depor__header__cont__contRight__button--after"
+              style={{
+                padding: '6px 25px',
+                textDecoration: 'none',
+                display: 'inline-block',
+                background: '#FFF',
+                color: '#333',
+                borderRadius: '5px',
+                fontSize: '12px',
+              }}>
+              AQUÍ
+            </a>
+            .
+            <br />
+            3. Vota eligiendo un nominado por CADA UNA de las categorías (solo
+            puedes votar una vez).
           </div>
         </div>
 
@@ -320,9 +364,7 @@ const ContentRankingTrome = (props: Props) => {
                 <>
                   <p className={classes.error}>{message}</p>{' '}
                   {isRedirectLink && (
-                    <a href="https://depor.com/mi-perfil/?outputType=subscriptions">
-                      aquí.
-                    </a>
+                    <a href="/mi-perfil/?outputType=subscriptions">aquí.</a>
                   )}
                 </>
               )}
@@ -330,6 +372,18 @@ const ContentRankingTrome = (props: Props) => {
           </form>
         </div>
       </div>
+      {isModal && (
+        <div className={classes.modal}>
+          <div className={classes.wrapperModal}>
+            <div className={classes.wrapperImage}>
+              <img src={uri + '/modal1.jpg'} alt="Gracias por su voto" />
+              <a href="/" className={classes.buttonModal}>
+                Ir a Trome.pe
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
       <Terms />
     </>
   )
