@@ -58,10 +58,10 @@ const ContentRankingTrome = (props: Props) => {
   } = customFields || {}
 
   const [isError, setIsError] = useState(false)
-  const [isVoted, setIsVoted] = useState(true) // false
+  const [isVoted, setIsVoted] = useState(false) // false
   const [isRedirectLink, setIsRedirectLink] = useState(false)
   const [message, setMessage] = useState('')
-  const [isModal, setIsModal] = useState(true) // false
+  const [isModal, setIsModal] = useState(false) // false
   const [result, setResult] = useState({})
   const [userProfile, setUserProfile] = useState<UserProfile>()
 
@@ -108,6 +108,9 @@ const ContentRankingTrome = (props: Props) => {
       localProfile = JSON.parse(rawProfile)
     }
     if (localProfile?.uuid) {
+      setMessage('')
+      setIsError(false)
+
       const {
         uuid = '',
         firstName = '',
@@ -140,6 +143,11 @@ const ContentRankingTrome = (props: Props) => {
         setMessage('Usted ya votó.')
         setIsError(true)
       }
+    } else {
+      setMessage(
+        '* Primero debe de registrarse o iniciar sesión antes de votar.'
+      )
+      setIsError(true)
     }
   }
 
@@ -180,7 +188,7 @@ const ContentRankingTrome = (props: Props) => {
 
     if (valid) {
       setIsRedirectLink(true)
-      setMessage(`Debe de completar su:${messageProfile.slice(1)}.`)
+      setMessage(`* Debe de completar su:${messageProfile.slice(1)}.`)
     } else {
       setIsRedirectLink(false)
     }
