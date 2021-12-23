@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import PianoAdblock from '../piano/adblock'
 import PianoCore from '../piano/core'
-import PianoTags from '../piano/tags'
+import PianoData from '../piano/data'
 import { getPreroll } from '../utilities/ads/preroll'
 import { env } from '../utilities/arc/env'
 import { getAssetsPath } from '../utilities/assets'
@@ -529,7 +529,7 @@ const LiteOutput = ({
               {...twitterCardsData}
             />
             <PianoAdblock disabled={!siteProperties.activePiano} />
-            <PianoTags
+            <PianoData
               tags={tags.map((tag) => tag.slug)}
               contentTier={contentCode}
               storyId={globalContent?._id}

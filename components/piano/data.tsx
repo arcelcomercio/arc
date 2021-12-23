@@ -7,7 +7,7 @@ import { env } from '../utilities/arc/env'
 import { ContentTiers } from '../utilities/constants/content-tiers'
 import { PROD } from '../utilities/constants/environment'
 
-interface PianoTagsProps {
+interface PianoDataProps {
   tags?: string[]
   zone?: Zones
   contentTier?: ContentCode
@@ -40,7 +40,7 @@ interface PianoTagsProps {
  * @see [Content tracking docs](https://docs.piano.io/content-tracking/)
  * @see [DMP document parsing docs](https://docs.piano.io/dmp-document-parsing/)
  */
-const PianoTags: React.FC<PianoTagsProps> = ({
+const PianoData: React.FC<PianoDataProps> = ({
   tags = [],
   zone = 'web',
   contentTier = ContentTiers.Free,
@@ -53,21 +53,6 @@ const PianoTags: React.FC<PianoTagsProps> = ({
   disabled = false,
 }) => {
   if (disabled) return null
-
-  const enableGA = `tp.push(["init", function () { tp.enableGACrossDomainLinking(); }]);`
-  const setPianoIdProvider = `tp.push(["setUsePianoIdUserProvider", true ]);`
-  const setZone = `tp.push(["setZone", "${zone}"]);`
-  const setSandbox = env !== PROD ? 'tp.push(["setSandbox", true]);' : ''
-
-  const { requestUri } = useAppContext()
-  const isDebug = /debug=1/.test(requestUri)
-  const setDebug = isDebug ? 'tp.push(["setDebug", true]);' : ''
-
-  // Los `pianoBaseTags` se usan en todas la páginas
-  const pianoBaseTags = `
-  tp = window.tp || [];
-  ${enableGA}${setPianoIdProvider}${setZone}${setSandbox}${setDebug}
-  `
 
   const tagsArray = storyId
     ? [...tags, contentTier, subtype, section].filter(Boolean)
@@ -90,16 +75,30 @@ const PianoTags: React.FC<PianoTagsProps> = ({
     ? `tp.push(["setContentIsNative", ${paidContent ? 'true' : 'false'}]);`
     : ''
 
-  // `pianoStoryTags` sólo se deben usar en noticias
-  const pianoStoryTags = `${setTags}${setSection}${setPublishDate}${setAuthor}${setNativeContent}`
+  // `pianoStoryData` sólo se deben usar en noticias
+  const pianoStoryData = `${setTags}${setSection}${setPublishDate}${setAuthor}${setNativeContent}`
 
-  // custom variables tp.push(["setCustomVariable", "userState", "Subscriber"]);
-  // custom params 1 tp.push(["setCustomParam", "name", "value", "scope"]);
+  const setPianoIdProvider = `tp.push(["setUsePianoIdUserProvider", true ]);`
+  const setZone = `tp.push(["setZone", "${zone}"]);`
+  const setSandbox = env !== PROD ? 'tp.push(["setSandbox", true]);' : ''
+
+  const { requestUri } = useAppContext()
+  const isDebug = /debug=1/.test(requestUri)
+  const setDebug = isDebug ? 'tp.push(["setDebug", true]);' : ''
+
+  const enableGA = `tp.push(["init", function () { tp.enableGACrossDomainLinking(); }]);`
+
+  // Los `pianoBaseData` se usan en todas la páginas
+  // Es importante que `enableGA` sea lo último del script
+  const pianoBaseData = `
+  tp = window.tp || [];
+  ${setPianoIdProvider}${setZone}${setSandbox}${setDebug}${enableGA}
+  `
 
   return (
     <>
       <script
-        dangerouslySetInnerHTML={{ __html: pianoBaseTags + pianoStoryTags }}
+        dangerouslySetInnerHTML={{ __html: pianoStoryData + pianoBaseData }}
       />
       <meta
         name="cXenseParse:pageclass"
@@ -110,4 +109,4 @@ const PianoTags: React.FC<PianoTagsProps> = ({
   )
 }
 
-export default PianoTags
+export default PianoData
