@@ -1,5 +1,5 @@
-.ranking_trome__terminosTrome {
-  &__boxT {
+.ranking_trome__terminos {
+  &__box {
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -10,10 +10,10 @@
       width: 1366px;
     }
 
-    &__boxUnoT {
+    &__boxUno {
       border-top: 1px solid #444;
 
-      height: 160px;
+      height: 148px;
       @media (--only-mobile) {
         width: 100%;
         height: 160px;
@@ -24,13 +24,13 @@
       background-color: #ffc00d;
     }
 
-    &__blackT {
+    &__black {
       background-color: #222;
 
       @media (--only-mobile) {
         width: auto;
       }
-      &__linesT {
+      &__lines {
         width: 1366px;
         height: 320px;
       }
@@ -47,7 +47,7 @@
           height: 350px;
         }
       }
-      &__textT {
+      &__text {
         position: relative;
         margin: auto;
         display: flex;
@@ -67,34 +67,34 @@
           width: 640px;
         }
 
-        &__tituloT {
-          color: #222;
+        &__titulo {
+          color: #000000;
           font-weight: $extra-bold;
           text-align: center;
           font-family: $primary-font;
 
-          margin-top: 20px;
-          margin-bottom: 7px;
-          font-size: 36px;
-          letter-spacing: 0.45px;
-          line-height: 40px;
+          margin-top: 32px;
+          margin-bottom: 16px;
+          font-size: 30px;
+          letter-spacing: 0.48px;
+          line-height: 36px;
 
           @media (--desktop) {
             margin-top: 32px;
-            margin-bottom: 15px;
+            margin-bottom: 32px;
             font-size: 36px;
             letter-spacing: 0.58px;
             line-height: 40px;
           }
         }
-        &__contenidoT {
-          color: #444;
+        &__contenido {
+          color: #444444;
           font-family: $secondary-font;
           font-weight: 400;
           text-align: left;
           font-size: 18px;
-          letter-spacing: 0.29px;
           line-height: 26px;
+          letter-spacing: 0.29px;
 
           margin-left: 16px;
           margin-right: 16px;
@@ -110,6 +110,9 @@
           }
           p {
             margin-bottom: 10px;
+          }
+          b {
+            color: #444444;
           }
         }
       }

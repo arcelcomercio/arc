@@ -4,9 +4,8 @@ import { useEffect, useState } from 'react'
 import * as React from 'react'
 
 const classes = {
-  containerHeader: 'ranking_trome__header__containerHeader',
-  buttonAft1: 'ranking_trome__header__button--after1',
-
+  container: 'ranking_trome__header__container',
+  // button: 'ranking_trome__header__button',
   box: 'ranking_trome__header__box',
   boxMob: 'ranking_trome__header__boxMob',
   heightClose: 'ranking_trome__header__heightClose',
@@ -83,7 +82,7 @@ const HeaderRankingTrome = () => {
 
   return isMobile ? (
     mopen ? (
-      <div className={classes.containerHeader}>
+      <div className={classes.container}>
         <div className={`${classes.boxMob} ${classes.heightClose}`}>
           <div className={`${classes.contOpen} ${classes.color}`}>
             <ul className={classes.ul}>
@@ -129,7 +128,7 @@ const HeaderRankingTrome = () => {
       </div>
     ) : (
       <>
-        <div className={classes.containerHeader}>
+        <div className={classes.container}>
           <div className={`${classes.cont} ${classes.color}`}>
             <div className={classes.contLeft}>
               <a href="https://trome.com/">
@@ -308,15 +307,19 @@ const HeaderRankingTrome = () => {
               </a>
             </div>
             <span
-              // className="ranking_trome__header__button--after1"
+              // className={classes.button}
               style={{
-                padding: '8px 28px',
+                padding: '9px 28px',
                 textDecoration: 'none',
                 display: 'inline-block',
                 background: '#FFF',
-                color: '#333',
+                color: '#333333',
                 borderRadius: '5px',
                 fontSize: '12px',
+                lineHeight: '14px',
+                letterSpacing: '0.36px',
+                fontFamily: '$secondary-font',
+                fontWeight: 'bold',
               }}
               id="signwall-nav-btn">
               {' '}
