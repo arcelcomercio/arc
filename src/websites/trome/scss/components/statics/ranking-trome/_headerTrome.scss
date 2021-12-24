@@ -1,17 +1,26 @@
 .ranking_trome__header {
   &__container {
-    height: 340px;
     width: 100%;
-    margin: auto;
-    @media (--tablet) {
-      height: 390px;
-      width: 100%;
-    }
+    height: 340px;
     @media (--desktop) {
+      margin: auto;
       height: 400px;
       width: 920px;
     }
   }
+  // &__buttton {
+  //   padding: 9px 28px;
+  //   text-decoration: none;
+  //   display: inline-block;
+  //   background: #fff;
+  //   color: #333333;
+  //   border-radius: 5px;
+  //   font-size: 12px;
+  //   line-height: 14px;
+  //   letter-spacing: 0.36px;
+  //   font-family: $secondary-font;
+  //   font-weight: $bold;
+  // }
 
   &__box {
     width: 920px;
@@ -46,92 +55,72 @@
   &__heightClose {
     height: 220px;
     @media (--tablet) {
-      height: 260px;
+      height: 255px;
     }
   }
 
-  &__opacity {
-    background-color: #000000;
-    filter: initial;
-  }
   &__color {
     background-color: #000000;
   }
   &__cont {
     display: flex;
     justify-content: space-between;
-    padding-top: 13px;
-    height: 37px;
+    padding-top: 18px;
 
-    @media (--desktop) {
-      padding-top: 18px;
-    }
-    @media (--tablet) {
-      padding-top: 15px;
-      height: 45px;
+    @media (--only-mobile) {
+      padding-top: 13px;
+      height: 37px;
     }
 
     &__contLeft {
-      margin-left: 14px;
       display: flex;
       flex-direction: row;
-      min-width: 80px;
+      margin-left: 20px;
+      min-width: 100px;
       align-items: center;
-      @media (--tablet) {
-        margin-left: 20px;
+
+      @media (--only-mobile) {
+        margin-left: 14px;
         min-width: 80px;
-      }
-      @media (--desktop) {
-        margin-left: 20px;
-        min-width: 100px;
       }
       &__flecha {
         margin-right: 14px;
-        width: 20px;
-        height: 20px;
+        width: 26px;
+        height: 26px;
         cursor: pointer;
-        @media (--tablet) {
+
+        @media (--only-mobile) {
           width: 20px;
           height: 20px;
-        }
-        @media (--desktop) {
-          width: 26px;
-          height: 26px;
         }
       }
       &__logo {
         svg {
-          width: 83.5px;
-          height: 24px;
-          @media (--tablet) {
-            width: 84px;
+          width: 112px;
+          height: 32px;
+
+          @media (--only-mobile) {
+            width: 83.5px;
             height: 24px;
-          }
-          @media (--desktop) {
-            width: 112px;
-            height: 32px;
           }
         }
       }
     }
     &__contRight {
       align-items: center;
-      margin-right: 19px;
       display: flex;
       flex-direction: row;
-      min-width: 20px;
-      @media (--tablet) {
+      margin-right: 16px;
+      min-width: 350px;
+
+      @media (--only-mobile) {
         margin-right: 19px;
         min-width: 20px;
-      }
-      @media (--desktop) {
-        margin-right: 16px;
-        min-width: 350px;
       }
       &__terminos {
         span {
           font-size: 13px;
-          font-family: $primary-font;
+          font-family: $secondary-font;
           font-weight: 700;
           line-height: 15px;
           letter-spacing: 0.39px;
@@ -142,26 +131,9 @@
           text-decoration: none;
         }
       }
-      &__button--before {
-        background-color: #fff;
-        border-radius: 5px;
-        padding: 9px 34px;
-        font: 900 12px/14px $primary-font;
-        letter-spacing: 0.36px;
-        color: #333;
-        display: inline-block;
-      }
-      &__button--after {
-        background-color: #bfd02c;
-        border-radius: 5px;
-        padding: 9px 34px;
-        font: 900 12px/14px $primary-font;
-        letter-spacing: 0.36px;
-        color: #222;
-        display: inline-block;
-      }
+
       &__button--after2 {
-        background-color: #bfd02c;
+        background-color: #fff;
         border-radius: 5px;
         padding: 5px 30px;
         font: 900 18px/14px $primary-font;
@@ -172,17 +144,18 @@
     }
   }
 
-  &__centralLogo {
-    width: 300px;
-    height: 250px;
+  &__logoTrome {
     margin: auto;
-    @media (--tablet) {
-      width: 330px;
-      height: 280px;
-    }
-    @media (--desktop) {
-      width: 380px;
-      height: 330px;
+    width: 380px;
+    height: 330px;
+
+    // @media (--tablet) {
+    //   width: 330px;
+    //   height: 280px;
+    // }
+    @media (--only-mobile) {
+      width: 300px;
+      height: 250px;
     }
   }
   &__marginTopClose {
@@ -205,9 +178,7 @@
     display: flex;
     width: 100%;
     height: 50px;
-    @media (--tablet) {
-      height: 60px;
-    }
+
     &:first-child {
       border-bottom: 1px solid white;
     }
@@ -265,7 +236,4 @@
     background-color: white;
     border-radius: 20%;
   }
-  // &__rotate {
-  //   transform: rotate(90deg);
-  // }
 }

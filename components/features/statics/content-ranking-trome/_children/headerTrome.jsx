@@ -5,13 +5,14 @@ import * as React from 'react'
 
 const classes = {
   container: 'ranking_trome__header__container',
+  // button: 'ranking_trome__header__button',
   box: 'ranking_trome__header__box',
   boxMob: 'ranking_trome__header__boxMob',
   heightClose: 'ranking_trome__header__heightClose',
   heightNormal: 'ranking_trome__header__heightNormal',
 
   cont: 'ranking_trome__header__cont',
-  centralLogo: 'ranking_trome__header__centralLogo',
+  logoTrome: 'ranking_trome__header__logoTrome',
   marginTopNormal: 'ranking_trome__header__marginTopNormal',
   marginTopClose: 'ranking_trome__header__marginTopClose',
   opacity: 'ranking_trome__header__opacity',
@@ -21,8 +22,7 @@ const classes = {
   logo: 'ranking_trome__header__cont__contLeft__logo',
   contRight: 'ranking_trome__header__cont__contRight',
   terminos: 'ranking_trome__header__cont__contRight__terminos',
-  buttonBef: 'ranking_trome__header__cont__contRight__button--before',
-  buttonAft: 'ranking_trome__header__cont__contRight__button--after',
+
   buttonAft2: 'ranking_trome__header__cont__contRight__button--after2',
 
   buttonMenu: 'ranking_trome__header__buttonMenu',
@@ -40,9 +40,11 @@ if (typeof window !== 'undefined')
     window.navigator.userAgent
   )
 
-const [mopen, setmopen] = useState(false)
+
 
 const HeaderRankingTrome = () => {
+
+  const [mopen, setmopen] = useState(false)
 
   useEffect(() => {
     const localProfile = JSON.parse(
@@ -78,7 +80,6 @@ const HeaderRankingTrome = () => {
   }, [mopen])
 
 
-
   return isMobile ? (
     mopen ? (
       <div className={classes.container}>
@@ -101,7 +102,7 @@ const HeaderRankingTrome = () => {
               <li className={classes.lista}>
                 <a className={classes.contLista}>
                   <span
-                    className="premios_depor__header__cont__contRight__button--after"
+                    className="ranking_trome__header__cont__contRight__button--after2"
                     id="signwall-nav-btn">
                     {' '}
                     Registrate{' '}
@@ -120,7 +121,7 @@ const HeaderRankingTrome = () => {
           </div>
           <img
             src="https://cdna.trome.pe/resources/dist/trome/ranking-trome/ranking_trome_logo.png"
-            className={`${classes.centralLogo} ${classes.marginTopClose}`}
+            className={`${classes.logoTrome} ${classes.marginTopClose}`}
             alt="flecha"
           />
         </div>
@@ -130,9 +131,9 @@ const HeaderRankingTrome = () => {
         <div className={classes.container}>
           <div className={`${classes.cont} ${classes.color}`}>
             <div className={classes.contLeft}>
-              <a href="https://depor.com/">
+              <a href="https://trome.com/">
                 <img
-                  src="https://cdna.depor.com/resources/dist/depor/premios-depor/arrow_back-24px.svg"
+                  src="https://cdna.trome.pe/resources/dist/trome/ranking-trome/svg/arrow_back-24px.svg"
                   className={classes.flecha}
                   alt="flecha" />
               </a>
@@ -215,7 +216,7 @@ const HeaderRankingTrome = () => {
           <div className={`${classes.boxMob} ${classes.heightNormal}`} >
             <img
               src="https://cdna.trome.pe/resources/dist/trome/ranking-trome/ranking_trome_logo.png"
-              className={`${classes.centralLogo} ${classes.marginTopNormal}`}
+              className={`${classes.logoTrome} ${classes.marginTopNormal}`}
               alt="flecha"
             />
           </div>
@@ -228,9 +229,9 @@ const HeaderRankingTrome = () => {
       <div className={classes.box}>
         <div className={classes.cont}>
           <div className={classes.contLeft}>
-            <a href="https://depor.com/">
+            <a href="https://trome.com/">
               <img
-                src="https://cdna.depor.com/resources/dist/depor/premios-depor/arrow_back-24px.svg"
+                src="https://cdna.trome.pe/resources/dist/trome/ranking-trome/svg/arrow_back-24px.svg"
                 className={classes.flecha}
                 alt="flecha"
               />
@@ -306,7 +307,20 @@ const HeaderRankingTrome = () => {
               </a>
             </div>
             <span
-              className="premios_depor__header__cont__contRight__button--after"
+              // className={classes.button}
+              style={{
+                padding: '9px 28px',
+                textDecoration: 'none',
+                display: 'inline-block',
+                background: '#FFF',
+                color: '#333333',
+                borderRadius: '5px',
+                fontSize: '12px',
+                lineHeight: '14px',
+                letterSpacing: '0.36px',
+                fontFamily: '$secondary-font',
+                fontWeight: 'bold',
+              }}
               id="signwall-nav-btn">
               {' '}
               Registrate{' '}
@@ -315,7 +329,7 @@ const HeaderRankingTrome = () => {
         </div>
         <img
           src="https://cdna.trome.pe/resources/dist/trome/ranking-trome/ranking_trome_logo.png"
-          className={`${classes.centralLogo} ${classes.marginTopNormal}`}
+          className={`${classes.logoTrome} ${classes.marginTopNormal}`}
           alt="flecha"
         />
       </div>

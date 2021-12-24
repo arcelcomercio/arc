@@ -1,19 +1,17 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import * as React from 'react'
 
-import SignwallComponent from '../../../signwall/main/_default'
-
 const classes = {
-  container: 'ranking_trome__header__container',
+  containerHeader: 'ranking_trome__header__containerHeader',
   box: 'ranking_trome__header__box',
   boxMob: 'ranking_trome__header__boxMob',
   heightClose: 'ranking_trome__header__heightClose',
   heightNormal: 'ranking_trome__header__heightNormal',
 
   cont: 'ranking_trome__header__cont',
-  centralLogo: 'ranking_trome__header__centralLogo',
+  logoTrome: 'ranking_trome__header__logoTrome',
   marginTopNormal: 'ranking_trome__header__marginTopNormal',
   marginTopClose: 'ranking_trome__header__marginTopClose',
   opacity: 'ranking_trome__header__opacity',
@@ -42,14 +40,49 @@ if (typeof window !== 'undefined')
     window.navigator.userAgent
   )
 
-const HeaderRankingTrome = ({ requestUri }) => {
-  const isPreview = /^\/preview\//.test(requestUri)
+
+
+const HeaderRankingTrome = () => {
 
   const [mopen, setmopen] = useState(false)
 
+  useEffect(() => {
+    const localProfile = JSON.parse(
+      window.localStorage.getItem('ArcId.USER_PROFILE')
+    )
+    const { firstName = '', lastName = '', uuid = '' } = localProfile || {}
+
+    const signwallButton = document.getElementById('signwall-nav-btn') // id de tu boton personalizado
+    if (signwallButton) {
+      signwallButton.addEventListener('click', () => {
+        if (uuid) {
+          window.location.href = '/mi-perfil/?outputType=subscriptions'
+        } else {
+          window.location.href =
+            '/signwall/?outputType=subscriptions&signwallOrganic=1'
+        }
+      })
+
+      if (uuid) {
+        if (firstName || lastName) {
+          const username = `${firstName} ${lastName}`
+            .replace(/null|undefined/gi, '')
+            .trim()
+          signwallButton.innerHTML =
+            username.length >= 13
+              ? `${username.slice(0, 13)}...`
+              : username || 'Mi Perfil'
+        } else {
+          signwallButton.innerHTML = 'Mi Perfil'
+        }
+      }
+    }
+  }, [mopen])
+
+
   return isMobile ? (
     mopen ? (
-      <div className={classes.container}>
+      <div className={classes.containerHeader}>
         <div className={`${classes.boxMob} ${classes.heightClose}`}>
           <div className={`${classes.contOpen} ${classes.color}`}>
             <ul className={classes.ul}>
@@ -68,9 +101,12 @@ const HeaderRankingTrome = ({ requestUri }) => {
               </li>
               <li className={classes.lista}>
                 <a className={classes.contLista}>
-                  {!isPreview && typeof window !== 'undefined' ? (
-                    <SignwallComponent classButton={classes.buttonAft2} />
-                  ) : null}
+                  <span
+                    className="ranking_trome__header__cont__contRight__button--after2"
+                    id="signwall-nav-btn">
+                    {' '}
+                    Registrate{' '}
+                  </span>
                 </a>
               </li>
               <li className={classes.lista}>
@@ -85,19 +121,19 @@ const HeaderRankingTrome = ({ requestUri }) => {
           </div>
           <img
             src="https://cdna.trome.pe/resources/dist/trome/ranking-trome/ranking_trome_logo.png"
-            className={`${classes.centralLogo} ${classes.marginTopClose}`}
+            className={`${classes.logoTrome} ${classes.marginTopClose}`}
             alt="flecha"
           />
         </div>
       </div>
     ) : (
       <>
-        <div className={classes.container}>
+        <div className={classes.containerHeader}>
           <div className={`${classes.cont} ${classes.color}`}>
             <div className={classes.contLeft}>
-              <a href="https://depor.com/">
+              <a href="https://trome.com/">
                 <img
-                  src="https://cdna.depor.com/resources/dist/depor/premios-depor/arrow_back-24px.svg"
+                  src="https://cdna.trome.pe/resources/dist/trome/ranking-trome/svg/arrow_back-24px.svg"
                   className={classes.flecha}
                   alt="flecha" />
               </a>
@@ -180,7 +216,7 @@ const HeaderRankingTrome = ({ requestUri }) => {
           <div className={`${classes.boxMob} ${classes.heightNormal}`} >
             <img
               src="https://cdna.trome.pe/resources/dist/trome/ranking-trome/ranking_trome_logo.png"
-              className={`${classes.centralLogo} ${classes.marginTopNormal}`}
+              className={`${classes.logoTrome} ${classes.marginTopNormal}`}
               alt="flecha"
             />
           </div>
@@ -189,13 +225,13 @@ const HeaderRankingTrome = ({ requestUri }) => {
       </>
     )
   ) : (
-    <div className={classes.container}>
+    <div className={classes.containerHeader}>
       <div className={classes.box}>
         <div className={classes.cont}>
           <div className={classes.contLeft}>
-            <a href="https://depor.com/">
+            <a href="https://trome.com/">
               <img
-                src="https://cdna.depor.com/resources/dist/depor/premios-depor/arrow_back-24px.svg"
+                src="https://cdna.trome.pe/resources/dist/trome/ranking-trome/svg/arrow_back-24px.svg"
                 className={classes.flecha}
                 alt="flecha"
               />
@@ -270,14 +306,17 @@ const HeaderRankingTrome = ({ requestUri }) => {
                 <span>TÉRMINOS Y CONDICIONES</span>
               </a>
             </div>
-            {!isPreview && typeof window !== 'undefined' ? (
-              <SignwallComponent classButton={classes.buttonAft} />
-            ) : null}
+            <span
+              className="ranking_trome__header__cont__contRight__button--after"
+              id="signwall-nav-btn">
+              {' '}
+              Registrate{' '}
+            </span>
           </div>
         </div>
         <img
           src="https://cdna.trome.pe/resources/dist/trome/ranking-trome/ranking_trome_logo.png"
-          className={`${classes.centralLogo} ${classes.marginTopNormal}`}
+          className={`${classes.logoTrome} ${classes.marginTopNormal}`}
           alt="flecha"
         />
       </div>
