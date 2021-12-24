@@ -235,6 +235,9 @@ const LiteOutput = ({
   if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
   }
+  if (arcSite === SITE_PERUCOM && CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.elcomercio.pe/dist/${arcSite}/css/${style}.css`
+  }
 
   if (metaValue('section_style') === 'parallax') {
     inlineStyleUrl = `resources/dist/elcomercio/css/dlite-parallax.css`
@@ -908,7 +911,9 @@ const LiteOutput = ({
             )}
           </>
         )}
-        {enabledPushup && !requestUri.includes('/publirreportaje/') && !requestUri.includes('/publireportaje/') ? (
+        {enabledPushup &&
+        !requestUri.includes('/publirreportaje/') &&
+        !requestUri.includes('/publireportaje/') ? (
           <>
             <script
               type="text/javascript"
