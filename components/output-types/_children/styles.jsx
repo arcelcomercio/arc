@@ -48,6 +48,8 @@ const Styles = ({
     style = 'agenda-presidencial'
   else if (metaValue('section_style') === 'premios_depor')
     style = 'premios-depor'
+  else if (metaValue('section_style') === 'ranking_trome')
+    style = 'ranking-trome'
   else if (!isStory && metaValue('section_style') === 'provecho')
     style = 'provecho'
   // else if (requestUri.includes('/covid-19/')) style = 'covid'
