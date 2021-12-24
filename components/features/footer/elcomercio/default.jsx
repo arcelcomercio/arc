@@ -12,7 +12,7 @@ const URL_BOOK_DEFAULT = 'http://ecomedia.pe/libro/inicio/elcomercio/'
 const FooterElComercio = (props) => {
   const { arcSite, contextPath, isAdmin } = useFusionContext()
   const {
-    customFields: { urlBook = URL_BOOK_DEFAULT, isDeporPlay } = {},
+    customFields: { urlBook = URL_BOOK_DEFAULT, isDeporPlay, isRankingTrome } = {},
   } = props
   const {
     assets: { footer: { logo } = {} } = {},
@@ -62,6 +62,7 @@ const FooterElComercio = (props) => {
     urlBook,
     bookLogo,
     isDeporPlay,
+    isRankingTrome,
     draftingContact,
   }
 
@@ -77,6 +78,9 @@ FooterElComercio.propTypes = {
     }),
     isDeporPlay: PropTypes.bool.tag({
       name: 'Activar tipo Depor Play',
+    }),
+    isRankingTrome: PropTypes.bool.tag({
+      name: 'Activar tipo Ranking trome',
     }),
   }),
 }
