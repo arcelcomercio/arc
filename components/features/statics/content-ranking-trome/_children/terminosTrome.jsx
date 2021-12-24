@@ -67,7 +67,7 @@ const Terms = () => {
               Al registrarse dentro de la web https://trome.pe/, usted manifiesta su
               conformidad a los términos y condiciones, así como la política de
               privacidad que figuran en{' '}
-              <a href="https://trome.pe/terminos-y-condiciones/">https://trome.pe/terminos-y-condiciones</a>
+              <a href="https://trome.pe/terminos-y-condiciones/">https://trome.pe/terminos-y-condiciones/</a>
               &nbsp;y{' '}
               <a href="https://trome.pe/politica-de-privacidad/">https://trome.pe/politica-de-privacidad/</a>.
             </p>
