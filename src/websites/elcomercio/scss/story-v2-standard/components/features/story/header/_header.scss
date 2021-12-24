@@ -92,7 +92,7 @@
       opacity: 1;
       margin-bottom: 5px;
       @media (--desktop) {
-        font-weight: 16px;
+        font-size: 16px;
         letter-spacing: 3.2px;
         margin-bottom: 9px;
       }
@@ -149,7 +149,10 @@
     }
   }
   .s-buttons {
-    width: 320px;
+    max-width: 320px;
+    &__tag {
+      display: none;
+    }
   }
 }
 
@@ -215,12 +218,20 @@
         color: #000; */
       }
     }
+    &-title {
+      @media (--only-mobile) {
+        font-size: 28px;
+      }
+    }
   }
   .s-buttons {
     margin-left: 0;
     margin-right: 0;
     max-width: unset;
     justify-content: center;
+    &__tag {
+      display: none;
+    }
   }
 }
 

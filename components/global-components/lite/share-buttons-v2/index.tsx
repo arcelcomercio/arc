@@ -112,7 +112,7 @@ export const ShareButtonsV2: React.FC<Props> = (props) => {
         </svg>
       </a>
       <a
-        className="s-buttons__i"
+        className="s-buttons__i s-buttons__tag"
         href="/"
         itemProp="url"
         rel="noreferrer"
