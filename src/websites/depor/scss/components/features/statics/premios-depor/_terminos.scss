@@ -4,29 +4,35 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 1710px;
+    height: auto;
     @media (--tablet) {
       width: 100%;
-      height: 1410px;
     }
     @media (--desktop) {
       width: 1366px;
-      height: 1048px;
     }
-    &__green {
+    &__boxUno {
       border-top: 1px solid #444;
-      background-color: #bfd02c;
+      // background-color: #bfd02c;
       width: 100%;
       height: 160px;
       @media (--tablet) {
         width: 100%;
-        height: 160px;
+        height: 150px;
       }
       @media (--desktop) {
         width: 1366px;
         height: 160px;
       }
     }
+    &__deporColor {
+      background-color: #bfd02c;
+    }
+
+    &__tromeColor {
+      background-color: #ffc00d;
+    }
+
     &__black {
       background-color: #222;
       // display: flex;
@@ -51,8 +57,20 @@
         //   height: 450px;
         // }
       }
-      &__linesMob {
+      &__linesMobDepor {
         background-image: url("https://cdna.depor.com/resources/dist/depor/premios-depor/green_lines.svg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: auto;
+        height: 285px;
+        @media (--tablet) {
+          width: auto;
+          height: 350px;
+        }
+      }
+      &__linesMobTrome {
+        background-image: url("https://cdna.trome.pe/resources/dist/trome/ranking-trome/svg/Lines_orange.svg");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -74,23 +92,23 @@
         border: 2px solid #444;
         border-radius: 10px;
         width: 328px;
-        height: 1550px;
+        height: auto;
         @media (--tablet) {
           border: 3px solid #444;
           margin-top: -100px;
           margin-bottom: -250px;
-          height: 1270px;
+
           width: 400px;
         }
         @media (--desktop) {
           border: 4px solid #444;
           width: 640px;
-          height: 915px;
+
           margin-top: -110px;
           margin-bottom: -250px;
         }
         @media (--only-mobile) {
-          height: 1550px;
+          height: auto;
         }
         &__titulo {
           color: #222;
@@ -139,7 +157,11 @@
             cursor: pointer;
           }
           p {
-            margin-bottom: 7px;
+            margin-bottom: 10px;
+          }
+
+          span {
+            color: #fd7600;
           }
         }
       }
