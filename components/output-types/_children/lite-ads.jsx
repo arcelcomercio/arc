@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React from 'react'
 
-import { SITE_ELBOCON, SITE_PERUCOM, SITE_DIARIOCORREO } from '../../utilities/constants/sitenames'
+import {
+  SITE_DIARIOCORREO,
+  SITE_ELBOCON,
+  SITE_PERUCOM,
+} from '../../utilities/constants/sitenames'
 
 const LiteAds = ({
   requestUri,
@@ -356,7 +360,9 @@ const LiteAds = ({
   const typeNote = subtype === 'gallery_vertical' ? 'galeria_v' : 'post'
   return (
     <>
-      {arcSite !== SITE_ELBOCON && arcSite !== SITE_PERUCOM && arcSite !== SITE_DIARIOCORREO ? (
+      {arcSite !== SITE_ELBOCON &&
+      arcSite !== SITE_PERUCOM &&
+      arcSite !== SITE_DIARIOCORREO ? (
         <script
           async
           src={`https://d2dvq461rdwooi.cloudfront.net/output/assets/js/prebid.js?v1${new Date()

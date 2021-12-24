@@ -9,15 +9,12 @@ import { getAssetsPath } from '../utilities/assets'
 import { ContentTiers } from '../utilities/constants/content-tiers'
 import {
   SITE_DEPOR,
-  SITE_DIARIOCORREO,
   SITE_ELBOCON,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_GESTION,
-  SITE_OJO,
   SITE_PERU21,
   SITE_PERU21G21,
-  SITE_PERUCOM,
   SITE_TROME,
 } from '../utilities/constants/sitenames'
 import {
@@ -121,8 +118,9 @@ const LiteOutput = ({
   const isPreview = /^\/preview\//.test(requestUri)
   const isStory = getIsStory({ metaValue, requestUri })
   const classBody = isStory
-    ? `story ${promoItems.basic_gallery && 'basic_gallery'} ${arcSite} ${storySectionPath.split('/')[1]
-    } ${subtype} `
+    ? `story ${promoItems.basic_gallery && 'basic_gallery'} ${arcSite} ${
+        storySectionPath.split('/')[1]
+      } ${subtype} `
     : ''
 
   const metaSiteData = {
@@ -337,10 +335,11 @@ const LiteOutput = ({
             {(arcSite === 'trome' || arcSite === 'depor') && isStory ? (
               <meta
                 name="robots"
-                content={`${/-agnc-/.test(requestUri)
-                  ? 'noindex, follow'
-                  : 'index, follow,max-image-preview:large'
-                  }`}
+                content={`${
+                  /-agnc-/.test(requestUri)
+                    ? 'noindex, follow'
+                    : 'index, follow,max-image-preview:large'
+                }`}
               />
             ) : (
               <meta
@@ -495,15 +494,6 @@ const LiteOutput = ({
             __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){var n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)},window.addPrefetch=function(e,n,t){var i=document.createElement("link");i.rel=e,i.href=n,t&&(i.as=t),i.crossOrigin="true",document.head.append(i)});`,
           }}
         />
-        <LiteAds
-          requestUri={requestUri}
-          tags={tags}
-          contentCode={contentCode}
-          siteProperties={siteProperties}
-          arcSite={arcSite}
-          section={sectionAds}
-          subtype={subtype}
-        />
         <Styles
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...metaSiteData}
@@ -556,13 +546,6 @@ const LiteOutput = ({
           <meta property="fb:pages" content="530810044019640" />
         )}
         {/* renderMetaPage(metaValue('id'), metaPageData) */}
-        <AppNexus
-          arcSite={arcSite}
-          requestUri={requestUri}
-          port={metaValue('port')}
-          isStory={isStory}
-          globalContent={globalContent}
-        />
         <Resource path={inlineStyleUrl}>
           {({ data }) =>
             data ? (
@@ -636,6 +619,22 @@ const LiteOutput = ({
             }
           </Resource>
         ) : null}
+        <AppNexus
+          arcSite={arcSite}
+          requestUri={requestUri}
+          port={metaValue('port')}
+          isStory={isStory}
+          globalContent={globalContent}
+        />
+        <LiteAds
+          requestUri={requestUri}
+          tags={tags}
+          contentCode={contentCode}
+          siteProperties={siteProperties}
+          arcSite={arcSite}
+          section={sectionAds}
+          subtype={subtype}
+        />
         <ChartbeatBody
           story={isStory}
           hasVideo={contenidoVideo || hasYoutubeVideo}
@@ -651,8 +650,8 @@ const LiteOutput = ({
           <Libs />
         ) : null}
         {isPremium &&
-          (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
-          !isPreview ? (
+        (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
+        !isPreview ? (
           <script
             src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
               .toISOString()
@@ -764,13 +763,14 @@ const LiteOutput = ({
           <>
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.preroll='${getPreroll({
-                  section: storySectionPath,
-                  arcSite,
-                  siteDomain: siteProperties.siteDomain,
-                  metaValue,
-                }) || siteProperties.urlPreroll
-                  }'`,
+                __html: `window.preroll='${
+                  getPreroll({
+                    section: storySectionPath,
+                    arcSite,
+                    siteDomain: siteProperties.siteDomain,
+                    metaValue,
+                  }) || siteProperties.urlPreroll
+                }'`,
               }}
             />
             <script
@@ -800,7 +800,7 @@ const LiteOutput = ({
         )}
 
         {metaValue('section_style') !== 'story-v2-standard' &&
-          (subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL) ? (
+        (subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL) ? (
           <script
             dangerouslySetInnerHTML={{
               __html: minutoMinutoScript,
@@ -868,32 +868,12 @@ const LiteOutput = ({
             requestUri.includes('/wikibocon/')
           }
         />
-        {arcSite === SITE_ELCOMERCIOMAG ||
-        arcSite === SITE_PERU21 ||
-        arcSite === SITE_TROME ||
-        arcSite === SITE_ELBOCON ||
-        arcSite === SITE_DEPOR ||
-        arcSite === SITE_DIARIOCORREO ||
-        arcSite === SITE_PERUCOM ||
-        arcSite === SITE_GESTION ||
-        arcSite === SITE_OJO ||
-        arcSite === SITE_GESTION ||
-        arcSite === SITE_ELCOMERCIO ? (
-          <script
-            defer
-            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()
-              .toISOString()
-              .slice(0, 10)}`}
-          />
-        ) : (
-          <script
-            type="module"
-            defer
-            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-development/public/js/main.js?v=${new Date()
-              .toISOString()
-              .slice(0, 10)}`}
-          />
-        )}
+        <script
+          defer
+          src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()
+            .toISOString()
+            .slice(0, 10)}`}
+        />
         {isStory && styleUrl && (
           <>
             {arcSite === SITE_ELBOCON ? (
@@ -948,8 +928,8 @@ const LiteOutput = ({
           </>
         ) : null}
         {vallaSignwall === false &&
-          (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
-          !isPreview ? (
+        (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
+        !isPreview ? (
           <>
             <script
               dangerouslySetInnerHTML={{
