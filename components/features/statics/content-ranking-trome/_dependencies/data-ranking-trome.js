@@ -95,7 +95,7 @@ export const rankingTrome = [
   {
     title: 'LA SALSERA DEL AÑO',
     radio: 'salsera',
-    path_img: '/icons_cat/06.png',
+    path_img: '/icons_cat/10.png',
     persons: [
       {
         name: 'Yahaira Plasencia',
